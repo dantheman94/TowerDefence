@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using XInputDotNetPure;
 
 //******************************
@@ -14,14 +12,27 @@ public class CameraFollow : MonoBehaviour {
     //***************************************************************
     // VARIABLES
 
-    public PlayerIndex _PlayerIndex;
-    public float _xOffset = 0f;
-    public float _yOffset = 140f;
-    public float _zOffset = 110f;
+    // Player to follow
+    public      PlayerIndex     _PlayerIndex;
 
-    private GroundVehicle _TargetFollower;
-    private Camera _Camera;
-    private int _LocalTier = 1;
+    // Position
+    public      float           _xOffset                = 0f;
+    public      float           _yOffset                = 140f;
+    public      float           _zOffset                = 110f;
+
+    // Rotation
+    [Range(0f, 1f)]
+    public      float           _xRotationOffset        = 0.6f;
+    [Range(0f, 1f)]
+    public      float           _yRotationOffset        = 0;
+    [Range(0f, 1f)]
+    public      float           _zRotationOffset        = 0;
+    [Range(0f, 1f)]
+    public      float           _wRotationOffset        = 0.8f;
+
+    private     VehicleBase     _TargetFollower         = null;
+    private     Camera          _Camera                 = null;
+    private     int             _LocalTier              = 1;
 
     //***************************************************************
     // FUNCTIONS    
@@ -41,7 +52,10 @@ public class CameraFollow : MonoBehaviour {
         if (_TargetFollower = VehicleManager._Instance._StartingVehicles[(int)_PlayerIndex]) {
 
             // Set camera position
-            _Camera.transform.position = new Vector3(_TargetFollower.transform.position.x - _xOffset, _TargetFollower.transform.position.y + _yOffset, _TargetFollower.transform.position.z - _zOffset);
+            transform.position = new Vector3(_TargetFollower.transform.position.x - _xOffset, _TargetFollower.transform.position.y + _yOffset, _TargetFollower.transform.position.z - _zOffset);
+
+            // Set camera rotation
+            transform.rotation = new Quaternion(_xRotationOffset, _yRotationOffset, _zRotationOffset, _wRotationOffset);
 
             if (_LocalTier != _TargetFollower.GetTier().iTier) {
 

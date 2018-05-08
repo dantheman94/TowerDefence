@@ -17,15 +17,15 @@ public class VehicleManager : MonoBehaviour {
     [Header("Player")]
     public PossessionWheel _PossessionWheel;
     [Space]
-    public List<GroundVehicle> _StartingVehicles;
+    public List<VehicleBase> _StartingVehicles;
 
     //***************************************************************
     // VARIABLES
 
     public static VehicleManager _Instance;
 
-    private List<GroundVehicle> _PlayerControlledVehicles;
-    private List<GroundVehicle> _Vehicles;
+    private List<VehicleBase> _PlayerControlledVehicles;
+    private List<VehicleBase> _Vehicles;
 
     //***************************************************************
     // FUNCTIONS    
@@ -43,8 +43,7 @@ public class VehicleManager : MonoBehaviour {
         _Instance = this;
         
         // Create vehicle arrays
-        _Vehicles = new List<GroundVehicle>();
-
+        _Vehicles = new List<VehicleBase>();
     }
 
     private void Start () {
@@ -54,37 +53,34 @@ public class VehicleManager : MonoBehaviour {
 
             foreach (var vehicle in _StartingVehicles) {
 
-                vehicle.SetControllerType(GroundVehicle.EControllerType.PlayerControlled);
+                vehicle.SetControllerType(VehicleBase.EControllerType.PlayerControlled);
                 _Vehicles.Add(vehicle);
                 _PlayerControlledVehicles = _StartingVehicles;
             }
-            _StartingVehicles[0].GetPlayerEntity().enabled = true;
         }
         else { /* _StartingVehicles.Count == 0 */
 
             Debug.LogWarning("ERROR: Starting vehicles has not been set in vehicle manager. Manager is allocating a vehicle from _Vehicles array for each player, this could have unintended results.");
-            _StartingVehicles = new List<GroundVehicle>();
+            _StartingVehicles = new List<VehicleBase>();
             _StartingVehicles[0] = _Vehicles[0];
             _StartingVehicles[1] = _Vehicles[1];
             _StartingVehicles[2] = _Vehicles[2];
             _StartingVehicles[3] = _Vehicles[3];
         }
-        
+
+        // Set player 1's vehicle
+        ///PlayerManager._Instance._PlayerOne.SetVehicle(_StartingVehicles[0]);
+        ///PlayerManager._Instance._PlayerOne.GetVehicle().SetPlayerEntity(PlayerManager._Instance._PlayerOne);
     }
 	
 	private void Update () {
-
-        // Enable player components in the vehicles that are currently being controlled by players
-        ///foreach (var vehicle in _PlayerControlledVehicles) {
-        ///
-        ///    vehicle.GetPlayerEntity().enabled = true;
-        ///}
+        
     }
 
     //***************************************************************
     // SET & GET
 
-    public List<GroundVehicle> GetVehicles() { return _Vehicles; }
+    public List<VehicleBase> GetVehicles() { return _Vehicles; }
 
-    public List<GroundVehicle> GetPlayerControlledVehicles() { return _PlayerControlledVehicles; }
+    public List<VehicleBase> GetPlayerControlledVehicles() { return _PlayerControlledVehicles; }
 }

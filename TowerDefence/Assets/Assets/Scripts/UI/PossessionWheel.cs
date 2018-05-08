@@ -17,9 +17,9 @@ public class PossessionWheel : MonoBehaviour {
     // VARIABLES
 
     private bool _Active = false;
-    private PlayerEntity _Player;
-    private GroundVehicle _CurrentVehicle;
-    private GroundVehicle _NextVehicle;
+    private Player _Player;
+    private VehicleBase _CurrentVehicle;
+    private VehicleBase _NextVehicle;
 
     //***************************************************************
     // FUNCTIONS
@@ -45,31 +45,31 @@ public class PossessionWheel : MonoBehaviour {
             }
 
             // Rightstick UP
-            if (_Player.GetLeftThumbstickYaxis() > 0f) {
+            if (_Player._Input.GetLeftThumbstickYaxis() > 0f) {
 
                 _NextVehicle = VehicleManager._Instance.GetPlayerControlledVehicles()[0];
             }
 
             // Rightstick DOWN
-            if (_Player.GetLeftThumbstickYaxis() < 0f) {
+            if (_Player._Input.GetLeftThumbstickYaxis() < 0f) {
 
                 _NextVehicle = VehicleManager._Instance.GetPlayerControlledVehicles()[1];
             }
 
             // Rightstick RIGHT
-            if (_Player.GetLeftThumbstickXaxis() > 0f) {
+            if (_Player._Input.GetLeftThumbstickXaxis() > 0f) {
 
                 _NextVehicle = VehicleManager._Instance.GetPlayerControlledVehicles()[2];
             }
 
             // Rightstick LEFT
-            if (_Player.GetLeftThumbstickXaxis() < 0f) {
+            if (_Player._Input.GetLeftThumbstickXaxis() < 0f) {
 
                 _NextVehicle = VehicleManager._Instance.GetPlayerControlledVehicles()[3];
             }
 
             // Check for confirmation input
-            if (_Player.GetButtonAClicked() && _NextVehicle && _CurrentVehicle) {
+            if ((_Player._Input.GetButtonYClicked() || _Player._Input.GetButtonYReleased()) && (_NextVehicle && _CurrentVehicle)) {
 
                 // Disable old vehicle
                 _CurrentVehicle.GetPlayerEntity().enabled = false;
@@ -90,6 +90,6 @@ public class PossessionWheel : MonoBehaviour {
     
     public bool GetActive() { return _Active; }
 
-    public void SetPlayerEntity(PlayerEntity player) { _Player = player; }
+    public void SetPlayerEntity(Player player) { _Player = player; }
 
 }
