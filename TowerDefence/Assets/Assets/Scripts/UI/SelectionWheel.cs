@@ -22,10 +22,14 @@ public class SelectionWheel : MonoBehaviour {
     
     public void UpdateList(List<Selectable> list) {
 
-        // Clear button click events on the wheel
+        // Reset button click events for all buttons
         foreach (var button in _WheelButtons) {
 
+            // Clear
             button.onClick.RemoveAllListeners();
+
+            // Add defaults
+            button.onClick.AddListener(delegate { HideSelectionWheel(); });
         }
 
         // Clear list
@@ -33,34 +37,36 @@ public class SelectionWheel : MonoBehaviour {
         int i = 0;
         foreach (var obj in list) {
 
-            // Update list with new slots
-            Building building = obj.GetComponent<Building>();
-            _BuildingList.Add(building);
+            if (obj != null) {
 
-            // Update button click event
-            _WheelButtons[i].onClick.AddListener(delegate { building.OnWheelSelect(); });
+                // Update list with new slots
+                Building building = obj.GetComponent<Building>();
+                _BuildingList.Add(building);
 
-            // Update reference unit
-            SelectionWheelUnitRef unitRef = _WheelButtons[i].gameObject.transform.parent.GetComponent<SelectionWheelUnitRef>();
-            unitRef.Unit = obj.GetComponent<WorldObject>();
+                // Update button click event
+                _WheelButtons[i].onClick.AddListener(delegate { building.OnWheelSelect(); });
 
+                // Update reference unit
+                SelectionWheelUnitRef unitRef = _WheelButtons[i].gameObject.transform.parent.GetComponent<SelectionWheelUnitRef>();
+                unitRef.Unit = obj.GetComponent<WorldObject>();
+            }
             ++i;
         }
 
-        RefreshButtons();
+        RefreshButtons(list);
     }
 
-    public void RefreshButtons() {
+    public void RefreshButtons(List<Selectable> list) {
 
         int i = 0;
         foreach (var button in _WheelButtons) {
 
             // If valid
-            if (_BuildingList.Count > i) {
+            if (list[i] != null) {
 
                 // Update button text
                 Text txtComp = button.gameObject.transform.parent.GetComponentInChildren<Text>();
-                txtComp.text = _BuildingList[i].ObjectName;
+                txtComp.text = list[i].ObjectName;
 
                 // Update button interactibility state
                 SelectionWheelUnitRef unitRef = button.gameObject.transform.parent.GetComponent<SelectionWheelUnitRef>();
@@ -69,30 +75,40 @@ public class SelectionWheel : MonoBehaviour {
 
                 // Update item visibility
                 ButtonVisibility(button.transform.parent.gameObject, true);
-
-                ++i;
             }
 
             else { ButtonVisibility(button.transform.parent.gameObject, false); }
+
+            ++i;
         }
     }
 
     public void ButtonVisibility(GameObject buttonItem, bool visibile) {
 
         Image imgComp = buttonItem.GetComponent<Image>();
-        Text txtComp = buttonItem.GetComponentInChildren<Text>();
 
         if (visibile) {
 
+            // Full alpha
             imgComp.color = new Color(0, 0, 0, 1);
-            ///txtComp.gameObject.SetActive(true);
         }
 
         else {
             
+            // No alpha
             imgComp.color = new Color(0, 0, 0, 0);
-            ///txtComp.gameObject.SetActive(false);
         }
+    }
+
+    public void ShowSelectionWheel() { GameManager.Instance.SelectionWheel.SetActive(true); }
+
+    public void HideSelectionWheel() {
+
+        // Deselect all objects
+        foreach (var selectable in GameManager.Instance.Selectables) { selectable._IsCurrentlySelected = false; }
+
+        // Hide widget
+        GameManager.Instance.SelectionWheel.SetActive(false);
     }
 
 }

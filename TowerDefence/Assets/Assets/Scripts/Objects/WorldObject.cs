@@ -20,7 +20,6 @@ public class WorldObject : Selectable {
     [Space]
     [Header("-----------------------------------")]
     [Header(" WORLD OBJECT PROPERTIES")]
-    public string ObjectName;
     public Texture2D BuildImage;
     public int BuildTime = 20;
     public int CostSupplies = 0;
@@ -36,10 +35,13 @@ public class WorldObject : Selectable {
     //******************************************************************************************************************************
     // VARIABES
 
+    public enum WorldObjectStates { Default, Building, Deployable, Active, ENUM_COUNT }
+
     protected GameObject _SelectionObj = null;
     protected bool _IsBeingBuilt = false;
     protected bool _ReadyForDeployment = false;
     protected float _CurrentBuildTime = 0f;
+    protected WorldObjectStates _ObjectState = WorldObjectStates.Default;
 
     //******************************************************************************************************************************
     // FUNCTIONS
@@ -55,6 +57,7 @@ public class WorldObject : Selectable {
                 
                 // Add to timer
                 if (_CurrentBuildTime < BuildTime) { _CurrentBuildTime += Time.deltaTime; }
+                Debug.Log("Building");
             }
         }
     }
@@ -121,6 +124,14 @@ public class WorldObject : Selectable {
         }
     }
 
-    public virtual void OnWheelSelect() { _IsBeingBuilt = true; }
+    public virtual void OnWheelSelect() {
+
+        // Start building object
+        _IsBeingBuilt = true;
+        _ObjectState = WorldObjectStates.Building;
+
+        // Hide selection wheel
+        GameManager.Instance.SelectionWheel.SetActive(false);
+    }
 
 }

@@ -25,21 +25,31 @@ public class BuildingSlot : Selectable {
     //******************************************************************************************************************************
     // FUNCTIONS
     
+    protected void DrawSelectionWheel() {
+
+        // Show building slot wheel
+        if (_Player) {
+
+            // Cast object
+            List<Selectable> selectables = new List<Selectable>();
+            foreach (var item in _Buildings) { selectables.Add(item); }
+
+            // Update list then display on screen
+            _Player._HUD.SelectionWheel.UpdateList(selectables);
+            _Player._HUD.SelectionWheel.gameObject.SetActive(true);
+
+            _IsCurrentlySelected = true;
+        }
+    }
+
     protected override void DrawSelection(bool draw) { base.DrawSelection(draw);
 
         // Show selection
         if (draw) {
 
-            // Show building slot wheel
-            if (_Player) {
+            if (!_Player._HUD.SelectionWheel.gameObject.activeSelf) {
 
-                // Cast object
-                List<Selectable> selectables = new List<Selectable>();
-                foreach (var item in _Buildings) { selectables.Add(item); }
-
-                // Update list then display on screen
-                _Player._HUD.SelectionWheel.UpdateList(selectables);
-                _Player._HUD.SelectionWheel.gameObject.SetActive(true);
+                DrawSelectionWheel();
             }
         }
 

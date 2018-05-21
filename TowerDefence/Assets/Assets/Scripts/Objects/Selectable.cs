@@ -18,11 +18,16 @@ public class Selectable : MonoBehaviour {
     //******************************************************************************************************************************
     // INSPECTOR
 
+    [Space]
+    [Header("-----------------------------------")]
+    [Header(" SELECTABLE PROPERTIES")]
+    public string ObjectName;
+
     //******************************************************************************************************************************
     // VARIABES
 
     protected Player _Player = null;
-    protected bool _IsCurrentlySelected { get; set; }
+    public bool _IsCurrentlySelected { get; set; }
     protected Bounds selectionBounds;
 
     //******************************************************************************************************************************
@@ -36,6 +41,7 @@ public class Selectable : MonoBehaviour {
 
     protected virtual void Start() {
 
+        GameManager.Instance.Selectables.Add(this);
     }
 
     protected virtual void Update() { }

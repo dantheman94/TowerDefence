@@ -14,10 +14,19 @@ using UnityEngine;
 public class GameManager : MonoBehaviour {
 
     //******************************************************************************************************************************
+    // INSPECTOR
+
+    public GameObject SelectionWheel;
+    public GameObject AbilityWheel;
+
+    //******************************************************************************************************************************
     // VARIABES
 
     [HideInInspector]
     public List<Player> Players { get; set; }
+
+    [HideInInspector]
+    public List<Selectable> Selectables { get; set; }
 
     public static GameManager Instance;
 
@@ -34,10 +43,13 @@ public class GameManager : MonoBehaviour {
         }
 
         Instance = this;
+
+        // Initialize lists
+        Selectables = new List<Selectable>();
     }
 
     private void Start() {
-
+        
         // Get all player entities
         Players = new List<Player>();
         GameObject[] objs = GameObject.FindGameObjectsWithTag("Player");
