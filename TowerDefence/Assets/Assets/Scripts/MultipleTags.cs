@@ -13,8 +13,10 @@ public class MultipleTags : MonoBehaviour {
     //***************************************************************
     // VARIABLES
 
-    [Header("Tag list")]
-    public List<string> _TagList;
+    [Space]
+    [Header("-----------------------------------")]
+    [Header(" TAG LIST")]
+    public List<string> TagArray;
 
     //***************************************************************
     // SET & GET
@@ -23,7 +25,8 @@ public class MultipleTags : MonoBehaviour {
 
         bool foundTag = false;
 
-        foreach (var stringTag in _TagList) {
+        // Loop through all the tags
+        foreach (var stringTag in TagArray) {
 
             foundTag = true;
             break;

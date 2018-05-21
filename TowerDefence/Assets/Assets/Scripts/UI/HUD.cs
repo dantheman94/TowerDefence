@@ -16,8 +16,10 @@ public class HUD : MonoBehaviour {
 
     //******************************************************************************************************************************
     // INSPECTOR
-
-    public GUISkin resourceSkin, ordersSkin, selectBoxSkin;
+    
+    public SelectionWheel SelectionWheel;
+    public GameObject AbilitiesWheel;
+    public GameObject SelectedPrefab;
 
     //******************************************************************************************************************************
     // VARIABLES
@@ -26,6 +28,39 @@ public class HUD : MonoBehaviour {
 
     //******************************************************************************************************************************
     // FUNCTIONS
+
+    private void Start() {
+
+        ResourceManager.StoreSelectBoxItems(SelectedPrefab);
+    }
+    
+    public GameObject FindHitObject() {
+
+        // Create raycast
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        // Return object from raycast
+        if (Physics.Raycast(ray, out hit))
+            return hit.collider.gameObject;
+
+        return null;
+    }
+
+    public Vector3 FindHitPoint() {
+
+        // Create raycast
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        // Return hit point from raycast
+        if (Physics.Raycast(ray, out hit))
+            return hit.point;
+
+        return ResourceManager.InvalidPosition;
+    }
+
+    public Rect GetPlayingArea() {  return new Rect(0, 0, Screen.width, Screen.height); }
 
     public bool MouseInBounds() {
 
@@ -38,27 +73,13 @@ public class HUD : MonoBehaviour {
         return insideWidth && insideHeight;
     }
 
-    public GameObject FindHitObject() {
+    public void setAbilitiesWheel(bool show) {
 
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit))
-            return hit.collider.gameObject;
-
-        return null;
+        // Show/hide wheel
+        if (AbilitiesWheel)            
+            AbilitiesWheel.SetActive(show);
     }
 
-    public Vector3 FindHitPoint() {
+    public bool WheelActive() { return SelectionWheel.gameObject.activeInHierarchy || AbilitiesWheel.gameObject.activeInHierarchy; }
 
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit))
-            return hit.point;
-
-        return ResourceManager.InvalidPosition;
-    }
-
-    public Rect GetPlayingArea() {  return new Rect(0, 0, Screen.width, Screen.height); }
 }

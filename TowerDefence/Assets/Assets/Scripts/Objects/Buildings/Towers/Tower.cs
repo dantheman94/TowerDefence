@@ -11,34 +11,30 @@ using UnityEngine;
 //
 //******************************
 
-public class Tower : WorldObject {
+public class Tower : Building {
 
     //******************************************************************************************************************************
-    // VARIABLES
+    // INSPECTOR
 
     public enum ETowerType { WatchTower, SiegeTurret, Turret, AntiInfantry, AntiVehicle, AntiAir }
 
     //******************************************************************************************************************************
     // FUNCTIONS
 
-    protected override void Awake() {
+    protected override void Awake() { base.Awake();
 
-        base.Awake();
     }
 
-    protected override void Start () {
+    protected override void Start () { base.Start();
 
-        base.Start();
 	}
 
-    protected override void Update () {
+    protected override void Update () { base.Update();
 
-        base.Update();
 	}
 
-    protected override void OnGUI() {
+    protected override void OnGUI() { base.OnGUI();
 
-        base.OnGUI();
     }
 
 }

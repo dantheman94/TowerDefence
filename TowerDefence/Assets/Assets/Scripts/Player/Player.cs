@@ -25,12 +25,13 @@ public class Player : MonoBehaviour {
 
     // Input
     public UserInput _Input { get; private set; }
-    public WorldObject SelectedObject { get; set; }
+    public BuildingSlot SelectedBuildingSlot { get; set; }
+    public List<WorldObject> SelectedWorldObjects { get; set; }
 
     // Economy
     private int _SupplyCount = 0;
     private int _PowerCount = 0;
-    private int _Level = 1;
+    public int _Level { get; set; }
     private int _Score = 0;
     private int _WavesSurvived = 0;
 
@@ -48,7 +49,9 @@ public class Player : MonoBehaviour {
 
         // Initialize new player entity
         _Score = 0;
+        _Level = 1;
         _WavesSurvived = 0;
+        SelectedWorldObjects = new List<WorldObject>();
     }
 
     private void Update() {

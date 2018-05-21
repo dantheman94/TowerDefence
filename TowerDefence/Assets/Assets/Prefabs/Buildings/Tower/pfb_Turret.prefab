@@ -19,36 +19,66 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4962471436290332}
-  - component: {fileID: 33764139772666130}
-  - component: {fileID: 136310981669158390}
-  - component: {fileID: 23643263359016832}
-  - component: {fileID: 114704384739691258}
+  - component: {fileID: 114452461510054222}
+  - component: {fileID: 114696707406705190}
   m_Layer: 0
   m_Name: pfb_Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!1 &1896089026284822
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4561062043464778}
+  - component: {fileID: 33018515798043214}
+  - component: {fileID: 136358027408750910}
+  - component: {fileID: 23256351831436894}
+  m_Layer: 0
+  m_Name: Mesh
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &4561062043464778
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1896089026284822}
+  m_LocalRotation: {x: 0, y: -0.68522114, z: 0, w: 0.7283351}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 8, y: 10, z: 8}
+  m_Children: []
+  m_Father: {fileID: 4962471436290332}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: -86.506004, z: 0}
 --- !u!4 &4962471436290332
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1476746386672702}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -39.63, y: 13.4, z: -28.63}
-  m_LocalScale: {x: 5, y: 5, z: 5}
-  m_Children: []
+  m_LocalRotation: {x: -0, y: -0.5816178, z: -0, w: 0.8134622}
+  m_LocalPosition: {x: -19.1, y: 10, z: -25.6}
+  m_LocalScale: {x: 0.99999976, y: 1, z: 0.99999976}
+  m_Children:
+  - {fileID: 4561062043464778}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &23643263359016832
+  m_LocalEulerAnglesHint: {x: 0, y: -71.129005, z: 0}
+--- !u!23 &23256351831436894
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1476746386672702}
+  m_GameObject: {fileID: 1896089026284822}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -77,14 +107,14 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &33764139772666130
+--- !u!33 &33018515798043214
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1476746386672702}
+  m_GameObject: {fileID: 1896089026284822}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &114704384739691258
+--- !u!114 &114452461510054222
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -92,23 +122,38 @@ MonoBehaviour:
   m_GameObject: {fileID: 1476746386672702}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22a00a2ee4f6f4e489d0b440fc2b1d25, type: 3}
+  m_Script: {fileID: 11500000, guid: 1192c082b9a89274896490f5c4217b57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObjectName: Turret
-  BuildImage: {fileID: 0}
-  CostSupplies: 320
-  CostPower: 20
-  CostPlayerLevel: 1
-  RecycleSupplies: 0
-  RecyclePower: 0
-  MaxHitPoints: 100
---- !u!136 &136310981669158390
-CapsuleCollider:
+  TagArray: []
+--- !u!114 &114696707406705190
+MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1476746386672702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ef5a15f800b333459157241ba65b339, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectName: Turret
+  BuildImage: {fileID: 0}
+  CostSupplies: 250
+  CostPower: 30
+  CostPlayerLevel: 1
+  RecycleSupplies: 0
+  RecyclePower: 0
+  MaxHitPoints: 100
+  MaxShieldPoints: 0
+  TowerType: 0
+  PopulationCapacity: 8
+--- !u!136 &136358027408750910
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1896089026284822}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1

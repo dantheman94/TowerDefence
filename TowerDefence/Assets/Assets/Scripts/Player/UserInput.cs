@@ -9,11 +9,14 @@ using XInputDotNetPure;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 5/8/2018
+//  Last edited on: 5/10/2018
 //
 //******************************
 
 public class UserInput : MonoBehaviour {
+
+    //******************************************************************************************************************************
+    // INSPECTOR
 
     //******************************************************************************************************************************
     // VARIABLES
@@ -42,12 +45,18 @@ public class UserInput : MonoBehaviour {
         if (_Player) {
 
             // Update camera
-            MoveCameraMouse();
+            MoveCamera();
             RotateCamera();
 
             // Update gamepad states
             _PreviousGamepadState = _GamepadState;
             _GamepadState = GamePad.GetState(_PlayerIndex);
+
+            // Update mouse input
+            MouseActivity();
+
+            // Update abilities input
+            AbilitiesInput();
         }
     }
 
@@ -82,7 +91,7 @@ public class UserInput : MonoBehaviour {
         _ControllerIsRumbling = true;
     }
 
-    private void MoveCameraMouse() {
+    private void MoveCamera() {
 
         float xPos = Input.mousePosition.x;
         float yPos = Input.mousePosition.y;
@@ -115,31 +124,19 @@ public class UserInput : MonoBehaviour {
         movement = Camera.main.transform.TransformDirection(movement);
         movement.y = 0;
 
-        // Away from ground
-        ///movement.y -= ResourceManager.ScrollSpeed * Input.GetAxis("Mouse ScrollWheel");
-
-        // Change camera facing angle
+        // Change camera fov
+        float fov = Camera.main.fieldOfView;
         if (Input.GetAxis("Mouse ScrollWheel") > 0) {
 
-            // Zoom in
-            Vector3 rotOrigin = Camera.main.transform.rotation.eulerAngles;
-            Vector3 rotDestination = rotOrigin;
-
-            if (Camera.main.transform.rotation.x <= ResourceManager.MinRotationAngle)
-                rotDestination.x -= ResourceManager.RotateZoomSpeed;
+            // Zoomming in
+            if (fov > ResourceManager.MinFov)
+                Camera.main.fieldOfView -= Time.deltaTime * ResourceManager.ZoomSpeed;
         }
         if (Input.GetAxis("Mouse ScrollWheel") < 0) {
 
-            // Zoom out
-            Vector3 rotOrigin = Camera.main.transform.rotation.eulerAngles;
-            Vector3 rotDestination = rotOrigin;
-
-            if (Camera.main.transform.rotation.x >= ResourceManager.MaxRotationAngle)
-                rotDestination.x += ResourceManager.RotateZoomSpeed;
-
-            // Update zoom
-            if (rotDestination != rotOrigin)
-                Camera.main.transform.eulerAngles = Vector3.MoveTowards(rotOrigin, rotDestination, Time.deltaTime * ResourceManager.RotateZoomSpeed);
+            // Zoomming out
+            if (fov < ResourceManager.MaxFov)
+                Camera.main.fieldOfView += Time.deltaTime * ResourceManager.ZoomSpeed;
         }
 
         // Calculate desired camera position based on received input
@@ -187,24 +184,48 @@ public class UserInput : MonoBehaviour {
 
     private void LeftMouseClick() {
 
-        if (_Player._HUD.MouseInBounds()) {
+        if (_Player._HUD.MouseInBounds() && !_Player._HUD.WheelActive()) {
 
+            // Precautions
             GameObject hitObject = _Player._HUD.FindHitObject();
             Vector3 hitPoint = _Player._HUD.FindHitPoint();
-
             if (hitObject && hitPoint != ResourceManager.InvalidPosition) {
+                
+                if (hitObject.name != "Ground") {
 
-                if (_Player.SelectedObject)
-                    _Player.SelectedObject.MouseClick(hitObject, hitPoint, _Player);
+                    // Not holding LEFT CONTROL
+                    if (!Input.GetKey(KeyCode.LeftControl)) {
 
-                else if (hitObject.name != "Ground") {
+                        // Deselect any objects that are currently selected
+                        foreach (var obj in _Player.SelectedWorldObjects) { obj.SetSelection(false); }
+                        _Player.SelectedWorldObjects.Clear();
 
-                    WorldObject worldObject = hitObject.transform.root.GetComponent<WorldObject>();
-                    if (worldObject) {
+                        if (_Player.SelectedBuildingSlot != null) {
 
-                        // We already know the player has no selected object
-                        _Player.SelectedObject = worldObject;
-                        worldObject.SetSelection(true, _Player._HUD.GetPlayingArea());
+                            _Player.SelectedBuildingSlot.SetSelection(false);
+                            _Player.SelectedBuildingSlot = null;
+                        }
+                    }
+
+                    // Cast hit object to selectable objects
+                    WorldObject worldObj = hitObject.transform.root.GetComponent<WorldObject>();
+                    BuildingSlot buildingObj = hitObject.transform.root.GetComponent<BuildingSlot>();
+
+                    // world object
+                    if (worldObj) {
+
+                        // Add selection to list
+                        _Player.SelectedWorldObjects.Add(worldObj);
+                        worldObj.SetPlayer(_Player);
+                        worldObj.SetSelection(true);
+                    }
+
+                    // Building slot
+                    else if (buildingObj) {
+
+                        _Player.SelectedBuildingSlot = buildingObj;
+                        buildingObj.SetPlayer(_Player);
+                        buildingObj.SetSelection(true);
                     }
                 }
             }
@@ -212,11 +233,20 @@ public class UserInput : MonoBehaviour {
     }
 
     private void RightMouseClick() {
+                
+    }
 
-        if (_Player._HUD.MouseInBounds() && !Input.GetKey(KeyCode.LeftAlt) && _Player.SelectedObject) {
+    private void AbilitiesInput() {
 
-            _Player.SelectedObject.SetSelection(false, _Player._HUD.GetPlayingArea());
-            _Player.SelectedObject = null;
+        // On user input
+        if (Input.GetKeyDown(KeyCode.F)) {
+
+            // Deselect any objects that are currently selected
+            foreach (var obj in _Player.SelectedWorldObjects) { obj.SetSelection(false); }
+            _Player.SelectedWorldObjects.Clear();
+
+            // Show/hide abilies wheel
+            _Player._HUD.setAbilitiesWheel(!_Player._HUD.AbilitiesWheel.activeInHierarchy);
         }
     }
 

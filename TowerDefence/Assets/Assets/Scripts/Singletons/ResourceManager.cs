@@ -25,16 +25,17 @@ namespace TowerDefence {
         // Camera bounds
         public static float MinCameraHeight { get { return 80; } }
         public static float MaxCameraHeight { get { return 130; } }
-        public static float MinRotationAngle { get { return 40; } }
-        public static float MaxRotationAngle { get { return 60; } }
+        public static float MinFov { get { return 35; } }
+        public static float MaxFov { get { return 50; } }
+        public static float ZoomSpeed { get { return 80; } }
 
         // Selecting world objects
         private static Vector3 invalidPosition = new Vector3(-99999, -99999, -99999);
         public static Vector3 InvalidPosition { get { return invalidPosition; } }
 
-        private static GUISkin selectBoxSkin;
-        public static GUISkin SelectBoxSkin { get { return selectBoxSkin; } }
-        public static void StoreSelectBoxItems(GUISkin skin) { selectBoxSkin = skin; }
+        private static GameObject selectBoxObject;
+        public static GameObject SelectBoxObjects { get { return selectBoxObject; } }
+        public static void StoreSelectBoxItems(GameObject skin) { selectBoxObject = skin; }
 
         private static Bounds invalidBounds = new Bounds(new Vector3(-99999, -99999, -99999), new Vector3(0, 0, 0));
         public static Bounds InvalidBounds { get { return invalidBounds; } }
