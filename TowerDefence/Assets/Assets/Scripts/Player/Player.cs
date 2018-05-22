@@ -29,8 +29,8 @@ public class Player : MonoBehaviour {
     public List<WorldObject> SelectedWorldObjects { get; set; }
 
     // Economy
-    private int _SupplyCount = 0;
-    private int _PowerCount = 0;
+    public int ResourcesCount { get; set; }
+    public int PowerCount { get; set; }
     public int _Level { get; set; }
     private int _Score = 0;
     private int _WavesSurvived = 0;

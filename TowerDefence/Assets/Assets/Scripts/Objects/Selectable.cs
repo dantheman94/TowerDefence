@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TowerDefence;
+using XInputDotNetPure;
 
 //******************************
 //
@@ -26,9 +27,11 @@ public class Selectable : MonoBehaviour {
     //******************************************************************************************************************************
     // VARIABES
 
-    protected Player _Player = null;
     public bool _IsCurrentlySelected { get; set; }
+    protected Player _Player = null;
     protected Bounds selectionBounds;
+    protected bool _PlayerOwned = false;
+    protected PlayerIndex _PlayerIndex = PlayerIndex.One;
 
     //******************************************************************************************************************************
     // FUNCTIONS
@@ -62,7 +65,12 @@ public class Selectable : MonoBehaviour {
 
     public virtual void MouseClick(GameObject hitObject, Vector3 hitPoint) { }
     
-    public void SetPlayer(Player player) { _Player = player; }
+    public void SetPlayer(Player player) {
+
+        _PlayerOwned = true;
+        _Player = player;
+        _PlayerIndex = player._PlayerIndex;
+    }
 
     public void SetSelection(bool selected) { _IsCurrentlySelected = selected; }
 

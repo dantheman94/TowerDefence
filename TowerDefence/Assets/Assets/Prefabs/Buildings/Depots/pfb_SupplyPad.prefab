@@ -9,76 +9,76 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1955926050827018}
+  m_RootGameObject: {fileID: 1471369332272674}
   m_IsPrefabParent: 1
---- !u!1 &1250411306097450
+--- !u!1 &1443231288231284
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4635078114360834}
-  - component: {fileID: 33646586211829708}
-  - component: {fileID: 136195731246908696}
-  - component: {fileID: 23045932882765994}
+  - component: {fileID: 4907958589436964}
+  - component: {fileID: 33421646459281008}
+  - component: {fileID: 65075155624331810}
+  - component: {fileID: 23598923175003044}
   m_Layer: 0
-  m_Name: Mesh
+  m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1955926050827018
+--- !u!1 &1471369332272674
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4833653950385014}
-  - component: {fileID: 114819093811879832}
-  - component: {fileID: 114865486705295362}
+  - component: {fileID: 4123643481256356}
+  - component: {fileID: 114141398865986326}
+  - component: {fileID: 114491168879293188}
   m_Layer: 0
-  m_Name: pfb_AntiVehicleTurret
+  m_Name: pfb_SupplyPad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &4635078114360834
+  m_IsActive: 1
+--- !u!4 &4123643481256356
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1250411306097450}
-  m_LocalRotation: {x: 0, y: -0.68522114, z: 0, w: 0.7283351}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 8, y: 10, z: 8}
-  m_Children: []
-  m_Father: {fileID: 4833653950385014}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -86.506004, z: 0}
---- !u!4 &4833653950385014
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1955926050827018}
+  m_GameObject: {fileID: 1471369332272674}
   m_LocalRotation: {x: -0, y: -0.5816178, z: -0, w: 0.8134622}
-  m_LocalPosition: {x: -14, y: 10, z: 43.6}
+  m_LocalPosition: {x: -1.65, y: 2.25, z: 5.43}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4635078114360834}
+  - {fileID: 4907958589436964}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -71.129005, z: 0}
---- !u!23 &23045932882765994
+--- !u!4 &4907958589436964
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1443231288231284}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 20, y: 5, z: 10}
+  m_Children: []
+  m_Father: {fileID: 4123643481256356}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &23598923175003044
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1250411306097450}
+  m_GameObject: {fileID: 1443231288231284}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -87,7 +87,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 4b21342d55a243d4ca4ce1721e4810bf, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -107,60 +107,62 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &33646586211829708
+--- !u!33 &33421646459281008
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1250411306097450}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &114819093811879832
+  m_GameObject: {fileID: 1443231288231284}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &65075155624331810
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1443231288231284}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114141398865986326
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1955926050827018}
+  m_GameObject: {fileID: 1471369332272674}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1192c082b9a89274896490f5c4217b57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TagArray: []
---- !u!114 &114865486705295362
+--- !u!114 &114491168879293188
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1955926050827018}
+  m_GameObject: {fileID: 1471369332272674}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ef5a15f800b333459157241ba65b339, type: 3}
+  m_Script: {fileID: 11500000, guid: 0ea1e5c428d2dba4bb33bce56d757aed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObjectName: Anti-Vehicle Turret
+  ObjectName: Supply Pad
   BuildImage: {fileID: 0}
   BuildTime: 20
-  CostSupplies: 0
-  CostPower: 350
-  CostPlayerLevel: 2
+  CostSupplies: 150
+  CostPower: 0
+  CostPlayerLevel: 1
   RecycleSupplies: 0
   RecyclePower: 0
   MaxHitPoints: 100
   MaxShieldPoints: 0
   MultiSelectable: 1
   _Deployed: 0
-  TowerType: 0
-  PopulationCapacity: 8
---- !u!136 &136195731246908696
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1250411306097450}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  GeneratorType: 0
+  SupplyType: 0
+  SuppliesGivenWhenBuilt: 100
+  SuppliesGivenPerTick: 1
+  SupplyRate: 0.1

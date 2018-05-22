@@ -2,16 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//******************************
-//
-//  Created by: Daniel Marton
-//
-//  Last edited by: Daniel Marton
-//  Last edited on: 5/8/2018
-//
-//******************************
-
-public class Tower : Building {
+public class Depot : Building {
 
     //******************************************************************************************************************************
     //
@@ -19,7 +10,5 @@ public class Tower : Building {
     //
     //******************************************************************************************************************************
 
-    public enum ETowerType { WatchTower, SiegeTurret, Turret, AntiInfantry, AntiVehicle, AntiAir }
-    
-
+    public enum eDepotType { LightBarracks, HeavyBarracks, Garage, Airpad, Armoury }
 }

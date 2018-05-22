@@ -42,9 +42,16 @@ public class WorldObject : Selectable {
     protected bool _ReadyForDeployment = false;
     protected float _CurrentBuildTime = 0f;
     protected WorldObjectStates _ObjectState = WorldObjectStates.Default;
+    protected int _HitPoints;
 
     //******************************************************************************************************************************
     // FUNCTIONS
+
+    protected override void Start() { base.Start();
+
+        // Initialize health
+        _HitPoints = MaxHitPoints;
+    }
 
     protected override void Update() { base.Update();
         
@@ -133,5 +140,14 @@ public class WorldObject : Selectable {
         // Hide selection wheel
         GameManager.Instance.SelectionWheel.SetActive(false);
     }
+
+    public void Damage(int damage) {
+
+        // Damage object & clamp health to 0 if it exceeds
+        _HitPoints -= damage;
+        if (_HitPoints < 0) { _HitPoints = 0; }
+    }
+
+    public bool IsAlive() { return _HitPoints > 0f; }
 
 }
