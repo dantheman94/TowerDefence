@@ -15,7 +15,10 @@ using TowerDefence;
 public class WorldObject : Selectable {
 
     //******************************************************************************************************************************
-    // INSPECTOR
+    //
+    //      INSPECTOR
+    //
+    //******************************************************************************************************************************
 
     [Space]
     [Header("-----------------------------------")]
@@ -31,43 +34,74 @@ public class WorldObject : Selectable {
     public int MaxShieldPoints = 0;
     public bool MultiSelectable = true;
     public bool _Deployed = false;
+    public float _OffsetY;
 
     //******************************************************************************************************************************
-    // VARIABES
+    //
+    //      VARIABLES
+    //
+    //******************************************************************************************************************************
 
     public enum WorldObjectStates { Default, Building, Deployable, Active, ENUM_COUNT }
 
     protected GameObject _SelectionObj = null;
-    protected bool _IsBeingBuilt = false;
     protected bool _ReadyForDeployment = false;
     protected float _CurrentBuildTime = 0f;
     protected WorldObjectStates _ObjectState = WorldObjectStates.Default;
     protected int _HitPoints;
+    protected UnitHealthBar _HealthBar = null;
 
     //******************************************************************************************************************************
-    // FUNCTIONS
+    //
+    //      FUNCTIONS
+    //
+    //******************************************************************************************************************************
 
     protected override void Start() { base.Start();
 
         // Initialize health
         _HitPoints = MaxHitPoints;
+
+        // Get vertical offset based off the prefab template
+        _OffsetY = transform.position.y;
     }
 
     protected override void Update() { base.Update();
-        
-        // Has unit building started?
-        if (_IsBeingBuilt) {
 
-            // Is unit building complete?
-            _ReadyForDeployment = _CurrentBuildTime >= BuildTime;
-            if (!_ReadyForDeployment) {
-                
-                // Add to timer
-                if (_CurrentBuildTime < BuildTime) { _CurrentBuildTime += Time.deltaTime; }
-                Debug.Log("Building");
+        // Has unit building started?
+        switch (_ObjectState) {
+
+            case WorldObjectStates.Default: { break; }
+
+            case WorldObjectStates.Building: {
+
+                // Is unit building complete?
+                _ReadyForDeployment = _CurrentBuildTime >= BuildTime;
+                if (!_ReadyForDeployment) {
+
+                    // Add to timer
+                    if (_CurrentBuildTime < BuildTime) { _CurrentBuildTime += Time.deltaTime; }
+                    ///Debug.Log("Building: " + ObjectName + " at " + _CurrentBuildTime + " / " + BuildTime);
+                }
+                else { _ObjectState = WorldObjectStates.Deployable; }
+                break;
             }
+
+            case WorldObjectStates.Deployable: {
+
+                break;
+            }
+
+            case WorldObjectStates.Active: {
+
+                break;
+            }
+
+            default: break;
         }
     }
+
+    protected virtual void DrawSelectionWheel() { }
 
     public override void CalculateBounds() { base.CalculateBounds();
 
@@ -105,7 +139,7 @@ public class WorldObject : Selectable {
                 // Display prefab if not already being displayed
                 if (_SelectionObj.activeInHierarchy != true) { _SelectionObj.SetActive(true); }
 
-                // Update position
+                // Update selection prefab position
                 Vector3 pos = new Vector3();
                 pos.x = transform.position.x;
                 pos.y = 1.1f;
@@ -131,14 +165,18 @@ public class WorldObject : Selectable {
         }
     }
 
-    public virtual void OnWheelSelect() {
+    public virtual void OnWheelSelect(BuildingSlot buildingSlot) {
 
-        // Start building object
-        _IsBeingBuilt = true;
-        _ObjectState = WorldObjectStates.Building;
+        // Start building object on the selected building slot
+        WorldObject clone = Instantiate(this);
+        clone.SetBuildingPosition(buildingSlot);
+        clone.gameObject.SetActive(true);
+        clone._ObjectState = WorldObjectStates.Building;
 
-        // Hide selection wheel
-        GameManager.Instance.SelectionWheel.SetActive(false);
+        // Create healthbar and allocate it to the unit
+        GameObject healthBarObj = Instantiate(GameManager.Instance.UnitHealthBar);
+        UnitHealthBar healthBar = healthBarObj.GetComponent<UnitHealthBar>();
+        healthBar.setObjectAttached(clone);
     }
 
     public void Damage(int damage) {
@@ -149,5 +187,18 @@ public class WorldObject : Selectable {
     }
 
     public bool IsAlive() { return _HitPoints > 0f; }
+
+    private void SetBuildingPosition(BuildingSlot buildingSlot) {
+
+        // Initial transform update
+        transform.SetPositionAndRotation(buildingSlot.transform.position, buildingSlot.transform.rotation);
+
+        // Add offset
+        transform.position = new Vector3(transform.position.x, _OffsetY, transform.position.z);
+    }
+
+    public void setHealthBar(UnitHealthBar healthBar) { _HealthBar = healthBar; }
+
+    public bool isActiveInWorld() { return IsAlive() && (_ObjectState == WorldObjectStates.Active || _ObjectState == WorldObjectStates.Building); }
 
 }

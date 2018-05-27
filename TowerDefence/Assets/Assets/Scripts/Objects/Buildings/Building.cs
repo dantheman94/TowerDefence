@@ -16,20 +16,58 @@ using UnityEngine.UI;
 public class Building : WorldObject {
 
     //******************************************************************************************************************************
-    // INSPECTOR
-    
+    //
+    //      INSPECTOR
+    //
+    //******************************************************************************************************************************
+
+    [Space]
+    [Header("-----------------------------------")]
+    [Header(" BUILDABLES ")]
+    public List<Unit> Units;
+
+    [Space]
+    [Header("-----------------------------------")]
+    [Header(" UPGRADES ")]
+    public List<Upgrades> Upgrades;
 
     //******************************************************************************************************************************
-    // VARIABES
+    //
+    //      VARIABLES
+    //
+    //******************************************************************************************************************************
 
 
 
     //******************************************************************************************************************************
-    // FUNCTIONS
+    //
+    //      FUNCTIONS
+    //
+    //******************************************************************************************************************************
 
-    public override void OnWheelSelect() { base.OnWheelSelect();
+    protected override void DrawSelectionWheel() { base.DrawSelectionWheel();
+
+        // Show building slot wheel
+        if (_Player) {
+
+            // Cast object
+            List<Abstraction> selectables = new List<Abstraction>();
+            foreach (var item in Units)     { selectables.Add(item); }
+            foreach (var item in Upgrades)  { selectables.Add(item); }
+
+            // Update list then display on screen
+            _Player._HUD.SelectionWheel.UpdateList(selectables);
+            _Player._HUD.SelectionWheel.gameObject.SetActive(true);
+
+            _IsCurrentlySelected = true;
+        }
+    }
 
 
+    public override void OnWheelSelect(BuildingSlot buildingSlot) { base.OnWheelSelect(buildingSlot);
+        
+        // Update building slot ref with building
+        buildingSlot.setBuildingOnSlot(this.GetComponent<Building>());
     }
 
 }

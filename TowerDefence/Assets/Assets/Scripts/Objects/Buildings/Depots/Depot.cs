@@ -2,7 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//******************************
+//
+//  Created by: Daniel Marton
+//
+//  Last edited by: Daniel Marton
+//  Last edited on: 5/24/2018
+//
+//******************************
+
 public class Depot : Building {
+
+    //******************************************************************************************************************************
+    //
+    //      INSPECTOR
+    //
+    //******************************************************************************************************************************
+
+    [Space]
+    [Header("-----------------------------------")]
+    [Header(" DEPOT PROPERTIES")]
+    public eDepotType DepotType;
 
     //******************************************************************************************************************************
     //
@@ -10,5 +30,5 @@ public class Depot : Building {
     //
     //******************************************************************************************************************************
 
-    public enum eDepotType { LightBarracks, HeavyBarracks, Garage, Airpad, Armoury }
+    public enum eDepotType { LightBarracks, HeavyBarracks, Garage, Airpad }
 }

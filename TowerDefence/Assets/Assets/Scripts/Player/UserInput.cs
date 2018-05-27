@@ -14,15 +14,15 @@ using XInputDotNetPure;
 //******************************
 
 public class UserInput : MonoBehaviour {
-
+    
     //******************************************************************************************************************************
-    // INSPECTOR
-
+    //
+    //      VARIABLES
+    //
     //******************************************************************************************************************************
-    // VARIABLES
 
     private Player _Player;
-    public PlayerIndex _PlayerIndex = PlayerIndex.One;
+    private PlayerIndex _PlayerIndex;
 
     // Gamepad
     private GamePadState _GamepadState;
@@ -32,12 +32,16 @@ public class UserInput : MonoBehaviour {
     private float _MotorLeft, _MotorRight = 0f;
 
     //******************************************************************************************************************************
-    // FUNCTIONS
+    //
+    //      FUNCTIONS
+    //
+    //******************************************************************************************************************************
 
     private void Start() {
 
         // Get component references
-        _Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        _Player = GetComponent<Player>();
+        if (_Player) { _PlayerIndex = _Player._PlayerIndex; }
     }
 
     private void Update() {
@@ -209,7 +213,7 @@ public class UserInput : MonoBehaviour {
 
                     // Cast hit object to selectable objects
                     WorldObject worldObj = hitObject.transform.root.GetComponent<WorldObject>();
-                    BuildingSlot buildingObj = hitObject.transform.root.GetComponent<BuildingSlot>();
+                    BuildingSlot buildingSlot = hitObject.transform.root.GetComponent<BuildingSlot>();
 
                     // world object
                     if (worldObj) {
@@ -221,11 +225,24 @@ public class UserInput : MonoBehaviour {
                     }
 
                     // Building slot
-                    else if (buildingObj) {
+                    else if (buildingSlot) {
 
-                        _Player.SelectedBuildingSlot = buildingObj;
-                        buildingObj.SetPlayer(_Player);
-                        buildingObj.SetSelection(true);
+                        // Empty building slot
+                        if (buildingSlot.getBuildingOnSlot() == null) {
+
+                            _Player.SelectedBuildingSlot = buildingSlot;
+                            buildingSlot.SetPlayer(_Player);
+                            buildingSlot.SetSelection(true);
+                        }
+
+                        // Builded slot
+                        else {
+
+                            // Add selection to list
+                            _Player.SelectedWorldObjects.Add(buildingSlot.getBuildingOnSlot());
+                            buildingSlot.getBuildingOnSlot().SetPlayer(_Player);
+                            buildingSlot.getBuildingOnSlot().SetSelection(true);
+                        }
                     }
                 }
             }

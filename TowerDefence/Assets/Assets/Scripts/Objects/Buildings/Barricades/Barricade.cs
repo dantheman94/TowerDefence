@@ -2,13 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Barricade : Building {
+public class Barricade : Barrier {
 
-    //******************************************************************************************************************************
-    //
-    //      VARIABLES
-    //
-    //******************************************************************************************************************************
 
-    public enum EBarricadeType { MineField, LaserTrap, Barricade, BarricadeGarison, HeavyBarricade, HealingBarricade }
 }

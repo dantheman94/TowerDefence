@@ -2,6 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//******************************
+//
+//  Created by: Daniel Marton
+//
+//  Last edited by: Daniel Marton
+//  Last edited on: 5/24/2018
+//
+//******************************
+
 public class Generator : Building {
 
     //******************************************************************************************************************************
@@ -14,10 +23,7 @@ public class Generator : Building {
     [Header("-----------------------------------")]
     [Header(" GENERATOR PROPERTIES")]
     public eGeneratorType GeneratorType;
-
-    [Space]
-    [Header("-----------------------------------")]
-    [Header(" SUPPLY PROPERTIES")]
+    public eGeneratorType UpgradedGeneratorType;
     public eSupplyType SupplyType;
     public int SuppliesGivenWhenBuilt = 100;
     public int SuppliesGivenPerTick = 1;
