@@ -28,7 +28,7 @@ public class BuildingSlot : WorldObject/*Selectable*/ {
     //
     //******************************************************************************************************************************
 
-    protected Building _BuildingOnSlot = null;
+    public Building _BuildingOnSlot = null;
 
     //******************************************************************************************************************************
     //
@@ -41,16 +41,25 @@ public class BuildingSlot : WorldObject/*Selectable*/ {
         // Show building slot wheel
         if (_Player) {
 
-            // Cast object
-            List<Abstraction> selectables = new List<Abstraction>();
-            foreach (var item in _Buildings) { selectables.Add(item); }
+            // There ISNT a building on the slot
+            if (_BuildingOnSlot == null) {
 
-            // Update list then display on screen
-            _Player._HUD.SelectionWheel.setBuildingSlotInFocus(this);
-            _Player._HUD.SelectionWheel.UpdateList(selectables);
-            _Player._HUD.SelectionWheel.gameObject.SetActive(true);
+                // Cast object
+                List<Abstraction> selectables = new List<Abstraction>();
+                foreach (var item in _Buildings) { selectables.Add(item); }
 
-            _IsCurrentlySelected = true;
+                // Update list on the selection wheel
+                _Player._HUD.SelectionWheel.setBuildingSlotInFocus(this);
+                _Player._HUD.SelectionWheel.UpdateList(selectables);
+
+                // Show selection wheel
+                GameManager.Instance.SelectionWheel.SetActive(true);
+
+                _IsCurrentlySelected = true;
+            }
+
+            // There IS already a building on the slot
+            else { _BuildingOnSlot.OnSelectionWheel(); }
         }
     }
 
@@ -59,14 +68,14 @@ public class BuildingSlot : WorldObject/*Selectable*/ {
         // Show selection
         if (draw) {
 
-            if (!_Player._HUD.SelectionWheel.gameObject.activeSelf) {
+            if (!_Player._HUD.SelectionWheel.transform.parent.gameObject.activeSelf) {
 
                 DrawSelectionWheel();
             }
         }
 
         // Hide selection
-        else { if (_Player) { _Player._HUD.SelectionWheel.gameObject.SetActive(false); } }
+        ///else { if (_Player) { GameManager.Instance.SelectionWheel.SetActive(false); } }
     }
 
     protected override void ChangeSelection(Selectable selectObj) { base.ChangeSelection(selectObj);

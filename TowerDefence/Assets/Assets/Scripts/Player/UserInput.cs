@@ -31,6 +31,8 @@ public class UserInput : MonoBehaviour {
     private float _TimerRumble, _RumbleTime = 0f;
     private float _MotorLeft, _MotorRight = 0f;
 
+    private Vector3 _LookPoint;
+
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
@@ -42,6 +44,11 @@ public class UserInput : MonoBehaviour {
         // Get component references
         _Player = GetComponent<Player>();
         if (_Player) { _PlayerIndex = _Player._PlayerIndex; }
+        
+        // Initialize center point for LookAt() function
+        RaycastHit hit;
+        Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward * 1000, out hit);
+        _LookPoint = hit.point;
     }
 
     private void Update() {
@@ -106,10 +113,26 @@ public class UserInput : MonoBehaviour {
             movement.y += ResourceManager.MovementSpeed;
         if (Input.GetKey(KeyCode.S))
             movement.y -= ResourceManager.MovementSpeed;
-        if (Input.GetKey(KeyCode.A))
+
+        if (Input.GetKey(KeyCode.A) && (!Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.RightAlt))) {
+
             movement.x -= ResourceManager.MovementSpeed;
-        if (Input.GetKey(KeyCode.D))
+
+            // Update center point for LookAt() function
+            RaycastHit hit;
+            Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward * 1000, out hit);
+            _LookPoint = hit.point;
+        }
+
+        if (Input.GetKey(KeyCode.D) && (!Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.RightAlt))) {
+
             movement.x += ResourceManager.MovementSpeed;
+
+            // Update center point for LookAt() function
+            RaycastHit hit;
+            Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward * 1000, out hit);
+            _LookPoint = hit.point;
+        }
 
         // Horizontal camera movement via mouse
         if (xPos >= 0 && xPos < ResourceManager.ScreenOffset)
@@ -158,8 +181,11 @@ public class UserInput : MonoBehaviour {
             posDestination.y = ResourceManager.MinCameraHeight;
 
         // If a change in position is detected perform the necessary update
-        if (posDestination != posOrigin)
+        if (posDestination != posOrigin) {
+
+            // Update position
             Camera.main.transform.position = Vector3.MoveTowards(posOrigin, posDestination, Time.deltaTime * ResourceManager.MovementSpeed);
+        }
     }
 
     private void RotateCamera() {
@@ -168,13 +194,15 @@ public class UserInput : MonoBehaviour {
         Vector3 rotDestination = rotOrigin;
 
         // Detect rotation amount if ALT is being held and the Right mouse button is down
-        if ((Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt)))
+        if ((Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt))) {
+
             rotDestination.y += Input.GetAxis("Mouse X") * ResourceManager.RotateSpeed;
+            ///Camera.main.transform.LookAt(_LookPoint, Vector3.up);
+        }
 
         // If a change in position is detected perform the necessary update
         if (rotDestination != rotOrigin)
             Camera.main.transform.eulerAngles = Vector3.MoveTowards(rotOrigin, rotDestination, Time.deltaTime * ResourceManager.RotateSpeed);
-
     }
 
     private void MouseActivity() {
@@ -212,16 +240,18 @@ public class UserInput : MonoBehaviour {
                     }
 
                     // Cast hit object to selectable objects
-                    WorldObject worldObj = hitObject.transform.root.GetComponent<WorldObject>();
+                    Building buildingObj = hitObject.transform.root.GetComponent<Building>();
                     BuildingSlot buildingSlot = hitObject.transform.root.GetComponent<BuildingSlot>();
+                    WorldObject worldObj = hitObject.transform.root.GetComponent<WorldObject>();
 
-                    // world object
-                    if (worldObj) {
+                    // Building object
+                    if (buildingObj) {
 
                         // Add selection to list
                         _Player.SelectedWorldObjects.Add(worldObj);
-                        worldObj.SetPlayer(_Player);
-                        worldObj.SetSelection(true);
+                        buildingObj.SetPlayer(_Player);
+                        buildingObj.SetSelection(true);
+                        buildingObj.OnSelectionWheel();
                     }
 
                     // Building slot
@@ -242,7 +272,17 @@ public class UserInput : MonoBehaviour {
                             _Player.SelectedWorldObjects.Add(buildingSlot.getBuildingOnSlot());
                             buildingSlot.getBuildingOnSlot().SetPlayer(_Player);
                             buildingSlot.getBuildingOnSlot().SetSelection(true);
+                            buildingSlot.getBuildingOnSlot().OnSelectionWheel();
                         }
+                    }
+
+                    // World object
+                    else if (worldObj) {
+
+                        // Add selection to list
+                        _Player.SelectedWorldObjects.Add(worldObj);
+                        worldObj.SetPlayer(_Player);
+                        worldObj.SetSelection(true);
                     }
                 }
             }
@@ -263,7 +303,7 @@ public class UserInput : MonoBehaviour {
             _Player.SelectedWorldObjects.Clear();
 
             // Show/hide abilies wheel
-            _Player._HUD.setAbilitiesWheel(!_Player._HUD.AbilitiesWheel.activeInHierarchy);
+            _Player._HUD.SetAbilitiesWheel(!_Player._HUD.AbilitiesWheel.activeInHierarchy);
         }
     }
 

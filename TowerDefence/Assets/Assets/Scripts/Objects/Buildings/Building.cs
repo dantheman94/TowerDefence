@@ -45,7 +45,7 @@ public class Building : WorldObject {
     //
     //******************************************************************************************************************************
 
-    protected override void DrawSelectionWheel() { base.DrawSelectionWheel();
+    public void OnSelectionWheel() {
 
         // Show building slot wheel
         if (_Player) {
@@ -56,13 +56,14 @@ public class Building : WorldObject {
             foreach (var item in Upgrades)  { selectables.Add(item); }
 
             // Update list then display on screen
-            _Player._HUD.SelectionWheel.UpdateList(selectables);
-            _Player._HUD.SelectionWheel.gameObject.SetActive(true);
+            ///_Player._HUD.SelectionWheel.UpdateList(selectables);
+
+            // Show selection wheel
+            GameManager.Instance.SelectionWheel.SetActive(true);
 
             _IsCurrentlySelected = true;
         }
     }
-
 
     public override void OnWheelSelect(BuildingSlot buildingSlot) { base.OnWheelSelect(buildingSlot);
         

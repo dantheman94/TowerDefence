@@ -80,7 +80,7 @@ public class SelectionWheel : MonoBehaviour {
 
                 // Update button interactibility state
                 SelectionWheelUnitRef unitRef = button.GetComponent<SelectionWheelUnitRef>();
-                bool unlock = GameManager.Instance.Players[0]._Level >= unitRef.Unit.CostPlayerLevel;
+                bool unlock = GameManager.Instance.Players[0].Level >= unitRef.Unit.CostPlayerLevel;
                 button.interactable = unlock;
 
                 // Update item visibility
@@ -96,13 +96,20 @@ public class SelectionWheel : MonoBehaviour {
     public void ButtonVisibility(GameObject buttonItem, bool visibile) {
 
         Image imgComp = buttonItem.GetComponent<Image>();
+        Text txtComp = buttonItem.GetComponentInChildren<Text>();
         if (imgComp) {
             
             // Show / hide the button
             imgComp.gameObject.SetActive(visibile);
             
             if (buttonItem.GetComponent<Button>().interactable) { imgComp.color = new Color(0, 0, 0, 1); }
-            else                                                { imgComp.color = new Color(0, 0, 0, 0.75f); }
+            else                                                { imgComp.color = new Color(0, 0, 0, 0.5f); }
+        }
+        if (txtComp) {
+            
+            // Change the text colour depending if the button is locked or not
+            if (buttonItem.GetComponent<Button>().interactable) { txtComp.color = new Color(1, 1, 1, 1); }
+            else                                                { txtComp.color = new Color(0, 0, 0, 1); }
         }
     }
 

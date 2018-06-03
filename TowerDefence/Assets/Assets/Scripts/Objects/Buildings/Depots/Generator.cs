@@ -67,7 +67,7 @@ public class Generator : Building {
 
                     case eSupplyType.Resources: {
 
-                        _Player.ResourcesCount += SuppliesGivenPerTick;
+                        _Player.SuppliesCount += SuppliesGivenPerTick;
                         break;
                     }
                     case eSupplyType.Power: {

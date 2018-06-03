@@ -29,11 +29,13 @@ public class Player : MonoBehaviour {
     public List<WorldObject> SelectedWorldObjects { get; set; }
 
     // Economy
-    public int ResourcesCount { get; set; }
+    public int MaxPopulation { get; set; }
+    public int PopulationCount { get; set; }
+    public int SuppliesCount { get; set; }
     public int PowerCount { get; set; }
-    public int _Level { get; set; }
-    private int _Score = 0;
-    private int _WavesSurvived = 0;
+    public int Level { get; set; }
+    private int Score = 0;
+    private int WavesSurvived = 0;
 
     // HUD
     public HUD _HUD { get; private set; }
@@ -48,9 +50,15 @@ public class Player : MonoBehaviour {
         _HUD = GetComponent<HUD>();
 
         // Initialize new player entity
-        _Score = 0;
-        _Level = 1;
-        _WavesSurvived = 0;
+        Score = 0;
+        WavesSurvived = 0;
+
+        SuppliesCount = 0;
+        PowerCount = 0;
+        Level = 1;
+
+        PopulationCount = 0;
+        MaxPopulation = 60;
         SelectedWorldObjects = new List<WorldObject>();
     }
 
