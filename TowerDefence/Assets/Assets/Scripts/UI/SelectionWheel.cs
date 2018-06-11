@@ -1,8 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
-using TowerDefence;
+
+//******************************
+//
+//  Created by: Daniel Marton
+//
+//  Last edited by: Daniel Marton
+//  Last edited on: 10/6/2018
+//
+//******************************
 
 public class SelectionWheel : MonoBehaviour {
 
@@ -12,6 +20,26 @@ public class SelectionWheel : MonoBehaviour {
     //
     //******************************************************************************************************************************
 
+    [Space]
+    [Header("-----------------------------------")]
+    [Header(" ITEM HIGHLIGHT DETAIL WINDOW")]
+    [Space]
+    public Text DetailedHighlightTitle;
+    public Text DetailedHighlightDescription;
+
+    [Space]
+    [Header("-----------------------------------")]
+    [Header(" ITEM HIGHLIGHT CENTER PANEL")]
+    [Space]
+    public Text CenterHighlightTitle;
+    public Text CenterSupplyText;
+    public Text CenterPowerText;
+    public Text CenterPlayerLevelText;
+
+    [Space]
+    [Header("-----------------------------------")]
+    [Header(" BUTTONS ")]
+    [Space]
     public List<Button> _WheelButtons;
 
     //******************************************************************************************************************************
@@ -19,9 +47,9 @@ public class SelectionWheel : MonoBehaviour {
     //      VARIABLES
     //
     //******************************************************************************************************************************
-
+    
     [HideInInspector]
-    public List<Building> _BuildingList;
+    public List<Abstraction> _BuildingList;
     private BuildingSlot _BuildingSlotInFocus = null;
 
     //******************************************************************************************************************************
@@ -30,7 +58,11 @@ public class SelectionWheel : MonoBehaviour {
     //
     //******************************************************************************************************************************
 
-    public void UpdateList(List<Abstraction> list) {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="selectables"></param>
+    public void UpdateListWithBuildings(List<Abstraction> selectables) {
 
         // Reset button click events for all buttons
         foreach (var button in _WheelButtons) {
@@ -39,13 +71,13 @@ public class SelectionWheel : MonoBehaviour {
             button.onClick.RemoveAllListeners();
 
             // Add defaults
-            button.onClick.AddListener( () => HideSelectionWheel());
+            button.onClick.AddListener(() => HideSelectionWheel());
         }
 
-        // Clear list
+        // Clear list & update
         _BuildingList.Clear();
         int i = 0;
-        foreach (var obj in list) {
+        foreach (var obj in selectables) {
 
             if (obj != null) {
 
@@ -55,44 +87,93 @@ public class SelectionWheel : MonoBehaviour {
                 
                 // Update reference unit
                 SelectionWheelUnitRef unitRef = _WheelButtons[i].GetComponent<SelectionWheelUnitRef>();
-                unitRef.Unit = obj.GetComponent<WorldObject>();
+                unitRef.Unit = building.GetComponent<WorldObject>();
 
                 // Update button click event
                 _WheelButtons[i].onClick.AddListener(delegate { building.OnWheelSelect(_BuildingSlotInFocus); });
             }
             ++i;
         }
-
-        RefreshButtons(list);
+        RefreshButtons(selectables);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="selectable"></param>
+    public void UpdateListWithBuildables(List<Abstraction> selectable) {
+
+        // Reset button click events for all buttons
+        foreach (var button in _WheelButtons) {
+
+            // Clear
+            button.onClick.RemoveAllListeners();
+
+            // Add defaults
+            button.onClick.AddListener(() => HideSelectionWheel());
+        }
+
+        // Clear list & update
+        _BuildingList.Clear();
+        int i = 0;
+        foreach (var obj in selectable) {
+
+            if (obj != null) {
+
+                // Update list with new slots
+                _BuildingList.Add(obj);
+
+                // Update reference unit
+                SelectionWheelUnitRef unitRef = _WheelButtons[i].GetComponent<SelectionWheelUnitRef>();
+                unitRef.Unit = obj.GetComponent<WorldObject>();
+
+                // Update button click event
+                _WheelButtons[i].onClick.AddListener(delegate { obj.GetComponent<WorldObject>().OnWheelSelect(_BuildingSlotInFocus); });
+            }
+            ++i;
+        }
+        RefreshButtons(selectable);
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="list"></param>
     public void RefreshButtons(List<Abstraction> list) {
 
         int i = 0;
         foreach (var button in _WheelButtons) {
 
             // If valid
-            if (list[i] != null) {
+            if (list.Count > i) {
 
-                // Update button text
-                Text txtComp = button.GetComponentInChildren<Text>();
-                txtComp.text = list[i].ObjectName;
+                if (list[i] != null) {
 
-                // Update button interactibility state
-                SelectionWheelUnitRef unitRef = button.GetComponent<SelectionWheelUnitRef>();
-                bool unlock = GameManager.Instance.Players[0].Level >= unitRef.Unit.CostPlayerLevel;
-                button.interactable = unlock;
+                    // Update button text
+                    Text txtComp = button.GetComponentInChildren<Text>();
+                    txtComp.text = list[i].ObjectName;
 
-                // Update item visibility
-                ButtonVisibility(button.gameObject, true);
+                    // Update button interactibility state
+                    SelectionWheelUnitRef unitRef = button.GetComponent<SelectionWheelUnitRef>();
+                    bool unlock = GameManager.Instance.Players[0].Level >= unitRef.Unit.CostPlayerLevel;
+                    button.interactable = unlock;
+
+                    // Update item visibility
+                    ButtonVisibility(button.gameObject, true);
+                }
+
+                else { ButtonVisibility(button.gameObject, false); }
+
+                ++i;
             }
-
-            else { ButtonVisibility(button.gameObject, false); }
-
-            ++i;
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="buttonItem"></param>
+    /// <param name="visibile"></param>
     public void ButtonVisibility(GameObject buttonItem, bool visibile) {
 
         Image imgComp = buttonItem.GetComponent<Image>();
@@ -113,8 +194,14 @@ public class SelectionWheel : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public void ShowSelectionWheel() { GameManager.Instance.SelectionWheel.SetActive(true); }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public void HideSelectionWheel() {
 
         // Deselect all objects

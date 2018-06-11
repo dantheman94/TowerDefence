@@ -7,7 +7,7 @@ using UnityEngine;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 5/21/2018
+//  Last edited on: 21/5/2018
 //
 //******************************
 
@@ -21,10 +21,18 @@ public class GameManager : MonoBehaviour {
 
     [Space]
     [Header("-----------------------------------")]
+    [Header("START OF MATCH")]
+    public int StartingSupplyCount;
+    public int StartingPowerCount;
+    public int StartingPlayerLevel;
+
+    [Space]
+    [Header("-----------------------------------")]
     [Header("HUD")]
     public GameObject SelectionWheel;
     public GameObject AbilityWheel;
     public GameObject UnitHealthBar;
+    public GameObject BuildingInProgressPanel;
 
     //******************************************************************************************************************************
     //

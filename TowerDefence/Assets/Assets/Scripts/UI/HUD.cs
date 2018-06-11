@@ -46,7 +46,7 @@ public class HUD : MonoBehaviour {
         // Get component references
         _Player = GetComponent<Player>();
 
-        ResourceManager.StoreSelectBoxItems(SelectedPrefab);
+        Settings.StoreSelectBoxItems(SelectedPrefab);
     }
 
     private void Update() {
@@ -97,7 +97,7 @@ public class HUD : MonoBehaviour {
         if (Physics.Raycast(ray, out hit))
             return hit.point;
 
-        return ResourceManager.InvalidPosition;
+        return Settings.InvalidPosition;
     }
 
     public Rect GetPlayingArea() {  return new Rect(0, 0, Screen.width, Screen.height); }

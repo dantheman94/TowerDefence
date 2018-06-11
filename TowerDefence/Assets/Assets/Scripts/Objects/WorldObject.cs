@@ -8,7 +8,7 @@ using TowerDefence;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 5/10/2018
+//  Last edited on: 10/5/2018
 //
 //******************************
 
@@ -23,6 +23,7 @@ public class WorldObject : Selectable {
     [Space]
     [Header("-----------------------------------")]
     [Header(" WORLD OBJECT PROPERTIES")]
+    [Space]
     public Texture2D BuildImage;
     public int BuildTime = 20;
     public int CostSupplies = 0;
@@ -133,7 +134,7 @@ public class WorldObject : Selectable {
         if (draw) {
 
             // Show selection prefab at the bottom of the object
-            if (_SelectionObj == null) { _SelectionObj = Instantiate(ResourceManager.SelectBoxObjects); }
+            if (_SelectionObj == null) { _SelectionObj = Instantiate(Settings.SelectBoxObjects); }
             if (_SelectionObj != null) {
 
                 // Display prefab if not already being displayed
@@ -167,16 +168,33 @@ public class WorldObject : Selectable {
 
     public virtual void OnWheelSelect(BuildingSlot buildingSlot) {
 
-        // Start building object on the selected building slot
-        WorldObject clone = Instantiate(this);
-        clone.SetBuildingPosition(buildingSlot);
-        clone.gameObject.SetActive(true);
-        clone._ObjectState = WorldObjectStates.Building;
+        // Check if the player has enough resources to build the object
+        Player plyr = GameManager.Instance.Players[0];
+        if ((plyr.SuppliesCount >= this.CostSupplies) && (plyr.PowerCount >= this.CostPower)) {
 
-        // Create healthbar and allocate it to the unit
-        GameObject healthBarObj = Instantiate(GameManager.Instance.UnitHealthBar);
-        UnitHealthBar healthBar = healthBarObj.GetComponent<UnitHealthBar>();
-        healthBar.setObjectAttached(clone);
+            // Start building object on the selected building slot
+            WorldObject clone = Instantiate(this);
+            clone.SetBuildingPosition(buildingSlot);
+            clone.gameObject.SetActive(true);
+            clone._ObjectState = WorldObjectStates.Building;
+
+            // Create healthbar and allocate it to the unit
+            GameObject healthBarObj = Instantiate(GameManager.Instance.UnitHealthBar);
+            UnitHealthBar healthBar = healthBarObj.GetComponent<UnitHealthBar>();
+            healthBar.setObjectAttached(clone);
+            healthBarObj.gameObject.SetActive(true);
+
+            // Create building progress panel & allocate it to the unit
+            GameObject buildProgressObj = Instantiate(GameManager.Instance.BuildingInProgressPanel);
+            UnitBuildingCounter buildCounter = buildProgressObj.GetComponent<UnitBuildingCounter>();
+            buildCounter.setObjectAttached(clone);
+            buildCounter.setCameraAttached(GameManager.Instance.Players[0].PlayerCamera);
+            buildProgressObj.gameObject.SetActive(true);
+
+            // Deduct resources from player
+            plyr.SuppliesCount -= clone.CostSupplies;
+            plyr.PowerCount -= clone.CostPower;
+        }
     }
 
     public void Damage(int damage) {
@@ -200,5 +218,11 @@ public class WorldObject : Selectable {
     public void setHealthBar(UnitHealthBar healthBar) { _HealthBar = healthBar; }
 
     public bool isActiveInWorld() { return IsAlive() && (_ObjectState == WorldObjectStates.Active || _ObjectState == WorldObjectStates.Building); }
+
+    public int getHealth() { return _HitPoints; }
+
+    public float getCurrentBuildTimeRemaining() { return BuildTime - _CurrentBuildTime; }
+
+    public WorldObjectStates getObjectState() { return _ObjectState; }
 
 }

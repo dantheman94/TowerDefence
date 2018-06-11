@@ -110,13 +110,13 @@ public class UserInput : MonoBehaviour {
 
         // Keyboard movement WASD
         if (Input.GetKey(KeyCode.W))
-            movement.y += ResourceManager.MovementSpeed;
+            movement.y += Settings.MovementSpeed;
         if (Input.GetKey(KeyCode.S))
-            movement.y -= ResourceManager.MovementSpeed;
+            movement.y -= Settings.MovementSpeed;
 
         if (Input.GetKey(KeyCode.A) && (!Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.RightAlt))) {
 
-            movement.x -= ResourceManager.MovementSpeed;
+            movement.x -= Settings.MovementSpeed;
 
             // Update center point for LookAt() function
             RaycastHit hit;
@@ -126,7 +126,7 @@ public class UserInput : MonoBehaviour {
 
         if (Input.GetKey(KeyCode.D) && (!Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.RightAlt))) {
 
-            movement.x += ResourceManager.MovementSpeed;
+            movement.x += Settings.MovementSpeed;
 
             // Update center point for LookAt() function
             RaycastHit hit;
@@ -135,16 +135,16 @@ public class UserInput : MonoBehaviour {
         }
 
         // Horizontal camera movement via mouse
-        if (xPos >= 0 && xPos < ResourceManager.ScreenOffset)
-            movement.x -= ResourceManager.MovementSpeed;
-        else if (xPos <= Screen.width && xPos > Screen.width - ResourceManager.ScreenOffset)
-            movement.x += ResourceManager.MovementSpeed;
+        if (xPos >= 0 && xPos < Settings.ScreenOffset)
+            movement.x -= Settings.MovementSpeed;
+        else if (xPos <= Screen.width && xPos > Screen.width - Settings.ScreenOffset)
+            movement.x += Settings.MovementSpeed;
 
         // Vertical camera movement via mouse
-        if (yPos >= 0 && yPos < ResourceManager.ScreenOffset)
-            movement.z -= ResourceManager.MovementSpeed;
-        else if (yPos <= Screen.height && yPos > Screen.height - ResourceManager.ScreenOffset)
-            movement.z += ResourceManager.MovementSpeed;
+        if (yPos >= 0 && yPos < Settings.ScreenOffset)
+            movement.z -= Settings.MovementSpeed;
+        else if (yPos <= Screen.height && yPos > Screen.height - Settings.ScreenOffset)
+            movement.z += Settings.MovementSpeed;
 
         // Make sure movement is in the direction the camera is pointing
         // but ignore the vertical tilt of the camera to get sensible scrolling
@@ -156,14 +156,14 @@ public class UserInput : MonoBehaviour {
         if (Input.GetAxis("Mouse ScrollWheel") > 0) {
 
             // Zoomming in
-            if (fov > ResourceManager.MinFov)
-                Camera.main.fieldOfView -= Time.deltaTime * ResourceManager.ZoomSpeed;
+            if (fov > Settings.MinFov)
+                Camera.main.fieldOfView -= Time.deltaTime * Settings.ZoomSpeed;
         }
         if (Input.GetAxis("Mouse ScrollWheel") < 0) {
 
             // Zoomming out
-            if (fov < ResourceManager.MaxFov)
-                Camera.main.fieldOfView += Time.deltaTime * ResourceManager.ZoomSpeed;
+            if (fov < Settings.MaxFov)
+                Camera.main.fieldOfView += Time.deltaTime * Settings.ZoomSpeed;
         }
 
         // Calculate desired camera position based on received input
@@ -174,17 +174,17 @@ public class UserInput : MonoBehaviour {
         posDestination.z += movement.z;
 
         // Limit away from ground movement to be between a minimum and maximum distance
-        if (posDestination.y > ResourceManager.MaxCameraHeight)
-            posDestination.y = ResourceManager.MaxCameraHeight;
+        if (posDestination.y > Settings.MaxCameraHeight)
+            posDestination.y = Settings.MaxCameraHeight;
 
-        else if (posDestination.y < ResourceManager.MinCameraHeight)
-            posDestination.y = ResourceManager.MinCameraHeight;
+        else if (posDestination.y < Settings.MinCameraHeight)
+            posDestination.y = Settings.MinCameraHeight;
 
         // If a change in position is detected perform the necessary update
         if (posDestination != posOrigin) {
 
             // Update position
-            Camera.main.transform.position = Vector3.MoveTowards(posOrigin, posDestination, Time.deltaTime * ResourceManager.MovementSpeed);
+            Camera.main.transform.position = Vector3.MoveTowards(posOrigin, posDestination, Time.deltaTime * Settings.MovementSpeed);
         }
     }
 
@@ -196,13 +196,13 @@ public class UserInput : MonoBehaviour {
         // Detect rotation amount if ALT is being held and the Right mouse button is down
         if ((Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt))) {
 
-            rotDestination.y += Input.GetAxis("Mouse X") * ResourceManager.RotateSpeed;
+            rotDestination.y += Input.GetAxis("Mouse X") * Settings.RotateSpeed;
             ///Camera.main.transform.LookAt(_LookPoint, Vector3.up);
         }
 
         // If a change in position is detected perform the necessary update
         if (rotDestination != rotOrigin)
-            Camera.main.transform.eulerAngles = Vector3.MoveTowards(rotOrigin, rotDestination, Time.deltaTime * ResourceManager.RotateSpeed);
+            Camera.main.transform.eulerAngles = Vector3.MoveTowards(rotOrigin, rotDestination, Time.deltaTime * Settings.RotateSpeed);
     }
 
     private void MouseActivity() {
@@ -221,7 +221,7 @@ public class UserInput : MonoBehaviour {
             // Precautions
             GameObject hitObject = _Player._HUD.FindHitObject();
             Vector3 hitPoint = _Player._HUD.FindHitPoint();
-            if (hitObject && hitPoint != ResourceManager.InvalidPosition) {
+            if (hitObject && hitPoint != Settings.InvalidPosition) {
                 
                 if (hitObject.name != "Ground") {
 

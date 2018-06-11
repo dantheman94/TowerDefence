@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using TowerDefence;
 using UnityEngine.UI;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 //******************************
 //
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 5/10/2018
+//  Last edited on: 10/5/2018
 //
 //******************************
 
@@ -24,12 +26,8 @@ public class Building : WorldObject {
     [Space]
     [Header("-----------------------------------")]
     [Header(" BUILDABLES ")]
-    public List<Unit> Units;
-
     [Space]
-    [Header("-----------------------------------")]
-    [Header(" UPGRADES ")]
-    public List<Upgrades> Upgrades;
+    public List<Abstraction> Selectables;
 
     //******************************************************************************************************************************
     //
@@ -48,15 +46,11 @@ public class Building : WorldObject {
     public void OnSelectionWheel() {
 
         // Show building slot wheel
-        if (_Player) {
-
-            // Cast object
-            List<Abstraction> selectables = new List<Abstraction>();
-            foreach (var item in Units)     { selectables.Add(item); }
-            foreach (var item in Upgrades)  { selectables.Add(item); }
+        if (_Player && Selectables.Count > 0) {
 
             // Update list then display on screen
-            ///_Player._HUD.SelectionWheel.UpdateList(selectables);
+            ///_Player._HUD.SelectionWheel.setBuildingSlotInFocus(BuildingSlot);
+            _Player._HUD.SelectionWheel.UpdateListWithBuildables(Selectables);
 
             // Show selection wheel
             GameManager.Instance.SelectionWheel.SetActive(true);
@@ -70,5 +64,92 @@ public class Building : WorldObject {
         // Update building slot ref with building
         buildingSlot.setBuildingOnSlot(this.GetComponent<Building>());
     }
+
+    //******************************************************************************************************************************
+    //
+    //      EVENTS
+    //
+    //******************************************************************************************************************************
+
+    //**************************************
+    //      LIGHT BARRACKS
+    //**************************************
+
+    public void CreateLightInfantrySquad() {
+                
+    }
+
+    public void CreateLightAntiInfantrySquad() {
+        
+    }
+
+    public void CreateLightSniperUnit() {
+        
+    }
+
+    //**************************************
+    //      HEAVY BARRACKS
+    //**************************************
+
+    public void CreateHeavyGrenadierSquad() {
+
+    }
+
+    public void CreateHeavyAntiAirSquad() {
+
+    }
+
+    public void CreateHeroUnit() {
+
+    }
+
+    //**************************************
+    //      GARAGE
+    //**************************************
+
+
+    //**************************************
+    //      AIRPAD
+    //**************************************
+
+
+    //**************************************
+    //      SUPPLY PAD
+    //**************************************
+
+
+    //**************************************
+    //      POWER GENERATOR
+    //**************************************
+
+
+    //**************************************
+    //      MINIBASE
+    //**************************************
+
+
+    //**************************************
+    //      OUTPOST
+    //**************************************
+
+
+    //**************************************
+    //      HEADQUARTERS
+    //**************************************
+
+
+    //**************************************
+    //      COMMAND CENTER
+    //**************************************
+
+
+    //**************************************
+    //      BASE TURRET
+    //**************************************
+
+
+    //**************************************
+    //      WATCH TOWER
+    //**************************************
 
 }

@@ -8,11 +8,11 @@ using TowerDefence;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 5/10/2018
+//  Last edited on: 10/5/2018
 //
 //******************************
 
-public class BuildingSlot : WorldObject/*Selectable*/ {
+public class BuildingSlot : WorldObject {
 
     //******************************************************************************************************************************
     //
@@ -20,16 +20,19 @@ public class BuildingSlot : WorldObject/*Selectable*/ {
     //
     //******************************************************************************************************************************
 
-    public List<Building> _Buildings;
-
-    //******************************************************************************************************************************
-    //
-    //      VARIALBES
-    //
-    //******************************************************************************************************************************
-
+    [Space]
+    [Header("-----------------------------------")]
+    [Header(" BUILDING SLOT PROPERTIES")]
+    [Space]
     public Building _BuildingOnSlot = null;
+    public List<Building> Buildings;
 
+    //******************************************************************************************************************************
+    //
+    //      VARIABLES
+    //
+    //******************************************************************************************************************************
+    
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
@@ -46,11 +49,15 @@ public class BuildingSlot : WorldObject/*Selectable*/ {
 
                 // Cast object
                 List<Abstraction> selectables = new List<Abstraction>();
-                foreach (var item in _Buildings) { selectables.Add(item); }
+                foreach (var item in Buildings) { selectables.Add(item); }
 
                 // Update list on the selection wheel
                 _Player._HUD.SelectionWheel.setBuildingSlotInFocus(this);
-                _Player._HUD.SelectionWheel.UpdateList(selectables);
+                _Player._HUD.SelectionWheel.UpdateListWithBuildings(selectables);
+
+                // Reset selection wheel highlight
+                _Player._HUD.SelectionWheel.DetailedHighlightTitle.text = "";
+                _Player._HUD.SelectionWheel.DetailedHighlightDescription.text = "";
 
                 // Show selection wheel
                 GameManager.Instance.SelectionWheel.SetActive(true);

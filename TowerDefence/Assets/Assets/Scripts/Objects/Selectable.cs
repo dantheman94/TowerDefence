@@ -42,7 +42,7 @@ public class Selectable : Abstraction {
 
     protected virtual void Awake() {
 
-        selectionBounds = ResourceManager.InvalidBounds;
+        selectionBounds = Settings.InvalidBounds;
         CalculateBounds();
     }
 
@@ -57,7 +57,6 @@ public class Selectable : Abstraction {
 
         // Update selection
         DrawSelection(_IsCurrentlySelected);
-        var v = this;
     }
 
     public virtual void CalculateBounds() {}

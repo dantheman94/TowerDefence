@@ -7,7 +7,7 @@ using UnityEngine;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 5/24/2018
+//  Last edited on: 24/5/2018
 //
 //******************************
 
@@ -48,12 +48,18 @@ public class Generator : Building {
     //
     //******************************************************************************************************************************
 
+    /// <summary>
+    /// 
+    /// </summary>
     protected override void Start() { base.Start();
 
         // Initialize starting supply rate
         _CurrentSupplyRate = SupplyRate;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     protected override void Update() { base.Update();
 
         if (IsAlive() && _Deployed) {

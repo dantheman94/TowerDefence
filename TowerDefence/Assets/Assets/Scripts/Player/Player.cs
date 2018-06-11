@@ -9,19 +9,26 @@ using XInputDotNetPure;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 5/8/2018
+//  Last edited on: 8/5/2018
 //
 //******************************
 
 public class Player : MonoBehaviour {
 
     //******************************************************************************************************************************
-    // INSPECTOR
+    //
+    //      INSPECTOR
+    //
+    //******************************************************************************************************************************
 
     public PlayerIndex _PlayerIndex = PlayerIndex.One;
+    public Camera PlayerCamera = null;
 
     //******************************************************************************************************************************
-    // VARIABLES
+    //
+    //      VARIABLES
+    //
+    //******************************************************************************************************************************
 
     // Input
     public UserInput _Input { get; private set; }
@@ -41,8 +48,14 @@ public class Player : MonoBehaviour {
     public HUD _HUD { get; private set; }
 
     //******************************************************************************************************************************
-    // FUNCTIONS
+    //
+    //      FUNCTIONS
+    //
+    //******************************************************************************************************************************
 
+    /// <summary>
+    /// 
+    /// </summary>
     private void Start() {
 
         // Get component references
@@ -53,15 +66,18 @@ public class Player : MonoBehaviour {
         Score = 0;
         WavesSurvived = 0;
 
-        SuppliesCount = 0;
-        PowerCount = 0;
-        Level = 1;
+        SuppliesCount = GameManager.Instance.StartingSupplyCount;
+        PowerCount = GameManager.Instance.StartingPowerCount;
+        Level = GameManager.Instance.StartingPlayerLevel;
 
         PopulationCount = 0;
         MaxPopulation = 60;
         SelectedWorldObjects = new List<WorldObject>();
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     private void Update() {
 
     }

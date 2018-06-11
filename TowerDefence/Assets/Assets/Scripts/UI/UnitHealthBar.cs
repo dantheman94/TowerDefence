@@ -8,7 +8,7 @@ using UnityEngine.UI;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 5/26/2018
+//  Last edited on: 26/5/2018
 //
 //******************************
 

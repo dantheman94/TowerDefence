@@ -13,7 +13,7 @@ using UnityEngine;
 
 namespace TowerDefence {
 
-    public static class ResourceManager {
+    public static class Settings {
 
         // Camera Movement
         public static int ScreenOffset { get { return 50; } }
