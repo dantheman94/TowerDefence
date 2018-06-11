@@ -120,6 +120,14 @@ public class SelectionWheel : MonoBehaviour {
 
             if (obj != null) {
 
+                // If slot is an upgrade
+                Upgrade upgrade = obj.GetComponent<Upgrade>();
+                if (upgrade != null) {
+
+                    // Dont update wheel with this button since its the upgrade is maxed out
+                    if (upgrade.HasMaxUpgrade()) { continue; }
+                }
+
                 // Update list with new slots
                 _BuildingList.Add(obj);
 

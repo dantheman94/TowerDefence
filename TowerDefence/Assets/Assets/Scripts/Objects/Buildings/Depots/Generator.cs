@@ -37,8 +37,7 @@ public class Generator : Building {
 
     public enum eGeneratorType  { SupplyPad, HeavySupplyPad, PowerGenerator, HeavyPowerGenerator }
     public enum eSupplyType     { Resources, Power }
-
-    private int _CurrentSupplies = 0;
+    
     private float _SupplyTimer = 0f;
     private float _CurrentSupplyRate;
 
@@ -64,8 +63,8 @@ public class Generator : Building {
 
         if (IsAlive() && _Deployed) {
 
-            // Keep generating supplies for its player
-            if (_SupplyTimer < SupplyRate) { _SupplyTimer += Time.deltaTime; }
+            // Keep generating supplies for the player
+            if (_SupplyTimer < _CurrentSupplyRate) { _SupplyTimer += Time.deltaTime; }
             else {
                 
                 _SupplyTimer = 0f;
@@ -76,6 +75,7 @@ public class Generator : Building {
                         _Player.SuppliesCount += SuppliesGivenPerTick;
                         break;
                     }
+                    
                     case eSupplyType.Power: {
 
                         _Player.PowerCount += SuppliesGivenPerTick;

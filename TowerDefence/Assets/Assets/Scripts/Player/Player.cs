@@ -71,7 +71,7 @@ public class Player : MonoBehaviour {
         Level = GameManager.Instance.StartingPlayerLevel;
 
         PopulationCount = 0;
-        MaxPopulation = 60;
+        MaxPopulation = GameManager.Instance.StartingMaxPopulation;
         SelectedWorldObjects = new List<WorldObject>();
     }
 

@@ -22,13 +22,16 @@ public class GameManager : MonoBehaviour {
     [Space]
     [Header("-----------------------------------")]
     [Header("START OF MATCH")]
+    [Space]
     public int StartingSupplyCount;
     public int StartingPowerCount;
     public int StartingPlayerLevel;
+    public int StartingMaxPopulation;
 
     [Space]
     [Header("-----------------------------------")]
     [Header("HUD")]
+    [Space]
     public GameObject SelectionWheel;
     public GameObject AbilityWheel;
     public GameObject UnitHealthBar;
@@ -54,6 +57,9 @@ public class GameManager : MonoBehaviour {
     //
     //******************************************************************************************************************************
 
+    /// <summary>
+    /// 
+    /// </summary>
     private void Awake() {
 
         // Initialize singleton
@@ -69,6 +75,9 @@ public class GameManager : MonoBehaviour {
         Selectables = new List<Selectable>();
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     private void Start() {
         
         // Get all player entities

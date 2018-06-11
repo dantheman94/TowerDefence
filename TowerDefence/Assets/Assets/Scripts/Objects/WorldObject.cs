@@ -51,6 +51,7 @@ public class WorldObject : Selectable {
     protected WorldObjectStates _ObjectState = WorldObjectStates.Default;
     protected int _HitPoints;
     protected UnitHealthBar _HealthBar = null;
+    protected WorldObject _ClonedWorldObject = null;
 
     //******************************************************************************************************************************
     //
@@ -58,6 +59,9 @@ public class WorldObject : Selectable {
     //
     //******************************************************************************************************************************
 
+    /// <summary>
+    /// 
+    /// </summary>
     protected override void Start() { base.Start();
 
         // Initialize health
@@ -67,6 +71,9 @@ public class WorldObject : Selectable {
         _OffsetY = transform.position.y;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     protected override void Update() { base.Update();
 
         // Has unit building started?
@@ -102,8 +109,14 @@ public class WorldObject : Selectable {
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     protected virtual void DrawSelectionWheel() { }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public override void CalculateBounds() { base.CalculateBounds();
 
         selectionBounds = new Bounds(transform.position, Vector3.zero);
@@ -114,6 +127,10 @@ public class WorldObject : Selectable {
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="selectObj"></param>
     protected override void ChangeSelection(Selectable selectObj) { base.ChangeSelection(selectObj);
 
         // This should be called by the following line, but there is an outside chance it will not
@@ -128,6 +145,10 @@ public class WorldObject : Selectable {
         selectObj.SetSelection(true);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="draw"></param>
     protected override void DrawSelection(bool draw) { base.DrawSelection(draw);
 
         // Show selection
@@ -153,6 +174,11 @@ public class WorldObject : Selectable {
         else { if (_SelectionObj != null) { _SelectionObj.SetActive(false); } }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="hitObject"></param>
+    /// <param name="hitPoint"></param>
     public override void MouseClick(GameObject hitObject, Vector3 hitPoint) { base.MouseClick(hitObject, hitPoint);
 
         // Only handle input if currently selected
@@ -166,6 +192,10 @@ public class WorldObject : Selectable {
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="buildingSlot"></param>
     public virtual void OnWheelSelect(BuildingSlot buildingSlot) {
 
         // Check if the player has enough resources to build the object
@@ -173,30 +203,34 @@ public class WorldObject : Selectable {
         if ((plyr.SuppliesCount >= this.CostSupplies) && (plyr.PowerCount >= this.CostPower)) {
 
             // Start building object on the selected building slot
-            WorldObject clone = Instantiate(this);
-            clone.SetBuildingPosition(buildingSlot);
-            clone.gameObject.SetActive(true);
-            clone._ObjectState = WorldObjectStates.Building;
+            _ClonedWorldObject = Instantiate(this);
+            _ClonedWorldObject.SetBuildingPosition(buildingSlot);
+            _ClonedWorldObject.gameObject.SetActive(true);
+            _ClonedWorldObject._ObjectState = WorldObjectStates.Building;
 
             // Create healthbar and allocate it to the unit
             GameObject healthBarObj = Instantiate(GameManager.Instance.UnitHealthBar);
             UnitHealthBar healthBar = healthBarObj.GetComponent<UnitHealthBar>();
-            healthBar.setObjectAttached(clone);
+            healthBar.setObjectAttached(_ClonedWorldObject);
             healthBarObj.gameObject.SetActive(true);
 
             // Create building progress panel & allocate it to the unit
             GameObject buildProgressObj = Instantiate(GameManager.Instance.BuildingInProgressPanel);
             UnitBuildingCounter buildCounter = buildProgressObj.GetComponent<UnitBuildingCounter>();
-            buildCounter.setObjectAttached(clone);
+            buildCounter.setObjectAttached(_ClonedWorldObject);
             buildCounter.setCameraAttached(GameManager.Instance.Players[0].PlayerCamera);
             buildProgressObj.gameObject.SetActive(true);
 
             // Deduct resources from player
-            plyr.SuppliesCount -= clone.CostSupplies;
-            plyr.PowerCount -= clone.CostPower;
+            plyr.SuppliesCount -= _ClonedWorldObject.CostSupplies;
+            plyr.PowerCount -= _ClonedWorldObject.CostPower;
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="damage"></param>
     public void Damage(int damage) {
 
         // Damage object & clamp health to 0 if it exceeds
@@ -204,8 +238,16 @@ public class WorldObject : Selectable {
         if (_HitPoints < 0) { _HitPoints = 0; }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
     public bool IsAlive() { return _HitPoints > 0f; }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="buildingSlot"></param>
     private void SetBuildingPosition(BuildingSlot buildingSlot) {
 
         // Initial transform update
@@ -215,14 +257,34 @@ public class WorldObject : Selectable {
         transform.position = new Vector3(transform.position.x, _OffsetY, transform.position.z);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="healthBar"></param>
     public void setHealthBar(UnitHealthBar healthBar) { _HealthBar = healthBar; }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
     public bool isActiveInWorld() { return IsAlive() && (_ObjectState == WorldObjectStates.Active || _ObjectState == WorldObjectStates.Building); }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
     public int getHealth() { return _HitPoints; }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
     public float getCurrentBuildTimeRemaining() { return BuildTime - _CurrentBuildTime; }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
     public WorldObjectStates getObjectState() { return _ObjectState; }
 
 }

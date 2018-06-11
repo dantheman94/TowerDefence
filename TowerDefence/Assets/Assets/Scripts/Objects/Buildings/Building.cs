@@ -35,7 +35,7 @@ public class Building : WorldObject {
     //
     //******************************************************************************************************************************
 
-
+    protected BuildingSlot _BuildingSlot = null;
 
     //******************************************************************************************************************************
     //
@@ -43,6 +43,9 @@ public class Building : WorldObject {
     //
     //******************************************************************************************************************************
 
+    /// <summary>
+    /// 
+    /// </summary>
     public void OnSelectionWheel() {
 
         // Show building slot wheel
@@ -59,10 +62,38 @@ public class Building : WorldObject {
         }
     }
 
-    public override void OnWheelSelect(BuildingSlot buildingSlot) { base.OnWheelSelect(buildingSlot);
-        
-        // Update building slot ref with building
-        buildingSlot.setBuildingOnSlot(this.GetComponent<Building>());
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="buildingSlot"></param>
+    public override void OnWheelSelect(BuildingSlot buildingSlot) {
+        base.OnWheelSelect(buildingSlot);
+
+        // Get reference to the newly cloned building
+        if (_ClonedWorldObject != null) {
+            Building building = _ClonedWorldObject.GetComponent<Building>();
+            building._BuildingSlot = buildingSlot;
+
+            // Update building slot ref with building
+            buildingSlot.setBuildingOnSlot(building);
+        }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public void RecycleBuilding() {
+
+        // Add resources back to player
+        Player player = GameManager.Instance.Players[0];
+        player.SuppliesCount += RecycleSupplies;
+        player.PowerCount += RecyclePower;
+
+        // Destroy building
+        Destroy(_BuildingSlot._BuildingOnSlot.gameObject);
+
+        // Make building slot availiable again
+        _BuildingSlot.setBuildingOnSlot(null);
     }
 
     //******************************************************************************************************************************
@@ -106,7 +137,7 @@ public class Building : WorldObject {
     //**************************************
     //      GARAGE
     //**************************************
-
+    
 
     //**************************************
     //      AIRPAD

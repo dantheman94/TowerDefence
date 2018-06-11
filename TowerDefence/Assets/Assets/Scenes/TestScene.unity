@@ -1448,7 +1448,7 @@ MonoBehaviour:
   UpgradeLevel: 0
   PlayerLevel: 0
   SupplyCost: 0
-  PowerCost: 0
+  PowerCost: 850
 --- !u!1 &148390328
 GameObject:
   m_ObjectHideFlags: 0
@@ -3181,10 +3181,10 @@ MonoBehaviour:
   ObjectDescription: 
   BuildImage: {fileID: 0}
   BuildTime: 20
-  CostSupplies: 0
+  CostSupplies: 350
   CostPower: 0
   CostPlayerLevel: 1
-  RecycleSupplies: 0
+  RecycleSupplies: 200
   RecyclePower: 0
   MaxHitPoints: 100
   MaxShieldPoints: 0
@@ -3239,9 +3239,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90b78cdabd605534580ad70e610d9892, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartingSupplyCount: 500
-  StartingPowerCount: 200
+  StartingSupplyCount: 100000
+  StartingPowerCount: 100000
   StartingPlayerLevel: 1
+  StartingMaxPopulation: 50
   SelectionWheel: {fileID: 2007269703}
   AbilityWheel: {fileID: 2081543080}
   UnitHealthBar: {fileID: 1358827862}
@@ -3485,6 +3486,10 @@ MonoBehaviour:
   MultiSelectable: 1
   _Deployed: 0
   _OffsetY: 0
+  UpgradeCosts:
+  - {fileID: 982163920}
+  - {fileID: 1194770686}
+  - {fileID: 140490831}
   UpgradePath:
   - m_PersistentCalls:
       m_Calls:
@@ -5126,7 +5131,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 45
+  m_RootOrder: 46
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &459969493
 GameObject:
@@ -6031,6 +6036,7 @@ MonoBehaviour:
   MultiSelectable: 1
   _Deployed: 0
   _OffsetY: 0
+  UpgradeCosts: []
   UpgradePath: []
 --- !u!1 &491941107
 GameObject:
@@ -6869,7 +6875,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4768023515448394, guid: 8d4db72b7f9fa544195a6b65bfd1998c, type: 2}
       propertyPath: m_RootOrder
-      value: 41
+      value: 42
       objectReference: {fileID: 0}
     - target: {fileID: 1543184747205736, guid: 8d4db72b7f9fa544195a6b65bfd1998c, type: 2}
       propertyPath: m_IsActive
@@ -6926,7 +6932,7 @@ MonoBehaviour:
   UpgradeLevel: 0
   PlayerLevel: 0
   SupplyCost: 0
-  PowerCost: 0
+  PowerCost: 900
 --- !u!1 &540410276
 GameObject:
   m_ObjectHideFlags: 0
@@ -8004,7 +8010,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 48
+  m_RootOrder: 49
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &662302524
 GameObject:
@@ -8205,7 +8211,7 @@ Transform:
   - {fileID: 1705521620}
   - {fileID: 1011314878}
   m_Father: {fileID: 0}
-  m_RootOrder: 49
+  m_RootOrder: 50
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!65 &662302532
 BoxCollider:
@@ -8970,7 +8976,7 @@ MonoBehaviour:
   ObjectDescription: 
   BuildImage: {fileID: 0}
   BuildTime: 20
-  CostSupplies: 0
+  CostSupplies: 150
   CostPower: 0
   CostPlayerLevel: 1
   RecycleSupplies: 0
@@ -9260,7 +9266,7 @@ Transform:
   - {fileID: 434828140}
   - {fileID: 1087794615}
   m_Father: {fileID: 0}
-  m_RootOrder: 50
+  m_RootOrder: 51
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &734185653
 GameObject:
@@ -9564,7 +9570,7 @@ MonoBehaviour:
   BuildImage: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
-  CostPower: 0
+  CostPower: 1500
   CostPlayerLevel: 1
   RecycleSupplies: 0
   RecyclePower: 0
@@ -9937,7 +9943,7 @@ MonoBehaviour:
   UpgradeLevel: 0
   PlayerLevel: 0
   SupplyCost: 0
-  PowerCost: 0
+  PowerCost: 350
 --- !u!1 &815627146
 GameObject:
   m_ObjectHideFlags: 0
@@ -10541,7 +10547,7 @@ Transform:
   - {fileID: 92009090}
   - {fileID: 2109096085}
   m_Father: {fileID: 0}
-  m_RootOrder: 51
+  m_RootOrder: 52
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &870782216
 GameObject:
@@ -12016,7 +12022,7 @@ MonoBehaviour:
   UpgradeLevel: 0
   PlayerLevel: 0
   SupplyCost: 0
-  PowerCost: 0
+  PowerCost: 250
 --- !u!1 &986813711
 GameObject:
   m_ObjectHideFlags: 0
@@ -12101,6 +12107,61 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 986813711}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &995202218
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 995202219}
+  - component: {fileID: 995202220}
+  m_Layer: 0
+  m_Name: pfb_RecycleBuilding
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &995202219
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 995202218}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 39
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &995202220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 995202218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72c42299efb4da0499db14e624fae9e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectName: Recycle Building
+  ObjectDescription: Free up the slot this building is on by destroying the building.
+    Returns some resources back.
+  BuildImage: {fileID: 0}
+  BuildTime: 20
+  CostSupplies: 0
+  CostPower: 0
+  CostPlayerLevel: 1
+  RecycleSupplies: 0
+  RecyclePower: 0
+  MaxHitPoints: 100
+  MaxShieldPoints: 0
+  MultiSelectable: 0
+  _Deployed: 0
+  _OffsetY: 0
 --- !u!1 &1000007893
 GameObject:
   m_ObjectHideFlags: 0
@@ -13016,6 +13077,7 @@ MonoBehaviour:
   MultiSelectable: 1
   _Deployed: 0
   _OffsetY: 0
+  UpgradeCosts: []
   UpgradePath: []
 --- !u!1 &1098090524
 GameObject:
@@ -13256,11 +13318,11 @@ MonoBehaviour:
   ObjectDescription: 
   BuildImage: {fileID: 0}
   BuildTime: 20
-  CostSupplies: 0
-  CostPower: 0
+  CostSupplies: 500
+  CostPower: 250
   CostPlayerLevel: 1
-  RecycleSupplies: 0
-  RecyclePower: 0
+  RecycleSupplies: 350
+  RecyclePower: 150
   MaxHitPoints: 100
   MaxShieldPoints: 0
   MultiSelectable: 1
@@ -13963,7 +14025,7 @@ MonoBehaviour:
   UpgradeLevel: 0
   PlayerLevel: 0
   SupplyCost: 0
-  PowerCost: 0
+  PowerCost: 500
 --- !u!1 &1207024618
 GameObject:
   m_ObjectHideFlags: 0
@@ -14851,7 +14913,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 42
+  m_RootOrder: 43
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1308651144
 GameObject:
@@ -15593,6 +15655,10 @@ MonoBehaviour:
   MultiSelectable: 1
   _Deployed: 0
   _OffsetY: 0
+  UpgradeCosts:
+  - {fileID: 811841078}
+  - {fileID: 1795348590}
+  - {fileID: 538834791}
   UpgradePath:
   - m_PersistentCalls:
       m_Calls:
@@ -15733,7 +15799,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 39
+  m_RootOrder: 40
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1432421225
 Prefab:
@@ -16960,7 +17026,7 @@ Transform:
   - {fileID: 1231816425}
   - {fileID: 622061594}
   m_Father: {fileID: 0}
-  m_RootOrder: 44
+  m_RootOrder: 45
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!114 &1535705184
 MonoBehaviour:
@@ -18540,7 +18606,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 47
+  m_RootOrder: 48
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1642525533
 GameObject:
@@ -18736,7 +18802,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 40
+  m_RootOrder: 41
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1663052733
 GameObject:
@@ -19027,6 +19093,7 @@ MonoBehaviour:
   MultiSelectable: 1
   _Deployed: 0
   _OffsetY: 0
+  UpgradeCosts: []
   UpgradePath: []
 --- !u!1 &1705521619
 GameObject:
@@ -19643,6 +19710,7 @@ MonoBehaviour:
   MultiSelectable: 1
   _Deployed: 0
   _OffsetY: 0
+  UpgradeCosts: []
   UpgradePath: []
 --- !u!1 &1761799066
 GameObject:
@@ -19975,9 +20043,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UpgradeLevel: 0
-  PlayerLevel: 0
+  PlayerLevel: 1
   SupplyCost: 0
-  PowerCost: 0
+  PowerCost: 700
 --- !u!1 &1801803670
 GameObject:
   m_ObjectHideFlags: 0
@@ -20039,7 +20107,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 46
+  m_RootOrder: 47
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1810118902
 GameObject:
@@ -20263,6 +20331,10 @@ MonoBehaviour:
   MultiSelectable: 1
   _Deployed: 0
   _OffsetY: 0
+  UpgradeCosts:
+  - {fileID: 639882475}
+  - {fileID: 1966461411}
+  - {fileID: 904910711}
   UpgradePath:
   - m_PersistentCalls:
       m_Calls:
@@ -20432,7 +20504,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 879a7ba6357f1174a95c28c280e8cf01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObjectName: Heavy Barracks
+  ObjectName: Specialist Armoury
   ObjectDescription: 
   BuildImage: {fileID: 0}
   BuildTime: 20
@@ -20452,7 +20524,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 995202220}
   - {fileID: 0}
   - {fileID: 1751585110}
   - {fileID: 1688141623}
@@ -20839,6 +20911,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1884052756}
+  - component: {fileID: 1884052757}
   m_Layer: 0
   m_Name: pfb_LightAntiInfantrySquad
   m_TagString: Untagged
@@ -20859,6 +20932,31 @@ Transform:
   m_Father: {fileID: 7895863}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1884052757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1884052755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c618c1e21c7089a4e9c4fcecd556a63b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectName: Anti Infantry Squad
+  ObjectDescription: 
+  BuildImage: {fileID: 0}
+  BuildTime: 20
+  CostSupplies: 95
+  CostPower: 35
+  CostPlayerLevel: 1
+  RecycleSupplies: 0
+  RecyclePower: 0
+  MaxHitPoints: 100
+  MaxShieldPoints: 0
+  MultiSelectable: 1
+  _Deployed: 0
+  _OffsetY: 0
 --- !u!1001 &1917759180
 Prefab:
   m_ObjectHideFlags: 0
@@ -21161,7 +21259,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 43
+  m_RootOrder: 44
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1957563186
 GameObject:
@@ -21582,6 +21680,10 @@ MonoBehaviour:
   MultiSelectable: 1
   _Deployed: 0
   _OffsetY: 0
+  UpgradeCosts:
+  - {fileID: 856078281}
+  - {fileID: 1706479202}
+  - {fileID: 948896437}
   UpgradePath:
   - m_PersistentCalls:
       m_Calls:
@@ -22435,7 +22537,7 @@ MonoBehaviour:
   BuildImage: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
-  CostPower: 0
+  CostPower: 1000
   CostPlayerLevel: 1
   RecycleSupplies: 0
   RecyclePower: 0
@@ -22575,7 +22677,7 @@ MonoBehaviour:
   CostSupplies: 150
   CostPower: 0
   CostPlayerLevel: 1
-  RecycleSupplies: 0
+  RecycleSupplies: 80
   RecyclePower: 0
   MaxHitPoints: 100
   MaxShieldPoints: 0
@@ -22585,10 +22687,10 @@ MonoBehaviour:
   Selectables:
   - {fileID: 1972751548}
   - {fileID: 703422876}
-  - {fileID: 703422876}
-  - {fileID: 703422876}
+  - {fileID: 1884052757}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 995202220}
   - {fileID: 0}
   - {fileID: 1820210140}
   - {fileID: 1403545464}
@@ -22702,6 +22804,34 @@ RectTransform:
   m_AnchoredPosition: {x: -79, y: 21}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &2069585240
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 2069585241}
+  m_Layer: 0
+  m_Name: '***** INSTANTIATED CLONES *****'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2069585241
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2069585240}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 54
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2078916641
 GameObject:
   m_ObjectHideFlags: 0
@@ -23198,10 +23328,10 @@ MonoBehaviour:
   ObjectDescription: 
   BuildImage: {fileID: 0}
   BuildTime: 20
-  CostSupplies: 0
+  CostSupplies: 250
   CostPower: 0
   CostPlayerLevel: 1
-  RecycleSupplies: 0
+  RecycleSupplies: 120
   RecyclePower: 0
   MaxHitPoints: 100
   MaxShieldPoints: 0
@@ -23462,7 +23592,7 @@ Transform:
   - {fileID: 1437025618}
   - {fileID: 2094356906}
   m_Father: {fileID: 0}
-  m_RootOrder: 52
+  m_RootOrder: 53
   m_LocalEulerAnglesHint: {x: 0, y: 45, z: 0}
 --- !u!143 &2120970502
 CharacterController:

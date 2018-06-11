@@ -39,6 +39,9 @@ public class BuildingSlot : WorldObject {
     //
     //******************************************************************************************************************************
 
+    /// <summary>
+    /// 
+    /// </summary>
     protected override void DrawSelectionWheel() { base.DrawSelectionWheel();
 
         // Show building slot wheel
@@ -70,6 +73,10 @@ public class BuildingSlot : WorldObject {
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="draw"></param>
     protected override void DrawSelection(bool draw) { base.DrawSelection(draw);
 
         // Show selection
@@ -80,11 +87,12 @@ public class BuildingSlot : WorldObject {
                 DrawSelectionWheel();
             }
         }
-
-        // Hide selection
-        ///else { if (_Player) { GameManager.Instance.SelectionWheel.SetActive(false); } }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="selectObj"></param>
     protected override void ChangeSelection(Selectable selectObj) { base.ChangeSelection(selectObj);
 
         // This should be called by the following line, but there is an outside chance it will not
@@ -102,6 +110,11 @@ public class BuildingSlot : WorldObject {
         selectObj.SetSelection(true);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="hitObject"></param>
+    /// <param name="hitPoint"></param>
     public override void MouseClick(GameObject hitObject, Vector3 hitPoint) { base.MouseClick(hitObject, hitPoint);
 
         // Only handle input if currently selected
@@ -114,9 +127,16 @@ public class BuildingSlot : WorldObject {
             if (buildingObj) { ChangeSelection(buildingObj); }
         }
     }
-
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="building"></param>
     public void setBuildingOnSlot(Building building) { _BuildingOnSlot = building; }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
     public Building getBuildingOnSlot() { return _BuildingOnSlot; }
 
 }

@@ -12,5 +12,19 @@ using UnityEngine;
 //******************************
 
 public class Unit : WorldObject {
-    
+
+    //******************************************************************************************************************************
+    //
+    //      FUNCTIONS
+    //
+    //******************************************************************************************************************************
+
+    protected override void Awake() {
+        base.Awake();
+
+        // Set recycle amount to the same as the cost amount
+        RecycleSupplies = CostSupplies;
+        RecyclePower = CostPower;
+    }
+
 }

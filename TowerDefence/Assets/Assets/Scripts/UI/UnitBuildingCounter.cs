@@ -23,6 +23,7 @@ public class UnitBuildingCounter : MonoBehaviour {
     [Space]
     [Header("-----------------------------------")]
     [Header("OFFSETS")]
+    [Space]
     [Range(-0.1f, 0.1f)]
     public float _VerticalOffset = 0.04f;
     [Range(-0.1f, 0.1f)]
