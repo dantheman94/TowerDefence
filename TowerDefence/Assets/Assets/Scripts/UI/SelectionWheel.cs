@@ -163,8 +163,14 @@ public class SelectionWheel : MonoBehaviour {
 
                     // Update button interactibility state
                     SelectionWheelUnitRef unitRef = button.GetComponent<SelectionWheelUnitRef>();
-                    bool unlock = GameManager.Instance.Players[0].Level >= unitRef.Unit.CostPlayerLevel;
-                    button.interactable = unlock;
+                    if (unitRef.Unit != null) {
+
+                        bool unlock = GameManager.Instance.Players[0].Level >= unitRef.Unit.CostPlayerLevel;
+                        button.interactable = unlock;
+                    }
+
+                    // If theres no unit reference in the button, just disable it by default
+                    else { button.interactable = false; }
 
                     // Update item visibility
                     ButtonVisibility(button.gameObject, true);

@@ -109,26 +109,44 @@ public class UserInput : MonoBehaviour {
         Vector3 movement = new Vector3(0, 0, 0);
 
         // Keyboard movement WASD
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.W)/* && (!Input.GetKey(KeyCode.LeftAlt))*/) {
+            
+            // Move forwards
             movement.y += Settings.MovementSpeed;
-        if (Input.GetKey(KeyCode.S))
+
+            // Update center point for RotateAround() function
+            RaycastHit hit;
+            Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward * 1000, out hit);
+            _LookPoint = hit.point;
+        }
+        if (Input.GetKey(KeyCode.S)/* && (!Input.GetKey(KeyCode.LeftAlt))*/) {
+
+            // Move backwards
             movement.y -= Settings.MovementSpeed;
 
-        if (Input.GetKey(KeyCode.A) && (!Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.RightAlt))) {
-
-            movement.x -= Settings.MovementSpeed;
-
-            // Update center point for LookAt() function
+            // Update center point for RotateAround() function
             RaycastHit hit;
             Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward * 1000, out hit);
             _LookPoint = hit.point;
         }
 
-        if (Input.GetKey(KeyCode.D) && (!Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.RightAlt))) {
+        if (Input.GetKey(KeyCode.D) && (!Input.GetKey(KeyCode.LeftAlt))) {
 
+            // Move right
             movement.x += Settings.MovementSpeed;
 
-            // Update center point for LookAt() function
+            // Update center point for RotateAround() function
+            RaycastHit hit;
+            Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward * 1000, out hit);
+            _LookPoint = hit.point;
+        }
+
+        if (Input.GetKey(KeyCode.A) && (!Input.GetKey(KeyCode.LeftAlt))) {
+
+            // Move left
+            movement.x -= Settings.MovementSpeed;
+
+            // Update center point for RotateAround() function
             RaycastHit hit;
             Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward * 1000, out hit);
             _LookPoint = hit.point;
@@ -193,16 +211,17 @@ public class UserInput : MonoBehaviour {
         Vector3 rotOrigin = Camera.main.transform.eulerAngles;
         Vector3 rotDestination = rotOrigin;
 
-        // Detect rotation amount if ALT is being held and the Right mouse button is down
-        if ((Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt))) {
+        // Rotate camera if ALT is being held down
+        if ((Input.GetKey(KeyCode.LeftAlt))) {
+            
+            // Calculate which direction to rotate in
+            float dir = 0f;
+            if (Input.GetKey(KeyCode.D)) { dir = 1f; }
+            if (Input.GetKey(KeyCode.A)) { dir = -1f; }
 
-            rotDestination.y += Input.GetAxis("Mouse X") * Settings.RotateSpeed;
-            ///Camera.main.transform.LookAt(_LookPoint, Vector3.up);
+            // Rotate
+            Camera.main.transform.RotateAround(_LookPoint, Vector3.up, Settings.RotateSpeed * -dir * Time.deltaTime);
         }
-
-        // If a change in position is detected perform the necessary update
-        if (rotDestination != rotOrigin)
-            Camera.main.transform.eulerAngles = Vector3.MoveTowards(rotOrigin, rotDestination, Time.deltaTime * Settings.RotateSpeed);
     }
 
     private void MouseActivity() {
@@ -240,10 +259,27 @@ public class UserInput : MonoBehaviour {
                     }
 
                     // Cast hit object to selectable objects
-                    Building buildingObj = hitObject.transform.root.GetComponent<Building>();
-                    BuildingSlot buildingSlot = hitObject.transform.root.GetComponent<BuildingSlot>();
-                    WorldObject worldObj = hitObject.transform.root.GetComponent<WorldObject>();
+                    Base baseObj = hitObject.transform.root.GetComponent<Base>();
+                    Building buildingObj = null;
+                    BuildingSlot buildingSlot = null;
+                    WorldObject worldObj = null;
 
+                    // The root transform would be the base transform if base is valid (which overwrites the selection wheel buildables)
+                    if (baseObj != null) {
+                        
+                        buildingObj = hitObject.GetComponent<Building>();
+                        buildingSlot = hitObject.GetComponent<BuildingSlot>();
+                        worldObj = hitObject.GetComponent<WorldObject>();
+                    }
+
+                    /// baseObj == null
+                    else {
+
+                        buildingObj = hitObject.transform.root.GetComponent<Building>();
+                        buildingSlot = hitObject.transform.root.GetComponent<BuildingSlot>();
+                        worldObj = hitObject.transform.root.GetComponent<WorldObject>();
+                    }
+                  
                     // Building object
                     if (buildingObj) {
 
@@ -302,8 +338,11 @@ public class UserInput : MonoBehaviour {
             foreach (var obj in _Player.SelectedWorldObjects) { obj.SetSelection(false); }
             _Player.SelectedWorldObjects.Clear();
 
+            // hide selection wheel if on screen
+            if (_Player._HUD.SelectionWheel.gameObject.activeInHierarchy) { _Player._HUD.SetAbilitiesWheelVisibility(false); }
+
             // Show/hide abilies wheel
-            _Player._HUD.SetAbilitiesWheel(!_Player._HUD.AbilitiesWheel.activeInHierarchy);
+            _Player._HUD.SetAbilitiesWheelVisibility(!_Player._HUD.AbilitiesWheel.activeInHierarchy);
         }
     }
 

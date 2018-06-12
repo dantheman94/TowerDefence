@@ -25,9 +25,9 @@ namespace TowerDefence {
         // Camera bounds
         public static float MinCameraHeight { get { return 80; } }
         public static float MaxCameraHeight { get { return 130; } }
-        public static float MinFov { get { return 35; } }
+        public static float MinFov { get { return 33; } }
         public static float MaxFov { get { return 50; } }
-        public static float ZoomSpeed { get { return 80; } }
+        public static float ZoomSpeed { get { return 160; } }
 
         // Selecting world objects
         private static Vector3 invalidPosition = new Vector3(-99999, -99999, -99999);

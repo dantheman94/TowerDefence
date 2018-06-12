@@ -19,7 +19,7 @@ public class UpgradeCosts : MonoBehaviour {
     [Space]
     [Header("-----------------------------------")]
     [Header("COSTS")]
-    public int PlayerLevel;
+    public int PlayerLevel = 1;
     public int SupplyCost;
     public int PowerCost;
 

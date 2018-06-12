@@ -14,31 +14,31 @@ public class Damagable : MonoBehaviour {
     //***************************************************************
     // INSPECTOR
 
-    // Mesh
     [Space]
-    [Header("Mesh")]
+    [Header("-----------------------------------")]
+    [Header("DEFAULT")]
     public MeshFilter _MeshFilter;
     public Mesh _OkayMesh;
-
-    // Minor damage
+    
     [Space]
-    [Header("Minor damage")]
+    [Header("-----------------------------------")]
+    [Header("MINOR DAMAGE")]
     public float _DamagedMinorThreshold = 70f;
     public Mesh _DamagedMinorMesh;
     public List<ParticleSystem> _DamagedMinorParticleSystems;
     public List<Transform> _DamagedMinorParticleTransforms;
 
-    // Major damage
     [Space]
-    [Header("Major damage")]
+    [Header("-----------------------------------")]
+    [Header("MAJOR DAMAGE")]
     public float _DamagedMajorThreshold = 30f;
     public Mesh _DamagedMajorMesh;
     public List<ParticleSystem> _DamagedMajorParticleSystems;
     public List<Transform> _DamagedMajorParticleTransforms;
 
-    // Destroyed
     [Space]
-    [Header("Destroyed")]
+    [Header("-----------------------------------")]
+    [Header("DESTROYED")]
     public Mesh _DestroyedMesh;
     public List<ParticleSystem> _DestroyedParticleSystems;
     public List<Transform> _DestroyedParticleTransforms;

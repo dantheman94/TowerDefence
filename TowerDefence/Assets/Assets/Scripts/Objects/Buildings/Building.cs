@@ -46,19 +46,33 @@ public class Building : WorldObject {
     /// <summary>
     /// 
     /// </summary>
+    protected override void Update() {
+        base.Update();
+
+        // Force the building to skip the deployable state and go straight to being active in the world
+        if (_ObjectState == WorldObjectStates.Deployable) { _ObjectState = WorldObjectStates.Active; }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
     public void OnSelectionWheel() {
 
-        // Show building slot wheel
-        if (_Player && Selectables.Count > 0) {
+        // Only if the building is active
+        if (_ObjectState == WorldObjectStates.Active) {
 
-            // Update list then display on screen
-            ///_Player._HUD.SelectionWheel.setBuildingSlotInFocus(BuildingSlot);
-            _Player._HUD.SelectionWheel.UpdateListWithBuildables(Selectables);
+            // Show building slot wheel
+            if (_Player && Selectables.Count > 0) {
 
-            // Show selection wheel
-            GameManager.Instance.SelectionWheel.SetActive(true);
+                // Update list then display on screen
+                ///_Player._HUD.SelectionWheel.setBuildingSlotInFocus(BuildingSlot);
+                _Player._HUD.SelectionWheel.UpdateListWithBuildables(Selectables);
 
-            _IsCurrentlySelected = true;
+                // Show selection wheel
+                GameManager.Instance.SelectionWheel.SetActive(true);
+
+                _IsCurrentlySelected = true;
+            }
         }
     }
 
@@ -71,6 +85,7 @@ public class Building : WorldObject {
 
         // Get reference to the newly cloned building
         if (_ClonedWorldObject != null) {
+
             Building building = _ClonedWorldObject.GetComponent<Building>();
             building._BuildingSlot = buildingSlot;
 
@@ -106,14 +121,23 @@ public class Building : WorldObject {
     //      LIGHT BARRACKS
     //**************************************
 
+    /// <summary>
+    /// 
+    /// </summary>
     public void CreateLightInfantrySquad() {
                 
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public void CreateLightAntiInfantrySquad() {
         
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public void CreateLightSniperUnit() {
         
     }
@@ -122,14 +146,23 @@ public class Building : WorldObject {
     //      HEAVY BARRACKS
     //**************************************
 
+    /// <summary>
+    /// 
+    /// </summary>
     public void CreateHeavyGrenadierSquad() {
 
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public void CreateHeavyAntiAirSquad() {
 
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public void CreateHeroUnit() {
 
     }
@@ -141,16 +174,6 @@ public class Building : WorldObject {
 
     //**************************************
     //      AIRPAD
-    //**************************************
-
-
-    //**************************************
-    //      SUPPLY PAD
-    //**************************************
-
-
-    //**************************************
-    //      POWER GENERATOR
     //**************************************
 
 
@@ -171,16 +194,6 @@ public class Building : WorldObject {
 
     //**************************************
     //      COMMAND CENTER
-    //**************************************
-
-
-    //**************************************
-    //      BASE TURRET
-    //**************************************
-
-
-    //**************************************
-    //      WATCH TOWER
     //**************************************
 
 }

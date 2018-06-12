@@ -22,6 +22,12 @@ public class WorldObject : Selectable {
 
     [Space]
     [Header("-----------------------------------")]
+    [Header(" WORLD OBJECT STATES")]
+    [Space]
+    public GameObject BuildingState;
+    public GameObject ActiveState;
+    [Space]
+    [Header("-----------------------------------")]
     [Header(" WORLD OBJECT PROPERTIES")]
     [Space]
     public Texture2D BuildImage;
@@ -92,6 +98,10 @@ public class WorldObject : Selectable {
                     ///Debug.Log("Building: " + ObjectName + " at " + _CurrentBuildTime + " / " + BuildTime);
                 }
                 else { _ObjectState = WorldObjectStates.Deployable; }
+
+                // Show building state object
+                if (BuildingState) { BuildingState.SetActive(true); }
+                if (ActiveState) { ActiveState.SetActive(false); }
                 break;
             }
 
@@ -102,6 +112,9 @@ public class WorldObject : Selectable {
 
             case WorldObjectStates.Active: {
 
+                // Show building state object
+                if (BuildingState) { BuildingState.SetActive(false); }
+                if (ActiveState) { ActiveState.SetActive(true); }
                 break;
             }
 
@@ -218,7 +231,7 @@ public class WorldObject : Selectable {
             GameObject buildProgressObj = Instantiate(GameManager.Instance.BuildingInProgressPanel);
             UnitBuildingCounter buildCounter = buildProgressObj.GetComponent<UnitBuildingCounter>();
             buildCounter.setObjectAttached(_ClonedWorldObject);
-            buildCounter.setCameraAttached(GameManager.Instance.Players[0].PlayerCamera);
+            buildCounter.setCameraAttached(Camera.main);
             buildProgressObj.gameObject.SetActive(true);
 
             // Deduct resources from player
