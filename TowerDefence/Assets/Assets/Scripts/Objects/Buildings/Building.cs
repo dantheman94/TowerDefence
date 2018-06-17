@@ -36,6 +36,7 @@ public class Building : WorldObject {
     //******************************************************************************************************************************
 
     protected BuildingSlot _BuildingSlot = null;
+    protected BuildingRecycle _RecycleOption = null;
 
     //******************************************************************************************************************************
     //
@@ -58,21 +59,48 @@ public class Building : WorldObject {
     /// </summary>
     public void OnSelectionWheel() {
 
-        // Only if the building is active
+        // Show the building's buildables if its active in the world
         if (_ObjectState == WorldObjectStates.Active) {
 
             // Show building slot wheel
             if (_Player && Selectables.Count > 0) {
 
                 // Update list then display on screen
-                ///_Player._HUD.SelectionWheel.setBuildingSlotInFocus(BuildingSlot);
                 _Player._HUD.SelectionWheel.UpdateListWithBuildables(Selectables);
 
                 // Show selection wheel
                 GameManager.Instance.SelectionWheel.SetActive(true);
-
-                _IsCurrentlySelected = true;
             }
+            _IsCurrentlySelected = true;
+        }
+
+        // Show a wheel with recycle only as the selection (so you can cancel building it)
+        else if (_ObjectState == WorldObjectStates.Building) {
+
+            if (_Player) {
+
+                List<Abstraction> wheelOptions = new List<Abstraction>();
+                for (int i = 0; i < 10; i++) {
+
+                    // Recycle option
+                    if (i == 5) {
+
+                        if (_RecycleOption != null) { _RecycleOption = Instantiate(GameManager.Instance.RecycleBuilding.GetComponent<BuildingRecycle>()); }
+                        _RecycleOption.SetBuildingToRecycle(this);
+                        wheelOptions.Add(_RecycleOption);
+                    }
+
+                    // Empty option
+                    else { wheelOptions.Add(null); }
+                }
+
+                // Update list then display on screen
+                _Player._HUD.SelectionWheel.UpdateListWithBuildables(wheelOptions);
+
+                // Show selection wheel
+                GameManager.Instance.SelectionWheel.SetActive(true);
+            }
+            _IsCurrentlySelected = true;
         }
     }
 
@@ -99,12 +127,16 @@ public class Building : WorldObject {
     /// </summary>
     public void RecycleBuilding() {
 
+        // Deselect all objects
+        foreach (var selectable in GameManager.Instance.Selectables) { selectable._IsCurrentlySelected = false; }
+
         // Add resources back to player
         Player player = GameManager.Instance.Players[0];
         player.SuppliesCount += RecycleSupplies;
         player.PowerCount += RecyclePower;
 
         // Destroy building
+        Destroy(_RecycleOption.gameObject);
         Destroy(_BuildingSlot._BuildingOnSlot.gameObject);
 
         // Make building slot availiable again

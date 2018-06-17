@@ -68,7 +68,8 @@ public class WorldObject : Selectable {
     /// <summary>
     /// 
     /// </summary>
-    protected override void Start() { base.Start();
+    protected override void Start() {
+        base.Start();
 
         // Initialize health
         _HitPoints = MaxHitPoints;
@@ -80,7 +81,8 @@ public class WorldObject : Selectable {
     /// <summary>
     /// 
     /// </summary>
-    protected override void Update() { base.Update();
+    protected override void Update() {
+        base.Update();
 
         // Has unit building started?
         switch (_ObjectState) {
@@ -130,7 +132,8 @@ public class WorldObject : Selectable {
     /// <summary>
     /// 
     /// </summary>
-    public override void CalculateBounds() { base.CalculateBounds();
+    public override void CalculateBounds() {
+        base.CalculateBounds();
 
         selectionBounds = new Bounds(transform.position, Vector3.zero);
 
@@ -184,7 +187,7 @@ public class WorldObject : Selectable {
         }
 
         // Hide selection
-        else { if (_SelectionObj != null) { _SelectionObj.SetActive(false); } }
+        else { if (_SelectionObj != null) { Destroy(_SelectionObj.gameObject); } }
     }
 
     /// <summary>

@@ -109,7 +109,7 @@ public class UserInput : MonoBehaviour {
         Vector3 movement = new Vector3(0, 0, 0);
 
         // Keyboard movement WASD
-        if (Input.GetKey(KeyCode.W)/* && (!Input.GetKey(KeyCode.LeftAlt))*/) {
+        if (Input.GetKey(KeyCode.W) && (!Input.GetKey(KeyCode.LeftAlt))) {
             
             // Move forwards
             movement.y += Settings.MovementSpeed;
@@ -119,7 +119,7 @@ public class UserInput : MonoBehaviour {
             Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward * 1000, out hit);
             _LookPoint = hit.point;
         }
-        if (Input.GetKey(KeyCode.S)/* && (!Input.GetKey(KeyCode.LeftAlt))*/) {
+        if (Input.GetKey(KeyCode.S) && (!Input.GetKey(KeyCode.LeftAlt))) {
 
             // Move backwards
             movement.y -= Settings.MovementSpeed;
@@ -211,16 +211,32 @@ public class UserInput : MonoBehaviour {
         Vector3 rotOrigin = Camera.main.transform.eulerAngles;
         Vector3 rotDestination = rotOrigin;
 
-        // Rotate camera if ALT is being held down
+        bool pressed = false;
+
+        // Rotate camera state if ALT is being held down
         if ((Input.GetKey(KeyCode.LeftAlt))) {
+
+            // Hide mouse cursor
+            Cursor.visible = false;
             
             // Calculate which direction to rotate in
             float dir = 0f;
-            if (Input.GetKey(KeyCode.D)) { dir = 1f; }
-            if (Input.GetKey(KeyCode.A)) { dir = -1f; }
+            dir = Input.GetAxis("Mouse X");
 
             // Rotate
             Camera.main.transform.RotateAround(_LookPoint, Vector3.up, Settings.RotateSpeed * -dir * Time.deltaTime);
+
+            // Used for resetting the mouse position
+            pressed = true;
+        }
+        else { Cursor.visible = true; }
+
+        if (pressed) {
+
+            // Reset mouse to center of the screen
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.lockState = CursorLockMode.None;
+            pressed = false;
         }
     }
 
@@ -345,7 +361,7 @@ public class UserInput : MonoBehaviour {
             _Player._HUD.SetAbilitiesWheelVisibility(!_Player._HUD.AbilitiesWheel.activeInHierarchy);
         }
     }
-
+    
     //***************************
     // XBOX ONE Special buttons
 
@@ -456,5 +472,5 @@ public class UserInput : MonoBehaviour {
 
     /// Returns boolean value if the RIGHT TRIGGER is moving
     public bool OnRightTrigger() { return _GamepadState.Triggers.Right > 0f; }
-
+    
 }

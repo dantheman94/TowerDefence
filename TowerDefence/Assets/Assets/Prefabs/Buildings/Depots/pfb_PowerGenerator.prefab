@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 65773066898232956}
   - component: {fileID: 23341674682500734}
   m_Layer: 0
-  m_Name: pfb_Depot_PowerGenerator_Building
+  m_Name: pfb_PowerGenerator_Building
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 65448289455940522}
   - component: {fileID: 23885399046516076}
   m_Layer: 0
-  m_Name: pfb_Depot_PowerGenerator_Active
+  m_Name: pfb_PowerGenerator_Active
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -188,7 +188,7 @@ Transform:
   m_GameObject: {fileID: 1079679644633822}
   m_LocalRotation: {x: -0, y: -0.5816178, z: -0, w: 0.8134622}
   m_LocalPosition: {x: -16.9, y: 2.25, z: 9.8}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.9999995, y: 1, z: 0.9999995}
   m_Children:
   - {fileID: 4701685790662954}
   - {fileID: 4621210745063036}
@@ -639,13 +639,21 @@ MonoBehaviour:
   MultiSelectable: 0
   _Deployed: 0
   _OffsetY: 2.25
-  Selectables: []
-  GeneratorType: 2
-  UpgradedGeneratorType: 3
-  SupplyType: 1
-  SuppliesGivenWhenBuilt: 50
-  SuppliesGivenPerTick: 1
-  SupplyRate: 0.1
+  Selectables:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  ResourceType: 1
+  ResourcesGivenWhenBuilt: 0
+  ResourcesGivenPerTickOver: 1
+  GeneratorRate: 0.5
 --- !u!136 &136138755637667304
 CapsuleCollider:
   m_ObjectHideFlags: 1

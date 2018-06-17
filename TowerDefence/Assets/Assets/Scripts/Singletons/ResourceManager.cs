@@ -18,7 +18,7 @@ namespace TowerDefence {
         // Camera Movement
         public static int ScreenOffset { get { return 50; } }
         public static float ScrollSpeed { get { return 10000; } }
-        public static float MovementSpeed { get { return 80; } }
+        public static float MovementSpeed { get { return 120; } }
         public static float RotateSpeed { get { return 100; } }
         public static float RotateZoomSpeed { get { return 100; } }
 
@@ -46,6 +46,7 @@ namespace TowerDefence {
             float cx = selectionBounds.center.x;
             float cy = selectionBounds.center.y;
             float cz = selectionBounds.center.z;
+
             // Shorthand for the coordinates of the extents of the selection bounds
             float ex = selectionBounds.extents.x;
             float ey = selectionBounds.extents.y;

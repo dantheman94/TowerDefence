@@ -22,40 +22,27 @@ public class Generator : Building {
     [Space]
     [Header("-----------------------------------")]
     [Header(" GENERATOR PROPERTIES")]
-    public eGeneratorType GeneratorType;
-    public eGeneratorType UpgradedGeneratorType;
-    public eSupplyType SupplyType;
-    public int SuppliesGivenWhenBuilt = 100;
-    public int SuppliesGivenPerTick = 1;
-    public float SupplyRate = 0.1f;
+    public eResourceType ResourceType;
+    public int ResourcesGivenWhenBuilt = 100;
+    public int ResourcesGivenPerTickOver = 1;
+    public float GeneratorRate = 0.1f;
 
     //******************************************************************************************************************************
     //
     //      VARIABLES
     //
     //******************************************************************************************************************************
-
-    public enum eGeneratorType  { SupplyPad, HeavySupplyPad, PowerGenerator, HeavyPowerGenerator }
-    public enum eSupplyType     { Resources, Power }
+    
+    public enum eResourceType { Supplies, Power }
     
     private float _SupplyTimer = 0f;
-    private float _CurrentSupplyRate;
 
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
     //
     //******************************************************************************************************************************
-
-    /// <summary>
-    /// 
-    /// </summary>
-    protected override void Start() { base.Start();
-
-        // Initialize starting supply rate
-        _CurrentSupplyRate = SupplyRate;
-    }
-
+    
     /// <summary>
     /// 
     /// </summary>
@@ -63,22 +50,24 @@ public class Generator : Building {
 
         if (IsAlive() && _Deployed) {
 
-            // Keep generating supplies for the player
-            if (_SupplyTimer < _CurrentSupplyRate) { _SupplyTimer += Time.deltaTime; }
+            // Keep generating resources for the player
+            if (_SupplyTimer < GeneratorRate) { _SupplyTimer += Time.deltaTime; }
             else {
                 
                 _SupplyTimer = 0f;
-                switch (SupplyType) {
+                switch (ResourceType) {
 
-                    case eSupplyType.Resources: {
+                    // Supplies
+                    case eResourceType.Supplies: {
 
-                        _Player.SuppliesCount += SuppliesGivenPerTick;
+                        _Player.SuppliesCount += ResourcesGivenPerTickOver;
                         break;
                     }
                     
-                    case eSupplyType.Power: {
+                    // Power
+                    case eResourceType.Power: {
 
-                        _Player.PowerCount += SuppliesGivenPerTick;
+                        _Player.PowerCount += ResourcesGivenPerTickOver;
                         break;
                     }
 

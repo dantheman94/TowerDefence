@@ -225,6 +225,10 @@ public class SelectionWheel : MonoBehaviour {
         GameManager.Instance.SelectionWheel.SetActive(false);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="slot"></param>
     public void setBuildingSlotInFocus(BuildingSlot slot) { _BuildingSlotInFocus = slot; }
 
 }

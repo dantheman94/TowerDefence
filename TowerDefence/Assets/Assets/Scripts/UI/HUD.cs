@@ -23,7 +23,6 @@ public class HUD : MonoBehaviour {
     [Header(" ")]
     public SelectionWheel SelectionWheel;
     public GameObject AbilitiesWheel;
-    public GameObject SelectedPrefab;
 
     [Space]
     [Header("-----------------------------------")]
@@ -46,7 +45,7 @@ public class HUD : MonoBehaviour {
         // Get component references
         _Player = GetComponent<Player>();
 
-        Settings.StoreSelectBoxItems(SelectedPrefab);
+        Settings.StoreSelectBoxItems(GameManager.Instance.ObjectSelected);
     }
 
     private void Update() {

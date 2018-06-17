@@ -41,7 +41,13 @@ public class BuildingRecycle : WorldObject {
 
             // Recycle building
             _BuildingToRecycle.RecycleBuilding();
+
+            // Free resources by destroying this instance
+            ///Destroy(this.gameObject);
         }
+        else { Debug.Log("_BuildingToRecycle == null"); }
     }
+
+    public void SetBuildingToRecycle(Building building) { _BuildingToRecycle = building; }
 
 }

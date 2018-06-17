@@ -36,6 +36,8 @@ public class GameManager : MonoBehaviour {
     public GameObject AbilityWheel;
     public GameObject UnitHealthBar;
     public GameObject BuildingInProgressPanel;
+    public GameObject RecycleBuilding;
+    public GameObject ObjectSelected;
 
     //******************************************************************************************************************************
     //
