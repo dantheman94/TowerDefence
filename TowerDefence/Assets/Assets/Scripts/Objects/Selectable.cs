@@ -21,14 +21,14 @@ public class Selectable : Abstraction {
     //      INSPECTOR
     //
     //******************************************************************************************************************************
-    
+
     //******************************************************************************************************************************
     //
     //      VARIABLES
     //
     //******************************************************************************************************************************
 
-    public bool _IsCurrentlySelected { get; set; }
+    public bool _IsCurrentlySelected;
     protected Player _Player = null;
     protected Bounds selectionBounds;
     protected bool _PlayerOwned = false;

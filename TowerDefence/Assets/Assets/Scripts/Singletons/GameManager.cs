@@ -52,6 +52,8 @@ public class GameManager : MonoBehaviour {
     public List<Selectable> Selectables { get; set; }
 
     public static GameManager Instance;
+    
+    private int _LabratoryCount = 0;
 
     //******************************************************************************************************************************
     //
@@ -60,7 +62,7 @@ public class GameManager : MonoBehaviour {
     //******************************************************************************************************************************
 
     /// <summary>
-    /// 
+    //  This is called before Startup().
     /// </summary>
     private void Awake() {
 
@@ -78,7 +80,7 @@ public class GameManager : MonoBehaviour {
     }
 
     /// <summary>
-    /// 
+    //  Called when this object is created.
     /// </summary>
     private void Start() {
         
@@ -90,5 +92,21 @@ public class GameManager : MonoBehaviour {
             Players.Add(item.GetComponent<Player>());
         }
     }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public void AddLabratoryActiveInWorld() { _LabratoryCount++; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public void RemovedLabratoryFromWorld() { _LabratoryCount--; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    public bool GetIsLabratoryActive() { return _LabratoryCount > 0; }
 
 }

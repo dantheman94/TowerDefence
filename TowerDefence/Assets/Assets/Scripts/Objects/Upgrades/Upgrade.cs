@@ -45,7 +45,7 @@ public class Upgrade : WorldObject {
     //******************************************************************************************************************************
 
     /// <summary>
-    /// 
+    //  Called before Star().
     /// </summary>
     protected override void Awake() {
 
@@ -53,16 +53,13 @@ public class Upgrade : WorldObject {
     }
 
     /// <summary>
-    /// 
+    //  Called each frame. 
     /// </summary>
     protected override void Update() {
 
-        // Get roman numerial from current upgrade level + 1
+        // Get roman numeral from current upgrade level + 1 in the form of 'I's.
         string num = " ";
-        for (int i = (-1); i < _CurrentUpgradeLevel; i++) {
-
-            num = num + "I";
-        }
+        for (int i = (-1); i < _CurrentUpgradeLevel; i++) { num = num + "I"; }
 
         // Update name to include current upgrade level
         ObjectName = _UpgradeName + num;

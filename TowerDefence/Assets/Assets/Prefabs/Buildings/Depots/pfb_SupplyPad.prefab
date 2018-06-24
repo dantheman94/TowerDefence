@@ -41,12 +41,12 @@ GameObject:
   - component: {fileID: 65254202662001958}
   - component: {fileID: 23400896749189368}
   m_Layer: 0
-  m_Name: pfb_SupplyPad_Active
+  m_Name: SupplyPad_Active
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1471369332272674
 GameObject:
   m_ObjectHideFlags: 0
@@ -112,7 +112,7 @@ GameObject:
   - component: {fileID: 65942898372203606}
   - component: {fileID: 23661673671937666}
   m_Layer: 0
-  m_Name: pfb_SupplyPad_Building
+  m_Name: SupplyPad_Building
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -124,15 +124,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1471369332272674}
-  m_LocalRotation: {x: -0, y: -0.5816178, z: -0, w: 0.8134622}
-  m_LocalPosition: {x: -1.65, y: 2.25, z: 5.43}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -8.7, y: 2.25, z: 49.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4297925782713076}
   - {fileID: 4884330184916376}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -71.129005, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4294322322884854
 Transform:
   m_ObjectHideFlags: 1
@@ -490,11 +490,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ObjectName: Supply Pad
-  ObjectDescription: 
+  ObjectDescription: Produces supply resources over time that can be used to produce
+    units & buildings. Resource generation rate stacks with more supply pads. Can
+    be upgraded to a Heavy Supply Pad.
   BuildingState: {fileID: 1848823533347048}
   ActiveState: {fileID: 1421741109620186}
   BuildImage: {fileID: 0}
-  BuildTime: 20
+  BuildTime: 5
   CostSupplies: 150
   CostPower: 0
   CostPlayerLevel: 1
@@ -503,7 +505,6 @@ MonoBehaviour:
   MaxHitPoints: 100
   MaxShieldPoints: 0
   MultiSelectable: 0
-  _Deployed: 0
   _OffsetY: 2.25
   Selectables:
   - {fileID: 0}
@@ -519,4 +520,4 @@ MonoBehaviour:
   ResourceType: 0
   ResourcesGivenWhenBuilt: 0
   ResourcesGivenPerTickOver: 1
-  GeneratorRate: 0.35
+  GeneratorRate: 0.3

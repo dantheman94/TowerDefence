@@ -48,6 +48,9 @@ public class HUD : MonoBehaviour {
         Settings.StoreSelectBoxItems(GameManager.Instance.ObjectSelected);
     }
 
+    /// <summary>
+    //  Called each frame. 
+    /// </summary>
     private void Update() {
 
         UpdateTextComponents();

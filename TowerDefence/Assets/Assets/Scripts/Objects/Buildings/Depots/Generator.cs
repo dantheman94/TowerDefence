@@ -42,36 +42,40 @@ public class Generator : Building {
     //      FUNCTIONS
     //
     //******************************************************************************************************************************
-    
+
     /// <summary>
-    /// 
+    //  Called each frame. 
     /// </summary>
-    protected override void Update() { base.Update();
+    protected override void Update() {
+        base.Update();
 
-        if (IsAlive() && _Deployed) {
+        if (_ObjectState == WorldObjectStates.Active) {
 
-            // Keep generating resources for the player
-            if (_SupplyTimer < GeneratorRate) { _SupplyTimer += Time.deltaTime; }
-            else {
-                
-                _SupplyTimer = 0f;
-                switch (ResourceType) {
+            if (_Player) {
 
-                    // Supplies
-                    case eResourceType.Supplies: {
+                // Keep generating resources for the player
+                if (_SupplyTimer < GeneratorRate) { _SupplyTimer += Time.deltaTime; }
+                else {
 
-                        _Player.SuppliesCount += ResourcesGivenPerTickOver;
-                        break;
+                    _SupplyTimer = 0f;
+                    switch (ResourceType) {
+
+                        // Supplies
+                        case eResourceType.Supplies: {
+
+                                _Player.SuppliesCount += ResourcesGivenPerTickOver;
+                                break;
+                            }
+
+                        // Power
+                        case eResourceType.Power: {
+
+                                _Player.PowerCount += ResourcesGivenPerTickOver;
+                                break;
+                            }
+
+                        default: break;
                     }
-                    
-                    // Power
-                    case eResourceType.Power: {
-
-                        _Player.PowerCount += ResourcesGivenPerTickOver;
-                        break;
-                    }
-
-                    default: break;
                 }
             }
         }

@@ -1,0 +1,27 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+//******************************
+//
+//  Created by: Daniel Marton
+//
+//  Last edited by: Daniel Marton
+//  Last edited on: 5/24/2018
+//
+//******************************
+
+public class Laboratory : Depot {
+
+    //******************************************************************************************************************************
+    //
+    //      INSPECTOR
+    //
+    //******************************************************************************************************************************
+
+    protected override void Start() {
+        base.Start();
+
+    }
+
+}

@@ -8,7 +8,7 @@ using TowerDefence;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 10/5/2018
+//  Last edited on: 23/6/2018
 //
 //******************************
 
@@ -40,7 +40,6 @@ public class WorldObject : Selectable {
     public int MaxHitPoints = 100;
     public int MaxShieldPoints = 0;
     public bool MultiSelectable = true;
-    public bool _Deployed = false;
     public float _OffsetY;
 
     //******************************************************************************************************************************
@@ -58,6 +57,7 @@ public class WorldObject : Selectable {
     protected int _HitPoints;
     protected UnitHealthBar _HealthBar = null;
     protected WorldObject _ClonedWorldObject = null;
+    protected float _Health;
 
     //******************************************************************************************************************************
     //
@@ -79,12 +79,11 @@ public class WorldObject : Selectable {
     }
 
     /// <summary>
-    /// 
+    //  Called each frame. 
     /// </summary>
     protected override void Update() {
         base.Update();
-
-        // Has unit building started?
+        
         switch (_ObjectState) {
 
             case WorldObjectStates.Default: { break; }
@@ -122,12 +121,15 @@ public class WorldObject : Selectable {
 
             default: break;
         }
+
+        // Update health to be a normalized range of the object's hitpoints
+        _Health = _HitPoints / MaxHitPoints;
     }
 
     /// <summary>
     /// 
     /// </summary>
-    protected virtual void DrawSelectionWheel() { }
+    protected virtual void DrawSelectionWheel() {}
 
     /// <summary>
     /// 
@@ -209,9 +211,12 @@ public class WorldObject : Selectable {
     }
 
     /// <summary>
-    /// 
+    //  Called when the player presses a button on the selection wheel with this world object linked to the button.
     /// </summary>
-    /// <param name="buildingSlot"></param>
+    /// <param name="buildingSlot">
+    //  The building slot that instigated the selection wheel.
+    //  (EG: If you're making a building, this is the building slot thats being used.)
+    /// </param>
     public virtual void OnWheelSelect(BuildingSlot buildingSlot) {
 
         // Check if the player has enough resources to build the object
@@ -224,7 +229,7 @@ public class WorldObject : Selectable {
             _ClonedWorldObject.gameObject.SetActive(true);
             _ClonedWorldObject._ObjectState = WorldObjectStates.Building;
 
-            // Create healthbar and allocate it to the unit
+            // Create a health bar and allocate it to the unit
             GameObject healthBarObj = Instantiate(GameManager.Instance.UnitHealthBar);
             UnitHealthBar healthBar = healthBarObj.GetComponent<UnitHealthBar>();
             healthBar.setObjectAttached(_ClonedWorldObject);
@@ -238,13 +243,20 @@ public class WorldObject : Selectable {
             buildProgressObj.gameObject.SetActive(true);
 
             // Deduct resources from player
+            SetPlayer(plyr);
             plyr.SuppliesCount -= _ClonedWorldObject.CostSupplies;
             plyr.PowerCount -= _ClonedWorldObject.CostPower;
+
+            _ClonedWorldObject._IsCurrentlySelected = false;
         }
+
+        // Deselect
+        buildingSlot._IsCurrentlySelected = false;
+        this._IsCurrentlySelected = false;
     }
 
     /// <summary>
-    /// 
+    //  Damages the object by a set amount.
     /// </summary>
     /// <param name="damage"></param>
     public void Damage(int damage) {
@@ -255,16 +267,20 @@ public class WorldObject : Selectable {
     }
 
     /// <summary>
-    /// 
+    //  Returns TRUE if the object's health is greater than 0f.
     /// </summary>
-    /// <returns></returns>
-    public bool IsAlive() { return _HitPoints > 0f; }
+    /// <returns>
+    //  bool
+    /// </returns>
+    public bool IsAlive() { return _HitPoints > 0f && _Health > 0f; }
 
     /// <summary>
-    /// 
+    //  Sets the position of the object based on what building slot has been passed through. 
     /// </summary>
-    /// <param name="buildingSlot"></param>
-    private void SetBuildingPosition(BuildingSlot buildingSlot) {
+    /// <param name="buildingSlot"><
+    //  The building slot that is being used as reference for positioning.
+    /// /param>
+    protected void SetBuildingPosition(BuildingSlot buildingSlot) {
 
         // Initial transform update
         transform.SetPositionAndRotation(buildingSlot.transform.position, buildingSlot.transform.rotation);
@@ -280,27 +296,43 @@ public class WorldObject : Selectable {
     public void setHealthBar(UnitHealthBar healthBar) { _HealthBar = healthBar; }
 
     /// <summary>
-    /// 
+    //  Returns TRUE if the object is either building or active in the game world.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>
+    //  bool
+    /// </returns>
     public bool isActiveInWorld() { return IsAlive() && (_ObjectState == WorldObjectStates.Active || _ObjectState == WorldObjectStates.Building); }
 
     /// <summary>
-    /// 
+    //  Returns the object's current hitpoints as a raw value.
     /// </summary>
-    /// <returns></returns>
-    public int getHealth() { return _HitPoints; }
+    /// <returns>
+    //  int
+    /// </returns>
+    public int getHitPoints() { return _HitPoints; }
+
+    /// <summary>
+    //  Returns the hitpoints as a normalized value.
+    /// </summary>
+    /// <returns>
+    //  float
+    /// </returns>
+    public float getHealth() { return _Health; }
 
     /// <summary>
     /// 
     /// </summary>
-    /// <returns></returns>
+    /// <returns>
+    //  float
+    /// </returns>
     public float getCurrentBuildTimeRemaining() { return BuildTime - _CurrentBuildTime; }
 
     /// <summary>
-    /// 
+    //  Returns the current object state (Ie: Building, Deployable, Active).
     /// </summary>
-    /// <returns></returns>
+    /// <returns>
+    //  ENUM: WorldObjectState
+    /// </returns>
     public WorldObjectStates getObjectState() { return _ObjectState; }
 
 }

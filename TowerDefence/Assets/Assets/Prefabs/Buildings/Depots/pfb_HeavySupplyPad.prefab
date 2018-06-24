@@ -41,12 +41,12 @@ GameObject:
   - component: {fileID: 65498409168965048}
   - component: {fileID: 23610203494904916}
   m_Layer: 0
-  m_Name: pfb_HeavySupplyPad_Active
+  m_Name: HeavySupplyPad_Active
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1377313792640268
 GameObject:
   m_ObjectHideFlags: 1
@@ -108,7 +108,7 @@ Transform:
   m_GameObject: {fileID: 1546720599456478}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -5, y: 3, z: 0}
-  m_LocalScale: {x: 7, y: 2, z: 10}
+  m_LocalScale: {x: 7, y: 4, z: 10}
   m_Children: []
   m_Father: {fileID: 4553602972371030}
   m_RootOrder: 1
@@ -135,14 +135,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1784578698188438}
-  m_LocalRotation: {x: -0, y: -0.5816178, z: -0, w: 0.8134622}
-  m_LocalPosition: {x: -1.65, y: 2.25, z: 5.43}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -8.8, y: 2.25, z: 31}
   m_LocalScale: {x: 0.99999976, y: 1, z: 0.99999976}
   m_Children:
   - {fileID: 4553602972371030}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -71.129005, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4847070189856562
 Transform:
   m_ObjectHideFlags: 1
@@ -164,7 +164,7 @@ Transform:
   m_GameObject: {fileID: 1377313792640268}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 5, y: 3, z: 0}
-  m_LocalScale: {x: 7, y: 2, z: 10}
+  m_LocalScale: {x: 7, y: 4, z: 10}
   m_Children: []
   m_Father: {fileID: 4553602972371030}
   m_RootOrder: 2
@@ -183,7 +183,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: ea07d00cfa80e064e8d3d7cc8c1001cd, type: 2}
+  - {fileID: 2100000, guid: a92a0554d021f684bb7927c890689449, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -392,8 +392,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ea1e5c428d2dba4bb33bce56d757aed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObjectName: Supply Pad
-  ObjectDescription: 
+  ObjectName: Heavy Supply Pad
+  ObjectDescription: Increased supply resource generation.
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 1374855735495402}
   BuildImage: {fileID: 0}
@@ -406,7 +406,6 @@ MonoBehaviour:
   MaxHitPoints: 100
   MaxShieldPoints: 0
   MultiSelectable: 0
-  _Deployed: 0
   _OffsetY: 2.25
   Selectables:
   - {fileID: 0}

@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class UpgradeCosts : MonoBehaviour {
+public class UpgradeCosts : Abstraction {
 
     //******************************************************************************************************************************
     //
     //      INSPECTOR
     //
     //******************************************************************************************************************************
-
+    
     [Space]
     [Header("-----------------------------------")]
     [Header("LEVEL")]

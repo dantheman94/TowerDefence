@@ -148,12 +148,12 @@ GameObject:
   - component: {fileID: 65392705451128430}
   - component: {fileID: 23326674511688258}
   m_Layer: 0
-  m_Name: pfb_Depot_Airpad_Active
+  m_Name: Airpad_Active
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1803217871389888
 GameObject:
   m_ObjectHideFlags: 1
@@ -184,7 +184,7 @@ GameObject:
   - component: {fileID: 65457485377649572}
   - component: {fileID: 23874443133915962}
   m_Layer: 0
-  m_Name: pfb_Depot_Airpad_Building
+  m_Name: Airpad_Building
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -293,15 +293,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1481607013830780}
-  m_LocalRotation: {x: -0, y: -0.5816178, z: -0, w: 0.8134622}
-  m_LocalPosition: {x: -16.9, y: 2.25, z: 9.8}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -88.4, y: 2.25, z: 65.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4710597578327592}
   - {fileID: 4403253086605074}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -71.129005, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4710597578327592
 Transform:
   m_ObjectHideFlags: 1
@@ -343,7 +343,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 271e4050b2e71db43aa08f54a1fc47be, type: 2}
+  - {fileID: 2100000, guid: ddc0e3c96511cef428a11270ccc57f8f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -377,7 +377,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 271e4050b2e71db43aa08f54a1fc47be, type: 2}
+  - {fileID: 2100000, guid: a92a0554d021f684bb7927c890689449, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -513,7 +513,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 271e4050b2e71db43aa08f54a1fc47be, type: 2}
+  - {fileID: 2100000, guid: a92a0554d021f684bb7927c890689449, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -615,7 +615,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 271e4050b2e71db43aa08f54a1fc47be, type: 2}
+  - {fileID: 2100000, guid: ddc0e3c96511cef428a11270ccc57f8f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -830,11 +830,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ObjectName: Airpad
-  ObjectDescription: 
+  ObjectDescription: Produces specialized air units that are able to traverse areas
+    of the map that arent normally accessible by ground units.
   BuildingState: {fileID: 1888073122134420}
   ActiveState: {fileID: 1722395584002630}
   BuildImage: {fileID: 0}
-  BuildTime: 20
+  BuildTime: 5
   CostSupplies: 300
   CostPower: 0
   CostPlayerLevel: 2
@@ -843,7 +844,6 @@ MonoBehaviour:
   MaxHitPoints: 100
   MaxShieldPoints: 0
   MultiSelectable: 0
-  _Deployed: 0
   _OffsetY: 2.25
   Selectables:
   - {fileID: 0}
@@ -856,4 +856,4 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  DepotType: 3
+  DepotType: 0

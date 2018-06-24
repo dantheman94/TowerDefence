@@ -24,9 +24,19 @@ public class BuildingSlot : WorldObject {
     [Header("-----------------------------------")]
     [Header(" BUILDING SLOT PROPERTIES")]
     [Space]
-    public Building _BuildingOnSlot = null;
+    public Base AttachedBase = null;
+    [Space]
     public List<Building> Buildings;
-        
+
+    //******************************************************************************************************************************
+    //
+    //      VARIABLES
+    //
+    //******************************************************************************************************************************
+
+    ///[HideInInspector]
+    public Building _BuildingOnSlot = null;
+
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
@@ -34,9 +44,10 @@ public class BuildingSlot : WorldObject {
     //******************************************************************************************************************************
 
     /// <summary>
-    /// 
+    //  
     /// </summary>
-    protected override void DrawSelectionWheel() { base.DrawSelectionWheel();
+    protected override void DrawSelectionWheel() {
+        base.DrawSelectionWheel();
 
         // Show building slot wheel
         if (_Player) {
@@ -49,8 +60,7 @@ public class BuildingSlot : WorldObject {
                 foreach (var item in Buildings) { selectables.Add(item); }
 
                 // Update list on the selection wheel
-                _Player._HUD.SelectionWheel.setBuildingSlotInFocus(this);
-                _Player._HUD.SelectionWheel.UpdateListWithBuildings(selectables);
+                _Player._HUD.SelectionWheel.UpdateListWithBuildings(selectables, this);
 
                 // Reset selection wheel highlight
                 _Player._HUD.SelectionWheel.DetailedHighlightTitle.text = "";
@@ -68,10 +78,11 @@ public class BuildingSlot : WorldObject {
     }
 
     /// <summary>
-    /// 
+    //  
     /// </summary>
     /// <param name="draw"></param>
-    protected override void DrawSelection(bool draw) { base.DrawSelection(draw);
+    protected override void DrawSelection(bool draw) {
+        base.DrawSelection(draw);
 
         // Show selection
         if (draw) {
@@ -84,10 +95,11 @@ public class BuildingSlot : WorldObject {
     }
 
     /// <summary>
-    /// 
+    //  
     /// </summary>
     /// <param name="selectObj"></param>
-    protected override void ChangeSelection(Selectable selectObj) { base.ChangeSelection(selectObj);
+    protected override void ChangeSelection(Selectable selectObj) {
+        base.ChangeSelection(selectObj);
 
         // This should be called by the following line, but there is an outside chance it will not
         SetSelection(false);
@@ -105,11 +117,12 @@ public class BuildingSlot : WorldObject {
     }
 
     /// <summary>
-    /// 
+    //  
     /// </summary>
     /// <param name="hitObject"></param>
     /// <param name="hitPoint"></param>
-    public override void MouseClick(GameObject hitObject, Vector3 hitPoint) { base.MouseClick(hitObject, hitPoint);
+    public override void MouseClick(GameObject hitObject, Vector3 hitPoint) {
+        base.MouseClick(hitObject, hitPoint);
 
         // Only handle input if currently selected
         if (_IsCurrentlySelected && hitObject && hitObject.name != "Ground") {
@@ -121,16 +134,5 @@ public class BuildingSlot : WorldObject {
             if (buildingObj) { ChangeSelection(buildingObj); }
         }
     }
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="building"></param>
-    public void setBuildingOnSlot(Building building) { _BuildingOnSlot = building; }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <returns></returns>
-    public Building getBuildingOnSlot() { return _BuildingOnSlot; }
 
 }

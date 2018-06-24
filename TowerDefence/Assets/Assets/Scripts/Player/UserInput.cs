@@ -9,7 +9,7 @@ using XInputDotNetPure;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 5/10/2018
+//  Last edited on: 22/6/2018
 //
 //******************************
 
@@ -39,6 +39,9 @@ public class UserInput : MonoBehaviour {
     //
     //******************************************************************************************************************************
 
+    /// <summary>
+    /// 
+    /// </summary>
     private void Start() {
 
         // Get component references
@@ -51,6 +54,9 @@ public class UserInput : MonoBehaviour {
         _LookPoint = hit.point;
     }
 
+    /// <summary>
+    //  Called each frame. 
+    /// </summary>
     private void Update() {
 
         if (_Player) {
@@ -71,6 +77,9 @@ public class UserInput : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    //  Called each frame at a fixed-time framerate.
+    /// </summary>
     private void FixedUpdate() {
 
         if (_ControllerIsRumbling) {
@@ -79,7 +88,7 @@ public class UserInput : MonoBehaviour {
             GamePad.SetVibration(_PlayerIndex, _MotorLeft, _MotorRight);
 
             // Timer
-            _TimerRumble += Time.deltaTime;
+            _TimerRumble += Time.fixedDeltaTime;
             if (_TimerRumble >= _RumbleTime) { _ControllerIsRumbling = false; }
         }
 
@@ -91,6 +100,12 @@ public class UserInput : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="motorLeft"></param>
+    /// <param name="motorRight"></param>
+    /// <param name="time"></param>
     public void StartRumble(float motorLeft, float motorRight, float time) {
 
         // Set rumble properties
@@ -102,6 +117,9 @@ public class UserInput : MonoBehaviour {
         _ControllerIsRumbling = true;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     private void MoveCamera() {
 
         float xPos = Input.mousePosition.x;
@@ -173,13 +191,13 @@ public class UserInput : MonoBehaviour {
         float fov = Camera.main.fieldOfView;
         if (Input.GetAxis("Mouse ScrollWheel") > 0) {
 
-            // Zoomming in
+            // Zooming in
             if (fov > Settings.MinFov)
                 Camera.main.fieldOfView -= Time.deltaTime * Settings.ZoomSpeed;
         }
         if (Input.GetAxis("Mouse ScrollWheel") < 0) {
 
-            // Zoomming out
+            // Zooming out
             if (fov < Settings.MaxFov)
                 Camera.main.fieldOfView += Time.deltaTime * Settings.ZoomSpeed;
         }
@@ -206,6 +224,9 @@ public class UserInput : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     private void RotateCamera() {
 
         Vector3 rotOrigin = Camera.main.transform.eulerAngles;
@@ -240,6 +261,9 @@ public class UserInput : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     private void MouseActivity() {
 
         if (Input.GetMouseButtonDown(0))
@@ -249,6 +273,9 @@ public class UserInput : MonoBehaviour {
             RightMouseClick();
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     private void LeftMouseClick() {
 
         if (_Player._HUD.MouseInBounds() && !_Player._HUD.WheelActive()) {
@@ -286,6 +313,16 @@ public class UserInput : MonoBehaviour {
                         buildingObj = hitObject.GetComponent<Building>();
                         buildingSlot = hitObject.GetComponent<BuildingSlot>();
                         worldObj = hitObject.GetComponent<WorldObject>();
+
+                        // Base object
+                        if (buildingObj == null && buildingSlot == null && worldObj == null) {
+
+                            // Add selection to list
+                            _Player.SelectedWorldObjects.Add(baseObj);
+                            baseObj.SetPlayer(_Player);
+                            baseObj.SetSelection(true);
+                            baseObj.OnSelectionWheel();
+                        }
                     }
 
                     /// baseObj == null
@@ -310,7 +347,7 @@ public class UserInput : MonoBehaviour {
                     else if (buildingSlot) {
 
                         // Empty building slot
-                        if (buildingSlot.getBuildingOnSlot() == null) {
+                        if (buildingSlot._BuildingOnSlot == null) {
 
                             _Player.SelectedBuildingSlot = buildingSlot;
                             buildingSlot.SetPlayer(_Player);
@@ -321,10 +358,10 @@ public class UserInput : MonoBehaviour {
                         else {
 
                             // Add selection to list
-                            _Player.SelectedWorldObjects.Add(buildingSlot.getBuildingOnSlot());
-                            buildingSlot.getBuildingOnSlot().SetPlayer(_Player);
-                            buildingSlot.getBuildingOnSlot().SetSelection(true);
-                            buildingSlot.getBuildingOnSlot().OnSelectionWheel();
+                            _Player.SelectedWorldObjects.Add(buildingSlot.AttachedBase);
+                            buildingSlot.AttachedBase.SetPlayer(_Player);
+                            buildingSlot.AttachedBase.SetSelection(true);
+                            buildingSlot.AttachedBase.OnSelectionWheel();
                         }
                     }
 
@@ -341,24 +378,39 @@ public class UserInput : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     private void RightMouseClick() {
                 
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     private void AbilitiesInput() {
 
-        // On user input
-        if (Input.GetKeyDown(KeyCode.F)) {
+        // Only check if theres a laboratory building in the world
+        if (GameManager.Instance.GetIsLabratoryActive()) {
 
-            // Deselect any objects that are currently selected
-            foreach (var obj in _Player.SelectedWorldObjects) { obj.SetSelection(false); }
-            _Player.SelectedWorldObjects.Clear();
+            // On user input
+            if (Input.GetKeyDown(KeyCode.F)) {
 
-            // hide selection wheel if on screen
-            if (_Player._HUD.SelectionWheel.gameObject.activeInHierarchy) { _Player._HUD.SetAbilitiesWheelVisibility(false); }
+                // Deselect any objects that are currently selected
+                foreach (var obj in _Player.SelectedWorldObjects) { obj.SetSelection(false); }
+                _Player.SelectedWorldObjects.Clear();
 
-            // Show/hide abilies wheel
-            _Player._HUD.SetAbilitiesWheelVisibility(!_Player._HUD.AbilitiesWheel.activeInHierarchy);
+                // hide selection wheel if on screen
+                if (_Player._HUD.SelectionWheel.gameObject.activeInHierarchy) { _Player._HUD.SetAbilitiesWheelVisibility(false); }
+
+                // Show/hide abilies wheel
+                _Player._HUD.SetAbilitiesWheelVisibility(!_Player._HUD.AbilitiesWheel.activeInHierarchy);
+            }
+        }
+
+        // Force hide the abilities wheel if there is no active laboratory in the world
+        else {
+
         }
     }
     

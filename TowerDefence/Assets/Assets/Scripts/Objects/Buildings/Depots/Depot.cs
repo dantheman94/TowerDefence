@@ -30,5 +30,5 @@ public class Depot : Building {
     //
     //******************************************************************************************************************************
 
-    public enum eDepotType { LightBarracks, HeavyBarracks, Garage, Airpad }
+    public enum eDepotType { Airpad, Barracks, Garage, Labratory }
 }

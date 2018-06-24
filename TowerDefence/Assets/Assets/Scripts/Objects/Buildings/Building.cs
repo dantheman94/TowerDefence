@@ -11,7 +11,7 @@ using UnityEngine.EventSystems;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 10/5/2018
+//  Last edited on: 23/6/2018
 //
 //******************************
 
@@ -45,7 +45,7 @@ public class Building : WorldObject {
     //******************************************************************************************************************************
 
     /// <summary>
-    /// 
+    //  Called each frame. 
     /// </summary>
     protected override void Update() {
         base.Update();
@@ -59,14 +59,14 @@ public class Building : WorldObject {
     /// </summary>
     public void OnSelectionWheel() {
 
-        // Show the building's buildables if its active in the world
+        // Show the building's options if its active in the world
         if (_ObjectState == WorldObjectStates.Active) {
 
             // Show building slot wheel
             if (_Player && Selectables.Count > 0) {
 
                 // Update list then display on screen
-                _Player._HUD.SelectionWheel.UpdateListWithBuildables(Selectables);
+                _Player._HUD.SelectionWheel.UpdateListWithBuildables(Selectables, _BuildingSlot);
 
                 // Show selection wheel
                 GameManager.Instance.SelectionWheel.SetActive(true);
@@ -74,7 +74,7 @@ public class Building : WorldObject {
             _IsCurrentlySelected = true;
         }
 
-        // Show a wheel with recycle only as the selection (so you can cancel building it)
+        // Show a wheel with recycle only as the selection (so you can cancel building the world object)
         else if (_ObjectState == WorldObjectStates.Building) {
 
             if (_Player) {
@@ -85,7 +85,10 @@ public class Building : WorldObject {
                     // Recycle option
                     if (i == 5) {
 
-                        if (_RecycleOption != null) { _RecycleOption = Instantiate(GameManager.Instance.RecycleBuilding.GetComponent<BuildingRecycle>()); }
+                        if (_RecycleOption == null) {
+
+                            _RecycleOption = Instantiate(GameManager.Instance.RecycleBuilding.GetComponent<BuildingRecycle>());
+                        }
                         _RecycleOption.SetBuildingToRecycle(this);
                         wheelOptions.Add(_RecycleOption);
                     }
@@ -95,7 +98,7 @@ public class Building : WorldObject {
                 }
 
                 // Update list then display on screen
-                _Player._HUD.SelectionWheel.UpdateListWithBuildables(wheelOptions);
+                _Player._HUD.SelectionWheel.UpdateListWithBuildables(wheelOptions, _BuildingSlot);
 
                 // Show selection wheel
                 GameManager.Instance.SelectionWheel.SetActive(true);
@@ -105,9 +108,13 @@ public class Building : WorldObject {
     }
 
     /// <summary>
-    /// 
+    //  Called when the player presses a button on the selection wheel with this world object
+    //  linked to the button.
     /// </summary>
-    /// <param name="buildingSlot"></param>
+    /// <param name="buildingSlot">
+    //  The building slot that instigated the selection wheel.
+    //  (EG: If you're making a building, this is the building slot thats being used.)
+    /// </param>
     public override void OnWheelSelect(BuildingSlot buildingSlot) {
         base.OnWheelSelect(buildingSlot);
 
@@ -118,7 +125,10 @@ public class Building : WorldObject {
             building._BuildingSlot = buildingSlot;
 
             // Update building slot ref with building
-            buildingSlot.setBuildingOnSlot(building);
+            buildingSlot._BuildingOnSlot = building;
+
+            // Disable building slot (is re-enabled when the building is recycled)
+            buildingSlot.gameObject.SetActive(false);
         }
     }
 
@@ -139,8 +149,8 @@ public class Building : WorldObject {
         Destroy(_RecycleOption.gameObject);
         Destroy(_BuildingSlot._BuildingOnSlot.gameObject);
 
-        // Make building slot availiable again
-        _BuildingSlot.setBuildingOnSlot(null);
+        // Make building slot available again
+        _BuildingSlot._BuildingOnSlot = null;
     }
 
     //******************************************************************************************************************************
@@ -154,78 +164,74 @@ public class Building : WorldObject {
     //**************************************
 
     /// <summary>
-    /// 
+    //  
     /// </summary>
     public void CreateLightInfantrySquad() {
                 
     }
 
     /// <summary>
-    /// 
+    //  
     /// </summary>
     public void CreateLightAntiInfantrySquad() {
         
     }
 
     /// <summary>
-    /// 
+    //  
     /// </summary>
     public void CreateLightSniperUnit() {
         
     }
 
     //**************************************
-    //      HEAVY BARRACKS
-    //**************************************
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public void CreateHeavyGrenadierSquad() {
-
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public void CreateHeavyAntiAirSquad() {
-
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public void CreateHeroUnit() {
-
-    }
-
-    //**************************************
     //      GARAGE
     //**************************************
-    
+
+    /// <summary>
+    //  
+    /// </summary>
+    public void CreateGeneralJeep() {
+
+    }
+
+    /// <summary>
+    //  
+    /// </summary>
+    public void CreateAntiAirVehicle() {
+
+    }
+
+    /// <summary>
+    //  
+    /// </summary>
+    public void CreateMortar() {
+
+    }
 
     //**************************************
     //      AIRPAD
     //**************************************
 
+    /// <summary>
+    //  
+    /// </summary>
+    public void CreateScoutAirUnit() {
 
-    //**************************************
-    //      MINIBASE
-    //**************************************
+    }
 
+    /// <summary>
+    //  
+    /// </summary>
+    public void CreateSupportShip() {
 
-    //**************************************
-    //      OUTPOST
-    //**************************************
+    }
 
+    /// <summary>
+    //  
+    /// </summary>
+    public void CreateAirShip() {
 
-    //**************************************
-    //      HEADQUARTERS
-    //**************************************
-
-
-    //**************************************
-    //      COMMAND CENTER
-    //**************************************
+    }
 
 }

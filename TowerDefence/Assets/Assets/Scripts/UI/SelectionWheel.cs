@@ -50,7 +50,6 @@ public class SelectionWheel : MonoBehaviour {
     
     [HideInInspector]
     public List<Abstraction> _BuildingList;
-    private BuildingSlot _BuildingSlotInFocus = null;
 
     //******************************************************************************************************************************
     //
@@ -62,7 +61,7 @@ public class SelectionWheel : MonoBehaviour {
     /// 
     /// </summary>
     /// <param name="selectables"></param>
-    public void UpdateListWithBuildings(List<Abstraction> selectables) {
+    public void UpdateListWithBuildings(List<Abstraction> selectables, BuildingSlot buildingSlotInFocus) {
 
         // Reset button click events for all buttons
         foreach (var button in _WheelButtons) {
@@ -90,7 +89,7 @@ public class SelectionWheel : MonoBehaviour {
                 unitRef.Unit = building.GetComponent<WorldObject>();
 
                 // Update button click event
-                _WheelButtons[i].onClick.AddListener(delegate { building.OnWheelSelect(_BuildingSlotInFocus); });
+                _WheelButtons[i].onClick.AddListener(delegate { building.OnWheelSelect(buildingSlotInFocus); });
             }
             ++i;
         }
@@ -101,8 +100,8 @@ public class SelectionWheel : MonoBehaviour {
     /// 
     /// </summary>
     /// <param name="selectable"></param>
-    public void UpdateListWithBuildables(List<Abstraction> selectable) {
-
+    public void UpdateListWithBuildables(List<Abstraction> selectable, BuildingSlot buildingSlotInFocus) {
+        
         // Reset button click events for all buttons
         foreach (var button in _WheelButtons) {
 
@@ -136,7 +135,7 @@ public class SelectionWheel : MonoBehaviour {
                 unitRef.Unit = obj.GetComponent<WorldObject>();
 
                 // Update button click event
-                _WheelButtons[i].onClick.AddListener(delegate { obj.GetComponent<WorldObject>().OnWheelSelect(_BuildingSlotInFocus); });
+                _WheelButtons[i].onClick.AddListener(delegate { obj.GetComponent<WorldObject>().OnWheelSelect(buildingSlotInFocus); });
             }
             ++i;
         }
@@ -224,11 +223,5 @@ public class SelectionWheel : MonoBehaviour {
         // Hide widget
         GameManager.Instance.SelectionWheel.SetActive(false);
     }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="slot"></param>
-    public void setBuildingSlotInFocus(BuildingSlot slot) { _BuildingSlotInFocus = slot; }
-
+    
 }

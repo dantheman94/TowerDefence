@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4541155283688502}
   m_Layer: 0
-  m_Name: pfb_Depot_Outpost_Building
+  m_Name: Outpost_Building
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -68,12 +68,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4906671051967720}
   m_Layer: 0
-  m_Name: pfb_Depot_Outpost_Active
+  m_Name: Outpost_Active
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1270316501524382
 GameObject:
   m_ObjectHideFlags: 0
@@ -83,7 +83,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4020611926675870}
   - component: {fileID: 114518659976873610}
-  - component: {fileID: 114973418875279096}
+  - component: {fileID: 114056886330466534}
   m_Layer: 0
   m_Name: pfb_Outpost
   m_TagString: Untagged
@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 23978537683898550}
   - component: {fileID: 114169394488245508}
   m_Layer: 0
-  m_Name: Terminal_Depot (2)
+  m_Name: Outpost_Slot_Depot (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 23594590825238900}
   - component: {fileID: 114570084640691562}
   m_Layer: 0
-  m_Name: Terminal_Depot (3)
+  m_Name: Outpost_Slot_Depot (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -178,7 +178,7 @@ GameObject:
   - component: {fileID: 23749222088243372}
   - component: {fileID: 114707116669498124}
   m_Layer: 0
-  m_Name: Terminal_Depot (1)
+  m_Name: Outpost_Slot_Depot (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -227,7 +227,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1270316501524382}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 46.6, y: 2.25, z: -177.6}
+  m_LocalPosition: {x: 45.8, y: 2.25, z: 245.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4541155283688502}
@@ -243,7 +243,7 @@ Transform:
   m_GameObject: {fileID: 1130034390861220}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 6.74, y: 14, z: -15.22}
-  m_LocalScale: {x: 8, y: 8, z: 8}
+  m_LocalScale: {x: 6, y: 8, z: 6}
   m_Children: []
   m_Father: {fileID: 4906671051967720}
   m_RootOrder: 3
@@ -369,7 +369,7 @@ Transform:
   m_GameObject: {fileID: 1506705917579406}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 6.65, y: 22, z: -15.38}
-  m_LocalScale: {x: 12, y: 6, z: 12}
+  m_LocalScale: {x: 12, y: 3, z: 12}
   m_Children: []
   m_Father: {fileID: 4906671051967720}
   m_RootOrder: 4
@@ -435,7 +435,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: ea07d00cfa80e064e8d3d7cc8c1001cd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -799,6 +799,45 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114056886330466534
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1270316501524382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77df6e73ecdb1564ab460c1994edec69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectName: Outpost
+  ObjectDescription: Contains 3 building slots to produce resource generators or unit
+    depots. Can be upgraded to a Command Center for further expansion.
+  BuildingState: {fileID: 1011924668231282}
+  ActiveState: {fileID: 1243483475574442}
+  BuildImage: {fileID: 0}
+  BuildTime: 3
+  CostSupplies: 650
+  CostPower: 250
+  CostPlayerLevel: 1
+  RecycleSupplies: 0
+  RecyclePower: 0
+  MaxHitPoints: 100
+  MaxShieldPoints: 0
+  MultiSelectable: 0
+  _OffsetY: 2.25
+  Selectables:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  BaseType: 1
 --- !u!114 &114169394488245508
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -823,10 +862,10 @@ MonoBehaviour:
   RecyclePower: 0
   MaxHitPoints: 100
   MaxShieldPoints: 0
-  MultiSelectable: 1
-  _Deployed: 0
+  MultiSelectable: 0
   _OffsetY: 0
   _BuildingOnSlot: {fileID: 0}
+  AttachedBase: {fileID: 114056886330466534}
   Buildings:
   - {fileID: 0}
   - {fileID: 0}
@@ -874,10 +913,10 @@ MonoBehaviour:
   RecyclePower: 0
   MaxHitPoints: 100
   MaxShieldPoints: 0
-  MultiSelectable: 1
-  _Deployed: 0
+  MultiSelectable: 0
   _OffsetY: 0
   _BuildingOnSlot: {fileID: 0}
+  AttachedBase: {fileID: 114056886330466534}
   Buildings:
   - {fileID: 0}
   - {fileID: 0}
@@ -913,10 +952,10 @@ MonoBehaviour:
   RecyclePower: 0
   MaxHitPoints: 100
   MaxShieldPoints: 0
-  MultiSelectable: 1
-  _Deployed: 0
+  MultiSelectable: 0
   _OffsetY: 0
   _BuildingOnSlot: {fileID: 0}
+  AttachedBase: {fileID: 114056886330466534}
   Buildings:
   - {fileID: 0}
   - {fileID: 0}
@@ -928,45 +967,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
---- !u!114 &114973418875279096
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1270316501524382}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 318e14f307a5b2d4b9844015614e4c94, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObjectName: Outpost
-  ObjectDescription: 
-  BuildingState: {fileID: 1011924668231282}
-  ActiveState: {fileID: 1243483475574442}
-  BuildImage: {fileID: 0}
-  BuildTime: 20
-  CostSupplies: 500
-  CostPower: 250
-  CostPlayerLevel: 1
-  RecycleSupplies: 350
-  RecyclePower: 150
-  MaxHitPoints: 100
-  MaxShieldPoints: 0
-  MultiSelectable: 1
-  _Deployed: 0
-  _OffsetY: 2.25
-  Selectables:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  BaseType: 1
 --- !u!136 &136791333215587374
 CapsuleCollider:
   m_ObjectHideFlags: 1
