@@ -24,6 +24,7 @@ public class Abstraction : MonoBehaviour {
     [Header(" OBJECT PROPERTIES")]
     [Space]
     public string ObjectName;
-    public string ObjectDescription;
+    public string ObjectDescriptionShort;
+    public string ObjectDescriptionLong;
 
 }

@@ -50,7 +50,6 @@ public class WorldObject : Selectable {
 
     public enum WorldObjectStates { Default, Building, Deployable, Active, ENUM_COUNT }
 
-    protected GameObject _SelectionObj = null;
     protected bool _ReadyForDeployment = false;
     protected float _CurrentBuildTime = 0f;
     protected WorldObjectStates _ObjectState = WorldObjectStates.Default;
@@ -144,72 +143,7 @@ public class WorldObject : Selectable {
             selectionBounds.Encapsulate(r.bounds);
         }
     }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="selectObj"></param>
-    protected override void ChangeSelection(Selectable selectObj) { base.ChangeSelection(selectObj);
-
-        // This should be called by the following line, but there is an outside chance it will not
-        SetSelection(false);
-
-        // Clear the world objects selection list
-        foreach (var obj in _Player.SelectedWorldObjects) { obj.SetSelection(false); }
-        _Player.SelectedWorldObjects.Clear();
-
-        // Add new selection to the list
-        _Player.SelectedWorldObjects.Add(selectObj.GetComponent<WorldObject>());
-        selectObj.SetSelection(true);
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="draw"></param>
-    protected override void DrawSelection(bool draw) { base.DrawSelection(draw);
-
-        // Show selection
-        if (draw) {
-
-            // Show selection prefab at the bottom of the object
-            if (_SelectionObj == null) { _SelectionObj = Instantiate(Settings.SelectBoxObjects); }
-            if (_SelectionObj != null) {
-
-                // Display prefab if not already being displayed
-                if (_SelectionObj.activeInHierarchy != true) { _SelectionObj.SetActive(true); }
-
-                // Update selection prefab position
-                Vector3 pos = new Vector3();
-                pos.x = transform.position.x;
-                pos.y = 1.1f;
-                pos.z = transform.position.z;
-                _SelectionObj.transform.position = pos;
-            }
-        }
-
-        // Hide selection
-        else { if (_SelectionObj != null) { Destroy(_SelectionObj.gameObject); } }
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="hitObject"></param>
-    /// <param name="hitPoint"></param>
-    public override void MouseClick(GameObject hitObject, Vector3 hitPoint) { base.MouseClick(hitObject, hitPoint);
-
-        // Only handle input if currently selected
-        if (_IsCurrentlySelected && hitObject && hitObject.name != "Ground") {
-
-            // Cast hit object to world object
-            WorldObject worldObject = hitObject.transform.root.GetComponent<WorldObject>();
-
-            if (worldObject)
-                ChangeSelection(worldObject);
-        }
-    }
-
+        
     /// <summary>
     //  Called when the player presses a button on the selection wheel with this world object linked to the button.
     /// </summary>

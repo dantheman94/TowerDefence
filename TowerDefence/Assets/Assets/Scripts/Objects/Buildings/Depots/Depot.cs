@@ -31,4 +31,80 @@ public class Depot : Building {
     //******************************************************************************************************************************
 
     public enum eDepotType { Airpad, Barracks, Garage, Labratory }
+
+    //******************************************************************************************************************************
+    //
+    //      EVENTS
+    //
+    //******************************************************************************************************************************
+
+    /// <summary>
+    //  
+    /// </summary>
+    public void CreateCoreInfantrySquad() {
+
+    }
+
+    /// <summary>
+    //  
+    /// </summary>
+    public void CreateAntiInfantrySquad() {
+
+    }
+
+    /// <summary>
+    //  
+    /// </summary>
+    public void CreateAntiVehicleUnit() {
+
+    }
+    /// <summary>
+    //  
+    /// </summary>
+    public void CreateCoreVehicle() {
+
+    }
+
+    /// <summary>
+    //  
+    /// </summary>
+    public void CreateAntiAirVehicle() {
+
+    }
+
+    /// <summary>
+    //  
+    /// </summary>
+    public void CreateMobileArtillery() {
+
+    }
+
+    /// <summary>
+    //  
+    /// </summary>
+    public void CreateBattleTank() {
+
+    }
+
+    /// <summary>
+    //  
+    /// </summary>
+    public void CreateCoreAirship() {
+
+    }
+
+    /// <summary>
+    //  
+    /// </summary>
+    public void CreateSupportShip() {
+
+    }
+
+    /// <summary>
+    //  
+    /// </summary>
+    public void CreateBattleAirship() {
+
+    }
+
 }

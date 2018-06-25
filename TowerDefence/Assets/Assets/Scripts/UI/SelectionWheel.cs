@@ -25,7 +25,8 @@ public class SelectionWheel : MonoBehaviour {
     [Header(" ITEM HIGHLIGHT DETAIL WINDOW")]
     [Space]
     public Text DetailedHighlightTitle;
-    public Text DetailedHighlightDescription;
+    public Text DetailedHighlightDescriptionShort;
+    public Text DetailedHighlightDescriptionLong;
 
     [Space]
     [Header("-----------------------------------")]

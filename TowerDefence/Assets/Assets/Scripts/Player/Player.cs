@@ -33,7 +33,7 @@ public class Player : MonoBehaviour {
     // Input
     public UserInput _Input { get; private set; }
     public BuildingSlot SelectedBuildingSlot { get; set; }
-    public List<WorldObject> SelectedWorldObjects { get; set; }
+    public List<Selectable> SelectedWorldObjects { get; set; }
 
     // Economy
     public int MaxPopulation { get; set; }
@@ -72,7 +72,7 @@ public class Player : MonoBehaviour {
 
         PopulationCount = 0;
         MaxPopulation = GameManager.Instance.StartingMaxPopulation;
-        SelectedWorldObjects = new List<WorldObject>();
+        SelectedWorldObjects = new List<Selectable>();
     }
 
     /// <summary>

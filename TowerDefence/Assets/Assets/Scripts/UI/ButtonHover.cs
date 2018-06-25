@@ -66,8 +66,9 @@ public class ButtonHover : MonoBehaviour, IPointerEnterHandler {
                 // Update the highlight text in the selection wheel
 
                 /// Detail window
-                SelectionWheel.DetailedHighlightTitle.text = _UnitRefComponent.Unit.ObjectName;
-                SelectionWheel.DetailedHighlightDescription.text = _UnitRefComponent.Unit.ObjectDescription;
+                SelectionWheel.DetailedHighlightTitle.text = _UnitRefComponent.Unit.ObjectName.ToUpper();
+                SelectionWheel.DetailedHighlightDescriptionShort.text = _UnitRefComponent.Unit.ObjectDescriptionShort.ToUpper();
+                SelectionWheel.DetailedHighlightDescriptionLong.text = _UnitRefComponent.Unit.ObjectDescriptionLong;
 
                 /// Center panel
                 SelectionWheel.CenterHighlightTitle.text = _UnitRefComponent.Unit.ObjectName;

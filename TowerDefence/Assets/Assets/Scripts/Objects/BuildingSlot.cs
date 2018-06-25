@@ -64,7 +64,7 @@ public class BuildingSlot : WorldObject {
 
                 // Reset selection wheel highlight
                 _Player._HUD.SelectionWheel.DetailedHighlightTitle.text = "";
-                _Player._HUD.SelectionWheel.DetailedHighlightDescription.text = "";
+                _Player._HUD.SelectionWheel.DetailedHighlightDescriptionLong.text = "";
 
                 // Show selection wheel
                 GameManager.Instance.SelectionWheel.SetActive(true);
