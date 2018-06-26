@@ -40,7 +40,7 @@ public class UserInput : MonoBehaviour {
     //******************************************************************************************************************************
 
     /// <summary>
-    /// 
+    // Called when the gameObject is created.
     /// </summary>
     private void Start() {
 
@@ -355,10 +355,10 @@ public class UserInput : MonoBehaviour {
                         else {
 
                             // Add selection to list
-                            _Player.SelectedWorldObjects.Add(buildingSlot.AttachedBase);
-                            buildingSlot.AttachedBase.SetPlayer(_Player);
-                            buildingSlot.AttachedBase.SetSelection(true);
-                            buildingSlot.AttachedBase.OnSelectionWheel();
+                            _Player.SelectedWorldObjects.Add(buildingSlot._BuildingOnSlot);
+                            buildingSlot._BuildingOnSlot.SetPlayer(_Player);
+                            buildingSlot._BuildingOnSlot.SetSelection(true);
+                            buildingSlot._BuildingOnSlot.OnSelectionWheel();
                         }
                     }
 
