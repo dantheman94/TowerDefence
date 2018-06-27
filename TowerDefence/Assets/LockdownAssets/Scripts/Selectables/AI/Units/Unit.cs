@@ -7,7 +7,7 @@ using UnityEngine;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 5/27/2018
+//  Last edited on: 27/6/2018
 //
 //******************************
 
@@ -42,4 +42,14 @@ public class Unit : WorldObject {
         RecyclePower = CostPower;
     }
 
+    /// <summary>
+    //  Called each frame. 
+    /// </summary>
+    protected override void Update() {
+        base.Update();
+
+        // Force the unit to skip the deployable state and go straight to being active in the world
+        if (_ObjectState == WorldObjectStates.Deployable) { _ObjectState = WorldObjectStates.Active; }
+               
+    }
 }

@@ -57,7 +57,7 @@ public class Building : WorldObject {
     /// <summary>
     /// 
     /// </summary>
-    public void OnSelectionWheel() {
+    public virtual void OnSelectionWheel() {
 
         // Show the building's options if its active in the world
         if (_ObjectState == WorldObjectStates.Active) {

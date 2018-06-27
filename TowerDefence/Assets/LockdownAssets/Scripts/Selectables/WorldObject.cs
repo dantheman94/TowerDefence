@@ -269,4 +269,10 @@ public class WorldObject : Selectable {
     /// </returns>
     public WorldObjectStates getObjectState() { return _ObjectState; }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="newState"></param>
+    public void SetObjectState(WorldObjectStates newState) { _ObjectState = newState; }
+
 }

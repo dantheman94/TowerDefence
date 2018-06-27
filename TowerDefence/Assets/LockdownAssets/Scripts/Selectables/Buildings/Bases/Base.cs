@@ -23,6 +23,8 @@ public class Base : Building {
     [Header("-----------------------------------")]
     [Header(" BASE PROPERTIES")]
     public eBaseType BaseType;
+    public GameObject UnitSpawnTransform;
+    [Space]
     public List<BuildingSlot> DepotSlots;
     public List<BuildingSlot> TowerSlots;
 
