@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 //******************************
 //
@@ -108,5 +109,14 @@ public class GameManager : MonoBehaviour {
     /// </summary>
     /// <returns></returns>
     public bool GetIsLabratoryActive() { return _LabratoryCount > 0; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public void RebakeNavmesh() {
+
+        // Find a walkable surface, bake then repeat
+        foreach (var surface in GameObject.FindGameObjectsWithTag("Ground")) { surface.GetComponent<NavMeshSurface>().BuildNavMesh(); }
+    }
 
 }

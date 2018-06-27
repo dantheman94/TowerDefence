@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 //******************************
 //
@@ -27,6 +28,15 @@ public class Unit : WorldObject {
 
     //******************************************************************************************************************************
     //
+    //      VARIABLES
+    //
+    //******************************************************************************************************************************
+
+    protected NavMeshAgent _Agent = null;
+    protected Squad _SquadAttached = null;
+
+    //******************************************************************************************************************************
+    //
     //      FUNCTIONS
     //
     //******************************************************************************************************************************
@@ -40,6 +50,9 @@ public class Unit : WorldObject {
         // Set recycle amount to the same as the cost amount
         RecycleSupplies = CostSupplies;
         RecyclePower = CostPower;
+
+        // Get component references
+        _Agent = GetComponent<NavMeshAgent>();
     }
 
     /// <summary>
@@ -52,4 +65,40 @@ public class Unit : WorldObject {
         if (_ObjectState == WorldObjectStates.Deployable) { _ObjectState = WorldObjectStates.Active; }
                
     }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="seekTarget"></param>
+    public void AgentSeekPosition(Vector3 seekTarget) {
+
+        // Set agent's new goto target
+        _Agent.destination = seekTarget;
+        _Agent.speed = MovementSpeed;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    public NavMeshAgent GetAgent() { return _Agent; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    public bool IsInASquad() { return _SquadAttached != null; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="squad"></param>
+    public void SetSquadAttached(Squad squad) { _SquadAttached = squad; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    public Squad GetSquadAttached() { return _SquadAttached; }
+
 }

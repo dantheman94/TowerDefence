@@ -74,6 +74,9 @@ public class UserInput : MonoBehaviour {
 
             // Update abilities input
             AbilitiesInput();
+
+            // Update platoon input
+            PlatoonInput();
         }
     }
 
@@ -277,12 +280,12 @@ public class UserInput : MonoBehaviour {
 
         if (_Player._HUD.MouseInBounds() && !_Player._HUD.WheelActive()) {
 
-            // Precautions
+            // Hit tracing from camera to point mouse
             GameObject hitObject = _Player._HUD.FindHitObject();
             Vector3 hitPoint = _Player._HUD.FindHitPoint();
             if (hitObject && hitPoint != Settings.InvalidPosition) {
                 
-                if (hitObject.name != "Ground") {
+                if (hitObject.tag != "Ground") {
 
                     // Not holding LEFT CONTROL
                     if (!Input.GetKey(KeyCode.LeftControl)) {
@@ -303,6 +306,8 @@ public class UserInput : MonoBehaviour {
                     Building buildingObj = null;
                     BuildingSlot buildingSlot = null;
                     WorldObject worldObj = null;
+                    Squad squadObj = null;
+                    Unit unitObj = null;
 
                     // The root transform would be the base transform if base is valid (which overwrites the selection wheel buildables)
                     if (baseObj != null) {
@@ -329,7 +334,11 @@ public class UserInput : MonoBehaviour {
                         buildingSlot = hitObject.transform.root.GetComponent<BuildingSlot>();
                         worldObj = hitObject.transform.root.GetComponent<WorldObject>();
                     }
-                  
+
+                    // Hit a squad?
+                    squadObj = hitObject.GetComponent<Squad>();
+                    unitObj = hitObject.GetComponent<Unit>();
+
                     // Building object
                     if (buildingObj) {
 
@@ -362,6 +371,39 @@ public class UserInput : MonoBehaviour {
                         }
                     }
 
+                    // Squad
+                    else if (squadObj) {
+
+                        // Add selection to list
+                        _Player.SelectedWorldObjects.Add(squadObj);
+                        squadObj.SetPlayer(_Player);
+                        squadObj.SetSelection(true);
+                    }
+
+                    // Unit
+                    else if (unitObj) {
+                        
+                        // Is the unit part of a squad?
+                        if (unitObj.IsInASquad()) {
+
+                            squadObj = unitObj.GetSquadAttached();
+
+                            // Add selection to list
+                            _Player.SelectedWorldObjects.Add(squadObj);
+                            squadObj.SetPlayer(_Player);
+                            squadObj.SetSelection(true);
+                        }
+
+                        // Unit is NOT in a squad
+                        else {
+
+                            // Add selection to list
+                            _Player.SelectedWorldObjects.Add(unitObj);
+                            unitObj.SetPlayer(_Player);
+                            unitObj.SetSelection(true);
+                        }
+                    }
+
                     // World object
                     else if (worldObj) {
 
@@ -371,6 +413,13 @@ public class UserInput : MonoBehaviour {
                         worldObj.SetSelection(true);
                     }
                 }
+
+                // Just clicked on the ground so deselect all objects
+                else {
+
+                    // Deselect ALL worldObjects
+                    foreach (var obj in _Player.SelectedWorldObjects) { obj.SetSelection(false); }
+                }
             }
         }
     }
@@ -379,7 +428,63 @@ public class UserInput : MonoBehaviour {
     /// 
     /// </summary>
     private void RightMouseClick() {
-                
+
+        // Get lists of AIs that are selected
+        List<Squad> SquadsSelected = new List<Squad>();
+        List<Unit> UnitsSelected = new List<Unit>();
+
+        // Cast selected objects to AI objects
+        foreach (var obj in _Player.SelectedWorldObjects) {
+
+            // Checking for squads
+            Squad squad = obj.GetComponent<Squad>();
+            if (squad != null) { SquadsSelected.Add(squad); }
+
+            // Checking for individual units
+            Unit unit = obj.GetComponent<Unit>();
+            if (unit != null) { UnitsSelected.Add(unit); }
+        }
+
+        // There are AI currently selected and therefore we can command them
+        if (SquadsSelected.Count > 0 || UnitsSelected.Count > 0) { AiCommandsInput(SquadsSelected, UnitsSelected); }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    private void PlatoonInput() {
+
+
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    private void AiCommandsInput(List<Squad> squads, List<Unit> units) {
+
+        // Get point in world that is used to command the AI currently selected (go position, attack target, etc)
+        GameObject hitObject = _Player._HUD.FindHitObject();
+        Vector3 hitPoint = _Player._HUD.FindHitPoint();
+        if (hitObject && hitPoint != Settings.InvalidPosition) {
+            
+            // AI seek to hitpoint vector
+            if (hitObject.tag == "Ground") {
+
+                // If there are selected squads
+                if (squads.Count > 0) {
+
+                    // Loop through all selected squads & perform seek command
+                    foreach (var squad in squads) { squad.SquadSeek(hitPoint); }
+                }
+
+                // If there are individually selected units
+                if (units.Count > 0) {
+
+                    // Loop through all selected units & perform seek command
+                    foreach (var unit in units) { unit.AgentSeekPosition(hitPoint); }
+                }
+            }
+        }
     }
 
     /// <summary>
@@ -400,7 +505,7 @@ public class UserInput : MonoBehaviour {
                 // hide selection wheel if on screen
                 if (_Player._HUD.SelectionWheel.gameObject.activeInHierarchy) { _Player._HUD.SetAbilitiesWheelVisibility(false); }
 
-                // Show/hide abilies wheel
+                // Show/hide abilities wheel
                 _Player._HUD.SetAbilitiesWheelVisibility(!_Player._HUD.AbilitiesWheel.activeInHierarchy);
             }
         }

@@ -51,7 +51,13 @@ public class Building : WorldObject {
         base.Update();
 
         // Force the building to skip the deployable state and go straight to being active in the world
-        if (_ObjectState == WorldObjectStates.Deployable) { _ObjectState = WorldObjectStates.Active; }
+        if (_ObjectState == WorldObjectStates.Deployable) {
+            
+            _ObjectState = WorldObjectStates.Active;
+
+            // Re-bake navMeshes
+            ///GameManager.Instance.RebakeNavmesh();
+        }
     }
 
     /// <summary>
