@@ -219,7 +219,7 @@ public class SelectionWheel : MonoBehaviour {
     public void HideSelectionWheel() {
 
         // Deselect all objects
-        foreach (var selectable in GameManager.Instance.Selectables) { selectable._IsCurrentlySelected = false; }
+        foreach (var selectable in GameManager.Instance.Selectables) { selectable.SetIsSelected(false); }
 
         // Hide widget
         GameManager.Instance.SelectionWheel.SetActive(false);

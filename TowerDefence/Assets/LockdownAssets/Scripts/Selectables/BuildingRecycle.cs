@@ -44,7 +44,7 @@ public class BuildingRecycle : WorldObject {
         // Valid building check
         if (_BuildingToRecycle != null) {
 
-            _BuildingToRecycle._IsCurrentlySelected = false;
+            _BuildingToRecycle.SetIsSelected(false);
 
             // Recycle building
             _BuildingToRecycle.RecycleBuilding();

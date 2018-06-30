@@ -37,6 +37,7 @@ public class Squad : WorldObject {
     private int _SquadCurrentSize;
     private float _SquadHealth;
     private List<Unit> _Squad;
+    private GameManager.AiStates _CurrentState = GameManager.AiStates.Idle;
 
     //******************************************************************************************************************************
     //
@@ -44,6 +45,9 @@ public class Squad : WorldObject {
     //
     //******************************************************************************************************************************
 
+    /// <summary>
+    /// 
+    /// </summary>
     protected override void Awake() {
         base.Awake();
 
@@ -103,8 +107,17 @@ public class Squad : WorldObject {
         if (_ClonedWorldObject != null) {
 
             // Set position to be at the spawn vector while it is building (it should be hidden until its deployed)
-            _ClonedWorldObject.gameObject.transform.position = buildingSlot.AttachedBase.UnitSpawnTransform.transform.position;
-            _ClonedWorldObject.gameObject.transform.rotation = buildingSlot.AttachedBase.UnitSpawnTransform.transform.rotation;
+            if (buildingSlot.AttachedBase != null) {
+
+                _ClonedWorldObject.gameObject.transform.position = buildingSlot.AttachedBase.UnitSpawnTransform.transform.position;
+                _ClonedWorldObject.gameObject.transform.rotation = buildingSlot.AttachedBase.UnitSpawnTransform.transform.rotation;
+
+            }
+            else {
+
+                _ClonedWorldObject.gameObject.transform.position = buildingSlot.transform.position + buildingSlot.transform.forward * 50.0f;
+                _ClonedWorldObject.gameObject.transform.rotation = buildingSlot.transform.rotation;
+            }
 
             // Use the selection sphere for offsetting each unit's spawn location
             SphereCollider spawnSphere = GetComponent<SphereCollider>();
@@ -178,6 +191,9 @@ public class Squad : WorldObject {
                 unit.transform.position = vecPos;
                 unit.gameObject.SetActive(true);
             }
+
+            // Add to list of AI
+            _Player.AddToPopulation(thisSquad);
         }
     }
 
@@ -246,7 +262,7 @@ public class Squad : WorldObject {
                         Bounds testBounds = new Bounds(testOffset, new Vector3(agentRadius, agentRadius, agentRadius));
                         if (offsetBounds.Intersects(testBounds)) {
 
-                            // Move the offset until its no longer overlapping 
+                            // Move the offset in a random direction until its no longer overlapping 
                             float posDistance = Vector3.Distance(vecPos, testOffset);
                             int additive = (int)Random.Range(0, 3);
                             if      (additive == 0) { vecPos.Set(vecPos.x + (posDistance - agentRadius), vecPos.y, vecPos.z + (posDistance + agentRadius)); }
@@ -274,6 +290,24 @@ public class Squad : WorldObject {
         return positions;
     }
 
+    private List<Vector3> GetAttackingPositionsAtObject(WorldObject worldObject, int size) {
+        
+        float facingAngle = Vector3.Angle(worldObject.transform.forward, worldObject.transform.position - transform.position);
+        List<Vector3> positions = new List<Vector3>();
+
+        for (int i = 0; i < size; i++) {
+
+            ///float angle = i * (Mathf.PI * 10.0f / size + /*worldObject.*/transform.rotation.y);
+            float angle = i * (Mathf.PI * 10.0f / size + (facingAngle / 10));
+            Vector3 pos = new Vector3(Mathf.Cos((angle / size) / size), worldObject.transform.position.y, Mathf.Sin((angle / size) / size)) * _Squad[0].GetAgent().radius * _Squad[0].AttackingRange * 0.75f;
+            pos += worldObject.transform.position;
+
+            positions.Add(pos);
+        }
+
+        return positions;
+    }
+
     /// <summary>
     /// 
     /// </summary>
@@ -286,11 +320,35 @@ public class Squad : WorldObject {
         // Get all alive units to seek to the squad seek target
         int i = 0;
         foreach (var unit in _Squad) {
-
-            ///unit.AgentSeekPosition(seekTarget);
+            
             unit.AgentSeekPosition(positions[i]);
             i++;
         }
     }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="attackTarget"></param>
+    public void SquadAttackObject(WorldObject attackTarget) {
+
+        // Get positions with an offset for each unit to seek towards
+        List<Vector3> positions = GetAttackingPositionsAtObject(attackTarget, _Squad.Count);
+
+        // Get all alive units to attack the object (while positioning ourselves)
+        int i = 0;
+        foreach (var unit in _Squad) {
+
+            unit.AgentSeekPosition(positions[i]);
+            unit.AgentAttackObject(attackTarget);
+            i++;
+        }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="state"></param>
+    public void SetCurrentState(GameManager.AiStates state) { _CurrentState = state; }
     
 }

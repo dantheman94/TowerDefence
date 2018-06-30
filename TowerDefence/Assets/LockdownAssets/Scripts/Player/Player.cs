@@ -43,6 +43,17 @@ public class Player : MonoBehaviour {
     public int Level { get; set; }
     private int Score = 0;
     private int WavesSurvived = 0;
+    private List<WorldObject> AiUnitObjects;
+    private List<WorldObject> Platoon1Objects;
+    private List<WorldObject> Platoon2Objects;
+    private List<WorldObject> Platoon3Objects;
+    private List<WorldObject> Platoon4Objects;
+    private List<WorldObject> Platoon5Objects;
+    private List<WorldObject> Platoon6Objects;
+    private List<WorldObject> Platoon7Objects;
+    private List<WorldObject> Platoon8Objects;
+    private List<WorldObject> Platoon9Objects;
+    private List<WorldObject> Platoon0Objects;
 
     // HUD
     public HUD _HUD { get; private set; }
@@ -73,13 +84,118 @@ public class Player : MonoBehaviour {
         PopulationCount = 0;
         MaxPopulation = GameManager.Instance.StartingMaxPopulation;
         SelectedWorldObjects = new List<Selectable>();
+
+        // Create armies
+        AiUnitObjects = new List<WorldObject>();
+        Platoon1Objects = new List<WorldObject>();
+        Platoon2Objects = new List<WorldObject>();
+        Platoon3Objects = new List<WorldObject>();
+        Platoon4Objects = new List<WorldObject>();
+        Platoon5Objects = new List<WorldObject>();
+        Platoon6Objects = new List<WorldObject>();
+        Platoon7Objects = new List<WorldObject>();
+        Platoon8Objects = new List<WorldObject>();
+        Platoon9Objects = new List<WorldObject>();
+        Platoon0Objects = new List<WorldObject>();
     }
 
     /// <summary>
     /// 
     /// </summary>
-    private void Update() {
+    public void DeselectAllObjects() {
 
+        // Set all objects to NOT selected
+        foreach (var obj in SelectedWorldObjects) { obj.SetIsSelected(false); }
+
+        // Clear the list
+        if (SelectedWorldObjects.Count > 0) { SelectedWorldObjects.Clear(); }
     }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public void AddToPopulation(Squad squad) {
+
+        // Add to population
+        PopulationCount += squad.PopulationSize;
+        AiUnitObjects.Add(squad);
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="unit"></param>
+    public void AddToPopulation(Unit unit) {
+
+        // Add to population
+        PopulationCount += unit.PopulationSize;
+        AiUnitObjects.Add(unit);
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    public List<WorldObject> GetArmy() { return AiUnitObjects; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    public List<WorldObject> GetPlatoon1() { return Platoon1Objects; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    public List<WorldObject> GetPlatoon2() { return Platoon2Objects; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    public List<WorldObject> GetPlatoon3() { return Platoon3Objects; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    public List<WorldObject> GetPlatoon4() { return Platoon4Objects; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    public List<WorldObject> GetPlatoon5() { return Platoon5Objects; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    public List<WorldObject> GetPlatoon6() { return Platoon6Objects; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    public List<WorldObject> GetPlatoon7() { return Platoon7Objects; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    public List<WorldObject> GetPlatoon8() { return Platoon8Objects; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    public List<WorldObject> GetPlatoon9() { return Platoon9Objects; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    public List<WorldObject> GetPlatoon10() { return Platoon0Objects; }
 
 }

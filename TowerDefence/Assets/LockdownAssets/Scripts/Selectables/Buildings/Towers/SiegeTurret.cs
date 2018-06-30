@@ -27,7 +27,8 @@ public class SiegeTurret : Tower {
     [Space]
     [Header("-----------------------------------")]
     [Header(" SIEGE TURRET PROPERTIES")]
-    public int PopulationCapacity = 8;
+    public float MortarRangeMin = 50f;
+    public float MortarRangeMax = 400f;
 
     //******************************************************************************************************************************
     //

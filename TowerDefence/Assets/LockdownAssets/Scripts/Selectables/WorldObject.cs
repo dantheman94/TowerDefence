@@ -40,6 +40,9 @@ public class WorldObject : Selectable {
     public int MaxHitPoints = 100;
     public int MaxShieldPoints = 0;
     public bool MultiSelectable = true;
+    public int PopulationSize = 0;
+    public bool Garrisonable = false;
+    public int MaxGarrisonPopulation = 10;
     public float _OffsetY;
 
     //******************************************************************************************************************************
@@ -57,6 +60,7 @@ public class WorldObject : Selectable {
     protected UnitHealthBar _HealthBar = null;
     protected WorldObject _ClonedWorldObject = null;
     protected float _Health;
+    protected int _CurrentGarrisonPopulation = 0;
 
     //******************************************************************************************************************************
     //
@@ -274,5 +278,11 @@ public class WorldObject : Selectable {
     /// </summary>
     /// <param name="newState"></param>
     public void SetObjectState(WorldObjectStates newState) { _ObjectState = newState; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    public int GetCurrentGarrisonCount() { return _CurrentGarrisonPopulation; }
 
 }

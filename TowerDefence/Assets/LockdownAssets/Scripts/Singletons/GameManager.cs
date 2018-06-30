@@ -39,12 +39,16 @@ public class GameManager : MonoBehaviour {
     public GameObject BuildingInProgressPanel;
     public GameObject RecycleBuilding;
     public GameObject ObjectSelected;
+    public GameObject AgentSeekObject;
 
     //******************************************************************************************************************************
     //
     //      VARIABLES
     //
     //******************************************************************************************************************************
+
+    public enum Team { Defending, Attacking }
+    public enum AiStates { Idle, Attacking }
 
     [HideInInspector]
     public List<Player> Players { get; set; }
@@ -115,7 +119,7 @@ public class GameManager : MonoBehaviour {
     /// </summary>
     public void RebakeNavmesh() {
 
-        // Find a walkable surface, bake then repeat
+        // Find a walkable surface, bake then repeat for next surface
         foreach (var surface in GameObject.FindGameObjectsWithTag("Ground")) { surface.GetComponent<NavMeshSurface>().BuildNavMesh(); }
     }
 

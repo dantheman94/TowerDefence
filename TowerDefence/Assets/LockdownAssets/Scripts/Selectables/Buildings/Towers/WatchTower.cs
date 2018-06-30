@@ -27,7 +27,7 @@ public class WatchTower : Tower {
     [Space]
     [Header("-----------------------------------")]
     [Header(" WATCHTOWER PROPERTIES")]
-    public int PopulationCapacity = 8;
+    public float StunTime = 3f;
 
     //******************************************************************************************************************************
     //

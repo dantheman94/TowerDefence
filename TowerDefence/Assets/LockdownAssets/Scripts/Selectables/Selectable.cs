@@ -21,6 +21,12 @@ public class Selectable : Abstraction {
     //      INSPECTOR
     //
     //******************************************************************************************************************************
+    [Space]
+    [Header("-----------------------------------")]
+    [Header(" SELECTABLE PROPERTIES")]
+    [Space]
+    public GameManager.Team Team;
+    public float FogOfWarRadius = 400f;
 
     //******************************************************************************************************************************
     //
@@ -28,7 +34,7 @@ public class Selectable : Abstraction {
     //
     //******************************************************************************************************************************
 
-    public bool _IsCurrentlySelected;
+    protected bool _IsCurrentlySelected;
     protected Player _Player = null;
     protected Bounds selectionBounds;
     protected bool _PlayerOwned = false;
@@ -83,15 +89,15 @@ public class Selectable : Abstraction {
     protected virtual void ChangeSelection(Selectable selectObj) {
 
         // This should be called by the following line, but there is an outside chance it will not
-        SetSelection(false);
+        SetIsSelected(false);
 
         // Clear the world objects selection list
-        foreach (var obj in _Player.SelectedWorldObjects) { obj.SetSelection(false); }
+        foreach (var obj in _Player.SelectedWorldObjects) { obj.SetIsSelected(false); }
         _Player.SelectedWorldObjects.Clear();
 
         // Add new selection to the list
         _Player.SelectedWorldObjects.Add(selectObj);
-        selectObj.SetSelection(true);
+        selectObj.SetIsSelected(true);
     }
 
     /// <summary>
@@ -161,6 +167,12 @@ public class Selectable : Abstraction {
     /// 
     /// </summary>
     /// <param name="selected"></param>
-    public void SetSelection(bool selected) { _IsCurrentlySelected = selected; }
+    public void SetIsSelected(bool selected) { _IsCurrentlySelected = selected; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    public bool GetIsSelected() { return _IsCurrentlySelected; }
 
 }

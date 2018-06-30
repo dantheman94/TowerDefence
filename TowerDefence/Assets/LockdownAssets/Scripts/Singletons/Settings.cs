@@ -18,7 +18,9 @@ namespace TowerDefence {
         // Camera Movement
         public static int ScreenOffset { get { return 50; } }
         public static float ScrollSpeed { get { return 10000; } }
-        public static float MovementSpeed { get { return 120; } }
+        public static float MovementSpeed { get; set; }
+        public static float CameraWalkSpeed { get { return 100; } }
+        public static float CameraSprintSpeed { get { return 200; } }
         public static float RotateSpeed { get { return 100; } }
         public static float RotateZoomSpeed { get { return 100; } }
 
@@ -42,7 +44,7 @@ namespace TowerDefence {
 
         public static Rect CalculateSelectionBox(Bounds selectionBounds, Rect playingArea) {
 
-            // Shorthand for the coordinates of the centre of the selection bounds
+            // Shorthand for the coordinates of the center of the selection bounds
             float cx = selectionBounds.center.x;
             float cy = selectionBounds.center.y;
             float cz = selectionBounds.center.z;

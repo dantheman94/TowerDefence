@@ -102,18 +102,18 @@ public class BuildingSlot : WorldObject {
         base.ChangeSelection(selectObj);
 
         // This should be called by the following line, but there is an outside chance it will not
-        SetSelection(false);
+        SetIsSelected(false);
 
         // Clear the world objects selection list
-        foreach (var obj in _Player.SelectedWorldObjects) { obj.SetSelection(false); }
+        foreach (var obj in _Player.SelectedWorldObjects) { obj.SetIsSelected(false); }
         _Player.SelectedWorldObjects.Clear();
 
         // Clear the selected building slot (if theres one already been selected)
-        if (_Player.SelectedBuildingSlot) { _Player.SelectedBuildingSlot.SetSelection(false); }
+        if (_Player.SelectedBuildingSlot) { _Player.SelectedBuildingSlot.SetIsSelected(false); }
 
         // Update new selection with the building slot
         _Player.SelectedBuildingSlot = this;
-        selectObj.SetSelection(true);
+        selectObj.SetIsSelected(true);
     }
 
     /// <summary>

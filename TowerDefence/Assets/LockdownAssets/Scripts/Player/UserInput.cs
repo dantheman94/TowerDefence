@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 using TowerDefence;
+using UnityEngine;
 using XInputDotNetPure;
 
 //******************************
@@ -77,6 +76,19 @@ public class UserInput : MonoBehaviour {
 
             // Update platoon input
             PlatoonInput();
+
+            // Select all units
+            if (Input.GetKeyDown(KeyCode.E)) {
+
+                // Loop through & select all army objects
+                foreach (var ai in _Player.GetArmy()) {
+
+                    // Add to selection list
+                    _Player.SelectedWorldObjects.Add(ai);
+                    ai.SetPlayer(_Player);
+                    ai.SetIsSelected(true);
+                }
+            }
         }
     }
 
@@ -171,6 +183,17 @@ public class UserInput : MonoBehaviour {
             RaycastHit hit;
             Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward * 1000, out hit);
             _LookPoint = hit.point;
+        }
+
+        if (Input.GetKey(KeyCode.LeftShift)) {
+
+            // 'Sprint' movement speed
+            Settings.MovementSpeed = Settings.CameraSprintSpeed;
+        }
+        else {
+
+            // 'Walk' movement speed
+            Settings.MovementSpeed = Settings.CameraWalkSpeed;
         }
 
         // Horizontal camera movement via mouse
@@ -287,17 +310,20 @@ public class UserInput : MonoBehaviour {
                 
                 if (hitObject.tag != "Ground") {
 
-                    // Not holding LEFT CONTROL
+                    // Not holding LEFT CONTROL and LEFT SHIFT
                     if (!Input.GetKey(KeyCode.LeftControl)) {
 
-                        // Deselect any objects that are currently selected
-                        foreach (var obj in _Player.SelectedWorldObjects) { obj.SetSelection(false); }
-                        _Player.SelectedWorldObjects.Clear();
+                        if (!Input.GetKey(KeyCode.LeftShift)) {
 
-                        if (_Player.SelectedBuildingSlot != null) {
+                            // Deselect any objects that are currently selected
+                            foreach (var obj in _Player.SelectedWorldObjects) { obj.SetIsSelected(false); }
+                            _Player.SelectedWorldObjects.Clear();
 
-                            _Player.SelectedBuildingSlot.SetSelection(false);
-                            _Player.SelectedBuildingSlot = null;
+                            if (_Player.SelectedBuildingSlot != null) {
+
+                                _Player.SelectedBuildingSlot.SetIsSelected(false);
+                                _Player.SelectedBuildingSlot = null;
+                            }
                         }
                     }
 
@@ -309,6 +335,7 @@ public class UserInput : MonoBehaviour {
                     Squad squadObj = null;
                     Unit unitObj = null;
 
+                    
                     // The root transform would be the base transform if base is valid (which overwrites the selection wheel buildables)
                     if (baseObj != null) {
                         
@@ -316,13 +343,13 @@ public class UserInput : MonoBehaviour {
                         buildingSlot = hitObject.GetComponent<BuildingSlot>();
                         worldObj = hitObject.GetComponent<WorldObject>();
 
-                        // Base object
+                        // Left clicking on a base
                         if (buildingObj == null && buildingSlot == null && worldObj == null) {
 
                             // Add selection to list
                             _Player.SelectedWorldObjects.Add(baseObj);
                             baseObj.SetPlayer(_Player);
-                            baseObj.SetSelection(true);
+                            baseObj.SetIsSelected(true);
                             baseObj.OnSelectionWheel();
                         }
                     }
@@ -335,21 +362,21 @@ public class UserInput : MonoBehaviour {
                         worldObj = hitObject.transform.root.GetComponent<WorldObject>();
                     }
 
-                    // Hit a squad?
+                    // Hit an AI object?
                     squadObj = hitObject.GetComponent<Squad>();
-                    unitObj = hitObject.GetComponent<Unit>();
+                    unitObj = hitObject.GetComponentInParent<Unit>();
 
-                    // Building object
+                    // Left clicking on a building object
                     if (buildingObj) {
 
                         // Add selection to list
                         _Player.SelectedWorldObjects.Add(worldObj);
                         buildingObj.SetPlayer(_Player);
-                        buildingObj.SetSelection(true);
+                        buildingObj.SetIsSelected(true);
                         buildingObj.OnSelectionWheel();
                     }
 
-                    // Building slot
+                    // Left clicking on a building slot
                     else if (buildingSlot) {
 
                         // Empty building slot
@@ -357,7 +384,7 @@ public class UserInput : MonoBehaviour {
 
                             _Player.SelectedBuildingSlot = buildingSlot;
                             buildingSlot.SetPlayer(_Player);
-                            buildingSlot.SetSelection(true);
+                            buildingSlot.SetIsSelected(true);
                         }
 
                         // Builded slot
@@ -366,21 +393,21 @@ public class UserInput : MonoBehaviour {
                             // Add selection to list
                             _Player.SelectedWorldObjects.Add(buildingSlot._BuildingOnSlot);
                             buildingSlot._BuildingOnSlot.SetPlayer(_Player);
-                            buildingSlot._BuildingOnSlot.SetSelection(true);
+                            buildingSlot._BuildingOnSlot.SetIsSelected(true);
                             buildingSlot._BuildingOnSlot.OnSelectionWheel();
                         }
                     }
 
-                    // Squad
+                    // Left clicking on a squad
                     else if (squadObj) {
 
                         // Add selection to list
                         _Player.SelectedWorldObjects.Add(squadObj);
                         squadObj.SetPlayer(_Player);
-                        squadObj.SetSelection(true);
+                        squadObj.SetIsSelected(true);
                     }
 
-                    // Unit
+                    // Left clicking on a unit
                     else if (unitObj) {
                         
                         // Is the unit part of a squad?
@@ -391,26 +418,26 @@ public class UserInput : MonoBehaviour {
                             // Add selection to list
                             _Player.SelectedWorldObjects.Add(squadObj);
                             squadObj.SetPlayer(_Player);
-                            squadObj.SetSelection(true);
+                            squadObj.SetIsSelected(true);
                         }
 
                         // Unit is NOT in a squad
                         else {
 
                             // Add selection to list
-                            _Player.SelectedWorldObjects.Add(unitObj);
-                            unitObj.SetPlayer(_Player);
-                            unitObj.SetSelection(true);
+                            ///_Player.SelectedWorldObjects.Add(unitObj);
+                            ///unitObj.SetPlayer(_Player);
+                            ///unitObj.SetSelection(true);
                         }
                     }
 
-                    // World object
+                    // Left clicking on a world object
                     else if (worldObj) {
 
                         // Add selection to list
                         _Player.SelectedWorldObjects.Add(worldObj);
                         worldObj.SetPlayer(_Player);
-                        worldObj.SetSelection(true);
+                        worldObj.SetIsSelected(true);
                     }
                 }
 
@@ -418,7 +445,7 @@ public class UserInput : MonoBehaviour {
                 else {
 
                     // Deselect ALL worldObjects
-                    foreach (var obj in _Player.SelectedWorldObjects) { obj.SetSelection(false); }
+                    _Player.DeselectAllObjects();
                 }
             }
         }
@@ -433,17 +460,7 @@ public class UserInput : MonoBehaviour {
         List<Squad> SquadsSelected = new List<Squad>();
         List<Unit> UnitsSelected = new List<Unit>();
 
-        // Cast selected objects to AI objects
-        foreach (var obj in _Player.SelectedWorldObjects) {
-
-            // Checking for squads
-            Squad squad = obj.GetComponent<Squad>();
-            if (squad != null) { SquadsSelected.Add(squad); }
-
-            // Checking for individual units
-            Unit unit = obj.GetComponent<Unit>();
-            if (unit != null) { UnitsSelected.Add(unit); }
-        }
+        GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
 
         // There are AI currently selected and therefore we can command them
         if (SquadsSelected.Count > 0 || UnitsSelected.Count > 0) { AiCommandsInput(SquadsSelected, UnitsSelected); }
@@ -452,9 +469,527 @@ public class UserInput : MonoBehaviour {
     /// <summary>
     /// 
     /// </summary>
+    /// <param name="squadsSelected"></param>
+    /// <param name="unitsSelected"></param>
+    private void GetAISelectedFromAllSelected(ref List<Squad> squadsSelected, ref List<Unit> unitsSelected) {
+        
+        // Cast selected objects to AI objects
+        foreach (var obj in _Player.SelectedWorldObjects) {
+
+            // Checking for squads
+            Squad squad = obj.GetComponent<Squad>();
+            if (squad != null) { squadsSelected.Add(squad); }
+
+            // Checking for individual units
+            Unit unit = obj.GetComponent<Unit>();
+            if (unit != null) { unitsSelected.Add(unit); }
+        }
+    } 
+
+    /// <summary>
+    /// 
+    /// </summary>
     private void PlatoonInput() {
 
+        // Select platoon 1
+        if (Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.Alpha1) && (!Input.GetKeyDown(KeyCode.LeftShift) && (!Input.GetKeyDown(KeyCode.LeftControl)))) {
 
+            _Player.DeselectAllObjects();
+
+            // Loop through & select all army objects
+            foreach (var ai in _Player.GetPlatoon1()) {
+
+                // Add to selection list
+                _Player.SelectedWorldObjects.Add(ai);
+                ai.SetPlayer(_Player);
+                ai.SetIsSelected(true);
+            }
+        }
+
+        // Add to platoon 1
+        if ((Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.Alpha1) && (Input.GetKey(KeyCode.LeftShift)) && !Input.GetKey(KeyCode.LeftControl))) {
+
+            // Get lists of AIs that are selected
+            List<Squad> SquadsSelected = new List<Squad>();
+            List<Unit> UnitsSelected = new List<Unit>();
+
+            GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
+
+            // Add any squads selected to platoon 1
+            foreach (var squad in SquadsSelected) { _Player.GetPlatoon1().Add(squad); }
+
+            // Add any units selected to platoon 1
+            foreach (var unit in UnitsSelected) { _Player.GetPlatoon1().Add(unit); }
+        }
+
+        // Replace platoon 1
+        if ((Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.Alpha1) && (!Input.GetKey(KeyCode.LeftShift)) && Input.GetKey(KeyCode.LeftControl))) {
+
+            // Get lists of AIs that are selected
+            List<Squad> SquadsSelected = new List<Squad>();
+            List<Unit> UnitsSelected = new List<Unit>();
+
+            GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
+
+            // Clear platoon 1
+            _Player.GetPlatoon1().Clear();
+
+            // Add any squads selected to platoon 1
+            foreach (var squad in SquadsSelected) { _Player.GetPlatoon1().Add(squad); }
+
+            // Add any units selected to platoon 1
+            foreach (var unit in UnitsSelected) { _Player.GetPlatoon1().Add(unit); }
+        }
+
+        // Select platoon 2
+        if (Input.GetKeyDown(KeyCode.Keypad2) || Input.GetKeyDown(KeyCode.Alpha2) && (!Input.GetKeyDown(KeyCode.LeftShift) && (!Input.GetKeyDown(KeyCode.LeftControl)))) {
+
+            _Player.DeselectAllObjects();
+
+            // Loop through & select all army objects
+            foreach (var ai in _Player.GetPlatoon2()) {
+
+                // Add to selection list
+                _Player.SelectedWorldObjects.Add(ai);
+                ai.SetPlayer(_Player);
+                ai.SetIsSelected(true);
+            }
+        }
+
+        // Add to platoon 2
+        if ((Input.GetKeyDown(KeyCode.Keypad2) || Input.GetKeyDown(KeyCode.Alpha2) && (Input.GetKey(KeyCode.LeftShift)) && !Input.GetKey(KeyCode.LeftControl))) {
+
+            // Get lists of AIs that are selected
+            List<Squad> SquadsSelected = new List<Squad>();
+            List<Unit> UnitsSelected = new List<Unit>();
+
+            GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
+
+            // Add any squads selected to platoon 2
+            foreach (var squad in SquadsSelected) { _Player.GetPlatoon2().Add(squad); }
+
+            // Add any units selected to platoon 2
+            foreach (var unit in UnitsSelected) { _Player.GetPlatoon2().Add(unit); }
+        }
+
+        // Replace platoon 2
+        if ((Input.GetKeyDown(KeyCode.Keypad2) || Input.GetKeyDown(KeyCode.Alpha2) && (!Input.GetKey(KeyCode.LeftShift)) && Input.GetKey(KeyCode.LeftControl))) {
+
+            // Get lists of AIs that are selected
+            List<Squad> SquadsSelected = new List<Squad>();
+            List<Unit> UnitsSelected = new List<Unit>();
+
+            GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
+
+            // Clear platoon 2
+            _Player.GetPlatoon2().Clear();
+
+            // Add any squads selected to platoon 2
+            foreach (var squad in SquadsSelected) { _Player.GetPlatoon2().Add(squad); }
+
+            // Add any units selected to platoon 2
+            foreach (var unit in UnitsSelected) { _Player.GetPlatoon2().Add(unit); }
+        }
+
+        // Select platoon 3
+        if (Input.GetKeyDown(KeyCode.Keypad3) || Input.GetKeyDown(KeyCode.Alpha3) && (!Input.GetKeyDown(KeyCode.LeftShift) && (!Input.GetKeyDown(KeyCode.LeftControl)))) {
+
+            _Player.DeselectAllObjects();
+
+            // Loop through & select all army objects
+            foreach (var ai in _Player.GetPlatoon3()) {
+
+                // Add to selection list
+                _Player.SelectedWorldObjects.Add(ai);
+                ai.SetPlayer(_Player);
+                ai.SetIsSelected(true);
+            }
+        }
+
+        // Add to platoon 3
+        if ((Input.GetKeyDown(KeyCode.Keypad3) || Input.GetKeyDown(KeyCode.Alpha3) && (Input.GetKey(KeyCode.LeftShift)) && !Input.GetKey(KeyCode.LeftControl))) {
+
+            // Get lists of AIs that are selected
+            List<Squad> SquadsSelected = new List<Squad>();
+            List<Unit> UnitsSelected = new List<Unit>();
+
+            GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
+
+            // Add any squads selected to platoon 3
+            foreach (var squad in SquadsSelected) { _Player.GetPlatoon3().Add(squad); }
+
+            // Add any units selected to platoon 3
+            foreach (var unit in UnitsSelected) { _Player.GetPlatoon3().Add(unit); }
+        }
+
+        // Replace platoon 3
+        if ((Input.GetKeyDown(KeyCode.Keypad3) || Input.GetKeyDown(KeyCode.Alpha3) && (!Input.GetKey(KeyCode.LeftShift)) && Input.GetKey(KeyCode.LeftControl))) {
+
+            // Get lists of AIs that are selected
+            List<Squad> SquadsSelected = new List<Squad>();
+            List<Unit> UnitsSelected = new List<Unit>();
+
+            GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
+
+            // Clear platoon 3
+            _Player.GetPlatoon3().Clear();
+
+            // Add any squads selected to platoon 3
+            foreach (var squad in SquadsSelected) { _Player.GetPlatoon3().Add(squad); }
+
+            // Add any units selected to platoon 3
+            foreach (var unit in UnitsSelected) { _Player.GetPlatoon3().Add(unit); }
+        }
+
+        // Select platoon 4
+        if (Input.GetKeyDown(KeyCode.Keypad4) || Input.GetKeyDown(KeyCode.Alpha4) && (!Input.GetKeyDown(KeyCode.LeftShift) && (!Input.GetKeyDown(KeyCode.LeftControl)))) {
+
+            _Player.DeselectAllObjects();
+
+            // Loop through & select all army objects
+            foreach (var ai in _Player.GetPlatoon4()) {
+
+                // Add to selection list
+                _Player.SelectedWorldObjects.Add(ai);
+                ai.SetPlayer(_Player);
+                ai.SetIsSelected(true);
+            }
+        }
+
+        // Add to platoon 4
+        if ((Input.GetKeyDown(KeyCode.Keypad4) || Input.GetKeyDown(KeyCode.Alpha4) && (Input.GetKey(KeyCode.LeftShift)) && !Input.GetKey(KeyCode.LeftControl))) {
+
+            // Get lists of AIs that are selected
+            List<Squad> SquadsSelected = new List<Squad>();
+            List<Unit> UnitsSelected = new List<Unit>();
+
+            GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
+
+            // Add any squads selected to platoon 4
+            foreach (var squad in SquadsSelected) { _Player.GetPlatoon4().Add(squad); }
+
+            // Add any units selected to platoon 4
+            foreach (var unit in UnitsSelected) { _Player.GetPlatoon4().Add(unit); }
+        }
+
+        // Replace platoon 4
+        if ((Input.GetKeyDown(KeyCode.Keypad4) || Input.GetKeyDown(KeyCode.Alpha4) && (!Input.GetKey(KeyCode.LeftShift)) && Input.GetKey(KeyCode.LeftControl))) {
+
+            // Get lists of AIs that are selected
+            List<Squad> SquadsSelected = new List<Squad>();
+            List<Unit> UnitsSelected = new List<Unit>();
+
+            GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
+
+            // Clear platoon 4
+            _Player.GetPlatoon4().Clear();
+
+            // Add any squads selected to platoon 1
+            foreach (var squad in SquadsSelected) { _Player.GetPlatoon4().Add(squad); }
+
+            // Add any units selected to platoon 1
+            foreach (var unit in UnitsSelected) { _Player.GetPlatoon4().Add(unit); }
+        }
+
+        // Select platoon 5
+        if (Input.GetKeyDown(KeyCode.Keypad5) || Input.GetKeyDown(KeyCode.Alpha5) && (!Input.GetKeyDown(KeyCode.LeftShift) && (!Input.GetKeyDown(KeyCode.LeftControl)))) {
+
+            _Player.DeselectAllObjects();
+
+            // Loop through & select all army objects
+            foreach (var ai in _Player.GetPlatoon5()) {
+
+                // Add to selection list
+                _Player.SelectedWorldObjects.Add(ai);
+                ai.SetPlayer(_Player);
+                ai.SetIsSelected(true);
+            }
+        }
+
+        // Add to platoon 5
+        if ((Input.GetKeyDown(KeyCode.Keypad5) || Input.GetKeyDown(KeyCode.Alpha5) && (Input.GetKey(KeyCode.LeftShift)) && !Input.GetKey(KeyCode.LeftControl))) {
+
+            // Get lists of AIs that are selected
+            List<Squad> SquadsSelected = new List<Squad>();
+            List<Unit> UnitsSelected = new List<Unit>();
+
+            GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
+
+            // Add any squads selected to platoon 5
+            foreach (var squad in SquadsSelected) { _Player.GetPlatoon5().Add(squad); }
+
+            // Add any units selected to platoon 5
+            foreach (var unit in UnitsSelected) { _Player.GetPlatoon5().Add(unit); }
+        }
+
+        // Replace platoon 5
+        if ((Input.GetKeyDown(KeyCode.Keypad5) || Input.GetKeyDown(KeyCode.Alpha5) && (!Input.GetKey(KeyCode.LeftShift)) && Input.GetKey(KeyCode.LeftControl))) {
+
+            // Get lists of AIs that are selected
+            List<Squad> SquadsSelected = new List<Squad>();
+            List<Unit> UnitsSelected = new List<Unit>();
+
+            GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
+
+            // Clear platoon 5
+            _Player.GetPlatoon5().Clear();
+
+            // Add any squads selected to platoon 5
+            foreach (var squad in SquadsSelected) { _Player.GetPlatoon5().Add(squad); }
+
+            // Add any units selected to platoon 5
+            foreach (var unit in UnitsSelected) { _Player.GetPlatoon5().Add(unit); }
+        }
+
+        // Select platoon 6
+        if (Input.GetKeyDown(KeyCode.Keypad6) || Input.GetKeyDown(KeyCode.Alpha6) && (!Input.GetKeyDown(KeyCode.LeftShift) && (!Input.GetKeyDown(KeyCode.LeftControl)))) {
+
+            _Player.DeselectAllObjects();
+
+            // Loop through & select all army objects
+            foreach (var ai in _Player.GetPlatoon6()) {
+
+                // Add to selection list
+                _Player.SelectedWorldObjects.Add(ai);
+                ai.SetPlayer(_Player);
+                ai.SetIsSelected(true);
+            }
+        }
+
+        // Add to platoon 6
+        if ((Input.GetKeyDown(KeyCode.Keypad6) || Input.GetKeyDown(KeyCode.Alpha6) && (Input.GetKey(KeyCode.LeftShift)) && !Input.GetKey(KeyCode.LeftControl))) {
+
+            // Get lists of AIs that are selected
+            List<Squad> SquadsSelected = new List<Squad>();
+            List<Unit> UnitsSelected = new List<Unit>();
+
+            GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
+
+            // Add any squads selected to platoon 6
+            foreach (var squad in SquadsSelected) { _Player.GetPlatoon6().Add(squad); }
+
+            // Add any units selected to platoon 6
+            foreach (var unit in UnitsSelected) { _Player.GetPlatoon6().Add(unit); }
+        }
+
+        // Replace platoon 6
+        if ((Input.GetKeyDown(KeyCode.Keypad6) || Input.GetKeyDown(KeyCode.Alpha6) && (!Input.GetKey(KeyCode.LeftShift)) && Input.GetKey(KeyCode.LeftControl))) {
+
+            // Get lists of AIs that are selected
+            List<Squad> SquadsSelected = new List<Squad>();
+            List<Unit> UnitsSelected = new List<Unit>();
+
+            GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
+
+            // Clear platoon 6
+            _Player.GetPlatoon6().Clear();
+
+            // Add any squads selected to platoon 1
+            foreach (var squad in SquadsSelected) { _Player.GetPlatoon6().Add(squad); }
+
+            // Add any units selected to platoon 1
+            foreach (var unit in UnitsSelected) { _Player.GetPlatoon6().Add(unit); }
+        }
+
+        // Select platoon 7
+        if (Input.GetKeyDown(KeyCode.Keypad7) || Input.GetKeyDown(KeyCode.Alpha7) && (!Input.GetKeyDown(KeyCode.LeftShift) && (!Input.GetKeyDown(KeyCode.LeftControl)))) {
+
+            _Player.DeselectAllObjects();
+
+            // Loop through & select all army objects
+            foreach (var ai in _Player.GetPlatoon7()) {
+
+                // Add to selection list
+                _Player.SelectedWorldObjects.Add(ai);
+                ai.SetPlayer(_Player);
+                ai.SetIsSelected(true);
+            }
+        }
+
+        // Add to platoon 7
+        if ((Input.GetKeyDown(KeyCode.Keypad7) || Input.GetKeyDown(KeyCode.Alpha7) && (Input.GetKey(KeyCode.LeftShift)) && !Input.GetKey(KeyCode.LeftControl))) {
+
+            // Get lists of AIs that are selected
+            List<Squad> SquadsSelected = new List<Squad>();
+            List<Unit> UnitsSelected = new List<Unit>();
+
+            GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
+
+            // Add any squads selected to platoon 7
+            foreach (var squad in SquadsSelected) { _Player.GetPlatoon7().Add(squad); }
+
+            // Add any units selected to platoon 7
+            foreach (var unit in UnitsSelected) { _Player.GetPlatoon7().Add(unit); }
+        }
+
+        // Replace platoon 7
+        if ((Input.GetKeyDown(KeyCode.Keypad7) || Input.GetKeyDown(KeyCode.Alpha7) && (!Input.GetKey(KeyCode.LeftShift)) && Input.GetKey(KeyCode.LeftControl))) {
+
+            // Get lists of AIs that are selected
+            List<Squad> SquadsSelected = new List<Squad>();
+            List<Unit> UnitsSelected = new List<Unit>();
+
+            GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
+
+            // Clear platoon 7
+            _Player.GetPlatoon7().Clear();
+
+            // Add any squads selected to platoon 7
+            foreach (var squad in SquadsSelected) { _Player.GetPlatoon7().Add(squad); }
+
+            // Add any units selected to platoon 7
+            foreach (var unit in UnitsSelected) { _Player.GetPlatoon7().Add(unit); }
+        }
+
+        // Select platoon 8
+        if (Input.GetKeyDown(KeyCode.Keypad8) || Input.GetKeyDown(KeyCode.Alpha8) && (!Input.GetKeyDown(KeyCode.LeftShift) && (!Input.GetKeyDown(KeyCode.LeftControl)))) {
+
+            _Player.DeselectAllObjects();
+
+            // Loop through & select all army objects
+            foreach (var ai in _Player.GetPlatoon8()) {
+
+                // Add to selection list
+                _Player.SelectedWorldObjects.Add(ai);
+                ai.SetPlayer(_Player);
+                ai.SetIsSelected(true);
+            }
+        }
+
+        // Add to platoon 8
+        if ((Input.GetKeyDown(KeyCode.Keypad8) || Input.GetKeyDown(KeyCode.Alpha8) && (Input.GetKey(KeyCode.LeftShift)) && !Input.GetKey(KeyCode.LeftControl))) {
+
+            // Get lists of AIs that are selected
+            List<Squad> SquadsSelected = new List<Squad>();
+            List<Unit> UnitsSelected = new List<Unit>();
+
+            GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
+
+            // Add any squads selected to platoon 8
+            foreach (var squad in SquadsSelected) { _Player.GetPlatoon8().Add(squad); }
+
+            // Add any units selected to platoon 8
+            foreach (var unit in UnitsSelected) { _Player.GetPlatoon8().Add(unit); }
+        }
+
+        // Replace platoon 8
+        if ((Input.GetKeyDown(KeyCode.Keypad8) || Input.GetKeyDown(KeyCode.Alpha8) && (!Input.GetKey(KeyCode.LeftShift)) && Input.GetKey(KeyCode.LeftControl))) {
+
+            // Get lists of AIs that are selected
+            List<Squad> SquadsSelected = new List<Squad>();
+            List<Unit> UnitsSelected = new List<Unit>();
+
+            GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
+
+            // Clear platoon 8
+            _Player.GetPlatoon8().Clear();
+
+            // Add any squads selected to platoon 8
+            foreach (var squad in SquadsSelected) { _Player.GetPlatoon8().Add(squad); }
+        
+            // Add any units selected to platoon 8
+            foreach (var unit in UnitsSelected) { _Player.GetPlatoon8().Add(unit); }
+        }
+
+        // Select platoon 9
+        if (Input.GetKeyDown(KeyCode.Keypad9) || Input.GetKeyDown(KeyCode.Alpha9) && (!Input.GetKeyDown(KeyCode.LeftShift) && (!Input.GetKeyDown(KeyCode.LeftControl)))) {
+
+            _Player.DeselectAllObjects();
+
+            // Loop through & select all army objects
+            foreach (var ai in _Player.GetPlatoon9()) {
+
+                // Add to selection list
+                _Player.SelectedWorldObjects.Add(ai);
+                ai.SetPlayer(_Player);
+                ai.SetIsSelected(true);
+            }
+        }
+
+        // Add to platoon 9
+        if ((Input.GetKeyDown(KeyCode.Keypad9) || Input.GetKeyDown(KeyCode.Alpha9) && (Input.GetKey(KeyCode.LeftShift)) && !Input.GetKey(KeyCode.LeftControl))) {
+
+            // Get lists of AIs that are selected
+            List<Squad> SquadsSelected = new List<Squad>();
+            List<Unit> UnitsSelected = new List<Unit>();
+
+            GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
+
+            // Add any squads selected to platoon 9
+            foreach (var squad in SquadsSelected) { _Player.GetPlatoon9().Add(squad); }
+
+            // Add any units selected to platoon 9
+            foreach (var unit in UnitsSelected) { _Player.GetPlatoon9().Add(unit); }
+        }
+
+        // Replace platoon 9
+        if ((Input.GetKeyDown(KeyCode.Keypad9) || Input.GetKeyDown(KeyCode.Alpha9) && (!Input.GetKey(KeyCode.LeftShift)) && Input.GetKey(KeyCode.LeftControl))) {
+
+            // Get lists of AIs that are selected
+            List<Squad> SquadsSelected = new List<Squad>();
+            List<Unit> UnitsSelected = new List<Unit>();
+
+            GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
+
+            // Clear platoon 9
+            _Player.GetPlatoon9().Clear();
+
+            // Add any squads selected to platoon 9
+            foreach (var squad in SquadsSelected) { _Player.GetPlatoon9().Add(squad); }
+
+            // Add any units selected to platoon 9
+            foreach (var unit in UnitsSelected) { _Player.GetPlatoon9().Add(unit); }
+        }
+
+        // Select platoon 10
+        if (Input.GetKeyDown(KeyCode.Keypad0) || Input.GetKeyDown(KeyCode.Alpha0) && (!Input.GetKeyDown(KeyCode.LeftShift) && (!Input.GetKeyDown(KeyCode.LeftControl)))) {
+
+            _Player.DeselectAllObjects();
+
+            // Loop through & select all army objects
+            foreach (var ai in _Player.GetPlatoon10()) {
+
+                // Add to selection list
+                _Player.SelectedWorldObjects.Add(ai);
+                ai.SetPlayer(_Player);
+                ai.SetIsSelected(true);
+            }
+        }
+
+        // Add to platoon 10
+        if ((Input.GetKeyDown(KeyCode.Keypad0) || Input.GetKeyDown(KeyCode.Alpha0) && (Input.GetKey(KeyCode.LeftShift)) && !Input.GetKey(KeyCode.LeftControl))) {
+
+            // Get lists of AIs that are selected
+            List<Squad> SquadsSelected = new List<Squad>();
+            List<Unit> UnitsSelected = new List<Unit>();
+
+            GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
+
+            // Add any squads selected to platoon 10
+            foreach (var squad in SquadsSelected) { _Player.GetPlatoon10().Add(squad); }
+
+            // Add any units selected to platoon 10
+            foreach (var unit in UnitsSelected) { _Player.GetPlatoon10().Add(unit); }
+        }
+
+        // Replace platoon 10
+        if ((Input.GetKeyDown(KeyCode.Keypad0) || Input.GetKeyDown(KeyCode.Alpha0) && (!Input.GetKey(KeyCode.LeftShift)) && Input.GetKey(KeyCode.LeftControl))) {
+
+            // Get lists of AIs that are selected
+            List<Squad> SquadsSelected = new List<Squad>();
+            List<Unit> UnitsSelected = new List<Unit>();
+
+            GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
+
+            // Clear platoon 10
+            _Player.GetPlatoon10().Clear();
+
+            // Add any squads selected to platoon 10
+            foreach (var squad in SquadsSelected) { _Player.GetPlatoon10().Add(squad); }
+
+            // Add any units selected to platoon 10
+            foreach (var unit in UnitsSelected) { _Player.GetPlatoon10().Add(unit); }
+        }
     }
 
     /// <summary>
@@ -466,22 +1001,141 @@ public class UserInput : MonoBehaviour {
         GameObject hitObject = _Player._HUD.FindHitObject();
         Vector3 hitPoint = _Player._HUD.FindHitPoint();
         if (hitObject && hitPoint != Settings.InvalidPosition) {
-            
+
             // AI seek to hitpoint vector
             if (hitObject.tag == "Ground") {
 
                 // If there are selected squads
                 if (squads.Count > 0) {
 
-                    // Loop through all selected squads & perform seek command
+                    // Loop through all selected squads & perform SEEK command
                     foreach (var squad in squads) { squad.SquadSeek(hitPoint); }
                 }
 
                 // If there are individually selected units
                 if (units.Count > 0) {
 
-                    // Loop through all selected units & perform seek command
+                    // Loop through all selected units & perform SEEK command
                     foreach (var unit in units) { unit.AgentSeekPosition(hitPoint); }
+                }
+            }
+
+            /// (hitObject.tag != "Ground")
+            else {
+
+                // Cast hit object to selectable objects
+                Base baseObj = hitObject.transform.root.GetComponent<Base>();
+                Building buildingObj = hitObject.GetComponentInParent<Building>(); ;
+                ///BuildingSlot buildingSlot = null;
+                ///WorldObject worldObj = null;
+
+                // Hit an AI object?
+                Squad squadObj = hitObject.GetComponent<Squad>();
+                Unit unitObj = hitObject.GetComponentInParent<Unit>();
+
+                // Right clicking on a squad
+                if (squadObj) {
+                    
+                    // Enemy squad
+                    if (squadObj.Team !=  GameManager.Team.Defending) {
+                        
+                        // If there are selected squads
+                        if (squads.Count > 0) {
+
+                            // Loop through all selected squads & perform ATTACK command on the squad
+                            foreach (var squad in squads) { squad.SquadAttackObject(squadObj); }
+                        }
+
+                        // If there are individually selected units
+                        if (units.Count > 0) {
+
+                            // Loop through all selected units & perform ATTACK command on the squad
+                            foreach (var unit in units) { unit.AgentAttackObject(squadObj); }
+                        }
+                    }
+                }
+
+                // Right clicking on a unit
+                else if (unitObj) {
+
+                    // Is the unit part of a squad?
+                    if (unitObj.IsInASquad()) {
+
+                        squadObj = unitObj.GetSquadAttached();
+
+                        // Enemy squad
+                        if (squadObj.Team != GameManager.Team.Defending) {
+
+                            // If there are selected squads
+                            if (squads.Count > 0) {
+
+                                // Loop through all selected squads & perform ATTACK command on the squad
+                                foreach (var squad in squads) { squad.SquadAttackObject(squadObj); }
+                            }
+
+                            // If there are individually selected units
+                            if (units.Count > 0) {
+
+                                // Loop through all selected units & perform ATTACK command on the squad
+                                foreach (var unit in units) { unit.AgentAttackObject(squadObj); }
+                            }
+                        }
+                    }
+
+                    // Unit is NOT in a squad
+                    else {
+
+                        // Enemy unit
+                        if (unitObj.Team != GameManager.Team.Defending) {
+
+                            // If there are selected squads
+                            if (squads.Count > 0) {
+
+                                // Loop through all selected squads & perform ATTACK command on the unit
+                                foreach (var squad in squads) { squad.SquadAttackObject(unitObj); }
+                            }
+
+                            // If there are individually selected units
+                            if (units.Count > 0) {
+
+                                // Loop through all selected units & perform ATTACK command on the unit
+                                foreach (var unit in units) { unit.AgentAttackObject(unitObj); }
+                            }
+                        }
+                    }
+                }
+
+                // Right clicking on a building
+                else if (buildingObj) {
+
+                    // Enemy building
+                    if (buildingObj.Team != GameManager.Team.Defending) {
+
+                        // If there are selected squads
+                        if (squads.Count > 0) {
+
+                            // Loop through all selected squads & perform ATTACK command on the building
+                            foreach (var squad in squads) { squad.SquadAttackObject(buildingObj); }
+                        }
+
+                        // If there are individually selected units
+                        if (units.Count > 0) {
+
+                            // Loop through all selected units & perform ATTACK command on the building
+                            foreach (var unit in units) { unit.AgentAttackObject(buildingObj); }
+                        }
+                    }
+
+                    // Ally building
+                    else {
+
+                        // The building is garrisonable
+                        if (buildingObj.Garrisonable) {
+
+                            // And there is enough space for it
+                            ///if (buildingObj.MaxGarrisonPopulation - buildingObj.GetCurrentGarrisonCount() >= )
+                        }
+                    }
                 }
             }
         }
@@ -499,7 +1153,7 @@ public class UserInput : MonoBehaviour {
             if (Input.GetKeyDown(KeyCode.F)) {
 
                 // Deselect any objects that are currently selected
-                foreach (var obj in _Player.SelectedWorldObjects) { obj.SetSelection(false); }
+                foreach (var obj in _Player.SelectedWorldObjects) { obj.SetIsSelected(false); }
                 _Player.SelectedWorldObjects.Clear();
 
                 // hide selection wheel if on screen

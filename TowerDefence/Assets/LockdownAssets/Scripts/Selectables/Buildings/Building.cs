@@ -37,6 +37,7 @@ public class Building : WorldObject {
 
     protected BuildingSlot _BuildingSlot = null;
     protected BuildingRecycle _RecycleOption = null;
+    private bool _RebuildNavmesh = false;
 
     //******************************************************************************************************************************
     //
@@ -54,9 +55,17 @@ public class Building : WorldObject {
         if (_ObjectState == WorldObjectStates.Deployable) {
             
             _ObjectState = WorldObjectStates.Active;
+            _RebuildNavmesh = true;
+        }
+    }
+
+    protected void LateUpdate() {
+
+        if (_RebuildNavmesh) { 
 
             // Re-bake navMeshes
             ///GameManager.Instance.RebakeNavmesh();
+            _RebuildNavmesh = false;
         }
     }
 
@@ -135,7 +144,7 @@ public class Building : WorldObject {
             buildingSlot._BuildingOnSlot = building;
 
             // Disable building slot (is re-enabled when the building is recycled)
-            buildingSlot.SetSelection(false);
+            buildingSlot.SetIsSelected(false);
         }
     }
 
@@ -145,7 +154,7 @@ public class Building : WorldObject {
     public void RecycleBuilding() {
 
         // Deselect all objects
-        foreach (var selectable in GameManager.Instance.Selectables) { selectable._IsCurrentlySelected = false; }
+        foreach (var selectable in GameManager.Instance.Selectables) { selectable.SetIsSelected(false); }
 
         // Add resources back to player
         Player player = GameManager.Instance.Players[0];

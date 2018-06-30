@@ -234,7 +234,7 @@ Transform:
   - {fileID: 17625346}
   - {fileID: 1857580560}
   m_Father: {fileID: 0}
-  m_RootOrder: 29
+  m_RootOrder: 30
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &17625345
 GameObject:
@@ -524,7 +524,7 @@ RectTransform:
   - {fileID: 1358827864}
   - {fileID: 707028920}
   m_Father: {fileID: 0}
-  m_RootOrder: 20
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1017,7 +1017,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 26
+  m_RootOrder: 27
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &148390330
 MonoBehaviour:
@@ -1491,11 +1491,12 @@ MonoBehaviour:
   ObjectDescriptionShort: Resource Generation
   ObjectDescriptionLong: Enhanced power resource streaming for you to spend on base
     & unit upgrades.
-  _IsCurrentlySelected: 0
+  Team: 0
+  FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 284948315}
   BuildImage: {fileID: 0}
-  BuildTime: 4
+  BuildTime: 1
   CostSupplies: 0
   CostPower: 350
   CostPlayerLevel: 1
@@ -1504,6 +1505,9 @@ MonoBehaviour:
   MaxHitPoints: 100
   MaxShieldPoints: 0
   MultiSelectable: 0
+  PopulationSize: 0
+  Garrisonable: 0
+  MaxGarrisonPopulation: 10
   _OffsetY: 2.25
   Selectables:
   - {fileID: 0}
@@ -1568,8 +1572,162 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &211420858
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4100269033822204, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -132.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4100269033822204, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4100269033822204, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -145.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4100269033822204, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4100269033822204, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4100269033822204, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4100269033822204, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4100269033822204, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_RootOrder
+      value: 42
+      objectReference: {fileID: 0}
+    - target: {fileID: 1855190537707758, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
+        type: 2}
+      propertyPath: CostSupplies
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
+        type: 2}
+      propertyPath: ObjectName
+      value: Light Marine Squad
+      objectReference: {fileID: 0}
+    - target: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
+        type: 2}
+      propertyPath: ObjectDescriptionShort
+      value: Core Ground Infantry
+      objectReference: {fileID: 0}
+    - target: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
+        type: 2}
+      propertyPath: ObjectDescriptionLong
+      value: Cheap & expendable, the light marine squad provides a means of a quick
+        army boost & can be upgraded to increase its efficiency.
+      objectReference: {fileID: 0}
+    - target: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
+        type: 2}
+      propertyPath: BuildTime
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4047263960234036, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4047263960234036, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1350864527022574, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
+        type: 2}
+      propertyPath: ActiveState
+      value: 
+      objectReference: {fileID: 211420860}
+    - target: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
+        type: 2}
+      propertyPath: MovementSpeed
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 23956455394501898, guid: 129547c43d7b02145a5826b2dadb970e,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7abba96c59898954489b7d0b274a4181, type: 2}
+    - target: {fileID: 1855190537707758, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_Name
+      value: attacktest (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
+        type: 2}
+      propertyPath: Team
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+  m_IsPrefabParent: 0
+--- !u!1 &211420859 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1855190537707758, guid: 129547c43d7b02145a5826b2dadb970e,
+    type: 2}
+  m_PrefabInternal: {fileID: 211420858}
+--- !u!1 &211420860 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1350864527022574, guid: 129547c43d7b02145a5826b2dadb970e,
+    type: 2}
+  m_PrefabInternal: {fileID: 211420858}
+--- !u!195 &211420861
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 211420859}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 2
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 6
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!54 &211420862
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 211420859}
+  serializedVersion: 2
+  m_Mass: 80
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &215153872
 GameObject:
   m_ObjectHideFlags: 0
@@ -2078,7 +2236,8 @@ MonoBehaviour:
   ObjectName: Air Unit Upgrades
   ObjectDescriptionShort: General Unit Upgrade
   ObjectDescriptionLong: Increases damage & health for all air units.
-  _IsCurrentlySelected: 0
+  Team: 0
+  FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   BuildImage: {fileID: 0}
@@ -2091,6 +2250,9 @@ MonoBehaviour:
   MaxHitPoints: 100
   MaxShieldPoints: 0
   MultiSelectable: 0
+  PopulationSize: 0
+  Garrisonable: 0
+  MaxGarrisonPopulation: 10
   _OffsetY: 0
   UpgradeCosts:
   - {fileID: 1134208050}
@@ -2393,7 +2555,8 @@ MonoBehaviour:
   ObjectName: Ground Vehicle Upgrades
   ObjectDescriptionShort: General Unit Upgrade
   ObjectDescriptionLong: Increases damage & health for all ground vehicle units.
-  _IsCurrentlySelected: 0
+  Team: 0
+  FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   BuildImage: {fileID: 0}
@@ -2406,6 +2569,9 @@ MonoBehaviour:
   MaxHitPoints: 100
   MaxShieldPoints: 0
   MultiSelectable: 0
+  PopulationSize: 0
+  Garrisonable: 0
+  MaxGarrisonPopulation: 10
   _OffsetY: 0
   UpgradeCosts:
   - {fileID: 268710172}
@@ -3019,7 +3185,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &289071610
 MonoBehaviour:
@@ -3042,6 +3208,7 @@ MonoBehaviour:
   BuildingInProgressPanel: {fileID: 707028919}
   RecycleBuilding: {fileID: 995202218}
   ObjectSelected: {fileID: 347941468}
+  AgentSeekObject: {fileID: 2068193300}
 --- !u!1 &296973746
 GameObject:
   m_ObjectHideFlags: 0
@@ -3241,7 +3408,8 @@ MonoBehaviour:
   ObjectName: Infantry Upgrade
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
-  _IsCurrentlySelected: 0
+  Team: 0
+  FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   BuildImage: {fileID: 0}
@@ -3254,6 +3422,9 @@ MonoBehaviour:
   MaxHitPoints: 100
   MaxShieldPoints: 0
   MultiSelectable: 1
+  PopulationSize: 0
+  Garrisonable: 0
+  MaxGarrisonPopulation: 10
   _OffsetY: 0
   UpgradeCosts:
   - {fileID: 982163920}
@@ -3403,7 +3574,7 @@ Prefab:
     - target: {fileID: 114108535539845490, guid: e984ac21c859bb041846d751bf12cdd4,
         type: 2}
       propertyPath: BuildTime
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114108535539845490, guid: e984ac21c859bb041846d751bf12cdd4,
         type: 2}
@@ -3597,7 +3768,7 @@ Prefab:
         type: 2}
       propertyPath: Selectables.Array.data[1]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 703422876}
     - target: {fileID: 114056886330466534, guid: 4aeb19e7521dd0e45a67a8be38e74913,
         type: 2}
       propertyPath: Selectables.Array.data[5]
@@ -3696,7 +3867,7 @@ Prefab:
     - target: {fileID: 114056886330466534, guid: 4aeb19e7521dd0e45a67a8be38e74913,
         type: 2}
       propertyPath: BuildTime
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114056886330466534, guid: 4aeb19e7521dd0e45a67a8be38e74913,
         type: 2}
@@ -3775,6 +3946,10 @@ Prefab:
     - target: {fileID: 1411291953631018, guid: 4aeb19e7521dd0e45a67a8be38e74913, type: 2}
       propertyPath: m_NavMeshLayer
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1011924668231282, guid: 4aeb19e7521dd0e45a67a8be38e74913, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4aeb19e7521dd0e45a67a8be38e74913, type: 2}
@@ -4102,11 +4277,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 347941468}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10000, y: 1.1, z: 10000}
+  m_LocalPosition: {x: 585, y: 1.1, z: -95.7}
   m_LocalScale: {x: 2.5, y: 1, z: 2.5}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 32
+  m_RootOrder: 33
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &348127406
 GameObject:
@@ -4367,10 +4542,10 @@ MonoBehaviour:
   m_IgnoreNavMeshObstacle: 1
   m_OverrideTileSize: 0
   m_TileSize: 256
-  m_OverrideVoxelSize: 0
-  m_VoxelSize: 1.3333334
+  m_OverrideVoxelSize: 1
+  m_VoxelSize: 1
   m_BuildHeightMesh: 0
-  m_NavMeshData: {fileID: 23800000, guid: a7a0f9fb046cb714db0005afd0c0cf2d, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 7d2493b835273f84cbda24c22d1123bf, type: 2}
 --- !u!1 &364777685
 GameObject:
   m_ObjectHideFlags: 0
@@ -4493,7 +4668,8 @@ MonoBehaviour:
   ObjectName: Empty Tower Slot
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
-  _IsCurrentlySelected: 0
+  Team: 0
+  FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   BuildImage: {fileID: 0}
@@ -4506,6 +4682,9 @@ MonoBehaviour:
   MaxHitPoints: 100
   MaxShieldPoints: 0
   MultiSelectable: 0
+  PopulationSize: 0
+  Garrisonable: 0
+  MaxGarrisonPopulation: 10
   _OffsetY: 0
   AttachedBase: {fileID: 0}
   Buildings:
@@ -4842,7 +5021,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 27
+  m_RootOrder: 28
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &437684931
 GameObject:
@@ -4870,7 +5049,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 23
+  m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &442815207 stripped
 GameObject:
@@ -4943,7 +5122,8 @@ MonoBehaviour:
   ObjectName: Unit Building Upgrades
   ObjectDescriptionShort: Economy Upgrade
   ObjectDescriptionLong: Increased overall production rate for all buildings.
-  _IsCurrentlySelected: 0
+  Team: 0
+  FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   BuildImage: {fileID: 0}
@@ -4956,6 +5136,9 @@ MonoBehaviour:
   MaxHitPoints: 100
   MaxShieldPoints: 0
   MultiSelectable: 0
+  PopulationSize: 0
+  Garrisonable: 0
+  MaxGarrisonPopulation: 10
   _OffsetY: 0
   UpgradeCosts:
   - {fileID: 727775910}
@@ -5148,7 +5331,8 @@ MonoBehaviour:
   ObjectName: Empty Tower Slot
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
-  _IsCurrentlySelected: 0
+  Team: 0
+  FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   BuildImage: {fileID: 0}
@@ -5161,6 +5345,9 @@ MonoBehaviour:
   MaxHitPoints: 100
   MaxShieldPoints: 0
   MultiSelectable: 0
+  PopulationSize: 0
+  Garrisonable: 0
+  MaxGarrisonPopulation: 10
   _OffsetY: 0
   AttachedBase: {fileID: 0}
   Buildings:
@@ -5703,7 +5890,8 @@ MonoBehaviour:
   ObjectName: Garrison Barricade
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
-  _IsCurrentlySelected: 0
+  Team: 0
+  FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   BuildImage: {fileID: 0}
@@ -5716,6 +5904,9 @@ MonoBehaviour:
   MaxHitPoints: 100
   MaxShieldPoints: 0
   MultiSelectable: 1
+  PopulationSize: 0
+  Garrisonable: 0
+  MaxGarrisonPopulation: 10
   _OffsetY: 2.25
   Selectables: []
   BarricadeType: 3
@@ -6721,6 +6912,21 @@ Prefab:
       propertyPath: m_StaticEditorFlags
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 114111713111011338, guid: b82553ad6d1ad044f979c7b11d141394,
+        type: 2}
+      propertyPath: Buildings.Array.data[1]
+      value: 
+      objectReference: {fileID: 1179153750}
+    - target: {fileID: 114111713111011338, guid: b82553ad6d1ad044f979c7b11d141394,
+        type: 2}
+      propertyPath: Buildings.Array.data[2]
+      value: 
+      objectReference: {fileID: 749752677}
+    - target: {fileID: 114111713111011338, guid: b82553ad6d1ad044f979c7b11d141394,
+        type: 2}
+      propertyPath: Buildings.Array.data[3]
+      value: 
+      objectReference: {fileID: 1665255363}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b82553ad6d1ad044f979c7b11d141394, type: 2}
   m_IsPrefabParent: 0
@@ -7132,7 +7338,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 25
+  m_RootOrder: 26
   m_LocalEulerAnglesHint: {x: 50, y: 0, z: 0}
 --- !u!1 &593340385
 GameObject:
@@ -7312,11 +7518,12 @@ MonoBehaviour:
   ObjectDescriptionShort: Resource Generation
   ObjectDescriptionLong: Provides a stream of power for you to spend on base & unit
     upgrades. Can be stacked to increase resource streaming with more power generation.
-  _IsCurrentlySelected: 0
+  Team: 0
+  FogOfWarRadius: 400
   BuildingState: {fileID: 1936495825}
   ActiveState: {fileID: 1465981870}
   BuildImage: {fileID: 0}
-  BuildTime: 4
+  BuildTime: 1
   CostSupplies: 0
   CostPower: 500
   CostPlayerLevel: 1
@@ -7325,6 +7532,9 @@ MonoBehaviour:
   MaxHitPoints: 100
   MaxShieldPoints: 0
   MultiSelectable: 0
+  PopulationSize: 0
+  Garrisonable: 0
+  MaxGarrisonPopulation: 10
   _OffsetY: 2.25
   Selectables:
   - {fileID: 191750711}
@@ -7636,7 +7846,7 @@ Prefab:
     - target: {fileID: 114306093193310104, guid: 6465691795d88d5428c690933f8fa003,
         type: 2}
       propertyPath: BuildTime
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114306093193310104, guid: 6465691795d88d5428c690933f8fa003,
         type: 2}
@@ -8150,7 +8360,7 @@ Prefab:
         type: 2}
       propertyPath: Selectables.Array.data[1]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 703422876}
     - target: {fileID: 114286593509319122, guid: c4160f4040f7c0845a951b7882352f08,
         type: 2}
       propertyPath: Selectables.Array.data[5]
@@ -8159,7 +8369,7 @@ Prefab:
     - target: {fileID: 114286593509319122, guid: c4160f4040f7c0845a951b7882352f08,
         type: 2}
       propertyPath: BuildTime
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114286593509319122, guid: c4160f4040f7c0845a951b7882352f08,
         type: 2}
@@ -8330,6 +8540,20 @@ Prefab:
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1194806562900834, guid: c4160f4040f7c0845a951b7882352f08, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114286593509319122, guid: c4160f4040f7c0845a951b7882352f08,
+        type: 2}
+      propertyPath: UnitSpawnTransform
+      value: 
+      objectReference: {fileID: 1786894124}
+    - target: {fileID: 114286593509319122, guid: c4160f4040f7c0845a951b7882352f08,
+        type: 2}
+      propertyPath: BaseType
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c4160f4040f7c0845a951b7882352f08, type: 2}
   m_IsPrefabParent: 0
@@ -8409,6 +8633,11 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 636350657}
   m_Script: {fileID: 11500000, guid: 2f586be90bd3d6843a53f71c9c90f80a, type: 3}
+--- !u!4 &636350671 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4534511183435856, guid: c4160f4040f7c0845a951b7882352f08,
+    type: 2}
+  m_PrefabInternal: {fileID: 636350657}
 --- !u!4 &642656315 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4753030648226630, guid: e984ac21c859bb041846d751bf12cdd4,
@@ -8489,7 +8718,7 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_Extents: {x: 0.5, y: 1, z: 0.5}
   m_MoveThreshold: 0.1
   m_Carve: 0
   m_CarveOnlyStationary: 1
@@ -8783,7 +9012,8 @@ MonoBehaviour:
   ObjectName: Mine Field
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
-  _IsCurrentlySelected: 0
+  Team: 0
+  FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   BuildImage: {fileID: 0}
@@ -8796,6 +9026,9 @@ MonoBehaviour:
   MaxHitPoints: 100
   MaxShieldPoints: 0
   MultiSelectable: 0
+  PopulationSize: 0
+  Garrisonable: 0
+  MaxGarrisonPopulation: 10
   _OffsetY: 2.25
   Selectables: []
   BarricadeType: 0
@@ -8864,7 +9097,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1006200863}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &703422876
 MonoBehaviour:
@@ -8881,11 +9114,12 @@ MonoBehaviour:
   ObjectDescriptionShort: Core Infantry
   ObjectDescriptionLong: Cheap & expendable, the marine squad provides a means of
     a quick army boost & can be upgraded to increase its efficiency.
-  _IsCurrentlySelected: 0
+  Team: 0
+  FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   BuildImage: {fileID: 0}
-  BuildTime: 5
+  BuildTime: 1
   CostSupplies: 130
   CostPower: 0
   CostPlayerLevel: 1
@@ -8894,8 +9128,11 @@ MonoBehaviour:
   MaxHitPoints: 100
   MaxShieldPoints: 0
   MultiSelectable: 1
+  PopulationSize: 3
+  Garrisonable: 0
+  MaxGarrisonPopulation: 10
   _OffsetY: 0
-  SquadMaxSize: 4
+  SquadMaxSize: 5
   SquadUnit: {fileID: 220516556}
   FlockingRadius: 10
 --- !u!135 &703422877
@@ -9460,6 +9697,164 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 636350657}
   m_Script: {fileID: 11500000, guid: 77df6e73ecdb1564ab460c1994edec69, type: 3}
+--- !u!1001 &785055231
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4100269033822204, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -101
+      objectReference: {fileID: 0}
+    - target: {fileID: 4100269033822204, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4100269033822204, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -126.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4100269033822204, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4100269033822204, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0.9989745
+      objectReference: {fileID: 0}
+    - target: {fileID: 4100269033822204, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4100269033822204, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.045276217
+      objectReference: {fileID: 0}
+    - target: {fileID: 4100269033822204, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_RootOrder
+      value: 44
+      objectReference: {fileID: 0}
+    - target: {fileID: 1855190537707758, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
+        type: 2}
+      propertyPath: CostSupplies
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
+        type: 2}
+      propertyPath: ObjectName
+      value: Light Marine Squad
+      objectReference: {fileID: 0}
+    - target: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
+        type: 2}
+      propertyPath: ObjectDescriptionShort
+      value: Core Ground Infantry
+      objectReference: {fileID: 0}
+    - target: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
+        type: 2}
+      propertyPath: ObjectDescriptionLong
+      value: Cheap & expendable, the light marine squad provides a means of a quick
+        army boost & can be upgraded to increase its efficiency.
+      objectReference: {fileID: 0}
+    - target: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
+        type: 2}
+      propertyPath: BuildTime
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4047263960234036, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4047263960234036, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1350864527022574, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
+        type: 2}
+      propertyPath: ActiveState
+      value: 
+      objectReference: {fileID: 785055233}
+    - target: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
+        type: 2}
+      propertyPath: MovementSpeed
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 23956455394501898, guid: 129547c43d7b02145a5826b2dadb970e,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7abba96c59898954489b7d0b274a4181, type: 2}
+    - target: {fileID: 1855190537707758, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_Name
+      value: attacktest (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
+        type: 2}
+      propertyPath: Team
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4100269033822204, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -174.81001
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+  m_IsPrefabParent: 0
+--- !u!1 &785055232 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1855190537707758, guid: 129547c43d7b02145a5826b2dadb970e,
+    type: 2}
+  m_PrefabInternal: {fileID: 785055231}
+--- !u!1 &785055233 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1350864527022574, guid: 129547c43d7b02145a5826b2dadb970e,
+    type: 2}
+  m_PrefabInternal: {fileID: 785055231}
+--- !u!195 &785055234
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 785055232}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 2
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 6
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!54 &785055235
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 785055232}
+  serializedVersion: 2
+  m_Mass: 80
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &786004742
 GameObject:
   m_ObjectHideFlags: 0
@@ -9886,7 +10281,7 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_Extents: {x: 0.5, y: 1, z: 0.5}
   m_MoveThreshold: 0.1
   m_Carve: 0
   m_CarveOnlyStationary: 1
@@ -9991,7 +10386,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &851452899
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10046,7 +10441,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 19
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &854890742 stripped
 GameObject:
@@ -10389,7 +10784,7 @@ Prefab:
     - target: {fileID: 114556115896821994, guid: a924b60d8e0df404ca14707de2f3e32e,
         type: 2}
       propertyPath: BuildTime
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114556115896821994, guid: a924b60d8e0df404ca14707de2f3e32e,
         type: 2}
@@ -10551,7 +10946,8 @@ MonoBehaviour:
   ObjectName: Healing Barricade
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
-  _IsCurrentlySelected: 0
+  Team: 0
+  FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   BuildImage: {fileID: 0}
@@ -10564,6 +10960,9 @@ MonoBehaviour:
   MaxHitPoints: 100
   MaxShieldPoints: 0
   MultiSelectable: 0
+  PopulationSize: 0
+  Garrisonable: 0
+  MaxGarrisonPopulation: 10
   _OffsetY: 2.25
   Selectables: []
   BarricadeType: 5
@@ -10902,7 +11301,8 @@ MonoBehaviour:
   ObjectName: Spawn Target
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
-  _IsCurrentlySelected: 0
+  Team: 0
+  FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   BuildImage: {fileID: 0}
@@ -10915,6 +11315,9 @@ MonoBehaviour:
   MaxHitPoints: 100
   MaxShieldPoints: 0
   MultiSelectable: 0
+  PopulationSize: 0
+  Garrisonable: 0
+  MaxGarrisonPopulation: 10
   _OffsetY: 0
 --- !u!4 &919222488
 Transform:
@@ -10925,9 +11328,10 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1749031311}
   m_Father: {fileID: 0}
-  m_RootOrder: 33
+  m_RootOrder: 34
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &925498926
 Prefab:
@@ -11451,7 +11855,8 @@ MonoBehaviour:
   ObjectName: Laser Trap
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
-  _IsCurrentlySelected: 0
+  Team: 0
+  FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   BuildImage: {fileID: 0}
@@ -11464,6 +11869,9 @@ MonoBehaviour:
   MaxHitPoints: 100
   MaxShieldPoints: 0
   MultiSelectable: 0
+  PopulationSize: 0
+  Garrisonable: 0
+  MaxGarrisonPopulation: 10
   _OffsetY: 2.25
   Selectables: []
   BarricadeType: 1
@@ -11635,7 +12043,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 34
+  m_RootOrder: 35
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &995202220
 MonoBehaviour:
@@ -11651,7 +12059,8 @@ MonoBehaviour:
   ObjectName: Recycle Building
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
-  _IsCurrentlySelected: 0
+  Team: 0
+  FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   BuildImage: {fileID: 0}
@@ -11664,6 +12073,9 @@ MonoBehaviour:
   MaxHitPoints: 100
   MaxShieldPoints: 0
   MultiSelectable: 0
+  PopulationSize: 0
+  Garrisonable: 0
+  MaxGarrisonPopulation: 10
   _OffsetY: 0
 --- !u!1 &1006040860
 GameObject:
@@ -11838,8 +12250,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 703422875}
   - {fileID: 1884052756}
+  - {fileID: 703422875}
   m_Father: {fileID: 1613305482}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -12298,7 +12710,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 24
+  m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1088481743
 GameObject:
@@ -12640,13 +13052,171 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1149555447 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4020611926675870, guid: 4aeb19e7521dd0e45a67a8be38e74913,
     type: 2}
   m_PrefabInternal: {fileID: 318570199}
+--- !u!1001 &1174992243
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4100269033822204, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -129.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4100269033822204, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4100269033822204, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -97
+      objectReference: {fileID: 0}
+    - target: {fileID: 4100269033822204, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4100269033822204, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0.43424702
+      objectReference: {fileID: 0}
+    - target: {fileID: 4100269033822204, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4100269033822204, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.9007939
+      objectReference: {fileID: 0}
+    - target: {fileID: 4100269033822204, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_RootOrder
+      value: 43
+      objectReference: {fileID: 0}
+    - target: {fileID: 1855190537707758, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
+        type: 2}
+      propertyPath: CostSupplies
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
+        type: 2}
+      propertyPath: ObjectName
+      value: Light Marine Squad
+      objectReference: {fileID: 0}
+    - target: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
+        type: 2}
+      propertyPath: ObjectDescriptionShort
+      value: Core Ground Infantry
+      objectReference: {fileID: 0}
+    - target: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
+        type: 2}
+      propertyPath: ObjectDescriptionLong
+      value: Cheap & expendable, the light marine squad provides a means of a quick
+        army boost & can be upgraded to increase its efficiency.
+      objectReference: {fileID: 0}
+    - target: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
+        type: 2}
+      propertyPath: BuildTime
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4047263960234036, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4047263960234036, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1350864527022574, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
+        type: 2}
+      propertyPath: ActiveState
+      value: 
+      objectReference: {fileID: 1174992245}
+    - target: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
+        type: 2}
+      propertyPath: MovementSpeed
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 23956455394501898, guid: 129547c43d7b02145a5826b2dadb970e,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7abba96c59898954489b7d0b274a4181, type: 2}
+    - target: {fileID: 1855190537707758, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_Name
+      value: attacktest (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
+        type: 2}
+      propertyPath: Team
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4100269033822204, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 51.475002
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+  m_IsPrefabParent: 0
+--- !u!1 &1174992244 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1855190537707758, guid: 129547c43d7b02145a5826b2dadb970e,
+    type: 2}
+  m_PrefabInternal: {fileID: 1174992243}
+--- !u!1 &1174992245 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1350864527022574, guid: 129547c43d7b02145a5826b2dadb970e,
+    type: 2}
+  m_PrefabInternal: {fileID: 1174992243}
+--- !u!195 &1174992246
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1174992244}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 2
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 6
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!54 &1174992247
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1174992244}
+  serializedVersion: 2
+  m_Mass: 80
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1177411962 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1910691356897898, guid: c4160f4040f7c0845a951b7882352f08,
@@ -13567,7 +14137,8 @@ MonoBehaviour:
   ObjectName: Building Upgrades
   ObjectDescriptionShort: Economy Upgrade
   ObjectDescriptionLong: Increased production rates for all buildings.
-  _IsCurrentlySelected: 0
+  Team: 0
+  FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   BuildImage: {fileID: 0}
@@ -13580,6 +14151,9 @@ MonoBehaviour:
   MaxHitPoints: 100
   MaxShieldPoints: 0
   MultiSelectable: 0
+  PopulationSize: 0
+  Garrisonable: 0
+  MaxGarrisonPopulation: 10
   _OffsetY: 0
   UpgradeCosts:
   - {fileID: 1643632817}
@@ -13657,7 +14231,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1231816424
 GameObject:
@@ -14152,7 +14726,7 @@ Prefab:
         type: 2}
       propertyPath: Selectables.Array.data[1]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 703422876}
     - target: {fileID: 114437307112323898, guid: 2a690fafd781f3f459ccd35f47baac5d,
         type: 2}
       propertyPath: Selectables.Array.data[5]
@@ -14161,7 +14735,7 @@ Prefab:
     - target: {fileID: 114437307112323898, guid: 2a690fafd781f3f459ccd35f47baac5d,
         type: 2}
       propertyPath: BuildTime
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114437307112323898, guid: 2a690fafd781f3f459ccd35f47baac5d,
         type: 2}
@@ -14280,6 +14854,11 @@ Prefab:
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114437307112323898, guid: 2a690fafd781f3f459ccd35f47baac5d,
+        type: 2}
+      propertyPath: UnitSpawnTransform
+      value: 
+      objectReference: {fileID: 2104993740}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2a690fafd781f3f459ccd35f47baac5d, type: 2}
   m_IsPrefabParent: 0
@@ -15074,7 +15653,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 35
+  m_RootOrder: 37
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1325629658
 GameObject:
@@ -15232,7 +15811,7 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_Extents: {x: 0.5, y: 1, z: 0.5}
   m_MoveThreshold: 0.1
   m_Carve: 0
   m_CarveOnlyStationary: 1
@@ -15322,6 +15901,171 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1355497605}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &1357827169
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1825167587}
+    m_Modifications:
+    - target: {fileID: 4100269033822204, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 15.93
+      objectReference: {fileID: 0}
+    - target: {fileID: 4100269033822204, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4100269033822204, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 67.43
+      objectReference: {fileID: 0}
+    - target: {fileID: 4100269033822204, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4100269033822204, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4100269033822204, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4100269033822204, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4100269033822204, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1855190537707758, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
+        type: 2}
+      propertyPath: CostSupplies
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
+        type: 2}
+      propertyPath: ObjectName
+      value: Anti Infantry Squad
+      objectReference: {fileID: 0}
+    - target: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
+        type: 2}
+      propertyPath: ObjectDescriptionShort
+      value: Anti Infantry
+      objectReference: {fileID: 0}
+    - target: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
+        type: 2}
+      propertyPath: ObjectDescriptionLong
+      value: Specialized marine squad that deals an increased damage on opposing ground
+        infantry units.
+      objectReference: {fileID: 0}
+    - target: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
+        type: 2}
+      propertyPath: BuildTime
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4047263960234036, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4047263960234036, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1350864527022574, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
+        type: 2}
+      propertyPath: ActiveState
+      value: 
+      objectReference: {fileID: 1357827171}
+    - target: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
+        type: 2}
+      propertyPath: MovementSpeed
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1855190537707758, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+      propertyPath: m_Name
+      value: pfb_AntiInfantryUnit
+      objectReference: {fileID: 0}
+    - target: {fileID: 23956455394501898, guid: 129547c43d7b02145a5826b2dadb970e,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0cb137f17a86c1848920db05fe301278, type: 2}
+    - target: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
+        type: 2}
+      propertyPath: AttackingRange
+      value: 10
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+  m_IsPrefabParent: 0
+--- !u!4 &1357827170 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4100269033822204, guid: 129547c43d7b02145a5826b2dadb970e,
+    type: 2}
+  m_PrefabInternal: {fileID: 1357827169}
+--- !u!1 &1357827171 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1350864527022574, guid: 129547c43d7b02145a5826b2dadb970e,
+    type: 2}
+  m_PrefabInternal: {fileID: 1357827169}
+--- !u!1 &1357827172 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1855190537707758, guid: 129547c43d7b02145a5826b2dadb970e,
+    type: 2}
+  m_PrefabInternal: {fileID: 1357827169}
+--- !u!195 &1357827173
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1357827172}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 2
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 6
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!54 &1357827174
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1357827172}
+  serializedVersion: 2
+  m_Mass: 80
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &1357827179 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
+    type: 2}
+  m_PrefabInternal: {fileID: 1357827169}
+  m_Script: {fileID: 11500000, guid: 0a07a8774794f2845ad608feb1cfc343, type: 3}
 --- !u!1 &1358827862
 GameObject:
   m_ObjectHideFlags: 0
@@ -15570,7 +16314,8 @@ MonoBehaviour:
   ObjectName: Anti Infantry Upgrade
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
-  _IsCurrentlySelected: 0
+  Team: 0
+  FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   BuildImage: {fileID: 0}
@@ -15583,6 +16328,9 @@ MonoBehaviour:
   MaxHitPoints: 100
   MaxShieldPoints: 0
   MultiSelectable: 1
+  PopulationSize: 0
+  Garrisonable: 0
+  MaxGarrisonPopulation: 10
   _OffsetY: 0
   UpgradeCosts:
   - {fileID: 811841078}
@@ -15831,7 +16579,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4175979071291170, guid: c4ec395ea5e97aa4a88bc42c32cbad1d, type: 2}
       propertyPath: m_RootOrder
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 114153781662495510, guid: c4ec395ea5e97aa4a88bc42c32cbad1d,
         type: 2}
@@ -15878,6 +16626,11 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c4ec395ea5e97aa4a88bc42c32cbad1d, type: 2}
   m_IsPrefabParent: 0
+--- !u!4 &1436454512 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4048126572274546, guid: 2a690fafd781f3f459ccd35f47baac5d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1244579281}
 --- !u!1 &1437189381
 GameObject:
   m_ObjectHideFlags: 0
@@ -16560,7 +17313,7 @@ Transform:
   - {fileID: 1745301395}
   - {fileID: 320534657}
   m_Father: {fileID: 0}
-  m_RootOrder: 37
+  m_RootOrder: 39
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!114 &1535705184
 MonoBehaviour:
@@ -17244,7 +17997,7 @@ Transform:
   - {fileID: 1825167587}
   - {fileID: 957217410}
   m_Father: {fileID: 0}
-  m_RootOrder: 30
+  m_RootOrder: 31
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1615119470
 Prefab:
@@ -17548,7 +18301,7 @@ Transform:
   m_Children:
   - {fileID: 364302374}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1624300524
 Prefab:
@@ -17653,7 +18406,8 @@ MonoBehaviour:
   ObjectName: Heavy Barricade
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
-  _IsCurrentlySelected: 0
+  Team: 0
+  FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   BuildImage: {fileID: 0}
@@ -17666,6 +18420,9 @@ MonoBehaviour:
   MaxHitPoints: 100
   MaxShieldPoints: 0
   MultiSelectable: 0
+  PopulationSize: 0
+  Garrisonable: 0
+  MaxGarrisonPopulation: 10
   _OffsetY: 2.25
   Selectables: []
   BarricadeType: 4
@@ -17711,7 +18468,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4900670411933588, guid: 9e973085ff997a74ca29946b2fafa0f0, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -191.6
+      value: -154
       objectReference: {fileID: 0}
     - target: {fileID: 4900670411933588, guid: 9e973085ff997a74ca29946b2fafa0f0, type: 2}
       propertyPath: m_LocalRotation.x
@@ -17843,7 +18600,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 38
+  m_RootOrder: 40
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1642525533
 GameObject:
@@ -18555,7 +19312,7 @@ Prefab:
     - target: {fileID: 114951768522124020, guid: 7a49f022dbc88594ca3d350493ad7107,
         type: 2}
       propertyPath: BuildTime
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114951768522124020, guid: 7a49f022dbc88594ca3d350493ad7107,
         type: 2}
@@ -18864,7 +19621,8 @@ MonoBehaviour:
   ObjectName: Barricade
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
-  _IsCurrentlySelected: 0
+  Team: 0
+  FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   BuildImage: {fileID: 0}
@@ -18877,6 +19635,9 @@ MonoBehaviour:
   MaxHitPoints: 100
   MaxShieldPoints: 0
   MultiSelectable: 0
+  PopulationSize: 0
+  Garrisonable: 0
+  MaxGarrisonPopulation: 10
   _OffsetY: 2.25
   Selectables: []
   BarricadeType: 2
@@ -18967,7 +19728,7 @@ Prefab:
     - target: {fileID: 114962387785300862, guid: e3c54a520ddcdc440aa7794768b47d71,
         type: 2}
       propertyPath: BuildTime
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114962387785300862, guid: e3c54a520ddcdc440aa7794768b47d71,
         type: 2}
@@ -19184,6 +19945,77 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1745301394}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1749031310
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1749031311}
+  - component: {fileID: 1749031314}
+  - component: {fileID: 1749031312}
+  m_Layer: 0
+  m_Name: Cylinder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1749031311
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1749031310}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -46.6, y: 5, z: -6.4}
+  m_LocalScale: {x: 2, y: 5, z: 2}
+  m_Children: []
+  m_Father: {fileID: 919222488}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &1749031312
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1749031310}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 2100000, guid: 4b21342d55a243d4ca4ce1721e4810bf, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 1
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &1749031314
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1749031310}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1761799066
 GameObject:
   m_ObjectHideFlags: 0
@@ -19319,6 +20151,34 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1761799066}
+--- !u!1 &1786894124
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1786894125}
+  m_Layer: 0
+  m_Name: UnitSpawnTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1786894125
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1786894124}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 45}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 636350671}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1795348588
 GameObject:
   m_ObjectHideFlags: 0
@@ -19487,7 +20347,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 22
+  m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1825167586
 GameObject:
@@ -19514,6 +20374,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 1357827170}
   - {fileID: 220516555}
   m_Father: {fileID: 1613305482}
   m_RootOrder: 1
@@ -19617,7 +20478,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1842170071
 GameObject:
@@ -19895,7 +20756,7 @@ Prefab:
     - target: {fileID: 114491168879293188, guid: 318af2593dae43f49b3ad5386de9d721,
         type: 2}
       propertyPath: BuildTime
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114491168879293188, guid: 318af2593dae43f49b3ad5386de9d721,
         type: 2}
@@ -20006,7 +20867,7 @@ GameObject:
   - component: {fileID: 1884052757}
   - component: {fileID: 1884052758}
   m_Layer: 0
-  m_Name: LightAntiInfantrySquad
+  m_Name: AntiInfantrySquad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20023,7 +20884,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1006200863}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1884052757
 MonoBehaviour:
@@ -20040,7 +20901,8 @@ MonoBehaviour:
   ObjectDescriptionShort: Anti Infantry
   ObjectDescriptionLong: Specialized marine squad that deals an increased damage on
     opposing ground infantry units.
-  _IsCurrentlySelected: 0
+  Team: 0
+  FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   BuildImage: {fileID: 0}
@@ -20053,9 +20915,12 @@ MonoBehaviour:
   MaxHitPoints: 100
   MaxShieldPoints: 0
   MultiSelectable: 1
+  PopulationSize: 4
+  Garrisonable: 0
+  MaxGarrisonPopulation: 10
   _OffsetY: 0
   SquadMaxSize: 2
-  SquadUnit: {fileID: 220516556}
+  SquadUnit: {fileID: 1357827179}
   FlockingRadius: 12
 --- !u!135 &1884052758
 SphereCollider:
@@ -20067,8 +20932,67 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 20
+  m_Radius: 10
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1001 &1896459693
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4900670411933588, guid: 9e973085ff997a74ca29946b2fafa0f0, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -82.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4900670411933588, guid: 9e973085ff997a74ca29946b2fafa0f0, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4900670411933588, guid: 9e973085ff997a74ca29946b2fafa0f0, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 64.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4900670411933588, guid: 9e973085ff997a74ca29946b2fafa0f0, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4900670411933588, guid: 9e973085ff997a74ca29946b2fafa0f0, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0.86602545
+      objectReference: {fileID: 0}
+    - target: {fileID: 4900670411933588, guid: 9e973085ff997a74ca29946b2fafa0f0, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4900670411933588, guid: 9e973085ff997a74ca29946b2fafa0f0, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.49999994
+      objectReference: {fileID: 0}
+    - target: {fileID: 4900670411933588, guid: 9e973085ff997a74ca29946b2fafa0f0, type: 2}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114701711299698714, guid: 9e973085ff997a74ca29946b2fafa0f0,
+        type: 2}
+      propertyPath: Buildings.Array.data[0]
+      value: 
+      objectReference: {fileID: 311793337}
+    - target: {fileID: 1605634473593036, guid: 9e973085ff997a74ca29946b2fafa0f0, type: 2}
+      propertyPath: m_Name
+      value: BuildingSlot_Base (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1605634473593036, guid: 9e973085ff997a74ca29946b2fafa0f0, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4900670411933588, guid: 9e973085ff997a74ca29946b2fafa0f0, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 120
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 9e973085ff997a74ca29946b2fafa0f0, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1924567669
 GameObject:
   m_ObjectHideFlags: 0
@@ -20198,7 +21122,8 @@ MonoBehaviour:
   ObjectName: Population Upgrades
   ObjectDescriptionShort: Economy Upgrade
   ObjectDescriptionLong: Increased max army population size.
-  _IsCurrentlySelected: 0
+  Team: 0
+  FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   BuildImage: {fileID: 0}
@@ -20211,6 +21136,9 @@ MonoBehaviour:
   MaxHitPoints: 100
   MaxShieldPoints: 0
   MultiSelectable: 0
+  PopulationSize: 0
+  Garrisonable: 0
+  MaxGarrisonPopulation: 10
   _OffsetY: 0
   UpgradeCosts:
   - {fileID: 181791463}
@@ -20313,7 +21241,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 36
+  m_RootOrder: 38
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1957563186
 GameObject:
@@ -20341,7 +21269,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 28
+  m_RootOrder: 29
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1958838808
 GameObject:
@@ -20702,7 +21630,8 @@ MonoBehaviour:
   ObjectName: Infantry Unit Upgrade
   ObjectDescriptionShort: General Unit Upgrade
   ObjectDescriptionLong: Increases damage & health for all ground infantry units.
-  _IsCurrentlySelected: 0
+  Team: 0
+  FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   BuildImage: {fileID: 0}
@@ -20715,6 +21644,9 @@ MonoBehaviour:
   MaxHitPoints: 100
   MaxShieldPoints: 0
   MultiSelectable: 0
+  PopulationSize: 0
+  Garrisonable: 0
+  MaxGarrisonPopulation: 10
   _OffsetY: 0
   UpgradeCosts:
   - {fileID: 856078281}
@@ -21568,7 +22500,8 @@ MonoBehaviour:
   ObjectName: Empty Tower Slot
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
-  _IsCurrentlySelected: 0
+  Team: 0
+  FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   BuildImage: {fileID: 0}
@@ -21581,6 +22514,9 @@ MonoBehaviour:
   MaxHitPoints: 100
   MaxShieldPoints: 0
   MultiSelectable: 0
+  PopulationSize: 0
+  Garrisonable: 0
+  MaxGarrisonPopulation: 10
   _OffsetY: 0
   AttachedBase: {fileID: 0}
   Buildings:
@@ -21620,7 +22556,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4100269033822204, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 15.93
+      value: 9.26
       objectReference: {fileID: 0}
     - target: {fileID: 4100269033822204, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
       propertyPath: m_LocalPosition.y
@@ -21628,7 +22564,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4100269033822204, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 67.43
+      value: 70.82
       objectReference: {fileID: 0}
     - target: {fileID: 4100269033822204, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
       propertyPath: m_LocalRotation.x
@@ -21648,7 +22584,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4100269033822204, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1855190537707758, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
       propertyPath: m_IsActive
@@ -21701,6 +22637,16 @@ Prefab:
         type: 2}
       propertyPath: MovementSpeed
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 23956455394501898, guid: 129547c43d7b02145a5826b2dadb970e,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7abba96c59898954489b7d0b274a4181, type: 2}
+    - target: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
+        type: 2}
+      propertyPath: AttackingRange
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
@@ -21964,6 +22910,92 @@ RectTransform:
   m_AnchoredPosition: {x: -33.200012, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &2068193300
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 2068193304}
+  - component: {fileID: 2068193303}
+  - component: {fileID: 2068193302}
+  - component: {fileID: 2068193301}
+  m_Layer: 0
+  m_Name: pfb_SeekWaypoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!23 &2068193301
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2068193300}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 2100000, guid: 0cb137f17a86c1848920db05fe301278, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 1
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!64 &2068193302
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2068193300}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &2068193303
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2068193300}
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &2068193304
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2068193300}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -530.4, y: 1.1, z: -111.7}
+  m_LocalScale: {x: 0.2, y: 1, z: 0.2}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 36
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2069585240
 GameObject:
   m_ObjectHideFlags: 0
@@ -21990,7 +23022,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 39
+  m_RootOrder: 41
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2078916641
 GameObject:
@@ -22215,7 +23247,7 @@ Transform:
   m_Children:
   - {fileID: 2123510844}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2101474906
 GameObject:
@@ -22243,7 +23275,35 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2104993740
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 2104993741}
+  m_Layer: 0
+  m_Name: UnitSpawnTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2104993741
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2104993740}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 45}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1436454512}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2118527818
 GameObject:
@@ -22626,7 +23686,7 @@ RectTransform:
   - {fileID: 1207024619}
   - {fileID: 2019041165}
   m_Father: {fileID: 0}
-  m_RootOrder: 31
+  m_RootOrder: 32
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -22800,7 +23860,7 @@ RectTransform:
   - {fileID: 749182885}
   - {fileID: 1460103727}
   m_Father: {fileID: 0}
-  m_RootOrder: 21
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
