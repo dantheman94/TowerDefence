@@ -8,7 +8,7 @@ using UnityEngine.AI;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 27/6/2018
+//  Last edited on: 4/7/2018
 //
 //******************************
 
@@ -41,12 +41,12 @@ public class Squad : WorldObject {
 
     //******************************************************************************************************************************
     //
-    //      VARIABLES
+    //      FUNCTIONS
     //
     //******************************************************************************************************************************
 
     /// <summary>
-    /// 
+    //  Called before Start().
     /// </summary>
     protected override void Awake() {
         base.Awake();
@@ -128,7 +128,8 @@ public class Squad : WorldObject {
             for (int i = 0; i < SquadMaxSize; i++) {
 
                 // Create unit
-                Unit unit = Instantiate(SquadUnit);
+                ///Unit unit = Instantiate(SquadUnit);
+                Unit unit = ObjectPooling.Spawn(SquadUnit.gameObject, Vector3.zero, Quaternion.identity).GetComponent<Unit>();
                 unit.SetObjectState(WorldObjectStates.Building);
                 unit.SetSquadAttached(thisSquad);
                 thisSquad._Squad.Add(unit);
@@ -299,7 +300,7 @@ public class Squad : WorldObject {
 
             ///float angle = i * (Mathf.PI * 10.0f / size + /*worldObject.*/transform.rotation.y);
             float angle = i * (Mathf.PI * 10.0f / size + (facingAngle / 10));
-            Vector3 pos = new Vector3(Mathf.Cos((angle / size) / size), worldObject.transform.position.y, Mathf.Sin((angle / size) / size)) * _Squad[0].GetAgent().radius * _Squad[0].AttackingRange * 0.75f;
+            Vector3 pos = new Vector3(Mathf.Cos((angle / size) / size), worldObject.transform.position.y, Mathf.Sin((angle / size) / size)) * _Squad[0].GetAgent().radius * _Squad[0].AttackingRange * 0.4f;
             pos += worldObject.transform.position;
 
             positions.Add(pos);

@@ -59,10 +59,13 @@ public class UserInput : MonoBehaviour {
     private void Update() {
 
         if (_Player) {
-
+            
             // Update camera
             MoveCamera();
             RotateCamera();
+            
+            // Update camera FOV
+            ZoomCamera();
 
             // Update gamepad states
             _PreviousGamepadState = _GamepadState;
@@ -116,7 +119,7 @@ public class UserInput : MonoBehaviour {
     }
 
     /// <summary>
-    /// 
+    //  
     /// </summary>
     /// <param name="motorLeft"></param>
     /// <param name="motorRight"></param>
@@ -133,7 +136,18 @@ public class UserInput : MonoBehaviour {
     }
 
     /// <summary>
-    /// 
+    //  
+    /// </summary>
+    public void CreateCenterPoint() {
+
+        // Update center point for RotateAround() function
+        RaycastHit hit;
+        Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward * 1000, out hit);
+        _LookPoint = hit.point;
+    }
+
+    /// <summary>
+    //  
     /// </summary>
     private void MoveCamera() {
 
@@ -141,59 +155,47 @@ public class UserInput : MonoBehaviour {
         float yPos = Input.mousePosition.y;
         Vector3 movement = new Vector3(0, 0, 0);
 
-        // Keyboard movement WASD
-        if (Input.GetKey(KeyCode.W) && (!Input.GetKey(KeyCode.LeftAlt))) {
-            
-            // Move forwards
-            movement.y += Settings.MovementSpeed;
+        // Move camera via input if the player ISNT currently controlling a unit
+        if (GameManager.Instance.GetIsUnitControlling() == false) {
 
-            // Update center point for RotateAround() function
-            RaycastHit hit;
-            Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward * 1000, out hit);
-            _LookPoint = hit.point;
-        }
-        if (Input.GetKey(KeyCode.S) && (!Input.GetKey(KeyCode.LeftAlt))) {
+            // Keyboard movement WASD
+            if (Input.GetKey(KeyCode.W) && (!Input.GetKey(KeyCode.LeftAlt))) {
 
-            // Move backwards
-            movement.y -= Settings.MovementSpeed;
+                // Move forwards
+                movement.y += Settings.MovementSpeed;
+                CreateCenterPoint();
+            }
+            if (Input.GetKey(KeyCode.S) && (!Input.GetKey(KeyCode.LeftAlt))) {
 
-            // Update center point for RotateAround() function
-            RaycastHit hit;
-            Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward * 1000, out hit);
-            _LookPoint = hit.point;
-        }
+                // Move backwards
+                movement.y -= Settings.MovementSpeed;
+                CreateCenterPoint();
+            }
 
-        if (Input.GetKey(KeyCode.D) && (!Input.GetKey(KeyCode.LeftAlt))) {
+            if (Input.GetKey(KeyCode.D) && (!Input.GetKey(KeyCode.LeftAlt))) {
 
-            // Move right
-            movement.x += Settings.MovementSpeed;
+                // Move right
+                movement.x += Settings.MovementSpeed;
+                CreateCenterPoint();
+            }
 
-            // Update center point for RotateAround() function
-            RaycastHit hit;
-            Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward * 1000, out hit);
-            _LookPoint = hit.point;
-        }
+            if (Input.GetKey(KeyCode.A) && (!Input.GetKey(KeyCode.LeftAlt))) {
 
-        if (Input.GetKey(KeyCode.A) && (!Input.GetKey(KeyCode.LeftAlt))) {
+                // Move left
+                movement.x -= Settings.MovementSpeed;
+                CreateCenterPoint();
+            }
 
-            // Move left
-            movement.x -= Settings.MovementSpeed;
+            if (Input.GetKey(KeyCode.LeftShift)) {
 
-            // Update center point for RotateAround() function
-            RaycastHit hit;
-            Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward * 1000, out hit);
-            _LookPoint = hit.point;
-        }
+                // 'Sprint' movement speed
+                Settings.MovementSpeed = Settings.CameraSprintSpeed;
+            }
+            else {
 
-        if (Input.GetKey(KeyCode.LeftShift)) {
-
-            // 'Sprint' movement speed
-            Settings.MovementSpeed = Settings.CameraSprintSpeed;
-        }
-        else {
-
-            // 'Walk' movement speed
-            Settings.MovementSpeed = Settings.CameraWalkSpeed;
+                // 'Walk' movement speed
+                Settings.MovementSpeed = Settings.CameraWalkSpeed;
+            }
         }
 
         // Horizontal camera movement via mouse
@@ -212,22 +214,7 @@ public class UserInput : MonoBehaviour {
         // but ignore the vertical tilt of the camera to get sensible scrolling
         movement = Camera.main.transform.TransformDirection(movement);
         movement.y = 0;
-
-        // Change camera fov
-        float fov = Camera.main.fieldOfView;
-        if (Input.GetAxis("Mouse ScrollWheel") > 0) {
-
-            // Zooming in
-            if (fov > Settings.MinFov)
-                Camera.main.fieldOfView -= Time.deltaTime * Settings.ZoomSpeed;
-        }
-        if (Input.GetAxis("Mouse ScrollWheel") < 0) {
-
-            // Zooming out
-            if (fov < Settings.MaxFov)
-                Camera.main.fieldOfView += Time.deltaTime * Settings.ZoomSpeed;
-        }
-
+        
         // Calculate desired camera position based on received input
         Vector3 posOrigin = Camera.main.transform.position;
         Vector3 posDestination = posOrigin;
@@ -251,7 +238,7 @@ public class UserInput : MonoBehaviour {
     }
 
     /// <summary>
-    /// 
+    //  
     /// </summary>
     private void RotateCamera() {
 
@@ -265,18 +252,32 @@ public class UserInput : MonoBehaviour {
 
             // Hide mouse cursor
             Cursor.visible = false;
-            
+
             // Calculate which direction to rotate in
             float dir = 0f;
             dir = Input.GetAxis("Mouse X");
 
-            // Rotate
+            // Set point to camera follow's target position if the player is manually controlling a unit
+            if (GameManager.Instance.GetIsUnitControlling()) { _LookPoint = _Player._CameraFollow.GetFollowTarget().transform.position; }
+
+            // Rotate around point
             Camera.main.transform.RotateAround(_LookPoint, Vector3.up, Settings.RotateSpeed * -dir * Time.deltaTime);
 
             // Used for resetting the mouse position
             pressed = true;
         }
-        else { Cursor.visible = true; }
+
+        // Not rotating the camera
+        else {
+
+            // Always hide the mouse cursor whilst the player IS controlling a unit
+            if (GameManager.Instance.GetIsUnitControlling()) {
+
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+            }
+            else { Cursor.visible = true; }
+        }
 
         if (pressed) {
 
@@ -288,7 +289,28 @@ public class UserInput : MonoBehaviour {
     }
 
     /// <summary>
-    /// 
+    //  
+    /// </summary>
+    private void ZoomCamera() {
+
+        // Change camera fov
+        float fov = Camera.main.fieldOfView;
+        if (Input.GetAxis("Mouse ScrollWheel") > 0) {
+
+            // Zooming in
+            if (fov > Settings.MinFov)
+                Camera.main.fieldOfView -= Time.deltaTime * Settings.ZoomSpeed;
+        }
+        if (Input.GetAxis("Mouse ScrollWheel") < 0) {
+
+            // Zooming out
+            if (fov < Settings.MaxFov)
+                Camera.main.fieldOfView += Time.deltaTime * Settings.ZoomSpeed;
+        }
+    }
+
+    /// <summary>
+    //  
     /// </summary>
     private void MouseActivity() {
 
@@ -297,7 +319,7 @@ public class UserInput : MonoBehaviour {
     }
 
     /// <summary>
-    /// 
+    //  
     /// </summary>
     private void LeftMouseClick() {
 
@@ -425,9 +447,9 @@ public class UserInput : MonoBehaviour {
                         else {
 
                             // Add selection to list
-                            ///_Player.SelectedWorldObjects.Add(unitObj);
-                            ///unitObj.SetPlayer(_Player);
-                            ///unitObj.SetSelection(true);
+                            _Player.SelectedWorldObjects.Add(unitObj);
+                            unitObj.SetPlayer(_Player);
+                            unitObj.SetIsSelected(true);
                         }
                     }
 
@@ -452,7 +474,7 @@ public class UserInput : MonoBehaviour {
     }
 
     /// <summary>
-    /// 
+    //  
     /// </summary>
     private void RightMouseClick() {
 
@@ -462,8 +484,12 @@ public class UserInput : MonoBehaviour {
 
         GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
 
-        // There are AI currently selected and therefore we can command them
-        if (SquadsSelected.Count > 0 || UnitsSelected.Count > 0) { AiCommandsInput(SquadsSelected, UnitsSelected); }
+        // Not currently controlling a unit manually
+        if (GameManager.Instance.GetIsUnitControlling() == false) {
+
+            // There are AI currently selected and therefore we can command them
+            if (SquadsSelected.Count > 0 || UnitsSelected.Count > 0) { AiCommandsInput(SquadsSelected, UnitsSelected); }
+        }
     }
 
     /// <summary>

@@ -8,7 +8,7 @@ using UnityEngine.AI;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 21/5/2018
+//  Last edited on: 27/6/2018
 //
 //******************************
 
@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour {
 
     [Space]
     [Header("-----------------------------------")]
-    [Header("START OF MATCH")]
+    [Header(" START OF MATCH")]
     [Space]
     public int StartingSupplyCount;
     public int StartingPowerCount;
@@ -31,10 +31,11 @@ public class GameManager : MonoBehaviour {
 
     [Space]
     [Header("-----------------------------------")]
-    [Header("HUD")]
+    [Header(" HUD")]
     [Space]
     public GameObject SelectionWheel;
     public GameObject AbilityWheel;
+    public GameObject ConfirmRecycleScreen;
     public GameObject UnitHealthBar;
     public GameObject BuildingInProgressPanel;
     public GameObject RecycleBuilding;
@@ -59,6 +60,7 @@ public class GameManager : MonoBehaviour {
     public static GameManager Instance;
     
     private int _LabratoryCount = 0;
+    private bool _ManuallyControllingAUnit = false;
 
     //******************************************************************************************************************************
     //
@@ -99,28 +101,40 @@ public class GameManager : MonoBehaviour {
     }
     
     /// <summary>
-    /// 
+    //  
     /// </summary>
     public void AddLabratoryActiveInWorld() { _LabratoryCount++; }
 
     /// <summary>
-    /// 
+    //  
     /// </summary>
     public void RemovedLabratoryFromWorld() { _LabratoryCount--; }
 
     /// <summary>
-    /// 
+    //  
     /// </summary>
     /// <returns></returns>
     public bool GetIsLabratoryActive() { return _LabratoryCount > 0; }
 
     /// <summary>
-    /// 
+    //  
     /// </summary>
     public void RebakeNavmesh() {
 
         // Find a walkable surface, bake then repeat for next surface
         foreach (var surface in GameObject.FindGameObjectsWithTag("Ground")) { surface.GetComponent<NavMeshSurface>().BuildNavMesh(); }
     }
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="value"></param>
+    public void SetUnitControlling(bool value) { _ManuallyControllingAUnit = value; }
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <returns></returns>
+    public bool GetIsUnitControlling() { return _ManuallyControllingAUnit; }
 
 }

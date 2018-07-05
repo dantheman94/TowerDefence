@@ -97,9 +97,8 @@ public class WorldObject : Selectable {
                 _ReadyForDeployment = _CurrentBuildTime >= BuildTime;
                 if (!_ReadyForDeployment) {
 
-                    // Add to timer
+                    // Add to building timer
                     if (_CurrentBuildTime < BuildTime) { _CurrentBuildTime += Time.deltaTime; }
-                    ///Debug.Log("Building: " + ObjectName + " at " + _CurrentBuildTime + " / " + BuildTime);
                 }
                 else { _ObjectState = WorldObjectStates.Deployable; }
 
@@ -127,6 +126,11 @@ public class WorldObject : Selectable {
 
         // Update health to be a normalized range of the object's hitpoints
         _Health = _HitPoints / MaxHitPoints;
+
+        if (_HitPoints == 0) {
+
+
+        }
     }
 
     /// <summary>
@@ -166,7 +170,8 @@ public class WorldObject : Selectable {
         if ((plyr.SuppliesCount >= this.CostSupplies) && (plyr.PowerCount >= this.CostPower)) {
 
             // Start building object on the selected building slot
-            _ClonedWorldObject = Instantiate(this);
+            ///_ClonedWorldObject = Instantiate(this);
+            _ClonedWorldObject = ObjectPooling.Spawn(gameObject, Vector3.zero, Quaternion.identity).GetComponent<WorldObject>();
             _ClonedWorldObject.SetBuildingPosition(buildingSlot);
             _ClonedWorldObject.gameObject.SetActive(true);
             _ClonedWorldObject._ObjectState = WorldObjectStates.Building;

@@ -21,6 +21,7 @@ public class Selectable : Abstraction {
     //      INSPECTOR
     //
     //******************************************************************************************************************************
+
     [Space]
     [Header("-----------------------------------")]
     [Header(" SELECTABLE PROPERTIES")]
@@ -47,7 +48,7 @@ public class Selectable : Abstraction {
     //******************************************************************************************************************************
 
     /// <summary>
-    /// 
+    //  This is called before Startup().
     /// </summary>
     protected virtual void Awake() {
 
@@ -56,7 +57,7 @@ public class Selectable : Abstraction {
     }
 
     /// <summary>
-    /// 
+    //  Called when this object is created.
     /// </summary>
     protected virtual void Start() {
 
@@ -64,7 +65,7 @@ public class Selectable : Abstraction {
     }
 
     /// <summary>
-    /// 
+    //  Called each frame. 
     /// </summary>
     protected virtual void Update() { }
 

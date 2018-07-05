@@ -25,7 +25,7 @@ namespace TowerDefence {
         public static float RotateZoomSpeed { get { return 100; } }
 
         // Camera bounds
-        public static float MinCameraHeight { get { return 80; } }
+        public static float MinCameraHeight { get { return 130; } }
         public static float MaxCameraHeight { get { return 130; } }
         public static float MinFov { get { return 33; } }
         public static float MaxFov { get { return 50; } }

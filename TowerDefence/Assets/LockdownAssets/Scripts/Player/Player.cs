@@ -32,6 +32,7 @@ public class Player : MonoBehaviour {
 
     // Input
     public UserInput _Input { get; private set; }
+    public CameraFollow _CameraFollow { get; private set; }
     public BuildingSlot SelectedBuildingSlot { get; set; }
     public List<Selectable> SelectedWorldObjects { get; set; }
 
@@ -65,13 +66,14 @@ public class Player : MonoBehaviour {
     //******************************************************************************************************************************
 
     /// <summary>
-    /// 
+    //   
     /// </summary>
     private void Start() {
 
         // Get component references
         _Input = GetComponent<UserInput>();
         _HUD = GetComponent<HUD>();
+        _CameraFollow = GetComponent<CameraFollow>();
 
         // Initialize new player entity
         Score = 0;
@@ -100,7 +102,7 @@ public class Player : MonoBehaviour {
     }
 
     /// <summary>
-    /// 
+    //  
     /// </summary>
     public void DeselectAllObjects() {
 
@@ -112,7 +114,7 @@ public class Player : MonoBehaviour {
     }
 
     /// <summary>
-    /// 
+    //  
     /// </summary>
     public void AddToPopulation(Squad squad) {
 
@@ -122,7 +124,7 @@ public class Player : MonoBehaviour {
     }
 
     /// <summary>
-    /// 
+    //  
     /// </summary>
     /// <param name="unit"></param>
     public void AddToPopulation(Unit unit) {
@@ -133,67 +135,67 @@ public class Player : MonoBehaviour {
     }
 
     /// <summary>
-    /// 
+    //  
     /// </summary>
     /// <returns></returns>
     public List<WorldObject> GetArmy() { return AiUnitObjects; }
 
     /// <summary>
-    /// 
+    //   
     /// </summary>
     /// <returns></returns>
     public List<WorldObject> GetPlatoon1() { return Platoon1Objects; }
 
     /// <summary>
-    /// 
+    //  
     /// </summary>
     /// <returns></returns>
     public List<WorldObject> GetPlatoon2() { return Platoon2Objects; }
 
     /// <summary>
-    /// 
+    //  
     /// </summary>
     /// <returns></returns>
     public List<WorldObject> GetPlatoon3() { return Platoon3Objects; }
 
     /// <summary>
-    /// 
+    //  
     /// </summary>
     /// <returns></returns>
     public List<WorldObject> GetPlatoon4() { return Platoon4Objects; }
 
     /// <summary>
-    /// 
+    //  
     /// </summary>
     /// <returns></returns>
     public List<WorldObject> GetPlatoon5() { return Platoon5Objects; }
 
     /// <summary>
-    /// 
+    //  
     /// </summary>
     /// <returns></returns>
     public List<WorldObject> GetPlatoon6() { return Platoon6Objects; }
 
     /// <summary>
-    /// 
+    //  
     /// </summary>
     /// <returns></returns>
     public List<WorldObject> GetPlatoon7() { return Platoon7Objects; }
 
     /// <summary>
-    /// 
+    //  
     /// </summary>
     /// <returns></returns>
     public List<WorldObject> GetPlatoon8() { return Platoon8Objects; }
 
     /// <summary>
-    /// 
+    //  
     /// </summary>
     /// <returns></returns>
     public List<WorldObject> GetPlatoon9() { return Platoon9Objects; }
 
     /// <summary>
-    /// 
+    //  
     /// </summary>
     /// <returns></returns>
     public List<WorldObject> GetPlatoon10() { return Platoon0Objects; }
