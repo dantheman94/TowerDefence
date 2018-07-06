@@ -175,13 +175,16 @@ public class Unit : WorldObject {
 
                     // Look at attack target
                     _IsAttacking = true;
-                    if (_IsAttacking) { _Agent.transform.LookAt(_AttackTargetObject.transform); }
+                    ///if (_IsAttacking) { LookAt(_AttackTargetObject.transform.position); }
 
                     // If possible, fire weapon
                     if (PrimaryWeapon.CanFire()) { PrimaryWeapon.FireWeapon(); }
                 }
 
                 else { _IsAttacking = false; }
+
+                // Constantly face the new attacking target
+                LookAt(_AttackTargetObject.transform.position);
             }
         }
     }
@@ -215,6 +218,14 @@ public class Unit : WorldObject {
             // Add to list of AI
             _Player.AddToPopulation(_ClonedWorldObject as Unit);
         }
+    }
+
+    /// <summary>
+    //  
+    /// </summary>
+    protected virtual void LookAt(Vector3 position) {
+
+        _Agent.transform.LookAt(position);
     }
 
     /// <summary>
@@ -263,12 +274,16 @@ public class Unit : WorldObject {
     /// <returns></returns>
     public Vector3 GetAttackingPositionAtObject(WorldObject worldObject) {
 
-        float facingAngle = Vector3.Angle(worldObject.transform.forward, worldObject.transform.position - transform.position);        
-        float angle = Mathf.PI * 10.0f + (facingAngle / 10);
-        Vector3 pos = new Vector3(Mathf.Cos(angle), worldObject.transform.position.y, Mathf.Sin(angle) * _Agent.radius * AttackingRange * 0.4f);
+        // Create transform and create a position within attacking range, in the direction of the target
+        Transform trans = new GameObject().transform;
+        trans.position = worldObject.transform.position;
+        trans.LookAt(transform.position);
+        trans.position += trans.forward * AttackingRange * 0.9f;
 
-        pos += worldObject.transform.position;
-        return pos;
+        // Destroy obsolete transform and return the new attacking position
+        Vector3 position = trans.position;
+        Destroy(trans.gameObject);
+        return position;
     }
 
     /// <summary>

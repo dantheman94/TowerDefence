@@ -46,6 +46,8 @@ public class Vehicle : Unit {
     protected float _BaseRotation = 0f;
     protected float _WeaponRotation = 0f;
     protected CharacterController _Controller = null;
+    protected Vector3 _DirectionToTarget = Vector3.zero;
+    protected Quaternion _WeaponLookRotation = Quaternion.identity;
 
     //******************************************************************************************************************************
     //
@@ -151,6 +153,25 @@ public class Vehicle : Unit {
         _Agent.angularSpeed = BaseRotationSpeed;
         _Agent.speed = MaxSpeed;
         _CurrentSpeed = Vector3.Project(_Agent.desiredVelocity, transform.forward).magnitude * Time.deltaTime;
+    }
+
+    /// <summary>
+    //  
+    /// </summary>
+    protected override void LookAt(Vector3 position) {
+
+        // Rotate the vehicle's weapon to face the target
+        if (WeaponObject) {
+
+            // Find the vector pointing from our position to the target
+            _DirectionToTarget = (position - WeaponObject.transform.position).normalized;
+
+            // Create the rotation we need to be in to look at the target
+            _WeaponLookRotation = Quaternion.LookRotation(_DirectionToTarget);
+
+            // Rotate us over time according to speed until we are in the required rotation
+            WeaponObject.transform.rotation = Quaternion.Slerp(WeaponObject.transform.rotation, _WeaponLookRotation, Time.deltaTime * 2);
+        }
     }
 
 }

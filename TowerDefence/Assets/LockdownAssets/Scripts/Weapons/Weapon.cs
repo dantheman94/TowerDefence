@@ -165,7 +165,11 @@ public class Weapon : MonoBehaviour {
                     proj.transform.rotation = _UnitAttached.MuzzleLaunchPoint.transform.rotation;
                 }
 
-                else { proj.transform.LookAt(_UnitAttached.GetAttackTarget().transform.position/* + Vector3.up*/); }
+                else { proj.transform.LookAt(_UnitAttached.GetAttackTarget().transform.position + Vector3.up); }
+
+                ///////////////////////////////////////////////////
+                ///proj.transform.rotation = _UnitAttached.MuzzleLaunchPoint.transform.rotation;
+                ///////////////////////////////////////////////////
 
                 // Now start the projectile
                 proj.Init(this);
@@ -203,7 +207,8 @@ public class Weapon : MonoBehaviour {
     }
 
     /// <summary>
-    //  
+    //  A coroutine that waits for the seconds specied then attempts to repool
+    //  the particle effect (or destroyed entirely if re-pooling isnt possible)
     /// </summary>
     /// <param name="particleEffect"></param>
     /// <param name="delay"></param>
