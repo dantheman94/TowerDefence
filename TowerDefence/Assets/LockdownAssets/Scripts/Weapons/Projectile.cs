@@ -143,10 +143,10 @@ public class Projectile : MonoBehaviour {
                         case Unit.UnitType.BattleAirship:       { unitObj.Damage(DamageBattleAirship);      break; }
                         default: break;
                     }
-
-                    // Destroy projectile
-                    RepoolProjectile();
                 }
+
+                // Destroy projectile
+                RepoolProjectile();
             }
 
             // Damage the world object

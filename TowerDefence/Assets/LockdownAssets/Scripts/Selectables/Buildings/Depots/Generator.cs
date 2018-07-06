@@ -49,36 +49,33 @@ public class Generator : Building {
     protected override void Update() {
         base.Update();
 
-        if (_ObjectState == WorldObjectStates.Active) {
+        if (_ObjectState == WorldObjectStates.Active && _Player) {
 
-            if (_Player) {
+            // Keep generating resources for the player
+            if (_SupplyTimer < GeneratorRate) { _SupplyTimer += Time.deltaTime; }
+            else {
 
-                // Keep generating resources for the player
-                if (_SupplyTimer < GeneratorRate) { _SupplyTimer += Time.deltaTime; }
-                else {
+                _SupplyTimer = 0f;
+                switch (ResourceType) {
 
-                    _SupplyTimer = 0f;
-                    switch (ResourceType) {
+                    // Supplies
+                    case eResourceType.Supplies: {
 
-                        // Supplies
-                        case eResourceType.Supplies: {
-
-                                _Player.SuppliesCount += ResourcesGivenPerTickOver;
-                                break;
-                            }
-
-                        // Power
-                        case eResourceType.Power: {
-
-                                _Player.PowerCount += ResourcesGivenPerTickOver;
-                                break;
-                            }
-
-                        default: break;
+                        _Player.SuppliesCount += ResourcesGivenPerTickOver;
+                        break;
                     }
+
+                    // Power
+                    case eResourceType.Power: {
+
+                        _Player.PowerCount += ResourcesGivenPerTickOver;
+                        break;
+                    }
+
+                    default: break;
                 }
             }
-        }
+        }        
     }
 
 }

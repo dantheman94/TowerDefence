@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -28,6 +29,8 @@ public class Weapon : MonoBehaviour {
     public HitScanDamages RaycastDamages;
     [Space]
     public Projectile ProjectileClass = null;
+    public ParticleSystem FiringEffect = null;
+    public FireType FiringType = FireType.FullAuto;
 
     [Space]
     [Header("-----------------------------------")]
@@ -58,6 +61,7 @@ public class Weapon : MonoBehaviour {
         public int DamageSupportShip;
         public int DamageBattleAirship;
     }
+    public enum FireType { FullAuto, Spread }
 
     private int _CurrentMagazineCount;
     private float _FireDelayTimer = 0f;
@@ -122,17 +126,17 @@ public class Weapon : MonoBehaviour {
                         // Damage based on unit type
                         switch (unitObj.Type) {
 
-                            case Unit.UnitType.Undefined: { unitObj.Damage(RaycastDamages.DamageDefault); break; }
-                            case Unit.UnitType.CoreMarine: { unitObj.Damage(RaycastDamages.DamageCoreInfantry); break; }
-                            case Unit.UnitType.AntiInfantryMarine: { unitObj.Damage(RaycastDamages.DamageAntiInfantryMarine); break; }
-                            case Unit.UnitType.AntiVehicleMarine: { unitObj.Damage(RaycastDamages.DamageAntiVehicleMarine); break; }
-                            case Unit.UnitType.CoreVehicle: { unitObj.Damage(RaycastDamages.DamageCoreVehicle); break; }
-                            case Unit.UnitType.AntiAirVehicle: { unitObj.Damage(RaycastDamages.DamageAntiAirVehicle); break; }
-                            case Unit.UnitType.MobileArtillery: { unitObj.Damage(RaycastDamages.DamageMobileArtillery); break; }
-                            case Unit.UnitType.BattleTank: { unitObj.Damage(RaycastDamages.DamageBattleTank); break; }
-                            case Unit.UnitType.CoreAirship: { unitObj.Damage(RaycastDamages.DamageCoreAirship); break; }
-                            case Unit.UnitType.SupportShip: { unitObj.Damage(RaycastDamages.DamageSupportShip); break; }
-                            case Unit.UnitType.BattleAirship: { unitObj.Damage(RaycastDamages.DamageBattleAirship); break; }
+                            case Unit.UnitType.Undefined:           { unitObj.Damage(RaycastDamages.DamageDefault); break; }
+                            case Unit.UnitType.CoreMarine:          { unitObj.Damage(RaycastDamages.DamageCoreInfantry); break; }
+                            case Unit.UnitType.AntiInfantryMarine:  { unitObj.Damage(RaycastDamages.DamageAntiInfantryMarine); break; }
+                            case Unit.UnitType.AntiVehicleMarine:   { unitObj.Damage(RaycastDamages.DamageAntiVehicleMarine); break; }
+                            case Unit.UnitType.CoreVehicle:         { unitObj.Damage(RaycastDamages.DamageCoreVehicle); break; }
+                            case Unit.UnitType.AntiAirVehicle:      { unitObj.Damage(RaycastDamages.DamageAntiAirVehicle); break; }
+                            case Unit.UnitType.MobileArtillery:     { unitObj.Damage(RaycastDamages.DamageMobileArtillery); break; }
+                            case Unit.UnitType.BattleTank:          { unitObj.Damage(RaycastDamages.DamageBattleTank); break; }
+                            case Unit.UnitType.CoreAirship:         { unitObj.Damage(RaycastDamages.DamageCoreAirship); break; }
+                            case Unit.UnitType.SupportShip:         { unitObj.Damage(RaycastDamages.DamageSupportShip); break; }
+                            case Unit.UnitType.BattleAirship:       { unitObj.Damage(RaycastDamages.DamageBattleAirship); break; }
                             default: break;
                         }
                     }
@@ -144,7 +148,7 @@ public class Weapon : MonoBehaviour {
                 // Hit max range without hitting anything
                 else {
 
-                    hit.transform.position = _UnitAttached.MuzzleLaunchPoint.transform.position + _UnitAttached.MuzzleLaunchPoint.transform.forward * _UnitAttached.AttackingRange;
+                    ///hit.transform.position = _UnitAttached.MuzzleLaunchPoint.transform.position + _UnitAttached.MuzzleLaunchPoint.transform.forward * _UnitAttached.AttackingRange;
                 }
             }
 
@@ -166,6 +170,18 @@ public class Weapon : MonoBehaviour {
                 // Now start the projectile
                 proj.Init(this);
             }
+
+            // Play firing effect
+            if (FiringEffect != null) {
+
+                // Play
+                ParticleSystem effect = ObjectPooling.Spawn(FiringEffect.gameObject, _UnitAttached.MuzzleLaunchPoint.transform.position, _UnitAttached.MuzzleLaunchPoint.transform.rotation).GetComponent<ParticleSystem>();
+                effect.Play();
+
+                // Despawn particle system once it has finished its cycle
+                float effectDuration = effect.duration + effect.startLifetime;
+                StartCoroutine(ParticleDespawn(effect, effectDuration));
+            }
         }
 
         // Reloading if theres no ammo in the mag left
@@ -184,6 +200,21 @@ public class Weapon : MonoBehaviour {
             _IsReloading = true;
             _CurrentMagazineCount = MagazineSize;
         }
+    }
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="particleEffect"></param>
+    /// <param name="delay"></param>
+    /// <returns></returns>
+    IEnumerator ParticleDespawn(ParticleSystem particleEffect, float delay) {
+
+        // Delay
+        yield return new WaitForSeconds(delay);
+
+        // Despawn the system
+        ObjectPooling.Despawn(particleEffect.gameObject);
     }
 
     /// <summary>

@@ -115,20 +115,6 @@ public class HUD : MonoBehaviour {
         return insideWidth && insideHeight;
     }
 
-    public void SetAbilitiesWheelVisibility(bool show) {
-
-        // Show/hide wheel
-        if (AbilitiesWheel)            
-            AbilitiesWheel.SetActive(show);
-    }
-
-    public void SetSelectionWheelVisibility(bool show) {
-
-        // Show/hide wheel
-        if (SelectionWheel)
-            SelectionWheel.gameObject.SetActive(show);
-    }
-
-    public bool WheelActive() { return SelectionWheel.transform.parent.gameObject.activeInHierarchy || AbilitiesWheel.transform.parent.gameObject.activeInHierarchy; }
+    public bool WheelActive() { return GameManager.Instance.SelectionWheel.activeInHierarchy || GameManager.Instance.AbilityWheel.activeInHierarchy; }
     
 }

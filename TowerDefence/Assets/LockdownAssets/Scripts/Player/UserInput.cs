@@ -31,6 +31,7 @@ public class UserInput : MonoBehaviour {
     private float _MotorLeft, _MotorRight = 0f;
 
     private Vector3 _LookPoint;
+    private Vector3 _CurrentVelocity = Vector3.zero;
 
     //******************************************************************************************************************************
     //
@@ -233,8 +234,11 @@ public class UserInput : MonoBehaviour {
         if (posDestination != posOrigin) {
 
             // Update position
-            Camera.main.transform.position = Vector3.MoveTowards(posOrigin, posDestination, Time.deltaTime * Settings.MovementSpeed);
+            ///Camera.main.transform.position = Vector3.MoveTowards(posOrigin, posDestination, Time.deltaTime * Settings.MovementSpeed);
         }
+
+        // Smoothly move toward target position
+        Camera.main.transform.position = Vector3.SmoothDamp(posOrigin, posDestination, ref _CurrentVelocity, Settings.MovementSpeed * Time.deltaTime);
     }
 
     /// <summary>
@@ -1076,7 +1080,7 @@ public class UserInput : MonoBehaviour {
                         if (units.Count > 0) {
 
                             // Loop through all selected units & perform ATTACK command on the squad
-                            foreach (var unit in units) { unit.AgentAttackObject(squadObj); }
+                            foreach (var unit in units) { unit.AgentAttackObject(squadObj, unit.GetAttackingPositionAtObject(squadObj)); }
                         }
                     }
                 }
@@ -1103,7 +1107,7 @@ public class UserInput : MonoBehaviour {
                             if (units.Count > 0) {
 
                                 // Loop through all selected units & perform ATTACK command on the squad
-                                foreach (var unit in units) { unit.AgentAttackObject(squadObj); }
+                                foreach (var unit in units) { unit.AgentAttackObject(squadObj, unit.GetAttackingPositionAtObject(squadObj)); }
                             }
                         }
                     }
@@ -1125,7 +1129,7 @@ public class UserInput : MonoBehaviour {
                             if (units.Count > 0) {
 
                                 // Loop through all selected units & perform ATTACK command on the unit
-                                foreach (var unit in units) { unit.AgentAttackObject(unitObj); }
+                                foreach (var unit in units) { unit.AgentAttackObject(unitObj, unit.GetAttackingPositionAtObject(unitObj)); }
                             }
                         }
                     }
@@ -1148,7 +1152,7 @@ public class UserInput : MonoBehaviour {
                         if (units.Count > 0) {
 
                             // Loop through all selected units & perform ATTACK command on the building
-                            foreach (var unit in units) { unit.AgentAttackObject(buildingObj); }
+                            foreach (var unit in units) { unit.AgentAttackObject(buildingObj, unit.GetAttackingPositionAtObject(buildingObj)); }
                         }
                     }
 
@@ -1183,17 +1187,15 @@ public class UserInput : MonoBehaviour {
                 _Player.SelectedWorldObjects.Clear();
 
                 // hide selection wheel if on screen
-                if (_Player._HUD.SelectionWheel.gameObject.activeInHierarchy) { _Player._HUD.SetAbilitiesWheelVisibility(false); }
-
-                // Show/hide abilities wheel
-                _Player._HUD.SetAbilitiesWheelVisibility(!_Player._HUD.AbilitiesWheel.activeInHierarchy);
+                if (GameManager.Instance.SelectionWheel.activeInHierarchy) { GameManager.Instance.SelectionWheel.SetActive(false); }
+                
+                // Show ability wheel
+                GameManager.Instance.AbilityWheel.SetActive(!GameManager.Instance.AbilityWheel.activeInHierarchy);
             }
         }
 
         // Force hide the abilities wheel if there is no active laboratory in the world
-        else {
-
-        }
+        else { GameManager.Instance.AbilityWheel.SetActive(false); }
     }
     
     //***************************

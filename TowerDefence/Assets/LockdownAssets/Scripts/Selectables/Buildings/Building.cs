@@ -56,6 +56,7 @@ public class Building : WorldObject {
             
             _ObjectState = WorldObjectStates.Active;
             _RebuildNavmesh = true;
+            OnActiveState();
         }
     }
 
@@ -172,5 +173,12 @@ public class Building : WorldObject {
         _BuildingSlot._BuildingOnSlot = null;
         _BuildingSlot.gameObject.SetActive(true);
     }
-    
+
+    /// <summary>
+    //  
+    /// </summary>
+    protected void OnActiveState() {
+
+        GameManager.Instance.AddLabratoryActiveInWorld();
+    }
 }

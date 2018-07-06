@@ -125,21 +125,28 @@ public class WorldObject : Selectable {
         }
 
         // Update health to be a normalized range of the object's hitpoints
-        _Health = _HitPoints / MaxHitPoints;
+        if (_HitPoints > 0) { _Health = _HitPoints / MaxHitPoints; }
+        else {
 
-        if (_HitPoints == 0) {
+            // Clamping health
+            _HitPoints = 0;
+            _Health = 0f;
 
+            if (_ObjectState != WorldObjectStates.Default) {
 
+                // Kill the object
+                OnDeath();
+            }
         }
     }
-
+    
     /// <summary>
-    /// 
+    //  
     /// </summary>
     protected virtual void DrawSelectionWheel() {}
 
     /// <summary>
-    /// 
+    //  
     /// </summary>
     public override void CalculateBounds() {
         base.CalculateBounds();
@@ -207,6 +214,18 @@ public class WorldObject : Selectable {
         // Damage object & clamp health to 0 if it exceeds
         _HitPoints -= damage;
         if (_HitPoints < 0) { _HitPoints = 0; }
+    }
+
+    /// <summary>
+    //  
+    /// </summary>
+    public virtual void OnDeath() {
+
+        // Clamping health
+        _HitPoints = 0;
+        _Health = 0f;
+
+        _ObjectState = WorldObjectStates.Default;
     }
 
     /// <summary>
