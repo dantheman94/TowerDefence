@@ -39,16 +39,20 @@ public class Platoon : MonoBehaviour {
     //
     //******************************************************************************************************************************
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
-    /// 
+    //  Called when the object is created.
     /// </summary>
     private void Start() {
 
         _PlatoonSquads = new List<Squad>();
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
-    /// 
+    //  
     /// </summary>
     /// <param name="squadsToAdd"></param>
     public void AddToPlatooon(List<Squad> squadsToAdd) {
@@ -57,8 +61,10 @@ public class Platoon : MonoBehaviour {
         foreach (var squad in squadsToAdd) { _PlatoonSquads.Add(squad); }
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
-    /// 
+    //  
     /// </summary>
     /// <param name="replacementSquads"></param>
     public void ReplacePlatoon(List<Squad> replacementSquads) {
@@ -69,5 +75,7 @@ public class Platoon : MonoBehaviour {
         // Loop through the list and add it to the platoon
         foreach (var squad in replacementSquads) { _PlatoonSquads.Add(squad); }
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }

@@ -7,31 +7,28 @@ using UnityEngine;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 6/10/2018
+//  Last edited on: 7/7/2018
 //
 //******************************
 
-public class LightUnitUpgrades : Upgrade {
+public class Humanoid : Unit {
 
     //******************************************************************************************************************************
     //
-    //      EVENTS
+    //      FUNCTIONS
     //
     //******************************************************************************************************************************
 
-    public override void UpgradeOne(UpgradeCosts costs) {
-        base.UpgradeOne(costs);
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    public override void OnDeath() {
+
+        // Play some fancy animation maybe?
+
+        // Despawn it
+        base.OnDeath();
     }
 
-    public override void UpgradeTwo(UpgradeCosts costs) {
-        base.UpgradeTwo(costs);
-
-    }
-
-    public override void UpgradeThree(UpgradeCosts costs) {
-        base.UpgradeThree(costs);
-
-    }
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }

@@ -45,6 +45,8 @@ public class Building : WorldObject {
     //
     //******************************************************************************************************************************
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     //  Called each frame. 
     /// </summary>
@@ -60,6 +62,8 @@ public class Building : WorldObject {
         }
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     protected void LateUpdate() {
 
         if (_RebuildNavmesh) { 
@@ -69,6 +73,8 @@ public class Building : WorldObject {
             _RebuildNavmesh = false;
         }
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     /// 
@@ -124,6 +130,8 @@ public class Building : WorldObject {
         }
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     //  Called when the player presses a button on the selection wheel with this world object
     //  linked to the button.
@@ -142,12 +150,14 @@ public class Building : WorldObject {
             building._BuildingSlot = buildingSlot;
 
             // Update building slot ref with building
-            buildingSlot._BuildingOnSlot = building;
+            buildingSlot.SetBuildingOnSlot(building);
 
             // Disable building slot (is re-enabled when the building is recycled)
             buildingSlot.SetIsSelected(false);
         }
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     /// 
@@ -166,19 +176,21 @@ public class Building : WorldObject {
         if (_RecycleOption) {
 
             Destroy(_RecycleOption.gameObject);
-            Destroy(_BuildingSlot._BuildingOnSlot.gameObject);
+            Destroy(_BuildingSlot.GetBuildingOnSlot().gameObject);
         }
 
         // Make building slot available again
-        _BuildingSlot._BuildingOnSlot = null;
+        _BuildingSlot.SetBuildingOnSlot(null);
         _BuildingSlot.gameObject.SetActive(true);
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     //  
     /// </summary>
-    protected void OnActiveState() {
+    protected virtual void OnActiveState() { }
 
-        GameManager.Instance.AddLabratoryActiveInWorld();
-    }
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 }

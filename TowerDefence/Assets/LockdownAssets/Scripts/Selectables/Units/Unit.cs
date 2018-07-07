@@ -30,14 +30,14 @@ public class Unit : WorldObject {
 
     [Space]
     [Header("-----------------------------------")]
-    [Header(" UNIT SENSES")]
+    [Header(" SENSORY PROPERTIES")]
     [Space]
-    public float SightRange = 200f;
-    public float HearingRange = 200f;
+    public ConeCollider SightCone = null;
+    public SphereCollider HearingSphere = null;
 
     [Space]
     [Header("-----------------------------------")]
-    [Header(" COMBAT SETTINGS")]
+    [Header(" COMBAT PROPERTIES")]
     [Space]
     public GameObject MuzzleLaunchPoint = null;
     public Weapon PrimaryWeapon = null;
@@ -67,6 +67,8 @@ public class Unit : WorldObject {
     //
     //******************************************************************************************************************************
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     //  Called before Start().
     /// </summary>
@@ -79,7 +81,11 @@ public class Unit : WorldObject {
 
         // Get component references
         _Agent = GetComponent<NavMeshAgent>();
+
+        _ObjectHeight = _Agent.height;
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     //  Called when this object is created.
@@ -99,6 +105,8 @@ public class Unit : WorldObject {
             SecondaryWeapon.SetUnitAttached(this);
         }
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     //  Called each frame. 
@@ -168,26 +176,37 @@ public class Unit : WorldObject {
             // Update distance to target
             if (_AttackTargetObject != null) {
 
-                _DistanceToTarget = Vector3.Distance(transform.position, _AttackTargetObject.transform.position);
+                if (_AttackTargetObject.IsAlive()) {
 
-                // Fire primary weapon if within attacking range
-                if (_DistanceToTarget <= AttackingRange && PrimaryWeapon != null) {
+                    _DistanceToTarget = Vector3.Distance(transform.position, _AttackTargetObject.transform.position);
 
-                    // Look at attack target
-                    _IsAttacking = true;
-                    ///if (_IsAttacking) { LookAt(_AttackTargetObject.transform.position); }
+                    // Fire primary weapon if within attacking range
+                    if (_DistanceToTarget <= AttackingRange && PrimaryWeapon != null) {
 
-                    // If possible, fire weapon
-                    if (PrimaryWeapon.CanFire()) { PrimaryWeapon.FireWeapon(); }
+                        // Look at attack target
+                        _IsAttacking = true;
+                        ///if (_IsAttacking) { LookAt(_AttackTargetObject.transform.position); }
+
+                        // If possible, fire weapon
+                        if (PrimaryWeapon.CanFire()) { PrimaryWeapon.FireWeapon(); }
+                    }
+
+                    else { _IsAttacking = false; }
+
+                    // Constantly face the attacking target
+                    Vector3 FireAtPos = _AttackTargetObject.transform.position;
+                    FireAtPos.y = FireAtPos.y + _AttackTargetObject.GetObjectHeight() / 2;
+                    LookAt(FireAtPos);
                 }
+                else {
 
-                else { _IsAttacking = false; }
-
-                // Constantly face the new attacking target
-                LookAt(_AttackTargetObject.transform.position);
+                    /// GET NEW ATTACK TARGET
+                }
             }
         }
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     //  Called when the player presses a button on the selection wheel with this world object linked to the button.
@@ -220,12 +239,24 @@ public class Unit : WorldObject {
         }
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     //  
     /// </summary>
     protected virtual void LookAt(Vector3 position) {
 
+        // Snap to target
         _Agent.transform.LookAt(position);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //   
+    /// </summary>
+    protected virtual void UpdateSight() {
+
     }
 
     /// <summary>
@@ -255,6 +286,8 @@ public class Unit : WorldObject {
         }
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     //  Sets the attack target to the worldObject passed through, as well as
     //  seek pathfinding to the position
@@ -265,6 +298,8 @@ public class Unit : WorldObject {
         _AttackTargetObject = attackTarget;
         AgentSeekPosition(seekPosition);
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     //  
@@ -278,7 +313,7 @@ public class Unit : WorldObject {
         Transform trans = new GameObject().transform;
         trans.position = worldObject.transform.position;
         trans.LookAt(transform.position);
-        trans.position += trans.forward * AttackingRange * 0.9f;
+        trans.position += trans.forward * AttackingRange * 0.7f;
 
         // Destroy obsolete transform and return the new attacking position
         Vector3 position = trans.position;
@@ -286,11 +321,15 @@ public class Unit : WorldObject {
         return position;
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     //  
     /// </summary>
     /// <returns></returns>
     public NavMeshAgent GetAgent() { return _Agent; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     //  
@@ -298,11 +337,15 @@ public class Unit : WorldObject {
     /// <returns></returns>
     public bool IsInASquad() { return _SquadAttached != null; }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     //  
     /// </summary>
     /// <param name="squad"></param>
     public void SetSquadAttached(Squad squad) { _SquadAttached = squad; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     //  
@@ -310,16 +353,22 @@ public class Unit : WorldObject {
     /// <returns></returns>
     public Squad GetSquadAttached() { return _SquadAttached; }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     //  
     /// </summary>
     /// <returns></returns>
     public WorldObject GetAttackTarget() { return _AttackTargetObject; }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     //   
     /// </summary>
     /// <returns></returns>
     public bool IsBeingPlayerControlled() { return _IsBeingPlayerControlled; }
-    
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 }

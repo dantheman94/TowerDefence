@@ -55,6 +55,8 @@ public class Vehicle : Unit {
     //
     //******************************************************************************************************************************
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     //  Called before Start().
     /// </summary>
@@ -64,6 +66,14 @@ public class Vehicle : Unit {
         // Get component references
         _Controller = GetComponent<CharacterController>();
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    protected override void Start() {
+        base.Start();
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     //  Called each frame. 
@@ -86,6 +96,8 @@ public class Vehicle : Unit {
         // Move character controller forward / backwards based on current movement speed
         if (_Controller) { _Controller.Move(transform.forward * _CurrentSpeed * Time.deltaTime); }
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     //  
@@ -141,6 +153,8 @@ public class Vehicle : Unit {
         }
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     //  
     /// </summary>
@@ -154,6 +168,8 @@ public class Vehicle : Unit {
         _Agent.speed = MaxSpeed;
         _CurrentSpeed = Vector3.Project(_Agent.desiredVelocity, transform.forward).magnitude * Time.deltaTime;
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     //  
@@ -173,5 +189,25 @@ public class Vehicle : Unit {
             WeaponObject.transform.rotation = Quaternion.Slerp(WeaponObject.transform.rotation, _WeaponLookRotation, Time.deltaTime * 2);
         }
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    protected override void UpdateSight() {
+
+        // Determine cone properties
+        Vector3 coneOrigin = MuzzleLaunchPoint.transform.position;
+
+        // Fire raycasts
+        int raycount = 8;
+        for (int i = 0; i < raycount; i++) {
+
+
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }

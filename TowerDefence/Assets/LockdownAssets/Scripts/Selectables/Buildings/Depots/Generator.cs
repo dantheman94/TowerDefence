@@ -23,6 +23,7 @@ public class Generator : Building {
     [Header("-----------------------------------")]
     [Header(" GENERATOR PROPERTIES")]
     public eResourceType ResourceType;
+    public bool UpgradedGenerator = false;
     public int ResourcesGivenWhenBuilt = 100;
     public int ResourcesGivenPerTickOver = 1;
     public float GeneratorRate = 0.1f;
@@ -42,6 +43,8 @@ public class Generator : Building {
     //      FUNCTIONS
     //
     //******************************************************************************************************************************
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     //  Called each frame. 
@@ -77,5 +80,7 @@ public class Generator : Building {
             }
         }        
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }

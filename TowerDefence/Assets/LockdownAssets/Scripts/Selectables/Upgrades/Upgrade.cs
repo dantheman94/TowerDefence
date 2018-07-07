@@ -44,6 +44,8 @@ public class Upgrade : WorldObject {
     //
     //******************************************************************************************************************************
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     //  Called before Star().
     /// </summary>
@@ -51,6 +53,8 @@ public class Upgrade : WorldObject {
 
         _UpgradeName = ObjectName;
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     //  Called each frame. 
@@ -75,8 +79,10 @@ public class Upgrade : WorldObject {
         _HasMaxUpgrade = (UpgradeCosts.Count <= _CurrentUpgradeLevel) || (UpgradePath.Count <= _CurrentUpgradeLevel);
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
-    /// 
+    //  
     /// </summary>
     /// <param name="buildingSlot"></param>
     public override void OnWheelSelect(BuildingSlot buildingSlot) {
@@ -85,8 +91,10 @@ public class Upgrade : WorldObject {
         if (UpgradePath.Count >= _CurrentUpgradeLevel + 1 && UpgradeCosts.Count >= _CurrentUpgradeLevel + 1) { UpgradePath[_CurrentUpgradeLevel + 1].Invoke(); }
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
-    /// 
+    //  
     /// </summary>
     public virtual void UpgradeOne(UpgradeCosts costs) {
 
@@ -103,8 +111,10 @@ public class Upgrade : WorldObject {
         }
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
-    /// 
+    //  
     /// </summary>
     public virtual void UpgradeTwo(UpgradeCosts costs) {
 
@@ -121,8 +131,10 @@ public class Upgrade : WorldObject {
         }
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
-    /// 
+    //  
     /// </summary>
     public virtual void UpgradeThree(UpgradeCosts costs) {
 
@@ -139,6 +151,16 @@ public class Upgrade : WorldObject {
         }
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <returns>
+    //  bool
+    /// </returns>
     public bool HasMaxUpgrade() { return _HasMaxUpgrade; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }

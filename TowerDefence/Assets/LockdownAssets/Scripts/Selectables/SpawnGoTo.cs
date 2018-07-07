@@ -27,6 +27,8 @@ public class SpawnGoTo : WorldObject {
     //
     //******************************************************************************************************************************
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     //  Called when the player presses a button on the selection wheel with this world object
     //  linked to the button.
@@ -38,13 +40,17 @@ public class SpawnGoTo : WorldObject {
     public override void OnWheelSelect(BuildingSlot buildingSlot) {
 
         // Update building reference
-        _BuildingAttached = buildingSlot._BuildingOnSlot;
+        _BuildingAttached = buildingSlot.GetBuildingOnSlot();
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     /// 
     /// </summary>
     /// <param name="building"></param>
     public void SetBuildingAttached(Building building) { _BuildingAttached = building; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }

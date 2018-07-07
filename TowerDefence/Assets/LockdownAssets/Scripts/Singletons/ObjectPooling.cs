@@ -6,7 +6,7 @@ using UnityEngine;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 5/7/2018
+//  Last edited on: 7/7/2018
 //
 //******************************
 
@@ -47,6 +47,8 @@ public static class ObjectPooling {
         //
         //******************************************************************************************************************************
 
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         /// <summary>
         //  Constructor
         /// </summary>
@@ -61,6 +63,8 @@ public static class ObjectPooling {
             _Parent.transform.position = Vector3.zero;
             _Parent.transform.rotation = Quaternion.identity;
         }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         /// <summary>
         //  Spawn an object from the pool.
@@ -102,6 +106,8 @@ public static class ObjectPooling {
             return obj;
         }
 
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         /// <summary>
         //  Spawn an object from the pool.
         /// </summary>
@@ -140,6 +146,47 @@ public static class ObjectPooling {
             return obj;
         }
 
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        /// <summary>
+        //  Spawn an object from the pool.
+        /// </summary>
+        /// <param name="position"></param>
+        /// <returns></returns>
+        public GameObject Spawn() {
+
+            GameObject obj;
+
+            if (_POOL_INACTIVE_OBJECTS.Count == 0) {
+
+                // There aren't any objects in the pool to use so create a new one
+                obj = GameObject.Instantiate(_GameObject);
+
+                // Add a pool member component so we know what object pool this object belongs to
+                obj.AddComponent<PoolMember>().LinkedPool = this;
+            }
+
+            else { // (_POOL_INACTIVE_OBJECTS.Count > 0)
+
+                // Get the last object in the array
+                obj = _POOL_INACTIVE_OBJECTS.Pop();
+
+                if (obj == null) {
+
+                    // Somehow the object that was to be returned no longer exists 
+                    // (IE: Has been destroyed or a scene change, so we try again)
+                    return Spawn();
+                }
+            }
+
+            // Set object's transform
+            ///obj.transform.parent = _Parent.transform;
+            obj.SetActive(true);
+            return obj;
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         /// <summary>
         //  Returns an object back to the pool.
         /// </summary>
@@ -150,7 +197,11 @@ public static class ObjectPooling {
             _POOL_INACTIVE_OBJECTS.Push(obj);
         }
 
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     //  This is added to newly instantiated objects, so that they 
@@ -161,10 +212,20 @@ public static class ObjectPooling {
         public Pool LinkedPool;
     }
 
+    //******************************************************************************************************************************
+    //
+    //      FUNCTIONS
+    //
+    //******************************************************************************************************************************
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     //  A dictionary of all the object pools
     /// </summary>
     static Dictionary<GameObject, Pool> ObjectPools;
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     //  Initialize the dictionary
@@ -183,6 +244,8 @@ public static class ObjectPooling {
             ObjectPools[obj] = new Pool(obj, size);
         }
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     //  If you want to preload a few copies of an object at the start
@@ -206,6 +269,8 @@ public static class ObjectPooling {
         for (int i = 0; i < size; i++) { Despawn(objects[i]); }
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     //  Spawns a copy of the specified prefab (instantiating one if required).
     //  NOTE: Remember that Awake() or Start() will only run on the very first
@@ -224,6 +289,8 @@ public static class ObjectPooling {
         return ObjectPools[Object].Spawn(position, rotation);
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     //  Spawns a copy of the specified prefab (instantiating one if required).
     //  NOTE: Remember that Awake() or Start() will only run on the very first
@@ -241,6 +308,27 @@ public static class ObjectPooling {
         return ObjectPools[Object].Spawn(position);
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Spawns a copy of the specified prefab (instantiating one if required).
+    //  NOTE: Remember that Awake() or Start() will only run on the very first
+    //  spawn and that member variables won't get reset.  OnEnable will run
+    //  after spawning -- but remember that toggling IsActive will also
+    //  call that function.
+    /// </summary>
+    /// <param name="Object"></param>
+    /// <param name="position"></param>
+    /// <returns></returns>
+    public static GameObject Spawn(GameObject Object) {
+
+        Init(Object);
+
+        return ObjectPools[Object].Spawn();
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     //  Despawns the object and puts it back into its pool.
     /// </summary>
@@ -255,5 +343,7 @@ public static class ObjectPooling {
         // The object wasn't spawned via an object pool, so just destroy it normally
         else { GameObject.Destroy(obj); }
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }

@@ -10,7 +10,7 @@ using XInputDotNetPure;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 5/10/2018
+//  Last edited on: 28/6/2018
 //
 //******************************
 
@@ -47,6 +47,8 @@ public class Selectable : Abstraction {
     //
     //******************************************************************************************************************************
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     //  This is called before Startup().
     /// </summary>
@@ -56,6 +58,8 @@ public class Selectable : Abstraction {
         CalculateBounds();
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     //  Called when this object is created.
     /// </summary>
@@ -64,13 +68,17 @@ public class Selectable : Abstraction {
         GameManager.Instance.Selectables.Add(this);
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     //  Called each frame. 
     /// </summary>
     protected virtual void Update() { }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
-    /// 
+    //  
     /// </summary>
     protected virtual void OnGUI() {
 
@@ -78,13 +86,17 @@ public class Selectable : Abstraction {
         DrawSelection(_IsCurrentlySelected);
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
-    /// 
+    //  
     /// </summary>
     public virtual void CalculateBounds() {}
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
-    /// 
+    //  
     /// </summary>
     /// <param name="selectObj"></param>
     protected virtual void ChangeSelection(Selectable selectObj) {
@@ -100,6 +112,8 @@ public class Selectable : Abstraction {
         _Player.SelectedWorldObjects.Add(selectObj);
         selectObj.SetIsSelected(true);
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     /// 
@@ -130,11 +144,15 @@ public class Selectable : Abstraction {
         else { if (_SelectionObj != null) { Destroy(_SelectionObj.gameObject); } }
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     /// 
     /// </summary>
     /// <param name="selectBox"></param>
     protected virtual void DrawSelectionBox(Rect selectBox) { GUI.Box(selectBox, ""); }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     /// 
@@ -153,7 +171,9 @@ public class Selectable : Abstraction {
                 ChangeSelection(selectable);
         }
     }
-    
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     /// 
     /// </summary>
@@ -164,16 +184,22 @@ public class Selectable : Abstraction {
         _Player = player;
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     /// 
     /// </summary>
     /// <param name="selected"></param>
     public void SetIsSelected(bool selected) { _IsCurrentlySelected = selected; }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     /// 
     /// </summary>
     /// <returns></returns>
     public bool GetIsSelected() { return _IsCurrentlySelected; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }

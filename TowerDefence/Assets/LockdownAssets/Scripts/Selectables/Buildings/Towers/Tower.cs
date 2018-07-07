@@ -21,5 +21,4 @@ public class Tower : Building {
 
     public enum ETowerType { WatchTower, SiegeTurret, Turret, AntiInfantry, AntiVehicle, AntiAir }
     
-
 }

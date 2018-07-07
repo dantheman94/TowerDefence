@@ -55,18 +55,21 @@ public class WorldObject : Selectable {
 
     protected bool _ReadyForDeployment = false;
     protected float _CurrentBuildTime = 0f;
-    protected WorldObjectStates _ObjectState = WorldObjectStates.Default;
-    protected int _HitPoints;
+    public WorldObjectStates _ObjectState = WorldObjectStates.Default;
+    public int _HitPoints;
     protected UnitHealthBar _HealthBar = null;
     protected WorldObject _ClonedWorldObject = null;
     protected float _Health;
     protected int _CurrentGarrisonPopulation = 0;
+    protected float _ObjectHeight = 0f;
 
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
     //
     //******************************************************************************************************************************
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     // Called when the gameObject is created.
@@ -81,6 +84,8 @@ public class WorldObject : Selectable {
         _OffsetY = transform.position.y;
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     //  Called each frame. 
     /// </summary>
@@ -89,7 +94,13 @@ public class WorldObject : Selectable {
         
         switch (_ObjectState) {
 
-            case WorldObjectStates.Default: { break; }
+            case WorldObjectStates.Default: {
+
+                // Hide meshes
+                if (BuildingState) { BuildingState.SetActive(false); }
+                if (ActiveState) { ActiveState.SetActive(false); }
+                break;
+            }
 
             case WorldObjectStates.Building: {
 
@@ -115,7 +126,7 @@ public class WorldObject : Selectable {
 
             case WorldObjectStates.Active: {
 
-                // Show building state object
+                // Show active state object
                 if (BuildingState) { BuildingState.SetActive(false); }
                 if (ActiveState) { ActiveState.SetActive(true); }
                 break;
@@ -139,11 +150,15 @@ public class WorldObject : Selectable {
             }
         }
     }
-    
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     //  
     /// </summary>
     protected virtual void DrawSelectionWheel() {}
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     //  
@@ -158,7 +173,9 @@ public class WorldObject : Selectable {
             selectionBounds.Encapsulate(r.bounds);
         }
     }
-        
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     //  Called when the player presses a button on the selection wheel with this world object linked to the button.
     /// </summary>
@@ -177,7 +194,6 @@ public class WorldObject : Selectable {
         if ((plyr.SuppliesCount >= this.CostSupplies) && (plyr.PowerCount >= this.CostPower)) {
 
             // Start building object on the selected building slot
-            ///_ClonedWorldObject = Instantiate(this);
             _ClonedWorldObject = ObjectPooling.Spawn(gameObject, Vector3.zero, Quaternion.identity).GetComponent<WorldObject>();
             _ClonedWorldObject.SetBuildingPosition(buildingSlot);
             _ClonedWorldObject.gameObject.SetActive(true);
@@ -201,9 +217,12 @@ public class WorldObject : Selectable {
             plyr.SuppliesCount -= _ClonedWorldObject.CostSupplies;
             plyr.PowerCount -= _ClonedWorldObject.CostPower;
 
+            _ClonedWorldObject.Team = _Player.Team;
             _ClonedWorldObject._IsCurrentlySelected = false;
         }
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     //  Damages the object by a set amount.
@@ -211,10 +230,12 @@ public class WorldObject : Selectable {
     /// <param name="damage"></param>
     public void Damage(int damage) {
 
-        // Damage object & clamp health to 0 if it exceeds
+        // Damage object & kill it if theres no health left
         _HitPoints -= damage;
-        if (_HitPoints < 0) { _HitPoints = 0; }
+        if (_HitPoints <= 0) { OnDeath(); }
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     //  
@@ -225,8 +246,32 @@ public class WorldObject : Selectable {
         _HitPoints = 0;
         _Health = 0f;
 
-        _ObjectState = WorldObjectStates.Default;
+        // Delay then despawn
+        DelayedDespawn(this, 3f);
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  A coroutine that waits for the seconds specified then attempts to repool
+    //  the particle effect (or destroyed entirely if re-pooling isn't possible)
+    /// </summary>
+    /// <param name="particleEffect"></param>
+    /// <param name="delay"></param>
+    /// <returns></returns>
+    IEnumerator DelayedDespawn(WorldObject worldObject, float delay) {
+
+        // Delay
+        yield return new WaitForSeconds(delay);
+
+        // This is so that the next time the object is spawned - it is at its default state already
+        _ObjectState = WorldObjectStates.Default;
+        
+        // Despawn the object
+        ObjectPooling.Despawn(worldObject.gameObject);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     //  Returns TRUE if the object's health is greater than 0f.
@@ -235,6 +280,8 @@ public class WorldObject : Selectable {
     //  bool
     /// </returns>
     public bool IsAlive() { return _HitPoints > 0f && _Health > 0f; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     //  Sets the position of the object based on what building slot has been passed through. 
@@ -251,11 +298,15 @@ public class WorldObject : Selectable {
         transform.position = new Vector3(transform.position.x, _OffsetY, transform.position.z);
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     /// 
     /// </summary>
     /// <param name="healthBar"></param>
     public void setHealthBar(UnitHealthBar healthBar) { _HealthBar = healthBar; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     //  Returns TRUE if the object is either building or active in the game world.
@@ -265,6 +316,8 @@ public class WorldObject : Selectable {
     /// </returns>
     public bool isActiveInWorld() { return IsAlive() && (_ObjectState == WorldObjectStates.Active || _ObjectState == WorldObjectStates.Building); }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     //  Returns the object's current hitpoints as a raw value.
     /// </summary>
@@ -273,21 +326,27 @@ public class WorldObject : Selectable {
     /// </returns>
     public int getHitPoints() { return _HitPoints; }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
-    //  Returns the hitpoints as a normalized value.
+    //  Returns the hitpoints as a normalized value. (0.0f - 1.0f [ % ])
     /// </summary>
     /// <returns>
     //  float
     /// </returns>
     public float getHealth() { return _Health; }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
-    /// 
+    //  
     /// </summary>
     /// <returns>
     //  float
     /// </returns>
     public float getCurrentBuildTimeRemaining() { return BuildTime - _CurrentBuildTime; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     //  Returns the current object state (Ie: Building, Deployable, Active).
@@ -297,16 +356,38 @@ public class WorldObject : Selectable {
     /// </returns>
     public WorldObjectStates getObjectState() { return _ObjectState; }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
-    /// 
+    //  Sets the new current object state (Ie: Building, Deployable, Active).
     /// </summary>
     /// <param name="newState"></param>
     public void SetObjectState(WorldObjectStates newState) { _ObjectState = newState; }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
-    /// 
+    //  
     /// </summary>
-    /// <returns></returns>
+    /// <returns>
+    //  int
+    /// </returns>
     public int GetCurrentGarrisonCount() { return _CurrentGarrisonPopulation; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Returns the current height value of the object (used for AI attacking offsets
+    //  so they don't shoot at the target's position but actually at the target's 'chest').
+    //
+    //  [For buildings, the height should be '0' by default & units auto assign this 
+    //  value based off their specified agent height].
+    /// </summary>
+    /// <returns>
+    //  float
+    /// </returns>
+    public float GetObjectHeight() { return _ObjectHeight; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }

@@ -27,7 +27,9 @@ public class BuildingRecycle : WorldObject {
     //      VARIABLES
     //
     //******************************************************************************************************************************
-    
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     //  Called when the player presses a button on the selection wheel with this world object
     //  linked to the button.
@@ -39,7 +41,7 @@ public class BuildingRecycle : WorldObject {
     public override void OnWheelSelect(BuildingSlot buildingSlot) {
 
         // Update building reference
-        _BuildingToRecycle = buildingSlot._BuildingOnSlot;
+        _BuildingToRecycle = buildingSlot.GetBuildingOnSlot();
 
         // Valid building check
         if (_BuildingToRecycle != null) {
@@ -57,16 +59,22 @@ public class BuildingRecycle : WorldObject {
         ///buildingSlot.gameObject.SetActive(true);
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     /// 
     /// </summary>
     /// <param name="building"></param>
     public void SetBuildingToRecycle(Building building) { _BuildingToRecycle = building; }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     /// 
     /// </summary>
     /// <param name="value"></param>
     public void SetToBeDestroyed(bool value) { _ToBeDestroyed = value; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }

@@ -42,6 +42,8 @@ public class Base : Building {
     //
     //******************************************************************************************************************************
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     //  Called when the player presses a button on the selection wheel with this world object
     //  linked to the button.
@@ -78,8 +80,8 @@ public class Base : Building {
                     if (originalBase.DepotSlots[i] != null) {
 
                         // Send building to new base
-                        newBase.DepotSlots[i]._BuildingOnSlot = originalBase.DepotSlots[i]._BuildingOnSlot;
-                        originalBase.DepotSlots[i]._BuildingOnSlot = null;
+                        newBase.DepotSlots[i].SetBuildingOnSlot(originalBase.DepotSlots[i].GetBuildingOnSlot());
+                        originalBase.DepotSlots[i].SetBuildingOnSlot(null);
                     }
                     else { continue; }
                 }
@@ -96,8 +98,8 @@ public class Base : Building {
                     if (originalBase.TowerSlots[i] != null) {
 
                         // Send tower to new base
-                        newBase.TowerSlots[i]._BuildingOnSlot = originalBase.TowerSlots[i]._BuildingOnSlot;
-                        originalBase.TowerSlots[i]._BuildingOnSlot = null;
+                        newBase.TowerSlots[i].SetBuildingOnSlot(originalBase.TowerSlots[i].GetBuildingOnSlot());
+                        originalBase.TowerSlots[i].SetBuildingOnSlot(null);
                     }
                     else { continue; }
                 }
@@ -108,4 +110,7 @@ public class Base : Building {
         // Update attached base reference
         buildingSlot.AttachedBase = _ClonedWorldObject.GetComponent<Base>();
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 }

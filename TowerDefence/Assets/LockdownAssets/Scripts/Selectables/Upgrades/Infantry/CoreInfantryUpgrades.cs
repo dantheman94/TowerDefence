@@ -7,11 +7,11 @@ using UnityEngine;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 6/9/2018
+//  Last edited on: 10/6/2018
 //
 //******************************
 
-public class LightAntiInfantryUpgrades : Upgrade {
+public class CoreInfantryUpgrades : Upgrade {
 
     //******************************************************************************************************************************
     //
@@ -19,19 +19,39 @@ public class LightAntiInfantryUpgrades : Upgrade {
     //
     //******************************************************************************************************************************
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="costs"></param>
     public override void UpgradeOne(UpgradeCosts costs) {
         base.UpgradeOne(costs);
 
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="costs"></param>
     public override void UpgradeTwo(UpgradeCosts costs) {
         base.UpgradeTwo(costs);
 
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="costs"></param>
     public override void UpgradeThree(UpgradeCosts costs) {
         base.UpgradeThree(costs);
 
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }

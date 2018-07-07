@@ -21,7 +21,8 @@ public class Player : MonoBehaviour {
     //
     //******************************************************************************************************************************
 
-    public PlayerIndex _PlayerIndex = PlayerIndex.One;
+    public PlayerIndex Index = PlayerIndex.One;
+    public GameManager.Team Team = GameManager.Team.Defending;
     public Camera PlayerCamera = null;
 
     //******************************************************************************************************************************
@@ -65,6 +66,8 @@ public class Player : MonoBehaviour {
     //
     //******************************************************************************************************************************
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     //   
     /// </summary>
@@ -101,6 +104,8 @@ public class Player : MonoBehaviour {
         Platoon0Objects = new List<WorldObject>();
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     //  
     /// </summary>
@@ -113,6 +118,8 @@ public class Player : MonoBehaviour {
         if (SelectedWorldObjects.Count > 0) { SelectedWorldObjects.Clear(); }
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     //  
     /// </summary>
@@ -122,6 +129,8 @@ public class Player : MonoBehaviour {
         PopulationCount += squad.PopulationSize;
         AiUnitObjects.Add(squad);
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     //  
@@ -134,11 +143,15 @@ public class Player : MonoBehaviour {
         AiUnitObjects.Add(unit);
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     //  
     /// </summary>
     /// <returns></returns>
     public List<WorldObject> GetArmy() { return AiUnitObjects; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     //   
@@ -146,11 +159,15 @@ public class Player : MonoBehaviour {
     /// <returns></returns>
     public List<WorldObject> GetPlatoon1() { return Platoon1Objects; }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     //  
     /// </summary>
     /// <returns></returns>
     public List<WorldObject> GetPlatoon2() { return Platoon2Objects; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     //  
@@ -158,11 +175,15 @@ public class Player : MonoBehaviour {
     /// <returns></returns>
     public List<WorldObject> GetPlatoon3() { return Platoon3Objects; }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     //  
     /// </summary>
     /// <returns></returns>
     public List<WorldObject> GetPlatoon4() { return Platoon4Objects; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     //  
@@ -170,11 +191,15 @@ public class Player : MonoBehaviour {
     /// <returns></returns>
     public List<WorldObject> GetPlatoon5() { return Platoon5Objects; }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     //  
     /// </summary>
     /// <returns></returns>
     public List<WorldObject> GetPlatoon6() { return Platoon6Objects; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     //  
@@ -182,11 +207,15 @@ public class Player : MonoBehaviour {
     /// <returns></returns>
     public List<WorldObject> GetPlatoon7() { return Platoon7Objects; }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     //  
     /// </summary>
     /// <returns></returns>
     public List<WorldObject> GetPlatoon8() { return Platoon8Objects; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     //  
@@ -194,10 +223,14 @@ public class Player : MonoBehaviour {
     /// <returns></returns>
     public List<WorldObject> GetPlatoon9() { return Platoon9Objects; }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     //  
     /// </summary>
     /// <returns></returns>
     public List<WorldObject> GetPlatoon10() { return Platoon0Objects; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }

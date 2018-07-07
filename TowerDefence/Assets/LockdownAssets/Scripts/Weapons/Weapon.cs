@@ -75,6 +75,8 @@ public class Weapon : MonoBehaviour {
     //
     //******************************************************************************************************************************
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     //  Called when this object is created.
     /// </summary>
@@ -83,6 +85,8 @@ public class Weapon : MonoBehaviour {
         // Initiate magazine count to max size
         _CurrentMagazineCount = MagazineSize;
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     //  Called each frame. 
@@ -97,8 +101,10 @@ public class Weapon : MonoBehaviour {
         else { _IsReloading = false; }
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
-    //  Fires a hitscan or 3D projectile object 
+    //  Fires either a hitscan or 3D projectile object 
     /// </summary>
     public void FireWeapon() {
 
@@ -114,64 +120,58 @@ public class Weapon : MonoBehaviour {
             if (HitScanProjectile && _UnitAttached != null) {
 
                 RaycastHit hit;
-                if (Physics.Raycast(_UnitAttached.MuzzleLaunchPoint.transform.position, _UnitAttached.GetAttackTarget().transform.position, out hit, _UnitAttached.AttackingRange)) {
+                Vector3 attackPos = _UnitAttached.GetAttackTarget().transform.position;
+                attackPos.y = attackPos.y + _UnitAttached.GetAttackTarget().GetObjectHeight() / 2;
+                Vector3 attackDir = attackPos - _UnitAttached.MuzzleLaunchPoint.transform.position;
+                attackDir.Normalize();
+                if (Physics.Raycast(_UnitAttached.MuzzleLaunchPoint.transform.position, attackDir, out hit, _UnitAttached.AttackingRange)) {
+
+                    Debug.DrawLine(_UnitAttached.MuzzleLaunchPoint.transform.position, hit.point, Color.red);
 
                     // Damage target
                     WorldObject worldObj = hit.transform.GetComponent<WorldObject>();
+                    if (worldObj != null) {
 
-                    // Check if object is of type unit
-                    Unit unitObj = worldObj.GetComponent<Unit>();
-                    if (unitObj != null) {
+                        // Check if object is of type unit
+                        Unit unitObj = worldObj.GetComponent<Unit>();
+                        if (unitObj != null) {
 
-                        // Damage based on unit type
-                        switch (unitObj.Type) {
+                            // Cannot damage self
+                            if (unitObj.Team != _UnitAttached.Team) {
 
-                            case Unit.UnitType.Undefined:           { unitObj.Damage(RaycastDamages.DamageDefault); break; }
-                            case Unit.UnitType.CoreMarine:          { unitObj.Damage(RaycastDamages.DamageCoreInfantry); break; }
-                            case Unit.UnitType.AntiInfantryMarine:  { unitObj.Damage(RaycastDamages.DamageAntiInfantryMarine); break; }
-                            case Unit.UnitType.AntiVehicleMarine:   { unitObj.Damage(RaycastDamages.DamageAntiVehicleMarine); break; }
-                            case Unit.UnitType.CoreVehicle:         { unitObj.Damage(RaycastDamages.DamageCoreVehicle); break; }
-                            case Unit.UnitType.AntiAirVehicle:      { unitObj.Damage(RaycastDamages.DamageAntiAirVehicle); break; }
-                            case Unit.UnitType.MobileArtillery:     { unitObj.Damage(RaycastDamages.DamageMobileArtillery); break; }
-                            case Unit.UnitType.BattleTank:          { unitObj.Damage(RaycastDamages.DamageBattleTank); break; }
-                            case Unit.UnitType.CoreAirship:         { unitObj.Damage(RaycastDamages.DamageCoreAirship); break; }
-                            case Unit.UnitType.SupportShip:         { unitObj.Damage(RaycastDamages.DamageSupportShip); break; }
-                            case Unit.UnitType.BattleAirship:       { unitObj.Damage(RaycastDamages.DamageBattleAirship); break; }
-                            default: break;
+                                // Damage based on unit type
+                                switch (unitObj.Type) {
+
+                                    case Unit.UnitType.Undefined: { unitObj.Damage(RaycastDamages.DamageDefault); break; }
+                                    case Unit.UnitType.CoreMarine: { unitObj.Damage(RaycastDamages.DamageCoreInfantry); break; }
+                                    case Unit.UnitType.AntiInfantryMarine: { unitObj.Damage(RaycastDamages.DamageAntiInfantryMarine); break; }
+                                    case Unit.UnitType.AntiVehicleMarine: { unitObj.Damage(RaycastDamages.DamageAntiVehicleMarine); break; }
+                                    case Unit.UnitType.CoreVehicle: { unitObj.Damage(RaycastDamages.DamageCoreVehicle); break; }
+                                    case Unit.UnitType.AntiAirVehicle: { unitObj.Damage(RaycastDamages.DamageAntiAirVehicle); break; }
+                                    case Unit.UnitType.MobileArtillery: { unitObj.Damage(RaycastDamages.DamageMobileArtillery); break; }
+                                    case Unit.UnitType.BattleTank: { unitObj.Damage(RaycastDamages.DamageBattleTank); break; }
+                                    case Unit.UnitType.CoreAirship: { unitObj.Damage(RaycastDamages.DamageCoreAirship); break; }
+                                    case Unit.UnitType.SupportShip: { unitObj.Damage(RaycastDamages.DamageSupportShip); break; }
+                                    case Unit.UnitType.BattleAirship: { unitObj.Damage(RaycastDamages.DamageBattleAirship); break; }
+                                    default: break;
+                                }
+                            }
                         }
+
+                        // Damage the object (its not a unit so use the default damage value)
+                        else { worldObj.Damage(RaycastDamages.DamageDefault); }
                     }
-
-                    // Damage the object
-                    else { worldObj.Damage(RaycastDamages.DamageDefault); }
-                }
-
-                // Hit max range without hitting anything
-                else {
-
-                    ///hit.transform.position = _UnitAttached.MuzzleLaunchPoint.transform.position + _UnitAttached.MuzzleLaunchPoint.transform.forward * _UnitAttached.AttackingRange;
                 }
             }
 
             // 3D projectile
             else if (ProjectileClass && _UnitAttached != null) {
 
-                // Create projectile
+                // Create projectile facing forward from the muzzle
                 Projectile proj = ObjectPooling.Spawn(ProjectileClass.gameObject, _UnitAttached.MuzzleLaunchPoint.transform.position).GetComponent<Projectile>();
+                proj.transform.rotation = _UnitAttached.MuzzleLaunchPoint.transform.rotation;
 
-                // Set projectile rotation based on controller
-                if (_UnitAttached.IsBeingPlayerControlled()) {
-
-                    // The position is already set so just need to set its forward direction
-                    proj.transform.rotation = _UnitAttached.MuzzleLaunchPoint.transform.rotation;
-                }
-
-                else { proj.transform.LookAt(_UnitAttached.GetAttackTarget().transform.position + Vector3.up); }
-
-                ///////////////////////////////////////////////////
-                ///proj.transform.rotation = _UnitAttached.MuzzleLaunchPoint.transform.rotation;
-                ///////////////////////////////////////////////////
-
-                // Now start the projectile
+                // Start the projectile
                 proj.Init(this);
             }
 
@@ -192,6 +192,8 @@ public class Weapon : MonoBehaviour {
         else if (_CurrentMagazineCount <= 0) { Reload(); }
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     //  Sets the magazine size to max capacity, then triggers the reload timer. 
     /// </summary>
@@ -206,9 +208,11 @@ public class Weapon : MonoBehaviour {
         }
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
-    //  A coroutine that waits for the seconds specied then attempts to repool
-    //  the particle effect (or destroyed entirely if re-pooling isnt possible)
+    //  A coroutine that waits for the seconds specified then attempts to repool
+    //  the particle effect (or destroyed entirely if re-pooling isn't possible)
     /// </summary>
     /// <param name="particleEffect"></param>
     /// <param name="delay"></param>
@@ -222,11 +226,15 @@ public class Weapon : MonoBehaviour {
         ObjectPooling.Despawn(particleEffect.gameObject);
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     //  
     /// </summary>
     /// <param name="unit"></param>
     public void SetUnitAttached(Unit unit) { _UnitAttached = unit; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     //  
@@ -234,11 +242,15 @@ public class Weapon : MonoBehaviour {
     /// <returns></returns>
     public Unit GetUnitAttached() { return _UnitAttached; }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     //  
     /// </summary>
     /// <returns></returns>
     public bool IsReloading() { return _IsReloading; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     //  Returns TRUE if the weapon's firing delay timer is complete
@@ -246,5 +258,7 @@ public class Weapon : MonoBehaviour {
     /// </summary>
     /// <returns></returns>
     public bool CanFire() { return _FireDelayTimer <= 0 && !_IsReloading; }
-    
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 }

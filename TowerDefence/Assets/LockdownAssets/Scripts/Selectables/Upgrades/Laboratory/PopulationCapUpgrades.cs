@@ -11,7 +11,7 @@ using UnityEngine;
 //
 //******************************
 
-public class UnitBuildUpgrades : Upgrade {
+public class PopulationCapUpgrades : Upgrade {
 
     //******************************************************************************************************************************
     //
@@ -19,19 +19,39 @@ public class UnitBuildUpgrades : Upgrade {
     //
     //******************************************************************************************************************************
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="costs"></param>
     public override void UpgradeOne(UpgradeCosts costs) {
         base.UpgradeOne(costs);
 
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="costs"></param>
     public override void UpgradeTwo(UpgradeCosts costs) {
         base.UpgradeTwo(costs);
 
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="costs"></param>
     public override void UpgradeThree(UpgradeCosts costs) {
         base.UpgradeThree(costs);
 
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }

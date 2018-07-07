@@ -29,6 +29,8 @@ public class MobileArtillery : Vehicle {
     //
     //******************************************************************************************************************************
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     // Called when the gameObject is created.
     /// </summary>
@@ -38,6 +40,8 @@ public class MobileArtillery : Vehicle {
         _MobileAcceleration = Acceleration;
         _MobileDecceleration = Deceleration;
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     //  Called each frame. 
@@ -63,7 +67,8 @@ public class MobileArtillery : Vehicle {
             _Agent.enabled = false;
             _Agent.speed = 0;
             _IsSeeking = false;
-            _SeekWaypoint.SetActive(false);
+
+            if (_SeekWaypoint != null) { _SeekWaypoint.SetActive(false); }
         }
 
         // Vehicle is mobile
@@ -76,5 +81,7 @@ public class MobileArtillery : Vehicle {
             _Agent.enabled = true;
         }
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }
