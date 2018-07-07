@@ -9,7 +9,7 @@ using UnityEngine.EventSystems;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 6/7/2018
+//  Last edited on: 7/7/2018
 //
 //******************************
 
@@ -26,7 +26,8 @@ public class Upgrade : WorldObject {
     [Header(" UPGRADE TREE ")]
     [Space]
     public List<UpgradeCosts> UpgradeCosts;
-    public List<UnityEvent> UpgradePath;
+    [Space]
+    public List<UnityEvent> UpgradeInvokables;
 
     //******************************************************************************************************************************
     //
@@ -66,7 +67,10 @@ public class Upgrade : WorldObject {
         for (int i = (-1); i < _CurrentUpgradeLevel; i++) { num = num + "I"; }
 
         // Update name to include current upgrade level
-        ObjectName = _UpgradeName + num;
+        ///ObjectName = _UpgradeName + num;
+        ObjectName = UpgradeCosts[_CurrentUpgradeLevel].ObjectName;
+        ObjectDescriptionShort = UpgradeCosts[_CurrentUpgradeLevel].ObjectDescriptionShort;
+        ObjectDescriptionLong = UpgradeCosts[_CurrentUpgradeLevel].ObjectDescriptionLong;
 
         // Update current costs for the next upgrade
         if (UpgradeCosts.Count > _CurrentUpgradeLevel + 1) {
@@ -76,7 +80,7 @@ public class Upgrade : WorldObject {
         }
 
         // Update if reached max upgrade level
-        _HasMaxUpgrade = (UpgradeCosts.Count <= _CurrentUpgradeLevel) || (UpgradePath.Count <= _CurrentUpgradeLevel);
+        _HasMaxUpgrade = (UpgradeCosts.Count <= _CurrentUpgradeLevel) || (UpgradeInvokables.Count <= _CurrentUpgradeLevel);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -87,8 +91,12 @@ public class Upgrade : WorldObject {
     /// <param name="buildingSlot"></param>
     public override void OnWheelSelect(BuildingSlot buildingSlot) {
 
-        // If the method exists for the next upgrade, then call it
-        if (UpgradePath.Count >= _CurrentUpgradeLevel + 1 && UpgradeCosts.Count >= _CurrentUpgradeLevel + 1) { UpgradePath[_CurrentUpgradeLevel + 1].Invoke(); }
+        // Not reached the maximum upgrade yet
+        if (!_HasMaxUpgrade) {
+
+            // If the method exists for the next upgrade, then call it
+            if (UpgradeInvokables.Count >= _CurrentUpgradeLevel + 1 && UpgradeCosts.Count >= _CurrentUpgradeLevel + 1) { UpgradeInvokables[_CurrentUpgradeLevel + 1].Invoke(); }
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -103,7 +111,8 @@ public class Upgrade : WorldObject {
         if (affordable) {
 
             // Increase upgrade level (if theres a level to go to next)
-            if (UpgradePath.Count > _CurrentUpgradeLevel && UpgradeCosts.Count > _CurrentUpgradeLevel) { _CurrentUpgradeLevel += 1; }
+            if (UpgradeInvokables.Count > _CurrentUpgradeLevel && UpgradeCosts.Count > _CurrentUpgradeLevel) { _CurrentUpgradeLevel += 1; }
+            else { _HasMaxUpgrade = true; }
 
             // Deduct cost from player
             GameManager.Instance.Players[0].SuppliesCount -= costs.SupplyCost;
@@ -123,7 +132,8 @@ public class Upgrade : WorldObject {
         if (affordable) {
 
             // Increase upgrade level (if theres a level to go to next)
-            if (UpgradePath.Count > _CurrentUpgradeLevel && UpgradeCosts.Count > _CurrentUpgradeLevel) { _CurrentUpgradeLevel += 1; }
+            if (UpgradeInvokables.Count > _CurrentUpgradeLevel && UpgradeCosts.Count > _CurrentUpgradeLevel) { _CurrentUpgradeLevel += 1; }
+            else { _HasMaxUpgrade = true; }
 
             // Deduct cost from player
             GameManager.Instance.Players[0].SuppliesCount -= costs.SupplyCost;
@@ -143,11 +153,14 @@ public class Upgrade : WorldObject {
         if (affordable) {
 
             // Increase upgrade level (if theres a level to go to next)
-            if (UpgradePath.Count > _CurrentUpgradeLevel && UpgradeCosts.Count > _CurrentUpgradeLevel) { _CurrentUpgradeLevel += 1; }
+            if (UpgradeInvokables.Count > _CurrentUpgradeLevel && UpgradeCosts.Count > _CurrentUpgradeLevel) { _CurrentUpgradeLevel += 1; }
+            else { _HasMaxUpgrade = true; }
 
             // Deduct cost from player
             GameManager.Instance.Players[0].SuppliesCount -= costs.SupplyCost;
             GameManager.Instance.Players[0].PowerCount -= costs.PowerCost;
+
+
         }
     }
 

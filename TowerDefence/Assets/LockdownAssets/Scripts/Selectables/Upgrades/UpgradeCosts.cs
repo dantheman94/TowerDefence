@@ -3,6 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+//******************************
+//
+//  Created by: Daniel Marton
+//
+//  Last edited by: Daniel Marton
+//  Last edited on: 7/7/2018
+//
+//******************************
+
 public class UpgradeCosts : Abstraction {
 
     //******************************************************************************************************************************
@@ -13,12 +22,8 @@ public class UpgradeCosts : Abstraction {
     
     [Space]
     [Header("-----------------------------------")]
-    [Header("LEVEL")]
-    public int UpgradeLevel;
-
+    [Header(" COSTS")]
     [Space]
-    [Header("-----------------------------------")]
-    [Header("COSTS")]
     public int PlayerLevel = 1;
     public int SupplyCost;
     public int PowerCost;

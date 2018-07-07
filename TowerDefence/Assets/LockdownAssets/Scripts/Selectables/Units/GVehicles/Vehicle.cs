@@ -186,7 +186,7 @@ public class Vehicle : Unit {
             _WeaponLookRotation = Quaternion.LookRotation(_DirectionToTarget);
 
             // Rotate us over time according to speed until we are in the required rotation
-            WeaponObject.transform.rotation = Quaternion.Slerp(WeaponObject.transform.rotation, _WeaponLookRotation, Time.deltaTime * 2);
+            WeaponObject.transform.rotation = Quaternion.LerpUnclamped(WeaponObject.transform.rotation, _WeaponLookRotation, Time.deltaTime * 2);
         }
     }
 
