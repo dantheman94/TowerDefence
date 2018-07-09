@@ -27,6 +27,7 @@ public class Unit : WorldObject {
     public UnitType Type = UnitType.Undefined;
     public float MovementSpeed = 10f;
     public bool CanBePlayerControlled = false;
+    public float ScalingSpeed = 2f;
 
     [Space]
     [Header("-----------------------------------")]
@@ -60,6 +61,7 @@ public class Unit : WorldObject {
     protected bool _IsAttacking = false;
     protected float _DistanceToTarget = 0f;
     protected bool _IsBeingPlayerControlled = false;
+    protected bool _StartShrinking = false;
 
     //******************************************************************************************************************************
     //
@@ -204,6 +206,11 @@ public class Unit : WorldObject {
                 }
             }
         }
+
+        if (_StartShrinking && !IsAlive()) {
+
+            transform.localScale -= new Vector3(Time.deltaTime * ScalingSpeed, Time.deltaTime * ScalingSpeed, Time.deltaTime * ScalingSpeed);
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -237,6 +244,14 @@ public class Unit : WorldObject {
             // Add to list of AI
             _Player.AddToPopulation(_ClonedWorldObject as Unit);
         }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public override void OnDeath() {
+        base.OnDeath();
+
+        _StartShrinking = true;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

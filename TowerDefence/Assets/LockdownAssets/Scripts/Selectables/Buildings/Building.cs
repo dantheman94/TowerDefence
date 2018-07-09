@@ -25,10 +25,12 @@ public class Building : WorldObject {
 
     [Space]
     [Header("-----------------------------------")]
-    [Header(" BUILDABLES ")]
+    [Header(" BUILDING PROPERTIES ")]
+    [Space]
+    public float ObjectHeight = 15f;
     [Space]
     public List<Abstraction> Selectables;
-
+    
     //******************************************************************************************************************************
     //
     //      VARIABLES
@@ -44,6 +46,18 @@ public class Building : WorldObject {
     //      FUNCTIONS
     //
     //******************************************************************************************************************************
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Called when this object is created.
+    /// </summary>
+    protected override void Start() {
+        base.Start();
+
+        // Override the object height
+        _ObjectHeight = ObjectHeight;
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

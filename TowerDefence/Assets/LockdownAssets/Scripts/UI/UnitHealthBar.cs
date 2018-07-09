@@ -22,11 +22,9 @@ public class UnitHealthBar : MonoBehaviour {
 
     [Space]
     [Header("-----------------------------------")]
-    [Header("OFFSETS")]
-    [Range(-0.1f, 0.1f)]
-    public float _VerticalOffset = 0.04f;
-    [Range(-0.1f, 0.1f)]
-    public float _HorizontalOffset = 0f;
+    [Header(" OFFSETS")]
+    [Space]
+    public Vector3 Offsetting = Vector3.zero;
 
     //******************************************************************************************************************************
     //
@@ -35,10 +33,9 @@ public class UnitHealthBar : MonoBehaviour {
     //******************************************************************************************************************************
 
     private Camera _CameraAttached = null;
-    private WorldObject _WorldObject;
-    private Vector3 _UnitPosition;
-    private Vector3 _PanelPosition;
-    private RectTransform _RectTransform;
+    private WorldObject _WorldObject = null;
+    private Building _BuildingAttached = null;
+    private Text _TextComponent;
 
     //******************************************************************************************************************************
     //
@@ -46,44 +43,77 @@ public class UnitHealthBar : MonoBehaviour {
     //
     //******************************************************************************************************************************
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Called when this object is created.
+    /// </summary>
     private void Start() {
 
         // Get component references
-        _RectTransform = GetComponent<RectTransform>();
+        _TextComponent = GetComponentInChildren<Text>();
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
     private void Update() {
         
         if (_WorldObject != null && _CameraAttached != null) {
 
-            // Unit is alive
+            // Display text if the object is a building
+            if (_BuildingAttached != null) {
+
+                _TextComponent.enabled = true;
+                _TextComponent.text = _WorldObject.ObjectName;
+            }
+
+            // Don't show the text component if the object is NOT a building
+            else { _TextComponent.enabled = false; }
+
+            // Object is alive
             if (_WorldObject.isActiveInWorld()) {
+                
+                // Set world space position
+                Vector3 pos = _WorldObject.transform.position + Offsetting;
+                pos.y = pos.y + _WorldObject.GetObjectHeight();
+                transform.position = pos;
 
-                // Convert world position to screen space
-                _UnitPosition = _CameraAttached.WorldToViewportPoint(_WorldObject.transform.position);
-
-                // Set widget above the unit
-                _PanelPosition = new Vector3(_UnitPosition.x + _HorizontalOffset, _UnitPosition.y + _VerticalOffset, _UnitPosition.z);
-                _RectTransform.anchorMin = _PanelPosition;
-                _RectTransform.anchorMax = _PanelPosition;
+                // Constantly face the widget towards the camera
+                transform.LookAt(2 * transform.position - _CameraAttached.transform.position);
             }
 
-            // Unit is dead/destroyed
-            else {
-
-            }
+            // Object is dead/destroyed
+            else {  ObjectPooling.Despawn(this.gameObject); }
         } 
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="obj"></param>
     public void setObjectAttached(WorldObject obj) {
 
         // Set localized reference of world object attached
         _WorldObject = obj;
+        _BuildingAttached = _WorldObject.GetComponent<Building>();
 
         // Set object's health bar reference
         _WorldObject.setHealthBar(this);
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="cam"></param>
     public void setCameraAttached(Camera cam) { _CameraAttached = cam; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }

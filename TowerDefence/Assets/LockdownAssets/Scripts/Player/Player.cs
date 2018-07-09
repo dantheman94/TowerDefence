@@ -21,6 +21,10 @@ public class Player : MonoBehaviour {
     //
     //******************************************************************************************************************************
 
+    [Space]
+    [Header("-----------------------------------")]
+    [Header(" PLAYER PROPERTIES")]
+    [Space]
     public PlayerIndex Index = PlayerIndex.One;
     public GameManager.Team Team = GameManager.Team.Defending;
     public Camera PlayerCamera = null;
@@ -45,6 +49,8 @@ public class Player : MonoBehaviour {
     public int Level { get; set; }
     private int Score = 0;
     private int WavesSurvived = 0;
+
+    // Army
     private List<WorldObject> AiUnitObjects;
     private List<WorldObject> Platoon1Objects;
     private List<WorldObject> Platoon2Objects;
@@ -69,7 +75,7 @@ public class Player : MonoBehaviour {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //   
+    //  Called when this object is created.
     /// </summary>
     private void Start() {
 

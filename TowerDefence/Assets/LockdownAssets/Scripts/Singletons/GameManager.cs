@@ -41,7 +41,9 @@ public class GameManager : MonoBehaviour {
     public GameObject RecycleBuilding;
     public GameObject ObjectSelected;
     public GameObject AgentSeekObject;
-    
+    public Canvas WorldSpaceCanvas;
+    public Canvas ScreenSpaceCanvas;
+
     [Space]
     [Header("-----------------------------------")]
     [Header(" OBJECT PRE-LOADING")]

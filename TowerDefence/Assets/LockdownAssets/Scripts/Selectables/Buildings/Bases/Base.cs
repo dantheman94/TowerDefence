@@ -58,6 +58,14 @@ public class Base : Building {
         Base originalBase = null;
         if (buildingSlot.AttachedBase != null) { originalBase = buildingSlot.AttachedBase; }
 
+        // Remove old healthbar (if valid)
+        int hitpoints = MaxHitPoints;
+        if (originalBase != null) {
+
+            hitpoints = originalBase._HitPoints;
+            if (originalBase._HealthBar != null) { ObjectPooling.Despawn(originalBase._HealthBar.gameObject); }
+
+        }
         // Start building process
         base.OnWheelSelect(buildingSlot);
 
@@ -109,6 +117,9 @@ public class Base : Building {
 
         // Update attached base reference
         buildingSlot.AttachedBase = _ClonedWorldObject.GetComponent<Base>();
+
+        // Update new bases health with the old bases health
+        _ClonedWorldObject._HitPoints = hitpoints;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

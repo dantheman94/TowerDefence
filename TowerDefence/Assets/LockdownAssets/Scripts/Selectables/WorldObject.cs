@@ -200,17 +200,20 @@ public class WorldObject : Selectable {
             _ClonedWorldObject._ObjectState = WorldObjectStates.Building;
 
             // Create a health bar and allocate it to the unit
-            GameObject healthBarObj = Instantiate(GameManager.Instance.UnitHealthBar);
+            GameObject healthBarObj = ObjectPooling.Spawn(GameManager.Instance.UnitHealthBar.gameObject);
             UnitHealthBar healthBar = healthBarObj.GetComponent<UnitHealthBar>();
             healthBar.setObjectAttached(_ClonedWorldObject);
+            healthBar.setCameraAttached(plyr.PlayerCamera);
             healthBarObj.gameObject.SetActive(true);
+            healthBarObj.transform.SetParent(GameManager.Instance.WorldSpaceCanvas.gameObject.transform, false);
 
             // Create building progress panel & allocate it to the unit
-            GameObject buildProgressObj = Instantiate(GameManager.Instance.BuildingInProgressPanel);
+            GameObject buildProgressObj = ObjectPooling.Spawn(GameManager.Instance.BuildingInProgressPanel.gameObject);
             UnitBuildingCounter buildCounter = buildProgressObj.GetComponent<UnitBuildingCounter>();
             buildCounter.setObjectAttached(_ClonedWorldObject);
             buildCounter.setCameraAttached(Camera.main);
             buildProgressObj.gameObject.SetActive(true);
+            buildProgressObj.transform.SetParent(GameManager.Instance.WorldSpaceCanvas.gameObject.transform, false);
 
             // Deduct resources from player
             SetPlayer(plyr);
@@ -269,6 +272,7 @@ public class WorldObject : Selectable {
         
         // Despawn the object
         ObjectPooling.Despawn(worldObject.gameObject);
+        transform.localScale = new Vector3(1f, 1f, 1f);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -380,8 +384,8 @@ public class WorldObject : Selectable {
     //  Returns the current height value of the object (used for AI attacking offsets
     //  so they don't shoot at the target's position but actually at the target's 'chest').
     //
-    //  [For buildings, the height should be '0' by default & units auto assign this 
-    //  value based off their specified agent height].
+    //  (For buildings, the height should be '0' by default & units auto assign this 
+    //  value based off their specified agent height).
     /// </summary>
     /// <returns>
     //  float
