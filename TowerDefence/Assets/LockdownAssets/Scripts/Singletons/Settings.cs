@@ -7,7 +7,7 @@ using UnityEngine;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 5/8/2018
+//  Last edited on: 10/7/2018
 //
 //******************************
 
@@ -20,7 +20,7 @@ namespace TowerDefence {
         public static float ScrollSpeed { get { return 10000; } }
         public static float MovementSpeed { get; set; }
         public static float CameraWalkSpeed { get { return 100; } }
-        public static float CameraSprintSpeed { get { return 200; } }
+        public static float CameraSprintSpeed { get { return 2000; } }
         public static float RotateSpeed { get { return 100; } }
         public static float RotateZoomSpeed { get { return 100; } }
 

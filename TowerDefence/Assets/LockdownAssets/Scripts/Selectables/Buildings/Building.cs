@@ -30,7 +30,7 @@ public class Building : WorldObject {
     public float ObjectHeight = 15f;
     [Space]
     public List<Abstraction> Selectables;
-    
+
     //******************************************************************************************************************************
     //
     //      VARIABLES
@@ -39,6 +39,9 @@ public class Building : WorldObject {
 
     protected BuildingSlot _BuildingSlot = null;
     protected BuildingRecycle _RecycleOption = null;
+    protected bool _IsBuildingSomething = false;
+    protected WorldObject _ObjectBeingBuilt = null;
+
     private bool _RebuildNavmesh = false;
 
     //******************************************************************************************************************************
@@ -69,7 +72,7 @@ public class Building : WorldObject {
 
         // Force the building to skip the deployable state and go straight to being active in the world
         if (_ObjectState == WorldObjectStates.Deployable) {
-            
+
             _ObjectState = WorldObjectStates.Active;
             _RebuildNavmesh = true;
             OnActiveState();
@@ -80,7 +83,7 @@ public class Building : WorldObject {
 
     protected void LateUpdate() {
 
-        if (_RebuildNavmesh) { 
+        if (_RebuildNavmesh) {
 
             // Re-bake navMeshes
             ///GameManager.Instance.RebakeNavmesh();
@@ -91,7 +94,7 @@ public class Building : WorldObject {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    /// 
+    //  Called when the object is "clicked on" and the selection wheel appears.
     /// </summary>
     public virtual void OnSelectionWheel() {
 
@@ -206,5 +209,19 @@ public class Building : WorldObject {
     protected virtual void OnActiveState() { }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="value"></param>
+    public void SetIsBuildingSomething(bool value) { _IsBuildingSomething = value; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="obj"></param>
+    public void SetObjectBeingBuilt(WorldObject obj) { _ObjectBeingBuilt = obj; }
 
 }

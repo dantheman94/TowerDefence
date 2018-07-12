@@ -67,14 +67,28 @@ public class Squad : WorldObject {
     protected override void Update() {
         base.Update();
 
+        // Hide the unit UI widgets if it is building
+        if (_ObjectState == WorldObjectStates.Building) {
+
+            // Hide the healthbar
+            if (_HealthBar != null) { _HealthBar.gameObject.SetActive(false); }
+
+            // Despawn build counter widget (it is unused)
+            if (_BuildingProgressCounter != null) { ObjectPooling.Despawn(_BuildingProgressCounter.gameObject); }
+        }
+
         // Force the unit to skip the deployable state and go straight to being active in the world
-        if (_ObjectState == WorldObjectStates.Deployable) {
+        else if (_ObjectState == WorldObjectStates.Deployable) {
 
             _ObjectState = WorldObjectStates.Active;
             foreach (var unit in _Squad) { unit.SetObjectState(WorldObjectStates.Active); }
         }
 
-        if (_ObjectState == WorldObjectStates.Active) {
+        // Update squad health
+        else if (_ObjectState == WorldObjectStates.Active && IsAlive()) {
+
+            // Show the healthbar
+            if (_HealthBar != null) { _HealthBar.gameObject.SetActive(true); }
 
             // Get total sum of health for all units in the squad
             int maxSquadHealth = 0, currentSquadHealth = 0;
@@ -109,15 +123,29 @@ public class Squad : WorldObject {
         // Get reference to the newly cloned unit
         if (_ClonedWorldObject != null) {
 
-            // Set position to be at the spawn vector while it is building (it should be hidden until its deployed)
+            // Despawn build counter widget
+            if (_BuildingProgressCounter != null) { ObjectPooling.Despawn(_BuildingProgressCounter.gameObject); }
+                        
+            // Let the building attached know that it is "building" something
+            if (buildingSlot.GetBuildingOnSlot() != null) {
+
+                buildingSlot.GetBuildingOnSlot().SetIsBuildingSomething(true);
+                buildingSlot.GetBuildingOnSlot().SetObjectBeingBuilt(_ClonedWorldObject);
+            }
+
+            // Set position to be at the bases spawn vector while it is building
+            // (the gameobject should be hidden completely until its deployed)
             if (buildingSlot.AttachedBase != null) {
 
                 _ClonedWorldObject.gameObject.transform.position = buildingSlot.AttachedBase.UnitSpawnTransform.transform.position;
                 _ClonedWorldObject.gameObject.transform.rotation = buildingSlot.AttachedBase.UnitSpawnTransform.transform.rotation;
-
             }
+
+            // No base attached
             else {
 
+                // Set position to be at the buildings spawn vector while it is building
+                // (the gameobject should be hidden completely until its deployed)
                 _ClonedWorldObject.gameObject.transform.position = buildingSlot.transform.position + buildingSlot.transform.forward * 50.0f;
                 _ClonedWorldObject.gameObject.transform.rotation = buildingSlot.transform.rotation;
             }

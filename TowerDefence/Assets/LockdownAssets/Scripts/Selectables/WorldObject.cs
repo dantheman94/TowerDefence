@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TowerDefence;
 
 //******************************
 //
@@ -32,17 +31,22 @@ public class WorldObject : Selectable {
     [Space]
     public Texture2D BuildImage;
     public int BuildTime = 20;
+    [Space]
     public int CostSupplies = 0;
     public int CostPower = 0;
     public int CostPlayerLevel = 1;
+    public int PopulationSize = 0;
+    [Space]
     public int RecycleSupplies = 0;
     public int RecyclePower = 0;
+    [Space]
     public int MaxHitPoints = 100;
     public int MaxShieldPoints = 0;
-    public bool MultiSelectable = true;
-    public int PopulationSize = 0;
+    [Space]
     public bool Garrisonable = false;
-    public int MaxGarrisonPopulation = 10;
+    public int MaxGarrisonPopulation = 0;
+    [Space]
+    public bool MultiSelectable = true;
     public float _OffsetY;
 
     //******************************************************************************************************************************
@@ -56,12 +60,15 @@ public class WorldObject : Selectable {
     protected bool _ReadyForDeployment = false;
     protected float _CurrentBuildTime = 0f;
     public WorldObjectStates _ObjectState = WorldObjectStates.Default;
-    public int _HitPoints;
     protected UnitHealthBar _HealthBar = null;
+    protected UnitBuildingCounter _BuildingProgressCounter = null;
     protected WorldObject _ClonedWorldObject = null;
     protected float _Health;
     protected int _CurrentGarrisonPopulation = 0;
     protected float _ObjectHeight = 0f;
+    protected int _HitPoints;
+    protected int _ShieldPoints;
+    protected float _Shield;
 
     //******************************************************************************************************************************
     //
@@ -79,6 +86,7 @@ public class WorldObject : Selectable {
 
         // Initialize health
         _HitPoints = MaxHitPoints;
+        _ShieldPoints = MaxShieldPoints;
 
         // Get vertical offset based off the prefab template
         _OffsetY = transform.position.y;
@@ -133,6 +141,15 @@ public class WorldObject : Selectable {
             }
 
             default: break;
+        }
+
+        // Update shield to be a normalized range of the object's shield-points
+        if (_ShieldPoints > 0) { _Shield = _ShieldPoints / MaxShieldPoints; }
+        else {
+
+            // Clamp the shield
+            _ShieldPoints = 0;
+            _Shield = 0f;
         }
 
         // Update health to be a normalized range of the object's hitpoints
@@ -201,17 +218,17 @@ public class WorldObject : Selectable {
 
             // Create a health bar and allocate it to the unit
             GameObject healthBarObj = ObjectPooling.Spawn(GameManager.Instance.UnitHealthBar.gameObject);
-            UnitHealthBar healthBar = healthBarObj.GetComponent<UnitHealthBar>();
-            healthBar.setObjectAttached(_ClonedWorldObject);
-            healthBar.setCameraAttached(plyr.PlayerCamera);
+            _HealthBar = healthBarObj.GetComponent<UnitHealthBar>();
+            _HealthBar.setObjectAttached(_ClonedWorldObject);
+            _HealthBar.setCameraAttached(plyr.PlayerCamera);
             healthBarObj.gameObject.SetActive(true);
             healthBarObj.transform.SetParent(GameManager.Instance.WorldSpaceCanvas.gameObject.transform, false);
 
             // Create building progress panel & allocate it to the unit
             GameObject buildProgressObj = ObjectPooling.Spawn(GameManager.Instance.BuildingInProgressPanel.gameObject);
-            UnitBuildingCounter buildCounter = buildProgressObj.GetComponent<UnitBuildingCounter>();
-            buildCounter.setObjectAttached(_ClonedWorldObject);
-            buildCounter.setCameraAttached(Camera.main);
+            _BuildingProgressCounter = buildProgressObj.GetComponent<UnitBuildingCounter>();
+            _BuildingProgressCounter.setObjectAttached(_ClonedWorldObject);
+            _BuildingProgressCounter.setCameraAttached(plyr.PlayerCamera);
             buildProgressObj.gameObject.SetActive(true);
             buildProgressObj.transform.SetParent(GameManager.Instance.WorldSpaceCanvas.gameObject.transform, false);
 
@@ -220,6 +237,7 @@ public class WorldObject : Selectable {
             plyr.SuppliesCount -= _ClonedWorldObject.CostSupplies;
             plyr.PowerCount -= _ClonedWorldObject.CostPower;
 
+            // Set object's properties
             _ClonedWorldObject.Team = _Player.Team;
             _ClonedWorldObject._IsCurrentlySelected = false;
         }
@@ -318,7 +336,15 @@ public class WorldObject : Selectable {
     /// <returns>
     //  bool
     /// </returns>
-    public bool isActiveInWorld() { return IsAlive() && (_ObjectState == WorldObjectStates.Active || _ObjectState == WorldObjectStates.Building); }
+    public bool isInWorld() { return IsAlive() && (_ObjectState == WorldObjectStates.Active || _ObjectState == WorldObjectStates.Building); }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="value"></param>
+    public void SetHitPoints(int value) { _HitPoints = value; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -339,6 +365,26 @@ public class WorldObject : Selectable {
     //  float
     /// </returns>
     public float getHealth() { return _Health; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Returns the object's current shield-points as a raw value.
+    /// </summary>
+    /// <returns>
+    //  int
+    /// </returns>
+    public int getShieldPoints() { return _ShieldPoints; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Returns the shield-points as a normalized value. (0.0f - 1.0f [ % ])
+    /// </summary>
+    /// <returns>
+    //  float
+    /// </returns>
+    public float getShield() { return _Shield; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

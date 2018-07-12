@@ -22,12 +22,9 @@ public class UnitBuildingCounter : MonoBehaviour {
 
     [Space]
     [Header("-----------------------------------")]
-    [Header("OFFSETS")]
+    [Header(" OFFSETS")]
     [Space]
-    [Range(-0.1f, 0.1f)]
-    public float _VerticalOffset = 0.04f;
-    [Range(-0.1f, 0.1f)]
-    public float _HorizontalOffset = 0f;
+    public Vector3 Offsetting = Vector3.zero;
 
     //******************************************************************************************************************************
     //
@@ -36,10 +33,7 @@ public class UnitBuildingCounter : MonoBehaviour {
     //******************************************************************************************************************************
 
     private Camera _CameraAttached = null;
-    private WorldObject _ObjectAttached = null;
-    private Vector3 _UnitPosition;
-    private Vector3 _PanelPosition;
-    private RectTransform _RectTransform;
+    private WorldObject _WorldObject = null;
     private Text _TextComponent;
 
     //******************************************************************************************************************************
@@ -48,56 +42,64 @@ public class UnitBuildingCounter : MonoBehaviour {
     //
     //******************************************************************************************************************************
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
-    /// 
+    //  Called when this object is created.
     /// </summary>
     private void Start() {
 
         // Get component references
-        _RectTransform = GetComponent<RectTransform>();
         _TextComponent = GetComponentInChildren<Text>();
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
-    /// 
+    //  Called each frame.
     /// </summary>
     private void Update() {
 
-        if (_ObjectAttached != null && _CameraAttached != null) {
+        if (_WorldObject != null && _CameraAttached != null) {
 
             // Only show widget if the object is currently being built
-            if (_ObjectAttached.getObjectState() == WorldObject.WorldObjectStates.Building) {
+            if (_WorldObject.getObjectState() == WorldObject.WorldObjectStates.Building) {
 
                 // Update text to show how much time is remaining in the build
-                int time = (int)_ObjectAttached.getCurrentBuildTimeRemaining();
+                int time = (int)_WorldObject.getCurrentBuildTimeRemaining();
                 string healthString = time.ToString();
                 _TextComponent.text = healthString;
 
-                // Convert world position to screen space
-                _UnitPosition = _CameraAttached.WorldToViewportPoint(_ObjectAttached.transform.position);
+                // Set world space position
+                Vector3 pos = _WorldObject.transform.position + Offsetting;
+                pos.y = pos.y + _WorldObject.GetObjectHeight();
+                transform.position = pos;
 
-                // Set widget above the unit
-                _PanelPosition = new Vector3(_UnitPosition.x + _HorizontalOffset, _UnitPosition.y + _VerticalOffset, _UnitPosition.z);
-                _RectTransform.anchorMin = _PanelPosition;
-                _RectTransform.anchorMax = _PanelPosition;
+                // Constantly face the widget towards the camera
+                transform.LookAt(2 * transform.position - _CameraAttached.transform.position);
             }
 
             // Destroy prefab instance as we no longer need it anymore
-            else { Destroy(this.gameObject); }
+            else { ObjectPooling.Despawn(this.gameObject); }
         }
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     /// 
     /// </summary>
     /// <param name="obj"></param>
-    public void setObjectAttached(WorldObject obj) { _ObjectAttached = obj; }
+    public void setObjectAttached(WorldObject obj) { _WorldObject = obj; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     /// 
     /// </summary>
     /// <param name="cam"></param>
     public void setCameraAttached(Camera cam) { _CameraAttached = cam; }
-    
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 }

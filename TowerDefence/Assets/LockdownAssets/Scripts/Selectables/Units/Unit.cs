@@ -27,7 +27,7 @@ public class Unit : WorldObject {
     public UnitType Type = UnitType.Undefined;
     public float MovementSpeed = 10f;
     public bool CanBePlayerControlled = false;
-    public float ScalingSpeed = 2f;
+    public float ShrinkSpeed = 0.1f;
 
     [Space]
     [Header("-----------------------------------")]
@@ -116,6 +116,47 @@ public class Unit : WorldObject {
     protected override void Update() {
         base.Update();
 
+        // Hide the unit UI widgets if it is building
+        if (_ObjectState == WorldObjectStates.Building) {
+
+            // Hide the healthbar
+            if (_HealthBar != null) { _HealthBar.gameObject.SetActive(false); }
+
+            // Despawn build counter widget (it is unused)
+            if (_BuildingProgressCounter != null) { ObjectPooling.Despawn(_BuildingProgressCounter.gameObject); }
+        }
+
+        // Force the unit to skip the deployable state and go straight to being active in the world
+        else if (_ObjectState == WorldObjectStates.Deployable) { _ObjectState = WorldObjectStates.Active; }
+
+        // Unit is active in the world
+        else if (_ObjectState == WorldObjectStates.Active && IsAlive()) {
+
+            // And isn't part of a squad
+            if (_SquadAttached == null) {
+
+                // Show the healthbar
+                if (_HealthBar != null) { _HealthBar.gameObject.SetActive(true); }
+
+                // Create a healthbar if the unit doesn't have one linked to it
+                else {
+
+                    GameObject healthBarObj = ObjectPooling.Spawn(GameManager.Instance.UnitHealthBar.gameObject);
+                    _HealthBar = healthBarObj.GetComponent<UnitHealthBar>();
+                    _HealthBar.setObjectAttached(this);
+                    healthBarObj.gameObject.SetActive(true);
+                    healthBarObj.transform.SetParent(GameManager.Instance.WorldSpaceCanvas.gameObject.transform, false);
+
+                    if (_Player == null) {
+
+                        Player plyr = GameManager.Instance.Players[0];
+                        _HealthBar.setCameraAttached(plyr.PlayerCamera);
+                    }
+                    else { _HealthBar.setCameraAttached(_Player.PlayerCamera); }
+                }
+            }
+        }
+
         if (CanBePlayerControlled && _IsCurrentlySelected) {
 
             // Flip the player/AI controlled states
@@ -147,16 +188,11 @@ public class Unit : WorldObject {
                 }
             }
         }
+        else { _IsBeingPlayerControlled = false; }
 
         // Constantly select the unit if its being manually controlled
         if (_IsBeingPlayerControlled) { _IsCurrentlySelected = true; }
-
-        // Force this unit to being AI controlled
-        else { _IsBeingPlayerControlled = false; }
-
-        // Force the unit to skip the deployable state and go straight to being active in the world
-        if (_ObjectState == WorldObjectStates.Deployable) { _ObjectState = WorldObjectStates.Active; }
-
+        
         // Is the unit currently AI controlled?
         if (!_IsBeingPlayerControlled && _Agent.enabled) {
 
@@ -207,9 +243,15 @@ public class Unit : WorldObject {
             }
         }
 
+        // Gradually shrink the character then despawn it once its dead
         if (_StartShrinking && !IsAlive()) {
 
-            transform.localScale -= new Vector3(Time.deltaTime * ScalingSpeed, Time.deltaTime * ScalingSpeed, Time.deltaTime * ScalingSpeed);
+            transform.localScale -= Vector3.one * ShrinkSpeed * Time.deltaTime;
+            if (transform.localScale.x < 0.1f) {
+
+                _StartShrinking = false;
+                ObjectPooling.Despawn(this.gameObject);
+            }
         }
     }
 
@@ -228,26 +270,43 @@ public class Unit : WorldObject {
         // Get reference to the newly cloned unit
         if (_ClonedWorldObject != null) {
 
-            // Set position to be at the spawn vector while it is building (it should be hidden until its deployed)
+            // Despawn build counter widget
+            if (_BuildingProgressCounter != null) { ObjectPooling.Despawn(_BuildingProgressCounter.gameObject); }
+
+            // Let the building attached know that it is "building" something
+            if (buildingSlot.GetBuildingOnSlot() != null) {
+
+                buildingSlot.GetBuildingOnSlot().SetIsBuildingSomething(true);
+                buildingSlot.GetBuildingOnSlot().SetObjectBeingBuilt(_ClonedWorldObject);
+            }
+
+            // Set position to be at the bases spawn vector while it is building
+            // (the gameobject should be hidden completely until its deployed)
             if (buildingSlot.AttachedBase != null) {
 
                 _ClonedWorldObject.gameObject.transform.position = buildingSlot.AttachedBase.UnitSpawnTransform.transform.position;
                 _ClonedWorldObject.gameObject.transform.rotation = buildingSlot.AttachedBase.UnitSpawnTransform.transform.rotation;
-
             }
+
+            // No base attached
             else {
 
+                // Set position to be at the buildings spawn vector while it is building
+                // (the gameobject should be hidden completely until its deployed)
                 _ClonedWorldObject.gameObject.transform.position = buildingSlot.transform.position + buildingSlot.transform.forward * 50.0f;
                 _ClonedWorldObject.gameObject.transform.rotation = buildingSlot.transform.rotation;
             }
 
-            // Add to list of AI
+            // Add to list of AI(army)
             _Player.AddToPopulation(_ClonedWorldObject as Unit);
         }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /// <summary>
+    //  
+    /// </summary>
     public override void OnDeath() {
         base.OnDeath();
 

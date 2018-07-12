@@ -119,7 +119,7 @@ public class Base : Building {
         buildingSlot.AttachedBase = _ClonedWorldObject.GetComponent<Base>();
 
         // Update new bases health with the old bases health
-        _ClonedWorldObject._HitPoints = hitpoints;
+        _ClonedWorldObject.SetHitPoints(hitpoints);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

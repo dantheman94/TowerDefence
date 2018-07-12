@@ -26,6 +26,7 @@ public class Selectable : Abstraction {
     [Header("-----------------------------------")]
     [Header(" SELECTABLE PROPERTIES")]
     [Space]
+    public PlayerIndex PlayerID;
     public GameManager.Team Team;
     public float FogOfWarRadius = 400f;
 

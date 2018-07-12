@@ -23,11 +23,17 @@ public class Player : MonoBehaviour {
 
     [Space]
     [Header("-----------------------------------")]
-    [Header(" PLAYER PROPERTIES")]
+    [Header(" CAMERA SETUP")]
+    [Space]
+    public Camera PlayerCamera = null;
+
+    [Space]
+    [Header("-----------------------------------")]
+    [Header(" TEAM SETUP")]
     [Space]
     public PlayerIndex Index = PlayerIndex.One;
     public GameManager.Team Team = GameManager.Team.Defending;
-    public Camera PlayerCamera = null;
+    public Color TeamColor = Color.cyan;
 
     //******************************************************************************************************************************
     //

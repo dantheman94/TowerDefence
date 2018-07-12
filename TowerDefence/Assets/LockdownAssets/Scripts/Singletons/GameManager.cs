@@ -8,7 +8,7 @@ using UnityEngine.AI;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 7/7/2018
+//  Last edited on: 9/7/2018
 //
 //******************************
 
@@ -22,17 +22,20 @@ public class GameManager : MonoBehaviour {
 
     [Space]
     [Header("-----------------------------------")]
-    [Header(" START OF MATCH")]
+    [Header(" PLAYER STARTS")]
     [Space]
     public int StartingSupplyCount;
     public int StartingPowerCount;
     public int StartingPlayerLevel;
     public int StartingMaxPopulation;
+    [Space]
+    public int StartingWave = 0;
 
     [Space]
     [Header("-----------------------------------")]
     [Header(" HUD")]
     [Space]
+    public GameObject HUDWrapper;
     public GameObject SelectionWheel;
     public GameObject AbilityWheel;
     public GameObject ConfirmRecycleScreen;
@@ -43,6 +46,7 @@ public class GameManager : MonoBehaviour {
     public GameObject AgentSeekObject;
     public Canvas WorldSpaceCanvas;
     public Canvas ScreenSpaceCanvas;
+    public UI_SelectedUnits SelectedUnitsHUD;
 
     [Space]
     [Header("-----------------------------------")]

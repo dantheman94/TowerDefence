@@ -227,7 +227,7 @@ public class UserInput : MonoBehaviour {
         movement.y = 0;
         
         // Calculate desired camera position based on received input
-        Vector3 posOrigin = Camera.main.transform.position;
+        Vector3 posOrigin = _PlayerAttached.PlayerCamera.transform.position;
         Vector3 posDestination = posOrigin;
         posDestination.x += movement.x;
         posDestination.y += movement.y;
@@ -248,7 +248,7 @@ public class UserInput : MonoBehaviour {
         }
 
         // Smoothly move toward target position
-        Camera.main.transform.position = Vector3.SmoothDamp(posOrigin, posDestination, ref _CurrentVelocity, Settings.MovementSpeed * Time.deltaTime);
+        _PlayerAttached.PlayerCamera.transform.position = Vector3.SmoothDamp(posOrigin, posDestination, ref _CurrentVelocity, Settings.MovementSpeed * Time.deltaTime);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -445,10 +445,15 @@ public class UserInput : MonoBehaviour {
                     // Left clicking on a squad
                     else if (squadObj) {
 
-                        // Add selection to list
-                        _PlayerAttached.SelectedWorldObjects.Add(squadObj);
-                        squadObj.SetPlayer(_PlayerAttached);
-                        squadObj.SetIsSelected(true);
+                        // Squad is active in the world
+                        if (squadObj.getObjectState() == WorldObject.WorldObjectStates.Active) {
+
+                            // Add selection to list
+                            _PlayerAttached.SelectedWorldObjects.Add(squadObj);
+                            squadObj.SetPlayer(_PlayerAttached);
+                            squadObj.SetIsSelected(true);
+
+                        }
                     }
 
                     // Left clicking on a unit
@@ -457,21 +462,29 @@ public class UserInput : MonoBehaviour {
                         // Is the unit part of a squad?
                         if (unitObj.IsInASquad()) {
 
-                            squadObj = unitObj.GetSquadAttached();
+                            // Squad is active in the world
+                            if (squadObj.getObjectState() == WorldObject.WorldObjectStates.Active) {
 
-                            // Add selection to list
-                            _PlayerAttached.SelectedWorldObjects.Add(squadObj);
-                            squadObj.SetPlayer(_PlayerAttached);
-                            squadObj.SetIsSelected(true);
+                                squadObj = unitObj.GetSquadAttached();
+
+                                // Add selection to list
+                                _PlayerAttached.SelectedWorldObjects.Add(squadObj);
+                                squadObj.SetPlayer(_PlayerAttached);
+                                squadObj.SetIsSelected(true);
+                            }
                         }
 
                         // Unit is NOT in a squad
                         else {
 
-                            // Add selection to list
-                            _PlayerAttached.SelectedWorldObjects.Add(unitObj);
-                            unitObj.SetPlayer(_PlayerAttached);
-                            unitObj.SetIsSelected(true);
+                            // Unit is active in the world
+                            if (unitObj.getObjectState() == WorldObject.WorldObjectStates.Active) {
+
+                                // Add selection to list
+                                _PlayerAttached.SelectedWorldObjects.Add(unitObj);
+                                unitObj.SetPlayer(_PlayerAttached);
+                                unitObj.SetIsSelected(true);
+                            }
                         }
                     }
 
@@ -491,6 +504,9 @@ public class UserInput : MonoBehaviour {
                     // Deselect ALL worldObjects
                     _PlayerAttached.DeselectAllObjects();
                 }
+
+                // Update units selected panels
+                GameManager.Instance.SelectedUnitsHUD.NewSelection(_PlayerAttached.SelectedWorldObjects);
             }
         }
     }
