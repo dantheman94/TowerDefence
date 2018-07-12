@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using TowerDefence;
 
 //******************************
 //
@@ -24,9 +25,11 @@ public class GameManager : MonoBehaviour {
     [Header("-----------------------------------")]
     [Header(" PLAYER STARTS")]
     [Space]
+    public Base StartingBase;
+    [Space]
     public int StartingSupplyCount;
     public int StartingPowerCount;
-    public int StartingPlayerLevel;
+    public int StartingTechLevel = 1;
     public int StartingMaxPopulation;
     [Space]
     public int StartingWave = 0;
@@ -143,6 +146,16 @@ public class GameManager : MonoBehaviour {
         foreach (var pObj in PreloadWorldObjects)   { ObjectPooling.PreLoad(pObj.worldObject.gameObject, pObj.size); }
         foreach (var pProj in PreloadProjectiles)   { ObjectPooling.PreLoad(pProj.projectile.gameObject, pProj.size); }
         foreach (var pParticle in PreloadParticles) { ObjectPooling.PreLoad(pParticle.particle.gameObject, pParticle.size); }
+
+        if (StartingBase != null) {
+
+            // Set camera starting position behind the starting base's position
+            Players[0].PlayerCamera.transform.position = new Vector3(StartingBase.transform.position.x, Settings.MaxCameraHeight, StartingBase.transform.position.z - 100);
+            ///Players[0].PlayerCamera.transform.rotation = StartingBase.transform.rotation
+
+            // Initialize starting base
+            StartingBase.SetPlayer(Players[0]);
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

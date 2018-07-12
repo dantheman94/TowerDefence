@@ -159,8 +159,48 @@ public class Upgrade : WorldObject {
             // Deduct cost from player
             GameManager.Instance.Players[0].SuppliesCount -= costs.SupplyCost;
             GameManager.Instance.Players[0].PowerCount -= costs.PowerCost;
+        }
+    }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /// <summary>
+    //  
+    /// </summary>
+    public virtual void UpgradeFour(UpgradeCosts costs) {
+
+        // Check if the player can afford the upgrade
+        bool affordable = ((GameManager.Instance.Players[0].Level >= costs.PlayerLevel) && (GameManager.Instance.Players[0].SuppliesCount >= costs.SupplyCost) && (GameManager.Instance.Players[0].PowerCount >= costs.PowerCost));
+        if (affordable) {
+
+            // Increase upgrade level (if theres a level to go to next)
+            if (UpgradeInvokables.Count > _CurrentUpgradeLevel && UpgradeCosts.Count > _CurrentUpgradeLevel) { _CurrentUpgradeLevel += 1; }
+            else { _HasMaxUpgrade = true; }
+
+            // Deduct cost from player
+            GameManager.Instance.Players[0].SuppliesCount -= costs.SupplyCost;
+            GameManager.Instance.Players[0].PowerCount -= costs.PowerCost;
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    public virtual void UpgradeFive(UpgradeCosts costs) {
+
+        // Check if the player can afford the upgrade
+        bool affordable = ((GameManager.Instance.Players[0].Level >= costs.PlayerLevel) && (GameManager.Instance.Players[0].SuppliesCount >= costs.SupplyCost) && (GameManager.Instance.Players[0].PowerCount >= costs.PowerCost));
+        if (affordable) {
+
+            // Increase upgrade level (if theres a level to go to next)
+            if (UpgradeInvokables.Count > _CurrentUpgradeLevel && UpgradeCosts.Count > _CurrentUpgradeLevel) { _CurrentUpgradeLevel += 1; }
+            else { _HasMaxUpgrade = true; }
+
+            // Deduct cost from player
+            GameManager.Instance.Players[0].SuppliesCount -= costs.SupplyCost;
+            GameManager.Instance.Players[0].PowerCount -= costs.PowerCost;
         }
     }
 

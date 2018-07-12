@@ -37,7 +37,7 @@ public class Selectable : Abstraction {
     //******************************************************************************************************************************
 
     protected bool _IsCurrentlySelected;
-    protected Player _Player = null;
+    public Player _Player = null;
     protected Bounds selectionBounds;
     protected bool _PlayerOwned = false;
     protected GameObject _SelectionObj = null;

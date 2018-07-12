@@ -96,7 +96,7 @@ public class Player : MonoBehaviour {
 
         SuppliesCount = GameManager.Instance.StartingSupplyCount;
         PowerCount = GameManager.Instance.StartingPowerCount;
-        Level = GameManager.Instance.StartingPlayerLevel;
+        Level = GameManager.Instance.StartingTechLevel;
 
         PopulationCount = 0;
         MaxPopulation = GameManager.Instance.StartingMaxPopulation;
@@ -138,7 +138,7 @@ public class Player : MonoBehaviour {
     public void AddToPopulation(Squad squad) {
 
         // Add to population
-        PopulationCount += squad.PopulationSize;
+        PopulationCount += squad.CostPopulation;
         AiUnitObjects.Add(squad);
     }
 
@@ -151,7 +151,7 @@ public class Player : MonoBehaviour {
     public void AddToPopulation(Unit unit) {
 
         // Add to population
-        PopulationCount += unit.PopulationSize;
+        PopulationCount += unit.CostPopulation;
         AiUnitObjects.Add(unit);
     }
 

@@ -165,7 +165,7 @@ public class SelectionWheel : MonoBehaviour {
                     SelectionWheelUnitRef unitRef = button.GetComponent<SelectionWheelUnitRef>();
                     if (unitRef.Unit != null) {
 
-                        bool unlock = GameManager.Instance.Players[0].Level >= unitRef.Unit.CostPlayerLevel;
+                        bool unlock = GameManager.Instance.Players[0].Level >= unitRef.Unit.CostTechLevel;
                         button.interactable = unlock;
                     }
 

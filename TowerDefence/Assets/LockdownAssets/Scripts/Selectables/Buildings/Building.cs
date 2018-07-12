@@ -27,6 +27,7 @@ public class Building : WorldObject {
     [Header("-----------------------------------")]
     [Header(" BUILDING PROPERTIES ")]
     [Space]
+    public BuildingSlot BuildingSlot = null;
     public float ObjectHeight = 15f;
     [Space]
     public List<Abstraction> Selectables;
@@ -37,7 +38,6 @@ public class Building : WorldObject {
     //
     //******************************************************************************************************************************
 
-    protected BuildingSlot _BuildingSlot = null;
     protected BuildingRecycle _RecycleOption = null;
     protected bool _IsBuildingSomething = false;
     protected WorldObject _ObjectBeingBuilt = null;
@@ -105,7 +105,7 @@ public class Building : WorldObject {
             if (_Player && Selectables.Count > 0) {
 
                 // Update list then display on screen
-                _Player._HUD.SelectionWheel.UpdateListWithBuildables(Selectables, _BuildingSlot);
+                _Player._HUD.SelectionWheel.UpdateListWithBuildables(Selectables, BuildingSlot);
 
                 // Show selection wheel
                 GameManager.Instance.SelectionWheel.SetActive(true);
@@ -138,7 +138,7 @@ public class Building : WorldObject {
                 }
 
                 // Update list then display on screen
-                _Player._HUD.SelectionWheel.UpdateListWithBuildables(wheelOptions, _BuildingSlot);
+                _Player._HUD.SelectionWheel.UpdateListWithBuildables(wheelOptions, BuildingSlot);
 
                 // Show selection wheel
                 GameManager.Instance.SelectionWheel.SetActive(true);
@@ -164,7 +164,7 @@ public class Building : WorldObject {
         if (_ClonedWorldObject != null) {
 
             Building building = _ClonedWorldObject.GetComponent<Building>();
-            building._BuildingSlot = buildingSlot;
+            building.BuildingSlot = buildingSlot;
 
             // Update building slot ref with building
             buildingSlot.SetBuildingOnSlot(building);
@@ -193,12 +193,12 @@ public class Building : WorldObject {
         if (_RecycleOption) {
 
             Destroy(_RecycleOption.gameObject);
-            Destroy(_BuildingSlot.GetBuildingOnSlot().gameObject);
+            Destroy(BuildingSlot.GetBuildingOnSlot().gameObject);
         }
 
         // Make building slot available again
-        _BuildingSlot.SetBuildingOnSlot(null);
-        _BuildingSlot.gameObject.SetActive(true);
+        BuildingSlot.SetBuildingOnSlot(null);
+        BuildingSlot.gameObject.SetActive(true);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

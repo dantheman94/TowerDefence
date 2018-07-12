@@ -34,8 +34,8 @@ public class WorldObject : Selectable {
     [Space]
     public int CostSupplies = 0;
     public int CostPower = 0;
-    public int CostPlayerLevel = 1;
-    public int PopulationSize = 0;
+    public int CostTechLevel = 1;
+    public int CostPopulation = 0;
     [Space]
     public int RecycleSupplies = 0;
     public int RecyclePower = 0;
@@ -119,7 +119,13 @@ public class WorldObject : Selectable {
                     // Add to building timer
                     if (_CurrentBuildTime < BuildTime) { _CurrentBuildTime += Time.deltaTime; }
                 }
-                else { _ObjectState = WorldObjectStates.Deployable; }
+
+                else {
+
+                    // Object has finished building
+                    OnBuilt();
+                    _ObjectState = WorldObjectStates.Deployable;
+                }
 
                 // Show building state object
                 if (BuildingState) { BuildingState.SetActive(true); }
@@ -207,7 +213,10 @@ public class WorldObject : Selectable {
         this._IsCurrentlySelected = false;
 
         // Check if the player has enough resources to build the object
-        Player plyr = GameManager.Instance.Players[0];
+        Player plyr;
+        if (_Player) { plyr = _Player; }
+        else { plyr = GameManager.Instance.Players[0]; }
+        
         if ((plyr.SuppliesCount >= this.CostSupplies) && (plyr.PowerCount >= this.CostPower)) {
 
             // Start building object on the selected building slot
@@ -241,6 +250,15 @@ public class WorldObject : Selectable {
             _ClonedWorldObject.Team = _Player.Team;
             _ClonedWorldObject._IsCurrentlySelected = false;
         }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    protected virtual void OnBuilt() {
+
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

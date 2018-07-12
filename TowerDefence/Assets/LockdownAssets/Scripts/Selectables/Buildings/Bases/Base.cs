@@ -23,6 +23,7 @@ public class Base : Building {
     [Header("-----------------------------------")]
     [Header(" BASE PROPERTIES")]
     public eBaseType BaseType;
+    public int TechLevelWhenBuilt;
     public GameObject UnitSpawnTransform;
     [Space]
     public List<BuildingSlot> DepotSlots;
@@ -34,7 +35,7 @@ public class Base : Building {
     //
     //******************************************************************************************************************************
 
-    public enum eBaseType { Minibase, Outpost, CommandCenter, Headquarters }
+    public enum eBaseType { Minibase, Station, CommandCenter, Headquarters }
 
     //******************************************************************************************************************************
     //
@@ -56,7 +57,10 @@ public class Base : Building {
 
         // Gets reference to the original base (before the upgrade)
         Base originalBase = null;
-        if (buildingSlot.AttachedBase != null) { originalBase = buildingSlot.AttachedBase; }
+        if (buildingSlot != null) {
+
+            if (buildingSlot.AttachedBase != null) { originalBase = buildingSlot.AttachedBase; }
+        }
 
         // Remove old healthbar (if valid)
         int hitpoints = MaxHitPoints;
@@ -66,12 +70,16 @@ public class Base : Building {
             if (originalBase._HealthBar != null) { ObjectPooling.Despawn(originalBase._HealthBar.gameObject); }
 
         }
+
         // Start building process
         base.OnWheelSelect(buildingSlot);
 
         // Only proceed if there was a previous building and we are upgrading from that
         if (originalBase != null) {
-            
+
+            // Update player ref
+            _ClonedWorldObject._Player = originalBase._Player;
+                        
             // Set the new bases building state object to be the currently active base
             _ClonedWorldObject.BuildingState = originalBase.gameObject;
 
@@ -116,10 +124,27 @@ public class Base : Building {
         }
 
         // Update attached base reference
-        buildingSlot.AttachedBase = _ClonedWorldObject.GetComponent<Base>();
+        if (buildingSlot != null) { buildingSlot.AttachedBase = _ClonedWorldObject.GetComponent<Base>(); }
 
         // Update new bases health with the old bases health
         _ClonedWorldObject.SetHitPoints(hitpoints);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    protected override void OnBuilt() {
+        base.OnBuilt();
+
+        GameObject o = this.gameObject;
+
+        // Add to player level if needed
+        if (_Player != null) {
+
+            if (_Player.Level < TechLevelWhenBuilt) { _Player.Level = TechLevelWhenBuilt; }
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

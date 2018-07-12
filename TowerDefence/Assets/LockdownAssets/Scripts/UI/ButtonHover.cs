@@ -72,7 +72,7 @@ public class ButtonHover : MonoBehaviour, IPointerEnterHandler {
 
                 /// Center panel
                 SelectionWheel.CenterHighlightTitle.text = _UnitRefComponent.Unit.ObjectName;
-                SelectionWheel.CenterPlayerLevelText.text = _UnitRefComponent.Unit.CostPlayerLevel.ToString();
+                SelectionWheel.CenterPlayerLevelText.text = _UnitRefComponent.Unit.CostTechLevel.ToString();
                 SelectionWheel.CenterSupplyText.text = _UnitRefComponent.Unit.CostSupplies.ToString();
                 SelectionWheel.CenterPowerText.text = _UnitRefComponent.Unit.CostPower.ToString();
             }
