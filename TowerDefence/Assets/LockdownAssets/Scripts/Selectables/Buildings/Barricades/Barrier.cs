@@ -13,6 +13,7 @@ public class Barrier : Building {
     [Space]
     [Header("-----------------------------------")]
     [Header(" BARRIER PROPERTIES")]
+    [Space]
     public EBarricadeType BarricadeType;
 
     //******************************************************************************************************************************
@@ -21,5 +22,6 @@ public class Barrier : Building {
     //
     //******************************************************************************************************************************
 
-    public enum EBarricadeType { MineField, LaserTrap, Barricade, GarrisonBarricade, HeavyBarricade, HealingBarricade }
+    public enum EBarricadeType { MineField, GarrisonBarricade, HeavyBarricade, HealingBarricade }
+
 }
