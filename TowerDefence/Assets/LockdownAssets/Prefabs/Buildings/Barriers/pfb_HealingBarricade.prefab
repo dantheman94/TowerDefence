@@ -38,7 +38,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4173166064015894}
   - component: {fileID: 114704496988962668}
-  - component: {fileID: 114649570328478408}
   - component: {fileID: 114109036776918566}
   m_Layer: 0
   m_Name: pfb_HealingBarricade
@@ -46,7 +45,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1302659690842808
 GameObject:
   m_ObjectHideFlags: 1
@@ -77,7 +76,7 @@ GameObject:
   - component: {fileID: 65188065119277308}
   - component: {fileID: 23035924970113786}
   m_Layer: 0
-  m_Name: HeavyBarricade_Active
+  m_Name: HealingBarricade_Active
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -95,7 +94,7 @@ GameObject:
   - component: {fileID: 65553403942323486}
   - component: {fileID: 23567750293812180}
   m_Layer: 0
-  m_Name: HeavyBarricade_Building
+  m_Name: HealingBarricade_Building
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -218,7 +217,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 4b21342d55a243d4ca4ce1721e4810bf, type: 2}
+  - {fileID: 2100000, guid: ddc0e3c96511cef428a11270ccc57f8f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -393,20 +392,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc803cdba7dddcf4996452637cb94468, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObjectName: Heavy Barricade
+  ObjectName: Healing Barricade
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
   PlayerID: 0
   Team: 0
   FogOfWarRadius: 400
   _Player: {fileID: 0}
-  BuildingState: {fileID: 0}
-  ActiveState: {fileID: 0}
+  BuildingState: {fileID: 1610936311575566}
+  ActiveState: {fileID: 1379714728584166}
   BuildImage: {fileID: 0}
   BuildTime: 20
-  CostSupplies: 800
-  CostPower: 200
-  CostTechLevel: 1
+  CostSupplies: 1000
+  CostPower: 0
+  CostTechLevel: 3
   CostPopulation: 0
   RecycleSupplies: 0
   RecyclePower: 0
@@ -420,60 +419,7 @@ MonoBehaviour:
   BuildingSlot: {fileID: 0}
   ObjectHeight: 15
   Selectables: []
-  BarricadeType: 4
---- !u!114 &114649570328478408
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1072325868059624}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77df6e73ecdb1564ab460c1994edec69, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObjectName: Command Center
-  ObjectDescriptionShort: 
-  ObjectDescriptionLong: 
-  PlayerID: 0
-  Team: 0
-  FogOfWarRadius: 400
-  _Player: {fileID: 0}
-  BuildingState: {fileID: 1610936311575566}
-  ActiveState: {fileID: 1379714728584166}
-  BuildImage: {fileID: 0}
-  BuildTime: 3
-  CostSupplies: 0
-  CostPower: 1000
-  CostTechLevel: 1
-  CostPopulation: 0
-  RecycleSupplies: 0
-  RecyclePower: 0
-  MaxHitPoints: 100
-  MaxShieldPoints: 0
-  Garrisonable: 0
-  MaxGarrisonPopulation: 0
-  MultiSelectable: 0
-  _OffsetY: 2.25
-  _ObjectState: 0
-  BuildingSlot: {fileID: 0}
-  ObjectHeight: 15
-  Selectables:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  BaseType: 2
-  TechLevelWhenBuilt: 0
-  UnitSpawnTransform: {fileID: 0}
-  DepotSlots: []
-  TowerSlots: []
+  BarricadeType: 2
 --- !u!114 &114704496988962668
 MonoBehaviour:
   m_ObjectHideFlags: 1

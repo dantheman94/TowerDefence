@@ -137,9 +137,7 @@ public class Base : Building {
     /// </summary>
     protected override void OnBuilt() {
         base.OnBuilt();
-
-        GameObject o = this.gameObject;
-
+        
         // Add to player level if needed
         if (_Player != null) {
 

@@ -111,6 +111,7 @@ GameObject:
   - component: {fileID: 4631641665270570}
   - component: {fileID: 114538058081922940}
   - component: {fileID: 114951768522124020}
+  - component: {fileID: 208850587815573626}
   m_Layer: 0
   m_Name: pfb_Airpad
   m_TagString: Untagged
@@ -153,7 +154,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1803217871389888
 GameObject:
   m_ObjectHideFlags: 1
@@ -830,21 +831,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ObjectName: Airpad
-  ObjectDescription: Produces specialized air units that are able to traverse areas
-    of the map that arent normally accessible by ground units.
+  ObjectDescriptionShort: Air Vehicle Depot
+  ObjectDescriptionLong: Produces air units that can traverse areas of the map that
+    are not normally accessable by standard ground units. Also provides upgrades for
+    air units.
+  PlayerID: 0
+  Team: 0
+  FogOfWarRadius: 400
+  _Player: {fileID: 0}
   BuildingState: {fileID: 1888073122134420}
   ActiveState: {fileID: 1722395584002630}
   BuildImage: {fileID: 0}
-  BuildTime: 5
+  BuildTime: 3
   CostSupplies: 300
   CostPower: 0
-  CostPlayerLevel: 2
+  CostTechLevel: 2
+  CostPopulation: 0
   RecycleSupplies: 0
   RecyclePower: 0
   MaxHitPoints: 100
   MaxShieldPoints: 0
-  MultiSelectable: 0
+  Garrisonable: 0
+  MaxGarrisonPopulation: 0
+  MultiSelectable: 1
   _OffsetY: 2.25
+  _ObjectState: 0
+  BuildingSlot: {fileID: 0}
+  ObjectHeight: 10
   Selectables:
   - {fileID: 0}
   - {fileID: 0}
@@ -856,4 +869,18 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  DepotType: 0
+--- !u!208 &208850587815573626
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1481607013830780}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 11.5, y: 7.5, z: 7.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 5, z: 0}
+  m_TimeToStationary: 0.5
