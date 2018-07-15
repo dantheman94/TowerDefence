@@ -27,7 +27,7 @@ public class Building : WorldObject {
     [Header("-----------------------------------")]
     [Header(" BUILDING PROPERTIES ")]
     [Space]
-    public BuildingSlot BuildingSlot = null;
+    public BuildingSlot AttachedBuildingSlot = null;
     public float ObjectHeight = 15f;
     [Space]
     public List<Abstraction> Selectables;
@@ -105,7 +105,7 @@ public class Building : WorldObject {
             if (_Player && Selectables.Count > 0) {
 
                 // Update list then display on screen
-                _Player._HUD.SelectionWheel.UpdateListWithBuildables(Selectables, BuildingSlot);
+                _Player._HUD.SelectionWheel.UpdateListWithBuildables(Selectables, AttachedBuildingSlot);
 
                 // Show selection wheel
                 GameManager.Instance.SelectionWheel.SetActive(true);
@@ -138,7 +138,7 @@ public class Building : WorldObject {
                 }
 
                 // Update list then display on screen
-                _Player._HUD.SelectionWheel.UpdateListWithBuildables(wheelOptions, BuildingSlot);
+                _Player._HUD.SelectionWheel.UpdateListWithBuildables(wheelOptions, AttachedBuildingSlot);
 
                 // Show selection wheel
                 GameManager.Instance.SelectionWheel.SetActive(true);
@@ -164,7 +164,7 @@ public class Building : WorldObject {
         if (_ClonedWorldObject != null) {
 
             Building building = _ClonedWorldObject.GetComponent<Building>();
-            building.BuildingSlot = buildingSlot;
+            building.AttachedBuildingSlot = buildingSlot;
 
             // Update building slot ref with building
             buildingSlot.SetBuildingOnSlot(building);
@@ -193,16 +193,16 @@ public class Building : WorldObject {
         if (_RecycleOption) {
 
             Destroy(_RecycleOption.gameObject);
-            Destroy(BuildingSlot.GetBuildingOnSlot().gameObject);
+            Destroy(AttachedBuildingSlot.GetBuildingOnSlot().gameObject);
         }
 
         // Make building slot available again
-        BuildingSlot.SetBuildingOnSlot(null);
-        BuildingSlot.gameObject.SetActive(true);
+        AttachedBuildingSlot.SetBuildingOnSlot(null);
+        AttachedBuildingSlot.gameObject.SetActive(true);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    
     /// <summary>
     //  
     /// </summary>

@@ -69,6 +69,9 @@ public class Vehicle : Unit {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /// <summary>
+    // Called when the gameObject is created.
+    /// </summary>
     protected override void Start() {
         base.Start();
     }

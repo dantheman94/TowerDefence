@@ -133,16 +133,19 @@ public class Base : Building {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  
+    //  Called when the object's state switches to active
     /// </summary>
     protected override void OnBuilt() {
         base.OnBuilt();
         
-        // Add to player level if needed
+        // Add tech level if required
         if (_Player != null) {
 
             if (_Player.Level < TechLevelWhenBuilt) { _Player.Level = TechLevelWhenBuilt; }
         }
+
+        // Show any hidden base slots that are linked to the building slot
+        if (AttachedBuildingSlot != null) { AttachedBuildingSlot.SetLinkedSlotsBase(this); }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

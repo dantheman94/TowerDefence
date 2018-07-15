@@ -90,7 +90,7 @@ public class Unit : WorldObject {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  Called when this object is created.
+    // Called when the gameObject is created.
     /// </summary>
     protected override void Start() {
         base.Start();

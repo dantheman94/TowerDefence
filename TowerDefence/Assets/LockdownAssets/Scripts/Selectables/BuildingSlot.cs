@@ -24,7 +24,10 @@ public class BuildingSlot : WorldObject {
     [Header("-----------------------------------")]
     [Header(" BUILDING SLOT PROPERTIES")]
     [Space]
+    public bool OnlyAppearWhenAttachedToBase = false;
     public Base AttachedBase = null;
+    [Space]
+    public List<BuildingSlot> LinkedSlots;
     [Space]
     public List<Building> Buildings;
 
@@ -41,6 +44,22 @@ public class BuildingSlot : WorldObject {
     //      FUNCTIONS
     //
     //******************************************************************************************************************************
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Called each frame. 
+    /// </summary>
+    protected override void Update() {
+        base.Update();
+
+        // Display the slot if its currently attached to a base
+        if (OnlyAppearWhenAttachedToBase) {
+
+            if (AttachedBase != null)   { gameObject.SetActive(true); }
+            else                        { gameObject.SetActive(false); }
+        }
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -139,6 +158,25 @@ public class BuildingSlot : WorldObject {
 
             // Change selection
             if (buildingObj) { ChangeSelection(buildingObj); }
+        }
+    }
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="newBase"></param>
+    public void SetLinkedSlotsBase(Base newBase) {
+
+        foreach (var slot in LinkedSlots) {
+
+            slot.AttachedBase = newBase;
+
+            // Update slot "activeness"
+            if (slot.AttachedBase != null)  { slot.gameObject.SetActive(true); }
+            else                            { slot.gameObject.SetActive(false); }
+
         }
     }
 
