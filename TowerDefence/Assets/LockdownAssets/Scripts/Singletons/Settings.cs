@@ -19,14 +19,14 @@ namespace TowerDefence {
         public static int ScreenOffset { get { return 50; } }
         public static float ScrollSpeed { get { return 10000; } }
         public static float MovementSpeed { get; set; }
-        public static float CameraWalkSpeed { get { return 100; } }
+        public static float CameraWalkSpeed { get { return 200; } }
         public static float CameraSprintSpeed { get { return 2000; } }
         public static float RotateSpeed { get { return 100; } }
         public static float RotateZoomSpeed { get { return 100; } }
 
         // Camera bounds
-        public static float MinCameraHeight { get { return 130; } }
-        public static float MaxCameraHeight { get { return 130; } }
+        public static float MinCameraHeight { get { return 160; } }
+        public static float MaxCameraHeight { get { return 160; } }
         public static float MinFov { get { return 33; } }
         public static float MaxFov { get { return 50; } }
         public static float ZoomSpeed { get { return 160; } }
