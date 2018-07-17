@@ -48,6 +48,15 @@ public class WorldObject : Selectable {
     [Space]
     public bool MultiSelectable = true;
     public float _OffsetY;
+    public WorldObjectStates _ObjectState = WorldObjectStates.Default;
+    [Space]
+    public float _WidgetHealthbarScaleX = 100f;
+    public float _WidgetHealthbarScaleY = 15f;
+    public float _WidgetHealthbarOffset = 15f;
+    [Space]
+    public float _WidgetShieldbarScaleX = 100f;
+    public float _WidgetShieldbarScaleY = 15f;
+    public float _WidgetShieldbarOffset = 22f;
 
     //******************************************************************************************************************************
     //
@@ -59,7 +68,6 @@ public class WorldObject : Selectable {
 
     protected bool _ReadyForDeployment = false;
     protected float _CurrentBuildTime = 0f;
-    public WorldObjectStates _ObjectState = WorldObjectStates.Default;
     protected UnitHealthBar _HealthBar = null;
     protected UnitBuildingCounter _BuildingProgressCounter = null;
     protected WorldObject _ClonedWorldObject = null;
@@ -212,11 +220,12 @@ public class WorldObject : Selectable {
         buildingSlot._IsCurrentlySelected = false;
         this._IsCurrentlySelected = false;
 
-        // Check if the player has enough resources to build the object
+        // Get player reference
         Player plyr;
-        if (_Player) { plyr = _Player; }
-        else { plyr = GameManager.Instance.Players[0]; }
+        if (_Player)    { plyr = _Player; }
+        else            { plyr = GameManager.Instance.Players[0]; }
         
+        // Check if the player has enough resources to build the object
         if ((plyr.SuppliesCount >= this.CostSupplies) && (plyr.PowerCount >= this.CostPower)) {
 
             // Start building object on the selected building slot
@@ -232,7 +241,13 @@ public class WorldObject : Selectable {
             _HealthBar.setCameraAttached(plyr.PlayerCamera);
             healthBarObj.gameObject.SetActive(true);
             healthBarObj.transform.SetParent(GameManager.Instance.WorldSpaceCanvas.gameObject.transform, false);
-
+            RectTransform healthRectTransform = _HealthBar._HealthSlider.GetComponent<RectTransform>();
+            healthRectTransform.sizeDelta = new Vector2(_WidgetHealthbarScaleX, _WidgetHealthbarScaleY);
+            healthRectTransform.anchoredPosition = new Vector2(0, _WidgetHealthbarOffset);
+            RectTransform shieldRectTransform = _HealthBar._ShieldSlider.GetComponent<RectTransform>();
+            shieldRectTransform.sizeDelta = new Vector2(_WidgetShieldbarScaleX, _WidgetShieldbarScaleY);
+            shieldRectTransform.anchoredPosition = new Vector2(0, _WidgetShieldbarOffset);
+            
             // Create building progress panel & allocate it to the unit
             GameObject buildProgressObj = ObjectPooling.Spawn(GameManager.Instance.BuildingInProgressPanel.gameObject);
             _BuildingProgressCounter = buildProgressObj.GetComponent<UnitBuildingCounter>();
