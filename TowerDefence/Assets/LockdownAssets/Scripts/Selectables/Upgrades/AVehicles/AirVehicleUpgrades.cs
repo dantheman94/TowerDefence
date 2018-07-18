@@ -25,7 +25,7 @@ public class AirVehicleUpgrades : Upgrade {
     //  
     /// </summary>
     /// <param name="costs"></param>
-    public override void UpgradeOne(UpgradeCosts costs) {
+    public override void UpgradeOne(UpgradeValues costs) {
         base.UpgradeOne(costs);
 
     }
@@ -36,7 +36,7 @@ public class AirVehicleUpgrades : Upgrade {
     //  
     /// </summary>
     /// <param name="costs"></param>
-    public override void UpgradeTwo(UpgradeCosts costs) {
+    public override void UpgradeTwo(UpgradeValues costs) {
         base.UpgradeTwo(costs);
 
     }
@@ -47,7 +47,7 @@ public class AirVehicleUpgrades : Upgrade {
     //  
     /// </summary>
     /// <param name="costs"></param>
-    public override void UpgradeThree(UpgradeCosts costs) {
+    public override void UpgradeThree(UpgradeValues costs) {
         base.UpgradeThree(costs);
 
     }

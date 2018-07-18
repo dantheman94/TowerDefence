@@ -25,7 +25,7 @@ public class Upgrade : WorldObject {
     [Header("-----------------------------------")]
     [Header(" UPGRADE TREE ")]
     [Space]
-    public List<UpgradeCosts> UpgradeCosts;
+    public List<UpgradeValues> UpgradeCosts;
     [Space]
     public List<UnityEvent> UpgradeInvokables;
 
@@ -34,7 +34,8 @@ public class Upgrade : WorldObject {
     //      VARIABLES
     //
     //******************************************************************************************************************************
-    
+
+    protected WorldObject _WorldObjectAttached = null;
     protected int _CurrentUpgradeLevel = 0;
     protected string _UpgradeName;
     protected bool _HasMaxUpgrade = false;
@@ -86,9 +87,12 @@ public class Upgrade : WorldObject {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  
+    //  Called when the player presses a button on the selection wheel with this world object linked to the button.
     /// </summary>
-    /// <param name="buildingSlot"></param>
+    /// <param name="buildingSlot">
+    //  The building slot that instigated the selection wheel.
+    //  (EG: If you're making a building, this is the building slot thats being used.)
+    /// </param>
     public override void OnWheelSelect(BuildingSlot buildingSlot) {
 
         // Not reached the maximum upgrade yet
@@ -104,7 +108,7 @@ public class Upgrade : WorldObject {
     /// <summary>
     //  
     /// </summary>
-    public virtual void UpgradeOne(UpgradeCosts costs) {
+    public virtual void UpgradeOne(UpgradeValues costs) {
 
         // Check if the player can afford the upgrade
         bool affordable = ((GameManager.Instance.Players[0].Level >= costs.PlayerLevel) && (GameManager.Instance.Players[0].SuppliesCount >= costs.SupplyCost) && (GameManager.Instance.Players[0].PowerCount >= costs.PowerCost));
@@ -125,7 +129,7 @@ public class Upgrade : WorldObject {
     /// <summary>
     //  
     /// </summary>
-    public virtual void UpgradeTwo(UpgradeCosts costs) {
+    public virtual void UpgradeTwo(UpgradeValues costs) {
 
         // Check if the player can afford the upgrade
         bool affordable = ((GameManager.Instance.Players[0].Level >= costs.PlayerLevel) && (GameManager.Instance.Players[0].SuppliesCount >= costs.SupplyCost) && (GameManager.Instance.Players[0].PowerCount >= costs.PowerCost));
@@ -146,7 +150,7 @@ public class Upgrade : WorldObject {
     /// <summary>
     //  
     /// </summary>
-    public virtual void UpgradeThree(UpgradeCosts costs) {
+    public virtual void UpgradeThree(UpgradeValues costs) {
 
         // Check if the player can afford the upgrade
         bool affordable = ((GameManager.Instance.Players[0].Level >= costs.PlayerLevel) && (GameManager.Instance.Players[0].SuppliesCount >= costs.SupplyCost) && (GameManager.Instance.Players[0].PowerCount >= costs.PowerCost));
@@ -167,7 +171,7 @@ public class Upgrade : WorldObject {
     /// <summary>
     //  
     /// </summary>
-    public virtual void UpgradeFour(UpgradeCosts costs) {
+    public virtual void UpgradeFour(UpgradeValues costs) {
 
         // Check if the player can afford the upgrade
         bool affordable = ((GameManager.Instance.Players[0].Level >= costs.PlayerLevel) && (GameManager.Instance.Players[0].SuppliesCount >= costs.SupplyCost) && (GameManager.Instance.Players[0].PowerCount >= costs.PowerCost));
@@ -188,7 +192,7 @@ public class Upgrade : WorldObject {
     /// <summary>
     //  
     /// </summary>
-    public virtual void UpgradeFive(UpgradeCosts costs) {
+    public virtual void UpgradeFive(UpgradeValues costs) {
 
         // Check if the player can afford the upgrade
         bool affordable = ((GameManager.Instance.Players[0].Level >= costs.PlayerLevel) && (GameManager.Instance.Players[0].SuppliesCount >= costs.SupplyCost) && (GameManager.Instance.Players[0].PowerCount >= costs.PowerCost));

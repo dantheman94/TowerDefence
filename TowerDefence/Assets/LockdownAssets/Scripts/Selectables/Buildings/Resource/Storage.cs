@@ -23,8 +23,8 @@ public class Storage : Building {
     [Header("-----------------------------------")]
     [Header(" STORAGE PROPERTIES")]
     [Space]
-    public int PowerStorageIncrease = 1500;
-    public int SupplyStorageIncrease = 1500;
+    public int StartingPowerStorageIncrease = 1500;
+    public int StartingSupplyStorageIncrease = 1500;
 
     //******************************************************************************************************************************
     //
@@ -52,21 +52,29 @@ public class Storage : Building {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  Called when the object's state switches to active (Only once)
+    //  Called when the object's state switches to active (Only once).
     /// </summary>
     protected override void OnBuilt() {
         base.OnBuilt();
 
-        GameObject g = this.gameObject;
+        AddToCap(StartingSupplyStorageIncrease, StartingPowerStorageIncrease);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Adds the specified amounts to the attached player's resource counts.
+    /// </summary>
+    /// <param name="supplies"></param>
+    /// <param name="power"></param>
+    public void AddToCap(int supplies, int power) {
 
         if (_Player) {
 
             // Add to max cap
-            _Player.MaxPowerCount += PowerStorageIncrease;
-            _Player.MaxSupplyCount += SupplyStorageIncrease;
+            _Player.MaxSupplyCount += supplies;
+            _Player.MaxPowerCount += power;
         }
     }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }
