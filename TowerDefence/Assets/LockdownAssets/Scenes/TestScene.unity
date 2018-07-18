@@ -15119,15 +15119,77 @@ Prefab:
       propertyPath: Selectables.Array.data[5]
       value: 
       objectReference: {fileID: 995202220}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114708746496777702, guid: f4bc1d65e870589449f8991b5adc7264, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: f4bc1d65e870589449f8991b5adc7264, type: 2}
   m_IsPrefabParent: 0
---- !u!114 &512105058 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114708746496777702, guid: f4bc1d65e870589449f8991b5adc7264,
+--- !u!1 &512105058 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1681424918661658, guid: f4bc1d65e870589449f8991b5adc7264,
     type: 2}
   m_PrefabInternal: {fileID: 512105057}
-  m_Script: {fileID: 11500000, guid: 5ef5a15f800b333459157241ba65b339, type: 3}
+--- !u!1 &512105059 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1108934584358358, guid: f4bc1d65e870589449f8991b5adc7264,
+    type: 2}
+  m_PrefabInternal: {fileID: 512105057}
+--- !u!114 &512105060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 512105059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e3868ad2f8d96344bb0fcb3bc24730a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectName: Anti-Air Turret
+  ObjectDescriptionShort: Stationary Defence Tower
+  ObjectDescriptionLong: 
+  PlayerID: 0
+  Team: 0
+  FogOfWarRadius: 400
+  _Player: {fileID: 0}
+  BuildingState: {fileID: 0}
+  ActiveState: {fileID: 512105058}
+  BuildImage: {fileID: 0}
+  BuildTime: 4
+  CostSupplies: 0
+  CostPower: 300
+  CostTechLevel: 2
+  CostPopulation: 0
+  RecycleSupplies: 0
+  RecyclePower: 0
+  MaxHitPoints: 100
+  MaxShieldPoints: 0
+  Garrisonable: 0
+  MaxGarrisonPopulation: 0
+  MultiSelectable: 0
+  _OffsetY: 10
+  _ObjectState: 0
+  _WidgetHealthbarScaleX: 100
+  _WidgetHealthbarScaleY: 15
+  _WidgetHealthbarOffset: 15
+  _WidgetShieldbarScaleX: 100
+  _WidgetShieldbarScaleY: 15
+  _WidgetShieldbarOffset: 22
+  AttachedBuildingSlot: {fileID: 0}
+  ObjectHeight: 15
+  Selectables:
+  - {fileID: 0}
+  - {fileID: 2051359310}
+  - {fileID: 1291859851}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 995202220}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  TowerType: 5
+  TowerWeapon: {fileID: 0}
+  UpgradedTurret: 0
 --- !u!1 &512112194
 GameObject:
   m_ObjectHideFlags: 0
@@ -30272,17 +30334,17 @@ Prefab:
         type: 2}
       propertyPath: Selectables.Array.data[1]
       value: 
-      objectReference: {fileID: 2051359308}
+      objectReference: {fileID: 2051359310}
     - target: {fileID: 114067246028920440, guid: 88f5727b0312e6b4380c689cf7200378,
         type: 2}
       propertyPath: Selectables.Array.data[2]
       value: 
-      objectReference: {fileID: 1291859849}
+      objectReference: {fileID: 1291859851}
     - target: {fileID: 114067246028920440, guid: 88f5727b0312e6b4380c689cf7200378,
         type: 2}
       propertyPath: Selectables.Array.data[3]
       value: 
-      objectReference: {fileID: 512105058}
+      objectReference: {fileID: 512105060}
     - target: {fileID: 114067246028920440, guid: 88f5727b0312e6b4380c689cf7200378,
         type: 2}
       propertyPath: Selectables.Array.data[5]
@@ -30344,15 +30406,77 @@ Prefab:
       propertyPath: Selectables.Array.data[5]
       value: 
       objectReference: {fileID: 995202220}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114865486705295362, guid: 54941051fed20a14393c40ba458ce3da, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 54941051fed20a14393c40ba458ce3da, type: 2}
   m_IsPrefabParent: 0
---- !u!114 &1291859849 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114865486705295362, guid: 54941051fed20a14393c40ba458ce3da,
+--- !u!1 &1291859849 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1802450182397512, guid: 54941051fed20a14393c40ba458ce3da,
     type: 2}
   m_PrefabInternal: {fileID: 1291859848}
-  m_Script: {fileID: 11500000, guid: 5ef5a15f800b333459157241ba65b339, type: 3}
+--- !u!1 &1291859850 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1955926050827018, guid: 54941051fed20a14393c40ba458ce3da,
+    type: 2}
+  m_PrefabInternal: {fileID: 1291859848}
+--- !u!114 &1291859851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1291859850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e3868ad2f8d96344bb0fcb3bc24730a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectName: Anti-Vehicle Turret
+  ObjectDescriptionShort: Stationary Defence Tower
+  ObjectDescriptionLong: 
+  PlayerID: 0
+  Team: 0
+  FogOfWarRadius: 400
+  _Player: {fileID: 0}
+  BuildingState: {fileID: 0}
+  ActiveState: {fileID: 1291859849}
+  BuildImage: {fileID: 0}
+  BuildTime: 4
+  CostSupplies: 0
+  CostPower: 300
+  CostTechLevel: 2
+  CostPopulation: 0
+  RecycleSupplies: 0
+  RecyclePower: 0
+  MaxHitPoints: 100
+  MaxShieldPoints: 0
+  Garrisonable: 0
+  MaxGarrisonPopulation: 0
+  MultiSelectable: 0
+  _OffsetY: 10
+  _ObjectState: 0
+  _WidgetHealthbarScaleX: 100
+  _WidgetHealthbarScaleY: 15
+  _WidgetHealthbarOffset: 15
+  _WidgetShieldbarScaleX: 100
+  _WidgetShieldbarScaleY: 15
+  _WidgetShieldbarOffset: 22
+  AttachedBuildingSlot: {fileID: 0}
+  ObjectHeight: 15
+  Selectables:
+  - {fileID: 0}
+  - {fileID: 2051359310}
+  - {fileID: 0}
+  - {fileID: 512105060}
+  - {fileID: 0}
+  - {fileID: 995202220}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  TowerType: 4
+  TowerWeapon: {fileID: 0}
+  UpgradedTurret: 0
 --- !u!1 &1296203609
 GameObject:
   m_ObjectHideFlags: 0
@@ -46109,15 +46233,77 @@ Prefab:
       propertyPath: Selectables.Array.data[5]
       value: 
       objectReference: {fileID: 995202220}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114447294970682748, guid: d276aadde16ddfe42b7616f92dd1e3ea, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: d276aadde16ddfe42b7616f92dd1e3ea, type: 2}
   m_IsPrefabParent: 0
---- !u!114 &2051359308 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114447294970682748, guid: d276aadde16ddfe42b7616f92dd1e3ea,
+--- !u!1 &2051359308 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1727684733260986, guid: d276aadde16ddfe42b7616f92dd1e3ea,
     type: 2}
   m_PrefabInternal: {fileID: 2051359307}
-  m_Script: {fileID: 11500000, guid: 5ef5a15f800b333459157241ba65b339, type: 3}
+--- !u!1 &2051359309 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1734754603803306, guid: d276aadde16ddfe42b7616f92dd1e3ea,
+    type: 2}
+  m_PrefabInternal: {fileID: 2051359307}
+--- !u!114 &2051359310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2051359309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e3868ad2f8d96344bb0fcb3bc24730a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectName: Anti-Infantry Turret
+  ObjectDescriptionShort: Stationary Defence Tower
+  ObjectDescriptionLong: 
+  PlayerID: 0
+  Team: 0
+  FogOfWarRadius: 400
+  _Player: {fileID: 0}
+  BuildingState: {fileID: 0}
+  ActiveState: {fileID: 2051359308}
+  BuildImage: {fileID: 0}
+  BuildTime: 4
+  CostSupplies: 0
+  CostPower: 300
+  CostTechLevel: 2
+  CostPopulation: 0
+  RecycleSupplies: 0
+  RecyclePower: 0
+  MaxHitPoints: 100
+  MaxShieldPoints: 0
+  Garrisonable: 0
+  MaxGarrisonPopulation: 0
+  MultiSelectable: 0
+  _OffsetY: 10
+  _ObjectState: 0
+  _WidgetHealthbarScaleX: 100
+  _WidgetHealthbarScaleY: 15
+  _WidgetHealthbarOffset: 15
+  _WidgetShieldbarScaleX: 100
+  _WidgetShieldbarScaleY: 15
+  _WidgetShieldbarOffset: 22
+  AttachedBuildingSlot: {fileID: 0}
+  ObjectHeight: 15
+  Selectables:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 1291859851}
+  - {fileID: 512105060}
+  - {fileID: 0}
+  - {fileID: 995202220}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  TowerType: 3
+  TowerWeapon: {fileID: 0}
+  UpgradedTurret: 0
 --- !u!1 &2052229598
 GameObject:
   m_ObjectHideFlags: 0

@@ -105,7 +105,7 @@ public class Generator : Building {
         int hitpoints = MaxHitPoints;
         if (originalGenerator != null) {
 
-            hitpoints = originalGenerator._HitPoints;
+            hitpoints = originalGenerator.GetHitPoints();
             if (originalGenerator._HealthBar != null) { ObjectPooling.Despawn(originalGenerator._HealthBar.gameObject); }
 
         }
@@ -118,9 +118,9 @@ public class Generator : Building {
             if (originalGenerator != null) {
 
                 // Update player ref
-                _ClonedWorldObject._Player = originalGenerator._Player;
+                _ClonedWorldObject.SetPlayer(originalGenerator._Player);
 
-                // Set the new bases building state object to be the currently active base
+                // Set the new bases building state object to be the currently active object
                 _ClonedWorldObject.BuildingState = originalGenerator.gameObject;
             }
 
