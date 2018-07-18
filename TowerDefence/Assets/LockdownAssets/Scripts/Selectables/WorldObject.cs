@@ -23,27 +23,41 @@ public class WorldObject : Selectable {
     [Header("-----------------------------------")]
     [Header(" WORLD OBJECT STATES")]
     [Space]
+    [Tooltip("Reference to the gameobject that represents this object when its in its 'Building' state. " +
+            "NOTE:  Upgraded versions of the base object get this variable referenced at runtime and will overwrite this.")]
     public GameObject BuildingState;
+    [Tooltip("Reference to the gameobject that represents this object when its in its 'active' state.")]
     public GameObject ActiveState;
     [Space]
     [Header("-----------------------------------")]
     [Header(" WORLD OBJECT PROPERTIES")]
     [Space]
+    [Tooltip("The thumbnail image that represents this object in.")]
     public Texture2D BuildImage;
+    [Tooltip("The amount of time in SECONDS that this object takes to build.")]
     public int BuildTime = 20;
     [Space]
+    [Tooltip("How much supply resource are required to build this object.")]
     public int CostSupplies = 0;
+    [Tooltip("How much power resource are required to build this object.")]
     public int CostPower = 0;
+    [Tooltip("Minimum player tech level required to build this object.")]
     public int CostTechLevel = 1;
+    [Tooltip("The army population size needed for this object to be built.")]
     public int CostPopulation = 0;
     [Space]
+    [Tooltip("How much supply resources are returned when this object is recycled?")]
     public int RecycleSupplies = 0;
+    [Tooltip("How much power resources are returned when this object is recycled?")]
     public int RecyclePower = 0;
     [Space]
     public int MaxHitPoints = 100;
     public int MaxShieldPoints = 0;
     [Space]
+    [Tooltip("Can this object be garrisoned by ground infantry units?")]
     public bool Garrisonable = false;
+    [Tooltip("How much army population can this object hold? " +
+            "NOTE: Only valid if 'Garrisonable' is TRUE.")]
     public int MaxGarrisonPopulation = 0;
     [Space]
     public bool MultiSelectable = true;
@@ -357,7 +371,7 @@ public class WorldObject : Selectable {
     /// 
     /// </summary>
     /// <param name="healthBar"></param>
-    public void setHealthBar(UnitHealthBar healthBar) { _HealthBar = healthBar; }
+    public void SetHealthBar(UnitHealthBar healthBar) { _HealthBar = healthBar; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -367,7 +381,17 @@ public class WorldObject : Selectable {
     /// <returns>
     //  bool
     /// </returns>
-    public bool isInWorld() { return IsAlive() && (_ObjectState == WorldObjectStates.Active || _ObjectState == WorldObjectStates.Building); }
+    public bool IsInWorld() { return IsAlive() && (_ObjectState == WorldObjectStates.Active || _ObjectState == WorldObjectStates.Building); }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Returns TRUE if the object is alive/active in the game world.
+    /// </summary>
+    /// <returns>
+    //  bool
+    /// </returns>
+    public bool IsBuilt() { return IsAlive() && _ObjectState == WorldObjectStates.Active; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -385,7 +409,7 @@ public class WorldObject : Selectable {
     /// <returns>
     //  int
     /// </returns>
-    public int getHitPoints() { return _HitPoints; }
+    public int GetHitPoints() { return _HitPoints; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -395,7 +419,7 @@ public class WorldObject : Selectable {
     /// <returns>
     //  float
     /// </returns>
-    public float getHealth() { return _Health; }
+    public float GetHealth() { return _Health; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -405,7 +429,7 @@ public class WorldObject : Selectable {
     /// <returns>
     //  int
     /// </returns>
-    public int getShieldPoints() { return _ShieldPoints; }
+    public int GetShieldPoints() { return _ShieldPoints; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -415,7 +439,7 @@ public class WorldObject : Selectable {
     /// <returns>
     //  float
     /// </returns>
-    public float getShield() { return _Shield; }
+    public float GetShield() { return _Shield; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -425,7 +449,7 @@ public class WorldObject : Selectable {
     /// <returns>
     //  float
     /// </returns>
-    public float getCurrentBuildTimeRemaining() { return BuildTime - _CurrentBuildTime; }
+    public float GetCurrentBuildTimeRemaining() { return BuildTime - _CurrentBuildTime; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -435,7 +459,7 @@ public class WorldObject : Selectable {
     /// <returns>
     //  ENUM: WorldObjectState
     /// </returns>
-    public WorldObjectStates getObjectState() { return _ObjectState; }
+    public WorldObjectStates GetObjectState() { return _ObjectState; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

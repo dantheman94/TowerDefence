@@ -7,7 +7,7 @@ using UnityEngine;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 5/24/2018
+//  Last edited on: 18/7/2018
 //
 //******************************
 
@@ -30,7 +30,7 @@ public class Depot : Building {
     //
     //******************************************************************************************************************************
 
-    public enum eDepotType { Airpad, Barracks, Garage, Labratory }
+    public enum eDepotType { Airpad, Barracks, Garage, Labratory, Storage }
 
     //******************************************************************************************************************************
     //

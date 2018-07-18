@@ -65,7 +65,7 @@ public class UnitHealthBar : MonoBehaviour {
                 _TextComponent.text = _WorldObject.ObjectName;
 
                 // Only show the building name if it is built & active in the game world
-                if (_WorldObject.getObjectState() == WorldObject.WorldObjectStates.Active) {
+                if (_WorldObject.GetObjectState() == WorldObject.WorldObjectStates.Active) {
 
                     _TextComponent.enabled = true;
                 }
@@ -76,15 +76,15 @@ public class UnitHealthBar : MonoBehaviour {
             else { _TextComponent.enabled = false; }
 
             // Update health bar
-            if (_HealthSlider != null) { _HealthSlider.value = _WorldObject.getHealth(); }
+            if (_HealthSlider != null) { _HealthSlider.value = _WorldObject.GetHealth(); }
 
             // Update shield bar
             if (_ShieldSlider != null) {
 
                 // Show the shield bar if theres some shield left
-                if (_WorldObject.getShield() > 0) {
+                if (_WorldObject.GetShield() > 0) {
 
-                    _ShieldSlider.value = _WorldObject.getShield();
+                    _ShieldSlider.value = _WorldObject.GetShield();
                     _ShieldSlider.gameObject.SetActive(true);
                 }
 
@@ -93,7 +93,7 @@ public class UnitHealthBar : MonoBehaviour {
             }
 
             // Object is alive - display the widget
-            if (_WorldObject.isInWorld()) {
+            if (_WorldObject.IsInWorld()) {
                 
                 // Set world space position
                 Vector3 pos = _WorldObject.transform.position + Offsetting;
@@ -122,7 +122,7 @@ public class UnitHealthBar : MonoBehaviour {
         _BuildingAttached = _WorldObject.GetComponent<Building>();
 
         // Set object's health bar reference
-        _WorldObject.setHealthBar(this);
+        _WorldObject.SetHealthBar(this);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

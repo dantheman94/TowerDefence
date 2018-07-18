@@ -95,7 +95,7 @@ public class Squad : WorldObject {
             foreach (var unit in _Squad) {
 
                 maxSquadHealth += unit.MaxHitPoints;
-                currentSquadHealth += unit.getHitPoints();
+                currentSquadHealth += unit.GetHitPoints();
             }
 
             // Normalize the health between a range of 0.0 - 1.0
