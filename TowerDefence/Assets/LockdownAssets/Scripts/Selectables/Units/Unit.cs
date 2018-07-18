@@ -298,7 +298,7 @@ public class Unit : WorldObject {
             }
 
             // Add to list of AI(army)
-            _Player.AddToPopulation(_ClonedWorldObject as Unit);
+            _ClonedWorldObject._Player.AddToPopulation(_ClonedWorldObject as Unit);
         }
     }
 
