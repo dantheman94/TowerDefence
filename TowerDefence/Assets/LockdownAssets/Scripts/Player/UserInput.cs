@@ -446,7 +446,7 @@ public class UserInput : MonoBehaviour {
                     else if (squadObj) {
 
                         // Squad is active in the world
-                        if (squadObj.getObjectState() == WorldObject.WorldObjectStates.Active) {
+                        if (squadObj.GetObjectState() == WorldObject.WorldObjectStates.Active) {
 
                             // Add selection to list
                             _PlayerAttached.SelectedWorldObjects.Add(squadObj);
@@ -463,7 +463,7 @@ public class UserInput : MonoBehaviour {
                         if (unitObj.IsInASquad()) {
 
                             // Squad is active in the world
-                            if (squadObj.getObjectState() == WorldObject.WorldObjectStates.Active) {
+                            if (squadObj.GetObjectState() == WorldObject.WorldObjectStates.Active) {
 
                                 squadObj = unitObj.GetSquadAttached();
 
@@ -478,7 +478,7 @@ public class UserInput : MonoBehaviour {
                         else {
 
                             // Unit is active in the world
-                            if (unitObj.getObjectState() == WorldObject.WorldObjectStates.Active) {
+                            if (unitObj.GetObjectState() == WorldObject.WorldObjectStates.Active) {
 
                                 // Add selection to list
                                 _PlayerAttached.SelectedWorldObjects.Add(unitObj);

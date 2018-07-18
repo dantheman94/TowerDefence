@@ -155,7 +155,7 @@ public class Squad : WorldObject {
             CreateUnits(thisSquad);
 
             // Add squad to list of AI (army)
-            _Player.AddToPopulation(thisSquad);
+            _ClonedWorldObject._Player.AddToPopulation(thisSquad);
         }
     }
 

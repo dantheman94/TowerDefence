@@ -34,7 +34,7 @@ public class Player : MonoBehaviour {
     public PlayerIndex Index = PlayerIndex.One;
     public GameManager.Team Team = GameManager.Team.Defending;
     public Color TeamColor = Color.cyan;
-
+    
     //******************************************************************************************************************************
     //
     //      VARIABLES
@@ -51,7 +51,9 @@ public class Player : MonoBehaviour {
     public int MaxPopulation { get; set; }
     public int PopulationCount { get; set; }
     public int SuppliesCount { get; set; }
+    public int MaxSupplyCount { get; set; }
     public int PowerCount { get; set; }
+    public int MaxPowerCount { get; set; }
     public int Level { get; set; }
     private int Score = 0;
     private int WavesSurvived = 0;
@@ -96,6 +98,8 @@ public class Player : MonoBehaviour {
 
         SuppliesCount = GameManager.Instance.StartingSupplyCount;
         PowerCount = GameManager.Instance.StartingPowerCount;
+        MaxSupplyCount = GameManager.Instance.StartingMaxSupplyCount;
+        MaxPowerCount = GameManager.Instance.StartingMaxPowerCount;
         Level = GameManager.Instance.StartingTechLevel;
 
         PopulationCount = 0;
@@ -244,5 +248,5 @@ public class Player : MonoBehaviour {
     public List<WorldObject> GetPlatoon10() { return Platoon0Objects; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    
 }

@@ -271,12 +271,12 @@ public class WorldObject : Selectable {
             buildProgressObj.transform.SetParent(GameManager.Instance.WorldSpaceCanvas.gameObject.transform, false);
 
             // Deduct resources from player
-            SetPlayer(plyr);
+            _ClonedWorldObject.SetPlayer(plyr);
             plyr.SuppliesCount -= _ClonedWorldObject.CostSupplies;
             plyr.PowerCount -= _ClonedWorldObject.CostPower;
 
             // Set object's properties
-            _ClonedWorldObject.Team = _Player.Team;
+            _ClonedWorldObject.Team = plyr.Team;
             _ClonedWorldObject._IsCurrentlySelected = false;
         }
     }
@@ -284,7 +284,7 @@ public class WorldObject : Selectable {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  Called when the object's state switches to active
+    //  Called when the object's state switches to active (Only once)
     /// </summary>
     protected virtual void OnBuilt() {}
 

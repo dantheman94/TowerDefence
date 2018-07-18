@@ -81,9 +81,7 @@ public class Generator : Building {
             }
         }
     }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
@@ -114,22 +112,24 @@ public class Generator : Building {
 
         // Start building process
         base.OnWheelSelect(buildingSlot);
+        if (_ClonedWorldObject != null) {
 
-        // Only proceed if there was a previous building and we are upgrading from that
-        if (originalGenerator != null) {
+            // Only proceed if there was a previous building and we are upgrading from that
+            if (originalGenerator != null) {
 
-            // Update player ref
-            _ClonedWorldObject._Player = originalGenerator._Player;
+                // Update player ref
+                _ClonedWorldObject._Player = originalGenerator._Player;
 
-            // Set the new bases building state object to be the currently active base
-            _ClonedWorldObject.BuildingState = originalGenerator.gameObject;            
+                // Set the new bases building state object to be the currently active base
+                _ClonedWorldObject.BuildingState = originalGenerator.gameObject;
+            }
+
+            // Update attached buildingSlot generator reference
+            if (buildingSlot != null) { buildingSlot.SetBuildingOnSlot(_ClonedWorldObject.GetComponent<Generator>()); }
+
+            // Reset building's health
+            _ClonedWorldObject.SetHitPoints(_ClonedWorldObject.MaxHitPoints);
         }
-
-        // Update attached buildingSlot generator reference
-        if (buildingSlot != null) { buildingSlot.SetBuildingOnSlot(_ClonedWorldObject.GetComponent<Generator>()); }
-
-        // Reset building's health
-        _ClonedWorldObject.SetHitPoints(_ClonedWorldObject.MaxHitPoints);
     }
 
 }

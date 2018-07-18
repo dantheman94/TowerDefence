@@ -9,14 +9,17 @@ using UnityEngine.UI;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 2/6/2018
+//  Last edited on: 18/7/2018
 //
 //******************************
 
 public class HUD : MonoBehaviour {
 
     //******************************************************************************************************************************
-    // INSPECTOR
+    //
+    //      INSPECTOR  
+    //
+    //******************************************************************************************************************************
 
     [Space]
     [Header("-----------------------------------")]
@@ -33,13 +36,24 @@ public class HUD : MonoBehaviour {
     public Text PlayerLevelText;
 
     //******************************************************************************************************************************
-    // VARIABLES
+    //
+    //      VARIABLES
+    //
+    //******************************************************************************************************************************
 
     private Player _Player;
 
     //******************************************************************************************************************************
-    // FUNCTIONS
+    //
+    //      FUNCTIONS
+    //
+    //******************************************************************************************************************************
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Called when this object is created.
+    /// </summary>
     private void Start() {
 
         // Get component references
@@ -47,6 +61,8 @@ public class HUD : MonoBehaviour {
 
         Settings.StoreSelectBoxItems(GameManager.Instance.ObjectSelected);
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     //  Called each frame. 
@@ -56,6 +72,11 @@ public class HUD : MonoBehaviour {
         UpdateTextComponents();
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
     private void UpdateTextComponents() {
 
         // Update player's army population count
@@ -64,18 +85,26 @@ public class HUD : MonoBehaviour {
 
         // Update player's supply count
         if (SuppliesCountText != null && _Player != null)
-            SuppliesCountText.text = _Player.SuppliesCount.ToString();
+            SuppliesCountText.text = _Player.SuppliesCount.ToString() + " / " + _Player.MaxSupplyCount.ToString();
 
         // Update player's power count
         if (PowerCountText != null && _Player != null)
-            PowerCountText.text = _Player.PowerCount.ToString();
+            PowerCountText.text = _Player.PowerCount.ToString() + " / " + _Player.MaxPowerCount.ToString();
 
-        // Update player's level
+        // Update player's tech level
         if (PlayerLevelText != null && _Player != null)
             PlayerLevelText.text = _Player.Level.ToString();    
         
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <returns>
+    //  GameObject
+    /// </returns>
     public GameObject FindHitObject() {
 
         // Create raycast
@@ -89,6 +118,14 @@ public class HUD : MonoBehaviour {
         return null;
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <returns>
+    //  Vector3
+    /// </returns>
     public Vector3 FindHitPoint() {
 
         // Create raycast
@@ -102,8 +139,24 @@ public class HUD : MonoBehaviour {
         return Settings.InvalidPosition;
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <returns>
+    //  Rect
+    /// </returns>
     public Rect GetPlayingArea() {  return new Rect(0, 0, Screen.width, Screen.height); }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <returns>
+    //  bool
+    /// </returns>
     public bool MouseInBounds() {
 
         // Screen coordinates start in the lower-left corner of the screen
@@ -115,6 +168,16 @@ public class HUD : MonoBehaviour {
         return insideWidth && insideHeight;
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <returns>
+    //  bool
+    /// </returns>
     public bool WheelActive() { return GameManager.Instance.SelectionWheel.activeInHierarchy || GameManager.Instance.AbilityWheel.activeInHierarchy; }
-    
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 }
