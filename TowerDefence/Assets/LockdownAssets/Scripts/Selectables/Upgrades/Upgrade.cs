@@ -25,9 +25,9 @@ public class Upgrade : WorldObject {
     [Header("-----------------------------------")]
     [Header(" UPGRADE TREE ")]
     [Space]
-    public List<UpgradeValues> UpgradeCosts;
+    public List<UpgradeValues> UpgradeProperties;
     [Space]
-    public List<UnityEvent> UpgradeInvokables;
+    public List<UnityEvent> UpgradeEvents;
 
     //******************************************************************************************************************************
     //
@@ -69,19 +69,19 @@ public class Upgrade : WorldObject {
 
         // Update name to include current upgrade level
         ///ObjectName = _UpgradeName + num;
-        ObjectName = UpgradeCosts[_CurrentUpgradeLevel].ObjectName;
-        ObjectDescriptionShort = UpgradeCosts[_CurrentUpgradeLevel].ObjectDescriptionShort;
-        ObjectDescriptionLong = UpgradeCosts[_CurrentUpgradeLevel].ObjectDescriptionLong;
+        ObjectName = UpgradeProperties[_CurrentUpgradeLevel].ObjectName;
+        ObjectDescriptionShort = UpgradeProperties[_CurrentUpgradeLevel].ObjectDescriptionShort;
+        ObjectDescriptionLong = UpgradeProperties[_CurrentUpgradeLevel].ObjectDescriptionLong;
 
         // Update current costs for the next upgrade
-        if (UpgradeCosts.Count > _CurrentUpgradeLevel + 1) {
+        if (UpgradeProperties.Count > _CurrentUpgradeLevel + 1) {
 
-            CostSupplies = UpgradeCosts[_CurrentUpgradeLevel + 1].SupplyCost;
-            CostPower = UpgradeCosts[_CurrentUpgradeLevel + 1].PowerCost;
+            CostSupplies = UpgradeProperties[_CurrentUpgradeLevel + 1].SupplyCost;
+            CostPower = UpgradeProperties[_CurrentUpgradeLevel + 1].PowerCost;
         }
 
         // Update if reached max upgrade level
-        _HasMaxUpgrade = (UpgradeCosts.Count <= _CurrentUpgradeLevel) || (UpgradeInvokables.Count <= _CurrentUpgradeLevel);
+        _HasMaxUpgrade = (UpgradeProperties.Count <= _CurrentUpgradeLevel) || (UpgradeEvents.Count <= _CurrentUpgradeLevel);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -99,7 +99,7 @@ public class Upgrade : WorldObject {
         if (!_HasMaxUpgrade) {
 
             // If the method exists for the next upgrade, then call it
-            if (UpgradeInvokables.Count >= _CurrentUpgradeLevel + 1 && UpgradeCosts.Count >= _CurrentUpgradeLevel + 1) { UpgradeInvokables[_CurrentUpgradeLevel + 1].Invoke(); }
+            if (UpgradeEvents.Count >= _CurrentUpgradeLevel + 1 && UpgradeProperties.Count >= _CurrentUpgradeLevel + 1) { UpgradeEvents[_CurrentUpgradeLevel + 1].Invoke(); }
         }
     }
 
@@ -115,7 +115,7 @@ public class Upgrade : WorldObject {
         if (affordable) {
 
             // Increase upgrade level (if theres a level to go to next)
-            if (UpgradeInvokables.Count > _CurrentUpgradeLevel && UpgradeCosts.Count > _CurrentUpgradeLevel) { _CurrentUpgradeLevel += 1; }
+            if (UpgradeEvents.Count > _CurrentUpgradeLevel && UpgradeProperties.Count > _CurrentUpgradeLevel) { _CurrentUpgradeLevel += 1; }
             else { _HasMaxUpgrade = true; }
 
             // Deduct cost from player
@@ -136,7 +136,7 @@ public class Upgrade : WorldObject {
         if (affordable) {
 
             // Increase upgrade level (if theres a level to go to next)
-            if (UpgradeInvokables.Count > _CurrentUpgradeLevel && UpgradeCosts.Count > _CurrentUpgradeLevel) { _CurrentUpgradeLevel += 1; }
+            if (UpgradeEvents.Count > _CurrentUpgradeLevel && UpgradeProperties.Count > _CurrentUpgradeLevel) { _CurrentUpgradeLevel += 1; }
             else { _HasMaxUpgrade = true; }
 
             // Deduct cost from player
@@ -157,7 +157,7 @@ public class Upgrade : WorldObject {
         if (affordable) {
 
             // Increase upgrade level (if theres a level to go to next)
-            if (UpgradeInvokables.Count > _CurrentUpgradeLevel && UpgradeCosts.Count > _CurrentUpgradeLevel) { _CurrentUpgradeLevel += 1; }
+            if (UpgradeEvents.Count > _CurrentUpgradeLevel && UpgradeProperties.Count > _CurrentUpgradeLevel) { _CurrentUpgradeLevel += 1; }
             else { _HasMaxUpgrade = true; }
 
             // Deduct cost from player
@@ -178,7 +178,7 @@ public class Upgrade : WorldObject {
         if (affordable) {
 
             // Increase upgrade level (if theres a level to go to next)
-            if (UpgradeInvokables.Count > _CurrentUpgradeLevel && UpgradeCosts.Count > _CurrentUpgradeLevel) { _CurrentUpgradeLevel += 1; }
+            if (UpgradeEvents.Count > _CurrentUpgradeLevel && UpgradeProperties.Count > _CurrentUpgradeLevel) { _CurrentUpgradeLevel += 1; }
             else { _HasMaxUpgrade = true; }
 
             // Deduct cost from player
@@ -199,7 +199,7 @@ public class Upgrade : WorldObject {
         if (affordable) {
 
             // Increase upgrade level (if theres a level to go to next)
-            if (UpgradeInvokables.Count > _CurrentUpgradeLevel && UpgradeCosts.Count > _CurrentUpgradeLevel) { _CurrentUpgradeLevel += 1; }
+            if (UpgradeEvents.Count > _CurrentUpgradeLevel && UpgradeProperties.Count > _CurrentUpgradeLevel) { _CurrentUpgradeLevel += 1; }
             else { _HasMaxUpgrade = true; }
 
             // Deduct cost from player
