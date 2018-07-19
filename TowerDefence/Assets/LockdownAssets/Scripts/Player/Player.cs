@@ -9,7 +9,7 @@ using XInputDotNetPure;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 8/5/2018
+//  Last edited on: 19/4/2018
 //
 //******************************
 
@@ -34,7 +34,13 @@ public class Player : MonoBehaviour {
     public PlayerIndex Index = PlayerIndex.One;
     public GameManager.Team Team = GameManager.Team.Defending;
     public Color TeamColor = Color.cyan;
-    
+
+    [Space]
+    [Header("-----------------------------------")]
+    [Header(" CONTROLLER SETUP")]
+    [Space]
+    public InputController _CurrentController = InputController.Keyboard;
+
     //******************************************************************************************************************************
     //
     //      VARIABLES
@@ -42,7 +48,9 @@ public class Player : MonoBehaviour {
     //******************************************************************************************************************************
 
     // Input
-    public KeyboardInput _Input { get; private set; }
+    public enum InputController { Keyboard, PSGamepad, XboxGamepad }
+    public KeyboardInput _KeyboardInputManager { get; private set; }
+    public XboxGamepadInput _XboxGamepadInputManager { get; private set; }
     public CameraFollow _CameraFollow { get; private set; }
     public BuildingSlot SelectedBuildingSlot { get; set; }
     public List<Selectable> SelectedWorldObjects { get; set; }
@@ -88,7 +96,8 @@ public class Player : MonoBehaviour {
     private void Start() {
 
         // Get component references
-        _Input = GetComponent<KeyboardInput>();
+        _KeyboardInputManager = GetComponent<KeyboardInput>();
+        _XboxGamepadInputManager = GetComponent<XboxGamepadInput>();
         _HUD = GetComponent<HUD>();
         _CameraFollow = GetComponent<CameraFollow>();
 
@@ -118,6 +127,18 @@ public class Player : MonoBehaviour {
         Platoon8Objects = new List<WorldObject>();
         Platoon9Objects = new List<WorldObject>();
         Platoon0Objects = new List<WorldObject>();
+
+        // Initialize controller
+        switch (_CurrentController) {
+
+            case InputController.Keyboard: { _KeyboardInputManager.IsPrimaryController = true; break; }
+
+            case InputController.PSGamepad: { break; }
+
+            case InputController.XboxGamepad: { _XboxGamepadInputManager.IsPrimaryController = true; break; }
+
+            default: break;
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

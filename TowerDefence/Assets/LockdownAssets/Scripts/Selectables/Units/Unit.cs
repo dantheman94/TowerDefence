@@ -180,7 +180,7 @@ public class Unit : WorldObject {
 
                     GameManager.Instance.SetUnitControlling(false);
                     _Player._CameraFollow.SetFollowing(false);
-                    _Player._Input.CreateCenterPoint();
+                    _Player._KeyboardInputManager.CreateCenterPoint();
 
                     // Reset mouse to center of the screen
                     Cursor.lockState = CursorLockMode.Locked;

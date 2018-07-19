@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using TowerDefence;
 using UnityEngine;
 using XInputDotNetPure;
 
@@ -12,7 +11,7 @@ using XInputDotNetPure;
 //
 //******************************
 
-public class GamepadInput : MonoBehaviour {
+public class XboxGamepadInput : MonoBehaviour {
 
     //******************************************************************************************************************************
     //
@@ -50,7 +49,7 @@ public class GamepadInput : MonoBehaviour {
 
         // Initialize center point for LookAt() function
         RaycastHit hit;
-        Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward * 1000, out hit);
+        Physics.Raycast(_PlayerAttached.PlayerCamera.transform.position, _PlayerAttached.PlayerCamera.transform.forward * 1000, out hit);
         _LookPoint = hit.point;
 
         IsPrimaryController = false;
@@ -77,7 +76,39 @@ public class GamepadInput : MonoBehaviour {
             _PreviousGamepadState = _GamepadState;
             _GamepadState = GamePad.GetState(_PlayerAttached.Index);
             
-            Debug.Log("GAMEPAD IS PRIMARY: " + IsPrimaryController);
+            Debug.Log("XBOX GAMEPAD is primary: " + IsPrimaryController);
+
+            if (IsPrimaryController) {
+
+                // Update camera
+                MoveCamera();
+                RotateCamera();
+
+                // Update camera FOV
+                ZoomCamera();
+
+                // Update point/click input
+                PointClickActivity();
+
+                // Update abilities input
+                ///AbilitiesInput();
+
+                // Update platoon input
+                ///PlatoonInput();
+
+                // Select all units
+                if (GetLeftShoulderClicked()) {
+
+                    // Loop through & select all army objects
+                    foreach (var ai in _PlayerAttached.GetArmy()) {
+
+                        // Add to selection list
+                        _PlayerAttached.SelectedWorldObjects.Add(ai);
+                        ai.SetPlayer(_PlayerAttached);
+                        ai.SetIsSelected(true);
+                    }
+                }
+            }
         }
     }
 
@@ -134,9 +165,192 @@ public class GamepadInput : MonoBehaviour {
 
         // Update center point for RotateAround() function
         RaycastHit hit;
-        Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward * 1000, out hit);
+        Physics.Raycast(_PlayerAttached.PlayerCamera.transform.position, _PlayerAttached.PlayerCamera.transform.forward * 1000, out hit);
         _LookPoint = hit.point;
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    private void MoveCamera() {
+        
+        Vector3 movement = new Vector3(0, 0, 0);
+
+        // Move camera via input if the player ISNT currently controlling a unit
+        if (GameManager.Instance.GetIsUnitControlling() == false) {
+
+            // Keyboard movement WASD
+            if (OnLeftThumbstickUp()) {
+
+                // Move forwards
+                movement.y += Settings.MovementSpeed;
+                CreateCenterPoint();
+            }
+            if (OnLeftThumbstickDown()) {
+
+                // Move backwards
+                movement.y -= Settings.MovementSpeed;
+                CreateCenterPoint();
+            }
+
+            if (OnLeftThumbstickRight()) {
+
+                // Move right
+                movement.x += Settings.MovementSpeed;
+                CreateCenterPoint();
+            }
+
+            if (OnLeftThumbstickLeft()) {
+
+                // Move left
+                movement.x -= Settings.MovementSpeed;
+                CreateCenterPoint();
+            }
+
+            if (/*OnLeftThumbstickDown()*/false) {
+
+                // 'Sprint' movement speed
+                Settings.MovementSpeed = Settings.CameraSprintSpeed;
+            }
+            else {
+
+                // 'Walk' movement speed
+                Settings.MovementSpeed = Settings.CameraWalkSpeed;
+            }
+        }
+        
+        // Make sure movement is in the direction the camera is pointing
+        // but ignore the vertical tilt of the camera to get sensible scrolling
+        movement = _PlayerAttached.PlayerCamera.transform.TransformDirection(movement);
+        movement.y = 0;
+
+        // Calculate desired camera position based on received input
+        Vector3 posOrigin = _PlayerAttached.PlayerCamera.transform.position;
+        Vector3 posDestination = posOrigin;
+        posDestination.x += movement.x;
+        posDestination.y += movement.y;
+        posDestination.z += movement.z;
+
+        // Limit away from ground movement to be between a minimum and maximum distance
+        if (posDestination.y > Settings.MaxCameraHeight)
+            posDestination.y = Settings.MaxCameraHeight;
+
+        else if (posDestination.y < Settings.MinCameraHeight)
+                 posDestination.y = Settings.MinCameraHeight;
+
+        // If a change in position is detected perform the necessary update
+        if (posDestination != posOrigin) {
+
+            // Update position
+            _PlayerAttached.PlayerCamera.transform.position = Vector3.MoveTowards(posOrigin, posDestination, Time.deltaTime * Settings.MovementSpeed);
+        }
+
+        // Smoothly move toward target position
+        ///_PlayerAttached.PlayerCamera.transform.position = Vector3.SmoothDamp(posOrigin, posDestination, ref _CurrentVelocity, Settings.MovementSpeed * Time.deltaTime);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    private void RotateCamera() {
+
+        Vector3 rotOrigin = _PlayerAttached.PlayerCamera.transform.eulerAngles;
+        Vector3 rotDestination = rotOrigin;
+
+        bool pressed = false;
+
+        // Rotate camera state if RIGHT THUMBSTICK is moving along X axis
+        if (GetRightThumbstickXaxis() != 0) {
+
+            // Hide mouse cursor
+            Cursor.visible = false;
+
+            // Calculate which direction to rotate in
+            float dir = 0f;
+            dir = GetRightThumbstickXaxis();
+
+            // Set point to "camera follows" target position if the player is manually controlling a unit
+            if (GameManager.Instance.GetIsUnitControlling()) { _LookPoint = _PlayerAttached._CameraFollow.GetFollowTarget().transform.position; }
+
+            // Rotate around point
+            _PlayerAttached.PlayerCamera.transform.RotateAround(_LookPoint, Vector3.up, Settings.RotateSpeed * -dir * Time.deltaTime);
+
+            // Used for resetting the mouse position
+            pressed = true;
+        }
+
+        // Not rotating the camera
+        else {
+
+            // Always hide the mouse cursor whilst the player IS controlling a unit
+            if (GameManager.Instance.GetIsUnitControlling()) {
+
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+            }
+            else { Cursor.visible = true; }
+        }
+
+        if (pressed) {
+
+            // Reset mouse to center of the screen
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.lockState = CursorLockMode.None;
+            pressed = false;
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    private void ZoomCamera() {
+
+        // Change camera fov
+        float fov = _PlayerAttached.PlayerCamera.fieldOfView;
+        if (GetRightThumbstickYaxis() > 0) {
+
+            // Zooming in
+            if (fov > Settings.MinFov)
+                _PlayerAttached.PlayerCamera.fieldOfView -= Time.deltaTime * Settings.ZoomSpeed;
+        }
+        if (GetRightThumbstickYaxis() < 0) {
+
+            // Zooming out
+            if (fov < Settings.MaxFov)
+                _PlayerAttached.PlayerCamera.fieldOfView += Time.deltaTime * Settings.ZoomSpeed;
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    private void PointClickActivity() {
+
+        if      (GetButtonAClicked())   { SelectInput(); }
+        else if (GetButtonXClicked())   { CommandInput(); }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    private void SelectInput() { }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    private void CommandInput() { }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

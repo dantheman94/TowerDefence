@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using TowerDefence;
 using UnityEngine;
-using XInputDotNetPure;
+using TowerDefence;
 
 //******************************
 //
@@ -21,7 +20,7 @@ public class KeyboardInput : MonoBehaviour {
     //******************************************************************************************************************************
 
     private Player _PlayerAttached;
-    private GamepadInput _GamepadInputManager = null;
+    private XboxGamepadInput _XboxGamepadInputManager = null;
     public bool IsPrimaryController { get; set; }
 
     private Vector3 _LookPoint;
@@ -42,11 +41,11 @@ public class KeyboardInput : MonoBehaviour {
 
         // Get component references
         _PlayerAttached = GetComponent<Player>();
-        _GamepadInputManager = GetComponent<GamepadInput>();
+        _XboxGamepadInputManager = GetComponent<XboxGamepadInput>();
 
         // Initialize center point for LookAt() function
         RaycastHit hit;
-        Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward * 1000, out hit);
+        Physics.Raycast(_PlayerAttached.PlayerCamera.transform.position, _PlayerAttached.PlayerCamera.transform.forward * 1000, out hit);
         _LookPoint = hit.point;
 
         IsPrimaryController = false;
@@ -66,10 +65,10 @@ public class KeyboardInput : MonoBehaviour {
 
                 // Disable gamepad / Enable keyboard
                 IsPrimaryController = true;
-                if (_GamepadInputManager != null) { _GamepadInputManager.IsPrimaryController = false; }
+                if (_XboxGamepadInputManager != null) { _XboxGamepadInputManager.IsPrimaryController = false; }
             }
 
-            Debug.Log("KEYBOARD IS PRIMARY: " + IsPrimaryController);
+            Debug.Log("KEYBOARD is primary: " + IsPrimaryController);
 
             if (IsPrimaryController) {
 
@@ -114,7 +113,7 @@ public class KeyboardInput : MonoBehaviour {
 
         // Update center point for RotateAround() function
         RaycastHit hit;
-        Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward * 1000, out hit);
+        Physics.Raycast(_PlayerAttached.PlayerCamera.transform.position, _PlayerAttached.PlayerCamera.transform.forward * 1000, out hit);
         _LookPoint = hit.point;
     }
     
@@ -292,6 +291,9 @@ public class KeyboardInput : MonoBehaviour {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /// <summary>
+    //  
+    /// </summary>
     private void MoveCamera() {
 
         float xPos = Input.mousePosition.x;
@@ -390,7 +392,7 @@ public class KeyboardInput : MonoBehaviour {
     /// </summary>
     private void RotateCamera() {
 
-        Vector3 rotOrigin = Camera.main.transform.eulerAngles;
+        Vector3 rotOrigin = _PlayerAttached.PlayerCamera.transform.eulerAngles;
         Vector3 rotDestination = rotOrigin;
 
         bool pressed = false;
@@ -409,7 +411,7 @@ public class KeyboardInput : MonoBehaviour {
             if (GameManager.Instance.GetIsUnitControlling()) { _LookPoint = _PlayerAttached._CameraFollow.GetFollowTarget().transform.position; }
 
             // Rotate around point
-            Camera.main.transform.RotateAround(_LookPoint, Vector3.up, Settings.RotateSpeed * -dir * Time.deltaTime);
+            _PlayerAttached.PlayerCamera.transform.RotateAround(_LookPoint, Vector3.up, Settings.RotateSpeed * -dir * Time.deltaTime);
 
             // Used for resetting the mouse position
             pressed = true;
@@ -444,18 +446,18 @@ public class KeyboardInput : MonoBehaviour {
     private void ZoomCamera() {
 
         // Change camera fov
-        float fov = Camera.main.fieldOfView;
+        float fov = _PlayerAttached.PlayerCamera.fieldOfView;
         if (Input.GetAxis("Mouse ScrollWheel") > 0) {
 
             // Zooming in
             if (fov > Settings.MinFov)
-                Camera.main.fieldOfView -= Time.deltaTime * Settings.ZoomSpeed;
+                _PlayerAttached.PlayerCamera.fieldOfView -= Time.deltaTime * Settings.ZoomSpeed;
         }
         if (Input.GetAxis("Mouse ScrollWheel") < 0) {
 
             // Zooming out
             if (fov < Settings.MaxFov)
-                Camera.main.fieldOfView += Time.deltaTime * Settings.ZoomSpeed;
+                _PlayerAttached.PlayerCamera.fieldOfView += Time.deltaTime * Settings.ZoomSpeed;
         }
     }
 
