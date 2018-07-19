@@ -299,7 +299,11 @@ public class WorldObject : Selectable {
     /// <summary>
     //  Called when the object's state switches to active (Only once)
     /// </summary>
-    protected virtual void OnBuilt() {}
+    protected virtual void OnBuilt() {
+
+        // Send message to match feed
+        MatchFeed.Instance.AddMessage(string.Concat(ObjectName, " built."));
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
