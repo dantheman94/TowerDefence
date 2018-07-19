@@ -8,11 +8,11 @@ using XInputDotNetPure;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 22/6/2018
+//  Last edited on: 19/7/2018
 //
 //******************************
 
-public class UserInput : MonoBehaviour {
+public class KeyboardInput : MonoBehaviour {
     
     //******************************************************************************************************************************
     //
@@ -21,13 +21,8 @@ public class UserInput : MonoBehaviour {
     //******************************************************************************************************************************
 
     private Player _PlayerAttached;
-
-    // Gamepad
-    private GamePadState _GamepadState;
-    private GamePadState _PreviousGamepadState;
-    private bool _ControllerIsRumbling = false;
-    private float _TimerRumble, _RumbleTime = 0f;
-    private float _MotorLeft, _MotorRight = 0f;
+    private GamepadInput _GamepadInputManager = null;
+    public bool _IsPrimaryController { get; set; }
 
     private Vector3 _LookPoint;
     private Vector3 _CurrentVelocity = Vector3.zero;
@@ -47,11 +42,14 @@ public class UserInput : MonoBehaviour {
 
         // Get component references
         _PlayerAttached = GetComponent<Player>();
-        
+        _GamepadInputManager = GetComponent<GamepadInput>();
+
         // Initialize center point for LookAt() function
         RaycastHit hit;
         Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward * 1000, out hit);
         _LookPoint = hit.point;
+
+        _IsPrimaryController = false;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -62,90 +60,55 @@ public class UserInput : MonoBehaviour {
     private void Update() {
 
         if (_PlayerAttached) {
-            
-            // Update camera
-            MoveCamera();
-            RotateCamera();
-            
-            // Update camera FOV
-            ZoomCamera();
 
-            // Update gamepad states
-            _PreviousGamepadState = _GamepadState;
-            _GamepadState = GamePad.GetState(_PlayerAttached.Index);
+            // Update primary controller
+            if (Input.anyKey) {
 
-            // Update mouse input
-            MouseActivity();
+                // Disable gamepad / Enable keyboard
+                _IsPrimaryController = true;
+                if (_GamepadInputManager != null) { _GamepadInputManager._IsPrimaryController = false; }
+            }
 
-            // Update abilities input
-            ///AbilitiesInput();
+            Debug.Log("KEYBOARD IS PRIMARY: " + _IsPrimaryController);
 
-            // Update platoon input
-            PlatoonInput();
+            if (_IsPrimaryController) {
 
-            // Select all units
-            if (Input.GetKeyDown(KeyCode.E)) {
+                // Update camera
+                MoveCamera();
+                RotateCamera();
 
-                // Loop through & select all army objects
-                foreach (var ai in _PlayerAttached.GetArmy()) {
+                // Update camera FOV
+                ZoomCamera();
 
-                    // Add to selection list
-                    _PlayerAttached.SelectedWorldObjects.Add(ai);
-                    ai.SetPlayer(_PlayerAttached);
-                    ai.SetIsSelected(true);
+                // Update mouse input
+                MouseActivity();
+
+                // Update abilities input
+                ///AbilitiesInput();
+
+                // Update platoon input
+                PlatoonInput();
+
+                // Select all units
+                if (Input.GetKeyDown(KeyCode.E)) {
+
+                    // Loop through & select all army objects
+                    foreach (var ai in _PlayerAttached.GetArmy()) {
+
+                        // Add to selection list
+                        _PlayerAttached.SelectedWorldObjects.Add(ai);
+                        ai.SetPlayer(_PlayerAttached);
+                        ai.SetIsSelected(true);
+                    }
                 }
             }
         }
     }
-
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    
     /// <summary>
-    //  Called each frame at a fixed-time framerate.
-    /// </summary>
-    private void FixedUpdate() {
-
-        if (_ControllerIsRumbling) {
-
-            // Start controller rumble
-            GamePad.SetVibration(_PlayerAttached.Index, _MotorLeft, _MotorRight);
-
-            // Timer
-            _TimerRumble += Time.fixedDeltaTime;
-            if (_TimerRumble >= _RumbleTime) { _ControllerIsRumbling = false; }
-        }
-
-        else {
-
-            // Stop controller rumble
-            GamePad.SetVibration(_PlayerAttached.Index, 0f, 0f);
-            _TimerRumble = 0f;
-        }
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  
-    /// </summary>
-    /// <param name="motorLeft"></param>
-    /// <param name="motorRight"></param>
-    /// <param name="time"></param>
-    public void StartRumble(float motorLeft, float motorRight, float time) {
-
-        // Set rumble properties
-        _MotorLeft = motorLeft;
-        _MotorRight = motorRight;
-        _RumbleTime = time;
-
-        // Start rumble
-        _ControllerIsRumbling = true;
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  
+    //  Updates the center screen world point used the camera rotating
     /// </summary>
     public void CreateCenterPoint() {
 
@@ -1420,115 +1383,4 @@ public class UserInput : MonoBehaviour {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    //***************************
-    // XBOX ONE Special buttons
-
-    /// Returns if the XBOX GUIDE button was pressed then released in the last 2 frames
-    public bool GetGuideButtonClicked() { return (_PreviousGamepadState.Buttons.Guide == ButtonState.Released && _GamepadState.Buttons.Guide == ButtonState.Pressed); }
-
-    /// Returns if the BACK button was pressed then released in the last 2 frames
-    public bool GetBackButtonClicked() { return (_PreviousGamepadState.Buttons.Back == ButtonState.Released && _GamepadState.Buttons.Back == ButtonState.Pressed); }
-
-    /// Returns if the START button was pressed then released in the last 2 frames
-    public bool GetStartButtonClicked() { return (_PreviousGamepadState.Buttons.Start == ButtonState.Released && _GamepadState.Buttons.Start == ButtonState.Pressed); }
-
-    //***************************
-    // XBOX ONE Shoulder / Bumper buttons
-
-    /// Returns if the LEFT SHOULDER button was pressed then released in the last 2 frames
-    public bool GetLeftShoulderClicked() { return (_PreviousGamepadState.Buttons.LeftShoulder == ButtonState.Released && _GamepadState.Buttons.LeftShoulder == ButtonState.Pressed); }
-
-    /// Returns if the RIGHT SHOULDER button was pressed then released in the last 2 frames
-    public bool GetRightShoulderClicked() { return (_PreviousGamepadState.Buttons.RightShoulder == ButtonState.Released && _GamepadState.Buttons.RightShoulder == ButtonState.Pressed); }
-
-    //***************************
-    // XBOX ONE Face buttons
-
-    /// Returns if the A button was pressed then released in the last 2 frames
-    public bool GetButtonAClicked() { return (_PreviousGamepadState.Buttons.A == ButtonState.Released && _GamepadState.Buttons.A == ButtonState.Pressed); }
-
-    /// Returns if the A button was released in during this frame
-    public bool GetButtonAReleased() { return (_GamepadState.Buttons.A == ButtonState.Released); }
-
-    /// Returns if the B button was pressed then released in the last 2 frames
-    public bool GetButtonBClicked() { return (_PreviousGamepadState.Buttons.B == ButtonState.Released && _GamepadState.Buttons.B == ButtonState.Pressed); }
-
-    /// Returns if the B button was released in during this frame
-    public bool GetButtonBReleased() { return (_GamepadState.Buttons.B == ButtonState.Released); }
-
-    /// Returns if the X button was pressed then released in the last 2 frames
-    public bool GetButtonXClicked() { return (_PreviousGamepadState.Buttons.X == ButtonState.Released && _GamepadState.Buttons.X == ButtonState.Pressed); }
-
-    /// Returns if the X button was released in during this frame
-    public bool GetButtonXReleased() { return (_GamepadState.Buttons.X == ButtonState.Released); }
-
-    /// Returns if the Y button was pressed then released in the last 2 frames
-    public bool GetButtonYClicked() { return (_PreviousGamepadState.Buttons.Y == ButtonState.Released && _GamepadState.Buttons.Y == ButtonState.Pressed); }
-
-    /// Returns if the Y button was released in during this frame
-    public bool GetButtonYReleased() { return (_GamepadState.Buttons.Y == ButtonState.Released); }
-
-    //**************************
-    // XBOX ONE D-Pad buttons
-
-    /// Returns if the D-PAD UP button was pressed then released in the last 2 frames
-    public bool GetDpadUpClicked() { return (_PreviousGamepadState.DPad.Up == ButtonState.Released && _GamepadState.DPad.Up == ButtonState.Pressed); }
-
-    /// Returns if the D-PAD DOWN button was pressed then released in the last 2 frames
-    public bool GetDpadDownClicked() { return (_PreviousGamepadState.DPad.Down == ButtonState.Released && _GamepadState.DPad.Down == ButtonState.Pressed); }
-
-    /// Returns if the D-PAD RIGHT button was pressed then released in the last 2 frames
-    public bool GetDpadRightClicked() { return (_PreviousGamepadState.DPad.Right == ButtonState.Released && _GamepadState.DPad.Right == ButtonState.Pressed); }
-
-    /// Returns if the D-PAD LEFT button was pressed then released in the last 2 frames
-    public bool GetDpadLeftClicked() { return (_PreviousGamepadState.DPad.Left == ButtonState.Released && _GamepadState.DPad.Left == ButtonState.Pressed); }
-
-    //**************************
-    // XBOX ONE Thumbsticks
-
-    /// Returns the LEFT THUMBSTICK X axis value
-    public float GetLeftThumbstickXaxis() { return _GamepadState.ThumbSticks.Left.X; }
-
-    /// Returns the LEFT THUMBSTICK Y axis value
-    public float GetLeftThumbstickYaxis() { return _GamepadState.ThumbSticks.Left.Y; }
-
-    /// Returns the RIGHT THUMBSTICK X axis value
-    public float GetRightThumbstickXaxis() { return _GamepadState.ThumbSticks.Right.X; }
-
-    /// Returns the RIGHT THUMBSTICK Y axis value
-    public float GetRightThumbstickYaxis() { return _GamepadState.ThumbSticks.Right.Y; }
-
-    /// Returns the direction vector of the LEFT THUMBSTICK
-    public Vector3 GetLeftThumbstickInput() { return new Vector3(0, 90f - (Mathf.Atan2(_GamepadState.ThumbSticks.Left.Y, _GamepadState.ThumbSticks.Left.X)) * 180 / Mathf.PI, 0); }
-
-    /// Returns the direction vector of the RIGHT THUMBSTICK
-    public Vector3 GetRightThumbstickInput() { return new Vector3(0, 90f - (Mathf.Atan2(_GamepadState.ThumbSticks.Right.Y, _GamepadState.ThumbSticks.Right.X)) * 180 / Mathf.PI, 0); }
-
-    /// Returns boolean value if the LEFT THUMBSTICK is moving down
-    public bool OnLeftThumbstickDown() { return _GamepadState.ThumbSticks.Left.Y < 0f; }
-
-    /// Returns boolean value if the LEFT THUMBSTICK is moving up
-    public bool OnLeftThumbstickUp() { return _GamepadState.ThumbSticks.Left.Y > 0f; }
-
-    /// Returns boolean value if the LEFT THUMBSTICK is moving left
-    public bool OnLeftThumbstickLeft() { return _GamepadState.ThumbSticks.Left.X < 0f; }
-
-    /// Returns boolean value if the LEFT THUMBSTICK is moving right
-    public bool OnLeftThumbstickRight() { return _GamepadState.ThumbSticks.Left.X > 0f; }
-
-    //**************************
-    // XBOX ONE Triggers
-
-    /// Returns the LEFT TRIGGER axis value
-    public float GetLeftTriggeraxis() { return _GamepadState.Triggers.Left; }
-
-    /// Returns the RIGHT TRIGGER axis value
-    public float GetRightTriggeraxis() { return _GamepadState.Triggers.Right; }
-
-    /// Returns boolean value if the LEFT TRIGGER is moving
-    public bool OnLeftTrigger() { return _GamepadState.Triggers.Left > 0f; }
-
-    /// Returns boolean value if the RIGHT TRIGGER is moving
-    public bool OnRightTrigger() { return _GamepadState.Triggers.Right > 0f; }
-    
 }

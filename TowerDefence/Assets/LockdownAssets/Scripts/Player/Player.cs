@@ -42,7 +42,7 @@ public class Player : MonoBehaviour {
     //******************************************************************************************************************************
 
     // Input
-    public UserInput _Input { get; private set; }
+    public KeyboardInput _Input { get; private set; }
     public CameraFollow _CameraFollow { get; private set; }
     public BuildingSlot SelectedBuildingSlot { get; set; }
     public List<Selectable> SelectedWorldObjects { get; set; }
@@ -88,7 +88,7 @@ public class Player : MonoBehaviour {
     private void Start() {
 
         // Get component references
-        _Input = GetComponent<UserInput>();
+        _Input = GetComponent<KeyboardInput>();
         _HUD = GetComponent<HUD>();
         _CameraFollow = GetComponent<CameraFollow>();
 

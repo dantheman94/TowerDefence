@@ -23,12 +23,14 @@ public class HUD : MonoBehaviour {
 
     [Space]
     [Header("-----------------------------------")]
-    [Header(" ")]
+    [Space]
+    [Header(" HUD WRAPPERS")]
     public SelectionWheel SelectionWheel;
     public GameObject AbilitiesWheel;
 
     [Space]
     [Header("-----------------------------------")]
+    [Space]
     [Header(" GUI TEXT COMPONENTS")]
     public Text PopulationText;
     public Text SuppliesCountText;
