@@ -78,7 +78,7 @@ public class UserInput : MonoBehaviour {
             MouseActivity();
 
             // Update abilities input
-            AbilitiesInput();
+            ///AbilitiesInput();
 
             // Update platoon input
             PlatoonInput();
@@ -154,12 +154,181 @@ public class UserInput : MonoBehaviour {
         Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward * 1000, out hit);
         _LookPoint = hit.point;
     }
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="movement"></param>
+    private void SnapMovement(Vector3 movement) {
+
+        // Make sure movement is in the direction the camera is pointing
+        // but ignore the vertical tilt of the camera to get sensible scrolling
+        movement = _PlayerAttached.PlayerCamera.transform.TransformDirection(movement);
+        movement.y = 0;
+
+        // Calculate desired camera position based on received input
+        Vector3 posOrigin = _PlayerAttached.PlayerCamera.transform.position;
+        Vector3 posDestination = posOrigin;
+        posDestination.x += movement.x;
+        posDestination.y += movement.y;
+        posDestination.z += movement.z;
+
+        /*
+         * Clamp ground movement to be between a minimum and maximum distance
+         */
+
+        // Too low
+        if (posDestination.y > Settings.MaxCameraHeight) { posDestination.y = Settings.MaxCameraHeight; }
+        // Too high
+        else if (posDestination.y < Settings.MinCameraHeight) { posDestination.y = Settings.MinCameraHeight; }
+
+        // If a change in position is detected perform the movement update
+        if (posDestination != posOrigin) {
+
+            // Update position
+            _PlayerAttached.PlayerCamera.transform.position = Vector3.MoveTowards(posOrigin, posDestination, Settings.MovementSpeed * Time.deltaTime);
+        }
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     //  
     /// </summary>
+    /// <param name="movement"></param>
+    private void SmoothMovement(Vector3 movement) {
+
+        // Make sure movement is in the direction the camera is pointing
+        // but ignore the vertical tilt of the camera to get sensible scrolling
+        movement = _PlayerAttached.PlayerCamera.transform.TransformDirection(movement);
+        movement.y = 0;
+
+        // Calculate desired camera position based on received input
+        Vector3 posOrigin = _PlayerAttached.PlayerCamera.transform.position;
+        Vector3 posDestination = posOrigin;
+        posDestination.x += movement.x;
+        posDestination.y += movement.y;
+        posDestination.z += movement.z;
+
+        /*
+         * Clamp ground movement to be between a minimum and maximum distance
+         */
+
+        // Too low
+        if      (posDestination.y > Settings.MaxCameraHeight) { posDestination.y = Settings.MaxCameraHeight; }
+        // Too high
+        else if (posDestination.y < Settings.MinCameraHeight) { posDestination.y = Settings.MinCameraHeight; }
+
+        // Smoothly move toward target position
+        _PlayerAttached.PlayerCamera.transform.position = Vector3.SmoothDamp(posOrigin, posDestination, ref _CurrentVelocity, Settings.MovementSpeed * Time.deltaTime);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    private void MoveCameraHybrid() {
+
+        float xPos = Input.mousePosition.x;
+        float yPos = Input.mousePosition.y;
+        Vector3 movement = new Vector3(0, 0, 0);
+
+        // Move camera via input if the player ISNT currently controlling a unit
+        if (GameManager.Instance.GetIsUnitControlling() == false) {
+
+            if (Input.GetKey(KeyCode.LeftShift)) {
+
+                // 'Sprint' movement speed
+                ///Settings.MovementSpeed = Settings.CameraSprintSpeed;
+            }
+            else {
+
+                // 'Walk' movement speed
+                Settings.MovementSpeed = Settings.CameraWalkSpeed;
+            }
+
+            /* 
+             * Keyboard movement WASD
+             */
+            // Move forwards
+            if (Input.GetKey(KeyCode.W) && (!Input.GetKey(KeyCode.LeftAlt))) {
+
+                movement.y += Settings.MovementSpeed;
+                CreateCenterPoint();
+                SnapMovement(movement);
+            }
+
+            // Smooth exit up
+            else if (!Input.GetKeyUp(KeyCode.W) && (!Input.GetKey(KeyCode.LeftAlt))) {
+
+                CreateCenterPoint();
+                SmoothMovement(movement);
+            }
+
+            // Move backwards
+            if (Input.GetKey(KeyCode.S) && (!Input.GetKey(KeyCode.LeftAlt))) {
+
+                movement.y -= Settings.MovementSpeed;
+                CreateCenterPoint();
+                SnapMovement(movement);
+            }
+
+            // Smooth exit down
+            else if (!Input.GetKey(KeyCode.S) && (!Input.GetKey(KeyCode.LeftAlt))) {
+
+                CreateCenterPoint();
+                SmoothMovement(movement);
+            }
+
+            // Move right
+            if (Input.GetKey(KeyCode.D) && (!Input.GetKey(KeyCode.LeftAlt))) {
+
+                movement.x += Settings.MovementSpeed;
+                CreateCenterPoint();
+                SnapMovement(movement);
+            }
+
+            // Smooth exit right
+            else if (!Input.GetKey(KeyCode.D) && (!Input.GetKey(KeyCode.LeftAlt))) {
+
+                CreateCenterPoint();
+                SmoothMovement(movement);
+            }
+
+            // Move left
+            if (Input.GetKey(KeyCode.A) && (!Input.GetKey(KeyCode.LeftAlt))) {
+
+                movement.x -= Settings.MovementSpeed;
+                CreateCenterPoint();
+                SnapMovement(movement);
+            }
+
+            // Smooth exit left
+            else if (!Input.GetKey(KeyCode.A) && (!Input.GetKey(KeyCode.LeftAlt))) {
+
+                CreateCenterPoint();
+                SmoothMovement(movement);
+            }
+        }
+
+        // Horizontal camera movement via mouse
+        if (xPos >= 0 && xPos < Settings.ScreenOffset)
+            movement.x -= Settings.MovementSpeed;
+        else if (xPos <= Screen.width && xPos > Screen.width - Settings.ScreenOffset)
+            movement.x += Settings.MovementSpeed;
+
+        // Vertical camera movement via mouse
+        if (yPos >= 0 && yPos < Settings.ScreenOffset)
+            movement.z -= Settings.MovementSpeed;
+        else if (yPos <= Screen.height && yPos > Screen.height - Settings.ScreenOffset)
+            movement.z += Settings.MovementSpeed;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     private void MoveCamera() {
 
         float xPos = Input.mousePosition.x;
@@ -223,7 +392,7 @@ public class UserInput : MonoBehaviour {
 
         // Make sure movement is in the direction the camera is pointing
         // but ignore the vertical tilt of the camera to get sensible scrolling
-        movement = Camera.main.transform.TransformDirection(movement);
+        movement = _PlayerAttached.PlayerCamera.transform.TransformDirection(movement);
         movement.y = 0;
         
         // Calculate desired camera position based on received input
@@ -244,11 +413,11 @@ public class UserInput : MonoBehaviour {
         if (posDestination != posOrigin) {
 
             // Update position
-            ///Camera.main.transform.position = Vector3.MoveTowards(posOrigin, posDestination, Time.deltaTime * Settings.MovementSpeed);
+            _PlayerAttached.PlayerCamera.transform.position = Vector3.MoveTowards(posOrigin, posDestination, Time.deltaTime * Settings.MovementSpeed);
         }
 
         // Smoothly move toward target position
-        _PlayerAttached.PlayerCamera.transform.position = Vector3.SmoothDamp(posOrigin, posDestination, ref _CurrentVelocity, Settings.MovementSpeed * Time.deltaTime);
+        ///_PlayerAttached.PlayerCamera.transform.position = Vector3.SmoothDamp(posOrigin, posDestination, ref _CurrentVelocity, Settings.MovementSpeed * Time.deltaTime);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -273,7 +442,7 @@ public class UserInput : MonoBehaviour {
             float dir = 0f;
             dir = Input.GetAxis("Mouse X");
 
-            // Set point to camera follow's target position if the player is manually controlling a unit
+            // Set point to "camera follows" target position if the player is manually controlling a unit
             if (GameManager.Instance.GetIsUnitControlling()) { _LookPoint = _PlayerAttached._CameraFollow.GetFollowTarget().transform.position; }
 
             // Rotate around point
@@ -378,8 +547,7 @@ public class UserInput : MonoBehaviour {
                     WorldObject worldObj = null;
                     Squad squadObj = null;
                     Unit unitObj = null;
-
-                    
+                                        
                     // The root transform would be the base transform if base is valid (which overwrites the selection wheel buildables)
                     if (baseObj != null) {
                         

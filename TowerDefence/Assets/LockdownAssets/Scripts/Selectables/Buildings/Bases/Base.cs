@@ -7,7 +7,7 @@ using UnityEngine;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 25/6/2018
+//  Last edited on: 19/7/2018
 //
 //******************************
 
@@ -22,6 +22,7 @@ public class Base : Building {
     [Space]
     [Header("-----------------------------------")]
     [Header(" BASE PROPERTIES")]
+    [Space]
     public eBaseType BaseType;
     public int TechLevelWhenBuilt;
     public GameObject UnitSpawnTransform;
@@ -35,7 +36,7 @@ public class Base : Building {
     //
     //******************************************************************************************************************************
 
-    public enum eBaseType { Minibase, Station, CommandCenter, Headquarters }
+    public enum eBaseType { Outpost, Station, CommandCenter, Headquarters, Minibase }
 
     //******************************************************************************************************************************
     //
