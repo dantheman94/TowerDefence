@@ -235,6 +235,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1970705690808564
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4132374396667252}
+  - component: {fileID: 33959989346758500}
+  - component: {fileID: 23846540687635470}
+  m_Layer: 8
+  m_Name: MinimapIcon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &4020611926675870
 Transform:
   m_ObjectHideFlags: 1
@@ -263,6 +280,19 @@ Transform:
   m_Father: {fileID: 4906671051967720}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4132374396667252
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1970705690808564}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 30, z: -2.3}
+  m_LocalScale: {x: 100, y: 100, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4906671051967720}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!4 &4148238737816208
 Transform:
   m_ObjectHideFlags: 1
@@ -328,6 +358,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4986473441077944}
+  - {fileID: 4944241004846580}
   m_Father: {fileID: 4020611926675870}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -373,7 +404,7 @@ Transform:
   - {fileID: 4091222389518618}
   - {fileID: 4965104319316322}
   - {fileID: 4405468992816192}
-  - {fileID: 4944241004846580}
+  - {fileID: 4132374396667252}
   m_Father: {fileID: 4020611926675870}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -384,11 +415,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1158958415463770}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 6.7, z: -2.3}
-  m_LocalScale: {x: 100, y: 100, z: 1}
+  m_LocalPosition: {x: 0, y: 30, z: -2.300003}
+  m_LocalScale: {x: 100, y: 100.00016, z: 1}
   m_Children: []
-  m_Father: {fileID: 4906671051967720}
-  m_RootOrder: 6
+  m_Father: {fileID: 4541155283688502}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!4 &4965104319316322
 Transform:
@@ -430,7 +461,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 0cb137f17a86c1848920db05fe301278, type: 2}
+  - {fileID: 2100000, guid: bdc479ec8f60fbb42b3a64ec9ace2f44, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -567,6 +598,40 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_Materials:
   - {fileID: 2100000, guid: 271e4050b2e71db43aa08f54a1fc47be, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 1
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!23 &23846540687635470
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1970705690808564}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 2100000, guid: bdc479ec8f60fbb42b3a64ec9ace2f44, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -744,6 +809,13 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1679234814365496}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &33959989346758500
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1970705690808564}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!65 &65012804210038548
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -828,13 +900,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ObjectName: Outpost
-  ObjectDescriptionShort: Minibase
+  ObjectDescriptionShort: Frontline Base
   ObjectDescriptionLong: The outpost provides a means of economy expansion, with 3
     availiable building slots that can be used to create unit depots or resource generators.
-  PlayerID: 0
   Team: 0
-  FogOfWarRadius: 400
   _Player: {fileID: 0}
+  FogOfWarRadius: 400
   BuildingState: {fileID: 1011924668231282}
   ActiveState: {fileID: 1243483475574442}
   BuildImage: {fileID: 0}
@@ -852,12 +923,12 @@ MonoBehaviour:
   MultiSelectable: 1
   _OffsetY: 2.25
   _ObjectState: 0
-  _WidgetHealthbarScaleX: 100
-  _WidgetHealthbarScaleY: 15
-  _WidgetHealthbarOffset: 15
-  _WidgetShieldbarScaleX: 100
-  _WidgetShieldbarScaleY: 15
-  _WidgetShieldbarOffset: 22
+  _WidgetHealthbarScaleX: 300
+  _WidgetHealthbarScaleY: 20
+  _WidgetHealthbarOffset: 20
+  _WidgetShieldbarScaleX: 300
+  _WidgetShieldbarScaleY: 20
+  _WidgetShieldbarOffset: 30
   AttachedBuildingSlot: {fileID: 0}
   ObjectHeight: 30
   Selectables:
@@ -871,7 +942,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  BaseType: 1
+  MinimapQuad: {fileID: 1970705690808564}
+  BaseType: 0
   TechLevelWhenBuilt: 1
   UnitSpawnTransform: {fileID: 1361838701262684}
   DepotSlots:
@@ -892,10 +964,9 @@ MonoBehaviour:
   ObjectName: 
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
-  PlayerID: 0
   Team: 0
-  FogOfWarRadius: 400
   _Player: {fileID: 0}
+  FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   BuildImage: {fileID: 0}
@@ -959,10 +1030,9 @@ MonoBehaviour:
   ObjectName: 
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
-  PlayerID: 0
   Team: 0
-  FogOfWarRadius: 400
   _Player: {fileID: 0}
+  FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   BuildImage: {fileID: 0}

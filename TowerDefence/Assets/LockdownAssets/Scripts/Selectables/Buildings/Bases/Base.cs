@@ -21,6 +21,12 @@ public class Base : Building {
 
     [Space]
     [Header("-----------------------------------")]
+    [Header(" MINIMAP PROPERTIES")]
+    [Space]
+    public GameObject MinimapQuad = null;
+
+    [Space]
+    [Header("-----------------------------------")]
     [Header(" BASE PROPERTIES")]
     [Space]
     public eBaseType BaseType;
@@ -38,11 +44,48 @@ public class Base : Building {
 
     public enum eBaseType { Outpost, Station, CommandCenter, Headquarters, Minibase }
 
+    protected Renderer _MinimapRenderer;
+
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
     //
     //******************************************************************************************************************************
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Called when this object is created.
+    /// </summary>
+    protected override void Start() {
+        base.Start();
+
+        // Get component references
+        if (MinimapQuad != null) { _MinimapRenderer = MinimapQuad.GetComponent<Renderer>(); }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Called each frame. 
+    /// </summary>
+    protected override void Update() {
+        base.Update();
+
+        // Change minimap colour based on attacking/defending & team colour
+        if (_MinimapRenderer != null) {
+
+            // Attacking team colour
+            if (Team == GameManager.Team.Attacking) { _MinimapRenderer.material.color = Color.red; }
+            
+            // Defending team
+            else if (Team == GameManager.Team.Defending) {
+
+                // Use individual player colour
+                if (_Player) { _MinimapRenderer.material.color = _Player.TeamColor; }
+            }
+        }
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

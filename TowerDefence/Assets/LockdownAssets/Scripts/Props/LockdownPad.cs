@@ -7,11 +7,11 @@ using UnityEngine;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 14/7/2018
+//  Last edited on: 19/7/2018
 //
 //******************************
 
-public class Core : Building {
+public class LockdownPad : MonoBehaviour {
 
     //******************************************************************************************************************************
     //
@@ -27,11 +27,9 @@ public class Core : Building {
 
     [Space]
     [Header("-----------------------------------")]
-    [Header(" SPIRES")]
+    [Header(" LOCKDOWNPAD PROPERTIES")]
     [Space]
-    public Spire SpireA;
-    public Spire SpireB;
-    public Spire SpireC;
+    public BuildingSlot BuildingSlotAttached = null;
 
     //******************************************************************************************************************************
     //
@@ -52,49 +50,15 @@ public class Core : Building {
     /// <summary>
     //  Called when this object is created.
     /// </summary>
-    protected override void Start() {
-        base.Start();
+    private void Start() {
 
         // Get component references
         if (MinimapQuad != null) { _MinimapRenderer = MinimapQuad.GetComponent<Renderer>(); }
 
-        // Set minimap icon colour to blue
-        if (_MinimapRenderer != null) { _MinimapRenderer.material.color = Color.blue; }
+        // Set minimap icon colour to red
+        if (_MinimapRenderer != null) { _MinimapRenderer.material.color = Color.red; }
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  Called each frame. 
-    /// </summary>
-    protected override void Update() {
-        base.Update();
-        
-        // object is active in the world
-        if (_ObjectState == WorldObjectStates.Active && IsAlive()) {
-
-            // Show the healthbar
-            if (_HealthBar != null) { _HealthBar.gameObject.SetActive(true); }
-
-            // Create a healthbar if the unit doesn't have one linked to it
-            else {
-
-                GameObject healthBarObj = ObjectPooling.Spawn(GameManager.Instance.UnitHealthBar.gameObject);
-                _HealthBar = healthBarObj.GetComponent<UnitHealthBar>();
-                _HealthBar.setObjectAttached(this);
-                healthBarObj.gameObject.SetActive(true);
-                healthBarObj.transform.SetParent(GameManager.Instance.WorldSpaceCanvas.gameObject.transform, false);
-
-                if (_Player == null) {
-
-                    Player plyr = GameManager.Instance.Players[0];
-                    _HealthBar.setCameraAttached(plyr.PlayerCamera);
-                }
-                else { _HealthBar.setCameraAttached(_Player.PlayerCamera); }
-            }
-        }
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 }

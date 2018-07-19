@@ -553,7 +553,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1760803257945720}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 6.7, z: 0}
+  m_LocalPosition: {x: 0, y: 30, z: 0}
   m_LocalScale: {x: 100, y: 100, z: 1}
   m_Children: []
   m_Father: {fileID: 4534511183435856}
@@ -1215,7 +1215,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 0cb137f17a86c1848920db05fe301278, type: 2}
+  - {fileID: 2100000, guid: bdc479ec8f60fbb42b3a64ec9ace2f44, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1657,10 +1657,9 @@ MonoBehaviour:
   ObjectName: 
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
-  PlayerID: 0
   Team: 0
-  FogOfWarRadius: 400
   _Player: {fileID: 0}
+  FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   BuildImage: {fileID: 0}
@@ -1678,6 +1677,12 @@ MonoBehaviour:
   MultiSelectable: 1
   _OffsetY: 0
   _ObjectState: 0
+  _WidgetHealthbarScaleX: 100
+  _WidgetHealthbarScaleY: 15
+  _WidgetHealthbarOffset: 15
+  _WidgetShieldbarScaleX: 100
+  _WidgetShieldbarScaleY: 15
+  _WidgetShieldbarOffset: 22
   OnlyAppearWhenAttachedToBase: 0
   AttachedBase: {fileID: 114286593509319122}
   LinkedSlots: []
@@ -1706,10 +1711,9 @@ MonoBehaviour:
   ObjectName: Empty Tower Slot
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
-  PlayerID: 0
   Team: 0
-  FogOfWarRadius: 400
   _Player: {fileID: 0}
+  FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   BuildImage: {fileID: 0}
@@ -1727,6 +1731,12 @@ MonoBehaviour:
   MultiSelectable: 0
   _OffsetY: 0
   _ObjectState: 0
+  _WidgetHealthbarScaleX: 100
+  _WidgetHealthbarScaleY: 15
+  _WidgetHealthbarOffset: 15
+  _WidgetShieldbarScaleX: 100
+  _WidgetShieldbarScaleY: 15
+  _WidgetShieldbarOffset: 22
   OnlyAppearWhenAttachedToBase: 0
   AttachedBase: {fileID: 114286593509319122}
   LinkedSlots: []
@@ -1755,10 +1765,9 @@ MonoBehaviour:
   ObjectName: 
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
-  PlayerID: 0
   Team: 0
-  FogOfWarRadius: 400
   _Player: {fileID: 0}
+  FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   BuildImage: {fileID: 0}
@@ -1776,6 +1785,12 @@ MonoBehaviour:
   MultiSelectable: 1
   _OffsetY: 0
   _ObjectState: 0
+  _WidgetHealthbarScaleX: 100
+  _WidgetHealthbarScaleY: 15
+  _WidgetHealthbarOffset: 15
+  _WidgetShieldbarScaleX: 100
+  _WidgetShieldbarScaleY: 15
+  _WidgetShieldbarOffset: 22
   OnlyAppearWhenAttachedToBase: 0
   AttachedBase: {fileID: 114286593509319122}
   LinkedSlots: []
@@ -1802,12 +1817,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ObjectName: Headquarters
-  ObjectDescriptionShort: Central Base
+  ObjectDescriptionShort: Base
   ObjectDescriptionLong: 
-  PlayerID: 0
   Team: 0
-  FogOfWarRadius: 400
   _Player: {fileID: 0}
+  FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 1985043330116958}
   BuildImage: {fileID: 0}
@@ -1822,9 +1836,15 @@ MonoBehaviour:
   MaxShieldPoints: 0
   Garrisonable: 0
   MaxGarrisonPopulation: 0
-  MultiSelectable: 1
+  MultiSelectable: 0
   _OffsetY: 2.25
   _ObjectState: 0
+  _WidgetHealthbarScaleX: 300
+  _WidgetHealthbarScaleY: 20
+  _WidgetHealthbarOffset: 20
+  _WidgetShieldbarScaleX: 300
+  _WidgetShieldbarScaleY: 20
+  _WidgetShieldbarOffset: 30
   AttachedBuildingSlot: {fileID: 0}
   ObjectHeight: 30
   Selectables:
@@ -1838,6 +1858,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  MinimapQuad: {fileID: 1760803257945720}
   BaseType: 3
   TechLevelWhenBuilt: 3
   UnitSpawnTransform: {fileID: 1405552091420566}
@@ -1868,10 +1889,9 @@ MonoBehaviour:
   ObjectName: 
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
-  PlayerID: 0
   Team: 0
-  FogOfWarRadius: 400
   _Player: {fileID: 0}
+  FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   BuildImage: {fileID: 0}
@@ -1889,6 +1909,12 @@ MonoBehaviour:
   MultiSelectable: 1
   _OffsetY: 0
   _ObjectState: 0
+  _WidgetHealthbarScaleX: 100
+  _WidgetHealthbarScaleY: 15
+  _WidgetHealthbarOffset: 15
+  _WidgetShieldbarScaleX: 100
+  _WidgetShieldbarScaleY: 15
+  _WidgetShieldbarOffset: 22
   OnlyAppearWhenAttachedToBase: 0
   AttachedBase: {fileID: 0}
   LinkedSlots: []
@@ -1917,10 +1943,9 @@ MonoBehaviour:
   ObjectName: 
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
-  PlayerID: 0
   Team: 0
-  FogOfWarRadius: 400
   _Player: {fileID: 0}
+  FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   BuildImage: {fileID: 0}
@@ -1938,6 +1963,12 @@ MonoBehaviour:
   MultiSelectable: 1
   _OffsetY: 0
   _ObjectState: 0
+  _WidgetHealthbarScaleX: 100
+  _WidgetHealthbarScaleY: 15
+  _WidgetHealthbarOffset: 15
+  _WidgetShieldbarScaleX: 100
+  _WidgetShieldbarScaleY: 15
+  _WidgetShieldbarOffset: 22
   OnlyAppearWhenAttachedToBase: 0
   AttachedBase: {fileID: 114286593509319122}
   LinkedSlots: []
@@ -1966,10 +1997,9 @@ MonoBehaviour:
   ObjectName: Empty Building Slot
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
-  PlayerID: 0
   Team: 0
-  FogOfWarRadius: 400
   _Player: {fileID: 0}
+  FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   BuildImage: {fileID: 0}
@@ -1987,6 +2017,12 @@ MonoBehaviour:
   MultiSelectable: 0
   _OffsetY: 0
   _ObjectState: 0
+  _WidgetHealthbarScaleX: 100
+  _WidgetHealthbarScaleY: 15
+  _WidgetHealthbarOffset: 15
+  _WidgetShieldbarScaleX: 100
+  _WidgetShieldbarScaleY: 15
+  _WidgetShieldbarOffset: 22
   OnlyAppearWhenAttachedToBase: 0
   AttachedBase: {fileID: 114286593509319122}
   LinkedSlots: []
@@ -2015,10 +2051,9 @@ MonoBehaviour:
   ObjectName: 
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
-  PlayerID: 0
   Team: 0
-  FogOfWarRadius: 400
   _Player: {fileID: 0}
+  FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   BuildImage: {fileID: 0}
@@ -2036,6 +2071,12 @@ MonoBehaviour:
   MultiSelectable: 1
   _OffsetY: 0
   _ObjectState: 0
+  _WidgetHealthbarScaleX: 100
+  _WidgetHealthbarScaleY: 15
+  _WidgetHealthbarOffset: 15
+  _WidgetShieldbarScaleX: 100
+  _WidgetShieldbarScaleY: 15
+  _WidgetShieldbarOffset: 22
   OnlyAppearWhenAttachedToBase: 0
   AttachedBase: {fileID: 114286593509319122}
   LinkedSlots: []
@@ -2064,10 +2105,9 @@ MonoBehaviour:
   ObjectName: Empty Building Slot
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
-  PlayerID: 0
   Team: 0
-  FogOfWarRadius: 400
   _Player: {fileID: 0}
+  FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   BuildImage: {fileID: 0}
@@ -2085,6 +2125,12 @@ MonoBehaviour:
   MultiSelectable: 0
   _OffsetY: 0
   _ObjectState: 0
+  _WidgetHealthbarScaleX: 100
+  _WidgetHealthbarScaleY: 15
+  _WidgetHealthbarOffset: 15
+  _WidgetShieldbarScaleX: 100
+  _WidgetShieldbarScaleY: 15
+  _WidgetShieldbarOffset: 22
   OnlyAppearWhenAttachedToBase: 0
   AttachedBase: {fileID: 114286593509319122}
   LinkedSlots: []
@@ -2113,10 +2159,9 @@ MonoBehaviour:
   ObjectName: 
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
-  PlayerID: 0
   Team: 0
-  FogOfWarRadius: 400
   _Player: {fileID: 0}
+  FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   BuildImage: {fileID: 0}
@@ -2134,6 +2179,12 @@ MonoBehaviour:
   MultiSelectable: 1
   _OffsetY: 0
   _ObjectState: 0
+  _WidgetHealthbarScaleX: 100
+  _WidgetHealthbarScaleY: 15
+  _WidgetHealthbarOffset: 15
+  _WidgetShieldbarScaleX: 100
+  _WidgetShieldbarScaleY: 15
+  _WidgetShieldbarOffset: 22
   OnlyAppearWhenAttachedToBase: 0
   AttachedBase: {fileID: 114286593509319122}
   LinkedSlots: []
@@ -2162,10 +2213,9 @@ MonoBehaviour:
   ObjectName: 
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
-  PlayerID: 0
   Team: 0
-  FogOfWarRadius: 400
   _Player: {fileID: 0}
+  FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   BuildImage: {fileID: 0}
@@ -2183,6 +2233,12 @@ MonoBehaviour:
   MultiSelectable: 1
   _OffsetY: 0
   _ObjectState: 0
+  _WidgetHealthbarScaleX: 100
+  _WidgetHealthbarScaleY: 15
+  _WidgetHealthbarOffset: 15
+  _WidgetShieldbarScaleX: 100
+  _WidgetShieldbarScaleY: 15
+  _WidgetShieldbarOffset: 22
   OnlyAppearWhenAttachedToBase: 0
   AttachedBase: {fileID: 0}
   LinkedSlots: []
@@ -2223,10 +2279,9 @@ MonoBehaviour:
   ObjectName: Empty Tower Slot
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
-  PlayerID: 0
   Team: 0
-  FogOfWarRadius: 400
   _Player: {fileID: 0}
+  FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   BuildImage: {fileID: 0}
@@ -2244,6 +2299,12 @@ MonoBehaviour:
   MultiSelectable: 0
   _OffsetY: 0
   _ObjectState: 0
+  _WidgetHealthbarScaleX: 100
+  _WidgetHealthbarScaleY: 15
+  _WidgetHealthbarOffset: 15
+  _WidgetShieldbarScaleX: 100
+  _WidgetShieldbarScaleY: 15
+  _WidgetShieldbarOffset: 22
   OnlyAppearWhenAttachedToBase: 0
   AttachedBase: {fileID: 114286593509319122}
   LinkedSlots: []

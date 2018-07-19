@@ -193,7 +193,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1685453589854508}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 45}
+  m_LocalPosition: {x: 0, y: 0, z: 30.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4934796254434924}
@@ -258,7 +258,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1520993553185550}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 6.7, z: -2.3}
+  m_LocalPosition: {x: 0, y: 30, z: -2.3}
   m_LocalScale: {x: 100, y: 100, z: 1}
   m_Children: []
   m_Father: {fileID: 4934796254434924}
@@ -339,7 +339,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 0cb137f17a86c1848920db05fe301278, type: 2}
+  - {fileID: 2100000, guid: bdc479ec8f60fbb42b3a64ec9ace2f44, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -818,8 +818,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ObjectName: Minibase
   ObjectDescriptionShort: Minibase
-  ObjectDescriptionLong: The outpost provides a means of economy expansion, with 3
-    availiable building slots that can be used to create unit depots or resource generators.
+  ObjectDescriptionLong: 
   Team: 0
   _Player: {fileID: 0}
   FogOfWarRadius: 400
@@ -859,6 +858,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  MinimapQuad: {fileID: 1520993553185550}
   BaseType: 4
   TechLevelWhenBuilt: 1
   UnitSpawnTransform: {fileID: 1685453589854508}

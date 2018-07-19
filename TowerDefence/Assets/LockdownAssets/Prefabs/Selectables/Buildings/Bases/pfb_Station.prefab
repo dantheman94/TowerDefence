@@ -504,7 +504,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1624225091313276}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 6.7, z: 0}
+  m_LocalPosition: {x: 0, y: 30, z: 0}
   m_LocalScale: {x: 100, y: 100, z: 1}
   m_Children: []
   m_Father: {fileID: 4106250607515488}
@@ -875,7 +875,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 0cb137f17a86c1848920db05fe301278, type: 2}
+  - {fileID: 2100000, guid: bdc479ec8f60fbb42b3a64ec9ace2f44, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1222,10 +1222,9 @@ MonoBehaviour:
   ObjectName: Empty Tower Slot
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
-  PlayerID: 0
-  Team: 0
-  FogOfWarRadius: 400
+  Team: 1
   _Player: {fileID: 0}
+  FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   BuildImage: {fileID: 0}
@@ -1277,10 +1276,9 @@ MonoBehaviour:
   ObjectName: Empty Building Slot
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
-  PlayerID: 0
-  Team: 0
-  FogOfWarRadius: 400
+  Team: 1
   _Player: {fileID: 0}
+  FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   BuildImage: {fileID: 0}
@@ -1332,10 +1330,9 @@ MonoBehaviour:
   ObjectName: Empty Building Slot
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
-  PlayerID: 0
-  Team: 0
-  FogOfWarRadius: 400
+  Team: 1
   _Player: {fileID: 0}
+  FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   BuildImage: {fileID: 0}
@@ -1399,10 +1396,9 @@ MonoBehaviour:
   ObjectName: Empty Tower Slot
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
-  PlayerID: 0
-  Team: 0
-  FogOfWarRadius: 400
+  Team: 1
   _Player: {fileID: 0}
+  FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   BuildImage: {fileID: 0}
@@ -1454,10 +1450,9 @@ MonoBehaviour:
   ObjectName: Empty Building Slot
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
-  PlayerID: 0
-  Team: 0
-  FogOfWarRadius: 400
+  Team: 1
   _Player: {fileID: 0}
+  FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   BuildImage: {fileID: 0}
@@ -1509,10 +1504,9 @@ MonoBehaviour:
   ObjectName: Empty Building Slot
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
-  PlayerID: 0
-  Team: 0
-  FogOfWarRadius: 400
+  Team: 1
   _Player: {fileID: 0}
+  FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   BuildImage: {fileID: 0}
@@ -1562,14 +1556,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ObjectName: Station
-  ObjectDescriptionShort: Base
+  ObjectDescriptionShort: Frontline Base
   ObjectDescriptionLong: The station provides a means of economy expansion, with 5
     availiable building slots that can be used to create unit depots or resource generators,
     as well as 2 tower slots for base defence.
-  PlayerID: 0
-  Team: 0
-  FogOfWarRadius: 400
+  Team: 1
   _Player: {fileID: 0}
+  FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 1741247373506224}
   BuildImage: {fileID: 0}
@@ -1586,13 +1579,13 @@ MonoBehaviour:
   MaxGarrisonPopulation: 0
   MultiSelectable: 0
   _OffsetY: 2.25
-  _ObjectState: 0
-  _WidgetHealthbarScaleX: 100
-  _WidgetHealthbarScaleY: 15
-  _WidgetHealthbarOffset: 15
-  _WidgetShieldbarScaleX: 100
-  _WidgetShieldbarScaleY: 15
-  _WidgetShieldbarOffset: 22
+  _ObjectState: 3
+  _WidgetHealthbarScaleX: 300
+  _WidgetHealthbarScaleY: 20
+  _WidgetHealthbarOffset: 20
+  _WidgetShieldbarScaleX: 300
+  _WidgetShieldbarScaleY: 20
+  _WidgetShieldbarOffset: 30
   AttachedBuildingSlot: {fileID: 0}
   ObjectHeight: 30
   Selectables:
@@ -1606,6 +1599,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  MinimapQuad: {fileID: 1624225091313276}
   BaseType: 1
   TechLevelWhenBuilt: 1
   UnitSpawnTransform: {fileID: 1238948345608684}
