@@ -22,6 +22,7 @@ public class Tower : Building {
     [Space]
     [Header("-----------------------------------")]
     [Header(" TOWER PROPERTIES")]
+    [Space]
     public ETowerType TowerType;
     public Weapon TowerWeapon = null;
 

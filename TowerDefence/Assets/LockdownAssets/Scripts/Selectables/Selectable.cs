@@ -10,7 +10,7 @@ using XInputDotNetPure;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 28/6/2018
+//  Last edited on: 19/7/2018
 //
 //******************************
 
@@ -26,8 +26,12 @@ public class Selectable : Abstraction {
     [Header("-----------------------------------")]
     [Header(" SELECTABLE PROPERTIES")]
     [Space]
-    public PlayerIndex PlayerID;
+    [Tooltip("The team associated with this object.")]
     public GameManager.Team Team;
+    [Tooltip("The controller/player reference attached to this object.")]
+    public Player _Player = null;
+    [Space]
+    [Tooltip("The radius of the Fog Of War sphere attached to this object.")]
     public float FogOfWarRadius = 400f;
 
     //******************************************************************************************************************************
@@ -37,7 +41,6 @@ public class Selectable : Abstraction {
     //******************************************************************************************************************************
 
     protected bool _IsCurrentlySelected;
-    public Player _Player = null;
     protected Bounds selectionBounds;
     protected bool _PlayerOwned = false;
     protected GameObject _SelectionObj = null;

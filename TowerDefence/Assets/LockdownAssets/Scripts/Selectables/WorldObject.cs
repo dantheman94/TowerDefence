@@ -24,7 +24,7 @@ public class WorldObject : Selectable {
     [Header(" WORLD OBJECT STATES")]
     [Space]
     [Tooltip("Reference to the gameobject that represents this object when its in its 'Building' state. " +
-            "NOTE:  Upgraded versions of the base object get this variable referenced at runtime and will overwrite this.")]
+            "\n\nNOTE:  Upgraded versions of the base object get this variable referenced at runtime and will overwrite this for you.")]
     public GameObject BuildingState;
     [Tooltip("Reference to the gameobject that represents this object when its in its 'active' state.")]
     public GameObject ActiveState;
@@ -57,19 +57,32 @@ public class WorldObject : Selectable {
     [Tooltip("Can this object be garrisoned by ground infantry units?")]
     public bool Garrisonable = false;
     [Tooltip("How much army population can this object hold? " +
-            "NOTE: Only valid if 'Garrisonable' is TRUE.")]
+            "\n\nNOTE: Only valid if 'Garrisonable' is TRUE.")]
     public int MaxGarrisonPopulation = 0;
     [Space]
+    [Tooltip("Can this object be selected at the same time as other world objects?")]
     public bool MultiSelectable = true;
+    [Tooltip("Uh just leave this variable empty for now. May be obsolete, but not yet... (IDK, Dan's fault :/)")]
     public float _OffsetY;
+    [Tooltip("The current game state of the object. " +
+        "\n\nDEFAULT = Any disabled objects that are going to be instantiated at runtime " +
+        "\n\nBUILDING = The object is active in the world, but is still being built. " +
+        "\n\nDEPLOYABLE = The object has been built but is locked/hidden in its building (IE: AI Units). " +
+        "\n\nACTIVE = The object is active/interactable within the game world.")]
     public WorldObjectStates _ObjectState = WorldObjectStates.Default;
     [Space]
+    [Tooltip("The 'width' of the RectTransform that represents the healthbar tied to this object.")]
     public float _WidgetHealthbarScaleX = 100f;
+    [Tooltip("The 'height' of the RectTransform that represents the healthbar tied to this object.")]
     public float _WidgetHealthbarScaleY = 15f;
+    [Tooltip("The 'Pos Y' of the RectTransform that represents the healthbar tied to this object.")]
     public float _WidgetHealthbarOffset = 15f;
     [Space]
+    [Tooltip("The 'width' of the RectTransform that represents the shieldbar tied to this object.")]
     public float _WidgetShieldbarScaleX = 100f;
+    [Tooltip("The 'height' of the RectTransform that represents the shieldbar tied to this object.")]
     public float _WidgetShieldbarScaleY = 15f;
+    [Tooltip("The 'Pos Y' of the RectTransform that represents the shieldbar tied to this object.")]
     public float _WidgetShieldbarOffset = 22f;
 
     //******************************************************************************************************************************

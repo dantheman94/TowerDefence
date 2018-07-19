@@ -23,8 +23,11 @@ public class Abstraction : MonoBehaviour {
     [Header("-----------------------------------")]
     [Header(" OBJECT PROPERTIES")]
     [Space]
+    [Tooltip("The name that shows in the selection wheel/menu for this object.")]
     public string ObjectName;
+    [Tooltip("The short description that shows in the selection wheel/menu for this object.")]
     public string ObjectDescriptionShort;
+    [Tooltip("The detailed description that shows in the selection wheel/menu for this object.")]
     public string ObjectDescriptionLong;
 
 }
