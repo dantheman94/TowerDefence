@@ -22,7 +22,7 @@ public class KeyboardInput : MonoBehaviour {
 
     private Player _PlayerAttached;
     private GamepadInput _GamepadInputManager = null;
-    public bool _IsPrimaryController { get; set; }
+    public bool IsPrimaryController { get; set; }
 
     private Vector3 _LookPoint;
     private Vector3 _CurrentVelocity = Vector3.zero;
@@ -49,7 +49,7 @@ public class KeyboardInput : MonoBehaviour {
         Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward * 1000, out hit);
         _LookPoint = hit.point;
 
-        _IsPrimaryController = false;
+        IsPrimaryController = false;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -62,16 +62,16 @@ public class KeyboardInput : MonoBehaviour {
         if (_PlayerAttached) {
 
             // Update primary controller
-            if (Input.anyKey) {
+            if (Input.anyKeyDown) {
 
                 // Disable gamepad / Enable keyboard
-                _IsPrimaryController = true;
-                if (_GamepadInputManager != null) { _GamepadInputManager._IsPrimaryController = false; }
+                IsPrimaryController = true;
+                if (_GamepadInputManager != null) { _GamepadInputManager.IsPrimaryController = false; }
             }
 
-            Debug.Log("KEYBOARD IS PRIMARY: " + _IsPrimaryController);
+            Debug.Log("KEYBOARD IS PRIMARY: " + IsPrimaryController);
 
-            if (_IsPrimaryController) {
+            if (IsPrimaryController) {
 
                 // Update camera
                 MoveCamera();

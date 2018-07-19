@@ -22,7 +22,7 @@ public class GamepadInput : MonoBehaviour {
 
     private Player _PlayerAttached;
     private KeyboardInput _KeyboardInputManager = null;
-    public bool _IsPrimaryController { get; set; }
+    public bool IsPrimaryController { get; set; }
 
     private Vector3 _LookPoint;
     private Vector3 _CurrentVelocity = Vector3.zero;
@@ -53,7 +53,7 @@ public class GamepadInput : MonoBehaviour {
         Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward * 1000, out hit);
         _LookPoint = hit.point;
 
-        _IsPrimaryController = false;
+        IsPrimaryController = false;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -69,15 +69,15 @@ public class GamepadInput : MonoBehaviour {
             if (GetAnyButton()) {
 
                 // Disable keyboard / Enable gamepad
-                _IsPrimaryController = true;
-                if (_KeyboardInputManager != null) { _KeyboardInputManager._IsPrimaryController = false; }
+                IsPrimaryController = true;
+                if (_KeyboardInputManager != null) { _KeyboardInputManager.IsPrimaryController = false; }
             }
             
             // Update gamepad states
             _PreviousGamepadState = _GamepadState;
             _GamepadState = GamePad.GetState(_PlayerAttached.Index);
             
-            Debug.Log("GAMEPAD IS PRIMARY: " + _IsPrimaryController);
+            Debug.Log("GAMEPAD IS PRIMARY: " + IsPrimaryController);
         }
     }
 
@@ -216,7 +216,9 @@ public class GamepadInput : MonoBehaviour {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    // XBOX ONE Shoulder / Bumper buttons
+    /*
+     *  XBOX Shoulder/bumper buttons
+     */
 
     /// Returns if the LEFT SHOULDER button was pressed then released in the last 2 frames
 
