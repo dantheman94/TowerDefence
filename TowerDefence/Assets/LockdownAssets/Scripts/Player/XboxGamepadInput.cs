@@ -188,6 +188,7 @@ public class XboxGamepadInput : MonoBehaviour {
                 movement.y += Settings.MovementSpeed;
                 CreateCenterPoint();
             }
+
             if (OnLeftThumbstickDown()) {
 
                 // Move backwards
@@ -615,7 +616,7 @@ public class XboxGamepadInput : MonoBehaviour {
     //  bool
     /// </returns>
     public Vector3 GetRightThumbstickInput() { return new Vector3(0, 90f - (Mathf.Atan2(_GamepadState.ThumbSticks.Right.Y, _GamepadState.ThumbSticks.Right.X)) * 180 / Mathf.PI, 0); }
-
+    
     /// <summary>
     //  Returns boolean value if the LEFT THUMBSTICK is moving down
     /// </summary>

@@ -115,6 +115,18 @@ public class Player : MonoBehaviour {
         MaxPopulation = GameManager.Instance.StartingMaxPopulation;
         SelectedWorldObjects = new List<Selectable>();
 
+        // Initialize controller
+        switch (_CurrentController) {
+
+            case InputController.Keyboard: { _KeyboardInputManager.IsPrimaryController = true; break; }
+
+            case InputController.PSGamepad: { break; }
+
+            case InputController.XboxGamepad: { _XboxGamepadInputManager.IsPrimaryController = true; break; }
+
+            default: break;
+        }
+
         // Create armies
         AiUnitObjects = new List<WorldObject>();
         Platoon1Objects = new List<WorldObject>();
@@ -128,17 +140,6 @@ public class Player : MonoBehaviour {
         Platoon9Objects = new List<WorldObject>();
         Platoon0Objects = new List<WorldObject>();
 
-        // Initialize controller
-        switch (_CurrentController) {
-
-            case InputController.Keyboard: { _KeyboardInputManager.IsPrimaryController = true; break; }
-
-            case InputController.PSGamepad: { break; }
-
-            case InputController.XboxGamepad: { _XboxGamepadInputManager.IsPrimaryController = true; break; }
-
-            default: break;
-        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

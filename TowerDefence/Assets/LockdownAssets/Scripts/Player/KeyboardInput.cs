@@ -310,6 +310,7 @@ public class KeyboardInput : MonoBehaviour {
                 movement.y += Settings.MovementSpeed;
                 CreateCenterPoint();
             }
+
             if (Input.GetKey(KeyCode.S) && (!Input.GetKey(KeyCode.LeftAlt))) {
 
                 // Move backwards
