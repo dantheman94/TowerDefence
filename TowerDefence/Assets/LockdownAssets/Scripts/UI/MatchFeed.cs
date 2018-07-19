@@ -21,6 +21,7 @@ public class MatchFeed : MonoBehaviour
     public int PosY = 15;
     public int VerticalOffset = 30;
     public int MessageOnScreenTime = 3;
+    public float FadeOutRate = 2f;
 
     //******************************************************************************************************************************
     //
@@ -82,7 +83,7 @@ public class MatchFeed : MonoBehaviour
                 _Messages[i]._TimeOnScreen = 0;
 
                 // Fade out
-                _Messages[i]._Text.color = Color.Lerp(_Messages[i]._Text.color, Color.clear, Time.deltaTime);
+                _Messages[i]._Text.color = Color.Lerp(_Messages[i]._Text.color, Color.clear, FadeOutRate * Time.deltaTime);
             }
         }
     }
