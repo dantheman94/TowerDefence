@@ -8,7 +8,7 @@ using UnityEngine.AI;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 4/7/2018
+//  Last edited on: 21/7/2018
 //
 //******************************
 
@@ -22,27 +22,32 @@ public class Unit : WorldObject {
 
     [Space]
     [Header("-----------------------------------")]
-    [Header(" UNIT PROPERTIES")]
+    [Header(" BASE UNIT PROPERTIES")]
     [Space]
-    public UnitType Type = UnitType.Undefined;
-    public float MovementSpeed = 10f;
+    public EUnitType UnitType = EUnitType.Undefined;
+    [Tooltip("The movement/walking speed of this unit." +
+            "\n\nNOTE: ONLY APPLIES TO GROUND INFANTRY, VEHICLES DO NOT USE THIS VALUE.")]
+    public float InfantryMovementSpeed = 10f;
     public bool CanBePlayerControlled = false;
+    [Tooltip("When this unit is killed, the speed in which it shrinks down until it is no longer visible " +
+            "before being sent back to the object pool.")]
     public float ShrinkSpeed = 0.1f;
 
     [Space]
     [Header("-----------------------------------")]
-    [Header(" SENSORY PROPERTIES")]
+    [Header(" UNIT SENSORY PROPERTIES")]
     [Space]
     public ConeCollider SightCone = null;
     public SphereCollider HearingSphere = null;
 
     [Space]
     [Header("-----------------------------------")]
-    [Header(" COMBAT PROPERTIES")]
+    [Header(" COMBAT/WEAPON PROPERTIES")]
     [Space]
-    public GameObject MuzzleLaunchPoint = null;
     public Weapon PrimaryWeapon = null;
     public Weapon SecondaryWeapon = null;
+    [Space]
+    public GameObject MuzzleLaunchPoint = null;
     public float AttackingRange = 100f;
     
     //******************************************************************************************************************************
@@ -51,7 +56,7 @@ public class Unit : WorldObject {
     //
     //******************************************************************************************************************************
 
-    public enum UnitType { Undefined, CoreMarine, AntiInfantryMarine, AntiVehicleMarine, CoreVehicle, AntiAirVehicle, MobileArtillery, BattleTank, CoreAirship, SupportShip, BattleAirship }
+    public enum EUnitType { Undefined, CoreMarine, AntiInfantryMarine, AntiVehicleMarine, CoreVehicle, AntiAirVehicle, MobileArtillery, BattleTank, CoreAirship, SupportShip, BattleAirship }
 
     protected NavMeshAgent _Agent = null;
     protected Squad _SquadAttached = null;
@@ -157,6 +162,7 @@ public class Unit : WorldObject {
             }
         }
 
+        // Is the unit currently being player controlled? (manually)
         if (CanBePlayerControlled && _IsCurrentlySelected) {
 
             // Flip the player/AI controlled states
@@ -343,7 +349,7 @@ public class Unit : WorldObject {
 
             // Set agent's new goto target
             _Agent.destination = seekTarget;
-            _Agent.speed = MovementSpeed;
+            _Agent.speed = InfantryMovementSpeed;
 
             // Show seeking waypoint
             if (_SeekWaypoint == null) { _SeekWaypoint = ObjectPooling.Spawn(GameManager.Instance.AgentSeekObject, Vector3.zero, Quaternion.identity); }

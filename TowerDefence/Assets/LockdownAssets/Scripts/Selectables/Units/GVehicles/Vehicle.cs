@@ -7,7 +7,7 @@ using UnityEngine;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 5/7/2018
+//  Last edited on: 21/7/2018
 //
 //******************************
 
@@ -21,18 +21,20 @@ public class Vehicle : Unit {
 
     [Space]
     [Header("-----------------------------------")]
-    [Header(" VEHICLE PROPERTIES")]
+    [Header(" BASE VEHICLE PROPERTIES")]
     [Space]
     public GameObject WeaponObject = null;
 
     [Space]
     [Header("-----------------------------------")]
-    [Header(" VEHICLE MOVEMENT")]
+    [Header(" BASE VEHICLE MOVEMENT")]
     [Space]
     public float Acceleration = 5f;
     public float Deceleration = 2f;
+    [Space]
     public float MaxSpeed = 20f;
     public float MaxReverseSpeed = -10f;
+    [Space]
     public float BaseRotationSpeed = 45f;
     public float WeaponRotationSpeed = 50f;
 

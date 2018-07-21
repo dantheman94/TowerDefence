@@ -34,7 +34,7 @@ public class UI_SelectedUnits : MonoBehaviour {
     
     private class UnitInfos {
 
-        public Unit.UnitType _UnitType;
+        public Unit.EUnitType _UnitType;
         public int _Amount;
         public Texture2D _Logo;
     }
@@ -109,7 +109,7 @@ public class UI_SelectedUnits : MonoBehaviour {
         for (int i = 0; i < _CurrentlySelected.Count; i++) {
 
             // As long as the WorldObject is a valid AI object
-            if (GetUnitType(_CurrentlySelected[i]) != Unit.UnitType.Undefined) {
+            if (GetUnitType(_CurrentlySelected[i]) != Unit.EUnitType.Undefined) {
 
                 // First unit type
                 if (_UnitInfos.Count == 0) {
@@ -164,18 +164,18 @@ public class UI_SelectedUnits : MonoBehaviour {
     /// <returns>
     //  Unit.UnitType
     /// </returns>
-    private Unit.UnitType GetUnitType(WorldObject worldObject) {
+    private Unit.EUnitType GetUnitType(WorldObject worldObject) {
 
         // If the object is a unit
         Unit unit = worldObject.GetComponent<Unit>();
-        if (unit != null) { return unit.Type; }
+        if (unit != null) { return unit.UnitType; }
         
         // If the object is a squad
         Squad squad = worldObject.GetComponent<Squad>();
-        if (squad != null) { return squad.SquadUnit.Type; }
+        if (squad != null) { return squad.SquadUnit.UnitType; }
 
         // The object isn't a valid AI type
-        return Unit.UnitType.Undefined;
+        return Unit.EUnitType.Undefined;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
