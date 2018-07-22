@@ -76,6 +76,8 @@ public class Vehicle : Unit {
     /// </summary>
     protected override void Start() {
         base.Start();
+
+        _Agent.speed = MaxSpeed;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -170,7 +172,6 @@ public class Vehicle : Unit {
         _Agent.autoRepath = true;
         _Agent.acceleration = Acceleration;
         _Agent.angularSpeed = BaseRotationSpeed;
-        _Agent.speed = MaxSpeed;
         _CurrentSpeed = Vector3.Project(_Agent.desiredVelocity, transform.forward).magnitude * Time.deltaTime;
     }
 
