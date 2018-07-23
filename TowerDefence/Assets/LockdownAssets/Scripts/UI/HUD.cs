@@ -26,6 +26,7 @@ public class HUD : MonoBehaviour {
     [Space]
     [Header(" HUD WRAPPERS")]
     public SelectionWheel SelectionWheel;
+    public SelectionWheel SelectionWindow;
     public GameObject AbilitiesWheel;
 
     [Space]
@@ -44,7 +45,7 @@ public class HUD : MonoBehaviour {
     //******************************************************************************************************************************
 
     private Player _Player;
-
+    private bool _IsSelectionWheel = false;
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
@@ -57,6 +58,11 @@ public class HUD : MonoBehaviour {
     //  Called when this object is created.
     /// </summary>
     private void Start() {
+
+        if(!_IsSelectionWheel)
+        {
+            SelectionWheel = SelectionWindow;
+        }
 
         // Get component references
         _Player = GetComponent<Player>();
