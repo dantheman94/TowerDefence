@@ -55,8 +55,6 @@ public class BuildingRecycle : WorldObject {
             if (_ToBeDestroyed) { Destroy(this.gameObject); }
         }
         else { Debug.Log("_BuildingToRecycle == null"); }
-        
-        ///buildingSlot.gameObject.SetActive(true);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

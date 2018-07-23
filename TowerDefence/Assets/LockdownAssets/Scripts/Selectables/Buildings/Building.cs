@@ -107,6 +107,9 @@ public class Building : WorldObject {
                 // Update list then display on screen
                 _Player._HUD.SelectionWheel.UpdateListWithBuildables(Selectables, AttachedBuildingSlot);
 
+                // Get reference to the recycle building option
+                _RecycleOption = Selectables[5].GetComponent<BuildingRecycle>();
+
                 // Show selection wheel
                 GameManager.Instance.SelectionWheel.SetActive(true);
             }
@@ -185,15 +188,26 @@ public class Building : WorldObject {
         foreach (var selectable in GameManager.Instance.Selectables) { selectable.SetIsSelected(false); }
 
         // Add resources back to player
-        Player player = GameManager.Instance.Players[0];
-        player.SuppliesCount += RecycleSupplies;
-        player.PowerCount += RecyclePower;
+        if (_Player != null) {
+
+            _Player.SuppliesCount += RecycleSupplies;
+            _Player.PowerCount += RecyclePower;
+        }
 
         // Destroy building
         if (_RecycleOption) {
 
-            Destroy(_RecycleOption.gameObject);
-            Destroy(AttachedBuildingSlot.GetBuildingOnSlot().gameObject);
+            ///Destroy(_RecycleOption.gameObject);
+
+            // Deselect self
+            SetIsSelected(false);
+
+            // Widgets
+            if (AttachedBuildingSlot.GetBuildingOnSlot()._HealthBar) { ObjectPooling.Despawn(AttachedBuildingSlot.GetBuildingOnSlot()._HealthBar.gameObject); }
+            if (AttachedBuildingSlot.GetBuildingOnSlot()._BuildingProgressCounter) { ObjectPooling.Despawn(AttachedBuildingSlot.GetBuildingOnSlot()._BuildingProgressCounter.gameObject); }
+
+            // Building
+            ObjectPooling.Despawn(AttachedBuildingSlot.GetBuildingOnSlot().gameObject);
         }
 
         // Make building slot available again

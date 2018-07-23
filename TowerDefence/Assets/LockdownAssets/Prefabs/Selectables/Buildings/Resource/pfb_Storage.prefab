@@ -129,10 +129,10 @@ GameObject:
   - component: {fileID: 4374697971807114}
   - component: {fileID: 114444213554777192}
   - component: {fileID: 208559904478039934}
-  - component: {fileID: 114410853488904738}
+  - component: {fileID: 114637804514872438}
   m_Layer: 0
   m_Name: pfb_Storage
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -156,8 +156,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1971759406509384}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -87.7, y: 392.8, z: -516.4}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -322.72113, y: 745.338, z: -7.8691125}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4436092475186056}
@@ -552,52 +552,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114410853488904738
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1971759406509384}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e98932530332ef947b712e4bdf1fcfff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObjectName: Storage
-  ObjectDescriptionShort: Stores additional resources.
-  ObjectDescriptionLong: Stores additional resources and can be upgraded to increase
-    power or supply storage.
-  PlayerID: 0
-  Team: 0
-  FogOfWarRadius: 400
-  _Player: {fileID: 0}
-  BuildingState: {fileID: 1086034803720758}
-  ActiveState: {fileID: 1480315705359228}
-  BuildImage: {fileID: 0}
-  BuildTime: 5
-  CostSupplies: 200
-  CostPower: 0
-  CostTechLevel: 1
-  CostPopulation: 0
-  RecycleSupplies: 0
-  RecyclePower: 0
-  MaxHitPoints: 100
-  MaxShieldPoints: 0
-  Garrisonable: 0
-  MaxGarrisonPopulation: 0
-  MultiSelectable: 1
-  _OffsetY: 2.25
-  _ObjectState: 0
-  AttachedBuildingSlot: {fileID: 0}
-  ObjectHeight: 15
-  Selectables: []
-  PowerStorageIncrease: 1500
-  SupplyStorageIncrease: 1500
-  UpgradedStorage: 0
-  PowerStorageIncreaseT2: 3000
-  SupplyStorageIncreaseT2: 3000
-  PowerStorageIncreaseT3: 6000
-  SupplyStorageIncreaseT3: 6000
 --- !u!114 &114444213554777192
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -610,6 +564,62 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TagArray: []
+--- !u!114 &114637804514872438
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1971759406509384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9089b019b227cc640a62e82d3e8a657a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectName: Storage Vault
+  ObjectDescriptionShort: Resource Storage
+  ObjectDescriptionLong: Increases max cap of both supply & power resources. Can be
+    upgraded for an increase in storage capacity.
+  Team: 0
+  _Player: {fileID: 0}
+  FogOfWarRadius: 400
+  BuildingState: {fileID: 1086034803720758}
+  ActiveState: {fileID: 1480315705359228}
+  BuildImage: {fileID: 0}
+  BuildTime: 5
+  CostSupplies: 500
+  CostPower: 500
+  CostTechLevel: 1
+  CostPopulation: 0
+  RecycleSupplies: 0
+  RecyclePower: 0
+  MaxHitPoints: 100
+  MaxShieldPoints: 0
+  Garrisonable: 0
+  MaxGarrisonPopulation: 0
+  MultiSelectable: 1
+  _OffsetY: 0
+  _ObjectState: 0
+  _WidgetHealthbarScaleX: 100
+  _WidgetHealthbarScaleY: 15
+  _WidgetHealthbarOffset: 15
+  _WidgetShieldbarScaleX: 100
+  _WidgetShieldbarScaleY: 15
+  _WidgetShieldbarOffset: 22
+  AttachedBuildingSlot: {fileID: 0}
+  ObjectHeight: 15
+  Selectables:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  StartingPowerStorageIncrease: 1500
+  StartingSupplyStorageIncrease: 1500
 --- !u!208 &208559904478039934
 NavMeshObstacle:
   m_ObjectHideFlags: 1

@@ -104,8 +104,7 @@ public class GameManager : MonoBehaviour {
     
     private int _LabratoryCount = 0;
     private bool _ManuallyControllingAUnit = false;
-
-
+    
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
@@ -118,10 +117,7 @@ public class GameManager : MonoBehaviour {
     //  This is called before Startup().
     /// </summary>
     private void Awake() {
-
-
-
-
+        
         // Initialize singleton
         if (Instance != null && Instance != this) {
 
