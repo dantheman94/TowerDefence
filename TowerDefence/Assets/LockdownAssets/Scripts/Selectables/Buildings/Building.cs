@@ -38,7 +38,7 @@ public class Building : WorldObject {
     //
     //******************************************************************************************************************************
 
-    protected BuildingRecycle _RecycleOption = null;
+    protected BuildingRecycle _RecycleOption;
     protected bool _IsBuildingSomething = false;
     protected WorldObject _ObjectBeingBuilt = null;
 
