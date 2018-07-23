@@ -291,6 +291,7 @@ public class WorldObject : Selectable {
             // Set object's properties
             _ClonedWorldObject.Team = plyr.Team;
             _ClonedWorldObject._IsCurrentlySelected = false;
+            _CurrentBuildTime = BuildTime;
         }
     }
 
