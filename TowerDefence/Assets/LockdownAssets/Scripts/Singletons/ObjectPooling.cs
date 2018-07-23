@@ -99,7 +99,7 @@ public static class ObjectPooling {
             }
 
             // Set object's transform
-            ///obj.transform.parent = _Parent.transform;
+            obj.transform.SetParent(_Parent.transform);
             obj.transform.position = position;
             obj.transform.rotation = rotation;
             obj.SetActive(true);
@@ -120,7 +120,7 @@ public static class ObjectPooling {
             if (_POOL_INACTIVE_OBJECTS.Count == 0) {
 
                 // There aren't any objects in the pool to use so create a new one
-                obj = GameObject.Instantiate(_GameObject);
+                obj = Object.Instantiate(_GameObject);
 
                 // Add a pool member component so we know what object pool this object belongs to
                 obj.AddComponent<PoolMember>().LinkedPool = this;
@@ -140,7 +140,7 @@ public static class ObjectPooling {
             }
 
             // Set object's transform
-            ///obj.transform.parent = _Parent.transform;
+            obj.transform.SetParent(_Parent.transform);
             obj.transform.position = position;
             obj.SetActive(true);
             return obj;
@@ -160,7 +160,7 @@ public static class ObjectPooling {
             if (_POOL_INACTIVE_OBJECTS.Count == 0) {
 
                 // There aren't any objects in the pool to use so create a new one
-                obj = GameObject.Instantiate(_GameObject);
+                obj = Object.Instantiate(_GameObject);
 
                 // Add a pool member component so we know what object pool this object belongs to
                 obj.AddComponent<PoolMember>().LinkedPool = this;
@@ -180,7 +180,7 @@ public static class ObjectPooling {
             }
 
             // Set object's transform
-            ///obj.transform.parent = _Parent.transform;
+            obj.transform.SetParent(_Parent.transform);
             obj.SetActive(true);
             return obj;
         }

@@ -3,6 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//******************************
+//
+//  Created by: Daniel Marton
+//
+//  Last edited by: Daniel Marton
+//  Last edited on: 23/7/2018
+//
+//******************************
+
 public class MatchFeed : MonoBehaviour
 {
 
@@ -85,6 +94,15 @@ public class MatchFeed : MonoBehaviour
                 // Fade out
                 _Messages[i]._Text.color = Color.Lerp(_Messages[i]._Text.color, Color.clear, FadeOutRate * Time.deltaTime);
             }
+
+            // Message has finished fade out
+            if (_Messages[i]._Text.color.a < 0.01f) {
+
+                // Destroy message object
+                MatchFeedObject feedObject = _Messages[i];
+                _Messages.RemoveAt(i);
+                
+            }
         }
     }
 
@@ -115,7 +133,7 @@ public class MatchFeed : MonoBehaviour
             txt.text = message.ToUpper();
             messageObj._Text = txt;
             messageObj._TimeOnScreen = MessageOnScreenTime;
-            obj.transform.parent = this.gameObject.transform;
+            obj.transform.SetParent(this.gameObject.transform);
             objrect.anchoredPosition = new Vector2(PosX, PosY);
             obj.SetActive(true);
             _Messages.Add(messageObj);

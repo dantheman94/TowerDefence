@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 114769102189157010}
   m_Layer: 0
   m_Name: pfb_MineField
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -395,10 +395,9 @@ MonoBehaviour:
   ObjectName: Mine Field
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
-  PlayerID: 0
   Team: 0
-  FogOfWarRadius: 400
   _Player: {fileID: 0}
+  FogOfWarRadius: 400
   BuildingState: {fileID: 1114594755359282}
   ActiveState: {fileID: 1708082212870266}
   BuildImage: {fileID: 0}
@@ -416,9 +415,25 @@ MonoBehaviour:
   MultiSelectable: 0
   _OffsetY: 2.25
   _ObjectState: 0
-  BuildingSlot: {fileID: 0}
+  _WidgetHealthbarScaleX: 100
+  _WidgetHealthbarScaleY: 15
+  _WidgetHealthbarOffset: 15
+  _WidgetShieldbarScaleX: 100
+  _WidgetShieldbarScaleY: 15
+  _WidgetShieldbarOffset: 22
+  AttachedBuildingSlot: {fileID: 0}
   ObjectHeight: 15
-  Selectables: []
+  Selectables:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   BarricadeType: 0
 --- !u!114 &114773154519821790
 MonoBehaviour:

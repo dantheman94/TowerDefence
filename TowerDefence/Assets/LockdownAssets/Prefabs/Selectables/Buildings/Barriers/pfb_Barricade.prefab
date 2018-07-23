@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 65242913527007678}
   - component: {fileID: 23115888533917420}
   m_Layer: 0
-  m_Name: GarrisonBarricade_Active
+  m_Name: Barricade_Active
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 65115094821982252}
   - component: {fileID: 23546781661237564}
   m_Layer: 0
-  m_Name: GarrisonBarricade_Building
+  m_Name: Barricade_Building
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,8 +76,8 @@ GameObject:
   - component: {fileID: 114545485044121834}
   - component: {fileID: 114520192560787352}
   m_Layer: 0
-  m_Name: pfb_GarrisonBarricade
-  m_TagString: Untagged
+  m_Name: pfb_Barricade
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -392,13 +392,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 491b4d2929791f0419ee61564b7363b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObjectName: Garrison Barricade
+  ObjectName: Barricade
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
-  PlayerID: 0
   Team: 0
-  FogOfWarRadius: 400
   _Player: {fileID: 0}
+  FogOfWarRadius: 400
   BuildingState: {fileID: 1372325392249030}
   ActiveState: {fileID: 1050043004154138}
   BuildImage: {fileID: 0}
@@ -416,9 +415,25 @@ MonoBehaviour:
   MultiSelectable: 0
   _OffsetY: 2.25
   _ObjectState: 0
-  BuildingSlot: {fileID: 0}
+  _WidgetHealthbarScaleX: 100
+  _WidgetHealthbarScaleY: 15
+  _WidgetHealthbarOffset: 15
+  _WidgetShieldbarScaleX: 100
+  _WidgetShieldbarScaleY: 15
+  _WidgetShieldbarOffset: 22
+  AttachedBuildingSlot: {fileID: 0}
   ObjectHeight: 15
-  Selectables: []
+  Selectables:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   BarricadeType: 1
 --- !u!114 &114545485044121834
 MonoBehaviour:

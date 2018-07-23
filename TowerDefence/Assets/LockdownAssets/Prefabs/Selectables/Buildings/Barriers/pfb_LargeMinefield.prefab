@@ -9,54 +9,19 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1474427594815508}
+  m_RootGameObject: {fileID: 1259862685359336}
   m_IsPrefabParent: 1
---- !u!1 &1347355967974238
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4048499386308750}
-  - component: {fileID: 33638726038232566}
-  - component: {fileID: 65730011317107286}
-  - component: {fileID: 23185521275748648}
-  m_Layer: 0
-  m_Name: HeavyBarricade_Active
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!1 &1474427594815508
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4189347698131452}
-  - component: {fileID: 114812055924973280}
-  - component: {fileID: 114799580935464800}
-  m_Layer: 0
-  m_Name: pfb_HeavyBarricade
-  m_TagString: Building
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!1 &1724886060387722
+--- !u!1 &1222103204982622
 GameObject:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4403453383348986}
-  - component: {fileID: 33648235971935620}
-  - component: {fileID: 65698194449737272}
-  - component: {fileID: 23990133609681732}
+  - component: {fileID: 4286586203546502}
+  - component: {fileID: 33721500949020344}
+  - component: {fileID: 65459304182407658}
+  - component: {fileID: 23162865096131714}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -64,53 +29,88 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4048499386308750
+--- !u!1 &1259862685359336
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4097481720716956}
+  - component: {fileID: 114663019025424310}
+  - component: {fileID: 114590633991280642}
+  m_Layer: 0
+  m_Name: pfb_LargeMinefield
+  m_TagString: Building
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!1 &1410691350010598
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4786737558751376}
+  - component: {fileID: 33063894326703536}
+  - component: {fileID: 65990063483732440}
+  - component: {fileID: 23130508366837988}
+  m_Layer: 0
+  m_Name: LargeMineField_Active
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &4097481720716956
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1347355967974238}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_GameObject: {fileID: 1259862685359336}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -38.88, y: 2.25, z: 49.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4403453383348986}
-  m_Father: {fileID: 4189347698131452}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4189347698131452
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1474427594815508}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -38.88, y: 1, z: 49.2}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 4048499386308750}
+  - {fileID: 4786737558751376}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4403453383348986
+--- !u!4 &4286586203546502
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1724886060387722}
+  m_GameObject: {fileID: 1222103204982622}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 60, y: 5, z: 10}
   m_Children: []
-  m_Father: {fileID: 4048499386308750}
+  m_Father: {fileID: 4786737558751376}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &23185521275748648
+--- !u!4 &4786737558751376
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1410691350010598}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4286586203546502}
+  m_Father: {fileID: 4097481720716956}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &23130508366837988
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1347355967974238}
+  m_GameObject: {fileID: 1410691350010598}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -139,12 +139,12 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!23 &23990133609681732
+--- !u!23 &23162865096131714
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1724886060387722}
+  m_GameObject: {fileID: 1222103204982622}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -153,7 +153,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: ddc0e3c96511cef428a11270ccc57f8f, type: 2}
+  - {fileID: 2100000, guid: 73a6985c8f8b9d34bb7c32121718d665, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -173,68 +173,68 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &33638726038232566
+--- !u!33 &33063894326703536
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1347355967974238}
+  m_GameObject: {fileID: 1410691350010598}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!33 &33648235971935620
+--- !u!33 &33721500949020344
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1724886060387722}
+  m_GameObject: {fileID: 1222103204982622}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &65698194449737272
+--- !u!65 &65459304182407658
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1724886060387722}
+  m_GameObject: {fileID: 1222103204982622}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65730011317107286
+--- !u!65 &65990063483732440
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1347355967974238}
+  m_GameObject: {fileID: 1410691350010598}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114799580935464800
+--- !u!114 &114590633991280642
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1474427594815508}
+  m_GameObject: {fileID: 1259862685359336}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc803cdba7dddcf4996452637cb94468, type: 3}
+  m_Script: {fileID: 11500000, guid: 7f012ebe200774145935ecc28804ae70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObjectName: Heavy Barricade
+  ObjectName: Mine Field
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
   Team: 0
   _Player: {fileID: 0}
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
-  ActiveState: {fileID: 1347355967974238}
+  ActiveState: {fileID: 1410691350010598}
   BuildImage: {fileID: 0}
-  BuildTime: 20
-  CostSupplies: 1000
-  CostPower: 0
-  CostTechLevel: 3
+  BuildTime: 10
+  CostSupplies: 200
+  CostPower: 100
+  CostTechLevel: 1
   CostPopulation: 0
   RecycleSupplies: 0
   RecyclePower: 0
@@ -264,13 +264,13 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  BarricadeType: 2
---- !u!114 &114812055924973280
+  BarricadeType: 0
+--- !u!114 &114663019025424310
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1474427594815508}
+  m_GameObject: {fileID: 1259862685359336}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1192c082b9a89274896490f5c4217b57, type: 3}
