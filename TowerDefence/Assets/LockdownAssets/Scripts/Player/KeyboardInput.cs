@@ -44,9 +44,7 @@ public class KeyboardInput : MonoBehaviour {
         _XboxGamepadInputManager = GetComponent<XboxGamepadInput>();
 
         // Initialize center point for LookAt() function
-        RaycastHit hit;
-        Physics.Raycast(_PlayerAttached.PlayerCamera.transform.position, _PlayerAttached.PlayerCamera.transform.forward * 1000, out hit);
-        _LookPoint = hit.point;
+        CreateCenterPoint();
 
         IsPrimaryController = false;
     }
@@ -486,6 +484,177 @@ public class KeyboardInput : MonoBehaviour {
             GameObject hitObject = _PlayerAttached._HUD.FindHitObject();
             Vector3 hitPoint = _PlayerAttached._HUD.FindHitPoint();
             if (hitObject && hitPoint != Settings.InvalidPosition) {
+
+                if (hitObject.tag != "Ground") {
+
+                    // Not holding LEFT CONTROL and LEFT SHIFT
+                    if (!Input.GetKey(KeyCode.LeftControl)) {
+
+                        if (!Input.GetKey(KeyCode.LeftShift)) {
+
+                            // Deselect any objects that are currently selected
+                            foreach (var obj in _PlayerAttached.SelectedWorldObjects) { obj.SetIsSelected(false); }
+                            _PlayerAttached.SelectedWorldObjects.Clear();
+
+                            if (_PlayerAttached.SelectedBuildingSlot != null) {
+
+                                _PlayerAttached.SelectedBuildingSlot.SetIsSelected(false);
+                                _PlayerAttached.SelectedBuildingSlot = null;
+                            }
+                        }
+                    }
+
+                    // Cast hit object to selectable objects
+                    Base baseObj = null;
+                    Building buildingObj = null;
+                    BuildingSlot buildingSlot = null;
+
+                    WorldObject worldObj = null;
+                    Squad squadObj = null;
+                    Unit unitObj = null;
+
+                    baseObj = hitObject.GetComponentInParent<Base>();
+                    buildingSlot = hitObject.GetComponent<BuildingSlot>();
+                    worldObj = hitObject.GetComponentInParent<WorldObject>();
+
+                    // Left clicking on something attached to a base
+                    if (baseObj != null) {
+
+                        buildingObj = hitObject.GetComponent<Building>();
+
+                        // Left clicking on a base
+                        if (buildingObj == null && buildingSlot == null) {
+
+                            // Add selection to list
+                            _PlayerAttached.SelectedWorldObjects.Add(baseObj);
+                            baseObj.SetPlayer(_PlayerAttached);
+                            baseObj.SetIsSelected(true);
+                            baseObj.OnSelectionWheel();
+                        }
+                    }
+
+                    /// (baseObj == null)
+                    else {
+
+                        buildingObj = hitObject.GetComponentInParent<Building>();
+
+                        // Left clicking on a building
+                        if (buildingObj != null) {
+
+                            if (baseObj == null && buildingSlot == null) {
+
+                                // Add selection to list
+                                _PlayerAttached.SelectedWorldObjects.Add(buildingObj);
+                                buildingObj.SetPlayer(_PlayerAttached);
+                                buildingObj.SetIsSelected(true);
+                                buildingObj.OnSelectionWheel();
+                            }
+                        }
+
+                        // Hit an AI object?
+                        squadObj = hitObject.GetComponent<Squad>();
+                        unitObj = hitObject.GetComponentInParent<Unit>();
+
+                        // Left clicking on a squad
+                        if (squadObj != null) {
+
+                            // Squad is active in the world
+                            if (squadObj.GetObjectState() == WorldObject.WorldObjectStates.Active) {
+
+                                // Add selection to list
+                                _PlayerAttached.SelectedWorldObjects.Add(squadObj);
+                                squadObj.SetPlayer(_PlayerAttached);
+                                squadObj.SetIsSelected(true);
+                            }
+                        }
+
+                        // Left clicking on a unit
+                        if (unitObj != null) {
+
+                            // Is the unit part of a squad?
+                            if (unitObj.IsInASquad()) {
+
+                                // Squad is active in the world
+                                if (squadObj.GetObjectState() == WorldObject.WorldObjectStates.Active) {
+
+                                    squadObj = unitObj.GetSquadAttached();
+
+                                    // Add selection to list
+                                    _PlayerAttached.SelectedWorldObjects.Add(squadObj);
+                                    squadObj.SetPlayer(_PlayerAttached);
+                                    squadObj.SetIsSelected(true);
+                                }
+                            }
+
+                            // Unit is NOT in a squad
+                            else {
+
+                                // Unit is active in the world
+                                if (unitObj.GetObjectState() == WorldObject.WorldObjectStates.Active) {
+
+                                    // Add selection to list
+                                    _PlayerAttached.SelectedWorldObjects.Add(unitObj);
+                                    unitObj.SetPlayer(_PlayerAttached);
+                                    unitObj.SetIsSelected(true);
+                                }
+                            }
+                        }
+
+                        // Left clicking on a world object
+                        if (worldObj != null) {
+
+                            // Add selection to list
+                            _PlayerAttached.SelectedWorldObjects.Add(worldObj);
+                            worldObj.SetPlayer(_PlayerAttached);
+                            worldObj.SetIsSelected(true);
+                        }
+                    }
+
+                    // Left clicking on a building slot
+                    if (buildingSlot != null) {
+
+                        // Empty building slot
+                        if (buildingSlot.GetBuildingOnSlot() == null) {
+
+                            _PlayerAttached.SelectedBuildingSlot = buildingSlot;
+                            buildingSlot.SetPlayer(_PlayerAttached);
+                            buildingSlot.SetIsSelected(true);
+                        }
+
+                        // Builded slot
+                        else {
+
+                            // Add selection to list
+                            _PlayerAttached.SelectedWorldObjects.Add(buildingSlot.GetBuildingOnSlot());
+                            buildingSlot.GetBuildingOnSlot().SetPlayer(_PlayerAttached);
+                            buildingSlot.GetBuildingOnSlot().SetIsSelected(true);
+                            buildingSlot.GetBuildingOnSlot().OnSelectionWheel();
+                        }
+                    }
+                }
+
+                // Just clicked on the ground so deselect all objects
+                else { _PlayerAttached.DeselectAllObjects(); }
+
+                // Update units selected panels
+                GameManager.Instance.SelectedUnitsHUD.NewSelection(_PlayerAttached.SelectedWorldObjects);
+            }
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    private void LeftMouseClickllllll() { 
+
+        if (_PlayerAttached._HUD.MouseInBounds() && !_PlayerAttached._HUD.WheelActive()) {
+
+            // Hit tracing from camera to point mouse
+            GameObject hitObject = _PlayerAttached._HUD.FindHitObject();
+            Vector3 hitPoint = _PlayerAttached._HUD.FindHitPoint();
+            if (hitObject && hitPoint != Settings.InvalidPosition) {
                 
                 if (hitObject.tag != "Ground") {
 
@@ -513,10 +682,10 @@ public class KeyboardInput : MonoBehaviour {
                     WorldObject worldObj = null;
                     Squad squadObj = null;
                     Unit unitObj = null;
-                                        
+
                     // The root transform would be the base transform if base is valid (which overwrites the selection wheel buildables)
                     if (baseObj != null) {
-                        
+
                         buildingObj = hitObject.GetComponent<Building>();
                         buildingSlot = hitObject.GetComponent<BuildingSlot>();
                         worldObj = hitObject.GetComponent<WorldObject>();
