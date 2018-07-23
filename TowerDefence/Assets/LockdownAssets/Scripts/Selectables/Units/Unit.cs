@@ -56,7 +56,7 @@ public class Unit : WorldObject {
     //
     //******************************************************************************************************************************
 
-    public enum EUnitType { Undefined, CoreMarine, AntiInfantryMarine, AntiVehicleMarine, CoreVehicle, AntiAirVehicle, MobileArtillery, BattleTank, CoreAirship, SupportShip, BattleAirship }
+    public enum EUnitType { Undefined, CoreMarine, AntiInfantryMarine, Hero, CoreVehicle, AntiAirVehicle, MobileArtillery, BattleTank, CoreAirship, SupportShip, HeavyAirship }
 
     protected NavMeshAgent _Agent = null;
     protected Squad _SquadAttached = null;

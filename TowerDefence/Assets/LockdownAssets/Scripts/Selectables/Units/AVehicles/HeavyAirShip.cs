@@ -11,6 +11,6 @@ using UnityEngine;
 //
 //******************************
 
-public class AntiAirVehicle : Vehicle {
-    
+public class HeavyAirShip : AirVehicle {
+
 }

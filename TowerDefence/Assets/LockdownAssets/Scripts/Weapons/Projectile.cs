@@ -35,14 +35,14 @@ public class Projectile : MonoBehaviour {
     public int DamageDefault = 1;
     public int DamageCoreInfantry = 1;
     public int DamageAntiInfantryMarine = 1;
-    public int DamageAntiVehicleMarine = 1;
+    public int DamageHero = 1;
     public int DamageCoreVehicle = 1;
     public int DamageAntiAirVehicle = 1;
     public int DamageMobileArtillery = 1;
     public int DamageBattleTank = 1;
     public int DamageCoreAirship = 1;
     public int DamageSupportShip = 1;
-    public int DamageBattleAirship = 1;
+    public int DamageHeavyAirship = 1;
 
     [Space]
     [Header("-----------------------------------")]
@@ -199,17 +199,17 @@ public class Projectile : MonoBehaviour {
                         // Damage based on unit type
                         switch (unitObj.UnitType) {
 
-                            case Unit.EUnitType.Undefined:           { unitObj.Damage(DamageDefault); break; }
-                            case Unit.EUnitType.CoreMarine:          { unitObj.Damage(DamageCoreInfantry); break; }
-                            case Unit.EUnitType.AntiInfantryMarine:  { unitObj.Damage(DamageAntiInfantryMarine); break; }
-                            case Unit.EUnitType.AntiVehicleMarine:   { unitObj.Damage(DamageAntiVehicleMarine); break; }
-                            case Unit.EUnitType.CoreVehicle:         { unitObj.Damage(DamageCoreVehicle); break; }
-                            case Unit.EUnitType.AntiAirVehicle:      { unitObj.Damage(DamageAntiAirVehicle); break; }
-                            case Unit.EUnitType.MobileArtillery:     { unitObj.Damage(DamageMobileArtillery); break; }
-                            case Unit.EUnitType.BattleTank:          { unitObj.Damage(DamageBattleTank); break; }
-                            case Unit.EUnitType.CoreAirship:         { unitObj.Damage(DamageCoreAirship); break; }
-                            case Unit.EUnitType.SupportShip:         { unitObj.Damage(DamageSupportShip); break; }
-                            case Unit.EUnitType.BattleAirship:       { unitObj.Damage(DamageBattleAirship); break; }
+                            case Unit.EUnitType.Undefined:          { unitObj.Damage(DamageDefault); break; }
+                            case Unit.EUnitType.CoreMarine:         { unitObj.Damage(DamageCoreInfantry); break; }
+                            case Unit.EUnitType.AntiInfantryMarine: { unitObj.Damage(DamageAntiInfantryMarine); break; }
+                            case Unit.EUnitType.Hero:               { unitObj.Damage(DamageHero); break; }
+                            case Unit.EUnitType.CoreVehicle:        { unitObj.Damage(DamageCoreVehicle); break; }
+                            case Unit.EUnitType.AntiAirVehicle:     { unitObj.Damage(DamageAntiAirVehicle); break; }
+                            case Unit.EUnitType.MobileArtillery:    { unitObj.Damage(DamageMobileArtillery); break; }
+                            case Unit.EUnitType.BattleTank:         { unitObj.Damage(DamageBattleTank); break; }
+                            case Unit.EUnitType.CoreAirship:        { unitObj.Damage(DamageCoreAirship); break; }
+                            case Unit.EUnitType.SupportShip:        { unitObj.Damage(DamageSupportShip); break; }
+                            case Unit.EUnitType.HeavyAirship:       { unitObj.Damage(DamageHeavyAirship); break; }
                             default: break;
                         }
                     }

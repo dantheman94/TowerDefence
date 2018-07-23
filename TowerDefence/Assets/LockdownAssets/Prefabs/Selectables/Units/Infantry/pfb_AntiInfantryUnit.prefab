@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33296296305423208}
   - component: {fileID: 136156600834734192}
   - component: {fileID: 23096789360204040}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,16 +38,31 @@ GameObject:
   m_Component:
   - component: {fileID: 4560889387648658}
   - component: {fileID: 114111503209636942}
-  - component: {fileID: 114981980623726518}
+  - component: {fileID: 114908419093975514}
   - component: {fileID: 54060824295473646}
   - component: {fileID: 195658404461530648}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: pfb_AntiInfantryUnit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!1 &1764022900238628
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4686371940784816}
+  m_Layer: 9
+  m_Name: MuzzleLaunchPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &4420390123666926
 Transform:
   m_ObjectHideFlags: 1
@@ -72,8 +87,22 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4420390123666926}
+  - {fileID: 4686371940784816}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4686371940784816
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1764022900238628}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 4, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4560889387648658}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23096789360204040
 MeshRenderer:
@@ -143,7 +172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TagArray: []
---- !u!114 &114981980623726518
+--- !u!114 &114908419093975514
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -151,43 +180,49 @@ MonoBehaviour:
   m_GameObject: {fileID: 1069939583836596}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a07a8774794f2845ad608feb1cfc343, type: 3}
+  m_Script: {fileID: 11500000, guid: 71b747d83ac9d1d4fa55a059b49577cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObjectName: Anti Infantry Squad
-  ObjectDescriptionShort: Anti Infantry
+  ObjectName: Anti Infantry Marine
+  ObjectDescriptionShort: Anti Infantry Specialist
   ObjectDescriptionLong: Specialized marine squad that deals an increased damage on
     opposing ground infantry units.
   Team: 0
+  _Player: {fileID: 0}
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 1014736554635206}
   BuildImage: {fileID: 0}
-  BuildTime: 0
+  BuildTime: 20
   CostSupplies: 0
   CostPower: 0
-  CostPlayerLevel: 1
+  CostTechLevel: 1
+  CostPopulation: 0
   RecycleSupplies: 0
   RecyclePower: 0
   MaxHitPoints: 100
   MaxShieldPoints: 0
-  MultiSelectable: 1
-  PopulationSize: 0
   Garrisonable: 0
   MaxGarrisonPopulation: 10
+  MultiSelectable: 1
   _OffsetY: 0
-  Type: 0
-  MovementSpeed: 20
-  SightRange: 200
-  HearingRange: 200
-  MuzzleLaunchPoint: {fileID: 0}
+  _ObjectState: 0
+  _WidgetHealthbarScaleX: 0
+  _WidgetHealthbarScaleY: 0
+  _WidgetHealthbarOffset: 0
+  _WidgetShieldbarScaleX: 0
+  _WidgetShieldbarScaleY: 0
+  _WidgetShieldbarOffset: 0
+  UnitType: 0
+  InfantryMovementSpeed: 10
+  CanBePlayerControlled: 0
+  ShrinkSpeed: 0.1
+  SightCone: {fileID: 0}
+  HearingSphere: {fileID: 0}
   PrimaryWeapon: {fileID: 0}
   SecondaryWeapon: {fileID: 0}
-  AttackingRange: 10
-  _IsSeeking: 0
-  _IsAttacking: 0
-  _DistanceToTarget: 0
-  _DistanceToSeek: 0
+  MuzzleLaunchPoint: {fileID: 1764022900238628}
+  AttackingRange: 30
 --- !u!136 &136156600834734192
 CapsuleCollider:
   m_ObjectHideFlags: 1
