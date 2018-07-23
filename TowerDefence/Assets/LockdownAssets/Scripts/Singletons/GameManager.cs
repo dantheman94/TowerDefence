@@ -53,6 +53,7 @@ public class GameManager : MonoBehaviour {
     public Canvas WorldSpaceCanvas;
     public Canvas ScreenSpaceCanvas;
     public UI_SelectedUnits SelectedUnitsHUD;
+    public bool _IsRadialMenu = false;
 
     [Space]
     [Header("-----------------------------------")]
@@ -103,7 +104,7 @@ public class GameManager : MonoBehaviour {
     
     private int _LabratoryCount = 0;
     private bool _ManuallyControllingAUnit = false;
-    private bool _IsRadialMenu = false;
+
 
     //******************************************************************************************************************************
     //
@@ -120,10 +121,6 @@ public class GameManager : MonoBehaviour {
 
 
 
-        if(!_IsRadialMenu)
-        {
-            SelectionWheel = selectionWindow;
-        }
 
         // Initialize singleton
         if (Instance != null && Instance != this) {
@@ -169,6 +166,12 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    private void Update() {
+
+        if (!_IsRadialMenu) {
+            SelectionWheel = selectionWindow;
+        }
+    }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>

@@ -45,7 +45,7 @@ public class HUD : MonoBehaviour {
     //******************************************************************************************************************************
 
     private Player _Player;
-    private bool _IsSelectionWheel = false;
+
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
@@ -59,10 +59,7 @@ public class HUD : MonoBehaviour {
     /// </summary>
     private void Start() {
 
-        if(!_IsSelectionWheel)
-        {
-            SelectionWheel = SelectionWindow;
-        }
+
 
         // Get component references
         _Player = GetComponent<Player>();
@@ -76,7 +73,10 @@ public class HUD : MonoBehaviour {
     //  Called each frame. 
     /// </summary>
     private void Update() {
-
+                if(!GameManager.Instance._IsRadialMenu)
+        {
+            SelectionWheel = SelectionWindow;
+        }
         UpdateTextComponents();
     }
 
