@@ -31,6 +31,8 @@ public class LeaderBoards : MonoBehaviour {
 
     LeaderBoardData  _CurrentData;
 
+    public static LeaderBoards Instance;
+
     public static string _ReadWritePath = Application.dataPath + "/LeaderBoardTest";
     public static string _FileExtention = ".txt";
 
@@ -47,6 +49,24 @@ public class LeaderBoards : MonoBehaviour {
     //******************************************************************************************************************************
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    ///  This is called before Startup().
+    /// </summary>
+    private void Awake()
+    {
+
+        // Initialize singleton
+        if (Instance != null && Instance != this)
+        {
+
+            Destroy(this.gameObject);
+            return;
+        }
+
+        Instance = this;
+    }
+
 
     /// <summary>
     /// Called when the gameObject is created.
