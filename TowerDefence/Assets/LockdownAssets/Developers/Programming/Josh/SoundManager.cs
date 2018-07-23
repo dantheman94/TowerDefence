@@ -7,7 +7,7 @@ using UnityEngine;
 //  Created by: Joshua Peake
 //
 //  Last edited by: Joshua Peake
-//  Last edited on: 
+//  Last edited on: 23/07/2018
 //
 //******************************
 
@@ -63,7 +63,7 @@ public class SoundManager : MonoBehaviour {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    // Called when the gameObject is created.
+    /// Called when the gameObject is created.
     /// </summary>
     private void Start () {
 
@@ -84,7 +84,7 @@ public class SoundManager : MonoBehaviour {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  Called each frame. 
+    ///  Called each frame. 
     /// </summary>
     private void Update () {
 
