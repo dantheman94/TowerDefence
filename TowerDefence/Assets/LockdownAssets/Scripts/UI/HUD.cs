@@ -73,10 +73,10 @@ public class HUD : MonoBehaviour {
     //  Called each frame. 
     /// </summary>
     private void Update() {
-                if(!GameManager.Instance._IsRadialMenu)
-        {
-            SelectionWheel = SelectionWindow;
-        }
+        
+        // Update menu type
+        if (!GameManager.Instance._IsRadialMenu) { SelectionWheel = SelectionWindow; }
+
         UpdateTextComponents();
     }
 

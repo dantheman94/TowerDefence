@@ -166,12 +166,17 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Called each frame. 
+    /// </summary>
     private void Update() {
 
-        if (!_IsRadialMenu) {
-            SelectionWheel = selectionWindow;
-        }
+        // Update menu type
+        if (!_IsRadialMenu) { SelectionWheel = selectionWindow; }
     }
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
