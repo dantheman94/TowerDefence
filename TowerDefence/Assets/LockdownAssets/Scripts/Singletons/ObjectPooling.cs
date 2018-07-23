@@ -59,9 +59,9 @@ public static class ObjectPooling {
             this._GameObject = obj;
             _POOL_INACTIVE_OBJECTS = new Stack<GameObject>(size);
 
-            ///_Parent = new GameObject("_POOL_" + obj.name);
-            ///_Parent.transform.position = Vector3.zero;
-            ///_Parent.transform.rotation = Quaternion.identity;
+            _Parent = new GameObject("_POOL_" + obj.name);
+            _Parent.transform.position = Vector3.zero;
+            _Parent.transform.rotation = Quaternion.identity;
         }
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
