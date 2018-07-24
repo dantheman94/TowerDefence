@@ -8,8 +8,8 @@ using XInputDotNetPure;
 //
 //  Created by: Daniel Marton
 //
-//  Last edited by: Daniel Marton
-//  Last edited on: 19/4/2018
+//  Last edited by: Angus Secomb
+//  Last edited on: 24/07/2018
 //
 //******************************
 
@@ -58,10 +58,10 @@ public class Player : MonoBehaviour {
     // Economy
     public int MaxPopulation { get; set; }
     public int PopulationCount { get; set; }
-    public int SuppliesCount { get; set; }
-    public int MaxSupplyCount { get; set; }
-    public int PowerCount { get; set; }
-    public int MaxPowerCount { get; set; }
+    public float SuppliesCount { get; set; }
+    public float MaxSupplyCount { get; set; }
+    public float PowerCount { get; set; }
+    public float MaxPowerCount { get; set; }
     public int Level { get; set; }
     private int Score = 0;
     private int WavesSurvived = 0;

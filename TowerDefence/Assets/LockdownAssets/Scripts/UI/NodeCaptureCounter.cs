@@ -3,6 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//******************************
+//
+//  Created by: Angus Secomb
+//
+//  Last edited by: Angus Secomb
+//  Last edited on: 24/07/2018
+//
+//******************************
+
 public class NodeCaptureCounter : MonoBehaviour
 {  
      //******************************************************************************************************************************
@@ -26,6 +35,8 @@ public class NodeCaptureCounter : MonoBehaviour
      private Camera _CameraAttached = null;
      private WorldObject _WorldObject = null;
      private Text _TextComponent;
+     private ResourceNode _ResourceNode = null;
+    
 
      //******************************************************************************************************************************
      //
@@ -43,6 +54,7 @@ public class NodeCaptureCounter : MonoBehaviour
 
          // Get component references
          _TextComponent = GetComponentInChildren<Text>();
+        
      }
 
      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -53,30 +65,22 @@ public class NodeCaptureCounter : MonoBehaviour
      private void Update()
      {
 
-         if (_WorldObject != null && _CameraAttached != null)
-         {
+        if (_WorldObject != null && _CameraAttached != null)
+        {
 
-             // Only show widget if the object is currently being built
-             if (_WorldObject.GetObjectState() == WorldObject.WorldObjectStates.Building)
-             {
+            if (_ResourceNode != null)
+            {
+                _TextComponent.text = _ResourceNode.GetCaptureProg().ToString() + "/" + _ResourceNode.GetCaptureMax().ToString();
+            }
 
-                 // Update text to show how much time is remaining in the build
-                 int time = (int)_WorldObject.GetCurrentBuildTimeRemaining();
-                 string healthString = time.ToString();
-                 _TextComponent.text = healthString;
+            // Set world space position
+            Vector3 pos = _WorldObject.transform.position + Offsetting;
+            pos.y = pos.y + _WorldObject.GetObjectHeight();
+            transform.position = pos;
 
-                 // Set world space position
-                 Vector3 pos = _WorldObject.transform.position + Offsetting;
-                 pos.y = pos.y + _WorldObject.GetObjectHeight();
-                 transform.position = pos;
-
-                 // Constantly face the widget towards the camera
-                 transform.LookAt(2 * transform.position - _CameraAttached.transform.position);
-             }
-
-             // Destroy prefab instance as we no longer need it anymore
-             else { ObjectPooling.Despawn(this.gameObject); }
-         }
+            // Constantly face the widget towards the camera
+            transform.LookAt(2 * transform.position - _CameraAttached.transform.position);
+        }
      }
 
      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -96,5 +100,6 @@ public class NodeCaptureCounter : MonoBehaviour
      public void setCameraAttached(Camera cam) { _CameraAttached = cam; }
 
      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+     
+    public void setResourceNode(ResourceNode obj) { _ResourceNode = obj; }
    }

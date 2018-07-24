@@ -7,7 +7,7 @@ using UnityEngine;
 //  Created by: Angus Secomb
 //
 //  Last edited by: Angus Secomb
-//  Last edited on: 23/07/2018
+//  Last edited on: 24/07/2018
 //
 //******************************
 
@@ -19,7 +19,11 @@ public class ResourceNode : WorldObject {
     //      INSPECTOR
     //
     //******************************************************************************************************************************
+
+    [Space]
+    [Header("-----------------------------------")]
     [Header("RESOURCE NODE PROPERTIES")]
+    [Space]
     public float CaptureTime = 30.0f;
     [Tooltip("How long it takes for the node to uncapture.")]
     public float CaptureDecreaseTime = 45.0f;
@@ -36,6 +40,8 @@ public class ResourceNode : WorldObject {
     
     [Tooltip("What type of resource this node generates.")]
     public ResourceType resourceType;
+
+    
     //******************************************************************************************************************************
     //
     //      VARIABLES
@@ -51,13 +57,14 @@ public class ResourceNode : WorldObject {
     private float _CaptureProgress = 0;
     private float _CaptureTickTimer = 0.0f;
     private float _CaptureDecreaseTimer = 0.0f;
-    
+    private NodeCaptureCounter _NodeWidget = null;
+
+    private bool _WidgetOn = false;
+
     public enum ResourceType { POWER, SUPPLY};
 
-    // Use this for initialization
-    void Start () {
-
-	}
+    public float GetCaptureMax() { return _CaptureProgressMax; }
+    public float GetCaptureProg() { return _CaptureProgress; }
 
     private void FixedUpdate()
     {
@@ -72,6 +79,20 @@ public class ResourceNode : WorldObject {
         {
             _Player = GameManager.Instance.Players[0];
         }
+
+        if(_Player && !_WidgetOn)
+        {
+            GameObject progressWidget = ObjectPooling.Spawn(GameManager.Instance.CaptureProgressPanel.gameObject);
+            _NodeWidget = progressWidget.GetComponent<NodeCaptureCounter>();
+            _NodeWidget.setObjectAttached(this);
+            _NodeWidget.setCameraAttached(_Player.PlayerCamera);
+            _NodeWidget.setResourceNode(this);
+            _NodeWidget.Offsetting.y += 15;
+            progressWidget.gameObject.SetActive(true);
+            progressWidget.transform.SetParent(GameManager.Instance.WorldSpaceCanvas.transform, false);
+            _WidgetOn = true;
+        }
+       
         CaptureProcess();
         GenerateResources();
         _ResourceMultiplier = (_CaptureProgress / _CaptureProgressMax);
@@ -103,6 +124,9 @@ public class ResourceNode : WorldObject {
         _IsCapturing = false;
     }
 
+    /// <summary>
+    /// Checks if the conditions to capture have been met.
+    /// </summary>
     private void CaptureProcess()
     {
      
@@ -156,6 +180,9 @@ public class ResourceNode : WorldObject {
         }
     }
 
+    /// <summary>
+    /// Generates resources if node is captured.
+    /// </summary>
     private void GenerateResources()
     {
         if(_IsCaptured)

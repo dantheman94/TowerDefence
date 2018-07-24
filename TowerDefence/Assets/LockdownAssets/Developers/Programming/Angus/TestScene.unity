@@ -10327,6 +10327,7 @@ MonoBehaviour:
   ConfirmRecycleScreen: {fileID: 1766352597}
   UnitHealthBar: {fileID: 1358827862}
   BuildingInProgressPanel: {fileID: 707028919}
+  CaptureProgressPanel: {fileID: 723507016}
   RecycleBuilding: {fileID: 995202218}
   ObjectSelected: {fileID: 375355537}
   AgentSeekObject: {fileID: 2068193300}
@@ -21104,7 +21105,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &707028920
 RectTransform:
   m_ObjectHideFlags: 0
@@ -21178,15 +21179,15 @@ GameObject:
   m_Component:
   - component: {fileID: 723507017}
   - component: {fileID: 723507020}
-  - component: {fileID: 723507019}
   - component: {fileID: 723507018}
+  - component: {fileID: 723507019}
   m_Layer: 0
   m_Name: CaptureCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &723507017
 RectTransform:
   m_ObjectHideFlags: 0
@@ -21204,7 +21205,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 30, y: 30}
+  m_SizeDelta: {x: 57, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &723507018
 MonoBehaviour:
@@ -22683,6 +22684,53 @@ Prefab:
     m_RemovedComponents:
     - {fileID: 65848397118616152, guid: 75c6871efea1dd349ab282a2820b3a22, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 75c6871efea1dd349ab282a2820b3a22, type: 2}
+  m_IsPrefabParent: 0
+--- !u!1001 &810100293
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1363693304}
+    m_Modifications:
+    - target: {fileID: 4969039654014948, guid: 24fec03c89550aa4681f9b0103b65208, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4969039654014948, guid: 24fec03c89550aa4681f9b0103b65208, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4969039654014948, guid: 24fec03c89550aa4681f9b0103b65208, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4969039654014948, guid: 24fec03c89550aa4681f9b0103b65208, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4969039654014948, guid: 24fec03c89550aa4681f9b0103b65208, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4969039654014948, guid: 24fec03c89550aa4681f9b0103b65208, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4969039654014948, guid: 24fec03c89550aa4681f9b0103b65208, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4969039654014948, guid: 24fec03c89550aa4681f9b0103b65208, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114868961069018584, guid: 24fec03c89550aa4681f9b0103b65208,
+        type: 2}
+      propertyPath: CanBePlayerControlled
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 24fec03c89550aa4681f9b0103b65208, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &811841076
 GameObject:
@@ -26345,6 +26393,39 @@ MonoBehaviour:
   LogoComponent: {fileID: 1510758672}
   UnitName: {fileID: 1972825416}
   AmountCounter: {fileID: 1531344899}
+--- !u!1 &1040625204 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1356756990133408, guid: 24fec03c89550aa4681f9b0103b65208,
+    type: 2}
+  m_PrefabInternal: {fileID: 810100293}
+--- !u!4 &1040625205 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4969039654014948, guid: 24fec03c89550aa4681f9b0103b65208,
+    type: 2}
+  m_PrefabInternal: {fileID: 810100293}
+--- !u!143 &1040625206
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1040625204}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Height: 8
+  m_Radius: 8
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 8, z: 0}
+--- !u!114 &1040625207 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114868961069018584, guid: 24fec03c89550aa4681f9b0103b65208,
+    type: 2}
+  m_PrefabInternal: {fileID: 810100293}
+  m_Script: {fileID: 11500000, guid: e49b9f8cbaa380f42a2456fd125b0dd9, type: 3}
 --- !u!1 &1042651155
 GameObject:
   m_ObjectHideFlags: 0
@@ -33375,6 +33456,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2120462454}
+  - {fileID: 1040625205}
   m_Father: {fileID: 1613305482}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -35035,7 +35117,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1781838139861076, guid: abf62d63c529d7847a0718f31722c686, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: abf62d63c529d7847a0718f31722c686, type: 2}
@@ -41076,6 +41158,11 @@ Prefab:
       propertyPath: CostTechLevel
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114951768522124020, guid: 7a49f022dbc88594ca3d350493ad7107,
+        type: 2}
+      propertyPath: Selectables.Array.data[2]
+      value: 
+      objectReference: {fileID: 1040625207}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7a49f022dbc88594ca3d350493ad7107, type: 2}
   m_IsPrefabParent: 0
@@ -48893,7 +48980,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 140.01, y: 54.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2053203241
 MonoBehaviour:
@@ -48941,7 +49028,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 0
-  m_Text: 99
+  m_Text: '0/100
+
+'
 --- !u!222 &2053203243
 CanvasRenderer:
   m_ObjectHideFlags: 0

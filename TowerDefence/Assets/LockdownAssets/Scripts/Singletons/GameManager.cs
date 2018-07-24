@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour {
     public GameObject ConfirmRecycleScreen;
     public GameObject UnitHealthBar;
     public GameObject BuildingInProgressPanel;
+    public GameObject CaptureProgressPanel;
     public GameObject RecycleBuilding;
     public GameObject ObjectSelected;
     public GameObject AgentSeekObject;
