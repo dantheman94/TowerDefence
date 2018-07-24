@@ -77,6 +77,7 @@ public class Vehicle : Unit {
     protected override void Start() {
         base.Start();
 
+        InfantryMovementSpeed = MaxSpeed;
         _Agent.speed = MaxSpeed;
     }
 
