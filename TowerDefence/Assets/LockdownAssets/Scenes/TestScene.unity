@@ -10002,7 +10002,6 @@ GameObject:
   m_Component:
   - component: {fileID: 289071609}
   - component: {fileID: 289071610}
-  - component: {fileID: 289071611}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -10049,6 +10048,7 @@ MonoBehaviour:
   ConfirmRecycleScreen: {fileID: 1766352597}
   UnitHealthBar: {fileID: 1358827862}
   BuildingInProgressPanel: {fileID: 707028919}
+  CaptureProgressPanel: {fileID: 0}
   RecycleBuilding: {fileID: 995202218}
   ObjectSelected: {fileID: 375355537}
   AgentSeekObject: {fileID: 2068193300}
@@ -10059,27 +10059,6 @@ MonoBehaviour:
   PreloadWorldObjects: []
   PreloadProjectiles: []
   PreloadParticles: []
---- !u!114 &289071611
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 289071608}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8cf9ef5805592b04b8342f3b6b73faec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  StartingDamageModifier: 0.75
-  StartingHealthModifier: 0.7
-  PerWaveIncrementDamage: 0.01
-  PerWaveIncrementHealth: 0.01
-  PerBossWaveIncrementDamage: 0.15
-  PerBossWaveIncrementHealth: 0.2
-  BossWaveInterval: 10
-  StartingWaveTimer: 5
-  TimeAddedPerWave: 5
-  Waves: []
 --- !u!1 &292506494
 GameObject:
   m_ObjectHideFlags: 0
@@ -16215,7 +16194,7 @@ MonoBehaviour:
   SelectionWheel: {fileID: 491941109}
 --- !u!114 &529621961 stripped
 MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114481798048649180, guid: c4a0f18ee5b21b74fbcb5adc9b905af4,
+  m_PrefabParentObject: {fileID: 114515141220818086, guid: 19f8332b5119bd04baf0d7fef3d90609,
     type: 2}
   m_PrefabInternal: {fileID: 1379095743}
   m_Script: {fileID: 11500000, guid: e49b9f8cbaa380f42a2456fd125b0dd9, type: 3}
@@ -19224,6 +19203,191 @@ RectTransform:
   m_AnchoredPosition: {x: 0.000061035156, y: 0.000061035156}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &652069555
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 652069556}
+  - component: {fileID: 652069557}
+  m_Layer: 0
+  m_Name: Wave Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &652069556
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 652069555}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1230626111}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &652069557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 652069555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cf9ef5805592b04b8342f3b6b73faec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StartingDamageModifier: 0.75
+  StartingHealthModifier: 0.7
+  PerWaveIncrementDamage: 0.01
+  PerWaveIncrementHealth: 0.01
+  PerBossWaveIncrementDamage: 0.15
+  PerBossWaveIncrementHealth: 0.2
+  WavesPerInterval: 10
+  StartingWaveTimer: 5
+  TimeAddedPerWave: 5
+  Waves:
+  - Name: Very Light Ground Infantry
+    Severity: 0
+    Type: 0
+    WaveIntervals:
+      MinimumWaveInterval: 1
+      MaximumWaveInterval: 5
+    BossWaveIntervals:
+      MinimumBossWaveInterval: 1
+      UnlimitedBossWaveIntervals: 0
+      MaximumBossWaveInterval: 1
+    Enemies:
+    - Name: Core Marine
+      EnemyReference: {fileID: 703422876}
+      PerSpawnInterval: 3
+      WaveMax: 6
+      CurrentLives: 0
+    - Name: Anti Infantry
+      EnemyReference: {fileID: 1884052757}
+      PerSpawnInterval: 1
+      WaveMax: 2
+      CurrentLives: 0
+  - Name: Very Light Ground Vehicles
+    Severity: 0
+    Type: 1
+    WaveIntervals:
+      MinimumWaveInterval: 1
+      MaximumWaveInterval: 5
+    BossWaveIntervals:
+      MinimumBossWaveInterval: 1
+      UnlimitedBossWaveIntervals: 0
+      MaximumBossWaveInterval: 1
+    Enemies:
+    - Name: Core Marine
+      EnemyReference: {fileID: 703422876}
+      PerSpawnInterval: 3
+      WaveMax: 9
+      CurrentLives: 0
+    - Name: Core Vehicle
+      EnemyReference: {fileID: 381351691}
+      PerSpawnInterval: 2
+      WaveMax: 2
+      CurrentLives: 0
+  - Name: Very Light Ground Mixed
+    Severity: 0
+    Type: 2
+    WaveIntervals:
+      MinimumWaveInterval: 5
+      MaximumWaveInterval: 9
+    BossWaveIntervals:
+      MinimumBossWaveInterval: 1
+      UnlimitedBossWaveIntervals: 0
+      MaximumBossWaveInterval: 1
+    Enemies:
+    - Name: Core Marine Squad
+      EnemyReference: {fileID: 703422876}
+      PerSpawnInterval: 3
+      WaveMax: 9
+      CurrentLives: 0
+    - Name: Core Vehicle
+      EnemyReference: {fileID: 381351691}
+      PerSpawnInterval: 1
+      WaveMax: 3
+      CurrentLives: 0
+    - Name: Anti Infantry Squad
+      EnemyReference: {fileID: 703422876}
+      PerSpawnInterval: 2
+      WaveMax: 4
+      CurrentLives: 0
+    - Name: Hero
+      EnemyReference: {fileID: 1504931953}
+      PerSpawnInterval: 1
+      WaveMax: 1
+      CurrentLives: 0
+  - Name: Very Light Air
+    Severity: 0
+    Type: 3
+    WaveIntervals:
+      MinimumWaveInterval: 5
+      MaximumWaveInterval: 9
+    BossWaveIntervals:
+      MinimumBossWaveInterval: 1
+      UnlimitedBossWaveIntervals: 0
+      MaximumBossWaveInterval: 1
+    Enemies:
+    - Name: Core Airship
+      EnemyReference: {fileID: 2120462457}
+      PerSpawnInterval: 3
+      WaveMax: 6
+      CurrentLives: 0
+    - Name: Support Airship
+      EnemyReference: {fileID: 529621961}
+      PerSpawnInterval: 1
+      WaveMax: 3
+      CurrentLives: 0
+  - Name: Very Light Mixed
+    Severity: 0
+    Type: 5
+    WaveIntervals:
+      MinimumWaveInterval: 5
+      MaximumWaveInterval: 9
+    BossWaveIntervals:
+      MinimumBossWaveInterval: 1
+      UnlimitedBossWaveIntervals: 0
+      MaximumBossWaveInterval: 1
+    Enemies:
+    - Name: Core Airship
+      EnemyReference: {fileID: 2120462457}
+      PerSpawnInterval: 1
+      WaveMax: 3
+      CurrentLives: 0
+    - Name: Support Airship
+      EnemyReference: {fileID: 529621961}
+      PerSpawnInterval: 1
+      WaveMax: 2
+      CurrentLives: 0
+    - Name: Core Marine
+      EnemyReference: {fileID: 703422876}
+      PerSpawnInterval: 2
+      WaveMax: 6
+      CurrentLives: 0
+    - Name: Anti-Infantry Marine
+      EnemyReference: {fileID: 1884052757}
+      PerSpawnInterval: 2
+      WaveMax: 4
+      CurrentLives: 0
+    - Name: Hero
+      EnemyReference: {fileID: 1504931953}
+      PerSpawnInterval: 1
+      WaveMax: 1
+      CurrentLives: 0
+    - Name: Core Vehicle
+      EnemyReference: {fileID: 381351691}
+      PerSpawnInterval: 1
+      WaveMax: 2
+      CurrentLives: 0
 --- !u!1001 &654060327
 Prefab:
   m_ObjectHideFlags: 0
@@ -22929,7 +23093,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &851452899
 RectTransform:
   m_ObjectHideFlags: 0
@@ -22964,7 +23128,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 851452898}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 754f5816d1a783b4bac83b65d88d86a1, type: 3}
   m_Name: 
@@ -23814,7 +23978,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd157585044747c4baf08d6aeae6562d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObjectName: Spawn Target
+  ObjectName: Rally Point
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
   Team: 0
@@ -26542,6 +26706,245 @@ Transform:
   m_PrefabParentObject: {fileID: 4719710095402518, guid: 75c6871efea1dd349ab282a2820b3a22,
     type: 2}
   m_PrefabInternal: {fileID: 2142510537}
+--- !u!1 &1079707122
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1079707123}
+  - component: {fileID: 1079707124}
+  m_Layer: 0
+  m_Name: Difficulty Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1079707123
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1079707122}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1230626111}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1079707124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1079707122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 166b989730c7ea84cafdc70ea26fb6f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentDifficulty: 1
+  NormalEnemyHealthModifier:
+    HealthCoreMarine: 0.8
+    HealthAntiInfantryMarine: 0.8
+    HealthHero: 0.8
+    HealthCoreVehicle: 0.8
+    HealthAntiAirVehicle: 0.8
+    HealthMobileArtillery: 0.8
+    HealthBattleTank: 0.8
+    HealthCoreAirship: 0.8
+    HealthSupportAirship: 0.8
+    HealthHeavyAirship: 0.8
+  NormalFriendlyHealthModifier:
+    HealthCoreMarine: 1.1
+    HealthAntiInfantryMarine: 1.1
+    HealthHero: 1.1
+    HealthCoreVehicle: 1.1
+    HealthAntiAirVehicle: 1.1
+    HealthMobileArtillery: 1.1
+    HealthBattleTank: 1.1
+    HealthCoreAirship: 1.1
+    HealthSupportAirship: 1.1
+    HealthHeavyAirship: 1.1
+  NormalEnemyFiringRateModifier:
+    FiringRateCoreMarine: 0.7
+    FiringRateAntiInfantryMarine: 0.7
+    FiringRateHero: 0.7
+    FiringRateCoreVehicle: 0.7
+    FiringRateAntiAirVehicle: 0.7
+    FiringRateMobileArtillery: 0.7
+    FiringRateBattleTank: 0.7
+    FiringRateCoreAirship: 0.7
+    FiringRateSupportAirship: 0.7
+    FiringRateHeavyAirship: 0.7
+  NormalFriendlyFiringRateModifier:
+    FiringRateCoreMarine: 1
+    FiringRateAntiInfantryMarine: 1
+    FiringRateHero: 1
+    FiringRateCoreVehicle: 1
+    FiringRateAntiAirVehicle: 1
+    FiringRateMobileArtillery: 1
+    FiringRateBattleTank: 1
+    FiringRateCoreAirship: 1
+    FiringRateSupportAirship: 1
+    FiringRateHeavyAirship: 1
+  NormalEnemyMovementSpeedModifier:
+    MovementSpeedCoreMarine: 0.8
+    MovementSpeedAntiInfantryMarine: 0.8
+    MovementSpeedHero: 0.8
+    MovementSpeedCoreVehicle: 0.8
+    MovementSpeedAntiAirVehicle: 0.8
+    MovementSpeedMobileArtillery: 0.8
+    MovementSpeedBattleTank: 0.8
+    MovementSpeedCoreAirship: 0.8
+    MovementSpeedSupportAirship: 0.8
+    MovementSpeedHeavyAirship: 0.8
+  NormalFriendlyMovementSpeedModifier:
+    MovementSpeedCoreMarine: 1
+    MovementSpeedAntiInfantryMarine: 1
+    MovementSpeedHero: 1
+    MovementSpeedCoreVehicle: 1
+    MovementSpeedAntiAirVehicle: 1
+    MovementSpeedMobileArtillery: 1
+    MovementSpeedBattleTank: 1
+    MovementSpeedCoreAirship: 1
+    MovementSpeedSupportAirship: 1
+    MovementSpeedHeavyAirship: 1
+  HardEnemyHealthModifier:
+    HealthCoreMarine: 1
+    HealthAntiInfantryMarine: 1
+    HealthHero: 1
+    HealthCoreVehicle: 1
+    HealthAntiAirVehicle: 1
+    HealthMobileArtillery: 1
+    HealthBattleTank: 1
+    HealthCoreAirship: 1
+    HealthSupportAirship: 1
+    HealthHeavyAirship: 1
+  HardFriendlyHealthModifier:
+    HealthCoreMarine: 1
+    HealthAntiInfantryMarine: 1
+    HealthHero: 1
+    HealthCoreVehicle: 1
+    HealthAntiAirVehicle: 1
+    HealthMobileArtillery: 1
+    HealthBattleTank: 1
+    HealthCoreAirship: 1
+    HealthSupportAirship: 1
+    HealthHeavyAirship: 1
+  HardEnemyFiringRateModifier:
+    FiringRateCoreMarine: 1
+    FiringRateAntiInfantryMarine: 1
+    FiringRateHero: 1
+    FiringRateCoreVehicle: 1
+    FiringRateAntiAirVehicle: 1
+    FiringRateMobileArtillery: 1
+    FiringRateBattleTank: 1
+    FiringRateCoreAirship: 1
+    FiringRateSupportAirship: 1
+    FiringRateHeavyAirship: 1
+  HardFriendlyFiringRateModifier:
+    FiringRateCoreMarine: 1
+    FiringRateAntiInfantryMarine: 1
+    FiringRateHero: 1
+    FiringRateCoreVehicle: 1
+    FiringRateAntiAirVehicle: 1
+    FiringRateMobileArtillery: 1
+    FiringRateBattleTank: 1
+    FiringRateCoreAirship: 1
+    FiringRateSupportAirship: 1
+    FiringRateHeavyAirship: 1
+  HardEnemyMovementSpeedModifier:
+    MovementSpeedCoreMarine: 1
+    MovementSpeedAntiInfantryMarine: 1
+    MovementSpeedHero: 1
+    MovementSpeedCoreVehicle: 1
+    MovementSpeedAntiAirVehicle: 1
+    MovementSpeedMobileArtillery: 1
+    MovementSpeedBattleTank: 1
+    MovementSpeedCoreAirship: 1
+    MovementSpeedSupportAirship: 1
+    MovementSpeedHeavyAirship: 1
+  HardFriendlyMovementSpeedModifier:
+    MovementSpeedCoreMarine: 1
+    MovementSpeedAntiInfantryMarine: 1
+    MovementSpeedHero: 1
+    MovementSpeedCoreVehicle: 1
+    MovementSpeedAntiAirVehicle: 1
+    MovementSpeedMobileArtillery: 1
+    MovementSpeedBattleTank: 1
+    MovementSpeedCoreAirship: 1
+    MovementSpeedSupportAirship: 1
+    MovementSpeedHeavyAirship: 1
+  ImpossibleEnemyHealthModifier:
+    HealthCoreMarine: 1.2
+    HealthAntiInfantryMarine: 1.2
+    HealthHero: 1.2
+    HealthCoreVehicle: 1.2
+    HealthAntiAirVehicle: 1.2
+    HealthMobileArtillery: 1.2
+    HealthBattleTank: 1.2
+    HealthCoreAirship: 1.2
+    HealthSupportAirship: 1.2
+    HealthHeavyAirship: 1.2
+  ImpossibleFriendlyHealthModifier:
+    HealthCoreMarine: 1
+    HealthAntiInfantryMarine: 1
+    HealthHero: 1
+    HealthCoreVehicle: 1
+    HealthAntiAirVehicle: 1
+    HealthMobileArtillery: 1
+    HealthBattleTank: 1
+    HealthCoreAirship: 1
+    HealthSupportAirship: 1
+    HealthHeavyAirship: 1
+  ImpossibleEnemyFiringRateModifier:
+    FiringRateCoreMarine: 1.3
+    FiringRateAntiInfantryMarine: 1.3
+    FiringRateHero: 1.3
+    FiringRateCoreVehicle: 1.3
+    FiringRateAntiAirVehicle: 1.3
+    FiringRateMobileArtillery: 1.3
+    FiringRateBattleTank: 1.3
+    FiringRateCoreAirship: 1.3
+    FiringRateSupportAirship: 1.3
+    FiringRateHeavyAirship: 1.3
+  ImpossibleFriendlyFiringRateModifier:
+    FiringRateCoreMarine: 1
+    FiringRateAntiInfantryMarine: 1
+    FiringRateHero: 1
+    FiringRateCoreVehicle: 1
+    FiringRateAntiAirVehicle: 1
+    FiringRateMobileArtillery: 1
+    FiringRateBattleTank: 1
+    FiringRateCoreAirship: 1
+    FiringRateSupportAirship: 1
+    FiringRateHeavyAirship: 1
+  ImpossibleEnemyMovementSpeedModifier:
+    MovementSpeedCoreMarine: 1.2
+    MovementSpeedAntiInfantryMarine: 1.2
+    MovementSpeedHero: 1.2
+    MovementSpeedCoreVehicle: 1.2
+    MovementSpeedAntiAirVehicle: 1.2
+    MovementSpeedMobileArtillery: 1.2
+    MovementSpeedBattleTank: 1.2
+    MovementSpeedCoreAirship: 1.2
+    MovementSpeedSupportAirship: 1.2
+    MovementSpeedHeavyAirship: 1.2
+  ImpossibleFriendlyMovementSpeedModifier:
+    MovementSpeedCoreMarine: 1
+    MovementSpeedAntiInfantryMarine: 1
+    MovementSpeedHero: 1
+    MovementSpeedCoreVehicle: 1
+    MovementSpeedAntiAirVehicle: 1
+    MovementSpeedMobileArtillery: 1
+    MovementSpeedBattleTank: 1
+    MovementSpeedCoreAirship: 1
+    MovementSpeedSupportAirship: 1
+    MovementSpeedHeavyAirship: 1
 --- !u!1 &1080396082
 GameObject:
   m_ObjectHideFlags: 0
@@ -30635,6 +31038,8 @@ Transform:
   m_Children:
   - {fileID: 1470912319}
   - {fileID: 289071609}
+  - {fileID: 1079707123}
+  - {fileID: 652069556}
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -31585,7 +31990,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1254425302490390, guid: d0fd06a41c853df418d8272e3993e24c, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224479398726319624, guid: d0fd06a41c853df418d8272e3993e24c,
         type: 2}
@@ -33579,53 +33984,48 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 1363693304}
     m_Modifications:
-    - target: {fileID: 4465727479051524, guid: c4a0f18ee5b21b74fbcb5adc9b905af4, type: 2}
+    - target: {fileID: 4989791077123618, guid: 19f8332b5119bd04baf0d7fef3d90609, type: 2}
       propertyPath: m_LocalPosition.x
       value: -92.4
       objectReference: {fileID: 0}
-    - target: {fileID: 4465727479051524, guid: c4a0f18ee5b21b74fbcb5adc9b905af4, type: 2}
+    - target: {fileID: 4989791077123618, guid: 19f8332b5119bd04baf0d7fef3d90609, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 6.2
+      value: 27.84
       objectReference: {fileID: 0}
-    - target: {fileID: 4465727479051524, guid: c4a0f18ee5b21b74fbcb5adc9b905af4, type: 2}
+    - target: {fileID: 4989791077123618, guid: 19f8332b5119bd04baf0d7fef3d90609, type: 2}
       propertyPath: m_LocalPosition.z
       value: -251.9
       objectReference: {fileID: 0}
-    - target: {fileID: 4465727479051524, guid: c4a0f18ee5b21b74fbcb5adc9b905af4, type: 2}
+    - target: {fileID: 4989791077123618, guid: 19f8332b5119bd04baf0d7fef3d90609, type: 2}
       propertyPath: m_LocalRotation.x
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 4465727479051524, guid: c4a0f18ee5b21b74fbcb5adc9b905af4, type: 2}
+    - target: {fileID: 4989791077123618, guid: 19f8332b5119bd04baf0d7fef3d90609, type: 2}
       propertyPath: m_LocalRotation.y
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 4465727479051524, guid: c4a0f18ee5b21b74fbcb5adc9b905af4, type: 2}
+    - target: {fileID: 4989791077123618, guid: 19f8332b5119bd04baf0d7fef3d90609, type: 2}
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 4465727479051524, guid: c4a0f18ee5b21b74fbcb5adc9b905af4, type: 2}
+    - target: {fileID: 4989791077123618, guid: 19f8332b5119bd04baf0d7fef3d90609, type: 2}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4465727479051524, guid: c4a0f18ee5b21b74fbcb5adc9b905af4, type: 2}
+    - target: {fileID: 4989791077123618, guid: 19f8332b5119bd04baf0d7fef3d90609, type: 2}
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1734302136085430, guid: c4a0f18ee5b21b74fbcb5adc9b905af4, type: 2}
+    - target: {fileID: 1337700393634558, guid: 19f8332b5119bd04baf0d7fef3d90609, type: 2}
       propertyPath: m_Name
       value: pfb_SupportAirShip
       objectReference: {fileID: 0}
-    - target: {fileID: 114481798048649180, guid: c4a0f18ee5b21b74fbcb5adc9b905af4,
-        type: 2}
-      propertyPath: ObjectDescriptionShort
-      value: Support/Healing Air Vehicle
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: c4a0f18ee5b21b74fbcb5adc9b905af4, type: 2}
+  m_ParentPrefab: {fileID: 100100000, guid: 19f8332b5119bd04baf0d7fef3d90609, type: 2}
   m_IsPrefabParent: 0
 --- !u!4 &1379095744 stripped
 Transform:
-  m_PrefabParentObject: {fileID: 4465727479051524, guid: c4a0f18ee5b21b74fbcb5adc9b905af4,
+  m_PrefabParentObject: {fileID: 4989791077123618, guid: 19f8332b5119bd04baf0d7fef3d90609,
     type: 2}
   m_PrefabInternal: {fileID: 1379095743}
 --- !u!1 &1384077117
@@ -34513,7 +34913,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1405843646
 Transform:
   m_ObjectHideFlags: 0

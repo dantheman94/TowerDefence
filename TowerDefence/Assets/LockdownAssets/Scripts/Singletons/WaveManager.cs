@@ -32,7 +32,8 @@ public class WaveManager : MonoBehaviour {
     public float PerBossWaveIncrementDamage = 0.15f;
     public float PerBossWaveIncrementHealth = 0.2f;
     [Space]
-    public int BossWaveInterval = 10;
+    [Range(1, 10)]
+    public int WavesPerInterval = 10;
     [Space]
     public int StartingWaveTimer = 30;
     public int TimeAddedPerWave = 5;
@@ -58,6 +59,8 @@ public class WaveManager : MonoBehaviour {
         public string Name;
         public WaveSeverity Severity;
         public WaveType Type;
+        public WaveInterval WaveIntervals;
+        public BossWaveInterval BossWaveIntervals;
         [Space]
         public List<WaveEnemyInfo> Enemies;
     }
@@ -67,10 +70,29 @@ public class WaveManager : MonoBehaviour {
 
         public string Name;
         public WorldObject EnemyReference;
-        public int PerSpawn;
+        public int PerSpawnInterval;
         public int WaveMax;
         [HideInInspector]
         public int CurrentLives;
+    }
+
+    [System.Serializable]
+    public class WaveInterval {
+
+        [Range(1, 9)]
+        public int MinimumWaveInterval = 1;
+        [Range(2, 9)]
+        public int MaximumWaveInterval = 10;
+    }
+
+    [System.Serializable]
+    public class BossWaveInterval {
+
+        [Range(1, 10)]
+        public int MinimumBossWaveInterval = 1;
+        public bool UnlimitedBossWaveIntervals = true;
+        [Range(1, 100)]
+        public int MaximumBossWaveInterval = 1;
     }
 
     public static WaveManager Instance;
@@ -202,7 +224,7 @@ public class WaveManager : MonoBehaviour {
         _WaveInterval++;
 
         // Check if current interval is boss wave
-        if (_WaveInterval == BossWaveInterval) { _BossWave = true; }
+        if (_WaveInterval == WavesPerInterval) { _BossWave = true; }
         else { _BossWave = false; }
         
         // Determine wave type based off the (boss|wave) intervals
