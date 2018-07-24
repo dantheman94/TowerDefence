@@ -38,23 +38,27 @@ public class GameManager : MonoBehaviour {
 
     [Space]
     [Header("-----------------------------------")]
-    [Header(" HUD")]
+    [Header(" HEADS UP DISPLAY")]
     [Space]
     public GameObject HUDWrapper;
+    public Canvas WorldSpaceCanvas;
+    public Canvas ScreenSpaceCanvas;
+    [Space]
+    public bool _IsRadialMenu = false;
     public GameObject SelectionWheel;
     public GameObject selectionWindow;
-    public GameObject AbilityWheel;
     public GameObject ConfirmRecycleScreen;
+    public GameObject AbilityWheel;
+    [Space]
     public GameObject UnitHealthBar;
     public GameObject BuildingInProgressPanel;
     public GameObject CaptureProgressPanel;
+    [Space]
     public GameObject RecycleBuilding;
     public GameObject ObjectSelected;
     public GameObject AgentSeekObject;
-    public Canvas WorldSpaceCanvas;
-    public Canvas ScreenSpaceCanvas;
+    [Space]
     public UI_SelectedUnits SelectedUnitsHUD;
-    public bool _IsRadialMenu = false;
 
     [Space]
     [Header("-----------------------------------")]
