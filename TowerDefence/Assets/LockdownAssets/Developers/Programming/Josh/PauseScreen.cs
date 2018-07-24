@@ -72,7 +72,7 @@ public class PauseScreen : MonoBehaviour {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    /// Called when the gameObject is created.
+    ///  Called each frame. 
     /// </summary>
     void Update () {
 
