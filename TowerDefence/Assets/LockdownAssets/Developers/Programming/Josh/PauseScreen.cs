@@ -22,6 +22,18 @@ public class PauseScreen : MonoBehaviour {
     bool _PauseScreenEnabled = false;
     public static GameManager _GameManager;
 
+    enum MenuState
+    {
+        Paused,
+        Unpaused,
+
+        Audio,
+        Video,
+        Game
+    }
+
+    MenuState _MenuState;
+
     //******************************************************************************************************************************
     //
     //      INSPECTOR
@@ -31,6 +43,15 @@ public class PauseScreen : MonoBehaviour {
     [SerializeField]
     [Tooltip("The canvas used for the Pause screen.")]
     public Canvas PauseScreenCanvas;
+    [SerializeField]
+    [Tooltip("The canvas used for the Audio menu of the Pause screen.")]
+    public Canvas AudioMenuCanvas;
+    [SerializeField]
+    [Tooltip("The canvas used for the Video menu of the Pause screen.")]
+    public Canvas VideoMenuCanvas;
+    [SerializeField]
+    [Tooltip("The canvas used for the Game menu of the Pause screen.")]
+    public Canvas GameMenuCanvas;
 
     //******************************************************************************************************************************
     //
@@ -45,7 +66,8 @@ public class PauseScreen : MonoBehaviour {
     /// </summary>
     void Start () {
 
-	}
+        _MenuState = MenuState.Unpaused;
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -54,32 +76,78 @@ public class PauseScreen : MonoBehaviour {
     /// </summary>
     void Update () {
 
-        if (Input.GetKeyDown("space"))
-            _PauseScreenEnabled = !(_PauseScreenEnabled);
+        if (Input.GetKeyDown("space") && _MenuState == MenuState.Paused) {
 
-        if (_PauseScreenEnabled == false)
-            PauseScreenCanvas.enabled = false;
+            _MenuState = MenuState.Unpaused;
+        }
+        else if (Input.GetKeyDown("space") && _MenuState == MenuState.Unpaused) {
 
-        if (_PauseScreenEnabled == true)
+            _MenuState = MenuState.Paused;
+        }
+
+        //////////////////////////////////////////////////////
+
+        if (_MenuState == MenuState.Paused) {
+
             PauseScreenCanvas.enabled = true;
+            AudioMenuCanvas.enabled = false;
+            VideoMenuCanvas.enabled = false;
+            GameMenuCanvas.enabled  = false;
+            Time.timeScale = 0.0f;
+        }
+        if (_MenuState == MenuState.Unpaused) {
+
+            PauseScreenCanvas.enabled = false;
+            AudioMenuCanvas.enabled = false;
+            VideoMenuCanvas.enabled = false;
+            GameMenuCanvas.enabled  = false;
+            Time.timeScale = 1.0f;
+        }
+
+        //////////////////////////////////////////////////////
+
+        if (_MenuState == MenuState.Audio) {
+
+            PauseScreenCanvas.enabled = false;
+            AudioMenuCanvas.enabled = true;
+        }
+        if (_MenuState == MenuState.Video) {
+
+            PauseScreenCanvas.enabled = false;
+            VideoMenuCanvas.enabled = true;
+        }
+        if (_MenuState == MenuState.Game) {
+
+            PauseScreenCanvas.enabled = false;
+            GameMenuCanvas.enabled = true;
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public void PauseScreenAudioButton() {
 
+        _MenuState = MenuState.Audio;
     }
 
     public void PauseScreenVideoButton() {
 
+        _MenuState = MenuState.Video;
     }
 
     public void PauseScreenGameButton() {
 
+        _MenuState = MenuState.Game;
+    }
+
+    public void PauseScreenBackButton() {
+
+        _MenuState = MenuState.Paused;
     }
 
     public void PauseScreenResumeButton() {
 
+        _MenuState = MenuState.Unpaused;
     }
 
     public void PauseScreenGameMenuUIButton() {
