@@ -25,6 +25,8 @@ public class KeyboardInput : MonoBehaviour {
 
     private Vector3 _LookPoint;
     private Vector3 _CurrentVelocity = Vector3.zero;
+    private bool _RotatingCamera = false;
+    private Selectable _HighlightFocus = null;
 
     //******************************************************************************************************************************
     //
@@ -417,6 +419,7 @@ public class KeyboardInput : MonoBehaviour {
 
             // Used for resetting the mouse position
             pressed = true;
+            _RotatingCamera = true;
         }
 
         // Not rotating the camera
@@ -429,6 +432,7 @@ public class KeyboardInput : MonoBehaviour {
                 Cursor.lockState = CursorLockMode.Locked;
             }
             else { Cursor.visible = true; }
+            _RotatingCamera = false;
         }
 
         if (pressed) {
@@ -470,8 +474,51 @@ public class KeyboardInput : MonoBehaviour {
     /// </summary>
     private void MouseActivity() {
 
-        if      (Input.GetMouseButtonDown(0)) { LeftMouseClick(); }
-        else if (Input.GetMouseButtonDown(1)) { RightMouseClick(); }
+        if (Input.GetMouseButtonDown(0)) { LeftMouseClick(); } else if (Input.GetMouseButtonDown(1)) { RightMouseClick(); }
+
+        // Not currently rotating the camera
+        if (!_RotatingCamera) {
+
+            // Highlighting world objects
+            GameObject hitObject = _PlayerAttached._HUD.FindHitObject();
+            Vector3 hitPoint = _PlayerAttached._HUD.FindHitPoint();
+            if (hitObject && hitPoint != Settings.InvalidPosition) {
+
+                if (hitObject.tag != "Ground") {
+
+                    // Set highlight focus to raycast hitobject
+                    if (_HighlightFocus == null) { _HighlightFocus = hitObject.gameObject.GetComponent<Selectable>(); }
+
+                    // There is currently a highlighted object
+                    else {
+
+                        // Is the raycast still hitting the highlighted object?
+                        Selectable selectable = hitObject.gameObject.GetComponent<Selectable>();
+                        if (selectable == null) {
+
+                            // De-highlight the object
+                            _HighlightFocus.SetIsHighlighted(false);
+                            _HighlightFocus = null;
+                        }
+
+                        // Highlight the object
+                        else {
+
+                            // If it isn't currently selected
+                            if (!_HighlightFocus.GetIsSelected()) { _HighlightFocus.SetIsHighlighted(true); }
+                            else { _HighlightFocus.SetIsHighlighted(false); }
+                        }
+                    }
+                } 
+                
+                else {
+
+                    // De-highlight any object
+                    if (_HighlightFocus != null) _HighlightFocus.SetIsHighlighted(false);
+                    _HighlightFocus = null;
+                }
+            }
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

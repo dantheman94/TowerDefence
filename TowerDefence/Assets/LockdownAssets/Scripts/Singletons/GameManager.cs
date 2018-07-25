@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviour {
     [Space]
     public GameObject RecycleBuilding;
     public GameObject ObjectSelected;
+    public GameObject ObjectHighlighted;
     public GameObject AgentSeekObject;
     [Space]
     public UI_SelectedUnits SelectedUnitsHUD;

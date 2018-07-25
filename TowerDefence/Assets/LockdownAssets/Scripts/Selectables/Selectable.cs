@@ -40,10 +40,12 @@ public class Selectable : Abstraction {
     //
     //******************************************************************************************************************************
 
+    protected bool _IsCurrentlyHighlighted;
     protected bool _IsCurrentlySelected;
     protected Bounds selectionBounds;
     protected bool _PlayerOwned = false;
     protected GameObject _SelectionObj = null;
+    protected GameObject _HighlightObj = null;
 
     //******************************************************************************************************************************
     //
@@ -88,6 +90,7 @@ public class Selectable : Abstraction {
 
         // Update selection
         DrawSelection(_IsCurrentlySelected);
+        DrawHighlight(_IsCurrentlyHighlighted);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -153,6 +156,37 @@ public class Selectable : Abstraction {
     /// <summary>
     /// 
     /// </summary>
+    /// <param name="highlight"></param>
+    protected virtual void DrawHighlight(bool highlight) {
+
+        // Show highlight
+        if (highlight) {
+
+            // Show highlight prefab at the bottom of the object
+            if (_HighlightObj == null) { _HighlightObj = Instantiate(Settings.HighlightBoxObjects); }
+            if (_HighlightObj != null) {
+
+                // Display prefab if not already being displayed
+                if (_HighlightObj.activeInHierarchy != true) { _HighlightObj.SetActive(true); }
+
+                // Update highlight prefab position
+                Vector3 pos = new Vector3();
+                pos.x = transform.position.x;
+                pos.y = 1.1f;
+                pos.z = transform.position.z;
+                _HighlightObj.transform.position = pos;
+            }
+        }
+
+        // Hide highlight
+        else { if (_HighlightObj != null) { Destroy(_HighlightObj.gameObject); } }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    /// 
+    /// </summary>
     /// <param name="selectBox"></param>
     protected virtual void DrawSelectionBox(Rect selectBox) { GUI.Box(selectBox, ""); }
 
@@ -201,8 +235,28 @@ public class Selectable : Abstraction {
     /// <summary>
     /// 
     /// </summary>
-    /// <returns></returns>
+    /// <returns>
+    //  bool
+    /// </returns>
     public bool GetIsSelected() { return _IsCurrentlySelected; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="highlighted"></param>
+    public void SetIsHighlighted(bool highlighted) { _IsCurrentlyHighlighted = highlighted; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns>
+    //  bool
+    /// </returns>
+    public bool GetIsHighlighted() { return _IsCurrentlyHighlighted; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

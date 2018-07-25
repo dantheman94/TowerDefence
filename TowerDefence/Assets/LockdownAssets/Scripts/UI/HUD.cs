@@ -58,13 +58,13 @@ public class HUD : MonoBehaviour {
     //  Called when this object is created.
     /// </summary>
     private void Start() {
-
-
-
+        
         // Get component references
         _Player = GetComponent<Player>();
 
+        // Initialize selectable properties
         Settings.StoreSelectBoxItems(GameManager.Instance.ObjectSelected);
+        Settings.StoreHighlightBoxItems(GameManager.Instance.ObjectHighlighted);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

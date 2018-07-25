@@ -35,6 +35,10 @@ namespace TowerDefence {
         private static Vector3 invalidPosition = new Vector3(-99999, -99999, -99999);
         public static Vector3 InvalidPosition { get { return invalidPosition; } }
 
+        private static GameObject highlightBoxObject;
+        public static GameObject HighlightBoxObjects { get { return highlightBoxObject; } }
+        public static void StoreHighlightBoxItems(GameObject skin) { highlightBoxObject = skin; }
+
         private static GameObject selectBoxObject;
         public static GameObject SelectBoxObjects { get { return selectBoxObject; } }
         public static void StoreSelectBoxItems(GameObject skin) { selectBoxObject = skin; }
