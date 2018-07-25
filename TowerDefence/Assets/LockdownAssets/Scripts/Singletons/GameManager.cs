@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour {
     public GameObject ObjectHighlighted;
     public GameObject AgentSeekObject;
     [Space]
-    public UI_SelectedUnits SelectedUnitsHUD;
+    public UI_PlatoonUnits SelectedUnitsHUD;
 
     [Space]
     [Header("-----------------------------------")]
