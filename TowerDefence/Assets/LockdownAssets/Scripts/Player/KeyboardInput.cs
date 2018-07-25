@@ -487,13 +487,13 @@ public class KeyboardInput : MonoBehaviour {
                 if (hitObject.tag != "Ground") {
 
                     // Set highlight focus to raycast hitobject
-                    if (_HighlightFocus == null) { _HighlightFocus = hitObject.gameObject.GetComponent<Selectable>(); }
+                    if (_HighlightFocus == null) { _HighlightFocus = hitObject.gameObject.GetComponentInParent<Selectable>(); }
 
                     // There is currently a highlighted object
                     else {
 
                         // Is the raycast still hitting the highlighted object?
-                        Selectable selectable = hitObject.gameObject.GetComponent<Selectable>();
+                        Selectable selectable = hitObject.gameObject.GetComponentInParent<Selectable>();
                         if (selectable == null) {
 
                             // De-highlight the object
