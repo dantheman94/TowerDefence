@@ -67,9 +67,7 @@ public class KeyboardInput : MonoBehaviour {
                 IsPrimaryController = true;
                 if (_XboxGamepadInputManager != null) { _XboxGamepadInputManager.IsPrimaryController = false; }
             }
-
-            Debug.Log("KEYBOARD is primary: " + IsPrimaryController);
-
+            
             if (IsPrimaryController) {
 
                 // Update camera

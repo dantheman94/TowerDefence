@@ -76,8 +76,6 @@ public class XboxGamepadInput : MonoBehaviour {
             _PreviousGamepadState = _GamepadState;
             _GamepadState = GamePad.GetState(_PlayerAttached.Index);
             
-            Debug.Log("XBOX GAMEPAD is primary: " + IsPrimaryController);
-
             if (IsPrimaryController) {
 
                 // Update camera
