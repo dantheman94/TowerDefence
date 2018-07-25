@@ -110,7 +110,7 @@ public class Vehicle : Unit {
     /// <summary>
     //  
     /// </summary>
-    private void UpdatePlayerControlledMovement() {
+    protected override void UpdatePlayerControlledMovement() {
 
         // Update base rotation
         _BaseRotation = Input.GetAxis("Horizontal") * BaseRotationSpeed * Time.deltaTime;

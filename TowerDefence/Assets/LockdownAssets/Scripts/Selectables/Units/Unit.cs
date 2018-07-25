@@ -8,7 +8,7 @@ using UnityEngine.AI;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 21/7/2018
+//  Last edited on: 25/7/2018
 //
 //******************************
 
@@ -196,9 +196,13 @@ public class Unit : WorldObject {
         }
         else { _IsBeingPlayerControlled = false; }
 
-        // Constantly select the unit if its being manually controlled
-        if (_IsBeingPlayerControlled) { _IsCurrentlySelected = true; }
-        
+        // Update movement
+        if (_IsBeingPlayerControlled) {
+
+            _IsCurrentlySelected = true;
+            _Agent.enabled = false;
+            UpdatePlayerControlledMovement();
+        }
         // Is the unit currently AI controlled?
         if (!_IsBeingPlayerControlled && _Agent.enabled) {
 
@@ -324,6 +328,13 @@ public class Unit : WorldObject {
     /// <summary>
     //  
     /// </summary>
+    protected virtual void UpdatePlayerControlledMovement() { }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
     protected virtual void LookAt(Vector3 position) {
 
         // Snap to target
@@ -383,8 +394,12 @@ public class Unit : WorldObject {
 
     public virtual void AgentPerformAbility(Vector3 hitPoint) {
 
-        // Fire secondary weapon (its used to be its ability)
-        if (SecondaryWeapon.CanFire()) { SecondaryWeapon.FireWeapon(); }
+        // Does the unit have an ability?
+        if (SecondaryWeapon != null) {
+
+            // Fire secondary weapon (its used to be its ability)
+            if (SecondaryWeapon.CanFire()) { SecondaryWeapon.FireWeapon(); }
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
