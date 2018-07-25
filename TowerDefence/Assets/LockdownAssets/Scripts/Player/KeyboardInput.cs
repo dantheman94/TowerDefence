@@ -80,8 +80,11 @@ public class KeyboardInput : MonoBehaviour {
                 // Update mouse input
                 MouseActivity();
 
-                // Update abilities input
+                // Update faction abilities input
                 ///AbilitiesInput();
+
+                // Update Ai abilities input
+                AiAbilityCommandInput();
 
                 // Update platoon input
                 PlatoonInput();
@@ -659,7 +662,7 @@ public class KeyboardInput : MonoBehaviour {
         if (GameManager.Instance.GetIsUnitControlling() == false) {
 
             // There are AI currently selected and therefore we can command them
-            if (SquadsSelected.Count > 0 || UnitsSelected.Count > 0) { AiCommandsInput(SquadsSelected, UnitsSelected); }
+            if (SquadsSelected.Count > 0 || UnitsSelected.Count > 0) { AiMouseCommandsInput(SquadsSelected, UnitsSelected); }
         }
     }
 
@@ -698,7 +701,7 @@ public class KeyboardInput : MonoBehaviour {
     /// <summary>
     /// 
     /// </summary>
-    private void AiCommandsInput(List<Squad> squads, List<Unit> units) {
+    private void AiMouseCommandsInput(List<Squad> squads, List<Unit> units) {
 
         // Get point in world that is used to command the AI currently selected (go position, attack target, etc)
         GameObject hitObject = _PlayerAttached._HUD.FindHitObject();
@@ -844,10 +847,44 @@ public class KeyboardInput : MonoBehaviour {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    private void AiAbilityCommandInput() {
+
+        if (Input.GetKeyDown(KeyCode.R)) {
+
+            // Get point in world that is used to command the AI currently selected (go position, attack target, etc)
+            GameObject hitObject = _PlayerAttached._HUD.FindHitObject();
+            Vector3 hitPoint = _PlayerAttached._HUD.FindHitPoint();
+            if (hitObject && hitPoint != Settings.InvalidPosition) {
+
+                // Get lists of AIs that are selected
+                List<Squad> SquadsSelected = new List<Squad>();
+                List<Unit> UnitsSelected = new List<Unit>();
+
+                GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
+
+                // If there are selected squads
+                if (SquadsSelected.Count > 0) {
+
+                    // Loop through all selected squads & perform ABILITY command
+                    ///foreach (var squad in SquadsSelected) { squad.SquadSeek(hitPoint); }
+                }
+
+                // If there are individually selected units
+                if (UnitsSelected.Count > 0) {
+
+                    // Loop through all selected units & perform ABILITY command
+                    foreach (var unit in UnitsSelected) { unit.AgentPerformAbility(hitPoint); }
+                }
+            }
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     /// 
     /// </summary>
-    private void AbilitiesInput() {
+    private void FactionAbilitiesInput() {
 
         // Only check if theres a laboratory building in the world
         if (GameManager.Instance.GetIsLabratoryActive()) {
