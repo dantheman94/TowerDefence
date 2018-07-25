@@ -17,6 +17,6 @@ public class SelectionWheelUnitRef : MonoBehaviour {
     // VARIABES
 
     [HideInInspector]
-    public WorldObject Unit;
+    public WorldObject Object;
 
 }

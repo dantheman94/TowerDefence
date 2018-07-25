@@ -9,7 +9,7 @@ using UnityEngine.EventSystems;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 10/6/2018
+//  Last edited on: 25/7/2018
 //
 //******************************
 
@@ -33,7 +33,7 @@ public class ButtonHover : MonoBehaviour, IPointerEnterHandler {
     //
     //******************************************************************************************************************************
 
-    private SelectionWheelUnitRef _UnitRefComponent;
+    private SelectionWheelUnitRef _ObjectRefComponent;
     private Button _ButtonComponent;
 
     //******************************************************************************************************************************
@@ -48,7 +48,7 @@ public class ButtonHover : MonoBehaviour, IPointerEnterHandler {
     private void Start() {
 
         // Get component references
-        _UnitRefComponent = GetComponent<SelectionWheelUnitRef>();
+        _ObjectRefComponent = GetComponent<SelectionWheelUnitRef>();
         _ButtonComponent = GetComponent<Button>();
     }
 
@@ -58,24 +58,21 @@ public class ButtonHover : MonoBehaviour, IPointerEnterHandler {
     /// <param name="eventdata"></param>
     public void OnPointerEnter(PointerEventData eventdata) {
 
-        if (SelectionWheel != null && _UnitRefComponent != null && _ButtonComponent != null) {
+        if (SelectionWheel != null && _ObjectRefComponent != null && _ButtonComponent != null) {
 
-            // Button is interactable
-            if (/*_ButtonComponent.interactable == */true) {
+            // Update the highlight text in the selection wheel
 
-                // Update the highlight text in the selection wheel
+            // Detail window
+            SelectionWheel.DetailedHighlightTitle.text = _ObjectRefComponent.Object.ObjectName.ToUpper();
+            SelectionWheel.DetailedHighlightDescriptionShort.text = _ObjectRefComponent.Object.ObjectDescriptionShort.ToUpper();
+            SelectionWheel.DetailedHighlightDescriptionLong.text = _ObjectRefComponent.Object.ObjectDescriptionLong;
 
-                /// Detail window
-                SelectionWheel.DetailedHighlightTitle.text = _UnitRefComponent.Unit.ObjectName.ToUpper();
-                SelectionWheel.DetailedHighlightDescriptionShort.text = _UnitRefComponent.Unit.ObjectDescriptionShort.ToUpper();
-                SelectionWheel.DetailedHighlightDescriptionLong.text = _UnitRefComponent.Unit.ObjectDescriptionLong;
-
-                /// Center panel
-                SelectionWheel.CenterHighlightTitle.text = _UnitRefComponent.Unit.ObjectName;
-                SelectionWheel.CenterPlayerLevelText.text = _UnitRefComponent.Unit.CostTechLevel.ToString();
-                SelectionWheel.CenterSupplyText.text = _UnitRefComponent.Unit.CostSupplies.ToString();
-                SelectionWheel.CenterPowerText.text = _UnitRefComponent.Unit.CostPower.ToString();
-            }
+            // Center panel
+            SelectionWheel.CenterHighlightTitle.text = _ObjectRefComponent.Object.ObjectName;
+            SelectionWheel.CenterTechLevelText.text = _ObjectRefComponent.Object.CostTechLevel.ToString();
+            SelectionWheel.CenterSupplyText.text = _ObjectRefComponent.Object.CostSupplies.ToString();
+            SelectionWheel.CenterPowerText.text = _ObjectRefComponent.Object.CostPower.ToString();
+            SelectionWheel.CenterPopulationText.text = _ObjectRefComponent.Object.CostPopulation.ToString();
         }
     }
     

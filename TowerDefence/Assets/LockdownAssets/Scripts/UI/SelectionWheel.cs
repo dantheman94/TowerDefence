@@ -35,7 +35,8 @@ public class SelectionWheel : MonoBehaviour {
     public Text CenterHighlightTitle;
     public Text CenterSupplyText;
     public Text CenterPowerText;
-    public Text CenterPlayerLevelText;
+    public Text CenterPopulationText;
+    public Text CenterTechLevelText;
 
     [Space]
     [Header("-----------------------------------")]
@@ -87,7 +88,7 @@ public class SelectionWheel : MonoBehaviour {
                 
                 // Update reference unit
                 SelectionWheelUnitRef unitRef = _WheelButtons[i].GetComponent<SelectionWheelUnitRef>();
-                unitRef.Unit = building.GetComponent<WorldObject>();
+                unitRef.Object = building.GetComponent<WorldObject>();
 
                 // Update button click event
                 _WheelButtons[i].onClick.AddListener(delegate { building.OnWheelSelect(buildingSlotInFocus); });
@@ -133,7 +134,7 @@ public class SelectionWheel : MonoBehaviour {
 
                 // Update reference unit
                 SelectionWheelUnitRef unitRef = _WheelButtons[i].GetComponent<SelectionWheelUnitRef>();
-                unitRef.Unit = obj.GetComponent<WorldObject>();
+                unitRef.Object = obj.GetComponent<WorldObject>();
 
                 // Update button click event
                 _WheelButtons[i].onClick.AddListener(delegate { obj.GetComponent<WorldObject>().OnWheelSelect(buildingSlotInFocus); });
@@ -163,9 +164,9 @@ public class SelectionWheel : MonoBehaviour {
 
                     // Update button interactibility state
                     SelectionWheelUnitRef unitRef = button.GetComponent<SelectionWheelUnitRef>();
-                    if (unitRef.Unit != null) {
+                    if (unitRef.Object != null) {
 
-                        bool unlock = GameManager.Instance.Players[0].Level >= unitRef.Unit.CostTechLevel;
+                        bool unlock = GameManager.Instance.Players[0].Level >= unitRef.Object.CostTechLevel;
                         button.interactable = unlock;
                     }
 
