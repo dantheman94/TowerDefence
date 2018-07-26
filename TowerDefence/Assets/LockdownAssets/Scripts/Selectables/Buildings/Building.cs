@@ -202,11 +202,11 @@ public class Building : WorldObject {
             // Deselect self
             SetIsSelected(false);
 
-            // Widgets
+            // Destroy Widgets
             if (AttachedBuildingSlot.GetBuildingOnSlot()._HealthBar) { ObjectPooling.Despawn(AttachedBuildingSlot.GetBuildingOnSlot()._HealthBar.gameObject); }
             if (AttachedBuildingSlot.GetBuildingOnSlot()._BuildingProgressCounter) { ObjectPooling.Despawn(AttachedBuildingSlot.GetBuildingOnSlot()._BuildingProgressCounter.gameObject); }
 
-            // Building
+            // Destroy Building
             ObjectPooling.Despawn(AttachedBuildingSlot.GetBuildingOnSlot().gameObject);
         }
 

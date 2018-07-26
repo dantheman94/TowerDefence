@@ -474,6 +474,10 @@ public class KeyboardInput : MonoBehaviour {
 
         if (Input.GetMouseButtonDown(0)) { LeftMouseClick(); } else if (Input.GetMouseButtonDown(1)) { RightMouseClick(); }
 
+        /*
+         *  HIGHLIGHTING OBJECTS 
+         */
+
         // Not currently rotating the camera
         if (!_RotatingCamera) {
 

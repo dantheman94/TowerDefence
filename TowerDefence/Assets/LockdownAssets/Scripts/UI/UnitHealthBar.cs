@@ -89,7 +89,7 @@ public class UnitHealthBar : MonoBehaviour {
                 }
 
                 // Hide the shield
-                ///else { _ShieldSlider.gameObject.SetActive(false); }
+                else { _ShieldSlider.gameObject.SetActive(false); }
             }
 
             // Object is alive - display the widget
