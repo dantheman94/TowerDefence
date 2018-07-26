@@ -487,31 +487,30 @@ public class KeyboardInput : MonoBehaviour {
                     // Set highlight focus to raycast hitobject
                     if (_HighlightFocus == null) { _HighlightFocus = hitObject.gameObject.GetComponentInParent<Selectable>(); }
 
-                    // There is currently a highlighted object
-                    else {
+                    // There is currently a highlighted object? (or did the raycast hit a valid 'selectable'?
+                    if (_HighlightFocus != null) {
 
                         // Is the raycast still hitting the highlighted object?
                         Selectable selectable = hitObject.gameObject.GetComponentInParent<Selectable>();
-                        if (selectable == null) {
-
-                            // De-highlight the object
-                            _HighlightFocus.SetIsHighlighted(false);
-                            _HighlightFocus = null;
-                        }
-
-                        // Highlight the object
-                        else {
+                        if (selectable != null) {
 
                             // If it isn't currently selected
                             if (!_HighlightFocus.GetIsSelected()) { _HighlightFocus.SetIsHighlighted(true); }
                             else { _HighlightFocus.SetIsHighlighted(false); }
                         }
-                    }
-                } 
-                
-                else {
+                        
+                        else { /// selectable == null
 
-                    // De-highlight any object
+                            // De-highlight the object
+                            _HighlightFocus.SetIsHighlighted(false);
+                            _HighlightFocus = null;
+                        }
+                    }
+                }
+
+                else { /// hitObject.tag == "Ground"
+
+                    // De-highlight any object in focus
                     if (_HighlightFocus != null) _HighlightFocus.SetIsHighlighted(false);
                     _HighlightFocus = null;
                 }
@@ -714,7 +713,7 @@ public class KeyboardInput : MonoBehaviour {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    /// 
+    //
     /// </summary>
     /// <param name="squadsSelected"></param>
     /// <param name="unitsSelected"></param>
@@ -744,7 +743,7 @@ public class KeyboardInput : MonoBehaviour {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    /// 
+    //
     /// </summary>
     private void AiMouseCommandsInput(List<Squad> squads, List<Unit> units) {
 
@@ -927,7 +926,7 @@ public class KeyboardInput : MonoBehaviour {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    /// 
+    //
     /// </summary>
     private void FactionAbilitiesInput() {
 
@@ -956,7 +955,7 @@ public class KeyboardInput : MonoBehaviour {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    /// 
+    //
     /// </summary>
     private void PlatoonInput() {
 
