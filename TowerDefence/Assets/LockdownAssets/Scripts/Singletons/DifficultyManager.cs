@@ -29,17 +29,17 @@ public class DifficultyManager : MonoBehaviour {
     [Header("-----------------------------------")]
     [Header(" NORMAL DIFFICULTY")]
     [Space]
-    [Header("\tHEALTH")]
+    [Header("  HEALTH")]
     public HealthModifier NormalEnemyHealthModifier;
     [Space]
     public HealthModifier NormalFriendlyHealthModifier;
     [Space]
-    [Header("\tFIRING RATE")]
+    [Header("  FIRING RATE")]
     public FiringRateModifier NormalEnemyFiringRateModifier;
     [Space]
     public FiringRateModifier NormalFriendlyFiringRateModifier;
     [Space]
-    [Header("\tMOVEMENT SPEED")]
+    [Header("  MOVEMENT SPEED")]
     public MovementSpeedModifier NormalEnemyMovementSpeedModifier;
     [Space]
     public MovementSpeedModifier NormalFriendlyMovementSpeedModifier;
@@ -48,17 +48,17 @@ public class DifficultyManager : MonoBehaviour {
     [Header("-----------------------------------")]
     [Header(" HARD DIFFICULTY")]
     [Space]
-    [Header("\tHEALTH")]
+    [Header("  HEALTH")]
     public HealthModifier HardEnemyHealthModifier;
     [Space]
     public HealthModifier HardFriendlyHealthModifier;
     [Space]
-    [Header("\tFIRING RATE")]
+    [Header("  FIRING RATE")]
     public FiringRateModifier HardEnemyFiringRateModifier;
     [Space]
     public FiringRateModifier HardFriendlyFiringRateModifier;
     [Space]
-    [Header("\tMOVEMENT SPEED")]
+    [Header("  MOVEMENT SPEED")]
     public MovementSpeedModifier HardEnemyMovementSpeedModifier;
     [Space]
     public MovementSpeedModifier HardFriendlyMovementSpeedModifier;
@@ -67,17 +67,17 @@ public class DifficultyManager : MonoBehaviour {
     [Header("----------------------------------")]
     [Header(" IMPOSSIBLE DIFFICULTY")]
     [Space]
-    [Header("\tHEALTH")]
+    [Header("  HEALTH")]
     public HealthModifier ImpossibleEnemyHealthModifier;
     [Space]
     public HealthModifier ImpossibleFriendlyHealthModifier;
     [Space]
-    [Header("\tFIRING RATE")]
+    [Header("  FIRING RATE")]
     public FiringRateModifier ImpossibleEnemyFiringRateModifier;
     [Space]
     public FiringRateModifier ImpossibleFriendlyFiringRateModifier;
     [Space]
-    [Header("\tMOVEMENT SPEED")]
+    [Header("  MOVEMENT SPEED")]
     public MovementSpeedModifier ImpossibleEnemyMovementSpeedModifier;
     [Space]
     public MovementSpeedModifier ImpossibleFriendlyMovementSpeedModifier;
@@ -88,7 +88,7 @@ public class DifficultyManager : MonoBehaviour {
     //
     //******************************************************************************************************************************
 
-    public enum Difficulties { Normal, Hard, Impossible }
+    public enum Difficulties { Normal, Hard, VeryHard, Impossible }
     
     //******************************************************************************************************************************
     //
