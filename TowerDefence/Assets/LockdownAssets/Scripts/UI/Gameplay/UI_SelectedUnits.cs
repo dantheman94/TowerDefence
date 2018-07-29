@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 //******************************
 //
@@ -12,7 +11,7 @@ using UnityEngine.UI;
 //
 //******************************
 
-public class UI_PlatoonUnits : MonoBehaviour {
+public class UI_SelectedUnits : MonoBehaviour {
 
     //******************************************************************************************************************************
     //
@@ -22,16 +21,16 @@ public class UI_PlatoonUnits : MonoBehaviour {
 
     [Space]
     [Header("-----------------------------------")]
-    [Header(" PLATOON PANELS")]
+    [Header(" SELECTION PANELS")]
     [Space]
-    public List<UI_UnitInfoPanel> UnitInfoPanels;
+    public List<UI_UnitInfoPanel> SelectionPanels;
 
     //******************************************************************************************************************************
     //
     //      VARIABLES
     //
     //******************************************************************************************************************************
-    
+
     private class UnitInfos {
 
         public Unit.EUnitType _UnitType;
@@ -66,10 +65,10 @@ public class UI_PlatoonUnits : MonoBehaviour {
     //  Called each frame. 
     /// </summary>
     private void Update() {
-        
+
         for (int i = 0; i < _UnitInfos.Count; i++) {
 
-            if (UnitInfoPanels.Count >= i) {
+            if (SelectionPanels.Count >= i) {
 
                 // Update unit logo image
                 ///UnitInfoPanels[i].LogoComponent.sprite = _UnitInfos[i]._Logo;
@@ -81,7 +80,7 @@ public class UI_PlatoonUnits : MonoBehaviour {
                 ///UnitInfoPanels[i].AmountCounter.text = _UnitInfos[i]._Amount.ToString();
 
                 // Show the gameobject
-                UnitInfoPanels[i].gameObject.SetActive(true);
+                SelectionPanels[i].gameObject.SetActive(true);
             }
         }
     }
@@ -94,7 +93,7 @@ public class UI_PlatoonUnits : MonoBehaviour {
     public void NewSelectionOLD(List<Selectable> selected) {
 
         // Clear all the panels
-        for (int i = 0; i < UnitInfoPanels.Count; i++) { UnitInfoPanels[i].Wipe(); }
+        for (int i = 0; i < SelectionPanels.Count; i++) { SelectionPanels[i].Wipe(); }
         _CurrentlySelected.Clear();
         _UnitInfos.Clear();
 
@@ -152,7 +151,7 @@ public class UI_PlatoonUnits : MonoBehaviour {
                     }
                 }
             }
-        }        
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -163,7 +162,7 @@ public class UI_PlatoonUnits : MonoBehaviour {
     public void NewSelection(List<Selectable> selected) {
 
         // Clear all the panels
-        for (int i = 0; i < UnitInfoPanels.Count; i++) { UnitInfoPanels[i].Wipe(); }
+        for (int i = 0; i < SelectionPanels.Count; i++) { SelectionPanels[i].Wipe(); }
         _CurrentlySelected.Clear();
         _UnitInfos.Clear();
 
@@ -189,7 +188,7 @@ public class UI_PlatoonUnits : MonoBehaviour {
         // If the object is a unit
         Unit unit = worldObject.GetComponent<Unit>();
         if (unit != null) { return unit.UnitType; }
-        
+
         // If the object is a squad
         Squad squad = worldObject.GetComponent<Squad>();
         if (squad != null) { return squad.SquadUnit.UnitType; }

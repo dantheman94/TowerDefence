@@ -8,11 +8,11 @@ using UnityEngine.UI;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 11/7/2018
+//  Last edited on: 25/7/2018
 //
 //******************************
 
-public class UI_UnitInfoPanel : MonoBehaviour {
+public class UI_PlatoonUnits : MonoBehaviour {
 
     //******************************************************************************************************************************
     //
@@ -22,34 +22,49 @@ public class UI_UnitInfoPanel : MonoBehaviour {
 
     [Space]
     [Header("-----------------------------------")]
-    [Header(" COMPONENTS")]
+    [Header(" PANELS")]
     [Space]
-    public Image LogoComponent = null;
-    public Text UnitName = null;
-    public Text AmountCounter = null;
+    public List<UI_UnitInfoPanel> UnitInfoPanels;
 
     //******************************************************************************************************************************
     //
-    //      INSPECTOR
+    //      VARIABLES
+    //
+    //******************************************************************************************************************************
+
+    private Player _PlayerAttached;
+
+    //******************************************************************************************************************************
+    //
+    //      FUNCTIONS
     //
     //******************************************************************************************************************************
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  
+    // Called when the gameObject is created.
     /// </summary>
-    public void Wipe() {
+    private void Start() {
 
-        // Clear everything
-        if (LogoComponent != null) { LogoComponent.sprite = null; }
-        if (UnitName != null) { UnitName.text = ""; }
-        if (AmountCounter != null) { AmountCounter.text = ""; }
-
-        // Hide the gameObject
-        this.gameObject.SetActive(false);
+        // Get component references
+        _PlayerAttached = GameManager.Instance.Players[0];
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Called each frame. 
+    /// </summary>
+    private void Update() {
+
+        for (int i = 0; i < UnitInfoPanels.Count; i++) {
+
+            // Update platoon size
+            UnitInfoPanels[i].AmountCounter.text = _PlayerAttached.GetPlatoon(i)._Size.ToString();
+        }
+    }
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }
