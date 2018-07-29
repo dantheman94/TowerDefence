@@ -9,7 +9,7 @@ using TowerDefence;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 9/7/2018
+//  Last edited on: 27/7/2018
 //
 //******************************
 
@@ -59,7 +59,8 @@ public class GameManager : MonoBehaviour {
     public GameObject ObjectHighlighted;
     public GameObject AgentSeekObject;
     [Space]
-    public UI_PlatoonUnits SelectedUnitsHUD;
+    public UI_SelectedUnits SelectedUnitsHUD;
+    public UI_PlatoonUnits PlatoonUnitsHUD;
 
     [Space]
     [Header("-----------------------------------")]
@@ -206,7 +207,7 @@ public class GameManager : MonoBehaviour {
     /// <summary>
     //  
     /// </summary>
-    public void RebakeNavmesh() {
+    public void RebakeGroundNavmesh() {
 
         // Find a walkable surface, bake then repeat for next surface
         foreach (var surface in GameObject.FindGameObjectsWithTag("Ground")) { surface.GetComponent<NavMeshSurface>().BuildNavMesh(); }
