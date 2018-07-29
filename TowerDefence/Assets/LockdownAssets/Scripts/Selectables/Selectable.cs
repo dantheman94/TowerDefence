@@ -135,8 +135,8 @@ public class Selectable : Abstraction {
             if (_SelectionObj == null) { _SelectionObj = ObjectPooling.Spawn(Settings.SelectBoxObjects); }
             if (_SelectionObj != null) {
 
-                // Display prefab if not already being displayed
-                if (_SelectionObj.activeInHierarchy != true) { _SelectionObj.SetActive(true); }
+                // Display prefab
+                _SelectionObj.SetActive(true);
 
                 // Update selection prefab position
                 Vector3 pos = new Vector3();
@@ -166,8 +166,8 @@ public class Selectable : Abstraction {
             if (_HighlightObj == null) { _HighlightObj = ObjectPooling.Spawn(Settings.HighlightBoxObjects); }
             if (_HighlightObj != null) {
 
-                // Display prefab if not already being displayed
-                if (_HighlightObj.activeInHierarchy != true) { _HighlightObj.SetActive(true); }
+                // Display prefab
+                _HighlightObj.SetActive(true);
 
                 // Update highlight prefab position
                 Vector3 pos = new Vector3();

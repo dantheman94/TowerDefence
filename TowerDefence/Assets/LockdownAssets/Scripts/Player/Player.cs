@@ -8,8 +8,8 @@ using XInputDotNetPure;
 //
 //  Created by: Daniel Marton
 //
-//  Last edited by: Angus Secomb
-//  Last edited on: 24/07/2018
+//  Last edited by: Daniel Marton
+//  Last edited on: 27/7/2018
 //
 //******************************
 
@@ -67,18 +67,10 @@ public class Player : MonoBehaviour {
     private int WavesSurvived = 0;
 
     // Army
-    private List<WorldObject> AiUnitObjects;
-    private List<WorldObject> Platoon1Objects;
-    private List<WorldObject> Platoon2Objects;
-    private List<WorldObject> Platoon3Objects;
-    private List<WorldObject> Platoon4Objects;
-    private List<WorldObject> Platoon5Objects;
-    private List<WorldObject> Platoon6Objects;
-    private List<WorldObject> Platoon7Objects;
-    private List<WorldObject> Platoon8Objects;
-    private List<WorldObject> Platoon9Objects;
-    private List<WorldObject> Platoon0Objects;
-
+    private List<WorldObject> _Army;
+    private List<Platoon> _Platoons;
+    const int _PlatoonCount = 10;
+    
     // HUD
     public HUD _HUD { get; private set; }
 
@@ -127,19 +119,12 @@ public class Player : MonoBehaviour {
             default: break;
         }
 
-        // Create armies
-        AiUnitObjects = new List<WorldObject>();
-        Platoon1Objects = new List<WorldObject>();
-        Platoon2Objects = new List<WorldObject>();
-        Platoon3Objects = new List<WorldObject>();
-        Platoon4Objects = new List<WorldObject>();
-        Platoon5Objects = new List<WorldObject>();
-        Platoon6Objects = new List<WorldObject>();
-        Platoon7Objects = new List<WorldObject>();
-        Platoon8Objects = new List<WorldObject>();
-        Platoon9Objects = new List<WorldObject>();
-        Platoon0Objects = new List<WorldObject>();
+        // Create army
+        _Army = new List<WorldObject>();
 
+        // Create platoons
+        _Platoons = new List<Platoon>();
+        for (int i = 0; i < _PlatoonCount; i++) { _Platoons.Add(GameManager.Instance.PlatoonUnitsHUD.UnitInfoPanels[i].GetComponent<Platoon>()); }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -165,7 +150,7 @@ public class Player : MonoBehaviour {
 
         // Add to population
         PopulationCount += squad.CostPopulation;
-        AiUnitObjects.Add(squad);
+        _Army.Add(squad);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -178,7 +163,7 @@ public class Player : MonoBehaviour {
 
         // Add to population
         PopulationCount += unit.CostPopulation;
-        AiUnitObjects.Add(unit);
+        _Army.Add(unit);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -187,7 +172,7 @@ public class Player : MonoBehaviour {
     //  
     /// </summary>
     /// <returns></returns>
-    public List<WorldObject> GetArmy() { return AiUnitObjects; }
+    public List<WorldObject> GetArmy() { return _Army; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -195,79 +180,7 @@ public class Player : MonoBehaviour {
     //   
     /// </summary>
     /// <returns></returns>
-    public List<WorldObject> GetPlatoon1() { return Platoon1Objects; }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  
-    /// </summary>
-    /// <returns></returns>
-    public List<WorldObject> GetPlatoon2() { return Platoon2Objects; }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  
-    /// </summary>
-    /// <returns></returns>
-    public List<WorldObject> GetPlatoon3() { return Platoon3Objects; }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  
-    /// </summary>
-    /// <returns></returns>
-    public List<WorldObject> GetPlatoon4() { return Platoon4Objects; }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  
-    /// </summary>
-    /// <returns></returns>
-    public List<WorldObject> GetPlatoon5() { return Platoon5Objects; }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  
-    /// </summary>
-    /// <returns></returns>
-    public List<WorldObject> GetPlatoon6() { return Platoon6Objects; }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  
-    /// </summary>
-    /// <returns></returns>
-    public List<WorldObject> GetPlatoon7() { return Platoon7Objects; }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  
-    /// </summary>
-    /// <returns></returns>
-    public List<WorldObject> GetPlatoon8() { return Platoon8Objects; }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  
-    /// </summary>
-    /// <returns></returns>
-    public List<WorldObject> GetPlatoon9() { return Platoon9Objects; }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  
-    /// </summary>
-    /// <returns></returns>
-    public List<WorldObject> GetPlatoon10() { return Platoon0Objects; }
+    public Platoon GetPlatoon(int i) { return _Platoons[i]; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     

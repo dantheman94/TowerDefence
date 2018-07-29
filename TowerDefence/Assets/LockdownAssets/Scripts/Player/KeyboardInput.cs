@@ -472,12 +472,13 @@ public class KeyboardInput : MonoBehaviour {
     /// </summary>
     private void MouseActivity() {
 
-        if (Input.GetMouseButtonDown(0)) { LeftMouseClick(); } else if (Input.GetMouseButtonDown(1)) { RightMouseClick(); }
+        if      (Input.GetMouseButtonDown(0)) { LeftMouseClick(); }
+        else if (Input.GetMouseButtonDown(1)) { RightMouseClick(); }
 
         /*
          *  HIGHLIGHTING OBJECTS 
          */
-
+        
         // Not currently rotating the camera
         if (!_RotatingCamera) {
 
@@ -498,8 +499,12 @@ public class KeyboardInput : MonoBehaviour {
                         Selectable selectable = hitObject.gameObject.GetComponentInParent<Selectable>();
                         if (selectable != null) {
 
-                            // If it isn't currently selected
-                            if (!_HighlightFocus.GetIsSelected()) { _HighlightFocus.SetIsHighlighted(true); }
+                            // If it isn't currently selected >> highlight it
+                            if (!_HighlightFocus.GetIsSelected()) {
+
+                                _HighlightFocus.SetIsHighlighted(true);
+                                Debug.Log("Highlighting: " + _HighlightFocus.name);
+                            }
                             else { _HighlightFocus.SetIsHighlighted(false); }
                         }
                         
@@ -582,9 +587,22 @@ public class KeyboardInput : MonoBehaviour {
                             baseObj.SetIsSelected(true);
                             baseObj.OnSelectionWheel();
                         }
+
+                        // Left clicking on a building
+                        if (buildingObj != null) {
+
+                            if (buildingSlot == null) {
+
+                                // Add selection to list
+                                _PlayerAttached.SelectedWorldObjects.Add(buildingObj);
+                                buildingObj.SetPlayer(_PlayerAttached);
+                                buildingObj.SetIsSelected(true);
+                                buildingObj.OnSelectionWheel();
+                            }
+                        }
                     }
 
-                    /// (baseObj == null)
+                    // Left clicking on something NOT attached to a base
                     else {
 
                         buildingObj = hitObject.GetComponentInParent<Building>();
@@ -625,10 +643,10 @@ public class KeyboardInput : MonoBehaviour {
                             // Is the unit part of a squad?
                             if (unitObj.IsInASquad()) {
 
+                                squadObj = unitObj.GetSquadAttached();
+
                                 // Squad is active in the world
                                 if (squadObj.GetObjectState() == WorldObject.WorldObjectStates.Active) {
-
-                                    squadObj = unitObj.GetSquadAttached();
 
                                     // Add selection to list
                                     _PlayerAttached.SelectedWorldObjects.Add(squadObj);
@@ -685,10 +703,10 @@ public class KeyboardInput : MonoBehaviour {
                 }
 
                 // Just clicked on the ground so deselect all objects
-                else { _PlayerAttached.DeselectAllObjects(); }
+                ///else { _PlayerAttached.DeselectAllObjects(); }
 
                 // Update units selected panels
-                GameManager.Instance.SelectedUnitsHUD.NewSelection(_PlayerAttached.SelectedWorldObjects);
+                ///GameManager.Instance.SelectedUnitsHUD.NewSelection(_PlayerAttached.SelectedWorldObjects);
             }
         }
     }
@@ -969,7 +987,7 @@ public class KeyboardInput : MonoBehaviour {
             _PlayerAttached.DeselectAllObjects();
 
             // Loop through & select all army objects
-            foreach (var ai in _PlayerAttached.GetPlatoon1()) {
+            foreach (var ai in _PlayerAttached.GetPlatoon(0).GetAi()) {
 
                 // Add to selection list
                 _PlayerAttached.SelectedWorldObjects.Add(ai);
@@ -988,10 +1006,10 @@ public class KeyboardInput : MonoBehaviour {
             GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
 
             // Add any squads selected to platoon 1
-            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon1().Add(squad); }
+            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon(0).GetAi().Add(squad); }
 
             // Add any units selected to platoon 1
-            foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon1().Add(unit); }
+            foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon(0).GetAi().Add(unit); }
         }
 
         // Replace platoon 1
@@ -1004,13 +1022,13 @@ public class KeyboardInput : MonoBehaviour {
             GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
 
             // Clear platoon 1
-            _PlayerAttached.GetPlatoon1().Clear();
+            _PlayerAttached.GetPlatoon(0).GetAi().Clear();
 
             // Add any squads selected to platoon 1
-            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon1().Add(squad); }
+            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon(0).GetAi().Add(squad); }
 
             // Add any units selected to platoon 1
-            foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon1().Add(unit); }
+            foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon(0).GetAi().Add(unit); }
         }
 
         // Select platoon 2
@@ -1019,7 +1037,7 @@ public class KeyboardInput : MonoBehaviour {
             _PlayerAttached.DeselectAllObjects();
 
             // Loop through & select all army objects
-            foreach (var ai in _PlayerAttached.GetPlatoon2()) {
+            foreach (var ai in _PlayerAttached.GetPlatoon(1).GetAi()) {
 
                 // Add to selection list
                 _PlayerAttached.SelectedWorldObjects.Add(ai);
@@ -1038,10 +1056,10 @@ public class KeyboardInput : MonoBehaviour {
             GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
 
             // Add any squads selected to platoon 2
-            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon2().Add(squad); }
+            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon(1).GetAi().Add(squad); }
 
             // Add any units selected to platoon 2
-            foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon2().Add(unit); }
+            foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon(1).GetAi().Add(unit); }
         }
 
         // Replace platoon 2
@@ -1054,13 +1072,13 @@ public class KeyboardInput : MonoBehaviour {
             GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
 
             // Clear platoon 2
-            _PlayerAttached.GetPlatoon2().Clear();
+            _PlayerAttached.GetPlatoon(1).GetAi().Clear();
 
             // Add any squads selected to platoon 2
-            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon2().Add(squad); }
+            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon(1).GetAi().Add(squad); }
 
             // Add any units selected to platoon 2
-            foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon2().Add(unit); }
+            foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon(1).GetAi().Add(unit); }
         }
 
         // Select platoon 3
@@ -1069,7 +1087,7 @@ public class KeyboardInput : MonoBehaviour {
             _PlayerAttached.DeselectAllObjects();
 
             // Loop through & select all army objects
-            foreach (var ai in _PlayerAttached.GetPlatoon3()) {
+            foreach (var ai in _PlayerAttached.GetPlatoon(2).GetAi()) {
 
                 // Add to selection list
                 _PlayerAttached.SelectedWorldObjects.Add(ai);
@@ -1088,10 +1106,10 @@ public class KeyboardInput : MonoBehaviour {
             GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
 
             // Add any squads selected to platoon 3
-            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon3().Add(squad); }
+            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon(2).GetAi().Add(squad); }
 
             // Add any units selected to platoon 3
-            foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon3().Add(unit); }
+            foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon(2).GetAi().Add(unit); }
         }
 
         // Replace platoon 3
@@ -1104,13 +1122,13 @@ public class KeyboardInput : MonoBehaviour {
             GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
 
             // Clear platoon 3
-            _PlayerAttached.GetPlatoon3().Clear();
+            _PlayerAttached.GetPlatoon(2).GetAi().Clear();
 
             // Add any squads selected to platoon 3
-            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon3().Add(squad); }
+            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon(2).GetAi().Add(squad); }
 
             // Add any units selected to platoon 3
-            foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon3().Add(unit); }
+            foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon(2).GetAi().Add(unit); }
         }
 
         // Select platoon 4
@@ -1119,7 +1137,7 @@ public class KeyboardInput : MonoBehaviour {
             _PlayerAttached.DeselectAllObjects();
 
             // Loop through & select all army objects
-            foreach (var ai in _PlayerAttached.GetPlatoon4()) {
+            foreach (var ai in _PlayerAttached.GetPlatoon(3).GetAi()) {
 
                 // Add to selection list
                 _PlayerAttached.SelectedWorldObjects.Add(ai);
@@ -1138,10 +1156,10 @@ public class KeyboardInput : MonoBehaviour {
             GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
 
             // Add any squads selected to platoon 4
-            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon4().Add(squad); }
+            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon(3).GetAi().Add(squad); }
 
             // Add any units selected to platoon 4
-            foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon4().Add(unit); }
+            foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon(3).GetAi().Add(unit); }
         }
 
         // Replace platoon 4
@@ -1154,13 +1172,13 @@ public class KeyboardInput : MonoBehaviour {
             GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
 
             // Clear platoon 4
-            _PlayerAttached.GetPlatoon4().Clear();
+            _PlayerAttached.GetPlatoon(3).GetAi().Clear();
 
             // Add any squads selected to platoon 1
-            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon4().Add(squad); }
+            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon(3).GetAi().Add(squad); }
 
             // Add any units selected to platoon 1
-            foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon4().Add(unit); }
+            foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon(3).GetAi().Add(unit); }
         }
 
         // Select platoon 5
@@ -1169,7 +1187,7 @@ public class KeyboardInput : MonoBehaviour {
             _PlayerAttached.DeselectAllObjects();
 
             // Loop through & select all army objects
-            foreach (var ai in _PlayerAttached.GetPlatoon5()) {
+            foreach (var ai in _PlayerAttached.GetPlatoon(4).GetAi()) {
 
                 // Add to selection list
                 _PlayerAttached.SelectedWorldObjects.Add(ai);
@@ -1188,10 +1206,10 @@ public class KeyboardInput : MonoBehaviour {
             GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
 
             // Add any squads selected to platoon 5
-            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon5().Add(squad); }
+            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon(4).GetAi().Add(squad); }
 
             // Add any units selected to platoon 5
-            foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon5().Add(unit); }
+            foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon(4).GetAi().Add(unit); }
         }
 
         // Replace platoon 5
@@ -1204,13 +1222,13 @@ public class KeyboardInput : MonoBehaviour {
             GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
 
             // Clear platoon 5
-            _PlayerAttached.GetPlatoon5().Clear();
+            _PlayerAttached.GetPlatoon(4).GetAi().Clear();
 
             // Add any squads selected to platoon 5
-            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon5().Add(squad); }
+            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon(4).GetAi().Add(squad); }
 
             // Add any units selected to platoon 5
-            foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon5().Add(unit); }
+            foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon(4).GetAi().Add(unit); }
         }
 
         // Select platoon 6
@@ -1219,7 +1237,7 @@ public class KeyboardInput : MonoBehaviour {
             _PlayerAttached.DeselectAllObjects();
 
             // Loop through & select all army objects
-            foreach (var ai in _PlayerAttached.GetPlatoon6()) {
+            foreach (var ai in _PlayerAttached.GetPlatoon(5).GetAi()) {
 
                 // Add to selection list
                 _PlayerAttached.SelectedWorldObjects.Add(ai);
@@ -1238,10 +1256,10 @@ public class KeyboardInput : MonoBehaviour {
             GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
 
             // Add any squads selected to platoon 6
-            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon6().Add(squad); }
+            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon(5).GetAi().Add(squad); }
 
             // Add any units selected to platoon 6
-            foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon6().Add(unit); }
+            foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon(5).GetAi().Add(unit); }
         }
 
         // Replace platoon 6
@@ -1254,13 +1272,13 @@ public class KeyboardInput : MonoBehaviour {
             GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
 
             // Clear platoon 6
-            _PlayerAttached.GetPlatoon6().Clear();
+            _PlayerAttached.GetPlatoon(5).GetAi().Clear();
 
             // Add any squads selected to platoon 1
-            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon6().Add(squad); }
+            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon(5).GetAi().Add(squad); }
 
             // Add any units selected to platoon 1
-            foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon6().Add(unit); }
+            foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon(5).GetAi().Add(unit); }
         }
 
         // Select platoon 7
@@ -1269,7 +1287,7 @@ public class KeyboardInput : MonoBehaviour {
             _PlayerAttached.DeselectAllObjects();
 
             // Loop through & select all army objects
-            foreach (var ai in _PlayerAttached.GetPlatoon7()) {
+            foreach (var ai in _PlayerAttached.GetPlatoon(6).GetAi()) {
 
                 // Add to selection list
                 _PlayerAttached.SelectedWorldObjects.Add(ai);
@@ -1288,10 +1306,10 @@ public class KeyboardInput : MonoBehaviour {
             GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
 
             // Add any squads selected to platoon 7
-            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon7().Add(squad); }
+            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon(6).GetAi().Add(squad); }
 
             // Add any units selected to platoon 7
-            foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon7().Add(unit); }
+            foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon(6).GetAi().Add(unit); }
         }
 
         // Replace platoon 7
@@ -1304,13 +1322,13 @@ public class KeyboardInput : MonoBehaviour {
             GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
 
             // Clear platoon 7
-            _PlayerAttached.GetPlatoon7().Clear();
+            _PlayerAttached.GetPlatoon(6).GetAi().Clear();
 
             // Add any squads selected to platoon 7
-            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon7().Add(squad); }
+            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon(6).GetAi().Add(squad); }
 
             // Add any units selected to platoon 7
-            foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon7().Add(unit); }
+            foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon(6).GetAi().Add(unit); }
         }
 
         // Select platoon 8
@@ -1319,7 +1337,7 @@ public class KeyboardInput : MonoBehaviour {
             _PlayerAttached.DeselectAllObjects();
 
             // Loop through & select all army objects
-            foreach (var ai in _PlayerAttached.GetPlatoon8()) {
+            foreach (var ai in _PlayerAttached.GetPlatoon(7).GetAi()) {
 
                 // Add to selection list
                 _PlayerAttached.SelectedWorldObjects.Add(ai);
@@ -1338,10 +1356,10 @@ public class KeyboardInput : MonoBehaviour {
             GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
 
             // Add any squads selected to platoon 8
-            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon8().Add(squad); }
+            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon(7).GetAi().Add(squad); }
 
             // Add any units selected to platoon 8
-            foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon8().Add(unit); }
+            foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon(7).GetAi().Add(unit); }
         }
 
         // Replace platoon 8
@@ -1354,13 +1372,13 @@ public class KeyboardInput : MonoBehaviour {
             GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
 
             // Clear platoon 8
-            _PlayerAttached.GetPlatoon8().Clear();
+            _PlayerAttached.GetPlatoon(7).GetAi().Clear();
 
             // Add any squads selected to platoon 8
-            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon8().Add(squad); }
+            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon(7).GetAi().Add(squad); }
 
             // Add any units selected to platoon 8
-            foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon8().Add(unit); }
+            foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon(7).GetAi().Add(unit); }
         }
 
         // Select platoon 9
@@ -1369,7 +1387,7 @@ public class KeyboardInput : MonoBehaviour {
             _PlayerAttached.DeselectAllObjects();
 
             // Loop through & select all army objects
-            foreach (var ai in _PlayerAttached.GetPlatoon9()) {
+            foreach (var ai in _PlayerAttached.GetPlatoon(8).GetAi()) {
 
                 // Add to selection list
                 _PlayerAttached.SelectedWorldObjects.Add(ai);
@@ -1388,10 +1406,10 @@ public class KeyboardInput : MonoBehaviour {
             GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
 
             // Add any squads selected to platoon 9
-            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon9().Add(squad); }
+            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon(8).GetAi().Add(squad); }
 
             // Add any units selected to platoon 9
-            foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon9().Add(unit); }
+            foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon(8).GetAi().Add(unit); }
         }
 
         // Replace platoon 9
@@ -1404,13 +1422,13 @@ public class KeyboardInput : MonoBehaviour {
             GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
 
             // Clear platoon 9
-            _PlayerAttached.GetPlatoon9().Clear();
+            _PlayerAttached.GetPlatoon(8).GetAi().Clear();
 
             // Add any squads selected to platoon 9
-            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon9().Add(squad); }
+            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon(8).GetAi().Add(squad); }
 
             // Add any units selected to platoon 9
-            foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon9().Add(unit); }
+            foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon(8).GetAi().Add(unit); }
         }
 
         // Select platoon 10
@@ -1419,7 +1437,7 @@ public class KeyboardInput : MonoBehaviour {
             _PlayerAttached.DeselectAllObjects();
 
             // Loop through & select all army objects
-            foreach (var ai in _PlayerAttached.GetPlatoon10()) {
+            foreach (var ai in _PlayerAttached.GetPlatoon(9).GetAi()) {
 
                 // Add to selection list
                 _PlayerAttached.SelectedWorldObjects.Add(ai);
@@ -1430,7 +1448,7 @@ public class KeyboardInput : MonoBehaviour {
 
         // Add to platoon 10
         if ((Input.GetKeyDown(KeyCode.Keypad0) || Input.GetKeyDown(KeyCode.Alpha0) && (Input.GetKey(KeyCode.LeftShift)) && !Input.GetKey(KeyCode.LeftControl))) {
-
+            
             // Get lists of AIs that are selected
             List<Squad> SquadsSelected = new List<Squad>();
             List<Unit> UnitsSelected = new List<Unit>();
@@ -1438,10 +1456,10 @@ public class KeyboardInput : MonoBehaviour {
             GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
 
             // Add any squads selected to platoon 10
-            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon10().Add(squad); }
+            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon(9).GetAi().Add(squad); }
 
             // Add any units selected to platoon 10
-            foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon10().Add(unit); }
+            foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon(9).GetAi().Add(unit); }
         }
 
         // Replace platoon 10
@@ -1454,13 +1472,13 @@ public class KeyboardInput : MonoBehaviour {
             GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
 
             // Clear platoon 10
-            _PlayerAttached.GetPlatoon10().Clear();
+            _PlayerAttached.GetPlatoon(9).GetAi().Clear();
 
             // Add any squads selected to platoon 10
-            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon10().Add(squad); }
+            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon(9).GetAi().Add(squad); }
 
             // Add any units selected to platoon 10
-            foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon10().Add(unit); }
+            foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon(9).GetAi().Add(unit); }
         }
     }
 

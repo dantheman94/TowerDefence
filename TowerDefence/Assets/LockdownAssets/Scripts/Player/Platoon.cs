@@ -7,31 +7,20 @@ using UnityEngine;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 23/6/2018
+//  Last edited on: 27/7/2018
 //
 //******************************
 
 public class Platoon : MonoBehaviour {
-
-    //******************************************************************************************************************************
-    //
-    //      INSPECTOR
-    //
-    //******************************************************************************************************************************
-
-    [Space]
-    [Header("-----------------------------------")]
-    [Header(" PLATOON PROPERTIES")]
-    [Space]
-    public int KeybindingID;
-
+    
     //******************************************************************************************************************************
     //
     //      VARIABLES
     //
     //******************************************************************************************************************************
 
-    private List<Squad> _PlatoonSquads;
+    private List<WorldObject> _PlatoonAi;
+    public int _Size { get; set; }
 
     //******************************************************************************************************************************
     //
@@ -46,7 +35,8 @@ public class Platoon : MonoBehaviour {
     /// </summary>
     private void Start() {
 
-        _PlatoonSquads = new List<Squad>();
+        _PlatoonAi = new List<WorldObject>();
+        _Size = 0;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -58,7 +48,11 @@ public class Platoon : MonoBehaviour {
     public void AddToPlatooon(List<Squad> squadsToAdd) {
 
         // Loop through the list and add it to the platoon
-        foreach (var squad in squadsToAdd) { _PlatoonSquads.Add(squad); }
+        foreach (var squad in squadsToAdd) {
+
+            _PlatoonAi.Add(squad);
+            _Size++;
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -70,11 +64,20 @@ public class Platoon : MonoBehaviour {
     public void ReplacePlatoon(List<Squad> replacementSquads) {
 
         // Clear the current platoon
-        _PlatoonSquads.Clear();
+        _PlatoonAi.Clear();
+        _Size = 0;
 
         // Loop through the list and add it to the platoon
-        foreach (var squad in replacementSquads) { _PlatoonSquads.Add(squad); }
+        foreach (var squad in replacementSquads) {
+
+            _PlatoonAi.Add(squad);
+            _Size++;
+        }
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public List<WorldObject> GetAi() { return _PlatoonAi; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
