@@ -37,9 +37,7 @@ public class PreLockdownMatchSettings : MonoBehaviour {
     //
     //******************************************************************************************************************************
 
-    public enum EFaction { EtherealNibbas, Faction2, Faction3, Faction4 }
-
-    private EFaction _Faction = EFaction.EtherealNibbas;
+    private InstanceManager.EFaction _Faction = InstanceManager.EFaction.EtherealNibbas;
     private Info_Level _Level = null;
     private Info_Difficulty _Difficulty = null;
 
@@ -75,7 +73,11 @@ public class PreLockdownMatchSettings : MonoBehaviour {
     //  
     /// </summary>
     /// <param name="faction"></param>
-    public void SetFaction(int factionIndex) { _Faction = (EFaction)factionIndex; }
+    public void SetFaction(int factionIndex) {
+
+        _Faction = (InstanceManager.EFaction)factionIndex;
+        InstanceManager.Instance._PlayerSettings[0].SetFaction(_Faction);
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -83,7 +85,11 @@ public class PreLockdownMatchSettings : MonoBehaviour {
     //  
     /// </summary>
     /// <param name="level"></param>
-    public void SetLevel(Info_Level level) { _Level = level; }
+    public void SetLevel(Info_Level level) {
+
+        _Level = level;
+        InstanceManager.Instance._Level = _Level;
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -91,7 +97,26 @@ public class PreLockdownMatchSettings : MonoBehaviour {
     //  
     /// </summary>
     /// <param name="difficulty"></param>
-    public void SetDifficulty(Info_Difficulty difficulty) { _Difficulty = difficulty; }
+    public void SetDifficulty(Info_Difficulty difficulty) {
+
+        _Difficulty = difficulty;
+        InstanceManager.Instance._Difficulty = _Difficulty;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    public void StartMatch() {
+
+        // Load the "loading" scene
+        ASyncLoading.Instance.LoadLevel(1);
+        ASyncLoading.Instance.ActivateLevel();
+
+        // Load the gameplay scene
+        ASyncLoading.Instance.LoadLevel(_Level.LevelIndex);
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

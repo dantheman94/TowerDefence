@@ -1,8 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
 
 //******************************
 //
@@ -13,7 +11,7 @@ using UnityEngine.EventSystems;
 //
 //******************************
 
-public class Info_Level : MonoBehaviour, IPointerEnterHandler {
+public class InstanceManager : MonoBehaviour {
 
     //******************************************************************************************************************************
     //
@@ -23,36 +21,45 @@ public class Info_Level : MonoBehaviour, IPointerEnterHandler {
 
     [Space]
     [Header("-----------------------------------")]
-    [Header(" OBJECT INFORMATION")]
+    [Header(" PLAYERS")]
     [Space]
-    public int LevelIndex;
-    [Space]
-    public string LevelName = "";
-    public string LevelDescription = "";
-    public Sprite LevelThumbnailSprite = null;
+    public UserSettings[] _PlayerSettings;
 
-    [Space]
-    [Header("-----------------------------------")]
-    [Header(" BUTTON HOVER PROPERTIES")]
-    [Space]
-    public Text HoverText = null;
+    //******************************************************************************************************************************
+    //
+    //      VARIABLES
+    //
+    //******************************************************************************************************************************
 
+    public enum EFaction { EtherealNibbas, Faction2, Faction3, Faction4 }
+
+    public static InstanceManager Instance;
+    
+    public Info_Level _Level { get; set; }
+    public Info_Difficulty _Difficulty { get; set; }
+    
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
     //
     //******************************************************************************************************************************
-
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    
     /// <summary>
-    //
+    //  This is called before Startup().
     /// </summary>
-    /// <param name="eventdata"></param>
-    public void OnPointerEnter(PointerEventData eventdata) {
+    private void Awake() {
 
-        // Update hovered description text 
-        if (HoverText != null) { HoverText.text = LevelDescription; }
+        // Initialize singleton
+        if (Instance != null && Instance != this) {
+
+            Destroy(this.gameObject);
+            return;
+        }
+
+        Instance = this;
+
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -1,8 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
 
 //******************************
 //
@@ -13,7 +11,7 @@ using UnityEngine.EventSystems;
 //
 //******************************
 
-public class Info_Difficulty : MonoBehaviour, IPointerEnterHandler {
+public class UserSettings : MonoBehaviour {
 
     //******************************************************************************************************************************
     //
@@ -21,19 +19,13 @@ public class Info_Difficulty : MonoBehaviour, IPointerEnterHandler {
     //
     //******************************************************************************************************************************
 
-    [Space]
-    [Header("-----------------------------------")]
-    [Header(" OBJECT INFORMATION")]
-    [Space]
-    public DifficultyManager.Difficulties Difficulty;
-    public string DifficultyDescription = "";
-    public Sprite DifficultyThumbnailSprite = null;
+    //******************************************************************************************************************************
+    //
+    //      VARIABLES
+    //
+    //******************************************************************************************************************************
 
-    [Space]
-    [Header("-----------------------------------")]
-    [Header(" BUTTON HOVER PROPERTIES")]
-    [Space]
-    public Text HoverText = null;
+    private InstanceManager.EFaction _Faction = InstanceManager.EFaction.EtherealNibbas;
 
     //******************************************************************************************************************************
     //
@@ -44,14 +36,10 @@ public class Info_Difficulty : MonoBehaviour, IPointerEnterHandler {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //
+    //  
     /// </summary>
-    /// <param name="eventdata"></param>
-    public void OnPointerEnter(PointerEventData eventdata) {
-
-        // Update hovered description text 
-        if (HoverText != null) { HoverText.text = DifficultyDescription; }
-    }
+    /// <param name="faction"></param>
+    public void SetFaction(InstanceManager.EFaction faction) { _Faction = faction; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -59,19 +47,9 @@ public class Info_Difficulty : MonoBehaviour, IPointerEnterHandler {
     //  
     /// </summary>
     /// <returns>
-    //  string
+    //  InstanceManager.Faction
     /// </returns>
-    public string GetUIEnumerator() {
-
-        switch (Difficulty) {
-            case DifficultyManager.Difficulties.Normal:     { return "Normal"; }
-            case DifficultyManager.Difficulties.Hard:       { return "Hard"; }
-            case DifficultyManager.Difficulties.VeryHard:   { return "Very Hard"; }
-            case DifficultyManager.Difficulties.Impossible: { return "Impossible"; }
-            default: break;
-        }
-        return "Undefined";
-    }
+    public InstanceManager.EFaction GetFaction() { return _Faction; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
