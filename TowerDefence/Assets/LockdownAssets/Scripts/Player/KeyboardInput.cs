@@ -101,9 +101,6 @@ public class KeyboardInput : MonoBehaviour {
                         ai.SetIsSelected(true);
                     }
                 }
-
-                if (_PlayerAttached.SelectedWorldObjects.Count > 0)
-                    Debug.Log(_PlayerAttached.SelectedWorldObjects[0].ObjectName);
             }
         }
     }
@@ -671,10 +668,13 @@ public class KeyboardInput : MonoBehaviour {
                         // Left clicking on a world object
                         if (worldObj != null) {
 
-                            // Add selection to list
-                            _PlayerAttached.SelectedWorldObjects.Add(worldObj);
-                            worldObj.SetPlayer(_PlayerAttached);
-                            worldObj.SetIsSelected(true);
+                            if (buildingSlot == null && buildingObj == null && baseObj == null && unitObj == null && squadObj == null) {
+
+                                // Add selection to list
+                                _PlayerAttached.SelectedWorldObjects.Add(worldObj);
+                                worldObj.SetPlayer(_PlayerAttached);
+                                worldObj.SetIsSelected(true);
+                            }
                         }
                     }
 
@@ -980,23 +980,10 @@ public class KeyboardInput : MonoBehaviour {
     /// </summary>
     private void PlatoonInput() {
 
-        // Select platoon 1
-        if (Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.Alpha1) && (!Input.GetKeyDown(KeyCode.LeftShift) && (!Input.GetKeyDown(KeyCode.LeftControl)))) {
-
-            _PlayerAttached.DeselectAllObjects();
-
-            // Loop through & select all army objects
-            foreach (var ai in _PlayerAttached.GetPlatoon(0).GetAi()) {
-
-                // Add to selection list
-                _PlayerAttached.SelectedWorldObjects.Add(ai);
-                ai.SetPlayer(_PlayerAttached);
-                ai.SetIsSelected(true);
-            }
-        }
-
         // Add to platoon 1
-        if ((Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.Alpha1) && (Input.GetKey(KeyCode.LeftShift)) && !Input.GetKey(KeyCode.LeftControl))) {
+        if ((Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.Alpha1) && (Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.LeftControl)))) {
+
+            Debug.Log("Add");
 
             // Get lists of AIs that are selected
             List<Squad> SquadsSelected = new List<Squad>();
@@ -1012,7 +999,9 @@ public class KeyboardInput : MonoBehaviour {
         }
 
         // Replace platoon 1
-        if ((Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.Alpha1) && (!Input.GetKey(KeyCode.LeftShift)) && Input.GetKey(KeyCode.LeftControl))) {
+        if ((Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.Alpha1) && (!Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.LeftControl)))) {
+
+            Debug.Log("Replace");
 
             // Get lists of AIs that are selected
             List<Squad> SquadsSelected = new List<Squad>();
@@ -1030,13 +1019,13 @@ public class KeyboardInput : MonoBehaviour {
             foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon(0).GetAi().Add(unit); }
         }
 
-        // Select platoon 2
-        if (Input.GetKeyDown(KeyCode.Keypad2) || Input.GetKeyDown(KeyCode.Alpha2) && (!Input.GetKeyDown(KeyCode.LeftShift) && (!Input.GetKeyDown(KeyCode.LeftControl)))) {
+        // Select platoon 1
+        if (Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.Alpha1) && (!Input.GetKeyDown(KeyCode.LeftShift) && (!Input.GetKeyDown(KeyCode.LeftControl)))) {
 
             _PlayerAttached.DeselectAllObjects();
 
             // Loop through & select all army objects
-            foreach (var ai in _PlayerAttached.GetPlatoon(1).GetAi()) {
+            foreach (var ai in _PlayerAttached.GetPlatoon(0).GetAi()) {
 
                 // Add to selection list
                 _PlayerAttached.SelectedWorldObjects.Add(ai);
@@ -1080,13 +1069,13 @@ public class KeyboardInput : MonoBehaviour {
             foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon(1).GetAi().Add(unit); }
         }
 
-        // Select platoon 3
-        if (Input.GetKeyDown(KeyCode.Keypad3) || Input.GetKeyDown(KeyCode.Alpha3) && (!Input.GetKeyDown(KeyCode.LeftShift) && (!Input.GetKeyDown(KeyCode.LeftControl)))) {
+        // Select platoon 2
+        if (Input.GetKeyDown(KeyCode.Keypad2) || Input.GetKeyDown(KeyCode.Alpha2) && (!Input.GetKeyDown(KeyCode.LeftShift) && (!Input.GetKeyDown(KeyCode.LeftControl)))) {
 
             _PlayerAttached.DeselectAllObjects();
 
             // Loop through & select all army objects
-            foreach (var ai in _PlayerAttached.GetPlatoon(2).GetAi()) {
+            foreach (var ai in _PlayerAttached.GetPlatoon(1).GetAi()) {
 
                 // Add to selection list
                 _PlayerAttached.SelectedWorldObjects.Add(ai);
@@ -1130,13 +1119,13 @@ public class KeyboardInput : MonoBehaviour {
             foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon(2).GetAi().Add(unit); }
         }
 
-        // Select platoon 4
-        if (Input.GetKeyDown(KeyCode.Keypad4) || Input.GetKeyDown(KeyCode.Alpha4) && (!Input.GetKeyDown(KeyCode.LeftShift) && (!Input.GetKeyDown(KeyCode.LeftControl)))) {
+        // Select platoon 3
+        if (Input.GetKeyDown(KeyCode.Keypad3) || Input.GetKeyDown(KeyCode.Alpha3) && (!Input.GetKeyDown(KeyCode.LeftShift) && (!Input.GetKeyDown(KeyCode.LeftControl)))) {
 
             _PlayerAttached.DeselectAllObjects();
 
             // Loop through & select all army objects
-            foreach (var ai in _PlayerAttached.GetPlatoon(3).GetAi()) {
+            foreach (var ai in _PlayerAttached.GetPlatoon(2).GetAi()) {
 
                 // Add to selection list
                 _PlayerAttached.SelectedWorldObjects.Add(ai);
@@ -1180,13 +1169,13 @@ public class KeyboardInput : MonoBehaviour {
             foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon(3).GetAi().Add(unit); }
         }
 
-        // Select platoon 5
-        if (Input.GetKeyDown(KeyCode.Keypad5) || Input.GetKeyDown(KeyCode.Alpha5) && (!Input.GetKeyDown(KeyCode.LeftShift) && (!Input.GetKeyDown(KeyCode.LeftControl)))) {
+        // Select platoon 4
+        if (Input.GetKeyDown(KeyCode.Keypad4) || Input.GetKeyDown(KeyCode.Alpha4) && (!Input.GetKeyDown(KeyCode.LeftShift) && (!Input.GetKeyDown(KeyCode.LeftControl)))) {
 
             _PlayerAttached.DeselectAllObjects();
 
             // Loop through & select all army objects
-            foreach (var ai in _PlayerAttached.GetPlatoon(4).GetAi()) {
+            foreach (var ai in _PlayerAttached.GetPlatoon(3).GetAi()) {
 
                 // Add to selection list
                 _PlayerAttached.SelectedWorldObjects.Add(ai);
@@ -1230,13 +1219,13 @@ public class KeyboardInput : MonoBehaviour {
             foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon(4).GetAi().Add(unit); }
         }
 
-        // Select platoon 6
-        if (Input.GetKeyDown(KeyCode.Keypad6) || Input.GetKeyDown(KeyCode.Alpha6) && (!Input.GetKeyDown(KeyCode.LeftShift) && (!Input.GetKeyDown(KeyCode.LeftControl)))) {
+        // Select platoon 5
+        if (Input.GetKeyDown(KeyCode.Keypad5) || Input.GetKeyDown(KeyCode.Alpha5) && (!Input.GetKeyDown(KeyCode.LeftShift) && (!Input.GetKeyDown(KeyCode.LeftControl)))) {
 
             _PlayerAttached.DeselectAllObjects();
 
             // Loop through & select all army objects
-            foreach (var ai in _PlayerAttached.GetPlatoon(5).GetAi()) {
+            foreach (var ai in _PlayerAttached.GetPlatoon(4).GetAi()) {
 
                 // Add to selection list
                 _PlayerAttached.SelectedWorldObjects.Add(ai);
@@ -1280,13 +1269,13 @@ public class KeyboardInput : MonoBehaviour {
             foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon(5).GetAi().Add(unit); }
         }
 
-        // Select platoon 7
-        if (Input.GetKeyDown(KeyCode.Keypad7) || Input.GetKeyDown(KeyCode.Alpha7) && (!Input.GetKeyDown(KeyCode.LeftShift) && (!Input.GetKeyDown(KeyCode.LeftControl)))) {
+        // Select platoon 6
+        if (Input.GetKeyDown(KeyCode.Keypad6) || Input.GetKeyDown(KeyCode.Alpha6) && (!Input.GetKeyDown(KeyCode.LeftShift) && (!Input.GetKeyDown(KeyCode.LeftControl)))) {
 
             _PlayerAttached.DeselectAllObjects();
 
             // Loop through & select all army objects
-            foreach (var ai in _PlayerAttached.GetPlatoon(6).GetAi()) {
+            foreach (var ai in _PlayerAttached.GetPlatoon(5).GetAi()) {
 
                 // Add to selection list
                 _PlayerAttached.SelectedWorldObjects.Add(ai);
@@ -1330,13 +1319,13 @@ public class KeyboardInput : MonoBehaviour {
             foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon(6).GetAi().Add(unit); }
         }
 
-        // Select platoon 8
-        if (Input.GetKeyDown(KeyCode.Keypad8) || Input.GetKeyDown(KeyCode.Alpha8) && (!Input.GetKeyDown(KeyCode.LeftShift) && (!Input.GetKeyDown(KeyCode.LeftControl)))) {
+        // Select platoon 7
+        if (Input.GetKeyDown(KeyCode.Keypad7) || Input.GetKeyDown(KeyCode.Alpha7) && (!Input.GetKeyDown(KeyCode.LeftShift) && (!Input.GetKeyDown(KeyCode.LeftControl)))) {
 
             _PlayerAttached.DeselectAllObjects();
 
             // Loop through & select all army objects
-            foreach (var ai in _PlayerAttached.GetPlatoon(7).GetAi()) {
+            foreach (var ai in _PlayerAttached.GetPlatoon(6).GetAi()) {
 
                 // Add to selection list
                 _PlayerAttached.SelectedWorldObjects.Add(ai);
@@ -1380,13 +1369,13 @@ public class KeyboardInput : MonoBehaviour {
             foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon(7).GetAi().Add(unit); }
         }
 
-        // Select platoon 9
-        if (Input.GetKeyDown(KeyCode.Keypad9) || Input.GetKeyDown(KeyCode.Alpha9) && (!Input.GetKeyDown(KeyCode.LeftShift) && (!Input.GetKeyDown(KeyCode.LeftControl)))) {
+        // Select platoon 8
+        if (Input.GetKeyDown(KeyCode.Keypad8) || Input.GetKeyDown(KeyCode.Alpha8) && (!Input.GetKeyDown(KeyCode.LeftShift) && (!Input.GetKeyDown(KeyCode.LeftControl)))) {
 
             _PlayerAttached.DeselectAllObjects();
 
             // Loop through & select all army objects
-            foreach (var ai in _PlayerAttached.GetPlatoon(8).GetAi()) {
+            foreach (var ai in _PlayerAttached.GetPlatoon(7).GetAi()) {
 
                 // Add to selection list
                 _PlayerAttached.SelectedWorldObjects.Add(ai);
@@ -1430,13 +1419,13 @@ public class KeyboardInput : MonoBehaviour {
             foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon(8).GetAi().Add(unit); }
         }
 
-        // Select platoon 10
-        if (Input.GetKeyDown(KeyCode.Keypad0) || Input.GetKeyDown(KeyCode.Alpha0) && (!Input.GetKeyDown(KeyCode.LeftShift) && (!Input.GetKeyDown(KeyCode.LeftControl)))) {
+        // Select platoon 9
+        if (Input.GetKeyDown(KeyCode.Keypad9) || Input.GetKeyDown(KeyCode.Alpha9) && (!Input.GetKeyDown(KeyCode.LeftShift) && (!Input.GetKeyDown(KeyCode.LeftControl)))) {
 
             _PlayerAttached.DeselectAllObjects();
 
             // Loop through & select all army objects
-            foreach (var ai in _PlayerAttached.GetPlatoon(9).GetAi()) {
+            foreach (var ai in _PlayerAttached.GetPlatoon(8).GetAi()) {
 
                 // Add to selection list
                 _PlayerAttached.SelectedWorldObjects.Add(ai);
@@ -1447,7 +1436,7 @@ public class KeyboardInput : MonoBehaviour {
 
         // Add to platoon 10
         if ((Input.GetKeyDown(KeyCode.Keypad0) || Input.GetKeyDown(KeyCode.Alpha0) && (Input.GetKey(KeyCode.LeftShift)) && !Input.GetKey(KeyCode.LeftControl))) {
-            
+
             // Get lists of AIs that are selected
             List<Squad> SquadsSelected = new List<Squad>();
             List<Unit> UnitsSelected = new List<Unit>();
@@ -1478,6 +1467,21 @@ public class KeyboardInput : MonoBehaviour {
 
             // Add any units selected to platoon 10
             foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon(9).GetAi().Add(unit); }
+        }
+
+        // Select platoon 10
+        if (Input.GetKeyDown(KeyCode.Keypad0) || Input.GetKeyDown(KeyCode.Alpha0) && (!Input.GetKeyDown(KeyCode.LeftShift) && (!Input.GetKeyDown(KeyCode.LeftControl)))) {
+
+            _PlayerAttached.DeselectAllObjects();
+
+            // Loop through & select all army objects
+            foreach (var ai in _PlayerAttached.GetPlatoon(9).GetAi()) {
+
+                // Add to selection list
+                _PlayerAttached.SelectedWorldObjects.Add(ai);
+                ai.SetPlayer(_PlayerAttached);
+                ai.SetIsSelected(true);
+            }
         }
     }
 

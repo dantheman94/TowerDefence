@@ -23,7 +23,26 @@ public class DifficultyManager : MonoBehaviour {
     [Header("-----------------------------------")]
     [Header(" STARTING DIFFICULTY")]
     [Space]
-    public Difficulties CurrentDifficulty = Difficulties.Hard;
+    public Difficulties CurrentDifficulty = Difficulties.Normal;
+
+    [Space]
+    [Header("-----------------------------------")]
+    [Header(" EASY DIFFICULTY")]
+    [Space]
+    [Header("  HEALTH")]
+    public HealthModifier EasyEnemyHealthModifier;
+    [Space]
+    public HealthModifier EasyFriendlyHealthModifier;
+    [Space]
+    [Header("  FIRING RATE")]
+    public FiringRateModifier EasyEnemyFiringRateModifier;
+    [Space]
+    public FiringRateModifier EasyFriendlyFiringRateModifier;
+    [Space]
+    [Header("  MOVEMENT SPEED")]
+    public MovementSpeedModifier EasyEnemyMovementSpeedModifier;
+    [Space]
+    public MovementSpeedModifier EasyFriendlyMovementSpeedModifier;
 
     [Space]
     [Header("-----------------------------------")]
@@ -88,7 +107,7 @@ public class DifficultyManager : MonoBehaviour {
     //
     //******************************************************************************************************************************
 
-    public enum Difficulties { Normal, Hard, VeryHard, Impossible }
+    public enum Difficulties { Easy, Normal, Hard, Impossible }
     
     //******************************************************************************************************************************
     //

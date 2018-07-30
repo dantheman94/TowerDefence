@@ -41,6 +41,18 @@ public class Platoon : MonoBehaviour {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+    /// <summary>
+    //  Called each frame. 
+    /// </summary>
+    private void Update() {
+
+        // Update platoon size
+        _Size = _PlatoonAi.Count;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     //  
     /// </summary>
@@ -48,11 +60,7 @@ public class Platoon : MonoBehaviour {
     public void AddToPlatooon(List<Squad> squadsToAdd) {
 
         // Loop through the list and add it to the platoon
-        foreach (var squad in squadsToAdd) {
-
-            _PlatoonAi.Add(squad);
-            _Size++;
-        }
+        foreach (var squad in squadsToAdd) { _PlatoonAi.Add(squad); }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -68,11 +76,7 @@ public class Platoon : MonoBehaviour {
         _Size = 0;
 
         // Loop through the list and add it to the platoon
-        foreach (var squad in replacementSquads) {
-
-            _PlatoonAi.Add(squad);
-            _Size++;
-        }
+        foreach (var squad in replacementSquads) { _PlatoonAi.Add(squad); }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -49,7 +49,7 @@ public class UI_UnitInfoPanel : MonoBehaviour {
         if (AbilityText != null) { AmountCounter.text = ""; }
 
         // Hide the gameObject
-        this.gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

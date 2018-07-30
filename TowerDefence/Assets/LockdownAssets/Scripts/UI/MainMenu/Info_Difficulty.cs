@@ -64,9 +64,9 @@ public class Info_Difficulty : MonoBehaviour, IPointerEnterHandler {
     public string GetUIEnumerator() {
 
         switch (Difficulty) {
-            case DifficultyManager.Difficulties.Normal:     { return "Normal"; }
-            case DifficultyManager.Difficulties.Hard:       { return "Hard"; }
-            case DifficultyManager.Difficulties.VeryHard:   { return "Very Hard"; }
+            case DifficultyManager.Difficulties.Easy:     { return "Normal"; }
+            case DifficultyManager.Difficulties.Normal:       { return "Hard"; }
+            case DifficultyManager.Difficulties.Hard:   { return "Very Hard"; }
             case DifficultyManager.Difficulties.Impossible: { return "Impossible"; }
             default: break;
         }
