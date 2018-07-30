@@ -85,7 +85,7 @@ public class GameManager : MonoBehaviour {
 
     [HideInInspector]
     public List<Selectable> Selectables { get; set; }
-
+    
     [System.Serializable]
     public struct WorldObjectPreloading {
 
