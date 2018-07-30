@@ -42,6 +42,8 @@ public class SelectionWheel : MonoBehaviour {
     [Header("-----------------------------------")]
     [Header(" BUTTONS ")]
     [Space]
+    public Button MasterButton;
+    [Space]
     public List<Button> _WheelButtons;
 
     //******************************************************************************************************************************
@@ -58,6 +60,18 @@ public class SelectionWheel : MonoBehaviour {
     //      FUNCTIONS
     //
     //******************************************************************************************************************************
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Called in the next frame (1 frame delay)
+    /// </summary>
+    private void LateUpdate() {
+
+        if (MasterButton != null && MasterButton.gameObject.activeInHierarchy == true) { MasterButton.enabled = true; }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     /// 
@@ -97,6 +111,8 @@ public class SelectionWheel : MonoBehaviour {
         }
         RefreshButtons(selectables);
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     /// 
@@ -144,6 +160,8 @@ public class SelectionWheel : MonoBehaviour {
         RefreshButtons(selectable);
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     /// 
     /// </summary>
@@ -184,6 +202,8 @@ public class SelectionWheel : MonoBehaviour {
         }
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     /// 
     /// </summary>
@@ -212,7 +232,13 @@ public class SelectionWheel : MonoBehaviour {
     /// <summary>
     /// 
     /// </summary>
-    public void ShowSelectionWheel() { GameManager.Instance.SelectionWheel.SetActive(true); }
+    public void ShowSelectionWheel() {
+
+        GameManager.Instance.SelectionWheel.SetActive(true);
+        MasterButton.enabled = false;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     /// 
@@ -224,6 +250,9 @@ public class SelectionWheel : MonoBehaviour {
 
         // Hide widget
         GameManager.Instance.SelectionWheel.SetActive(false);
+        MasterButton.enabled = false;
     }
-    
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 }

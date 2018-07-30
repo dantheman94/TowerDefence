@@ -129,7 +129,7 @@ public class Building : WorldObject {
 
                         if (_RecycleOption == null) {
 
-                            _RecycleOption = Instantiate(GameManager.Instance.RecycleBuilding.GetComponent<BuildingRecycle>());
+                            _RecycleOption = ObjectPooling.Spawn(GameManager.Instance.RecycleBuilding).GetComponent<BuildingRecycle>();
                         }
                         _RecycleOption.SetBuildingToRecycle(this);
                         _RecycleOption.SetToBeDestroyed(true);
@@ -196,9 +196,7 @@ public class Building : WorldObject {
 
         // Destroy building
         if (_RecycleOption) {
-
-            ///Destroy(_RecycleOption.gameObject);
-
+            
             // Deselect self
             SetIsSelected(false);
 
