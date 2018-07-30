@@ -46,7 +46,7 @@ public class AirVehicle : Vehicle {
     //      FUNCTIONS
     //
     //******************************************************************************************************************************
-    
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
@@ -76,7 +76,7 @@ public class AirVehicle : Vehicle {
         // Fire a raycast forward
         RaycastHit hitForward;
         if (_ForwardRayDetection = Physics.Raycast(AgentPosition, transform.forward, out hitForward, ForwardAvoidanceRange)) {
-            
+
             Debug.DrawRay(AgentPosition, transform.forward * ForwardAvoidanceRange, Color.green);
 
             // Slow the vehicle down
@@ -87,9 +87,9 @@ public class AirVehicle : Vehicle {
 
         // Forward raycast MISS
         else {
-            
+
             Debug.DrawRay(AgentPosition, transform.forward * ForwardAvoidanceRange, Color.red);
-            
+
             // Speed the vehicle up
             float speed = _Agent.speed;
             speed += Acceleration * Time.deltaTime;
@@ -99,11 +99,13 @@ public class AirVehicle : Vehicle {
         // Fire a raycast downward
         RaycastHit hitDown;
         if (_DownwardRayDetection = Physics.Raycast(AgentPosition, -transform.up, out hitDown, DownwardsAvoidanceRange)) {
-            
-            Debug.DrawRay(AgentPosition, -transform.up * DownwardsAvoidanceRange, Color.green);
 
-            // Push the air vehicle upwards
-            _Agent.baseOffset += VerticalSpeed * Time.deltaTime;
+            Debug.DrawRay(AgentPosition, -transform.up * DownwardsAvoidanceRange, Color.green);
+            if (hitDown.transform.gameObject.layer != 9) {
+                // Push the air vehicle upwards
+                _Agent.baseOffset += VerticalSpeed * Time.deltaTime;
+            }
+
 
             // Slow the vehicle down
             float speed = _Agent.speed;
@@ -113,7 +115,7 @@ public class AirVehicle : Vehicle {
 
         // Downward raycast MISS
         else {
-            
+
             Debug.DrawRay(AgentPosition, -transform.up * DownwardsAvoidanceRange, Color.red);
 
             // Speed the vehicle up

@@ -107,7 +107,7 @@ public class Base : Building {
         }
 
         // Remove old healthbar (if valid)
-        int hitpoints = MaxHitPoints;
+        float hitpoints = MaxHitPoints;
         if (originalBase != null) {
 
             hitpoints = originalBase._HitPoints;

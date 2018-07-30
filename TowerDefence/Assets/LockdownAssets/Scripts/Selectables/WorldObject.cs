@@ -101,7 +101,7 @@ public class WorldObject : Selectable {
     protected float _Health;
     protected int _CurrentGarrisonPopulation = 0;
     protected float _ObjectHeight = 0f;
-    protected int _HitPoints;
+    protected float _HitPoints;
     protected int _ShieldPoints;
     protected float _Shield;
 
@@ -134,59 +134,56 @@ public class WorldObject : Selectable {
     /// </summary>
     protected override void Update() {
         base.Update();
-        
+
         switch (_ObjectState) {
 
             case WorldObjectStates.Default: {
 
-                // Hide meshes
-                if (BuildingState) { BuildingState.SetActive(false); }
-                if (ActiveState) { ActiveState.SetActive(false); }
-                break;
-            }
+                    // Hide meshes
+                    if (BuildingState) { BuildingState.SetActive(false); }
+                    if (ActiveState) { ActiveState.SetActive(false); }
+                    break;
+                }
 
             case WorldObjectStates.Building: {
 
-                // Is unit building complete?
-                _ReadyForDeployment = _CurrentBuildTime >= BuildTime;
-                if (!_ReadyForDeployment) {
+                    // Is unit building complete?
+                    _ReadyForDeployment = _CurrentBuildTime >= BuildTime;
+                    if (!_ReadyForDeployment) {
 
-                    // Add to building timer
-                    if (_CurrentBuildTime < BuildTime) { _CurrentBuildTime += Time.deltaTime; }
+                        // Add to building timer
+                        if (_CurrentBuildTime < BuildTime) { _CurrentBuildTime += Time.deltaTime; }
+                    } else {
+
+                        // Object has finished building
+                        OnBuilt();
+                        _ObjectState = WorldObjectStates.Deployable;
+                    }
+
+                    // Show building state object
+                    if (BuildingState) { BuildingState.SetActive(true); }
+                    if (ActiveState) { ActiveState.SetActive(false); }
+                    break;
                 }
-
-                else {
-
-                    // Object has finished building
-                    OnBuilt();
-                    _ObjectState = WorldObjectStates.Deployable;
-                }
-
-                // Show building state object
-                if (BuildingState) { BuildingState.SetActive(true); }
-                if (ActiveState) { ActiveState.SetActive(false); }
-                break;
-            }
 
             case WorldObjectStates.Deployable: {
 
-                break;
-            }
+                    break;
+                }
 
             case WorldObjectStates.Active: {
 
-                // Show active state object
-                if (BuildingState) { BuildingState.SetActive(false); }
-                if (ActiveState) { ActiveState.SetActive(true); }
-                break;
-            }
+                    // Show active state object
+                    if (BuildingState) { BuildingState.SetActive(false); }
+                    if (ActiveState) { ActiveState.SetActive(true); }
+                    break;
+                }
 
             default: break;
         }
 
         // Update shield to be a normalized range of the object's shield-points
-        if (_ShieldPoints > 0) { _Shield = _ShieldPoints / MaxShieldPoints; }
-        else {
+        if (_ShieldPoints > 0) { _Shield = _ShieldPoints / MaxShieldPoints; } else {
 
             // Clamp the shield
             _ShieldPoints = 0;
@@ -194,8 +191,7 @@ public class WorldObject : Selectable {
         }
 
         // Update health to be a normalized range of the object's hitpoints
-        if (_HitPoints > 0) { _Health = _HitPoints / MaxHitPoints; }
-        else {
+        if (_HitPoints > 0) { _Health = _HitPoints / MaxHitPoints; } else {
 
             // Clamping health
             _HitPoints = 0;
@@ -214,7 +210,7 @@ public class WorldObject : Selectable {
     /// <summary>
     //  
     /// </summary>
-    protected virtual void DrawSelectionWheel() {}
+    protected virtual void DrawSelectionWheel() { }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -242,16 +238,15 @@ public class WorldObject : Selectable {
     //  (EG: If you're making a building, this is the building slot thats being used.)
     /// </param>
     public virtual void OnWheelSelect(BuildingSlot buildingSlot) {
-        
+
         // Deselect
         buildingSlot._IsCurrentlySelected = false;
         this._IsCurrentlySelected = false;
 
         // Get player reference
         Player plyr;
-        if (_Player)    { plyr = _Player; }
-        else            { plyr = GameManager.Instance.Players[0]; }
-        
+        if (_Player) { plyr = _Player; } else { plyr = GameManager.Instance.Players[0]; }
+
         // Check if the player has enough resources to build the object
         if ((plyr.SuppliesCount >= this.CostSupplies) && (plyr.PowerCount >= this.CostPower)) {
 
@@ -274,7 +269,7 @@ public class WorldObject : Selectable {
             RectTransform shieldRectTransform = _HealthBar._ShieldSlider.GetComponent<RectTransform>();
             shieldRectTransform.sizeDelta = new Vector2(_WidgetShieldbarScaleX, _WidgetShieldbarScaleY);
             shieldRectTransform.anchoredPosition = new Vector2(0, _WidgetShieldbarOffset);
-            
+
             // Create building progress panel & allocate it to the unit
             GameObject buildProgressObj = ObjectPooling.Spawn(GameManager.Instance.BuildingInProgressPanel.gameObject);
             _BuildingProgressCounter = buildProgressObj.GetComponent<UnitBuildingCounter>();
@@ -350,7 +345,7 @@ public class WorldObject : Selectable {
 
         // This is so that the next time the object is spawned - it is at its default state already
         _ObjectState = WorldObjectStates.Default;
-        
+
         // Despawn the object
         ObjectPooling.Despawn(worldObject.gameObject);
         transform.localScale = new Vector3(1f, 1f, 1f);
@@ -417,7 +412,7 @@ public class WorldObject : Selectable {
     //  
     /// </summary>
     /// <param name="value"></param>
-    public void SetHitPoints(int value) { _HitPoints = value; }
+    public void SetHitPoints(float value) { _HitPoints = value; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -427,9 +422,23 @@ public class WorldObject : Selectable {
     /// <returns>
     //  int
     /// </returns>
-    public int GetHitPoints() { return _HitPoints; }
+    public float GetHitPoints() { return _HitPoints; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    // Adds argument value to current health.
+    /// </summary>
+    ///<param name = "additionalHealth"</param>
+    public void AddHitPoints(float additionalHealth) { _HitPoints += additionalHealth; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    /// Subs argument value from current health.
+    /// </summary>
+    /// <param name="health"></param>
+    public void SubHitPoints(float health) { _HitPoints -= health; }
 
     /// <summary>
     //  Returns the hitpoints as a normalized value. (0.0f - 1.0f [ % ])

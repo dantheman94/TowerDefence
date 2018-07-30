@@ -51,7 +51,7 @@ public class BaseTurret : Tower {
         }
 
         // Remove old healthbar (if valid)
-        int hitpoints = MaxHitPoints;
+        float hitpoints = MaxHitPoints;
         if (originalTurret != null) {
 
             hitpoints = originalTurret.GetHitPoints();

@@ -102,7 +102,7 @@ public class Generator : Building {
         }
 
         // Remove old healthbar (if valid)
-        int hitpoints = MaxHitPoints;
+        float hitpoints = MaxHitPoints;
         if (originalGenerator != null) {
 
             hitpoints = originalGenerator.GetHitPoints();

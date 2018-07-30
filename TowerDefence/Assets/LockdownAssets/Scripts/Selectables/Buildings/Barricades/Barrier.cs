@@ -50,7 +50,7 @@ public class Barrier : Building {
         }
 
         // Remove old healthbar (if valid)
-        int hitpoints = MaxHitPoints;
+        float hitpoints = MaxHitPoints;
         if (originalBarrier != null) {
 
             hitpoints = originalBarrier.GetHitPoints();

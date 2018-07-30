@@ -91,7 +91,7 @@ public class Squad : WorldObject {
             if (_HealthBar != null) { _HealthBar.gameObject.SetActive(true); }
 
             // Get total sum of health for all units in the squad
-            int maxSquadHealth = 0, currentSquadHealth = 0;
+            float maxSquadHealth = 0, currentSquadHealth = 0;
             foreach (var unit in _Squad) {
 
                 maxSquadHealth += unit.MaxHitPoints;
