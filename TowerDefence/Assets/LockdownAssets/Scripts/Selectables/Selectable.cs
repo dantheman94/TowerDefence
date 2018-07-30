@@ -26,6 +26,7 @@ public class Selectable : Abstraction {
     [Header("-----------------------------------")]
     [Header(" SELECTABLE PROPERTIES")]
     [Space]
+    public bool ShowSelectionGUI = true;
     [Tooltip("The team associated with this object.")]
     public GameManager.Team Team;
     [Tooltip("The controller/player reference attached to this object.")]
@@ -132,7 +133,7 @@ public class Selectable : Abstraction {
         if (draw) {
 
             // Show selection prefab at the bottom of the object
-            if (_SelectionObj == null) { _SelectionObj = ObjectPooling.Spawn(Settings.SelectBoxObjects); }
+            if (_SelectionObj == null) { _SelectionObj = Instantiate(Settings.SelectBoxObjects); }
             if (_SelectionObj != null) {
 
                 // Display prefab
@@ -148,7 +149,7 @@ public class Selectable : Abstraction {
         }
 
         // Hide selection
-        else { if (_SelectionObj != null) { ObjectPooling.Despawn(_SelectionObj.gameObject); } }
+        else { if (_SelectionObj != null) { Destroy(_SelectionObj.gameObject); } }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -163,7 +164,7 @@ public class Selectable : Abstraction {
         if (highlight) {
 
             // Show highlight prefab at the bottom of the object
-            if (_HighlightObj == null) { _HighlightObj = ObjectPooling.Spawn(Settings.HighlightBoxObjects); }
+            if (_HighlightObj == null) { _HighlightObj = Instantiate(Settings.HighlightBoxObjects); }
             if (_HighlightObj != null) {
 
                 // Display prefab
@@ -179,7 +180,7 @@ public class Selectable : Abstraction {
         }
 
         // Hide highlight
-        else { if (_HighlightObj != null) { ObjectPooling.Despawn(_HighlightObj.gameObject); } }
+        else { if (_HighlightObj != null) { Destroy(_HighlightObj.gameObject); } }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

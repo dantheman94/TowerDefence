@@ -101,6 +101,9 @@ public class KeyboardInput : MonoBehaviour {
                         ai.SetIsSelected(true);
                     }
                 }
+
+                if (_PlayerAttached.SelectedWorldObjects.Count > 0)
+                    Debug.Log(_PlayerAttached.SelectedWorldObjects[0].ObjectName);
             }
         }
     }
@@ -500,11 +503,7 @@ public class KeyboardInput : MonoBehaviour {
                         if (selectable != null) {
 
                             // If it isn't currently selected >> highlight it
-                            if (!_HighlightFocus.GetIsSelected()) {
-
-                                _HighlightFocus.SetIsHighlighted(true);
-                                Debug.Log("Highlighting: " + _HighlightFocus.name);
-                            }
+                            if (!_HighlightFocus.GetIsSelected()) { _HighlightFocus.SetIsHighlighted(true); }
                             else { _HighlightFocus.SetIsHighlighted(false); }
                         }
                         
@@ -587,7 +586,7 @@ public class KeyboardInput : MonoBehaviour {
                             baseObj.SetIsSelected(true);
                             baseObj.OnSelectionWheel();
                         }
-
+                        
                         // Left clicking on a building
                         if (buildingObj != null) {
 
@@ -703,7 +702,7 @@ public class KeyboardInput : MonoBehaviour {
                 }
 
                 // Just clicked on the ground so deselect all objects
-                ///else { _PlayerAttached.DeselectAllObjects(); }
+                else { _PlayerAttached.DeselectAllObjects(); }
 
                 // Update units selected panels
                 ///GameManager.Instance.SelectedUnitsHUD.NewSelection(_PlayerAttached.SelectedWorldObjects);
