@@ -108,10 +108,10 @@ public class Building : WorldObject {
                 _Player._HUD.SelectionWheel.UpdateListWithBuildables(Selectables, AttachedBuildingSlot);
 
                 // Get reference to the recycle building option
-                _RecycleOption = Selectables[5].GetComponent<BuildingRecycle>();
+                if (Selectables[5] != null) { _RecycleOption = Selectables[5].GetComponent<BuildingRecycle>(); }
 
                 // Show selection wheel
-                GameManager.Instance.SelectionWheel.SetActive(true);
+                if (ShowSelectionGUI) { GameManager.Instance.SelectionWheel.SetActive(true); }
             }
             _IsCurrentlySelected = true;
         }
@@ -144,7 +144,7 @@ public class Building : WorldObject {
                 _Player._HUD.SelectionWheel.UpdateListWithBuildables(wheelOptions, AttachedBuildingSlot);
 
                 // Show selection wheel
-                GameManager.Instance.SelectionWheel.SetActive(true);
+                if (ShowSelectionGUI) { GameManager.Instance.SelectionWheel.SetActive(true); }
             }
             _IsCurrentlySelected = true;
         }
