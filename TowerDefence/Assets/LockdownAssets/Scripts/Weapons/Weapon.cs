@@ -106,7 +106,7 @@ public class Weapon : MonoBehaviour {
     /// <summary>
     //  Fires either a hitscan or 3D projectile object 
     /// </summary>
-    public void FireWeapon() {
+    public virtual void FireWeapon() {
 
         // If the weapon can be fired
         if (_CurrentMagazineCount > 0 && CanFire()) {
