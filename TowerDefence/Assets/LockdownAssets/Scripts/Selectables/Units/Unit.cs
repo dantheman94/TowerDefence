@@ -58,6 +58,7 @@ public class Unit : WorldObject {
 
     public enum EUnitType { Undefined, CoreMarine, AntiInfantryMarine, Hero, CoreVehicle, AntiAirVehicle, MobileArtillery, BattleTank, CoreAirship, SupportShip, HeavyAirship }
 
+    protected CharacterController _CharacterController = null;
     protected NavMeshAgent _Agent = null;
     protected Squad _SquadAttached = null;
     protected bool _IsSeeking = false;
@@ -88,6 +89,7 @@ public class Unit : WorldObject {
 
         // Get component references
         _Agent = GetComponent<NavMeshAgent>();
+        _CharacterController = GetComponent<CharacterController>();
 
         _ObjectHeight = _Agent.height;
     }
@@ -321,6 +323,20 @@ public class Unit : WorldObject {
         base.OnDeath();
 
         _StartShrinking = true;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    public void OnSpawn() {
+
+        // Enable components
+        _Agent.enabled = true;
+        _CharacterController.enabled = true;
+
+        SetObjectState(WorldObjectStates.Active);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

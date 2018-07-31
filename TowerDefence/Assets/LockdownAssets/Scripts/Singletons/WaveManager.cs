@@ -40,6 +40,14 @@ public class WaveManager : MonoBehaviour {
 
     [Space]
     [Header("-----------------------------------")]
+    [Header(" PROPS")]
+    [Space]
+    public Core CentralCore;
+    [Space]
+    public List<LockdownPad> LockdownPads;
+
+    [Space]
+    [Header("-----------------------------------")]
     [Header(" WAVE TYPES")]
     [Space]
     public List<WaveInfo> Waves;
@@ -88,11 +96,11 @@ public class WaveManager : MonoBehaviour {
     [System.Serializable]
     public class BossWaveInterval {
 
-        [Range(1, 10)]
-        public int MinimumBossWaveInterval = 1;
+        [Range(0, 10)]
+        public int MinimumBossWaveInterval = 0;
         public bool UnlimitedBossWaveIntervals = true;
-        [Range(1, 100)]
-        public int MaximumBossWaveInterval = 1;
+        [Range(0, 100)]
+        public int MaximumBossWaveInterval = 0;
     }
 
     public static WaveManager Instance;
@@ -108,8 +116,11 @@ public class WaveManager : MonoBehaviour {
     private WaveInfo _CurrentWaveInfo;
     private List<WorldObject> _CurrentWaveEnemies;
     private List<WorldObject> _PreviousWavesEnemies;
+    private LockdownPad _CurrentLockdownPad;
 
     private bool _WaveInProgress = false;
+    private float _CurrentSubwaveTime = 0f;
+    private float _TimeTillNextSubwave = 0f;
     private float _CurrentWaveTime = 0f;
     private float _TimeTillNextWave = 0f;
     private float _NextWaveTimer = 0f;
@@ -238,8 +249,6 @@ public class WaveManager : MonoBehaviour {
                     // Wave interval 1
                     case 1: {     
                             
-                        int id = Random.Range(0, (int)WaveType.ENUM_COUNT - 2);
-                        _CurrentWaveInfo = GetWaveInfo(WaveSeverity.SuperLight, (WaveType)id);
                         break;
                     }
 
@@ -323,8 +332,12 @@ public class WaveManager : MonoBehaviour {
             default: break;
         }
 
+        // Get lockdown pad reference
+        _CurrentLockdownPad = GetPadForSpawning();
+
         // Get array of new wave enemies
         _CurrentWaveEnemies = GetWaveEnemies(_CurrentWaveInfo.Severity, _CurrentWaveInfo.Type);
+        InitializeWave();
         _WaveInProgress = true;
     }
 
@@ -359,12 +372,12 @@ public class WaveManager : MonoBehaviour {
         _WaveInProgress = false;
         _CurrentWaveTime = 0f;
         _TimeTillNextWave += TimeAddedPerWave;
+        _CurrentSubwaveTime = 0f;
 
         // Clear the respawn counts for the previous wave
         if (_CurrentWaveInfo.Enemies != null) {
 
             for (int i = 0; i < _CurrentWaveInfo.Enemies.Count; i++) { _CurrentWaveInfo.Enemies[i].CurrentLives = 0; }
-
         }
         // Add current wave into the previous waves list
         for (int i = 0; i < _CurrentWaveEnemies.Count; i++) { _PreviousWavesEnemies.Add(_CurrentWaveEnemies[i]); }
@@ -376,6 +389,69 @@ public class WaveManager : MonoBehaviour {
             _CurrentDamageModifier += PerWaveIncrementDamage;
             _CurrentHealthModifier += PerWaveIncrementHealth;
         }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="currentWaveEnemies"></param>
+    private void InitializeWave() {
+
+        if ( _CurrentWaveEnemies.Count > 0 ) {
+
+            int subwaves = 1;
+            _TimeTillNextSubwave = _TimeTillNextWave / subwaves;
+
+
+            SpawnSubwave(_CurrentWaveEnemies);
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="subwaveEnemies"></param>
+    private void SpawnSubwave(List<WorldObject> subwaveEnemies) {
+
+        List<Vector3> spawnPositions = _CurrentLockdownPad.GetSpawnLocations(subwaveEnemies.Count);
+        for (int i = 0; i < subwaveEnemies.Count; i++) {
+
+            GameObject obj = ObjectPooling.Spawn(subwaveEnemies[i].gameObject, spawnPositions[i]);
+
+            // Initialize the object as a squad
+            Squad squad = obj.GetComponent<Squad>();
+            if (squad != null) {
+
+                squad.SpawnUnits();
+                squad.SquadSeek(CentralCore.GetSeekPosition());
+            }
+
+            // Initialize the object as a unit
+            Unit unit = obj.GetComponent<Unit>();
+            if (unit != null) {
+
+                unit.OnSpawn();
+                unit.AgentSeekPosition(CentralCore.GetSeekPosition());
+            }
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <returns>
+    //  LockdownPad
+    /// </returns>
+    private LockdownPad GetPadForSpawning() {
+
+        int i = Random.Range(0, LockdownPads.Count - 1);
+        return LockdownPads[i];
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -398,14 +474,14 @@ public class WaveManager : MonoBehaviour {
             
             // Matching severity
             if (Waves[i].Severity == severity) {
-
-                bool typeMatch = false;
-
+                
+                bool matchType = false;
+                
                 // Matching wave type
-                if (Waves[i].Type == type) { typeMatch = true; }
+                if (Waves[i].Type == type) { matchType = true; }
 
-                // Keep looping through the wave lists if the type doesn't match
-                if (!typeMatch) { continue; }
+                // Keep looping through the wave lists if any of the checks dont match
+                if (!matchType) { continue; } 
                 else {
 
                     // Found wave with matching info
@@ -448,13 +524,27 @@ public class WaveManager : MonoBehaviour {
             // Matching severity
             if (Waves[i].Severity == severity) {
 
-                bool typeMatch = false;
+                bool matchBossInterval = false;
+                bool matchInterval = false;
+                bool matchType = false;
+
+                // Matching bossWave interval
+                if (Waves[i].BossWaveIntervals.UnlimitedBossWaveIntervals) { matchBossInterval = true; } 
+                else {
+
+                    if (_BossWaveCount >= Waves[i].BossWaveIntervals.MinimumBossWaveInterval &&
+                        _BossWaveCount <= Waves[i].BossWaveIntervals.MaximumBossWaveInterval) { matchBossInterval = true; }
+                }
+
+                // Matching wave interval
+                if (_WaveInterval >= Waves[i].WaveIntervals.MinimumWaveInterval && 
+                    _WaveInterval <= Waves[i].WaveIntervals.MaximumWaveInterval) { matchInterval = true; }
 
                 // Matching wave type
-                if (Waves[i].Type == type) { typeMatch = true; }
+                if (Waves[i].Type == type) { matchType = true; }
 
-                // Keep looping through the wave lists if the type doesn't match
-                if (!typeMatch) { continue; }
+                // Keep looping through the wave lists if any of the checks dont match
+                if (!matchType || !matchInterval || !matchBossInterval) { continue; }
                 else {
 
                     // Add all the enemy types to the wave enemies array

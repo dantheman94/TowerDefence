@@ -18,12 +18,13 @@ public class Core : Building {
     //      INSPECTOR
     //
     //******************************************************************************************************************************
-
+    
     [Space]
     [Header("-----------------------------------")]
-    [Header(" MINIMAP PROPERTIES")]
+    [Header(" CORE PROPERTIES")]
     [Space]
     public GameObject MinimapQuad = null;
+    public float SeekSphereRadius = 80f;
 
     [Space]
     [Header("-----------------------------------")]
@@ -94,6 +95,16 @@ public class Core : Building {
             }
         }
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <returns>
+    //  Vector3
+    /// </returns>
+    public Vector3 GetSeekPosition() { return Random.onUnitSphere * SeekSphereRadius; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
