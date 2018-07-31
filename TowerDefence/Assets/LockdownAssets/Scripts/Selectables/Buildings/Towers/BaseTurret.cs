@@ -7,7 +7,7 @@ using UnityEngine;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 19/7/2018
+//  Last edited on: 31/7/2018
 //
 //******************************
 
@@ -23,13 +23,72 @@ public class BaseTurret : Tower {
     [Header("-----------------------------------")]
     [Header(" TURRET PROPERTIES")]
     [Space]
-    public bool UpgradedTurret = false;
+    public GameObject TurretCannon;
+    public float WeaponAimingSpeed = 5f;
+
+    //******************************************************************************************************************************
+    //
+    //      VARIABLES
+    //
+    //******************************************************************************************************************************
+
+    protected WorldObject _TargetObject;
+    private Quaternion _DefaultRotation = Quaternion.identity;
 
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
     //
     //******************************************************************************************************************************
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Called when this object is created.
+    /// </summary>
+    protected override void Start() {
+        base.Start();
+
+        // Store the original rotation so that the turret can return to this when it has no target to fire at
+        _DefaultRotation = transform.rotation;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Called each frame. 
+    /// </summary>
+    protected override void Update() {
+        base.Update();
+
+        // Rotating turret weapon
+        if (TurretCannon != null) {
+
+            // A valid target is known
+            if (_TargetObject != null) {
+
+                if (_TargetObject.IsAlive()) {
+
+                    // Aim the turret's weapon at the target
+                    Vector3 direction = (_TargetObject.transform.position - transform.position).normalized;
+                    Quaternion lookAtRot = Quaternion.LookRotation(direction);
+                    TurretCannon.transform.rotation = Quaternion.Lerp(TurretCannon.transform.rotation, lookAtRot, WeaponAimingSpeed * Time.deltaTime);
+
+                    if (TowerWeapon != null) {
+
+                        // Fire the turret's weapon
+                        if (TowerWeapon.CanFire()) { TowerWeapon.FireWeapon(); }
+                    }
+                }
+
+                // Target is dead so null it out (so that the turret returns to the default state)
+                else { _TargetObject = null; }
+            }
+
+            // Return to the default rotation
+            else { TurretCannon.transform.rotation = Quaternion.Lerp(TurretCannon.transform.rotation, _DefaultRotation, WeaponAimingSpeed * Time.deltaTime); }
+        }
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -78,6 +137,57 @@ public class BaseTurret : Tower {
             // Reset turret's health
             _ClonedWorldObject.SetHitPoints(_ClonedWorldObject.MaxHitPoints);
         }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="other"></param>
+    private void OnTriggerEnter(Collider other) {
+        
+        // Check that the object is a unit 
+        if (other.transform.gameObject.CompareTag("Unit")) {
+
+            // Assign the object as the 'target' if its on a different team to the turret
+            Unit unit = other.transform.gameObject.GetComponent<Unit>();
+            if (unit.Team != Team) { _TargetObject = unit; }
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="other"></param>      
+    private void OnTriggerStay(Collider other) {
+        
+        // Only proceed if there isnt a current target object to attack
+        if (_TargetObject == null) {
+
+            // Check that the object is a unit 
+            if (other.transform.gameObject.CompareTag("Unit")) {
+
+                // Assign the object as the 'target' if its on a different team to the turret
+                Unit unit = other.transform.gameObject.GetComponent<Unit>();
+                if (unit.Team != Team) { _TargetObject = unit; }
+            }
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="other"></param>
+    private void OnTriggerExit(Collider other) {
+
+        // If the object that left is the same object as the current targetObject
+        WorldObject worldObject = other.gameObject.GetComponent<WorldObject>();
+        if (worldObject == _TargetObject) { _TargetObject = null; }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
