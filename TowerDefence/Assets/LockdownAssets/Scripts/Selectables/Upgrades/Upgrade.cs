@@ -39,7 +39,10 @@ public class Upgrade : WorldObject {
     protected int _CurrentUpgradeLevel = 0;
     protected string _UpgradeName;
     protected bool _HasMaxUpgrade = false;
-
+    private bool _Upgrading = false;
+    private float _UpgradeTimer = 0f;
+    private float _UpgradeBuildTime = 0f;
+    
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
@@ -62,13 +65,8 @@ public class Upgrade : WorldObject {
     //  Called each frame. 
     /// </summary>
     protected override void Update() {
-
-        // Get roman numeral from current upgrade level + 1 in the form of 'I's.
-        string num = " ";
-        for (int i = (-1); i < _CurrentUpgradeLevel; i++) { num = num + "I"; }
-
+        
         // Update name to include current upgrade level
-        ///ObjectName = _UpgradeName + num;
         ObjectName = UpgradeProperties[_CurrentUpgradeLevel].ObjectName;
         ObjectDescriptionShort = UpgradeProperties[_CurrentUpgradeLevel].ObjectDescriptionShort;
         ObjectDescriptionLong = UpgradeProperties[_CurrentUpgradeLevel].ObjectDescriptionLong;
@@ -82,6 +80,20 @@ public class Upgrade : WorldObject {
 
         // Update if reached max upgrade level
         _HasMaxUpgrade = (UpgradeProperties.Count <= _CurrentUpgradeLevel) || (UpgradeEvents.Count <= _CurrentUpgradeLevel);
+
+        // Update upgrade timer
+        if (_Upgrading) {
+
+            // Add to timer
+            _UpgradeTimer += Time.deltaTime;
+            if (_UpgradeTimer >= _UpgradeBuildTime) {
+                
+                // Upgrade complete
+                _CurrentUpgradeLevel += 1;
+                _Upgrading = false;
+            }
+        }
+        else { _UpgradeTimer = 0f; }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -108,108 +120,25 @@ public class Upgrade : WorldObject {
     /// <summary>
     //  
     /// </summary>
-    public virtual void UpgradeOne(UpgradeValues costs) {
+    public virtual void QueueUpgrade(UpgradeValues costs) {
 
         // Check if the player can afford the upgrade
         bool affordable = ((GameManager.Instance.Players[0].Level >= costs.PlayerLevel) && (GameManager.Instance.Players[0].SuppliesCount >= costs.SupplyCost) && (GameManager.Instance.Players[0].PowerCount >= costs.PowerCost));
         if (affordable) {
-
-            // Increase upgrade level (if theres a level to go to next)
-            if (UpgradeEvents.Count > _CurrentUpgradeLevel && UpgradeProperties.Count > _CurrentUpgradeLevel) { _CurrentUpgradeLevel += 1; }
-            else { _HasMaxUpgrade = true; }
-
+            
             // Deduct cost from player
             GameManager.Instance.Players[0].SuppliesCount -= costs.SupplyCost;
             GameManager.Instance.Players[0].PowerCount -= costs.PowerCost;
+
+            // Start upgrading
+            _UpgradeTimer = 0f;
+            _UpgradeBuildTime = costs.BuildTime;
+            _Upgrading = true;
         }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  
-    /// </summary>
-    public virtual void UpgradeTwo(UpgradeValues costs) {
-
-        // Check if the player can afford the upgrade
-        bool affordable = ((GameManager.Instance.Players[0].Level >= costs.PlayerLevel) && (GameManager.Instance.Players[0].SuppliesCount >= costs.SupplyCost) && (GameManager.Instance.Players[0].PowerCount >= costs.PowerCost));
-        if (affordable) {
-
-            // Increase upgrade level (if theres a level to go to next)
-            if (UpgradeEvents.Count > _CurrentUpgradeLevel && UpgradeProperties.Count > _CurrentUpgradeLevel) { _CurrentUpgradeLevel += 1; }
-            else { _HasMaxUpgrade = true; }
-
-            // Deduct cost from player
-            GameManager.Instance.Players[0].SuppliesCount -= costs.SupplyCost;
-            GameManager.Instance.Players[0].PowerCount -= costs.PowerCost;
-        }
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  
-    /// </summary>
-    public virtual void UpgradeThree(UpgradeValues costs) {
-
-        // Check if the player can afford the upgrade
-        bool affordable = ((GameManager.Instance.Players[0].Level >= costs.PlayerLevel) && (GameManager.Instance.Players[0].SuppliesCount >= costs.SupplyCost) && (GameManager.Instance.Players[0].PowerCount >= costs.PowerCost));
-        if (affordable) {
-
-            // Increase upgrade level (if theres a level to go to next)
-            if (UpgradeEvents.Count > _CurrentUpgradeLevel && UpgradeProperties.Count > _CurrentUpgradeLevel) { _CurrentUpgradeLevel += 1; }
-            else { _HasMaxUpgrade = true; }
-
-            // Deduct cost from player
-            GameManager.Instance.Players[0].SuppliesCount -= costs.SupplyCost;
-            GameManager.Instance.Players[0].PowerCount -= costs.PowerCost;
-        }
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  
-    /// </summary>
-    public virtual void UpgradeFour(UpgradeValues costs) {
-
-        // Check if the player can afford the upgrade
-        bool affordable = ((GameManager.Instance.Players[0].Level >= costs.PlayerLevel) && (GameManager.Instance.Players[0].SuppliesCount >= costs.SupplyCost) && (GameManager.Instance.Players[0].PowerCount >= costs.PowerCost));
-        if (affordable) {
-
-            // Increase upgrade level (if theres a level to go to next)
-            if (UpgradeEvents.Count > _CurrentUpgradeLevel && UpgradeProperties.Count > _CurrentUpgradeLevel) { _CurrentUpgradeLevel += 1; }
-            else { _HasMaxUpgrade = true; }
-
-            // Deduct cost from player
-            GameManager.Instance.Players[0].SuppliesCount -= costs.SupplyCost;
-            GameManager.Instance.Players[0].PowerCount -= costs.PowerCost;
-        }
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  
-    /// </summary>
-    public virtual void UpgradeFive(UpgradeValues costs) {
-
-        // Check if the player can afford the upgrade
-        bool affordable = ((GameManager.Instance.Players[0].Level >= costs.PlayerLevel) && (GameManager.Instance.Players[0].SuppliesCount >= costs.SupplyCost) && (GameManager.Instance.Players[0].PowerCount >= costs.PowerCost));
-        if (affordable) {
-
-            // Increase upgrade level (if theres a level to go to next)
-            if (UpgradeEvents.Count > _CurrentUpgradeLevel && UpgradeProperties.Count > _CurrentUpgradeLevel) { _CurrentUpgradeLevel += 1; }
-            else { _HasMaxUpgrade = true; }
-
-            // Deduct cost from player
-            GameManager.Instance.Players[0].SuppliesCount -= costs.SupplyCost;
-            GameManager.Instance.Players[0].PowerCount -= costs.PowerCost;
-        }
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    
     /// <summary>
     //  
     /// </summary>

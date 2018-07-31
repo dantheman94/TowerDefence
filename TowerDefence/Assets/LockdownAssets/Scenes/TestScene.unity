@@ -3167,7 +3167,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 110371436}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3048cb437c31465449610eac998b2a89, type: 3}
+  m_Script: {fileID: 11500000, guid: 5aacece6db254674d88e289c43d2a68a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ObjectName: 
@@ -3200,88 +3200,8 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
-  UpgradeProperties:
-  - {fileID: 1727059705}
-  - {fileID: 1624062527}
-  - {fileID: 1309811302}
-  - {fileID: 1561359233}
-  - {fileID: 379110381}
-  UpgradeEvents:
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 110371438}
-        m_MethodName: UpgradeOne
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1727059705}
-          m_ObjectArgumentAssemblyTypeName: UpgradeValues, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 110371438}
-        m_MethodName: UpgradeTwo
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1624062527}
-          m_ObjectArgumentAssemblyTypeName: UpgradeValues, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 110371438}
-        m_MethodName: UpgradeThree
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1309811302}
-          m_ObjectArgumentAssemblyTypeName: UpgradeValues, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 110371438}
-        m_MethodName: UpgradeFour
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1561359233}
-          m_ObjectArgumentAssemblyTypeName: UpgradeValues, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 110371438}
-        m_MethodName: UpgradeFive
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 379110381}
-          m_ObjectArgumentAssemblyTypeName: UpgradeValues, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+  UpgradeProperties: []
+  UpgradeEvents: []
 --- !u!1 &110980881
 GameObject:
   m_ObjectHideFlags: 0
@@ -5999,6 +5919,60 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &194683159
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 194683160}
+  - component: {fileID: 194683161}
+  m_Layer: 0
+  m_Name: AntiAirVehicle_Upgrade (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &194683160
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 194683159}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1731853010}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &194683161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 194683159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c89a055cf6502af4faea5c358019a632, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectName: Extended Ammo
+  ObjectDescriptionShort: Passive Ability
+  ObjectDescriptionLong: Adds an additional 2 rockets to the vehicles barrage, allowing
+    longer bursts of fire at targets.
+  PlayerLevel: 2
+  SupplyCost: 0
+  PowerCost: 650
+  BuildTime: 5
+  UpgradeValue: 0
 --- !u!1 &200225098
 GameObject:
   m_ObjectHideFlags: 0
@@ -7134,7 +7108,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 259124255}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d78b61c06523244eb39e931076aa83b, type: 3}
+  m_Script: {fileID: 11500000, guid: 5aacece6db254674d88e289c43d2a68a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ObjectName: 
@@ -7157,66 +7131,18 @@ MonoBehaviour:
   MaxHitPoints: 100
   MaxShieldPoints: 0
   Garrisonable: 0
-  MaxGarrisonPopulation: 10
-  MultiSelectable: 0
+  MaxGarrisonPopulation: 0
+  MultiSelectable: 1
   _OffsetY: 0
   _ObjectState: 0
-  _WidgetHealthbarScaleX: 0
-  _WidgetHealthbarScaleY: 0
-  _WidgetHealthbarOffset: 0
-  _WidgetShieldbarScaleX: 0
-  _WidgetShieldbarScaleY: 0
-  _WidgetShieldbarOffset: 0
-  UpgradeProperties:
-  - {fileID: 1134208050}
-  - {fileID: 772603978}
-  - {fileID: 537782902}
-  UpgradeEvents:
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 259124257}
-        m_MethodName: UpgradeOne
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1134208050}
-          m_ObjectArgumentAssemblyTypeName: UpgradeValues, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 259124257}
-        m_MethodName: UpgradeTwo
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 772603978}
-          m_ObjectArgumentAssemblyTypeName: UpgradeValues, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 259124257}
-        m_MethodName: UpgradeThree
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 537782902}
-          m_ObjectArgumentAssemblyTypeName: UpgradeValues, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+  _WidgetHealthbarScaleX: 100
+  _WidgetHealthbarScaleY: 15
+  _WidgetHealthbarOffset: 15
+  _WidgetShieldbarScaleX: 100
+  _WidgetShieldbarScaleY: 15
+  _WidgetShieldbarOffset: 22
+  UpgradeProperties: []
+  UpgradeEvents: []
 --- !u!1 &260880696
 GameObject:
   m_ObjectHideFlags: 0
@@ -10882,12 +10808,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 269825553}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ca67172a641c2244b65670bd83aa8a6, type: 3}
+  m_Script: {fileID: 11500000, guid: 5aacece6db254674d88e289c43d2a68a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObjectName: Ground Vehicle Upgrade
-  ObjectDescriptionShort: General Unit Upgrade
-  ObjectDescriptionLong: Increases damage & health for all ground vehicles.
+  ObjectName: 
+  ObjectDescriptionShort: 
+  ObjectDescriptionLong: 
   ShowSelectionGUI: 1
   Team: 0
   _Player: {fileID: 0}
@@ -10905,66 +10831,18 @@ MonoBehaviour:
   MaxHitPoints: 100
   MaxShieldPoints: 0
   Garrisonable: 0
-  MaxGarrisonPopulation: 10
-  MultiSelectable: 0
+  MaxGarrisonPopulation: 0
+  MultiSelectable: 1
   _OffsetY: 0
   _ObjectState: 0
-  _WidgetHealthbarScaleX: 0
-  _WidgetHealthbarScaleY: 0
-  _WidgetHealthbarOffset: 0
-  _WidgetShieldbarScaleX: 0
-  _WidgetShieldbarScaleY: 0
-  _WidgetShieldbarOffset: 0
-  UpgradeProperties:
-  - {fileID: 268710172}
-  - {fileID: 111783645}
-  - {fileID: 1088481745}
-  UpgradeEvents:
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 269825555}
-        m_MethodName: UpgradeOne
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 268710172}
-          m_ObjectArgumentAssemblyTypeName: UpgradeValues, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 269825555}
-        m_MethodName: UpgradeOne
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 111783645}
-          m_ObjectArgumentAssemblyTypeName: UpgradeValues, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 269825555}
-        m_MethodName: UpgradeOne
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1088481745}
-          m_ObjectArgumentAssemblyTypeName: UpgradeValues, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+  _WidgetHealthbarScaleX: 100
+  _WidgetHealthbarScaleY: 15
+  _WidgetHealthbarOffset: 15
+  _WidgetShieldbarScaleX: 100
+  _WidgetShieldbarScaleY: 15
+  _WidgetShieldbarOffset: 22
+  UpgradeProperties: []
+  UpgradeEvents: []
 --- !u!1 &272407019
 GameObject:
   m_ObjectHideFlags: 0
@@ -12353,10 +12231,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 299382265}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cfa2fd0f37772c34c900fb6c91ca17db, type: 3}
+  m_Script: {fileID: 11500000, guid: 5aacece6db254674d88e289c43d2a68a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObjectName: Infantry Upgrade
+  ObjectName: 
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
   ShowSelectionGUI: 1
@@ -12376,82 +12254,18 @@ MonoBehaviour:
   MaxHitPoints: 100
   MaxShieldPoints: 0
   Garrisonable: 0
-  MaxGarrisonPopulation: 10
+  MaxGarrisonPopulation: 0
   MultiSelectable: 1
   _OffsetY: 0
   _ObjectState: 0
-  _WidgetHealthbarScaleX: 0
-  _WidgetHealthbarScaleY: 0
-  _WidgetHealthbarOffset: 0
-  _WidgetShieldbarScaleX: 0
-  _WidgetShieldbarScaleY: 0
-  _WidgetShieldbarOffset: 0
-  UpgradeProperties:
-  - {fileID: 982163920}
-  - {fileID: 1194770686}
-  - {fileID: 140490831}
-  - {fileID: 387592092}
-  UpgradeEvents:
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 299382267}
-        m_MethodName: UpgradeOne
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 982163920}
-          m_ObjectArgumentAssemblyTypeName: UpgradeValues, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 299382267}
-        m_MethodName: UpgradeTwo
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1194770686}
-          m_ObjectArgumentAssemblyTypeName: UpgradeValues, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 299382267}
-        m_MethodName: UpgradeThree
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 140490831}
-          m_ObjectArgumentAssemblyTypeName: UpgradeValues, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 299382267}
-        m_MethodName: UpgradeFour
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 387592092}
-          m_ObjectArgumentAssemblyTypeName: UpgradeValues, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+  _WidgetHealthbarScaleX: 100
+  _WidgetHealthbarScaleY: 15
+  _WidgetHealthbarOffset: 15
+  _WidgetShieldbarScaleX: 100
+  _WidgetShieldbarScaleY: 15
+  _WidgetShieldbarOffset: 22
+  UpgradeProperties: []
+  UpgradeEvents: []
 --- !u!1001 &301646012
 Prefab:
   m_ObjectHideFlags: 0
@@ -16166,12 +15980,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 446093029}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 880b973a7419a6248893604544be405e, type: 3}
+  m_Script: {fileID: 11500000, guid: 5aacece6db254674d88e289c43d2a68a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObjectName: Unit Building Upgrades
-  ObjectDescriptionShort: Economy Upgrade
-  ObjectDescriptionLong: Increased overall production rate for all buildings.
+  ObjectName: 
+  ObjectDescriptionShort: 
+  ObjectDescriptionLong: 
   ShowSelectionGUI: 1
   Team: 0
   _Player: {fileID: 0}
@@ -16189,66 +16003,18 @@ MonoBehaviour:
   MaxHitPoints: 100
   MaxShieldPoints: 0
   Garrisonable: 0
-  MaxGarrisonPopulation: 10
-  MultiSelectable: 0
+  MaxGarrisonPopulation: 0
+  MultiSelectable: 1
   _OffsetY: 0
   _ObjectState: 0
-  _WidgetHealthbarScaleX: 0
-  _WidgetHealthbarScaleY: 0
-  _WidgetHealthbarOffset: 0
-  _WidgetShieldbarScaleX: 0
-  _WidgetShieldbarScaleY: 0
-  _WidgetShieldbarOffset: 0
-  UpgradeProperties:
-  - {fileID: 727775910}
-  - {fileID: 1237761294}
-  - {fileID: 1848283034}
-  UpgradeEvents:
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 446093031}
-        m_MethodName: UpgradeOne
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 727775910}
-          m_ObjectArgumentAssemblyTypeName: UpgradeValues, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 446093031}
-        m_MethodName: UpgradeTwo
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1237761294}
-          m_ObjectArgumentAssemblyTypeName: UpgradeValues, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 446093031}
-        m_MethodName: UpgradeThree
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1848283034}
-          m_ObjectArgumentAssemblyTypeName: UpgradeValues, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+  _WidgetHealthbarScaleX: 100
+  _WidgetHealthbarScaleY: 15
+  _WidgetHealthbarOffset: 15
+  _WidgetShieldbarScaleX: 100
+  _WidgetShieldbarScaleY: 15
+  _WidgetShieldbarOffset: 22
+  UpgradeProperties: []
+  UpgradeEvents: []
 --- !u!1 &447627526
 GameObject:
   m_ObjectHideFlags: 0
@@ -17754,7 +17520,7 @@ RectTransform:
   - {fileID: 1767626339}
   - {fileID: 2142534681}
   m_Father: {fileID: 674280152}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -17769,10 +17535,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 496353045}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6702e3ec823ee824789b8f851655f99e, type: 3}
+  m_Script: {fileID: 11500000, guid: 5aacece6db254674d88e289c43d2a68a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObjectName: Anti-Air Vehicle Upgrade
+  ObjectName: 
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
   ShowSelectionGUI: 1
@@ -17792,66 +17558,18 @@ MonoBehaviour:
   MaxHitPoints: 100
   MaxShieldPoints: 0
   Garrisonable: 0
-  MaxGarrisonPopulation: 10
+  MaxGarrisonPopulation: 0
   MultiSelectable: 1
   _OffsetY: 0
   _ObjectState: 0
-  _WidgetHealthbarScaleX: 0
-  _WidgetHealthbarScaleY: 0
-  _WidgetHealthbarOffset: 0
-  _WidgetShieldbarScaleX: 0
-  _WidgetShieldbarScaleY: 0
-  _WidgetShieldbarOffset: 0
-  UpgradeProperties:
-  - {fileID: 1766203584}
-  - {fileID: 1767626340}
-  - {fileID: 2142534682}
-  UpgradeEvents:
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 496353047}
-        m_MethodName: UpgradeOne
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1766203584}
-          m_ObjectArgumentAssemblyTypeName: UpgradeValues, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 496353047}
-        m_MethodName: UpgradeTwo
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1767626340}
-          m_ObjectArgumentAssemblyTypeName: UpgradeValues, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 496353047}
-        m_MethodName: UpgradeThree
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 2142534682}
-          m_ObjectArgumentAssemblyTypeName: UpgradeValues, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+  _WidgetHealthbarScaleX: 100
+  _WidgetHealthbarScaleY: 15
+  _WidgetHealthbarOffset: 15
+  _WidgetShieldbarScaleX: 100
+  _WidgetShieldbarScaleY: 15
+  _WidgetShieldbarOffset: 22
+  UpgradeProperties: []
+  UpgradeEvents: []
 --- !u!1 &502104227
 GameObject:
   m_ObjectHideFlags: 0
@@ -21918,6 +21636,59 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 64263509046cc0e4c9c84698c53d5a92, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &616676994
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 616676995}
+  - component: {fileID: 616676996}
+  m_Layer: 0
+  m_Name: AntiAirVehicle_Upgrade (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &616676995
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 616676994}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1731853010}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &616676996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 616676994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c89a055cf6502af4faea5c358019a632, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectName: Weight Reduction
+  ObjectDescriptionShort: Passive Ability
+  ObjectDescriptionLong: Increases the movement speed of the vehicle.
+  PlayerLevel: 3
+  SupplyCost: 0
+  PowerCost: 950
+  BuildTime: 5
+  UpgradeValue: 0
 --- !u!1 &622061593
 GameObject:
   m_ObjectHideFlags: 0
@@ -22155,17 +21926,17 @@ Prefab:
         type: 2}
       propertyPath: Selectables.Array.data[1]
       value: 
-      objectReference: {fileID: 1972751548}
+      objectReference: {fileID: 0}
     - target: {fileID: 114306093193310104, guid: 6465691795d88d5428c690933f8fa003,
         type: 2}
       propertyPath: Selectables.Array.data[2]
       value: 
-      objectReference: {fileID: 269825555}
+      objectReference: {fileID: 0}
     - target: {fileID: 114306093193310104, guid: 6465691795d88d5428c690933f8fa003,
         type: 2}
       propertyPath: Selectables.Array.data[3]
       value: 
-      objectReference: {fileID: 259124257}
+      objectReference: {fileID: 0}
     - target: {fileID: 114306093193310104, guid: 6465691795d88d5428c690933f8fa003,
         type: 2}
       propertyPath: Selectables.Array.data[5]
@@ -22175,17 +21946,17 @@ Prefab:
         type: 2}
       propertyPath: Selectables.Array.data[7]
       value: 
-      objectReference: {fileID: 1929240613}
+      objectReference: {fileID: 0}
     - target: {fileID: 114306093193310104, guid: 6465691795d88d5428c690933f8fa003,
         type: 2}
       propertyPath: Selectables.Array.data[8]
       value: 
-      objectReference: {fileID: 446093031}
+      objectReference: {fileID: 0}
     - target: {fileID: 114306093193310104, guid: 6465691795d88d5428c690933f8fa003,
         type: 2}
       propertyPath: Selectables.Array.data[9]
       value: 
-      objectReference: {fileID: 1224629894}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6465691795d88d5428c690933f8fa003, type: 2}
   m_IsPrefabParent: 0
@@ -24004,10 +23775,11 @@ Transform:
   m_LocalPosition: {x: -43.367256, y: -117, z: 239.95}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 1731853010}
   - {fileID: 2053810809}
   - {fileID: 496353046}
   m_Father: {fileID: 2133146444}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &676298745
 GameObject:
@@ -26095,6 +25867,60 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!1 &776618940
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 776618941}
+  - component: {fileID: 776618942}
+  m_Layer: 0
+  m_Name: AntiInfantry_Upgrade (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &776618941
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 776618940}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1684983192}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &776618942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 776618940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c89a055cf6502af4faea5c358019a632, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectName: Fireman
+  ObjectDescriptionShort: Squad Enhancement
+  ObjectDescriptionLong: Adds an additional anti-infantry unit to the squad, which
+    can increase combat efficiency.
+  PlayerLevel: 2
+  SupplyCost: 0
+  PowerCost: 600
+  BuildTime: 5
+  UpgradeValue: 0
 --- !u!114 &776720189 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114437307112323898, guid: 2a690fafd781f3f459ccd35f47baac5d,
@@ -29559,6 +29385,11 @@ Prefab:
       propertyPath: Selectables.Array.data[3]
       value: 
       objectReference: {fileID: 1504931953}
+    - target: {fileID: 114556115896821994, guid: a924b60d8e0df404ca14707de2f3e32e,
+        type: 2}
+      propertyPath: Selectables.Array.data[7]
+      value: 
+      objectReference: {fileID: 1684983193}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a924b60d8e0df404ca14707de2f3e32e, type: 2}
   m_IsPrefabParent: 0
@@ -38215,8 +38046,9 @@ RectTransform:
   m_Children:
   - {fileID: 299382266}
   - {fileID: 1403545463}
+  - {fileID: 1684983192}
   m_Father: {fileID: 2133146444}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -39302,12 +39134,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1224629892}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6638700309570db4fb660c9445520d73, type: 3}
+  m_Script: {fileID: 11500000, guid: 5aacece6db254674d88e289c43d2a68a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObjectName: Building Upgrades
-  ObjectDescriptionShort: Economy Upgrade
-  ObjectDescriptionLong: Increased production rates for all buildings.
+  ObjectName: 
+  ObjectDescriptionShort: 
+  ObjectDescriptionLong: 
   ShowSelectionGUI: 1
   Team: 0
   _Player: {fileID: 0}
@@ -39325,66 +39157,18 @@ MonoBehaviour:
   MaxHitPoints: 100
   MaxShieldPoints: 0
   Garrisonable: 0
-  MaxGarrisonPopulation: 10
-  MultiSelectable: 0
+  MaxGarrisonPopulation: 0
+  MultiSelectable: 1
   _OffsetY: 0
   _ObjectState: 0
-  _WidgetHealthbarScaleX: 0
-  _WidgetHealthbarScaleY: 0
-  _WidgetHealthbarOffset: 0
-  _WidgetShieldbarScaleX: 0
-  _WidgetShieldbarScaleY: 0
-  _WidgetShieldbarOffset: 0
-  UpgradeProperties:
-  - {fileID: 1643632817}
-  - {fileID: 670547589}
-  - {fileID: 1408800812}
-  UpgradeEvents:
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1224629894}
-        m_MethodName: UpgradeOne
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1643632817}
-          m_ObjectArgumentAssemblyTypeName: UpgradeValues, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1224629894}
-        m_MethodName: UpgradeTwo
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 670547589}
-          m_ObjectArgumentAssemblyTypeName: UpgradeValues, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1224629894}
-        m_MethodName: UpgradeThree
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1408800812}
-          m_ObjectArgumentAssemblyTypeName: UpgradeValues, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+  _WidgetHealthbarScaleX: 100
+  _WidgetHealthbarScaleY: 15
+  _WidgetHealthbarOffset: 15
+  _WidgetShieldbarScaleX: 100
+  _WidgetShieldbarScaleY: 15
+  _WidgetShieldbarOffset: 22
+  UpgradeProperties: []
+  UpgradeEvents: []
 --- !u!1 &1226244206
 GameObject:
   m_ObjectHideFlags: 0
@@ -41853,6 +41637,59 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 1, y: -1}
   m_UseGraphicAlpha: 1
+--- !u!1 &1347675430
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1347675431}
+  - component: {fileID: 1347675432}
+  m_Layer: 0
+  m_Name: AntiInfantry_Upgrade (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1347675431
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1347675430}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1684983192}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1347675432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1347675430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c89a055cf6502af4faea5c358019a632, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectName: Flame enhancement
+  ObjectDescriptionShort: Passive Ability
+  ObjectDescriptionLong: Increases the burn effect duration.
+  PlayerLevel: 3
+  SupplyCost: 0
+  PowerCost: 700
+  BuildTime: 5
+  UpgradeValue: 0
 --- !u!1001 &1351370463
 Prefab:
   m_ObjectHideFlags: 0
@@ -42639,7 +42476,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1367198627}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 053614aa12c809e4da4ed6de4903a9d8, type: 3}
+  m_Script: {fileID: 11500000, guid: 5aacece6db254674d88e289c43d2a68a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ObjectName: 
@@ -42672,88 +42509,8 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
-  UpgradeProperties:
-  - {fileID: 536666896}
-  - {fileID: 14711642}
-  - {fileID: 524863339}
-  - {fileID: 46733294}
-  - {fileID: 400449493}
-  UpgradeEvents:
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1367198629}
-        m_MethodName: UpgradeOne
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 536666896}
-          m_ObjectArgumentAssemblyTypeName: UpgradeValues, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1367198629}
-        m_MethodName: UpgradeTwo
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 14711642}
-          m_ObjectArgumentAssemblyTypeName: UpgradeValues, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1367198629}
-        m_MethodName: UpgradeThree
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 524863339}
-          m_ObjectArgumentAssemblyTypeName: UpgradeValues, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1367198629}
-        m_MethodName: UpgradeFour
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 46733294}
-          m_ObjectArgumentAssemblyTypeName: UpgradeValues, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1367198629}
-        m_MethodName: UpgradeFive
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 400449493}
-          m_ObjectArgumentAssemblyTypeName: UpgradeValues, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+  UpgradeProperties: []
+  UpgradeEvents: []
 --- !u!1 &1369343692
 GameObject:
   m_ObjectHideFlags: 0
@@ -43658,10 +43415,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1403545462}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55647314ee75ccc4dbfc39b5f75ca543, type: 3}
+  m_Script: {fileID: 11500000, guid: 5aacece6db254674d88e289c43d2a68a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObjectName: Anti Infantry Upgrade
+  ObjectName: 
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
   ShowSelectionGUI: 1
@@ -43681,66 +43438,18 @@ MonoBehaviour:
   MaxHitPoints: 100
   MaxShieldPoints: 0
   Garrisonable: 0
-  MaxGarrisonPopulation: 10
+  MaxGarrisonPopulation: 0
   MultiSelectable: 1
   _OffsetY: 0
   _ObjectState: 0
-  _WidgetHealthbarScaleX: 0
-  _WidgetHealthbarScaleY: 0
-  _WidgetHealthbarOffset: 0
-  _WidgetShieldbarScaleX: 0
-  _WidgetShieldbarScaleY: 0
-  _WidgetShieldbarOffset: 0
-  UpgradeProperties:
-  - {fileID: 811841078}
-  - {fileID: 1795348590}
-  - {fileID: 538834791}
-  UpgradeEvents:
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1403545464}
-        m_MethodName: UpgradeOne
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 811841078}
-          m_ObjectArgumentAssemblyTypeName: UpgradeValues, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1403545464}
-        m_MethodName: UpgradeTwo
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1795348590}
-          m_ObjectArgumentAssemblyTypeName: UpgradeValues, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1403545464}
-        m_MethodName: UpgradeThree
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 538834791}
-          m_ObjectArgumentAssemblyTypeName: UpgradeValues, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+  _WidgetHealthbarScaleX: 100
+  _WidgetHealthbarScaleY: 15
+  _WidgetHealthbarOffset: 15
+  _WidgetShieldbarScaleX: 100
+  _WidgetShieldbarScaleY: 15
+  _WidgetShieldbarOffset: 22
+  UpgradeProperties: []
+  UpgradeEvents: []
 --- !u!1001 &1404430879
 Prefab:
   m_ObjectHideFlags: 0
@@ -44900,6 +44609,60 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1434738978}
+--- !u!1 &1435141718
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1435141719}
+  - component: {fileID: 1435141720}
+  m_Layer: 0
+  m_Name: AntiAirVehicle_Upgrade (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1435141719
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1435141718}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1731853010}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1435141720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1435141718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c89a055cf6502af4faea5c358019a632, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectName: Rocket boosters
+  ObjectDescriptionShort: Passive Ability
+  ObjectDescriptionLong: Increases the traversal speed of the rocket projectiles,
+    as well as an additional increase in the rocket homing capabilities.
+  PlayerLevel: 3
+  SupplyCost: 0
+  PowerCost: 800
+  BuildTime: 5
+  UpgradeValue: 0
 --- !u!1 &1437189381
 GameObject:
   m_ObjectHideFlags: 0
@@ -52039,6 +51802,60 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SelectionWheel: {fileID: 491941109}
+--- !u!1 &1674627541
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1674627542}
+  - component: {fileID: 1674627543}
+  m_Layer: 0
+  m_Name: AntiInfantry_Upgrade (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1674627542
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1674627541}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1684983192}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1674627543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1674627541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c89a055cf6502af4faea5c358019a632, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectName: Napalm Burn
+  ObjectDescriptionShort: Passive Ability
+  ObjectDescriptionLong: Adds a burn effect to the anti-infantry unit's weapon. The
+    burn effect will deal minor damage over time.
+  PlayerLevel: 1
+  SupplyCost: 0
+  PowerCost: 450
+  BuildTime: 5
+  UpgradeValue: 0
 --- !u!1 &1677725770
 GameObject:
   m_ObjectHideFlags: 0
@@ -52269,6 +52086,86 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1683061590}
+--- !u!1 &1684983191
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1684983192}
+  - component: {fileID: 1684983193}
+  m_Layer: 0
+  m_Name: HeroUpgradeTree
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1684983192
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1684983191}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1674627542}
+  - {fileID: 776618941}
+  - {fileID: 1347675431}
+  m_Father: {fileID: 1207024619}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1684983193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1684983191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5aacece6db254674d88e289c43d2a68a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectName: 
+  ObjectDescriptionShort: 
+  ObjectDescriptionLong: 
+  ShowSelectionGUI: 1
+  Team: 0
+  _Player: {fileID: 0}
+  FogOfWarRadius: 400
+  BuildingState: {fileID: 0}
+  ActiveState: {fileID: 0}
+  BuildImage: {fileID: 0}
+  BuildTime: 20
+  CostSupplies: 0
+  CostPower: 0
+  CostTechLevel: 1
+  CostPopulation: 0
+  RecycleSupplies: 0
+  RecyclePower: 0
+  MaxHitPoints: 100
+  MaxShieldPoints: 0
+  Garrisonable: 0
+  MaxGarrisonPopulation: 0
+  MultiSelectable: 1
+  _OffsetY: 0
+  _ObjectState: 0
+  _WidgetHealthbarScaleX: 100
+  _WidgetHealthbarScaleY: 15
+  _WidgetHealthbarOffset: 15
+  _WidgetShieldbarScaleX: 100
+  _WidgetShieldbarScaleY: 15
+  _WidgetShieldbarOffset: 22
+  UpgradeProperties: []
+  UpgradeEvents: []
 --- !u!1 &1689525926
 GameObject:
   m_ObjectHideFlags: 0
@@ -53537,6 +53434,86 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1729993719}
   m_Mesh: {fileID: 4300020, guid: 326ae3bae61624744bedd03f49aaf230, type: 3}
+--- !u!1 &1731853009
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1731853010}
+  - component: {fileID: 1731853011}
+  m_Layer: 0
+  m_Name: CoreVehicleUpgradeTree
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1731853010
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1731853009}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -239.95}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 194683160}
+  - {fileID: 1435141719}
+  - {fileID: 616676995}
+  m_Father: {fileID: 674280152}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 43.367256, y: 117}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1731853011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1731853009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5aacece6db254674d88e289c43d2a68a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectName: 
+  ObjectDescriptionShort: 
+  ObjectDescriptionLong: 
+  ShowSelectionGUI: 1
+  Team: 0
+  _Player: {fileID: 0}
+  FogOfWarRadius: 400
+  BuildingState: {fileID: 0}
+  ActiveState: {fileID: 0}
+  BuildImage: {fileID: 0}
+  BuildTime: 20
+  CostSupplies: 0
+  CostPower: 0
+  CostTechLevel: 1
+  CostPopulation: 0
+  RecycleSupplies: 0
+  RecyclePower: 0
+  MaxHitPoints: 100
+  MaxShieldPoints: 0
+  Garrisonable: 0
+  MaxGarrisonPopulation: 0
+  MultiSelectable: 1
+  _OffsetY: 0
+  _ObjectState: 0
+  _WidgetHealthbarScaleX: 100
+  _WidgetHealthbarScaleY: 15
+  _WidgetHealthbarOffset: 15
+  _WidgetShieldbarScaleX: 100
+  _WidgetShieldbarScaleY: 15
+  _WidgetShieldbarOffset: 22
+  UpgradeProperties: []
+  UpgradeEvents: []
 --- !u!224 &1735921226
 RectTransform:
   m_ObjectHideFlags: 0
@@ -53650,6 +53627,11 @@ Prefab:
       propertyPath: Selectables.Array.data[1]
       value: 
       objectReference: {fileID: 381351691}
+    - target: {fileID: 114962387785300862, guid: e3c54a520ddcdc440aa7794768b47d71,
+        type: 2}
+      propertyPath: Selectables.Array.data[9]
+      value: 
+      objectReference: {fileID: 1731853011}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e3c54a520ddcdc440aa7794768b47d71, type: 2}
   m_IsPrefabParent: 0
@@ -57985,12 +57967,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1929240611}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7605532b590f47543a4ddfbe86097ab3, type: 3}
+  m_Script: {fileID: 11500000, guid: 5aacece6db254674d88e289c43d2a68a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObjectName: Population Upgrades
-  ObjectDescriptionShort: Economy Upgrade
-  ObjectDescriptionLong: Increased max army population size.
+  ObjectName: 
+  ObjectDescriptionShort: 
+  ObjectDescriptionLong: 
   ShowSelectionGUI: 1
   Team: 0
   _Player: {fileID: 0}
@@ -58008,66 +57990,18 @@ MonoBehaviour:
   MaxHitPoints: 100
   MaxShieldPoints: 0
   Garrisonable: 0
-  MaxGarrisonPopulation: 10
-  MultiSelectable: 0
+  MaxGarrisonPopulation: 0
+  MultiSelectable: 1
   _OffsetY: 0
   _ObjectState: 0
-  _WidgetHealthbarScaleX: 0
-  _WidgetHealthbarScaleY: 0
-  _WidgetHealthbarOffset: 0
-  _WidgetShieldbarScaleX: 0
-  _WidgetShieldbarScaleY: 0
-  _WidgetShieldbarOffset: 0
-  UpgradeProperties:
-  - {fileID: 181791463}
-  - {fileID: 1222549949}
-  - {fileID: 2136911408}
-  UpgradeEvents:
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1929240613}
-        m_MethodName: UpgradeOne
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 181791463}
-          m_ObjectArgumentAssemblyTypeName: UpgradeValues, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1929240613}
-        m_MethodName: UpgradeTwo
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1222549949}
-          m_ObjectArgumentAssemblyTypeName: UpgradeValues, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1929240613}
-        m_MethodName: UpgradeThree
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 2136911408}
-          m_ObjectArgumentAssemblyTypeName: UpgradeValues, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+  _WidgetHealthbarScaleX: 100
+  _WidgetHealthbarScaleY: 15
+  _WidgetHealthbarOffset: 15
+  _WidgetShieldbarScaleX: 100
+  _WidgetShieldbarScaleY: 15
+  _WidgetShieldbarOffset: 22
+  UpgradeProperties: []
+  UpgradeEvents: []
 --- !u!1001 &1932283193
 Prefab:
   m_ObjectHideFlags: 0
@@ -59326,12 +59260,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1972751546}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2f9f28d955dc0741bee69d05e1547f5, type: 3}
+  m_Script: {fileID: 11500000, guid: 5aacece6db254674d88e289c43d2a68a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObjectName: Infantry Unit Upgrade
-  ObjectDescriptionShort: General Unit Upgrade
-  ObjectDescriptionLong: Increases damage & health for all ground infantry units.
+  ObjectName: 
+  ObjectDescriptionShort: 
+  ObjectDescriptionLong: 
   ShowSelectionGUI: 1
   Team: 0
   _Player: {fileID: 0}
@@ -59349,66 +59283,18 @@ MonoBehaviour:
   MaxHitPoints: 100
   MaxShieldPoints: 0
   Garrisonable: 0
-  MaxGarrisonPopulation: 10
-  MultiSelectable: 0
+  MaxGarrisonPopulation: 0
+  MultiSelectable: 1
   _OffsetY: 0
   _ObjectState: 0
-  _WidgetHealthbarScaleX: 0
-  _WidgetHealthbarScaleY: 0
-  _WidgetHealthbarOffset: 0
-  _WidgetShieldbarScaleX: 0
-  _WidgetShieldbarScaleY: 0
-  _WidgetShieldbarOffset: 0
-  UpgradeProperties:
-  - {fileID: 856078281}
-  - {fileID: 1706479202}
-  - {fileID: 948896437}
-  UpgradeEvents:
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1972751548}
-        m_MethodName: UpgradeOne
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 856078281}
-          m_ObjectArgumentAssemblyTypeName: UpgradeValues, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1972751548}
-        m_MethodName: UpgradeTwo
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1706479202}
-          m_ObjectArgumentAssemblyTypeName: UpgradeValues, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1972751548}
-        m_MethodName: UpgradeThree
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 948896437}
-          m_ObjectArgumentAssemblyTypeName: UpgradeValues, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+  _WidgetHealthbarScaleX: 100
+  _WidgetHealthbarScaleY: 15
+  _WidgetHealthbarOffset: 15
+  _WidgetShieldbarScaleX: 100
+  _WidgetShieldbarScaleY: 15
+  _WidgetShieldbarOffset: 22
+  UpgradeProperties: []
+  UpgradeEvents: []
 --- !u!1 &1980468190
 GameObject:
   m_ObjectHideFlags: 0
@@ -61594,7 +61480,7 @@ RectTransform:
   - {fileID: 1048689637}
   - {fileID: 1175600861}
   m_Father: {fileID: 674280152}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -61609,10 +61495,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2053810808}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 115c2c7f343d86f478b8414c3aefdbed, type: 3}
+  m_Script: {fileID: 11500000, guid: 5aacece6db254674d88e289c43d2a68a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObjectName: Battle Tank Upgrade
+  ObjectName: 
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
   ShowSelectionGUI: 1
@@ -61632,66 +61518,18 @@ MonoBehaviour:
   MaxHitPoints: 100
   MaxShieldPoints: 0
   Garrisonable: 0
-  MaxGarrisonPopulation: 10
+  MaxGarrisonPopulation: 0
   MultiSelectable: 1
   _OffsetY: 0
   _ObjectState: 0
-  _WidgetHealthbarScaleX: 0
-  _WidgetHealthbarScaleY: 0
-  _WidgetHealthbarOffset: 0
-  _WidgetShieldbarScaleX: 0
-  _WidgetShieldbarScaleY: 0
-  _WidgetShieldbarOffset: 0
-  UpgradeProperties:
-  - {fileID: 666312675}
-  - {fileID: 1048689638}
-  - {fileID: 1175600862}
-  UpgradeEvents:
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2053810810}
-        m_MethodName: UpgradeOne
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 666312675}
-          m_ObjectArgumentAssemblyTypeName: UpgradeValues, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2053810810}
-        m_MethodName: UpgradeTwo
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1048689638}
-          m_ObjectArgumentAssemblyTypeName: UpgradeValues, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2053810810}
-        m_MethodName: UpgradeThree
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1175600862}
-          m_ObjectArgumentAssemblyTypeName: UpgradeValues, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+  _WidgetHealthbarScaleX: 100
+  _WidgetHealthbarScaleY: 15
+  _WidgetHealthbarOffset: 15
+  _WidgetShieldbarScaleX: 100
+  _WidgetShieldbarScaleY: 15
+  _WidgetShieldbarOffset: 22
+  UpgradeProperties: []
+  UpgradeEvents: []
 --- !u!1 &2057742741
 GameObject:
   m_ObjectHideFlags: 0
@@ -63987,8 +63825,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 786004743}
-  - {fileID: 674280152}
   - {fileID: 1207024619}
+  - {fileID: 674280152}
   - {fileID: 2019041165}
   - {fileID: 148323691}
   m_Father: {fileID: 1957563187}
