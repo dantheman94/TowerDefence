@@ -428,6 +428,7 @@ public class WaveManager : MonoBehaviour {
 
                 squad.SpawnUnits();
                 squad.SquadSeek(CentralCore.GetSeekPosition());
+                squad.Team = GameManager.Team.Attacking;
             }
 
             // Initialize the object as a unit
@@ -436,6 +437,7 @@ public class WaveManager : MonoBehaviour {
 
                 unit.OnSpawn();
                 unit.AgentSeekPosition(CentralCore.GetSeekPosition());
+                unit.Team = GameManager.Team.Attacking;
             }
         }
     }
