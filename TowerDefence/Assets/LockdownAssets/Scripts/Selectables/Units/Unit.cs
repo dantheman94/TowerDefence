@@ -122,7 +122,7 @@ public class Unit : WorldObject {
     /// </summary>
     protected override void Update() {
         base.Update();
-
+        BoxSelection();
         // Hide the unit UI widgets if it is building
         if (_ObjectState == WorldObjectStates.Building) {
 
@@ -440,6 +440,28 @@ public class Unit : WorldObject {
         Vector3 position = trans.position;
         Destroy(trans.gameObject);
         return position;
+    }
+
+    /// <summary>
+    /// Checks if unit is selected by click & drag box
+    /// </summary>
+    private void BoxSelection()
+    {
+        if (Input.GetMouseButton(0))
+        {
+            Vector3 camPos = Camera.main.WorldToScreenPoint(transform.position);
+            camPos.y = KeyboardInput.InvertMouseY(camPos.y);
+            _IsCurrentlySelected = KeyboardInput.Selection.Contains(camPos);
+            if(IsInASquad())
+            {
+                _Player.SelectedWorldObjects.Add(GetSquadAttached());
+            }
+            else
+            {
+                _Player.SelectedWorldObjects.Add(this);
+            }
+
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

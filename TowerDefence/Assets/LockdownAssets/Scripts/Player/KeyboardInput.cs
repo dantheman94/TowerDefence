@@ -22,11 +22,14 @@ public class KeyboardInput : MonoBehaviour {
     private Player _PlayerAttached;
     private XboxGamepadInput _XboxGamepadInputManager = null;
     public bool IsPrimaryController { get; set; }
+    public static Rect Selection = new Rect(0, 0, 0, 0);
+    public Texture SelectionHighlight;
 
     private Vector3 _LookPoint;
     private Vector3 _CurrentVelocity = Vector3.zero;
     private bool _RotatingCamera = false;
     private Selectable _HighlightFocus = null;
+    private Vector3 _BoxStartPoint = -Vector3.one;
 
     //******************************************************************************************************************************
     //
@@ -57,6 +60,8 @@ public class KeyboardInput : MonoBehaviour {
     //  Called each frame. 
     /// </summary>
     private void Update() {
+
+        CreateSelectionBox();
 
         if (_PlayerAttached) {
 
@@ -1484,6 +1489,63 @@ public class KeyboardInput : MonoBehaviour {
             }
         }
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    /// Creates the selection boxes parameters.
+    /// </summary>
+    private void CreateSelectionBox()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            _BoxStartPoint = Input.mousePosition;
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            if (Selection.width < 0)
+            {
+                Selection.x += Selection.width;
+                Selection.width = -Selection.width;
+            }
+            if (Selection.height > 0)
+            {
+                Selection.y += Selection.height;
+                Selection.height = -Selection.height;
+            }
+
+            _BoxStartPoint = -Vector3.one;
+        }
+
+        if (Input.GetMouseButton(0))
+        {
+            Selection = new Rect(_BoxStartPoint.x, InvertMouseY(_BoxStartPoint.y), Input.mousePosition.x - _BoxStartPoint.x,
+                                 InvertMouseY(Input.mousePosition.y) - InvertMouseY(_BoxStartPoint.y));
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    /// Draws the selection box for selecting.
+    /// </summary>
+    private void OnGUI()
+    {
+        if (_BoxStartPoint != -Vector3.one)
+        {
+            GUI.color = new Color(1, 1, 1, 0.5f);
+            GUI.DrawTexture(Selection, SelectionHighlight);
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    /// Inverts the mouses y position in screen space.
+    /// </summary>
+    /// <param name="y"></param>
+    /// <returns></returns>
+    public static float InvertMouseY(float y) { return Screen.height - y; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
