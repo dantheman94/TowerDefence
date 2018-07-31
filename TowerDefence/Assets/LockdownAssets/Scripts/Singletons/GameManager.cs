@@ -44,6 +44,8 @@ public class GameManager : MonoBehaviour {
     public Canvas WorldSpaceCanvas;
     public Canvas ScreenSpaceCanvas;
     [Space]
+    public CinematicBars CinematicBars;
+    [Space]
     public bool _IsRadialMenu = false;
     public GameObject SelectionWheel;
     public GameObject selectionWindow;

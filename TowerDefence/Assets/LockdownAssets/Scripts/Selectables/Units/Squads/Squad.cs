@@ -246,6 +246,7 @@ public class Squad : WorldObject {
 
         // Use the selection sphere for offsetting each unit's spawn location
         SphereCollider spawnSphere = gameObject.AddComponent<SphereCollider>();
+        spawnSphere.center = gameObject.transform.position;
         spawnSphere.radius = FlockingRadius;
 
         List<Vector3> offsets = new List<Vector3>();
@@ -294,7 +295,10 @@ public class Squad : WorldObject {
                             // Move the offset until its no longer overlapping 
                             float posDistance = Vector3.Distance(vecPos, testOffset);
                             int additive = (int)Random.Range(0, 3);
-                            if (additive == 0) { vecPos.Set(vecPos.x + (posDistance - agentRadius) / 2, vecPos.y, vecPos.z + (posDistance + agentRadius) / 2); } else if (additive == 1) { vecPos.Set(vecPos.x + (posDistance - agentRadius) / 2, vecPos.y, vecPos.z - (posDistance - agentRadius) / 2); } else if (additive == 2) { vecPos.Set(vecPos.x - (posDistance - agentRadius) / 2, vecPos.y, vecPos.z - (posDistance + agentRadius) / 2); } else if (additive == 3) { vecPos.Set(vecPos.x - (posDistance - agentRadius) / 2, vecPos.y, vecPos.z - (posDistance - agentRadius) / 2); }
+                            if      (additive == 0) { vecPos.Set(vecPos.x + (posDistance - agentRadius) / 2, vecPos.y, vecPos.z + (posDistance - agentRadius) / 2); } 
+                            else if (additive == 1) { vecPos.Set(vecPos.x + (posDistance - agentRadius) / 2, vecPos.y, vecPos.z - (posDistance - agentRadius) / 2); } 
+                            else if (additive == 2) { vecPos.Set(vecPos.x - (posDistance - agentRadius) / 2, vecPos.y, vecPos.z + (posDistance - agentRadius) / 2); } 
+                            else if (additive == 3) { vecPos.Set(vecPos.x - (posDistance - agentRadius) / 2, vecPos.y, vecPos.z - (posDistance - agentRadius) / 2); }
                         } 
                         else { nonOverlaps.Add(new bool()); }
                     }
