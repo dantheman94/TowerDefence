@@ -125,10 +125,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4833653950385014}
   - component: {fileID: 114819093811879832}
-  - component: {fileID: 114865486705295362}
+  - component: {fileID: 114868620102459530}
+  - component: {fileID: 208654209821902752}
   m_Layer: 0
   m_Name: pfb_AntiVehicleTurret
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -495,7 +496,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TagArray: []
---- !u!114 &114865486705295362
+--- !u!114 &114868620102459530
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -503,16 +504,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1955926050827018}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ef5a15f800b333459157241ba65b339, type: 3}
+  m_Script: {fileID: 11500000, guid: 8e3868ad2f8d96344bb0fcb3bc24730a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ObjectName: Anti-Vehicle Turret
   ObjectDescriptionShort: Stationary Defence Tower
-  ObjectDescriptionLong: Prioritzes & has higher damage output against ground vehicles.
-  PlayerID: 0
+  ObjectDescriptionLong: 
+  ShowSelectionGUI: 1
   Team: 0
-  FogOfWarRadius: 400
   _Player: {fileID: 0}
+  FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 1802450182397512}
   BuildImage: {fileID: 0}
@@ -527,10 +528,16 @@ MonoBehaviour:
   MaxShieldPoints: 0
   Garrisonable: 0
   MaxGarrisonPopulation: 0
-  MultiSelectable: 1
+  MultiSelectable: 0
   _OffsetY: 10
   _ObjectState: 0
-  BuildingSlot: {fileID: 0}
+  _WidgetHealthbarScaleX: 100
+  _WidgetHealthbarScaleY: 15
+  _WidgetHealthbarOffset: 15
+  _WidgetShieldbarScaleX: 100
+  _WidgetShieldbarScaleY: 15
+  _WidgetShieldbarOffset: 22
+  AttachedBuildingSlot: {fileID: 0}
   ObjectHeight: 15
   Selectables:
   - {fileID: 0}
@@ -545,6 +552,7 @@ MonoBehaviour:
   - {fileID: 0}
   TowerType: 4
   TowerWeapon: {fileID: 0}
+  UpgradedTurret: 0
 --- !u!136 &136424336541252710
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -558,3 +566,18 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!208 &208654209821902752
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1955926050827018}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 5, y: 15, z: 5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5

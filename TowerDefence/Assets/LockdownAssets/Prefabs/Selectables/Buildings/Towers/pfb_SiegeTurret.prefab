@@ -90,9 +90,10 @@ GameObject:
   - component: {fileID: 4099690757911654}
   - component: {fileID: 114598963257494084}
   - component: {fileID: 114736078254217442}
+  - component: {fileID: 208117872135301750}
   m_Layer: 0
   m_Name: pfb_SiegeTurret
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -345,10 +346,10 @@ MonoBehaviour:
   ObjectDescriptionShort: Stationary Artillery Tower
   ObjectDescriptionLong: Long ranged & high damage artillery turret. Cannot fire at
     units that are too close to it. Firing mortar projectiles cost resources.
-  PlayerID: 0
+  ShowSelectionGUI: 1
   Team: 0
-  FogOfWarRadius: 400
   _Player: {fileID: 0}
+  FogOfWarRadius: 400
   BuildingState: {fileID: 1539433840588376}
   ActiveState: {fileID: 1908354191995910}
   BuildImage: {fileID: 0}
@@ -366,7 +367,13 @@ MonoBehaviour:
   MultiSelectable: 1
   _OffsetY: 12
   _ObjectState: 0
-  BuildingSlot: {fileID: 0}
+  _WidgetHealthbarScaleX: 100
+  _WidgetHealthbarScaleY: 15
+  _WidgetHealthbarOffset: 15
+  _WidgetShieldbarScaleX: 100
+  _WidgetShieldbarScaleY: 15
+  _WidgetShieldbarOffset: 22
+  AttachedBuildingSlot: {fileID: 0}
   ObjectHeight: 15
   Selectables:
   - {fileID: 0}
@@ -422,3 +429,18 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!208 &208117872135301750
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1829446891362650}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 5, y: 15, z: 5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5

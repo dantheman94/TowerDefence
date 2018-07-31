@@ -72,7 +72,7 @@ GameObject:
   - component: {fileID: 114947448389047210}
   m_Layer: 0
   m_Name: pfb_1Slot_Minibase
-  m_TagString: Untagged
+  m_TagString: Base
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -151,6 +151,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4371854458577596}
+  - component: {fileID: 208514546556497466}
   m_Layer: 0
   m_Name: Minibase_Active
   m_TagString: Untagged
@@ -657,6 +658,7 @@ MonoBehaviour:
   ObjectName: 
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
+  ShowSelectionGUI: 1
   Team: 0
   _Player: {fileID: 0}
   FogOfWarRadius: 400
@@ -711,6 +713,7 @@ MonoBehaviour:
   ObjectName: Minibase
   ObjectDescriptionShort: Minibase
   ObjectDescriptionLong: 
+  ShowSelectionGUI: 1
   Team: 0
   _Player: {fileID: 0}
   FogOfWarRadius: 400
@@ -784,4 +787,19 @@ NavMeshObstacle:
   m_Carve: 0
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208514546556497466
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1781239863202218}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 20, y: 5, z: 42.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: -17}
   m_TimeToStationary: 0.5

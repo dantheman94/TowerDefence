@@ -172,6 +172,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4048126572274546}
+  - component: {fileID: 208946178083715154}
   m_Layer: 0
   m_Name: CommandCenter_Active
   m_TagString: Untagged
@@ -281,7 +282,7 @@ GameObject:
   - component: {fileID: 114437307112323898}
   m_Layer: 0
   m_Name: pfb_CommandCenter
-  m_TagString: Untagged
+  m_TagString: Base
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1570,6 +1571,7 @@ MonoBehaviour:
   ObjectName: Empty Tower Slot
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
+  ShowSelectionGUI: 1
   Team: 0
   _Player: {fileID: 0}
   FogOfWarRadius: 400
@@ -1624,6 +1626,7 @@ MonoBehaviour:
   ObjectName: Empty Building Slot
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
+  ShowSelectionGUI: 1
   Team: 0
   _Player: {fileID: 0}
   FogOfWarRadius: 400
@@ -1678,6 +1681,7 @@ MonoBehaviour:
   ObjectName: Empty Tower Slot
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
+  ShowSelectionGUI: 1
   Team: 0
   _Player: {fileID: 0}
   FogOfWarRadius: 400
@@ -1732,6 +1736,7 @@ MonoBehaviour:
   ObjectName: Empty Building Slot
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
+  ShowSelectionGUI: 1
   Team: 0
   _Player: {fileID: 0}
   FogOfWarRadius: 400
@@ -1786,6 +1791,7 @@ MonoBehaviour:
   ObjectName: Command Center
   ObjectDescriptionShort: Base
   ObjectDescriptionLong: 
+  ShowSelectionGUI: 1
   Team: 0
   _Player: {fileID: 0}
   FogOfWarRadius: 400
@@ -1855,6 +1861,7 @@ MonoBehaviour:
   ObjectName: Empty Building Slot
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
+  ShowSelectionGUI: 1
   Team: 0
   _Player: {fileID: 0}
   FogOfWarRadius: 400
@@ -1909,6 +1916,7 @@ MonoBehaviour:
   ObjectName: Empty Building Slot
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
+  ShowSelectionGUI: 1
   Team: 0
   _Player: {fileID: 0}
   FogOfWarRadius: 400
@@ -1963,6 +1971,7 @@ MonoBehaviour:
   ObjectName: Empty Building Slot
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
+  ShowSelectionGUI: 1
   Team: 0
   _Player: {fileID: 0}
   FogOfWarRadius: 400
@@ -2017,6 +2026,7 @@ MonoBehaviour:
   ObjectName: Empty Tower Slot
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
+  ShowSelectionGUI: 1
   Team: 0
   _Player: {fileID: 0}
   FogOfWarRadius: 400
@@ -2083,6 +2093,7 @@ MonoBehaviour:
   ObjectName: Empty Building Slot
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
+  ShowSelectionGUI: 1
   Team: 0
   _Player: {fileID: 0}
   FogOfWarRadius: 400
@@ -2137,6 +2148,7 @@ MonoBehaviour:
   ObjectName: Empty Tower Slot
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
+  ShowSelectionGUI: 1
   Team: 0
   _Player: {fileID: 0}
   FogOfWarRadius: 400
@@ -2337,6 +2349,21 @@ NavMeshObstacle:
   m_Carve: 0
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208946178083715154
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1471038247066612}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 57.5, y: 5, z: 55}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: -10}
   m_TimeToStationary: 0.5
 --- !u!208 &208979347146397884
 NavMeshObstacle:

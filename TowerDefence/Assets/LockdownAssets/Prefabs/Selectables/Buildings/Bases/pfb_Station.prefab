@@ -218,6 +218,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4106250607515488}
+  - component: {fileID: 208053533685228512}
   m_Layer: 0
   m_Name: Station_Active
   m_TagString: Untagged
@@ -255,7 +256,7 @@ GameObject:
   - component: {fileID: 114868436975677980}
   m_Layer: 0
   m_Name: pfb_Station
-  m_TagString: Untagged
+  m_TagString: Base
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1222,6 +1223,7 @@ MonoBehaviour:
   ObjectName: Empty Tower Slot
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
+  ShowSelectionGUI: 1
   Team: 1
   _Player: {fileID: 0}
   FogOfWarRadius: 400
@@ -1276,6 +1278,7 @@ MonoBehaviour:
   ObjectName: Empty Building Slot
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
+  ShowSelectionGUI: 1
   Team: 1
   _Player: {fileID: 0}
   FogOfWarRadius: 400
@@ -1330,6 +1333,7 @@ MonoBehaviour:
   ObjectName: Empty Building Slot
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
+  ShowSelectionGUI: 1
   Team: 1
   _Player: {fileID: 0}
   FogOfWarRadius: 400
@@ -1396,6 +1400,7 @@ MonoBehaviour:
   ObjectName: Empty Tower Slot
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
+  ShowSelectionGUI: 1
   Team: 1
   _Player: {fileID: 0}
   FogOfWarRadius: 400
@@ -1450,6 +1455,7 @@ MonoBehaviour:
   ObjectName: Empty Building Slot
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
+  ShowSelectionGUI: 1
   Team: 1
   _Player: {fileID: 0}
   FogOfWarRadius: 400
@@ -1504,6 +1510,7 @@ MonoBehaviour:
   ObjectName: Empty Building Slot
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
+  ShowSelectionGUI: 1
   Team: 1
   _Player: {fileID: 0}
   FogOfWarRadius: 400
@@ -1560,6 +1567,7 @@ MonoBehaviour:
   ObjectDescriptionLong: The station provides a means of economy expansion, with 5
     availiable building slots that can be used to create unit depots or resource generators,
     as well as 2 tower slots for base defence.
+  ShowSelectionGUI: 1
   Team: 1
   _Player: {fileID: 0}
   FogOfWarRadius: 400
@@ -1637,6 +1645,21 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!208 &208053533685228512
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1741247373506224}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 57.5, y: 5, z: 35}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 7.5}
+  m_TimeToStationary: 0.5
 --- !u!208 &208054423959657498
 NavMeshObstacle:
   m_ObjectHideFlags: 1

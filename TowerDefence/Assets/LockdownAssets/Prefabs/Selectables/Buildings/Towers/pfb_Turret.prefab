@@ -54,9 +54,10 @@ GameObject:
   - component: {fileID: 4962471436290332}
   - component: {fileID: 114452461510054222}
   - component: {fileID: 114067246028920440}
+  - component: {fileID: 208338307098684074}
   m_Layer: 0
   m_Name: pfb_Turret
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -341,14 +342,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e3868ad2f8d96344bb0fcb3bc24730a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObjectName: Mini-Turret
+  ObjectName: Turret
   ObjectDescriptionShort: Stationary Defence Tower
   ObjectDescriptionLong: Standard defence tower. Can be upgrade to prioritize & damage
     specific unit types.
-  PlayerID: 0
+  ShowSelectionGUI: 1
   Team: 0
-  FogOfWarRadius: 400
   _Player: {fileID: 0}
+  FogOfWarRadius: 400
   BuildingState: {fileID: 1261838088350242}
   ActiveState: {fileID: 1943312862142262}
   BuildImage: {fileID: 0}
@@ -366,7 +367,13 @@ MonoBehaviour:
   MultiSelectable: 1
   _OffsetY: 10
   _ObjectState: 0
-  BuildingSlot: {fileID: 0}
+  _WidgetHealthbarScaleX: 100
+  _WidgetHealthbarScaleY: 15
+  _WidgetHealthbarOffset: 15
+  _WidgetShieldbarScaleX: 100
+  _WidgetShieldbarScaleY: 15
+  _WidgetShieldbarOffset: 22
+  AttachedBuildingSlot: {fileID: 0}
   ObjectHeight: 15
   Selectables:
   - {fileID: 0}
@@ -381,6 +388,7 @@ MonoBehaviour:
   - {fileID: 0}
   TowerType: 2
   TowerWeapon: {fileID: 0}
+  UpgradedTurret: 0
 --- !u!114 &114452461510054222
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -419,3 +427,18 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!208 &208338307098684074
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1476746386672702}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 5, y: 15, z: 5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5

@@ -75,6 +75,7 @@ GameObject:
   - component: {fileID: 4181846604302396}
   - component: {fileID: 114545485044121834}
   - component: {fileID: 114520192560787352}
+  - component: {fileID: 208136323360077546}
   m_Layer: 0
   m_Name: pfb_Barricade
   m_TagString: Building
@@ -395,13 +396,14 @@ MonoBehaviour:
   ObjectName: Barricade
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
+  ShowSelectionGUI: 1
   Team: 0
   _Player: {fileID: 0}
   FogOfWarRadius: 400
   BuildingState: {fileID: 1372325392249030}
   ActiveState: {fileID: 1050043004154138}
   BuildImage: {fileID: 0}
-  BuildTime: 20
+  BuildTime: 5
   CostSupplies: 300
   CostPower: 0
   CostTechLevel: 1
@@ -447,3 +449,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TagArray: []
+--- !u!208 &208136323360077546
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1581478967922482}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 40, y: 2.5, z: 7.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5

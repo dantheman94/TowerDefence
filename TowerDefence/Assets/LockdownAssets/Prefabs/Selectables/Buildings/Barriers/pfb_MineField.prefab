@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 4784768230120464}
   - component: {fileID: 114773154519821790}
   - component: {fileID: 114769102189157010}
+  - component: {fileID: 208665496821781026}
   m_Layer: 0
   m_Name: pfb_MineField
   m_TagString: Building
@@ -395,13 +396,14 @@ MonoBehaviour:
   ObjectName: Mine Field
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
+  ShowSelectionGUI: 1
   Team: 0
   _Player: {fileID: 0}
   FogOfWarRadius: 400
   BuildingState: {fileID: 1114594755359282}
   ActiveState: {fileID: 1708082212870266}
   BuildImage: {fileID: 0}
-  BuildTime: 10
+  BuildTime: 5
   CostSupplies: 200
   CostPower: 100
   CostTechLevel: 1
@@ -447,3 +449,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TagArray: []
+--- !u!208 &208665496821781026
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1937062695017790}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 40, y: 2.5, z: 7.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
