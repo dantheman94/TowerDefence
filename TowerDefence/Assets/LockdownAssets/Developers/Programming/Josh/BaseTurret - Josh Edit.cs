@@ -141,6 +141,11 @@ public class BaseTurret : Tower
 
                     // When _TargetAquired is true and they are within range, look at the target
                     TurretCannon.transform.rotation = Quaternion.Lerp(TurretCannon.transform.rotation, _LookAtRotation, Time.deltaTime * _RotationSpeed);
+
+                    if (TowerWeapon != null)
+                    {
+                        if (TowerWeapon.CanFire()) { TowerWeapon.FireWeapon(); }
+                    }
                 }
             }
         }
