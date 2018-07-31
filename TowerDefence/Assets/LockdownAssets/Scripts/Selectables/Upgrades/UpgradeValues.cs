@@ -27,6 +27,7 @@ public class UpgradeValues : Abstraction {
     public int PlayerLevel = 1;
     public int SupplyCost;
     public int PowerCost;
+    public int BuildTime = 5;
 
     [Space]
     [Header("-----------------------------------")]
