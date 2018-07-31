@@ -634,7 +634,7 @@ Transform:
   m_GameObject: {fileID: 1570250356289122}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 1}
+  m_LocalScale: {x: 20, y: 20, z: 1}
   m_Children: []
   m_Father: {fileID: 4481516331845004}
   m_RootOrder: 2
@@ -1719,17 +1719,18 @@ MonoBehaviour:
   ObjectName: Core Vehicle
   ObjectDescriptionShort: Core Ground Vehicle
   ObjectDescriptionLong: 
+  ShowSelectionGUI: 1
   Team: 0
   _Player: {fileID: 0}
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 1486696769751106}
   BuildImage: {fileID: 0}
-  BuildTime: 20
-  CostSupplies: 0
+  BuildTime: 3
+  CostSupplies: 280
   CostPower: 0
-  CostTechLevel: 1
-  CostPopulation: 0
+  CostTechLevel: 2
+  CostPopulation: 4
   RecycleSupplies: 0
   RecyclePower: 0
   MaxHitPoints: 100
@@ -1756,10 +1757,10 @@ MonoBehaviour:
   MuzzleLaunchPoint: {fileID: 0}
   AttackingRange: 100
   WeaponObject: {fileID: 0}
-  Acceleration: 8
-  Deceleration: 4
-  MaxSpeed: 20
-  MaxReverseSpeed: -10
+  Acceleration: 16
+  Deceleration: 8
+  MaxSpeed: 40
+  MaxReverseSpeed: -20
   BaseRotationSpeed: 45
   WeaponRotationSpeed: 50
 --- !u!114 &114608302553411444
