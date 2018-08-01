@@ -451,7 +451,7 @@ public class Unit : WorldObject {
     private void BoxSelection()
     {
         // Precautions
-        if (_Player != null && _IsCurrentlySelected == false) {
+        if (_Player != null) {
 
             if (Input.GetMouseButton(0)) {
 
@@ -461,21 +461,31 @@ public class Unit : WorldObject {
                 if (KeyboardInput.Selection.Contains(camPos)) {
 
                     _IsCurrentlySelected = true;
-                }
-                else {
+                    if (IsInASquad())
+                    {
 
-                    _IsCurrentlySelected = false;
-                    _Player.DeselectAllObjects();
+                        if (GetSquadAttached().GetObjectState() == WorldObject.WorldObjectStates.Active)
+                        {
+                            _Player.SelectedWorldObjects.Add(GetSquadAttached());
+                            GetSquadAttached().SetPlayer(_Player);
+                            GetSquadAttached().SetIsSelected(true);
+                        }
+
+                    }
+                    else
+                    {
+                        if (this.GetObjectState() == WorldObject.WorldObjectStates.Active)
+                        {
+                            _Player.SelectedWorldObjects.Add(this);
+                            this.SetPlayer(_Player);
+                            this.SetIsSelected(true);
+                        }
+
+                    }
                 }
                 
-                if (IsInASquad()) {
 
-                    _Player.SelectedWorldObjects.Add(GetSquadAttached());
-                } 
-                else {
-
-                    _Player.SelectedWorldObjects.Add(this);
-                }
+           
             }
         }
     }
