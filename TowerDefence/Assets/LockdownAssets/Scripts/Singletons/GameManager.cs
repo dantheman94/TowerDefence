@@ -68,6 +68,8 @@ public class GameManager : MonoBehaviour {
     [Header("-----------------------------------")]
     [Header(" OBJECT PRE-LOADING")]
     [Space]
+    public List<GameObjectPreloading> PreloadGameObjects;
+    [Space]
     public List<WorldObjectPreloading> PreloadWorldObjects;
     [Space]
     public List<ProjectilesPreloading> PreloadProjectiles;
@@ -87,7 +89,13 @@ public class GameManager : MonoBehaviour {
 
     [HideInInspector]
     public List<Selectable> Selectables { get; set; }
-    
+
+    [System.Serializable]
+    public struct GameObjectPreloading {
+
+        public GameObject gameObject;
+        public int size;
+    }
     [System.Serializable]
     public struct WorldObjectPreloading {
 
@@ -113,6 +121,8 @@ public class GameManager : MonoBehaviour {
     
     private int _LabratoryCount = 0;
     private bool _ManuallyControllingAUnit = false;
+
+    private List<WorldObject> _FriendlyUnits;
     
     //******************************************************************************************************************************
     //
@@ -138,6 +148,7 @@ public class GameManager : MonoBehaviour {
 
         // Initialize lists
         Selectables = new List<Selectable>();
+        _FriendlyUnits = new List<WorldObject>();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -156,6 +167,7 @@ public class GameManager : MonoBehaviour {
         }
 
         // Preload objects
+        foreach (var pGameObj in PreloadGameObjects) { ObjectPooling.PreLoad(pGameObj.gameObject, pGameObj.size); }
         foreach (var pObj in PreloadWorldObjects)   { ObjectPooling.PreLoad(pObj.worldObject.gameObject, pObj.size); }
         foreach (var pProj in PreloadProjectiles)   { ObjectPooling.PreLoad(pProj.projectile.gameObject, pProj.size); }
         foreach (var pParticle in PreloadParticles) { ObjectPooling.PreLoad(pParticle.particle.gameObject, pParticle.size); }

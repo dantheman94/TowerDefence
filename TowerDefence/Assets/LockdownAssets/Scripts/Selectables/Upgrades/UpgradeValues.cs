@@ -28,11 +28,5 @@ public class UpgradeValues : Abstraction {
     public int SupplyCost;
     public int PowerCost;
     public int BuildTime = 5;
-
-    [Space]
-    [Header("-----------------------------------")]
-    [Header(" UPGRADE")]
-    [Space]
-    public float UpgradeValue = 0f;
-
+    
 }
