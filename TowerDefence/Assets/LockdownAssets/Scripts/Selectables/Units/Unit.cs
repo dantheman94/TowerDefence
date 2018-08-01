@@ -123,6 +123,7 @@ public class Unit : WorldObject {
     protected override void Update() {
         base.Update();
         BoxSelection();
+
         // Hide the unit UI widgets if it is building
         if (_ObjectState == WorldObjectStates.Building) {
 
@@ -442,25 +443,36 @@ public class Unit : WorldObject {
         return position;
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     /// Checks if unit is selected by click & drag box
     /// </summary>
     private void BoxSelection()
     {
-        if (Input.GetMouseButton(0))
-        {
-            Vector3 camPos = Camera.main.WorldToScreenPoint(transform.position);
-            camPos.y = KeyboardInput.InvertMouseY(camPos.y);
-            _IsCurrentlySelected = KeyboardInput.Selection.Contains(camPos);
-            if(IsInASquad())
-            {
-                _Player.SelectedWorldObjects.Add(GetSquadAttached());
-            }
-            else
-            {
-                _Player.SelectedWorldObjects.Add(this);
-            }
+        // Precautions
+        if (_Player != null && _IsCurrentlySelected == false) {
 
+            if (Input.GetMouseButton(0)) {
+
+                Vector3 camPos = _Player.PlayerCamera.WorldToScreenPoint(transform.position);
+                camPos.y = KeyboardInput.InvertMouseY(camPos.y);
+
+                if (KeyboardInput.Selection.Contains(camPos)) {
+
+                    _IsCurrentlySelected = true;
+                }
+                else { _IsCurrentlySelected = false; }
+                
+                if (IsInASquad()) {
+
+                    _Player.SelectedWorldObjects.Add(GetSquadAttached());
+                } 
+                else {
+
+                    _Player.SelectedWorldObjects.Add(this);
+                }
+            }
         }
     }
 
