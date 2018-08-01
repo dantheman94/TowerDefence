@@ -35,14 +35,16 @@ public class Upgrade : WorldObject {
     //
     //******************************************************************************************************************************
 
-    protected WorldObject _WorldObjectAttached = null;
-    protected int _CurrentUpgradeLevel = 0;
-    protected string _UpgradeName;
-    protected bool _HasMaxUpgrade = false;
+    private List<UpgradeValues> _Queue;
+    private WorldObject _WorldObjectAttached = null;
+    private Building _BuildingAttached = null;
+    private int _CurrentUpgradeLevel = 0;
+    private string _UpgradeName;
+    private bool _HasMaxUpgrade = false;
     private bool _Upgrading = false;
     private float _UpgradeTimer = 0f;
     private float _UpgradeBuildTime = 0f;
-    
+            
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
@@ -56,7 +58,9 @@ public class Upgrade : WorldObject {
     /// </summary>
     protected override void Awake() {
 
+        // Initialize
         _UpgradeName = ObjectName;
+        _Queue = new List<UpgradeValues>();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -109,6 +113,9 @@ public class Upgrade : WorldObject {
     /// </param>
     public override void OnWheelSelect(BuildingSlot buildingSlot) {
 
+        // Set building attached reference
+        _BuildingAttached = buildingSlot.GetBuildingOnSlot();
+
         // Not reached the maximum upgrade yet
         if (!_HasMaxUpgrade) {
 
@@ -136,6 +143,15 @@ public class Upgrade : WorldObject {
             _UpgradeTimer = 0f;
             _UpgradeBuildTime = costs.BuildTime;
             _Upgrading = true;
+
+            // Create worldspace UI
+            ///GameObject progressWidget = ObjectPooling.Spawn(GameManager.Instance.BuildingInProgressPanel.gameObject);
+            GameObject progressWidget = Instantiate(GameManager.Instance.BuildingInProgressPanel.gameObject);
+            UpgradeBuildingCounter upgradeCounter = progressWidget.GetComponent<UpgradeBuildingCounter>();
+            upgradeCounter.SetUpgradeAttached(this);
+            upgradeCounter.SetCameraAttached(_BuildingAttached._Player.PlayerCamera);
+            progressWidget.transform.SetParent(GameManager.Instance.WorldSpaceCanvas.gameObject.transform, false);
+            progressWidget.gameObject.SetActive(true);
         }
     }
 
@@ -148,6 +164,36 @@ public class Upgrade : WorldObject {
     //  bool
     /// </returns>
     public bool HasMaxUpgrade() { return _HasMaxUpgrade; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <returns>
+    //  bool
+    /// </returns>
+    public bool IsUpgrading() { return _Upgrading; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <returns>
+    //  float
+    /// </returns>
+    public float UpgradeTimeRemaining() { return _UpgradeBuildTime - _UpgradeTimer; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <returns>
+    //  Building
+    /// </returns>
+    public Building GetBuildingAttached() { return _BuildingAttached; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
