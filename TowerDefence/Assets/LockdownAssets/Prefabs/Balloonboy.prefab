@@ -73,11 +73,12 @@ GameObject:
   - component: {fileID: 95565886086234650}
   - component: {fileID: 114246768907694634}
   - component: {fileID: 114515141220818086}
+  - component: {fileID: 114793470566493274}
   - component: {fileID: 143169069425465062}
   - component: {fileID: 195573255929506306}
   m_Layer: 9
   m_Name: Balloonboy
-  m_TagString: Untagged
+  m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -370,7 +371,7 @@ Transform:
   m_GameObject: {fileID: 1346745769333138}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 1}
+  m_LocalScale: {x: 20, y: 20, z: 1}
   m_Children: []
   m_Father: {fileID: 4136237848924230}
   m_RootOrder: 0
@@ -909,6 +910,7 @@ MonoBehaviour:
   ObjectName: Support Airship
   ObjectDescriptionShort: Support/Healing Air Vehicle
   ObjectDescriptionLong: 
+  ShowSelectionGUI: 1
   Team: 0
   _Player: {fileID: 0}
   FogOfWarRadius: 400
@@ -960,6 +962,22 @@ MonoBehaviour:
   IdealFlyingHeight: 35
   HealingAmount: 15
   HealingRange: 10
+--- !u!114 &114793470566493274
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1337700393634558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d19b43440398b14691571d8d7742def, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healRadius: 20
+  healRate: 15
+  energyDrain: 5
+  healRadiusHeight: 85
+  yOffset: -10
 --- !u!135 &135610681339822248
 SphereCollider:
   m_ObjectHideFlags: 1

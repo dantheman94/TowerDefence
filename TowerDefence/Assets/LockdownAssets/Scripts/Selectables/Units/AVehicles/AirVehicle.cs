@@ -41,11 +41,21 @@ public class AirVehicle : Vehicle {
     protected bool _DownwardRayDetection = false;
     protected bool _AngleRayDetection = false;
 
+    private int _LayerMask;
+
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
     //
     //******************************************************************************************************************************
+
+    protected override void Start()
+    {
+        base.Start();
+        _LayerMask = 1 << LayerMask.NameToLayer("Units");
+        _LayerMask = ~_LayerMask;
+    }
+
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -75,7 +85,7 @@ public class AirVehicle : Vehicle {
 
         // Fire a raycast forward
         RaycastHit hitForward;
-        if (_ForwardRayDetection = Physics.Raycast(AgentPosition, transform.forward, out hitForward, ForwardAvoidanceRange)) {
+        if (_ForwardRayDetection = Physics.Raycast(AgentPosition, transform.forward, out hitForward, ForwardAvoidanceRange, _LayerMask)) {
 
             Debug.DrawRay(AgentPosition, transform.forward * ForwardAvoidanceRange, Color.green);
 
@@ -98,7 +108,7 @@ public class AirVehicle : Vehicle {
 
         // Fire a raycast downward
         RaycastHit hitDown;
-        if (_DownwardRayDetection = Physics.Raycast(AgentPosition, -transform.up, out hitDown, DownwardsAvoidanceRange)) {
+        if (_DownwardRayDetection = Physics.Raycast(AgentPosition, -transform.up, out hitDown, DownwardsAvoidanceRange, _LayerMask)) {
 
             Debug.DrawRay(AgentPosition, -transform.up * DownwardsAvoidanceRange, Color.green);
             if (hitDown.transform.gameObject.layer != 9) {
@@ -127,7 +137,7 @@ public class AirVehicle : Vehicle {
         // Fire a raycast on a forward / down angle
         Vector3 angle = transform.forward + -transform.up;
         RaycastHit hitAngle;
-        if (_AngleRayDetection = Physics.Raycast(AgentPosition, angle, out hitAngle, ForwardAvoidanceRange)) {
+        if (_AngleRayDetection = Physics.Raycast(AgentPosition, angle, out hitAngle, ForwardAvoidanceRange, _LayerMask)) {
 
             Debug.DrawRay(AgentPosition, angle * ForwardAvoidanceRange, Color.green);
 
