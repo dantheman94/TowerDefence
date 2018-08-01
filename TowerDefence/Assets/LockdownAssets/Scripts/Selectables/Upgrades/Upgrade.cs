@@ -65,35 +65,37 @@ public class Upgrade : WorldObject {
     //  Called each frame. 
     /// </summary>
     protected override void Update() {
-        
-        // Update name to include current upgrade level
-        ObjectName = UpgradeProperties[_CurrentUpgradeLevel].ObjectName;
-        ObjectDescriptionShort = UpgradeProperties[_CurrentUpgradeLevel].ObjectDescriptionShort;
-        ObjectDescriptionLong = UpgradeProperties[_CurrentUpgradeLevel].ObjectDescriptionLong;
 
-        // Update current costs for the next upgrade
-        if (UpgradeProperties.Count > _CurrentUpgradeLevel + 1) {
+        if (UpgradeProperties.Count > 0 && UpgradeEvents.Count > 0) {
 
-            CostSupplies = UpgradeProperties[_CurrentUpgradeLevel + 1].SupplyCost;
-            CostPower = UpgradeProperties[_CurrentUpgradeLevel + 1].PowerCost;
-        }
+            // Update name to include current upgrade level
+            ObjectName = UpgradeProperties[_CurrentUpgradeLevel].ObjectName;
+            ObjectDescriptionShort = UpgradeProperties[_CurrentUpgradeLevel].ObjectDescriptionShort;
+            ObjectDescriptionLong = UpgradeProperties[_CurrentUpgradeLevel].ObjectDescriptionLong;
 
-        // Update if reached max upgrade level
-        _HasMaxUpgrade = (UpgradeProperties.Count <= _CurrentUpgradeLevel) || (UpgradeEvents.Count <= _CurrentUpgradeLevel);
+            // Update current costs for the next upgrade
+            if (UpgradeProperties.Count > _CurrentUpgradeLevel + 1) {
 
-        // Update upgrade timer
-        if (_Upgrading) {
-
-            // Add to timer
-            _UpgradeTimer += Time.deltaTime;
-            if (_UpgradeTimer >= _UpgradeBuildTime) {
-                
-                // Upgrade complete
-                _CurrentUpgradeLevel += 1;
-                _Upgrading = false;
+                CostSupplies = UpgradeProperties[_CurrentUpgradeLevel + 1].SupplyCost;
+                CostPower = UpgradeProperties[_CurrentUpgradeLevel + 1].PowerCost;
             }
+
+            // Update if reached max upgrade level
+            _HasMaxUpgrade = (UpgradeProperties.Count <= _CurrentUpgradeLevel) || (UpgradeEvents.Count <= _CurrentUpgradeLevel);
+
+            // Update upgrade timer
+            if (_Upgrading) {
+
+                // Add to timer
+                _UpgradeTimer += Time.deltaTime;
+                if (_UpgradeTimer >= _UpgradeBuildTime) {
+
+                    // Upgrade complete
+                    _CurrentUpgradeLevel += 1;
+                    _Upgrading = false;
+                }
+            } else { _UpgradeTimer = 0f; }
         }
-        else { _UpgradeTimer = 0f; }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
