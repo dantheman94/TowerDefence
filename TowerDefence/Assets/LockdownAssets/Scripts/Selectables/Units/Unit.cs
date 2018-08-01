@@ -453,7 +453,11 @@ public class Unit : WorldObject {
         // Precautions
         if (_Player != null) {
 
-            if (Input.GetMouseButton(0)) {
+            if(!KeyboardInput.MouseIsDown)
+            {
+
+         
+            //if (Input.GetMouseButton(0)) {
 
                 Vector3 camPos = _Player.PlayerCamera.WorldToScreenPoint(transform.position);
                 camPos.y = KeyboardInput.InvertMouseY(camPos.y);
@@ -483,10 +487,10 @@ public class Unit : WorldObject {
 
                     }
                 }
-       
 
-           
             }
+
+            // }
         }
     }
 

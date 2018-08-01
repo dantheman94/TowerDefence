@@ -23,6 +23,7 @@ public class KeyboardInput : MonoBehaviour {
     private XboxGamepadInput _XboxGamepadInputManager = null;
     public bool IsPrimaryController { get; set; }
     public static Rect Selection = new Rect(0, 0, 0, 0);
+    public static bool MouseIsDown = false;
     public Texture SelectionHighlight;
 
     private Vector3 _LookPoint;
@@ -1514,11 +1515,14 @@ public class KeyboardInput : MonoBehaviour {
                 Selection.height = -Selection.height;
             }
 
+            MouseIsDown = false;
+           
             _BoxStartPoint = -Vector3.one;
         }
 
         if (Input.GetMouseButton(0))
         {
+            MouseIsDown = true;
             Selection = new Rect(_BoxStartPoint.x, InvertMouseY(_BoxStartPoint.y), Input.mousePosition.x - _BoxStartPoint.x,
                                  InvertMouseY(Input.mousePosition.y) - InvertMouseY(_BoxStartPoint.y));
         }
