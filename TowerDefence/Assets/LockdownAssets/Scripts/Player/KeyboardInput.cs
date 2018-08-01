@@ -60,7 +60,7 @@ public class KeyboardInput : MonoBehaviour {
     //  Called each frame. 
     /// </summary>
     private void Update() {
-
+        Debug.Log(Selection);
         CreateSelectionBox();
 
         if (_PlayerAttached) {
@@ -1508,7 +1508,7 @@ public class KeyboardInput : MonoBehaviour {
                 Selection.x += Selection.width;
                 Selection.width = -Selection.width;
             }
-            if (Selection.height > 0)
+            if (Selection.height < 0)
             {
                 Selection.y += Selection.height;
                 Selection.height = -Selection.height;
@@ -1546,6 +1546,8 @@ public class KeyboardInput : MonoBehaviour {
     /// <param name="y"></param>
     /// <returns></returns>
     public static float InvertMouseY(float y) { return Screen.height - y; }
+
+    public void SetStartPoint(Vector3 a_vector) { _BoxStartPoint = a_vector; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
