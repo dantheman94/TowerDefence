@@ -462,7 +462,11 @@ public class Unit : WorldObject {
 
                     _IsCurrentlySelected = true;
                 }
-                else { _IsCurrentlySelected = false; }
+                else {
+
+                    _IsCurrentlySelected = false;
+                    _Player.DeselectAllObjects();
+                }
                 
                 if (IsInASquad()) {
 
