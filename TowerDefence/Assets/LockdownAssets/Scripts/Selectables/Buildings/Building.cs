@@ -41,6 +41,7 @@ public class Building : WorldObject {
     protected BuildingRecycle _RecycleOption;
     protected bool _IsBuildingSomething = false;
     protected WorldObject _ObjectBeingBuilt = null;
+    private List<GameObject> _BuildingQueue;
 
     private bool _RebuildNavmesh = false;
 
@@ -57,9 +58,10 @@ public class Building : WorldObject {
     /// </summary>
     protected override void Start() {
         base.Start();
-
-        // Override the object height
+        
+        // Initialize
         _ObjectHeight = ObjectHeight;
+        _BuildingQueue = new List<GameObject>();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -235,5 +237,25 @@ public class Building : WorldObject {
     /// </summary>
     /// <param name="obj"></param>
     public void SetObjectBeingBuilt(WorldObject obj) { _ObjectBeingBuilt = obj; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="queueObject"></param>
+    public void AddToQueue(GameObject queueObject) { _BuildingQueue.Add(queueObject); }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <returns>
+    //  List<WorldObject>
+    /// </returns>
+    public List<GameObject> GetBuildingQueue() { return _BuildingQueue; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }

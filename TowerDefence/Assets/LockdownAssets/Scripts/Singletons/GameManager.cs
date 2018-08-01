@@ -121,8 +121,6 @@ public class GameManager : MonoBehaviour {
     
     private int _LabratoryCount = 0;
     private bool _ManuallyControllingAUnit = false;
-
-    private List<WorldObject> _FriendlyUnits;
     
     //******************************************************************************************************************************
     //
@@ -148,7 +146,6 @@ public class GameManager : MonoBehaviour {
 
         // Initialize lists
         Selectables = new List<Selectable>();
-        _FriendlyUnits = new List<WorldObject>();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

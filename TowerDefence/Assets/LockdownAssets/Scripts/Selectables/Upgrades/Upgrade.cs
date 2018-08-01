@@ -34,8 +34,7 @@ public class Upgrade : WorldObject {
     //      VARIABLES
     //
     //******************************************************************************************************************************
-
-    private List<UpgradeValues> _Queue;
+    
     private WorldObject _WorldObjectAttached = null;
     private Building _BuildingAttached = null;
     private int _CurrentUpgradeLevel = 0;
@@ -54,13 +53,12 @@ public class Upgrade : WorldObject {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  Called before Star().
+    //  Called before Start().
     /// </summary>
     protected override void Awake() {
 
         // Initialize
         _UpgradeName = ObjectName;
-        _Queue = new List<UpgradeValues>();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -88,17 +86,37 @@ public class Upgrade : WorldObject {
             _HasMaxUpgrade = (UpgradeProperties.Count <= _CurrentUpgradeLevel) || (UpgradeEvents.Count <= _CurrentUpgradeLevel);
 
             // Update upgrade timer
-            if (_Upgrading) {
+            if (_BuildingAttached != null) {
 
-                // Add to timer
-                _UpgradeTimer += Time.deltaTime;
-                if (_UpgradeTimer >= _UpgradeBuildTime) {
+                // Checking if the object in the queue is a valid upgrade 'value' 
+                UpgradeValues upgradeVal = _BuildingAttached.GetBuildingQueue()[0].GetComponent<UpgradeValues>();
+                if (upgradeVal != null) {
 
-                    // Upgrade complete
-                    _CurrentUpgradeLevel += 1;
-                    _Upgrading = false;
+                    // Does it match this upgrade's current upgrade 'value'
+                    if (upgradeVal.GetType() == UpgradeProperties[_CurrentUpgradeLevel].GetType()) {
+
+                        // Start upgrading
+                        _Upgrading = true;
+                    }
                 }
-            } else { _UpgradeTimer = 0f; }
+
+                // Are we upgrading?
+                if (_Upgrading) {
+
+                    // Add to timer
+                    _UpgradeTimer += Time.deltaTime;
+                    if (_UpgradeTimer >= _UpgradeBuildTime) {
+
+                        // Upgrading is complete
+                        _CurrentUpgradeLevel += 1;
+                        _Upgrading = false;
+
+                        // Remove from the queue
+                        _BuildingAttached.GetBuildingQueue().RemoveAt(0);
+                    }
+                }
+            }
+            else { _UpgradeTimer = 0f; }
         }
     }
 
@@ -120,7 +138,7 @@ public class Upgrade : WorldObject {
         if (!_HasMaxUpgrade) {
 
             // If the method exists for the next upgrade, then call it
-            if (UpgradeEvents.Count >= _CurrentUpgradeLevel + 1 && UpgradeProperties.Count >= _CurrentUpgradeLevel + 1) { UpgradeEvents[_CurrentUpgradeLevel + 1].Invoke(); }
+            if (UpgradeEvents.Count >= _CurrentUpgradeLevel + 1 && UpgradeProperties.Count >= _CurrentUpgradeLevel + 1) { UpgradeEvents[_CurrentUpgradeLevel].Invoke(); }
         }
     }
 
@@ -129,7 +147,7 @@ public class Upgrade : WorldObject {
     /// <summary>
     //  
     /// </summary>
-    public virtual void QueueUpgrade(UpgradeValues costs) {
+    public void QueueUpgrade(UpgradeValues costs) {
 
         // Check if the player can afford the upgrade
         bool affordable = ((GameManager.Instance.Players[0].Level >= costs.PlayerLevel) && (GameManager.Instance.Players[0].SuppliesCount >= costs.SupplyCost) && (GameManager.Instance.Players[0].PowerCount >= costs.PowerCost));
@@ -139,10 +157,10 @@ public class Upgrade : WorldObject {
             GameManager.Instance.Players[0].SuppliesCount -= costs.SupplyCost;
             GameManager.Instance.Players[0].PowerCount -= costs.PowerCost;
 
-            // Start upgrading
+            // Start upgrading (or add to the queue)
             _UpgradeTimer = 0f;
             _UpgradeBuildTime = costs.BuildTime;
-            _Upgrading = true;
+            _BuildingAttached.GetBuildingQueue().Add(costs.gameObject);
 
             // Create worldspace UI
             ///GameObject progressWidget = ObjectPooling.Spawn(GameManager.Instance.BuildingInProgressPanel.gameObject);
