@@ -98,7 +98,8 @@ public class Building : WorldObject {
     /// <summary>
     //  Called when the object is "clicked on" and the selection wheel appears.
     /// </summary>
-    public virtual void OnSelectionWheel() {
+    public override void OnSelectionWheel() {
+        base.OnSelectionWheel();
 
         // Show the building's options if its active in the world
         if (_ObjectState == WorldObjectStates.Active) {

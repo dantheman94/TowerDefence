@@ -8,11 +8,11 @@ using UnityEngine.AI;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 30/7/2018
+//  Last edited on: 4/8/2018
 //
 //******************************
 
-public class Unit : WorldObject {
+public class Unit : Ai {
 
     //******************************************************************************************************************************
     //

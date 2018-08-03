@@ -84,6 +84,8 @@ public class WorldObject : Selectable {
     public float _WidgetShieldbarScaleY = 15f;
     [Tooltip("The 'Pos Y' of the RectTransform that represents the shieldbar tied to this object.")]
     public float _WidgetShieldbarOffset = 22f;
+    [Space]
+    public bool ShowBuildingQueueUI;
 
     //******************************************************************************************************************************
     //
@@ -231,12 +233,28 @@ public class WorldObject : Selectable {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  Called when the player presses a button on the selection wheel with this world object linked to the button.
+    //  Called when the object is "clicked on" and the selection wheel appears.
     /// </summary>
-    /// <param name="buildingSlot">
-    //  The building slot that instigated the selection wheel.
-    //  (EG: If you're making a building, this is the building slot thats being used.)
-    /// </param>
+    public virtual void OnSelectionWheel() {
+
+        // Get selection wheel reference
+        SelectionWheel selectionWheel = null;
+        if (GameManager.Instance._IsRadialMenu) { selectionWheel = GameManager.Instance.SelectionWheel.GetComponentInChildren<SelectionWheel>(); }
+        else                                    { selectionWheel = GameManager.Instance.selectionWindow.GetComponentInChildren<SelectionWheel>(); }
+
+        // Set building queue UI visiblity
+        selectionWheel.BuildingQueue.gameObject.SetActive(ShowBuildingQueueUI);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        /// <summary>
+        //  Called when the player presses a button on the selection wheel with this world object linked to the button.
+        /// </summary>
+        /// <param name="buildingSlot">
+        //  The building slot that instigated the selection wheel.
+        //  (EG: If you're making a building, this is the building slot thats being used.)
+        /// </param>
     public virtual void OnWheelSelect(BuildingSlot buildingSlot) {
 
         // Deselect

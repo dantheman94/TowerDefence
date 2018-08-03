@@ -22,6 +22,16 @@ public class SelectionWheel : MonoBehaviour {
 
     [Space]
     [Header("-----------------------------------")]
+    [Header(" ITEM HIGHLIGHT CENTER PANEL")]
+    [Space]
+    public Text CenterHighlightTitle;
+    public Text CenterSupplyText;
+    public Text CenterPowerText;
+    public Text CenterPopulationText;
+    public Text CenterTechLevelText;
+
+    [Space]
+    [Header("-----------------------------------")]
     [Header(" ITEM HIGHLIGHT DETAIL WINDOW")]
     [Space]
     public Text DetailedHighlightTitle;
@@ -30,13 +40,9 @@ public class SelectionWheel : MonoBehaviour {
 
     [Space]
     [Header("-----------------------------------")]
-    [Header(" ITEM HIGHLIGHT CENTER PANEL")]
+    [Header(" ITEM HIGHLIGHT DETAIL WINDOW")]
     [Space]
-    public Text CenterHighlightTitle;
-    public Text CenterSupplyText;
-    public Text CenterPowerText;
-    public Text CenterPopulationText;
-    public Text CenterTechLevelText;
+    public UI_BuildingQueue BuildingQueue;
 
     [Space]
     [Header("-----------------------------------")]
