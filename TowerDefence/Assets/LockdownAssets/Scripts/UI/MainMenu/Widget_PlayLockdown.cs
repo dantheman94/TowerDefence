@@ -29,13 +29,60 @@ public class Widget_PlayLockdown : MonoBehaviour {
     public GameObject WidgetLevels = null;
     public GameObject WidgetDifficulties = null;
     public GameObject WidgetFactions = null;
-    
+
+    [Space]
+    [Header("-----------------------------------")]
+    [Header(" BUTTONS")]
+    [Space]
+    public Button StartButton = null;
+
+    //******************************************************************************************************************************
+    //
+    //      VARIABLES
+    //
+    //******************************************************************************************************************************
+
+    private PreLockdownMatchSettings _PreLockdownMatchSettings = null;
+
     //******************************************************************************************************************************
     //
     //      EVENTS
     //
     //******************************************************************************************************************************
-    
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Called when this object is created.
+    /// </summary>
+    private void Start() {
+
+        // Get component references
+        _PreLockdownMatchSettings = GetComponent<PreLockdownMatchSettings>();
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Called each frame. 
+    /// </summary>
+    private void Update() {
+
+        // Update start match button interactablility
+        if (StartButton != null && _PreLockdownMatchSettings != null) {
+
+            // Has the player selected a Map / Difficulty / Faction ?
+            if (_PreLockdownMatchSettings.GetMapDefined()           && 
+                _PreLockdownMatchSettings.GetDifficultyDefined()    && 
+                _PreLockdownMatchSettings.GetFactionDefined()) {
+
+                StartButton.interactable = true;
+            }
+            else { StartButton.interactable = false; }
+        }
+
+    }
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
