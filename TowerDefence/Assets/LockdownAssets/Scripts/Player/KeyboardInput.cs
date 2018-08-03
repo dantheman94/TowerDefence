@@ -6,8 +6,8 @@ using TowerDefence;
 //
 //  Created by: Daniel Marton
 //
-//  Last edited by: Daniel Marton
-//  Last edited on: 19/7/2018
+//  Last edited by: Angus Secomb
+//  Last edited on: 1/8/2018
 //
 //******************************
 

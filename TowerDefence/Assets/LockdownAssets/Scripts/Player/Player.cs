@@ -8,8 +8,8 @@ using XInputDotNetPure;
 //
 //  Created by: Daniel Marton
 //
-//  Last edited by: Daniel Marton
-//  Last edited on: 27/7/2018
+//  Last edited by: Angus Secomb
+//  Last edited on: 3/08/2018
 //
 //******************************
 
@@ -46,6 +46,14 @@ public class Player : MonoBehaviour {
     //      VARIABLES
     //
     //******************************************************************************************************************************
+
+    //Game Settings
+    [HideInInspector]
+    public string Difficulty;
+    [HideInInspector]
+    public string Outcome;
+    public string Name;
+    
 
     // Input
     public enum InputController { Keyboard, PSGamepad, XboxGamepad }
@@ -183,5 +191,21 @@ public class Player : MonoBehaviour {
     public Platoon GetPlatoon(int i) { return _Platoons[i]; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
+
+    /// <summary>
+    /// Gets waves survived
+    /// </summary>
+    /// <returns></returns>
+    public int GetWavesSurvived() { return WavesSurvived; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    /// Gets score
+    /// </summary>
+    /// <returns></returns>
+    public int GetScore() { return Score; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 }
