@@ -32,8 +32,6 @@ public class WorldObject : Selectable {
     [Header("-----------------------------------")]
     [Header(" WORLD OBJECT PROPERTIES")]
     [Space]
-    [Tooltip("The thumbnail image that represents this object in.")]
-    public Texture2D BuildImage;
     [Tooltip("The amount of time in SECONDS that this object takes to build.")]
     public int BuildTime = 20;
     [Space]

@@ -118,7 +118,7 @@ public class UI_SelectedUnits : MonoBehaviour {
 
                         _UnitType = GetUnitType(_CurrentlySelected[i]),
                         _Amount = 1,
-                        _Logo = _CurrentlySelected[i].BuildImage
+                        _Logo = _CurrentlySelected[i].Logo
                     };
                     _UnitInfos.Add(info);
                 }
@@ -144,7 +144,7 @@ public class UI_SelectedUnits : MonoBehaviour {
 
                                 _UnitType = GetUnitType(_CurrentlySelected[i]),
                                 _Amount = 1,
-                                _Logo = _CurrentlySelected[i].BuildImage
+                                _Logo = _CurrentlySelected[i].Logo
                             };
                             _UnitInfos.Add(info);
                         }

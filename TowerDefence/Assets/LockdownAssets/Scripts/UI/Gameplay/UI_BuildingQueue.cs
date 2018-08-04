@@ -24,7 +24,9 @@ public class UI_BuildingQueue : MonoBehaviour {
     [Header(" WORLD OBJECT STATES")]
     [Space]
     public UI_BuildingQueueItem StencilQueueItem = null;
+    public Transform ListTransform = null;
     public float ItemSpacing = 5f;
+    public float StartingPosition = -30f;
 
     //******************************************************************************************************************************
     //
@@ -33,6 +35,7 @@ public class UI_BuildingQueue : MonoBehaviour {
     //******************************************************************************************************************************
 
     private float _ItemOffset = 45;
+    private List<UI_BuildingQueueItem> _Items;
 
     //******************************************************************************************************************************
     //
@@ -46,7 +49,10 @@ public class UI_BuildingQueue : MonoBehaviour {
     //  Called when this gameObject is created.
     /// </summary>
     private void Start() {
-        
+
+        // Initialize lists
+        _Items = new List<UI_BuildingQueueItem>();
+
         if (StencilQueueItem != null) {
 
             // Update item offset
@@ -60,16 +66,37 @@ public class UI_BuildingQueue : MonoBehaviour {
     //  
     /// </summary>
     /// <param name="worldObject"></param>
-    public void AddToQueue(WorldObject worldObject) {
+    public void AddToQueue(Abstraction abstraction) {
 
         if (StencilQueueItem != null) {
 
             // Create queue item
             UI_BuildingQueueItem queueItem = Instantiate(StencilQueueItem).GetComponent<UI_BuildingQueueItem>();
+            queueItem.transform.SetParent(ListTransform);
 
             // Show amount text if it is an AI object
-            Ai checkAI = worldObject.GetComponent<Ai>();
+            Ai checkAI = abstraction.GetComponent<Ai>();
             queueItem.SetAmountTextVisiblity(checkAI != null);
+
+            // Add to list & offset the position
+            if (_Items.Count == 0) {
+
+                // First item in the list
+                _Items.Add(queueItem);
+                RectTransform rect = queueItem.GetComponent<RectTransform>();
+                rect.position = new Vector2(StartingPosition, StartingPosition);
+            }
+            else {
+
+                // Not the first item in the list
+                _Items.Add(queueItem);
+                RectTransform rect = queueItem.GetComponent<RectTransform>();
+                float x, y;
+                x = StartingPosition;
+                y = _Items[_Items.Count - 1].GetComponent<RectTransform>().position.y - _ItemOffset;
+                rect.position = new Vector2(x, y);
+            }
+            queueItem.gameObject.SetActive(true);
         }
     }
 

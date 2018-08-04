@@ -170,6 +170,13 @@ public class Upgrade : WorldObject {
             upgradeCounter.SetCameraAttached(_BuildingAttached._Player.PlayerCamera);
             progressWidget.transform.SetParent(GameManager.Instance.WorldSpaceCanvas.gameObject.transform, false);
             progressWidget.gameObject.SetActive(true);
+
+            // Add to building queue UI
+            bool radialWheeel = GameManager.Instance._IsRadialMenu;
+            SelectionWheel selectionWheel = null;
+            if (radialWheeel)   { selectionWheel = GameManager.Instance.SelectionWheel.GetComponentInChildren<SelectionWheel>(); }
+            else                { selectionWheel = GameManager.Instance.selectionWindow.GetComponentInChildren<SelectionWheel>(); }
+            selectionWheel.BuildingQueue.AddToQueue(costs);
         }
     }
 

@@ -29,5 +29,7 @@ public class Abstraction : MonoBehaviour {
     public string ObjectDescriptionShort;
     [Tooltip("The detailed description that shows in the selection wheel/menu for this object.")]
     public string ObjectDescriptionLong;
+    [Tooltip("The thumbnail image that represents this object in.")]
+    public Texture2D Logo;
 
 }
