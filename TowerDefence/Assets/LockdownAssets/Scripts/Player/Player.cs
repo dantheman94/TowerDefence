@@ -52,7 +52,7 @@ public class Player : MonoBehaviour {
     public string Difficulty;
     [HideInInspector]
     public string Outcome;
-    public string Name;
+    public string Name = "Player";
     
 
     // Input
@@ -94,8 +94,7 @@ public class Player : MonoBehaviour {
     //  Called when this object is created.
     /// </summary>
     private void Start() {
-
-        // Get component references
+            // Get component references
         _KeyboardInputManager = GetComponent<KeyboardInput>();
         _XboxGamepadInputManager = GetComponent<XboxGamepadInput>();
         _HUD = GetComponent<HUD>();

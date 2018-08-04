@@ -15,18 +15,19 @@ using System.IO;
 //  Last edited on: 3/08/2018
 //
 //******************************
-[System.Serializable]
-public class SaveData
-{
-    public int Score;
-    public string Name;
-    public int Waves;
-    public string Difficulty;
-    public string Outcome;
-}
+
 
 public class Leaderboard : MonoBehaviour {
 
+    [System.Serializable]
+    public class SaveData
+    {
+        public int Score;
+        public string Name;
+        public int Waves;
+        public string Difficulty;
+        public string Outcome;
+    }
 
     //******************************************************************************************************************************
     //
@@ -46,6 +47,8 @@ public class Leaderboard : MonoBehaviour {
     // Use this for initialization
     void Start () {
         _Player = GameManager.Instance.Players[0];
+   //     CreateNewSave();
+   
 	}
 	
 	// Update is called once per frame
@@ -63,8 +66,10 @@ public class Leaderboard : MonoBehaviour {
     }
 
     /// <summary>
-    /// Loads the highscores.
+    /// Loads player data for highscore menu.
     /// </summary>
+    /// <param name="filePath"></param>
+    /// <returns></returns>
     public SaveData LoadData(string filePath)
     {
         if (File.Exists(Application.persistentDataPath + "/" + filePath + ".save"))

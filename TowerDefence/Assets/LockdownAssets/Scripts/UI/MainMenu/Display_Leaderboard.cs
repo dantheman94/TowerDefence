@@ -8,7 +8,7 @@ using UnityEngine.UI;
 //  Created by: Angus Secomb
 //
 //  Last edited by: Angus Secomb
-//  Last edited on: 3/08/2018
+//  Last edited on: 4/08/2018
 //
 //******************************
 
@@ -45,7 +45,6 @@ public class Display_Leaderboard : MonoBehaviour {
     public Color FirstPanel;
     public Color SecondPanel;
 
-
     //******************************************************************************************************************************
     //
     //      VARIABLES
@@ -55,7 +54,8 @@ public class Display_Leaderboard : MonoBehaviour {
     //Variables
     private List<Panel> _HighscorePanels;
     private List<MapPanel> _MapPanels;
-
+    private List<Leaderboard.SaveData> _SaveDataList;
+    private List<Leaderboard.SaveData> _SortedSaveData;
 
     //******************************************************************************************************************************
     //
@@ -72,4 +72,30 @@ public class Display_Leaderboard : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    /// <summary>
+    /// Retrieve all saved highscore data.
+    /// </summary>
+   public void RetrieveHighscores()
+    {
+
+    }
+
+
+    /// <summary>
+    /// Sorts high score data.
+    /// </summary>
+    public void SortHighScores()
+    {
+
+    }
+
+
+    /// <summary>
+    /// Load High scores to gui.
+    /// </summary>
+    public void LoadHighScores()
+    {
+
+    }
 }
