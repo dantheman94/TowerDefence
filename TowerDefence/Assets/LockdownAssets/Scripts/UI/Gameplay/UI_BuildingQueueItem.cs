@@ -59,7 +59,6 @@ public class UI_BuildingQueueItem : MonoBehaviour {
 
         // Update amount text visiblity
         if (AmountTextComponent != null) { AmountTextComponent.enabled = _ShowAmountText; }
-
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

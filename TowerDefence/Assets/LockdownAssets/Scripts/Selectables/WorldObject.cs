@@ -210,7 +210,16 @@ public class WorldObject : Selectable {
     /// <summary>
     //  
     /// </summary>
-    protected virtual void DrawSelectionWheel() { }
+    protected virtual void DrawSelectionWheel() {
+
+        // Get selection wheel reference
+        SelectionWheel selectionWheel = null;
+        if (GameManager.Instance._IsRadialMenu) { selectionWheel = GameManager.Instance.SelectionWheel.GetComponentInChildren<SelectionWheel>(); }
+        else { selectionWheel = GameManager.Instance.selectionWindow.GetComponentInChildren<SelectionWheel>(); }
+
+        // Set building queue UI visiblity
+        selectionWheel.BuildingQueue.gameObject.SetActive(ShowBuildingQueueUI);
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -292,6 +301,16 @@ public class WorldObject : Selectable {
             _ClonedWorldObject.Team = plyr.Team;
             _ClonedWorldObject._IsCurrentlySelected = false;
             _CurrentBuildTime = BuildTime;
+
+            if (ShowBuildingQueueUI) {
+
+                // Add to building queue UI
+                bool radialWheeel = GameManager.Instance._IsRadialMenu;
+                SelectionWheel selectionWheel = null;
+                if (radialWheeel) { selectionWheel = GameManager.Instance.SelectionWheel.GetComponentInChildren<SelectionWheel>(); }
+                else { selectionWheel = GameManager.Instance.selectionWindow.GetComponentInChildren<SelectionWheel>(); }
+                selectionWheel.BuildingQueue.AddToQueue(_ClonedWorldObject);
+            }
         }
     }
 

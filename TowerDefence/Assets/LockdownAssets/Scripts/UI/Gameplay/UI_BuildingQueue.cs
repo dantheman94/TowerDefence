@@ -78,6 +78,9 @@ public class UI_BuildingQueue : MonoBehaviour {
             Ai checkAI = abstraction.GetComponent<Ai>();
             queueItem.SetAmountTextVisiblity(checkAI != null);
 
+            // Initialize gameobject precaution
+            if (_Items == null) { Start(); }
+
             // Add to list & offset the position
             if (_Items.Count == 0) {
 
