@@ -28,6 +28,22 @@ public class WaveManager : MonoBehaviour {
 
     [Space]
     [Header("-----------------------------------")]
+    [Header(" PROPS")]
+    [Space]
+    public Core CentralCore;
+    [Space]
+    public List<LockdownPad> LockdownPads;
+    [Space]
+    public List<Base> EnemyBases;
+
+    [Space]
+    [Header("-----------------------------------")]
+    [Header(" UI")]
+    [Space]
+    public UI_WaveNotification WaveNotificationWidget = null;
+
+    [Space]
+    [Header("-----------------------------------")]
     [Header(" WAVE PROPERTIES")]
     [Space]
     [Space]
@@ -43,16 +59,6 @@ public class WaveManager : MonoBehaviour {
     public int StartingWaveTimer = 30;
     public int TimeAddedPerWave = 5;
     public int TimeTillNextWaveAfterClear = 10;
-
-    [Space]
-    [Header("-----------------------------------")]
-    [Header(" PROPS")]
-    [Space]
-    public Core CentralCore;
-    [Space]
-    public List<LockdownPad> LockdownPads;
-    [Space]
-    public List<Base> EnemyBases;
 
     [Space]
     [Header("-----------------------------------")]
@@ -119,15 +125,18 @@ public class WaveManager : MonoBehaviour {
     private int _WaveInterval = 0;
     private int _BossWaveCount = 0;
     private bool _BossWave = false;
-    private int _WaveArrayID;
 
     private float _CurrentDamageModifier;
     private float _CurrentHealthModifier;
 
-    private WaveInfo _CurrentWaveInfo;
-    private List<WorldObject> _CurrentWaveEnemies;
-    private List<WorldObject> _PreviousWavesEnemies;
-    private LockdownPad _CurrentLockdownPad;
+    [Space]
+    public WaveInfo _CurrentWaveInfo;
+    [Space]
+    public List<WorldObject> _CurrentWaveEnemies;
+    [Space]
+    public List<WorldObject> _PreviousWavesEnemies;
+    [Space]
+    public LockdownPad _CurrentLockdownPad;
 
     private bool _WaveInProgress = false;
     private float _CurrentSubwaveTime = 0f;
@@ -271,6 +280,9 @@ public class WaveManager : MonoBehaviour {
         // Get array of new wave enemies
         _CurrentWaveInfo = GetWave();
         InitializeWave();
+
+        // Notification popup event
+        if (WaveNotificationWidget != null) { WaveNotificationWidget.NewWaveNotification(_CurrentWaveInfo); }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -337,9 +349,20 @@ public class WaveManager : MonoBehaviour {
 
         // Determine the amount of subwave intervals (and their time)
         int subwaves = _CurrentWaveInfo.Subwaves;
-        _TimeTillNextSubwave = _TimeTillNextWave / subwaves;
-        
+        if (subwaves == 0)  { _TimeTillNextSubwave = _TimeTillNextWave; }
+        else                { _TimeTillNextSubwave = _TimeTillNextWave / subwaves; }
+        Debug.Log("Amount of subwaves: " + subwaves);
+        Debug.Log("Time till next subwave: " + _TimeTillNextSubwave);
+
+        // Set the waves lives to max
+        for (int i = 0; i < _CurrentWaveInfo.Enemies.Count; i++) {
+
+            _CurrentWaveInfo.Enemies[i].CurrentLives = _CurrentWaveInfo.Enemies[i].WaveMax;
+        }
+
+        // First subwave
         SpawnSubwave(GetSubwave());
+        _WaveInProgress = true;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -356,15 +379,18 @@ public class WaveManager : MonoBehaviour {
 
         // Loop through the current wave array
         for (int i = 0; i < _CurrentWaveInfo.Enemies.Count; i++) {
-
-            /*
-             *  ITS HERE THATS THE BUG, CURRENT LIVES IS 0
-             */
-
+            
             if (_CurrentWaveInfo.Enemies[i].CurrentLives >= _CurrentWaveInfo.Enemies[i].PerSpawnInterval) {
 
-                // Add to subwave list
-                subwave.Add(_CurrentWaveInfo.Enemies[i].EnemyReference);
+                // Determine how many times it needs to be added to the subwave (based on the lives left)
+                for (int j = 0; j < _CurrentWaveInfo.Enemies[i].PerSpawnInterval; j++) {
+
+                    // Add to subwave list
+                    subwave.Add(_CurrentWaveInfo.Enemies[i].EnemyReference);
+                    
+                    // Deduct respawn life
+                    _CurrentWaveInfo.Enemies[i].CurrentLives--;
+                }
             }
         }
 
@@ -405,8 +431,7 @@ public class WaveManager : MonoBehaviour {
             }
         }
         _CurrentSubwave++;
-        _WaveInProgress = true;
-        Debug.Log("Spawn subwave");
+        Debug.Log("Wave: " + _BossWaveCount + "." + _WaveInterval + " / Subwave: " + _CurrentSubwave);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -457,21 +482,7 @@ public class WaveManager : MonoBehaviour {
         }
 
         // Return random wave from pool
-        return GetRandomWaveFrom(waveInfos);
-    }
-    
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  
-    /// </summary>
-    /// <param name="waves"></param>
-    /// <returns>
-    //  List<WorldObject>
-    /// </returns>
-    private WaveInfo GetRandomWaveFrom(List<WaveInfo> waves) {
-        
-        int iRand = Random.Range(0, waves.Count);
+        int iRand = Random.Range(0, waveInfos.Count);
         return Waves[iRand];
     }
     
