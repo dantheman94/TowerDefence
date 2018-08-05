@@ -61,7 +61,6 @@ public class KeyboardInput : MonoBehaviour {
     //  Called each frame. 
     /// </summary>
     private void Update() {
-        Debug.Log(Selection);
         CreateSelectionBox();
 
         if (_PlayerAttached) {
@@ -583,11 +582,15 @@ public class KeyboardInput : MonoBehaviour {
                         // Left clicking on a base
                         if (buildingObj == null && buildingSlot == null) {
 
-                            // Add selection to list
-                            _PlayerAttached.SelectedWorldObjects.Add(baseObj);
-                            baseObj.SetPlayer(_PlayerAttached);
-                            baseObj.SetIsSelected(true);
-                            baseObj.OnSelectionWheel();
+                            // Matching team
+                            if (baseObj.Team == _PlayerAttached.Team) {
+
+                                // Add selection to list
+                                _PlayerAttached.SelectedWorldObjects.Add(baseObj);
+                                baseObj.SetPlayer(_PlayerAttached);
+                                baseObj.SetIsSelected(true);
+                                baseObj.OnSelectionWheel();
+                            }
                         }
                         
                         // Left clicking on a building
@@ -595,11 +598,45 @@ public class KeyboardInput : MonoBehaviour {
 
                             if (buildingSlot == null) {
 
-                                // Add selection to list
-                                _PlayerAttached.SelectedWorldObjects.Add(buildingObj);
-                                buildingObj.SetPlayer(_PlayerAttached);
-                                buildingObj.SetIsSelected(true);
-                                buildingObj.OnSelectionWheel();
+                                // Matching team
+                                if (buildingSlot.Team == _PlayerAttached.Team) {
+
+                                    // Add selection to list
+                                    _PlayerAttached.SelectedWorldObjects.Add(buildingObj);
+                                    buildingObj.SetPlayer(_PlayerAttached);
+                                    buildingObj.SetIsSelected(true);
+                                    buildingObj.OnSelectionWheel();
+                                }
+                            }
+                        }
+                        
+                        // Left clicking on a building slot
+                        if (buildingSlot != null) {
+
+                            // Empty building slot
+                            if (buildingSlot.GetBuildingOnSlot() == null) {
+
+                                // Matching team
+                                if (buildingSlot.AttachedBase.Team == _PlayerAttached.Team) {
+
+                                    _PlayerAttached.SelectedBuildingSlot = buildingSlot;
+                                    buildingSlot.SetPlayer(_PlayerAttached);
+                                    buildingSlot.SetIsSelected(true);
+                                }
+                            }
+
+                            // Builded slot
+                            else {
+
+                                // Matching team
+                                if (buildingSlot.GetBuildingOnSlot().Team == _PlayerAttached.Team) {
+
+                                    // Add selection to list
+                                    _PlayerAttached.SelectedWorldObjects.Add(buildingSlot.GetBuildingOnSlot());
+                                    buildingSlot.GetBuildingOnSlot().SetPlayer(_PlayerAttached);
+                                    buildingSlot.GetBuildingOnSlot().SetIsSelected(true);
+                                    buildingSlot.GetBuildingOnSlot().OnSelectionWheel();
+                                }
                             }
                         }
                     }
@@ -614,11 +651,15 @@ public class KeyboardInput : MonoBehaviour {
 
                             if (baseObj == null && buildingSlot == null) {
 
-                                // Add selection to list
-                                _PlayerAttached.SelectedWorldObjects.Add(buildingObj);
-                                buildingObj.SetPlayer(_PlayerAttached);
-                                buildingObj.SetIsSelected(true);
-                                buildingObj.OnSelectionWheel();
+                                // Matching team
+                                if (buildingObj.Team == _PlayerAttached.Team) {
+
+                                    // Add selection to list
+                                    _PlayerAttached.SelectedWorldObjects.Add(buildingObj);
+                                    buildingObj.SetPlayer(_PlayerAttached);
+                                    buildingObj.SetIsSelected(true);
+                                    buildingObj.OnSelectionWheel();
+                                }
                             }
                         }
 
@@ -632,10 +673,14 @@ public class KeyboardInput : MonoBehaviour {
                             // Squad is active in the world
                             if (squadObj.GetObjectState() == WorldObject.WorldObjectStates.Active) {
 
-                                // Add selection to list
-                                _PlayerAttached.SelectedWorldObjects.Add(squadObj);
-                                squadObj.SetPlayer(_PlayerAttached);
-                                squadObj.SetIsSelected(true);
+                                // Matching team
+                                if (squadObj.Team == _PlayerAttached.Team) {
+
+                                    // Add selection to list
+                                    _PlayerAttached.SelectedWorldObjects.Add(squadObj);
+                                    squadObj.SetPlayer(_PlayerAttached);
+                                    squadObj.SetIsSelected(true);
+                                }
                             }
                         }
 
@@ -650,10 +695,14 @@ public class KeyboardInput : MonoBehaviour {
                                 // Squad is active in the world
                                 if (squadObj.GetObjectState() == WorldObject.WorldObjectStates.Active) {
 
-                                    // Add selection to list
-                                    _PlayerAttached.SelectedWorldObjects.Add(squadObj);
-                                    squadObj.SetPlayer(_PlayerAttached);
-                                    squadObj.SetIsSelected(true);
+                                    // Matching team
+                                    if (squadObj.Team == _PlayerAttached.Team) {
+
+                                        // Add selection to list
+                                        _PlayerAttached.SelectedWorldObjects.Add(squadObj);
+                                        squadObj.SetPlayer(_PlayerAttached);
+                                        squadObj.SetIsSelected(true);
+                                    }
                                 }
                             }
 
@@ -663,10 +712,14 @@ public class KeyboardInput : MonoBehaviour {
                                 // Unit is active in the world
                                 if (unitObj.GetObjectState() == WorldObject.WorldObjectStates.Active) {
 
-                                    // Add selection to list
-                                    _PlayerAttached.SelectedWorldObjects.Add(unitObj);
-                                    unitObj.SetPlayer(_PlayerAttached);
-                                    unitObj.SetIsSelected(true);
+                                    // Matching team
+                                    if (unitObj.Team == _PlayerAttached.Team) {
+
+                                        // Add selection to list
+                                        _PlayerAttached.SelectedWorldObjects.Add(unitObj);
+                                        unitObj.SetPlayer(_PlayerAttached);
+                                        unitObj.SetIsSelected(true);
+                                    }
                                 }
                             }
                         }
@@ -682,29 +735,34 @@ public class KeyboardInput : MonoBehaviour {
                                 worldObj.SetIsSelected(true);
                             }
                         }
+
+                        // Left clicking on a building slot
+                        if (buildingSlot != null) {
+
+                            // Empty building slot
+                            if (buildingSlot.GetBuildingOnSlot() == null) {
+
+                                _PlayerAttached.SelectedBuildingSlot = buildingSlot;
+                                buildingSlot.SetPlayer(_PlayerAttached);
+                                buildingSlot.SetIsSelected(true);
+                            }
+
+                            // Builded slot
+                            else {
+
+                                // Matching team
+                                if (buildingSlot.GetBuildingOnSlot().Team == _PlayerAttached.Team) {
+
+                                    // Add selection to list
+                                    _PlayerAttached.SelectedWorldObjects.Add(buildingSlot.GetBuildingOnSlot());
+                                    buildingSlot.GetBuildingOnSlot().SetPlayer(_PlayerAttached);
+                                    buildingSlot.GetBuildingOnSlot().SetIsSelected(true);
+                                    buildingSlot.GetBuildingOnSlot().OnSelectionWheel();
+                                }
+                            }
+                        }
                     }
 
-                    // Left clicking on a building slot
-                    if (buildingSlot != null) {
-
-                        // Empty building slot
-                        if (buildingSlot.GetBuildingOnSlot() == null) {
-
-                            _PlayerAttached.SelectedBuildingSlot = buildingSlot;
-                            buildingSlot.SetPlayer(_PlayerAttached);
-                            buildingSlot.SetIsSelected(true);
-                        }
-
-                        // Builded slot
-                        else {
-
-                            // Add selection to list
-                            _PlayerAttached.SelectedWorldObjects.Add(buildingSlot.GetBuildingOnSlot());
-                            buildingSlot.GetBuildingOnSlot().SetPlayer(_PlayerAttached);
-                            buildingSlot.GetBuildingOnSlot().SetIsSelected(true);
-                            buildingSlot.GetBuildingOnSlot().OnSelectionWheel();
-                        }
-                    }
                 }
 
                 // Just clicked on the ground so deselect all objects
