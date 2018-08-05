@@ -7,7 +7,7 @@ using UnityEngine;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 25/6/2018
+//  Last edited on: 5/8/2018
 //
 //******************************
 
@@ -273,7 +273,7 @@ public class WorldObject : Selectable {
             _ClonedWorldObject._ObjectState = WorldObjectStates.Building;
 
             // Create healthbar
-            CreateHealthBar(plyr.PlayerCamera);
+            CreateHealthBar(_ClonedWorldObject, plyr.PlayerCamera);
 
             // Create building progress panel & allocate it to the unit
             GameObject buildProgressObj = ObjectPooling.Spawn(GameManager.Instance.BuildingInProgressPanel.gameObject);
@@ -385,13 +385,13 @@ public class WorldObject : Selectable {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public void CreateHealthBar(Camera camera) {
+    public void CreateHealthBar(WorldObject thisObject, Camera camera) {
 
         // Create a health bar and allocate it to the unit
         GameObject healthBarObj = ObjectPooling.Spawn(GameManager.Instance.UnitHealthBar.gameObject);
         _HealthBar = healthBarObj.GetComponent<UnitHealthBar>();
-        _HealthBar.setObjectAttached(_ClonedWorldObject);
-        _HealthBar.setCameraAttached(camera);
+        _HealthBar.SetObjectAttached(thisObject);
+        _HealthBar.SetCameraAttached(camera);
         healthBarObj.gameObject.SetActive(true);
         healthBarObj.transform.SetParent(GameManager.Instance.WorldSpaceCanvas.gameObject.transform, false);
 

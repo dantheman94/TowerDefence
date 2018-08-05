@@ -50,16 +50,16 @@ public class Spire : Building {
 
                 GameObject healthBarObj = ObjectPooling.Spawn(GameManager.Instance.UnitHealthBar.gameObject);
                 _HealthBar = healthBarObj.GetComponent<UnitHealthBar>();
-                _HealthBar.setObjectAttached(this);
+                _HealthBar.SetObjectAttached(this);
                 healthBarObj.gameObject.SetActive(true);
                 healthBarObj.transform.SetParent(GameManager.Instance.WorldSpaceCanvas.gameObject.transform, false);
 
                 if (_Player == null) {
 
                     Player plyr = GameManager.Instance.Players[0];
-                    _HealthBar.setCameraAttached(plyr.PlayerCamera);
+                    _HealthBar.SetCameraAttached(plyr.PlayerCamera);
                 }
-                else { _HealthBar.setCameraAttached(_Player.PlayerCamera); }
+                else { _HealthBar.SetCameraAttached(_Player.PlayerCamera); }
             }
         }
     }

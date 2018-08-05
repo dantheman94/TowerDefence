@@ -7,7 +7,7 @@ using UnityEngine;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 24/7/2018
+//  Last edited on: 5/8/2018
 //
 //******************************
 
@@ -25,6 +25,11 @@ public class WaveManager : MonoBehaviour {
     [Space]
     public float StartingDamageModifier = 0.75f;
     public float StartingHealthModifier = 0.7f;
+
+    [Space]
+    [Header("-----------------------------------")]
+    [Header(" WAVE PROPERTIES")]
+    [Space]
     [Space]
     public float PerWaveIncrementDamage = 0.01f;
     public float PerWaveIncrementHealth = 0.01f;
@@ -37,6 +42,7 @@ public class WaveManager : MonoBehaviour {
     [Space]
     public int StartingWaveTimer = 30;
     public int TimeAddedPerWave = 5;
+    public int TimeTillNextWaveAfterClear = 10;
 
     [Space]
     [Header("-----------------------------------")]
@@ -45,6 +51,8 @@ public class WaveManager : MonoBehaviour {
     public Core CentralCore;
     [Space]
     public List<LockdownPad> LockdownPads;
+    [Space]
+    public List<Base> EnemyBases;
 
     [Space]
     [Header("-----------------------------------")]
@@ -70,6 +78,7 @@ public class WaveManager : MonoBehaviour {
         public WaveInterval WaveIntervals;
         public BossWaveInterval BossWaveIntervals;
         [Space]
+        public int Subwaves;
         public List<WaveEnemyInfo> Enemies;
     }
 
@@ -106,9 +115,11 @@ public class WaveManager : MonoBehaviour {
     public static WaveManager Instance;
 
     private int _CurrentWave = 0;
+    private int _CurrentSubwave = 1;
     private int _WaveInterval = 0;
     private int _BossWaveCount = 0;
     private bool _BossWave = false;
+    private int _WaveArrayID;
 
     private float _CurrentDamageModifier;
     private float _CurrentHealthModifier;
@@ -157,6 +168,13 @@ public class WaveManager : MonoBehaviour {
         // Initialize lists
         _CurrentWaveEnemies = new List<WorldObject>();
         _PreviousWavesEnemies = new List<WorldObject>();
+
+        // Initialize enemy bases
+        for (int i = 0; i < EnemyBases.Count; i++) {
+
+            // Create healthbar
+            EnemyBases[i].CreateHealthBar(EnemyBases[i], GameManager.Instance.Players[0].PlayerCamera);
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -181,6 +199,14 @@ public class WaveManager : MonoBehaviour {
             // Update wave timers
             _CurrentWaveTime += Time.deltaTime;
             _NextWaveTimer -= Time.deltaTime;
+            _CurrentSubwaveTime += Time.deltaTime;
+
+            // Check for new subwave
+            if (_CurrentSubwaveTime >= _TimeTillNextSubwave) {
+
+                _CurrentSubwaveTime = 0f;
+                SpawnSubwave(GetSubwave());
+            }
 
             // Only non boss waves will start before the current wave is complete
             if (_NextWaveTimer <= 0f || _CurrentWaveTime >= _TimeTillNextWave) {
@@ -227,6 +253,7 @@ public class WaveManager : MonoBehaviour {
     /// </summary>
     public void StartNewWave() {
 
+        _CurrentSubwave = 0;
         _CurrentWaveTime = 0f;
         _NextWaveTimer = _TimeTillNextWave;
 
@@ -238,107 +265,12 @@ public class WaveManager : MonoBehaviour {
         if (_WaveInterval == WavesPerInterval) { _BossWave = true; }
         else { _BossWave = false; }
         
-        // Determine wave type based off the (boss|wave) intervals
-        switch (_BossWaveCount) {
-
-            // Boss wave 0
-            case 0: {
-                
-                switch (_WaveInterval) {
-
-                    // Wave interval 1
-                    case 1: {     
-                            
-                        break;
-                    }
-
-                    // Wave interval 2
-                    case 2: {
-   
-                        int id = Random.Range(0, (int)WaveType.ENUM_COUNT - 2);
-                        _CurrentWaveInfo = GetWaveInfo(WaveSeverity.SuperLight, (WaveType)id);
-                        break;
-                    }
-
-                    // Wave interval 3
-                    case 3: {
-   
-                        int id = Random.Range(0, (int)WaveType.ENUM_COUNT - 2);
-                        _CurrentWaveInfo = GetWaveInfo(WaveSeverity.SuperLight, (WaveType)id);
-                        break;
-                    }
-
-                    // Wave interval 4
-                    case 4: {
-                                
-                        int id = Random.Range(0, (int)WaveType.ENUM_COUNT - 2);
-                        _CurrentWaveInfo = GetWaveInfo(WaveSeverity.SuperLight, (WaveType)id);
-                        break;
-                    }
-
-                    // Wave interval 5
-                    case 5: {
-                                
-                        int id = Random.Range(0, (int)WaveType.ENUM_COUNT - 2);
-                        _CurrentWaveInfo = GetWaveInfo(WaveSeverity.SuperLight, (WaveType)id);
-                        break;
-                    }
-
-                    // Wave interval 6
-                    case 6: {
-                                
-                        int id = Random.Range(0, (int)WaveType.ENUM_COUNT - 2);
-                        _CurrentWaveInfo = GetWaveInfo(WaveSeverity.SuperLight, (WaveType)id);
-                        break;
-                    }
-
-                    // Wave interval 7
-                    case 7: {
-                                
-                        int id = Random.Range(0, (int)WaveType.ENUM_COUNT - 2);
-                        _CurrentWaveInfo = GetWaveInfo(WaveSeverity.SuperLight, (WaveType)id);
-                        break;
-                    }
-
-                    // Wave interval 8
-                    case 8: {
-                                
-                        int id = Random.Range(0, (int)WaveType.ENUM_COUNT - 2);
-                        _CurrentWaveInfo = GetWaveInfo(WaveSeverity.SuperLight, (WaveType)id);
-                        break;
-                    }
-
-                    // Wave interval 9
-                    case 9: {
-                                
-                        int id = Random.Range(0, (int)WaveType.ENUM_COUNT - 2);
-                        _CurrentWaveInfo = GetWaveInfo(WaveSeverity.SuperLight, (WaveType)id);
-                        break;
-                    }
-
-                    // Wave interval 10 (boss wave)
-                    case 10: {
-                                
-                        _CurrentWaveInfo = GetWaveInfo(WaveSeverity.Light, WaveType.Boss);
-                        _BossWave = true;
-                        break;
-                    }
-
-                    default: break;
-                }                
-                break;
-            }
-
-            default: break;
-        }
-
         // Get lockdown pad reference
         _CurrentLockdownPad = GetPadForSpawning();
 
         // Get array of new wave enemies
-        _CurrentWaveEnemies = GetWaveEnemies(_CurrentWaveInfo.Severity, _CurrentWaveInfo.Type);
+        _CurrentWaveInfo = GetWave();
         InitializeWave();
-        _WaveInProgress = true;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -367,6 +299,9 @@ public class WaveManager : MonoBehaviour {
     //  (whichever happens first).
     /// </summary>
     public void WaveComplete() {
+        
+        // Update next wave timer countdown
+        if (_NextWaveTimer > TimeTillNextWaveAfterClear) { _NextWaveTimer = TimeTillNextWaveAfterClear; }
 
         // Update timers
         _WaveInProgress = false;
@@ -379,6 +314,7 @@ public class WaveManager : MonoBehaviour {
 
             for (int i = 0; i < _CurrentWaveInfo.Enemies.Count; i++) { _CurrentWaveInfo.Enemies[i].CurrentLives = 0; }
         }
+
         // Add current wave into the previous waves list
         for (int i = 0; i < _CurrentWaveEnemies.Count; i++) { _PreviousWavesEnemies.Add(_CurrentWaveEnemies[i]); }
         _CurrentWaveEnemies.Clear();
@@ -399,14 +335,40 @@ public class WaveManager : MonoBehaviour {
     /// <param name="currentWaveEnemies"></param>
     private void InitializeWave() {
 
-        if ( _CurrentWaveEnemies.Count > 0 ) {
+        // Determine the amount of subwave intervals (and their time)
+        int subwaves = _CurrentWaveInfo.Subwaves;
+        _TimeTillNextSubwave = _TimeTillNextWave / subwaves;
+        
+        SpawnSubwave(GetSubwave());
+    }
 
-            int subwaves = 1;
-            _TimeTillNextSubwave = _TimeTillNextWave / subwaves;
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /// <summary>
+    //  
+    /// </summary>
+    /// <returns>
+    //  List<WorldObject>
+    /// </returns>
+    public List<WorldObject> GetSubwave() {
 
-            SpawnSubwave(_CurrentWaveEnemies);
+        List<WorldObject> subwave = new List<WorldObject>();
+
+        // Loop through the current wave array
+        for (int i = 0; i < _CurrentWaveInfo.Enemies.Count; i++) {
+
+            /*
+             *  ITS HERE THATS THE BUG, CURRENT LIVES IS 0
+             */
+
+            if (_CurrentWaveInfo.Enemies[i].CurrentLives >= _CurrentWaveInfo.Enemies[i].PerSpawnInterval) {
+
+                // Add to subwave list
+                subwave.Add(_CurrentWaveInfo.Enemies[i].EnemyReference);
+            }
         }
+
+        return subwave;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -429,6 +391,7 @@ public class WaveManager : MonoBehaviour {
                 squad.SpawnUnits();
                 squad.SquadSeek(CentralCore.GetSeekPosition());
                 squad.Team = GameManager.Team.Attacking;
+                _CurrentWaveEnemies.Add(squad);
             }
 
             // Initialize the object as a unit
@@ -438,8 +401,12 @@ public class WaveManager : MonoBehaviour {
                 unit.OnSpawn();
                 unit.AgentSeekPosition(CentralCore.GetSeekPosition());
                 unit.Team = GameManager.Team.Attacking;
+                _CurrentWaveEnemies.Add(unit);
             }
         }
+        _CurrentSubwave++;
+        _WaveInProgress = true;
+        Debug.Log("Spawn subwave");
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -461,108 +428,53 @@ public class WaveManager : MonoBehaviour {
     /// <summary>
     //  
     /// </summary>
-    /// <param name="severity"></param>
-    /// <param name="type"></param>
     /// <returns>
-    //  WaveInfo
+    //  List<WorldObject>
     /// </returns>
-    private WaveInfo GetWaveInfo(WaveSeverity severity, WaveType type) {
+    private WaveInfo GetWave() {
 
-        WaveInfo info = new WaveInfo();
-        bool match = false;
+        // Array of all enemy infos
+        List<WaveInfo> waveInfos = new List<WaveInfo>();
 
         // Loop through wave lists
         for (int i = 0; i < Waves.Count; i++) {
-            
-            // Matching severity
-            if (Waves[i].Severity == severity) {
-                
-                bool matchType = false;
-                
-                // Matching wave type
-                if (Waves[i].Type == type) { matchType = true; }
 
-                // Keep looping through the wave lists if any of the checks dont match
-                if (!matchType) { continue; } 
-                else {
+            // Valid boss interval check
+            if (Waves[i].BossWaveIntervals.UnlimitedBossWaveIntervals ||
+               (_BossWaveCount >= Waves[i].BossWaveIntervals.MinimumBossWaveInterval &&
+                _BossWaveCount <= Waves[i].BossWaveIntervals.MaximumBossWaveInterval)) {
 
-                    // Found wave with matching info
-                    info = Waves[i];
-                    match = true;
-                    break;
+                // Valid wave interval check
+                if (_WaveInterval >= Waves[i].WaveIntervals.MinimumWaveInterval &&
+                    _WaveInterval <= Waves[i].WaveIntervals.MaximumWaveInterval) {
+
+                    // Add to random wave pool
+                    waveInfos.Add(Waves[i]);
+                    continue;
                 }
+                else { continue; }
             }
-
-            // Found a match
-            if (match) { break; }
         }
 
-        // Assert error if a match hasn't been found
-        if (!match) {  Debug.Assert(match == false, "ERROR: WaveInfo type match was not found. Have you created a wave with these settings?" + severity + " : " + type); }
-
-        return info;
+        // Return random wave from pool
+        return GetRandomWaveFrom(waveInfos);
     }
-
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     //  
     /// </summary>
-    /// <param name="severity"></param>
-    /// <param name="type"></param>
+    /// <param name="waves"></param>
     /// <returns>
     //  List<WorldObject>
     /// </returns>
-    private List<WorldObject> GetWaveEnemies(WaveSeverity severity, WaveType type) {
-
-        // Array of all the enemies in the wave
-        List<WorldObject> wave = new List<WorldObject>();
-
-        // Loop through wave lists
-        for (int i = 0; i < Waves.Count; i++) {
-
-            bool match = false;
-
-            // Matching severity
-            if (Waves[i].Severity == severity) {
-
-                bool matchBossInterval = false;
-                bool matchInterval = false;
-                bool matchType = false;
-
-                // Matching bossWave interval
-                if (Waves[i].BossWaveIntervals.UnlimitedBossWaveIntervals) { matchBossInterval = true; } 
-                else {
-
-                    if (_BossWaveCount >= Waves[i].BossWaveIntervals.MinimumBossWaveInterval &&
-                        _BossWaveCount <= Waves[i].BossWaveIntervals.MaximumBossWaveInterval) { matchBossInterval = true; }
-                }
-
-                // Matching wave interval
-                if (_WaveInterval >= Waves[i].WaveIntervals.MinimumWaveInterval && 
-                    _WaveInterval <= Waves[i].WaveIntervals.MaximumWaveInterval) { matchInterval = true; }
-
-                // Matching wave type
-                if (Waves[i].Type == type) { matchType = true; }
-
-                // Keep looping through the wave lists if any of the checks dont match
-                if (!matchType || !matchInterval || !matchBossInterval) { continue; }
-                else {
-
-                    // Add all the enemy types to the wave enemies array
-                    for (int j = 0; j < Waves[i].Enemies.Count; j++) { wave.Add(Waves[i].Enemies[j].EnemyReference); }
-                    match = true;
-                    break;
-                }
-            }
-
-            // Found a match
-            if (match) { break; }
-        }
-
-        return wave;
+    private WaveInfo GetRandomWaveFrom(List<WaveInfo> waves) {
+        
+        int iRand = Random.Range(0, waves.Count);
+        return Waves[iRand];
     }
-
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>

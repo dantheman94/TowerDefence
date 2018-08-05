@@ -115,7 +115,7 @@ public class UnitHealthBar : MonoBehaviour {
     //  
     /// </summary>
     /// <param name="obj"></param>
-    public void setObjectAttached(WorldObject obj) {
+    public void SetObjectAttached(WorldObject obj) {
 
         // Set localized reference of world object attached
         _WorldObject = obj;
@@ -131,7 +131,7 @@ public class UnitHealthBar : MonoBehaviour {
     //  
     /// </summary>
     /// <param name="cam"></param>
-    public void setCameraAttached(Camera cam) { _CameraAttached = cam; }
+    public void SetCameraAttached(Camera cam) { _CameraAttached = cam; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

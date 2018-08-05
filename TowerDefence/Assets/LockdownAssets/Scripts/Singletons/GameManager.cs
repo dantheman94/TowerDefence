@@ -9,7 +9,7 @@ using TowerDefence;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 27/7/2018
+//  Last edited on: 5/8/2018
 //
 //******************************
 
@@ -177,7 +177,9 @@ public class GameManager : MonoBehaviour {
 
             // Initialize starting base
             StartingBase.SetPlayer(Players[0]);
+            StartingBase.CreateHealthBar(StartingBase, StartingBase._Player.PlayerCamera);
         }
+        
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
