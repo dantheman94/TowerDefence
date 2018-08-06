@@ -73,7 +73,7 @@ GameObject:
   - component: {fileID: 95565886086234650}
   - component: {fileID: 114246768907694634}
   - component: {fileID: 114515141220818086}
-  - component: {fileID: 114793470566493274}
+  - component: {fileID: 114429152594417174}
   - component: {fileID: 143169069425465062}
   - component: {fileID: 195573255929506306}
   m_Layer: 9
@@ -896,6 +896,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TagArray: []
+--- !u!114 &114429152594417174
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1337700393634558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d19b43440398b14691571d8d7742def, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healRadius: 20
+  healRate: 15
+  energyDrain: 5
+  healRadiusHeight: 85
+  yOffset: -10
 --- !u!114 &114515141220818086
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -910,13 +926,13 @@ MonoBehaviour:
   ObjectName: Support Airship
   ObjectDescriptionShort: Support/Healing Air Vehicle
   ObjectDescriptionLong: 
+  Logo: {fileID: 0}
   ShowSelectionGUI: 1
   Team: 0
   _Player: {fileID: 0}
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 1616899401413584}
-  BuildImage: {fileID: 0}
   BuildTime: 3
   CostSupplies: 0
   CostPower: 0
@@ -937,6 +953,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
+  ShowBuildingQueueUI: 1
   UnitType: 9
   InfantryMovementSpeed: 10
   CanBePlayerControlled: 0
@@ -957,27 +974,11 @@ MonoBehaviour:
   ForwardAvoidanceRange: 30
   DownwardsAvoidanceRange: 30
   VerticalSpeed: 20
-  MinimumFlyingHeight: 25
+  MinimumFlyingHeight: 20
   MaximumFlyingHeight: 80
-  IdealFlyingHeight: 35
+  IdealFlyingHeight: 50
   HealingAmount: 15
   HealingRange: 10
---- !u!114 &114793470566493274
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1337700393634558}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d19b43440398b14691571d8d7742def, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healRadius: 20
-  healRate: 15
-  energyDrain: 5
-  healRadiusHeight: 85
-  yOffset: -10
 --- !u!135 &135610681339822248
 SphereCollider:
   m_ObjectHideFlags: 1
