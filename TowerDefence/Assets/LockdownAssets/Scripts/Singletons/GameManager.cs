@@ -127,6 +127,8 @@ public class GameManager : MonoBehaviour {
     
     private int _LabratoryCount = 0;
     private bool _ManuallyControllingAUnit = false;
+    private bool _GameOver = false;
+    private bool _MatchVictory = false;
     
     //******************************************************************************************************************************
     //
@@ -247,6 +249,26 @@ public class GameManager : MonoBehaviour {
     /// </summary>
     /// <returns></returns>
     public bool GetIsUnitControlling() { return _ManuallyControllingAUnit; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <returns>
+    //  bool
+    /// </returns>
+    public bool GetGameOverState() { return _GameOver; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <returns>
+    //  bool
+    /// </returns>
+    public bool GetMatchVictory() { return _MatchVictory; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
