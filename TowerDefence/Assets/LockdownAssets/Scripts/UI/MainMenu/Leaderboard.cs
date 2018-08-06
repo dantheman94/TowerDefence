@@ -12,7 +12,7 @@ using System.IO;
 //  Created by: Angus Secomb
 //
 //  Last edited by: Angus Secomb
-//  Last edited on: 6/08/2018
+//  Last edited on: 3/08/2018
 //
 //******************************
 
@@ -36,9 +36,6 @@ public class Leaderboard : MonoBehaviour {
     //******************************************************************************************************************************
 
     private Player _Player;
-    private List<SaveData> _HighscoreList = new List<SaveData>();
-
-    public static Leaderboard Instance;
 
 
     //******************************************************************************************************************************
@@ -49,39 +46,41 @@ public class Leaderboard : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        Instance = this;
-        _HighscoreList = LoadData();
-        //CreateNewSave();
+        _Player = GameManager.Instance.Players[0];
+   //     CreateNewSave();
    
 	}
+	
+	// Update is called once per frame
+	void Update () {
+		
+	}
+
 
     /// <summary>
     /// Saves highscores when game finishes.
     /// </summary>
     public void OnGameOver()
     {
-        CreateNewSave();
+        SavePlayerStats();
     }
 
     /// <summary>
-    /// Loads player data list.
+    /// Loads player data for highscore menu.
     /// </summary>
     /// <param name="filePath"></param>
     /// <returns></returns>
-    public List<SaveData> LoadData()
+    public SaveData LoadData(string filePath)
     {
-        if (File.Exists(Application.persistentDataPath + "/" + "highscores" + ".save"))
+        if (File.Exists(Application.persistentDataPath + "/" + filePath + ".save"))
         {
             BinaryFormatter bf = new BinaryFormatter();
-            FileStream file = File.Open(Application.persistentDataPath + "/" + "highscores" + ".save",FileMode.Open);
-            // SaveData saveData = (SaveData)bf.Deserialize(file);
-            List<SaveData> a_data = (List<SaveData>)bf.Deserialize(file);
+            FileStream file = File.Open(Application.persistentDataPath + "/" + filePath + ".save",FileMode.Open);
+            SaveData saveData = (SaveData)bf.Deserialize(file);
             file.Close();
 
-            
-
-            Debug.Log("highscores " + " loaded.");
-            return a_data;
+            Debug.Log(filePath + " loaded.");
+            return saveData;
         }
         else
         {
@@ -90,29 +89,35 @@ public class Leaderboard : MonoBehaviour {
         }
     }
 
+
     /// <summary>
-    /// Gets player data and saves it to save class then adds to list.
+    /// Serializes save class as a file.
+    /// </summary>
+    public void SavePlayerStats()
+    {
+        SaveData saveData = CreateNewSave();
+        BinaryFormatter bf = new BinaryFormatter();
+        FileStream file = File.Create(Application.persistentDataPath + "/"+ saveData.Name +".save");
+        bf.Serialize(file, saveData);
+        file.Close();
+
+        Debug.Log("Player data saved.");
+        
+    }
+
+
+    /// <summary>
+    /// Gets player data and saves it to save class.
     /// </summary>
     /// <returns></returns>
     private SaveData CreateNewSave()
     {
-        _Player = GameManager.Instance.Players[0];
         SaveData _SaveData = new SaveData();
         _SaveData.Difficulty = _Player.Difficulty;
         _SaveData.Name = _Player.Name;
         _SaveData.Score = _Player.GetScore();
         _SaveData.Waves = _Player.GetWavesSurvived();
         _SaveData.Outcome = _Player.Outcome;
-        _HighscoreList.Add(_SaveData);
-
-
-        BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Create(Application.persistentDataPath + "/" + "highscores" + ".save");
-        bf.Serialize(file, _HighscoreList);
-        file.Close();
-
-        Debug.Log("Player data saved.");
-
 
         return _SaveData;
     }

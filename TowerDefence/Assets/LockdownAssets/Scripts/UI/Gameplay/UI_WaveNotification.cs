@@ -1,17 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 //******************************
 //
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 14/7/2018
+//  Last edited on: 5/8/2018
 //
 //******************************
 
-public class Spire : Building {
+public class UI_WaveNotification : MonoBehaviour {
 
     //******************************************************************************************************************************
     //
@@ -19,11 +20,21 @@ public class Spire : Building {
     //
     //******************************************************************************************************************************
 
+    [Space]
+    [Header("-----------------------------------")]
+    [Header(" COMPONENTS")]
+    [Space]
+    public Text WaveNameText = null;
+    public float TimeOnScreen = 3f;
+
     //******************************************************************************************************************************
     //
     //      VARIABLES
     //
     //******************************************************************************************************************************
+
+    private bool _OnScreen = false;
+    private float _TimerOnScreen = 0f;
 
     //******************************************************************************************************************************
     //
@@ -34,33 +45,37 @@ public class Spire : Building {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  Called each frame. 
+    //  Called each frame.
     /// </summary>
-    protected override void Update() {
-        base.Update();
+    private void Update() {
 
-        // object is active in the world
-        if (_ObjectState == WorldObjectStates.Active && IsAlive()) {
+        if (_OnScreen) {
 
-            // Show the healthbar
-            if (_HealthBar != null) { _HealthBar.gameObject.SetActive(true); }
+            // Add to timer
+            _TimerOnScreen += Time.deltaTime;
+            if (_TimerOnScreen >= TimeOnScreen) {
 
-            // Create a healthbar if the unit doesn't have one linked to it
-            else {
-
-                GameObject healthBarObj = ObjectPooling.Spawn(GameManager.Instance.UnitHealthBar.gameObject);
-                _HealthBar = healthBarObj.GetComponent<UnitHealthBar>();
-                _HealthBar.SetObjectAttached(this);
-                healthBarObj.gameObject.SetActive(true);
-                healthBarObj.transform.SetParent(GameManager.Instance.WorldSpaceCanvas.gameObject.transform, false);
-
-                if (_Player == null) {
-
-                    Player plyr = GameManager.Instance.Players[0];
-                    _HealthBar.SetCameraAttached(plyr.PlayerCamera);
-                }
-                else { _HealthBar.SetCameraAttached(_Player.PlayerCamera); }
+                // Hide widget
+                gameObject.SetActive(false);
+                _OnScreen = false;
+                _TimerOnScreen = 0f;
             }
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    public void NewWaveNotification(WaveManager.WaveInfo waveInfo) {
+
+        if (WaveNameText != null) {
+
+            WaveNameText.text = waveInfo.Name;
+            _TimerOnScreen = 0f;
+            _OnScreen = true;
+            gameObject.SetActive(true);
         }
     }
 

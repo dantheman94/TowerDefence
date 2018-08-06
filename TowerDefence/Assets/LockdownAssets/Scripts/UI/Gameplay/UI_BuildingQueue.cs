@@ -78,13 +78,16 @@ public class UI_BuildingQueue : MonoBehaviour {
             Ai checkAI = abstraction.GetComponent<Ai>();
             queueItem.SetAmountTextVisiblity(checkAI != null);
 
+            // Initialize gameobject precaution
+            if (_Items == null) { Start(); }
+
             // Add to list & offset the position
             if (_Items.Count == 0) {
 
                 // First item in the list
                 _Items.Add(queueItem);
                 RectTransform rect = queueItem.GetComponent<RectTransform>();
-                rect.position = new Vector2(StartingPosition, StartingPosition);
+                rect.localPosition = new Vector2(StartingPosition, StartingPosition);
             }
             else {
 
@@ -94,7 +97,7 @@ public class UI_BuildingQueue : MonoBehaviour {
                 float x, y;
                 x = StartingPosition;
                 y = _Items[_Items.Count - 1].GetComponent<RectTransform>().position.y - _ItemOffset;
-                rect.position = new Vector2(x, y);
+                rect.localPosition = new Vector2(x, y);
             }
             queueItem.gameObject.SetActive(true);
         }

@@ -7,7 +7,7 @@ using UnityEngine;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 25/6/2018
+//  Last edited on: 5/8/2018
 //
 //******************************
 
@@ -210,7 +210,16 @@ public class WorldObject : Selectable {
     /// <summary>
     //  
     /// </summary>
-    protected virtual void DrawSelectionWheel() { }
+    protected virtual void DrawSelectionWheel() {
+
+        // Get selection wheel reference
+        SelectionWheel selectionWheel = null;
+        if (GameManager.Instance._IsRadialMenu) { selectionWheel = GameManager.Instance.SelectionWheel.GetComponentInChildren<SelectionWheel>(); }
+        else { selectionWheel = GameManager.Instance.selectionWindow.GetComponentInChildren<SelectionWheel>(); }
+
+        // Set building queue UI visiblity
+        selectionWheel.BuildingQueue.gameObject.SetActive(ShowBuildingQueueUI);
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -246,13 +255,13 @@ public class WorldObject : Selectable {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        /// <summary>
-        //  Called when the player presses a button on the selection wheel with this world object linked to the button.
-        /// </summary>
-        /// <param name="buildingSlot">
-        //  The building slot that instigated the selection wheel.
-        //  (EG: If you're making a building, this is the building slot thats being used.)
-        /// </param>
+    /// <summary>
+    //  Called when the player presses a button on the selection wheel with this world object linked to the button.
+    /// </summary>
+    /// <param name="buildingSlot">
+    //  The building slot that instigated the selection wheel.
+    //  (EG: If you're making a building, this is the building slot thats being used.)
+    /// </param>
     public virtual void OnWheelSelect(BuildingSlot buildingSlot) {
 
         // Deselect
@@ -272,19 +281,8 @@ public class WorldObject : Selectable {
             _ClonedWorldObject.gameObject.SetActive(true);
             _ClonedWorldObject._ObjectState = WorldObjectStates.Building;
 
-            // Create a health bar and allocate it to the unit
-            GameObject healthBarObj = ObjectPooling.Spawn(GameManager.Instance.UnitHealthBar.gameObject);
-            _HealthBar = healthBarObj.GetComponent<UnitHealthBar>();
-            _HealthBar.setObjectAttached(_ClonedWorldObject);
-            _HealthBar.setCameraAttached(plyr.PlayerCamera);
-            healthBarObj.gameObject.SetActive(true);
-            healthBarObj.transform.SetParent(GameManager.Instance.WorldSpaceCanvas.gameObject.transform, false);
-            RectTransform healthRectTransform = _HealthBar._HealthSlider.GetComponent<RectTransform>();
-            healthRectTransform.sizeDelta = new Vector2(_WidgetHealthbarScaleX, _WidgetHealthbarScaleY);
-            healthRectTransform.anchoredPosition = new Vector2(0, _WidgetHealthbarOffset);
-            RectTransform shieldRectTransform = _HealthBar._ShieldSlider.GetComponent<RectTransform>();
-            shieldRectTransform.sizeDelta = new Vector2(_WidgetShieldbarScaleX, _WidgetShieldbarScaleY);
-            shieldRectTransform.anchoredPosition = new Vector2(0, _WidgetShieldbarOffset);
+            // Create healthbar
+            CreateHealthBar(_ClonedWorldObject, plyr.PlayerCamera);
 
             // Create building progress panel & allocate it to the unit
             GameObject buildProgressObj = ObjectPooling.Spawn(GameManager.Instance.BuildingInProgressPanel.gameObject);
@@ -303,6 +301,16 @@ public class WorldObject : Selectable {
             _ClonedWorldObject.Team = plyr.Team;
             _ClonedWorldObject._IsCurrentlySelected = false;
             _CurrentBuildTime = BuildTime;
+
+            if (ShowBuildingQueueUI) {
+
+                // Add to building queue UI
+                bool radialWheeel = GameManager.Instance._IsRadialMenu;
+                SelectionWheel selectionWheel = null;
+                if (radialWheeel) { selectionWheel = GameManager.Instance.SelectionWheel.GetComponentInChildren<SelectionWheel>(); }
+                else { selectionWheel = GameManager.Instance.selectionWindow.GetComponentInChildren<SelectionWheel>(); }
+                selectionWheel.BuildingQueue.AddToQueue(_ClonedWorldObject);
+            }
         }
     }
 
@@ -392,6 +400,27 @@ public class WorldObject : Selectable {
 
         // Add offset
         transform.position = new Vector3(transform.position.x, _OffsetY, transform.position.z);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public void CreateHealthBar(WorldObject thisObject, Camera camera) {
+
+        // Create a health bar and allocate it to the unit
+        GameObject healthBarObj = ObjectPooling.Spawn(GameManager.Instance.UnitHealthBar.gameObject);
+        _HealthBar = healthBarObj.GetComponent<UnitHealthBar>();
+        _HealthBar.SetObjectAttached(thisObject);
+        _HealthBar.SetCameraAttached(camera);
+        healthBarObj.gameObject.SetActive(true);
+        healthBarObj.transform.SetParent(GameManager.Instance.WorldSpaceCanvas.gameObject.transform, false);
+
+        // Set healthbar widget size & anchoring
+        RectTransform healthRectTransform = _HealthBar._HealthSlider.GetComponent<RectTransform>();
+        healthRectTransform.sizeDelta = new Vector2(_WidgetHealthbarScaleX, _WidgetHealthbarScaleY);
+        healthRectTransform.anchoredPosition = new Vector2(0, _WidgetHealthbarOffset);
+        RectTransform shieldRectTransform = _HealthBar._ShieldSlider.GetComponent<RectTransform>();
+        shieldRectTransform.sizeDelta = new Vector2(_WidgetShieldbarScaleX, _WidgetShieldbarScaleY);
+        shieldRectTransform.anchoredPosition = new Vector2(0, _WidgetShieldbarOffset);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -8,7 +8,7 @@ using UnityEngine.AI;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 4/8/2018
+//  Last edited on: 6/8/2018
 //
 //******************************
 
@@ -24,7 +24,7 @@ public class Squad : Ai {
     [Header("-----------------------------------")]
     [Header(" SQUAD PROPERTIES")]
     [Space]
-    public int SquadMaxSize;
+    public int SquadMaxSize = 0;
     public Unit SquadUnit;
     public float FlockingRadius;
 
@@ -37,6 +37,7 @@ public class Squad : Ai {
     private int _SquadCurrentSize;
     private float _SquadHealth;
     private List<Unit> _Squad;
+    protected GameObject _SeekWaypoint = null;
 
     //******************************************************************************************************************************
     //
@@ -167,75 +168,28 @@ public class Squad : Ai {
     /// <param name="thisSquad"></param>
     protected void CreateUnits(Squad thisSquad) {
         
-        // Use the selection sphere for offsetting each unit's spawn location
-        SphereCollider spawnSphere = GetComponent<SphereCollider>();
-        List<Vector3> offsets = new List<Vector3>();
-
         // Loop for each unit
         for (int i = 0; i < SquadMaxSize; i++) {
 
             // Create unit
             Unit unit = ObjectPooling.Spawn(SquadUnit.gameObject, Vector3.zero, Quaternion.identity).GetComponent<Unit>();
             unit.SetObjectState(WorldObjectStates.Building);
-            unit.SetSquadAttached(thisSquad);
+            unit.SetSquadAttached(this);
             thisSquad._Squad.Add(unit);
             thisSquad._SquadCurrentSize = i;
 
             // Update unit build time to match the squad build time
-            unit.BuildTime = thisSquad.BuildTime;
+            unit.BuildTime = BuildTime;
 
-            // Offset each unit somewhere within the flocking radius
-            spawnSphere.transform.position = thisSquad.gameObject.transform.position;
-            spawnSphere.radius = FlockingRadius;
-            float randX = Random.Range(spawnSphere.transform.position.x - FlockingRadius, spawnSphere.transform.position.x + FlockingRadius);
-            float randZ = Random.Range(spawnSphere.transform.position.z - FlockingRadius, spawnSphere.transform.position.z + FlockingRadius);
-            Vector3 vecPos = new Vector3(randX, thisSquad.gameObject.transform.position.y, randZ);
+            // Creating the first unit at the center
+            if (i == 0) { unit.transform.position = gameObject.transform.position; ; }
+            else {
 
-            // Check if the offset is overlapping any other unit offsets & rectify if true
-            List<bool> nonOverlaps = new List<bool>();
-            float agentRadius = thisSquad.SquadUnit.GetComponent<NavMeshAgent>().radius;
-            bool overlapping = true;
-            while (overlapping) {
-
-                // Restarting the overlap checks
-                if (nonOverlaps.Count > 0) { nonOverlaps.Clear(); }
-
-                // Create a bounds at current offset position * agent radius
-                Bounds offsetBounds = new Bounds(vecPos, new Vector3(agentRadius, agentRadius, agentRadius));
-
-                // Test intersection against other unit offsets
-                if (offsets.Count > 0) {
-
-                    foreach (var testOffset in offsets) {
-
-                        // Do the bounds intersect?
-                        Bounds testBounds = new Bounds(testOffset, new Vector3(agentRadius, agentRadius, agentRadius));
-                        if (offsetBounds.Intersects(testBounds)) {
-
-                            // Move the offset until its no longer overlapping 
-                            float posDistance = Vector3.Distance(vecPos, testOffset);
-                            int additive = (int)Random.Range(0, 3);
-                            if (additive == 0) { vecPos.Set(vecPos.x + (posDistance - agentRadius) / 2, vecPos.y, vecPos.z + (posDistance + agentRadius) / 2); }
-                            else if (additive == 1) { vecPos.Set(vecPos.x + (posDistance - agentRadius) / 2, vecPos.y, vecPos.z - (posDistance - agentRadius) / 2); }
-                            else if (additive == 2) { vecPos.Set(vecPos.x - (posDistance - agentRadius) / 2, vecPos.y, vecPos.z - (posDistance + agentRadius) / 2); }
-                            else if (additive == 3) { vecPos.Set(vecPos.x - (posDistance - agentRadius) / 2, vecPos.y, vecPos.z - (posDistance - agentRadius) / 2); }
-                        }
-                        else { nonOverlaps.Add(new bool()); }
-                    }
-
-                    // If this returns TRUE, then all offsets are correctly in place
-                    if (nonOverlaps.Count == i) { overlapping = false; }
-                }
-
-                // Bounds aren't overlapping if theres no other bounds to test against (IE: this is the first unit being created)
-                else { overlapping = false; }
+                // Creating the units in a circle around the flocking radius
+                float angle = i * Mathf.PI * 2 / SquadMaxSize;
+                Vector3 pos = thisSquad.transform.position + new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)) * FlockingRadius;
+                unit.transform.position = pos;
             }
-
-            // Offset isn't intersecting against other units so we add it to the list to check against for other units
-            offsets.Add(vecPos);
-
-            // Move new unit position to the offset
-            unit.transform.position = vecPos;
             unit.gameObject.SetActive(true);
         }
     }
@@ -243,14 +197,7 @@ public class Squad : Ai {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public void SpawnUnits() {
-
-        // Use the selection sphere for offsetting each unit's spawn location
-        SphereCollider spawnSphere = gameObject.AddComponent<SphereCollider>();
-        spawnSphere.center = gameObject.transform.position;
-        spawnSphere.radius = FlockingRadius;
-
-        List<Vector3> offsets = new List<Vector3>();
-
+        
         // Loop for each unit
         for (int i = 0; i < SquadMaxSize; i++) {
 
@@ -263,59 +210,16 @@ public class Squad : Ai {
 
             // Update unit build time to match the squad build time
             unit.BuildTime = BuildTime;
+            
+            // Creating the first unit at the center
+            if (i == 0) { unit.transform.position = gameObject.transform.position; ; }
+            else {
 
-            // Offset each unit somewhere within the flocking radius
-            spawnSphere.transform.position = gameObject.transform.position;
-            spawnSphere.radius = FlockingRadius;
-            float randX = Random.Range(spawnSphere.transform.position.x - FlockingRadius, spawnSphere.transform.position.x + FlockingRadius);
-            float randZ = Random.Range(spawnSphere.transform.position.z - FlockingRadius, spawnSphere.transform.position.z + FlockingRadius);
-            Vector3 vecPos = new Vector3(randX, gameObject.transform.position.y, randZ);
-
-            // Check if the offset is overlapping any other unit offsets & rectify if true
-            List<bool> nonOverlaps = new List<bool>();
-            float agentRadius = SquadUnit.GetComponent<NavMeshAgent>().radius;
-            bool overlapping = true;
-            while (overlapping) {
-
-                // Restarting the overlap checks
-                if (nonOverlaps.Count > 0) { nonOverlaps.Clear(); }
-
-                // Create a bounds at current offset position * agent radius
-                Bounds offsetBounds = new Bounds(vecPos, new Vector3(agentRadius, agentRadius, agentRadius));
-
-                // Test intersection against other unit offsets
-                if (offsets.Count > 0) {
-
-                    foreach (var testOffset in offsets) {
-
-                        // Do the bounds intersect?
-                        Bounds testBounds = new Bounds(testOffset, new Vector3(agentRadius, agentRadius, agentRadius));
-                        if (offsetBounds.Intersects(testBounds)) {
-
-                            // Move the offset until its no longer overlapping 
-                            float posDistance = Vector3.Distance(vecPos, testOffset);
-                            int additive = (int)Random.Range(0, 3);
-                            if      (additive == 0) { vecPos.Set(vecPos.x + (posDistance - agentRadius) / 2, vecPos.y, vecPos.z + (posDistance - agentRadius) / 2); } 
-                            else if (additive == 1) { vecPos.Set(vecPos.x + (posDistance - agentRadius) / 2, vecPos.y, vecPos.z - (posDistance - agentRadius) / 2); } 
-                            else if (additive == 2) { vecPos.Set(vecPos.x - (posDistance - agentRadius) / 2, vecPos.y, vecPos.z + (posDistance - agentRadius) / 2); } 
-                            else if (additive == 3) { vecPos.Set(vecPos.x - (posDistance - agentRadius) / 2, vecPos.y, vecPos.z - (posDistance - agentRadius) / 2); }
-                        } 
-                        else { nonOverlaps.Add(new bool()); }
-                    }
-
-                    // If this returns TRUE, then all offsets are correctly in place
-                    if (nonOverlaps.Count == i) { overlapping = false; }
-                }
-
-                // Bounds aren't overlapping if theres no other bounds to test against (IE: this is the first unit being created)
-                else { overlapping = false; }
+                // Creating the units in a circle around the flocking radius
+                float angle = i * Mathf.PI * 2 / SquadMaxSize;
+                Vector3 pos = transform.position + new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)) * FlockingRadius;
+                unit.transform.position = pos;
             }
-
-            // Offset isn't intersecting against other units so we add it to the list to check against for other units
-            offsets.Add(vecPos);
-
-            // Move new unit position to the offset
-            unit.transform.position = vecPos;
             unit.gameObject.SetActive(true);
             unit.OnSpawn();
         }
@@ -355,66 +259,16 @@ public class Squad : Ai {
     /// <returns></returns>
     private List<Vector3> GetPositionsWithinFlockingBoundsOfPoint(Vector3 point, int size) {
 
+        // Loop for each unit
         List<Vector3> positions = new List<Vector3>();
-
-        // Use the selection sphere for offsetting each unit's spawn location
-        SphereCollider spawnSphere = this.gameObject.AddComponent<SphereCollider>();
-        spawnSphere.center = point;
-        spawnSphere.radius = FlockingRadius;
-
         for (int i = 0; i < size; i++) {
 
-            // Random position somewhere within the flocking radius
-            float randX = Random.Range(spawnSphere.center.x - FlockingRadius, spawnSphere.center.x + FlockingRadius);
-            float randZ = Random.Range(spawnSphere.center.z - FlockingRadius, spawnSphere.center.z + FlockingRadius);
-            Vector3 vecPos = new Vector3(randX, this.gameObject.transform.position.y, randZ);
-
-            // Check if the offset is overlapping any other unit offsets & rectify if true
-            List<bool> nonOverlaps = new List<bool>();
-            float agentRadius = SquadUnit.GetComponent<NavMeshAgent>().radius;
-            bool overlapping = true;
-            while (overlapping) {
-
-                // Restarting the overlap checks
-                if (nonOverlaps.Count > 0) { nonOverlaps.Clear(); }
-
-                // Create a bounds at current offset position * agent radius
-                Bounds offsetBounds = new Bounds(vecPos, new Vector3(agentRadius, agentRadius, agentRadius));
-
-                // Test intersection against other unit offsets
-                if (positions.Count > 0) {
-
-                    foreach (var testOffset in positions) {
-
-                        // Do the bounds intersect?
-                        Bounds testBounds = new Bounds(testOffset, new Vector3(agentRadius, agentRadius, agentRadius));
-                        if (offsetBounds.Intersects(testBounds)) {
-
-                            // Move the offset in a random direction until its no longer overlapping 
-                            float posDistance = Vector3.Distance(vecPos, testOffset);
-                            int additive = (int)Random.Range(0, 3);
-                            if      (additive == 0) { vecPos.Set(vecPos.x + (posDistance - agentRadius), vecPos.y, vecPos.z + (posDistance - agentRadius)); }
-                            else if (additive == 1) { vecPos.Set(vecPos.x + (posDistance - agentRadius), vecPos.y, vecPos.z - (posDistance - agentRadius)); }
-                            else if (additive == 2) { vecPos.Set(vecPos.x - (posDistance - agentRadius), vecPos.y, vecPos.z + (posDistance - agentRadius)); }
-                            else if (additive == 3) { vecPos.Set(vecPos.x - (posDistance - agentRadius), vecPos.y, vecPos.z - (posDistance - agentRadius)); }
-                        }
-                        else { nonOverlaps.Add(new bool()); }
-                    }
-
-                    // If this returns TRUE, then all offsets are correctly in place
-                    if (nonOverlaps.Count == i) { overlapping = false; }
-                }
-
-                // Bounds aren't overlapping if theres no other bounds to test against (IE: this is the first unit being created)
-                else { overlapping = false; }
-            }
-
-            // Offset isn't intersecting against other units so we add it to the list to check against for other units
-            positions.Add(vecPos);
+            // Create individual position
+            Vector2 rand = Random.insideUnitCircle * FlockingRadius;
+            Vector3 randPos = point + new Vector3(rand.x, point.y, rand.y);
+            positions.Add(randPos);
         }
-
-        // Destroy obsolete sphere
-        Destroy(spawnSphere);
+        
         return positions;
     }
 
@@ -433,9 +287,10 @@ public class Squad : Ai {
 
         for (int i = 0; i < size; i++) {
 
-            ///float angle = i * (Mathf.PI * 10.0f / size + /*worldObject.*/transform.rotation.y);
             float angle = i * (Mathf.PI * 10.0f / size + (facingAngle / 10));
-            Vector3 pos = new Vector3(Mathf.Cos((angle / size) / size), worldObject.transform.position.y, Mathf.Sin((angle / size) / size)) * _Squad[0].GetAgent().radius * _Squad[0].AttackingRange * 0.4f;
+            Vector3 pos = new Vector3(Mathf.Cos((angle / size) / size), 
+                                      worldObject.transform.position.y, 
+                                      Mathf.Sin((angle / size) / size)) * _Squad[0].GetAgent().radius * _Squad[0].AttackingRange * 0.4f;
             pos += worldObject.transform.position;
 
             positions.Add(pos);
@@ -459,8 +314,20 @@ public class Squad : Ai {
         int i = 0;
         foreach (var unit in _Squad) {
             
-            unit.AgentSeekPosition(positions[i]);
+            unit.AgentSeekPosition(positions[i], false);
             i++;
+        }
+
+        // Create waypoint
+        if (_SeekWaypoint == null) { _SeekWaypoint = ObjectPooling.Spawn(GameManager.Instance.AgentSeekObject, Vector3.zero, Quaternion.identity); }
+        if (_SeekWaypoint != null) {
+
+            // Display waypoint if not already being displayed
+            if (_SeekWaypoint.activeInHierarchy != true) { _SeekWaypoint.SetActive(true); }
+
+            // Update waypoint position
+            _SeekWaypoint.transform.position = seekTarget;
+            _SeekWaypoint.transform.position += Vector3.up;
         }
     }
 
