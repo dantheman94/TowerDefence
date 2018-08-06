@@ -23,26 +23,27 @@ GameObject:
   - component: {fileID: 65848397118616152}
   - component: {fileID: 23341947310170516}
   - component: {fileID: 114366939821830164}
-  m_Layer: 0
+  - component: {fileID: 65365878590000876}
+  m_Layer: 11
   m_Name: pfb_BarrierSlot
-  m_TagString: Untagged
+  m_TagString: BuildingSlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4719710095402518
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1016279759970900}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -119.5, y: 0.5, z: -155.6}
-  m_LocalScale: {x: 40, y: 1, z: 10}
+  m_LocalRotation: {x: -0, y: -0.89955014, z: -0, w: 0.43681762}
+  m_LocalPosition: {x: -478.6, y: 0.5, z: -420.99997}
+  m_LocalScale: {x: 60.000034, y: 1, z: 10}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -128.198, z: 0}
 --- !u!23 &23341947310170516
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -84,6 +85,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1016279759970900}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &65365878590000876
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1016279759970900}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65848397118616152
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -110,21 +123,37 @@ MonoBehaviour:
   ObjectName: Empty Barrier Slot
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
-  _IsCurrentlySelected: 0
+  Logo: {fileID: 0}
+  ShowSelectionGUI: 1
+  Team: 0
+  _Player: {fileID: 0}
+  FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
-  BuildImage: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
-  CostPlayerLevel: 1
+  CostTechLevel: 1
+  CostPopulation: 0
   RecycleSupplies: 0
   RecyclePower: 0
   MaxHitPoints: 100
   MaxShieldPoints: 0
+  Garrisonable: 0
+  MaxGarrisonPopulation: 0
   MultiSelectable: 0
   _OffsetY: 0
+  _ObjectState: 3
+  _WidgetHealthbarScaleX: 100
+  _WidgetHealthbarScaleY: 15
+  _WidgetHealthbarOffset: 15
+  _WidgetShieldbarScaleX: 100
+  _WidgetShieldbarScaleY: 15
+  _WidgetShieldbarOffset: 22
+  ShowBuildingQueueUI: 0
+  OnlyAppearWhenAttachedToBase: 0
   AttachedBase: {fileID: 0}
+  LinkedSlots: []
   Buildings:
   - {fileID: 0}
   - {fileID: 0}
@@ -136,4 +165,3 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  _BuildingOnSlot: {fileID: 0}

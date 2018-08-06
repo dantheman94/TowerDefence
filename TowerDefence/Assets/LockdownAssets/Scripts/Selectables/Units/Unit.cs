@@ -118,7 +118,9 @@ public class Unit : Ai {
     /// </summary>
     protected override void Update() {
         base.Update();
-        BoxSelection();
+
+        // Selecting the unit via drag selection
+        UpdateBoxSelection();
 
         // Hide the unit UI widgets if it is building
         if (_ObjectState == WorldObjectStates.Building) {
@@ -151,6 +153,7 @@ public class Unit : Ai {
                     healthBarObj.gameObject.SetActive(true);
                     healthBarObj.transform.SetParent(GameManager.Instance.WorldSpaceCanvas.gameObject.transform, false);
 
+                    // Assigning player reference
                     if (_Player == null) {
 
                         Player plyr = GameManager.Instance.Players[0];
@@ -195,7 +198,7 @@ public class Unit : Ai {
         }
         else { _IsBeingPlayerControlled = false; }
 
-        // Update movement
+        // Update player controller movement
         if (_IsBeingPlayerControlled) {
 
             _IsCurrentlySelected = true;
@@ -225,10 +228,9 @@ public class Unit : Ai {
             if (_AttackTarget != null) {
 
                 if (_AttackTarget.IsAlive()) {
-
+                    
+                    // Check if the target is within attacking range
                     _DistanceToTarget = Vector3.Distance(transform.position, _AttackTarget.transform.position);
-
-                    // Fire primary weapon if within attacking range
                     if (_DistanceToTarget <= AttackingRange && PrimaryWeapon != null) {
 
                         // Look at attack target
@@ -239,6 +241,7 @@ public class Unit : Ai {
                         if (PrimaryWeapon.CanFire()) { PrimaryWeapon.FireWeapon(); }
                     }
 
+                    // Target is too far away or we have no primary weapon
                     else { _IsAttacking = false; }
 
                     // Constantly face the attacking target
@@ -246,21 +249,39 @@ public class Unit : Ai {
                     FireAtPos.y = FireAtPos.y + _AttackTarget.GetObjectHeight() / 2;
                     LookAt(FireAtPos);
                 }
+
+                // Attack target is now dead
                 else {
 
-                    /// GET NEW ATTACK TARGET
+                    // GET NEW ATTACK TARGET
+                    DetermineWeightedTargetFromList();
                 }
             }
+            else { _IsAttacking = false; }
         }
 
         // Gradually shrink the character then despawn it once its dead
-        if (_StartShrinking && !IsAlive()) {
+        UpdateDeathShrinker();
+    }
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /// <summary>
+    //  Called every frame. Scales down the unit's transform if its dead &
+    //  Despawn when finished.
+    /// </summary>
+    private void UpdateDeathShrinker() {
+
+        // Check if the unit should be shrinking
+        if (_StartShrinking && !IsAlive()) {
+            
+            // Continuously scale down
             transform.localScale -= Vector3.one * ShrinkSpeed * Time.deltaTime;
             if (transform.localScale.x < 0.1f) {
 
+                // Finished shrinking
                 _StartShrinking = false;
-                ObjectPooling.Despawn(this.gameObject);
+                ObjectPooling.Despawn(gameObject);
             }
         }
     }
@@ -350,7 +371,7 @@ public class Unit : Ai {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  
+    //  Snaps the agent's transform to the position specified.
     /// </summary>
     protected virtual void LookAt(Vector3 position) {
 
@@ -432,7 +453,9 @@ public class Unit : Ai {
     /// </summary>
     /// <param name="worldObject"></param>
     /// <param name="size"></param>
-    /// <returns></returns>
+    /// <returns>
+    //  Vector3
+    /// </returns>
     public Vector3 GetAttackingPositionAtObject(WorldObject worldObject) {
 
         // Create transform and create a position within attacking range, in the direction of the target
@@ -450,9 +473,9 @@ public class Unit : Ai {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    /// Checks if unit is selected by click & drag box
+    // Checks if unit is selected by click & drag box
     /// </summary>
-    private void BoxSelection()
+    private void UpdateBoxSelection()
     {
         // Precautions
         if (_Player != null) {
@@ -503,7 +526,9 @@ public class Unit : Ai {
     /// <summary>
     //  
     /// </summary>
-    /// <returns></returns>
+    /// <returns>
+    //  NavMeshAgent
+    /// </returns>
     public NavMeshAgent GetAgent() { return _Agent; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -511,7 +536,9 @@ public class Unit : Ai {
     /// <summary>
     //  
     /// </summary>
-    /// <returns></returns>
+    /// <returns>
+    //  bool
+    /// </returns>
     public bool IsInASquad() { return _SquadAttached != null; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -527,7 +554,9 @@ public class Unit : Ai {
     /// <summary>
     //  
     /// </summary>
-    /// <returns></returns>
+    /// <returns>
+    //  Squad
+    /// </returns>
     public Squad GetSquadAttached() { return _SquadAttached; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -535,6 +564,7 @@ public class Unit : Ai {
     /// <summary>
     //  
     /// </summary>
+    //  WorldObject
     /// <returns></returns>
     public WorldObject GetAttackTarget() { return _AttackTarget; }
 
@@ -543,7 +573,9 @@ public class Unit : Ai {
     /// <summary>
     //   
     /// </summary>
-    /// <returns></returns>
+    /// <returns>
+    //  bool
+    /// </returns>
     public bool IsBeingPlayerControlled() { return _IsBeingPlayerControlled; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -573,6 +605,30 @@ public class Unit : Ai {
                 break;
             }
         }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    private void DetermineWeightedTargetFromList() {
+
+        // Multiple targets to select from
+        if (_PotentialTargets.Count > 0) {
+
+            // WHICH IS THE TANKIEST TARGET?
+
+            // WHICH TARGET HAS DAMAGED ME THE MOST?
+
+            // WHICH TARGET IS THE CLOSEST?
+        }
+        
+        // Only a single target in the array
+        else if (_PotentialTargets.Count == 1) { _AttackTarget = _PotentialTargets[0]; }
+
+        // No targets to choose from
+        else { _AttackTarget = null; }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -29,8 +29,12 @@ public class KeyboardInput : MonoBehaviour {
     private Vector3 _LookPoint;
     private Vector3 _CurrentVelocity = Vector3.zero;
     private bool _RotatingCamera = false;
-    private Selectable _HighlightFocus = null;
     private Vector3 _BoxStartPoint = -Vector3.one;
+
+    private Selectable _HighlightFocus = null;
+    private Ai _HighlightAiObject = null;
+    private Building _HighlightBuilding = null;
+    private WorldObject _HighlightWorldObject = null;
 
     //******************************************************************************************************************************
     //
@@ -504,8 +508,45 @@ public class KeyboardInput : MonoBehaviour {
                         Selectable selectable = hitObject.gameObject.GetComponentInParent<Selectable>();
                         if (selectable != null) {
 
-                            // If it isn't currently selected >> highlight it
-                            if (!_HighlightFocus.GetIsSelected()) { _HighlightFocus.SetIsHighlighted(true); }
+                            // Check if we should highlight the selectable
+                            if (!_HighlightFocus.GetIsSelected()) {
+                                
+                                // Check if its a building
+                                if (_HighlightBuilding == null) { _HighlightBuilding = _HighlightFocus.GetComponent<Building>(); }
+                                if (_HighlightBuilding != null) {
+
+                                    if (_HighlightBuilding.GetObjectState() == WorldObject.WorldObjectStates.Active || 
+                                        _HighlightBuilding.GetObjectState() == WorldObject.WorldObjectStates.Building) {
+
+                                        // Highlight building
+                                        _HighlightFocus.SetIsHighlighted(true);
+                                    }
+                                }
+
+                                // Check if its an AI
+                                if (_HighlightAiObject == null) { _HighlightAiObject = _HighlightFocus.GetComponent<Ai>(); }
+                                if (_HighlightAiObject != null) {
+
+                                    if (_HighlightAiObject.GetObjectState() == WorldObject.WorldObjectStates.Active) {
+
+                                        // Highlight AI
+                                        _HighlightFocus.SetIsHighlighted(true);
+                                    }
+                                }
+
+                                // Check if its a world object
+                                if (_HighlightWorldObject == null) { _HighlightWorldObject = _HighlightFocus.GetComponent<WorldObject>(); }
+                                if (_HighlightWorldObject != null && _HighlightAiObject == null) {
+
+                                    if (_HighlightWorldObject.GetObjectState() == WorldObject.WorldObjectStates.Active) {
+
+                                        // Highlight building
+                                        _HighlightFocus.SetIsHighlighted(true);
+                                    }
+                                }
+                            }
+
+                            // We arent supposed to be able to highlight it right now
                             else { _HighlightFocus.SetIsHighlighted(false); }
                         }
                         
@@ -514,6 +555,8 @@ public class KeyboardInput : MonoBehaviour {
                             // De-highlight the object
                             _HighlightFocus.SetIsHighlighted(false);
                             _HighlightFocus = null;
+                            _HighlightBuilding = null;
+                            _HighlightAiObject = null;
                         }
                     }
                 }
@@ -523,6 +566,8 @@ public class KeyboardInput : MonoBehaviour {
                     // De-highlight any object in focus
                     if (_HighlightFocus != null) _HighlightFocus.SetIsHighlighted(false);
                     _HighlightFocus = null;
+                    _HighlightBuilding = null;
+                    _HighlightAiObject = null;
                 }
             }
         }
@@ -531,7 +576,7 @@ public class KeyboardInput : MonoBehaviour {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  
+    //  Called when the left mouse button is clicked.
     /// </summary>
     private void LeftMouseClick() {
 
@@ -773,11 +818,11 @@ public class KeyboardInput : MonoBehaviour {
             }
         }
     }
-    
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  
+    //  Called when the right mouse button is clicked.
     /// </summary>
     private void RightMouseClick() {
 

@@ -167,12 +167,13 @@ public class Squad : Ai {
     /// </summary>
     /// <param name="thisSquad"></param>
     protected void CreateUnits(Squad thisSquad) {
-        
+
+
         // Loop for each unit
         for (int i = 0; i < SquadMaxSize; i++) {
 
             // Create unit
-            Unit unit = ObjectPooling.Spawn(SquadUnit.gameObject, Vector3.zero, Quaternion.identity).GetComponent<Unit>();
+            Unit unit = ObjectPooling.Spawn(SquadUnit.gameObject, thisSquad.transform.position, thisSquad.transform.rotation).GetComponent<Unit>();
             unit.SetObjectState(WorldObjectStates.Building);
             unit.SetSquadAttached(this);
             thisSquad._Squad.Add(unit);
@@ -182,7 +183,7 @@ public class Squad : Ai {
             unit.BuildTime = BuildTime;
 
             // Creating the first unit at the center
-            if (i == 0) { unit.transform.position = gameObject.transform.position; ; }
+            if (i == 0) { unit.transform.position = thisSquad.transform.position; ; }
             else {
 
                 // Creating the units in a circle around the flocking radius
@@ -212,7 +213,7 @@ public class Squad : Ai {
             unit.BuildTime = BuildTime;
             
             // Creating the first unit at the center
-            if (i == 0) { unit.transform.position = gameObject.transform.position; ; }
+            if (i == 0) { unit.transform.position = transform.position; ; }
             else {
 
                 // Creating the units in a circle around the flocking radius

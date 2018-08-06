@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 65610269582664046}
   m_Layer: 11
   m_Name: pfb_DepotSlot
-  m_TagString: Untagged
+  m_TagString: BuildingSlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -37,9 +37,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1078649281621368}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 189, y: 0.5, z: -63}
-  m_LocalScale: {x: 30, y: 1, z: 20}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -6.1000023, y: 0.5, z: -432.59998}
+  m_LocalScale: {x: 30.000015, y: 1, z: 20}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -123,13 +123,13 @@ MonoBehaviour:
   ObjectName: Empty Building Slot
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
-  PlayerID: 0
+  Logo: {fileID: 0}
+  ShowSelectionGUI: 1
   Team: 0
-  FogOfWarRadius: 400
   _Player: {fileID: 0}
+  FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
-  BuildImage: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -143,13 +143,14 @@ MonoBehaviour:
   MaxGarrisonPopulation: 0
   MultiSelectable: 0
   _OffsetY: 0
-  _ObjectState: 0
+  _ObjectState: 3
   _WidgetHealthbarScaleX: 100
   _WidgetHealthbarScaleY: 15
   _WidgetHealthbarOffset: 15
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
+  ShowBuildingQueueUI: 0
   OnlyAppearWhenAttachedToBase: 1
   AttachedBase: {fileID: 0}
   LinkedSlots: []
