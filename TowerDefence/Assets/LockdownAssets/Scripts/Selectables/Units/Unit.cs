@@ -202,6 +202,7 @@ public class Unit : Ai {
             _Agent.enabled = false;
             UpdatePlayerControlledMovement();
         }
+
         // Is the unit currently AI controlled?
         if (!_IsBeingPlayerControlled && _Agent.enabled) {
 
@@ -214,13 +215,13 @@ public class Unit : Ai {
             }
 
             // Update seeking waypoint visibility
-            if (_SeekWaypoint && _IsCurrentlySelected) {
+            if (_SeekWaypoint) {
 
-                if (_IsSeeking) { _SeekWaypoint.SetActive(true); }
-                else            { _SeekWaypoint.SetActive(false); }
+                if (_IsSeeking && (_IsCurrentlySelected || _IsCurrentlyHighlighted)) { _SeekWaypoint.SetActive(true); }
+                else { _SeekWaypoint.SetActive(false); }
             }
 
-            // Update distance to target
+            // Update distance to attacking target
             if (_AttackTarget != null) {
 
                 if (_AttackTarget.IsAlive()) {

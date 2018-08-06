@@ -82,7 +82,7 @@ public class Squad : Ai {
         else if (_ObjectState == WorldObjectStates.Deployable) {
 
             _ObjectState = WorldObjectStates.Active;
-            foreach (var unit in _Squad) { unit.SetObjectState(WorldObjectStates.Active); }
+            foreach (var unit in _Squad) { unit.OnSpawn(); }
         }
 
         // Update squad health
