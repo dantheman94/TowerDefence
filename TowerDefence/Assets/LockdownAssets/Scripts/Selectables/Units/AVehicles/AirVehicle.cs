@@ -1,13 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
+using TowerDefence;
 
 //******************************
 //
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 21/7/2018
+//  Last edited on: 6/8/2018
 //
 //******************************
 
@@ -29,7 +31,8 @@ public class AirVehicle : Vehicle {
     [Space]
     public float MinimumFlyingHeight = 20f;
     public float MaximumFlyingHeight = 100f;
-    public float IdealFlyingHeight = 40f;
+    private float _IdealFlyingHeightMin = 40f;
+    private float _IdealFlyingHeightMax = 80f;
 
     //******************************************************************************************************************************
     //
@@ -49,14 +52,22 @@ public class AirVehicle : Vehicle {
     //
     //******************************************************************************************************************************
 
-    protected override void Start()
-    {
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    // Called when the gameObject is created.
+    /// </summary>
+    protected override void Start() {
         base.Start();
+
         _LayerMask = 1 << LayerMask.NameToLayer("Units");
         _LayerMask = ~_LayerMask;
+
+        // Initialize "ideal" flying heights based off game world
+        _IdealFlyingHeightMin = GameManager.Instance.FlyingNavMesh.transform.position.y + _Agent.height;
+        _IdealFlyingHeightMax = GameManager.Instance.FlyingNavMesh.transform.position.y + DownwardsAvoidanceRange + 5f;
     }
-
-
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
@@ -66,10 +77,28 @@ public class AirVehicle : Vehicle {
         base.Update();
 
         // Update agent height
-        UpdateHeight();
+        if (_ObjectState == WorldObjectStates.Active) { UpdateHeight(); }
 
         // Clamp max movement speed
         if (_Agent.speed > MaxSpeed) { _Agent.speed = MaxSpeed; }
+
+        // Set the highlight & selected prefab heights to be at a matching height as the unit
+        Vector3 pos = transform.position;
+        pos.y = pos.y - _Agent.height / 2; /// THIS IS TEMPORARY, JUST SO THE PREFAB DOESNT INTERSECT THE ACTUAL UNIT AND LOOK FUNKY
+        if (_SelectionObj != null) { _SelectionObj.transform.position = pos; }
+        if (_HighlightObj != null) { _HighlightObj.transform.position = pos; }
+    }
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Called only once, when the unit transitions to an active state.
+    /// </summary>
+    public override void OnSpawn() {
+        base.OnSpawn();
+
+        // Reset agent base offset
+        _Agent.baseOffset = Settings.MaxCameraHeight + 30f;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -78,16 +107,12 @@ public class AirVehicle : Vehicle {
     //  Called each frame. [ From Update() ]
     /// </summary>
     private void UpdateHeight() {
-
-        // Get ships position with its offset from the ground
-        Vector3 AgentPosition = transform.position;
-        AgentPosition.y = AgentPosition.y + _ObjectHeight;
-
+        
         // Fire a raycast forward
         RaycastHit hitForward;
-        if (_ForwardRayDetection = Physics.Raycast(AgentPosition, transform.forward, out hitForward, ForwardAvoidanceRange, _LayerMask)) {
+        if (_ForwardRayDetection = Physics.Raycast(transform.position, transform.forward, out hitForward, ForwardAvoidanceRange, _LayerMask)) {
 
-            Debug.DrawRay(AgentPosition, transform.forward * ForwardAvoidanceRange, Color.green);
+            Debug.DrawRay(transform.position, transform.forward * ForwardAvoidanceRange, Color.green);
 
             // Slow the vehicle down
             float speed = _Agent.speed;
@@ -98,7 +123,7 @@ public class AirVehicle : Vehicle {
         // Forward raycast MISS
         else {
 
-            Debug.DrawRay(AgentPosition, transform.forward * ForwardAvoidanceRange, Color.red);
+            Debug.DrawRay(transform.position, transform.forward * ForwardAvoidanceRange, Color.red);
 
             // Speed the vehicle up
             float speed = _Agent.speed;
@@ -108,25 +133,28 @@ public class AirVehicle : Vehicle {
 
         // Fire a raycast downward
         RaycastHit hitDown;
-        if (_DownwardRayDetection = Physics.Raycast(AgentPosition, -transform.up, out hitDown, DownwardsAvoidanceRange, _LayerMask)) {
+        if (_DownwardRayDetection = Physics.Raycast(transform.position, -transform.up, out hitDown, DownwardsAvoidanceRange, _LayerMask)) {
 
-            Debug.DrawRay(AgentPosition, -transform.up * DownwardsAvoidanceRange, Color.green);
-            if (hitDown.transform.gameObject.layer != 9) {
-                // Push the air vehicle upwards
-                _Agent.baseOffset += VerticalSpeed * Time.deltaTime;
+            // Dont test raycast against self
+            if (hitDown.transform.gameObject != gameObject) {
+
+                Debug.DrawRay(transform.position, -transform.up * DownwardsAvoidanceRange, Color.green);
+                if (hitDown.transform.gameObject.layer != 9) {
+                    // Push the air vehicle upwards
+                    _Agent.baseOffset += VerticalSpeed * Time.deltaTime;
+                }
+
+                // Slow the vehicle down
+                float speed = _Agent.speed;
+                speed -= Deceleration * Time.deltaTime;
+                _Agent.speed = speed;
             }
-
-
-            // Slow the vehicle down
-            float speed = _Agent.speed;
-            speed -= Deceleration * Time.deltaTime;
-            _Agent.speed = speed;
         }
 
         // Downward raycast MISS
         else {
 
-            Debug.DrawRay(AgentPosition, -transform.up * DownwardsAvoidanceRange, Color.red);
+            Debug.DrawRay(transform.position, -transform.up * DownwardsAvoidanceRange, Color.red);
 
             // Speed the vehicle up
             float speed = _Agent.speed;
@@ -137,9 +165,9 @@ public class AirVehicle : Vehicle {
         // Fire a raycast on a forward / down angle
         Vector3 angle = transform.forward + -transform.up;
         RaycastHit hitAngle;
-        if (_AngleRayDetection = Physics.Raycast(AgentPosition, angle, out hitAngle, ForwardAvoidanceRange, _LayerMask)) {
+        if (_AngleRayDetection = Physics.Raycast(transform.position, angle, out hitAngle, ForwardAvoidanceRange, _LayerMask)) {
 
-            Debug.DrawRay(AgentPosition, angle * ForwardAvoidanceRange, Color.green);
+            Debug.DrawRay(transform.position, angle * ForwardAvoidanceRange, Color.green);
 
             // Push the air vehicle upwards
             _Agent.baseOffset += VerticalSpeed * Time.deltaTime;
@@ -153,7 +181,7 @@ public class AirVehicle : Vehicle {
         // Angled raycast MISS
         else {
 
-            Debug.DrawRay(AgentPosition, angle * ForwardAvoidanceRange, Color.red);
+            Debug.DrawRay(transform.position, angle * ForwardAvoidanceRange, Color.red);
 
             // Speed the vehicle up
             float speed = _Agent.speed;
@@ -178,17 +206,17 @@ public class AirVehicle : Vehicle {
         if (!IsColliding()) {
 
             // Move up check
-            if (transform.position.y < IdealFlyingHeight) {
+            if (transform.position.y < _IdealFlyingHeightMin) {
 
                 // Push the vehicle upwards
-                _Agent.baseOffset += VerticalSpeed / 3 * Time.deltaTime;
+                _Agent.baseOffset += VerticalSpeed * Time.deltaTime;
             }
 
             // Move down check
-            if (transform.position.y > IdealFlyingHeight) {
+            if (transform.position.y > _IdealFlyingHeightMax) {
 
                 // Push the vehicle downwards
-                _Agent.baseOffset -= VerticalSpeed / 3 * Time.deltaTime;
+                _Agent.baseOffset -= VerticalSpeed * Time.deltaTime;
             }
         }
     }

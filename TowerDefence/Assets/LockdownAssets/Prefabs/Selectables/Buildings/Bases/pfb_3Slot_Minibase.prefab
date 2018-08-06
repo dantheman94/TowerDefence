@@ -45,6 +45,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1327500840589006
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4399978132502538}
+  m_Layer: 0
+  m_Name: GroundUnitSpawnTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1400589094716484
 GameObject:
   m_ObjectHideFlags: 0
@@ -126,7 +141,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4028380109612758}
   m_Layer: 0
-  m_Name: UnitSpawnTransform
+  m_Name: AirUnitSpawnTransform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -193,12 +208,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1685453589854508}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 30.3}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 200, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4934796254434924}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4081119391159530
 Transform:
@@ -252,6 +267,19 @@ Transform:
   m_Father: {fileID: 4641183331638544}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!4 &4399978132502538
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1327500840589006}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 50}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4934796254434924}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4424148313928752
 Transform:
   m_ObjectHideFlags: 1
@@ -263,7 +291,7 @@ Transform:
   m_LocalScale: {x: 100, y: 100, z: 1}
   m_Children: []
   m_Father: {fileID: 4934796254434924}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!4 &4641183331638544
 Transform:
@@ -321,6 +349,7 @@ Transform:
   - {fileID: 4641183331638544}
   - {fileID: 4174609954035454}
   - {fileID: 4143616589699450}
+  - {fileID: 4399978132502538}
   - {fileID: 4028380109612758}
   - {fileID: 4424148313928752}
   m_Father: {fileID: 4846438538994776}
@@ -658,13 +687,13 @@ MonoBehaviour:
   ObjectName: 
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
+  Logo: {fileID: 0}
   ShowSelectionGUI: 1
   Team: 0
   _Player: {fileID: 0}
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
-  BuildImage: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -685,6 +714,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
+  ShowBuildingQueueUI: 0
   OnlyAppearWhenAttachedToBase: 0
   AttachedBase: {fileID: 114878690511021116}
   LinkedSlots: []
@@ -713,13 +743,13 @@ MonoBehaviour:
   ObjectName: 
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
+  Logo: {fileID: 0}
   ShowSelectionGUI: 1
   Team: 0
   _Player: {fileID: 0}
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
-  BuildImage: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -740,6 +770,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
+  ShowBuildingQueueUI: 0
   OnlyAppearWhenAttachedToBase: 0
   AttachedBase: {fileID: 114878690511021116}
   LinkedSlots: []
@@ -768,13 +799,13 @@ MonoBehaviour:
   ObjectName: 
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
+  Logo: {fileID: 0}
   ShowSelectionGUI: 1
   Team: 0
   _Player: {fileID: 0}
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
-  BuildImage: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -795,6 +826,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
+  ShowBuildingQueueUI: 0
   OnlyAppearWhenAttachedToBase: 0
   AttachedBase: {fileID: 114878690511021116}
   LinkedSlots: []
@@ -823,13 +855,13 @@ MonoBehaviour:
   ObjectName: Minibase
   ObjectDescriptionShort: Minibase
   ObjectDescriptionLong: 
+  Logo: {fileID: 0}
   ShowSelectionGUI: 1
   Team: 0
   _Player: {fileID: 0}
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 1120137460897496}
-  BuildImage: {fileID: 0}
   BuildTime: 5
   CostSupplies: 400
   CostPower: 150
@@ -850,6 +882,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 250
   _WidgetShieldbarScaleY: 20
   _WidgetShieldbarOffset: 30
+  ShowBuildingQueueUI: 1
   AttachedBuildingSlot: {fileID: 0}
   ObjectHeight: 30
   Selectables:
@@ -866,7 +899,8 @@ MonoBehaviour:
   MinimapQuad: {fileID: 1520993553185550}
   BaseType: 4
   TechLevelWhenBuilt: 1
-  UnitSpawnTransform: {fileID: 1685453589854508}
+  GroundUnitSpawnTransform: {fileID: 1327500840589006}
+  AirUnitSpawnTransform: {fileID: 1685453589854508}
   DepotSlots:
   - {fileID: 114597791778460230}
   - {fileID: 114288331761770698}

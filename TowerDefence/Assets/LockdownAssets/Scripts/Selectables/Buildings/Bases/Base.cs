@@ -31,7 +31,8 @@ public class Base : Building {
     [Space]
     public eBaseType BaseType;
     public int TechLevelWhenBuilt;
-    public GameObject UnitSpawnTransform;
+    public GameObject GroundUnitSpawnTransform;
+    public GameObject AirUnitSpawnTransform;
     [Space]
     public List<BuildingSlot> DepotSlots;
     public List<BuildingSlot> TowerSlots;

@@ -19,6 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4541155283688502}
+  - component: {fileID: 208747179061569082}
   m_Layer: 0
   m_Name: Outpost_Building
   m_TagString: Untagged
@@ -118,7 +119,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4405468992816192}
   m_Layer: 0
-  m_Name: UnitSpawnTransform
+  m_Name: AirUnitSpawnTransform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -199,6 +200,21 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
+  m_IsActive: 1
+--- !u!1 &1691842476503600
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4714058616571038}
+  m_Layer: 0
+  m_Name: GroundUnitSpawnTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!1 &1807218342960486
 GameObject:
@@ -292,7 +308,7 @@ Transform:
   m_LocalScale: {x: 100, y: 100, z: 1}
   m_Children: []
   m_Father: {fileID: 4906671051967720}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!4 &4148238737816208
 Transform:
@@ -341,12 +357,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1361838701262684}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 45}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 200, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4906671051967720}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4541155283688502
 Transform:
@@ -389,6 +405,19 @@ Transform:
   m_Father: {fileID: 4229315188638078}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4714058616571038
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1691842476503600}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 60}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4906671051967720}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4906671051967720
 Transform:
   m_ObjectHideFlags: 1
@@ -404,6 +433,7 @@ Transform:
   - {fileID: 4398571695690718}
   - {fileID: 4091222389518618}
   - {fileID: 4965104319316322}
+  - {fileID: 4714058616571038}
   - {fileID: 4405468992816192}
   - {fileID: 4132374396667252}
   m_Father: {fileID: 4020611926675870}
@@ -904,13 +934,13 @@ MonoBehaviour:
   ObjectDescriptionShort: Frontline Base
   ObjectDescriptionLong: The outpost provides a means of economy expansion, with 3
     availiable building slots that can be used to create unit depots or resource generators.
+  Logo: {fileID: 0}
   ShowSelectionGUI: 1
   Team: 0
   _Player: {fileID: 0}
   FogOfWarRadius: 400
   BuildingState: {fileID: 1011924668231282}
   ActiveState: {fileID: 1243483475574442}
-  BuildImage: {fileID: 0}
   BuildTime: 5
   CostSupplies: 400
   CostPower: 150
@@ -931,6 +961,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 300
   _WidgetShieldbarScaleY: 20
   _WidgetShieldbarOffset: 30
+  ShowBuildingQueueUI: 1
   AttachedBuildingSlot: {fileID: 0}
   ObjectHeight: 30
   Selectables:
@@ -947,7 +978,8 @@ MonoBehaviour:
   MinimapQuad: {fileID: 1970705690808564}
   BaseType: 0
   TechLevelWhenBuilt: 1
-  UnitSpawnTransform: {fileID: 1361838701262684}
+  GroundUnitSpawnTransform: {fileID: 1691842476503600}
+  AirUnitSpawnTransform: {fileID: 1361838701262684}
   DepotSlots:
   - {fileID: 114707116669498124}
   - {fileID: 114169394488245508}
@@ -966,13 +998,13 @@ MonoBehaviour:
   ObjectName: 
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
+  Logo: {fileID: 0}
   ShowSelectionGUI: 1
   Team: 0
   _Player: {fileID: 0}
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
-  BuildImage: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -993,6 +1025,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
+  ShowBuildingQueueUI: 0
   OnlyAppearWhenAttachedToBase: 0
   AttachedBase: {fileID: 114056886330466534}
   LinkedSlots: []
@@ -1033,13 +1066,13 @@ MonoBehaviour:
   ObjectName: 
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
+  Logo: {fileID: 0}
   ShowSelectionGUI: 1
   Team: 0
   _Player: {fileID: 0}
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
-  BuildImage: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -1060,6 +1093,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
+  ShowBuildingQueueUI: 0
   OnlyAppearWhenAttachedToBase: 0
   AttachedBase: {fileID: 114056886330466534}
   LinkedSlots: []
@@ -1114,6 +1148,21 @@ NavMeshObstacle:
   m_Extents: {x: 0.5, y: 1, z: 0.5}
   m_MoveThreshold: 0.1
   m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208747179061569082
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1011924668231282}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 22.5, y: 5, z: 27.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5

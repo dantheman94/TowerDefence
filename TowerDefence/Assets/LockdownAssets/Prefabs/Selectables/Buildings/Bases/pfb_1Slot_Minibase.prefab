@@ -19,6 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4811765433375064}
+  - component: {fileID: 208453266286933194}
   m_Layer: 0
   m_Name: Minibase_Building
   m_TagString: Untagged
@@ -110,6 +111,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1601843890124790
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4635639052398552}
+  m_Layer: 0
+  m_Name: GroundUnitSpawnTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1681830878613770
 GameObject:
   m_ObjectHideFlags: 1
@@ -137,7 +153,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4870324696757950}
   m_Layer: 0
-  m_Name: UnitSpawnTransform
+  m_Name: AirUnitSpawnTransform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -264,6 +280,7 @@ Transform:
   - {fileID: 4795927482712874}
   - {fileID: 4070833834655170}
   - {fileID: 4901492704710462}
+  - {fileID: 4635639052398552}
   - {fileID: 4870324696757950}
   - {fileID: 4428026369738974}
   m_Father: {fileID: 4071583535959450}
@@ -280,7 +297,7 @@ Transform:
   m_LocalScale: {x: 100, y: 100, z: 1}
   m_Children: []
   m_Father: {fileID: 4371854458577596}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!4 &4517206677900980
 Transform:
@@ -295,6 +312,19 @@ Transform:
   m_Father: {fileID: 4811765433375064}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!4 &4635639052398552
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1601843890124790}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 50}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4371854458577596}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4795927482712874
 Transform:
   m_ObjectHideFlags: 1
@@ -330,12 +360,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1767185476851366}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 30.9}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 200, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4371854458577596}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4901492704710462
 Transform:
@@ -658,13 +688,13 @@ MonoBehaviour:
   ObjectName: 
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
+  Logo: {fileID: 0}
   ShowSelectionGUI: 1
   Team: 0
   _Player: {fileID: 0}
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
-  BuildImage: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -685,6 +715,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
+  ShowBuildingQueueUI: 0
   OnlyAppearWhenAttachedToBase: 0
   AttachedBase: {fileID: 114947448389047210}
   LinkedSlots: []
@@ -713,13 +744,13 @@ MonoBehaviour:
   ObjectName: Minibase
   ObjectDescriptionShort: Minibase
   ObjectDescriptionLong: 
+  Logo: {fileID: 0}
   ShowSelectionGUI: 1
   Team: 0
   _Player: {fileID: 0}
   FogOfWarRadius: 400
   BuildingState: {fileID: 1033973573933858}
   ActiveState: {fileID: 1781239863202218}
-  BuildImage: {fileID: 0}
   BuildTime: 5
   CostSupplies: 400
   CostPower: 150
@@ -740,6 +771,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 220
   _WidgetShieldbarScaleY: 20
   _WidgetShieldbarOffset: 30
+  ShowBuildingQueueUI: 1
   AttachedBuildingSlot: {fileID: 0}
   ObjectHeight: 30
   Selectables:
@@ -756,7 +788,8 @@ MonoBehaviour:
   MinimapQuad: {fileID: 1255405721817460}
   BaseType: 4
   TechLevelWhenBuilt: 1
-  UnitSpawnTransform: {fileID: 1767185476851366}
+  GroundUnitSpawnTransform: {fileID: 1601843890124790}
+  AirUnitSpawnTransform: {fileID: 1767185476851366}
   DepotSlots:
   - {fileID: 114414285968541356}
   - {fileID: 0}
@@ -785,6 +818,21 @@ NavMeshObstacle:
   m_Extents: {x: 0.5, y: 1, z: 0.5}
   m_MoveThreshold: 0.1
   m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208453266286933194
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1033973573933858}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 22.5, y: 5, z: 27.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5

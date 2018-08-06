@@ -105,7 +105,7 @@ public class Squad : Ai {
 
         // Update squad's position to match the average position of all the units
         Vector3 position = FindCenterOfAllUnits();
-        this.gameObject.transform.position = position;
+        gameObject.transform.position = position;
         if (_SelectionObj) { _SelectionObj.gameObject.transform.position = position; }
     }
 
@@ -138,8 +138,8 @@ public class Squad : Ai {
             // (the gameobject should be hidden completely until its deployed)
             if (buildingSlot.AttachedBase != null) {
 
-                _ClonedWorldObject.gameObject.transform.position = buildingSlot.AttachedBase.UnitSpawnTransform.transform.position;
-                _ClonedWorldObject.gameObject.transform.rotation = buildingSlot.AttachedBase.UnitSpawnTransform.transform.rotation;
+                _ClonedWorldObject.gameObject.transform.position = buildingSlot.AttachedBase.GroundUnitSpawnTransform.transform.position;
+                _ClonedWorldObject.gameObject.transform.rotation = buildingSlot.AttachedBase.GroundUnitSpawnTransform.transform.rotation;
             }
 
             // No base attached
@@ -147,7 +147,7 @@ public class Squad : Ai {
 
                 // Set position to be at the buildings spawn vector while it is building
                 // (the gameobject should be hidden completely until its deployed)
-                _ClonedWorldObject.gameObject.transform.position = buildingSlot.transform.position + buildingSlot.transform.forward * 50.0f;
+                _ClonedWorldObject.gameObject.transform.position = buildingSlot.transform.position + buildingSlot.transform.forward * 60.0f;
                 _ClonedWorldObject.gameObject.transform.rotation = buildingSlot.transform.rotation;
             }
 

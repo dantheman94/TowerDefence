@@ -74,7 +74,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4501677899689124}
   m_Layer: 0
-  m_Name: UnitSpawnTransform
+  m_Name: AirUnitSpawnTransform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -210,6 +210,21 @@ GameObject:
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
   m_IsActive: 1
+--- !u!1 &1739469613156768
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4047248899580830}
+  m_Layer: 0
+  m_Name: GroundUnitSpawnTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1741247373506224
 GameObject:
   m_ObjectHideFlags: 0
@@ -319,6 +334,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &4047248899580830
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1739469613156768}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 60}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4106250607515488}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4106250607515488
 Transform:
   m_ObjectHideFlags: 1
@@ -336,6 +364,7 @@ Transform:
   - {fileID: 4155786167374220}
   - {fileID: 4203597660709270}
   - {fileID: 4740150061783362}
+  - {fileID: 4047248899580830}
   - {fileID: 4501677899689124}
   - {fileID: 4809757321218236}
   m_Father: {fileID: 4353242395558570}
@@ -466,11 +495,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1238948345608684}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 45}
+  m_LocalPosition: {x: 0, y: 200, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4106250607515488}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4590852336392956
 Transform:
@@ -509,7 +538,7 @@ Transform:
   m_LocalScale: {x: 100, y: 100, z: 1}
   m_Children: []
   m_Father: {fileID: 4106250607515488}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!4 &4821138566819950
 Transform:
@@ -1223,13 +1252,13 @@ MonoBehaviour:
   ObjectName: Empty Tower Slot
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
+  Logo: {fileID: 0}
   ShowSelectionGUI: 1
   Team: 1
   _Player: {fileID: 0}
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
-  BuildImage: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -1250,6 +1279,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
+  ShowBuildingQueueUI: 0
   OnlyAppearWhenAttachedToBase: 0
   AttachedBase: {fileID: 114868436975677980}
   LinkedSlots: []
@@ -1278,13 +1308,13 @@ MonoBehaviour:
   ObjectName: Empty Building Slot
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
+  Logo: {fileID: 0}
   ShowSelectionGUI: 1
   Team: 1
   _Player: {fileID: 0}
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
-  BuildImage: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -1305,6 +1335,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
+  ShowBuildingQueueUI: 0
   OnlyAppearWhenAttachedToBase: 0
   AttachedBase: {fileID: 114868436975677980}
   LinkedSlots: []
@@ -1333,13 +1364,13 @@ MonoBehaviour:
   ObjectName: Empty Building Slot
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
+  Logo: {fileID: 0}
   ShowSelectionGUI: 1
   Team: 1
   _Player: {fileID: 0}
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
-  BuildImage: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -1360,6 +1391,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
+  ShowBuildingQueueUI: 0
   OnlyAppearWhenAttachedToBase: 0
   AttachedBase: {fileID: 114868436975677980}
   LinkedSlots: []
@@ -1400,13 +1432,13 @@ MonoBehaviour:
   ObjectName: Empty Tower Slot
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
+  Logo: {fileID: 0}
   ShowSelectionGUI: 1
   Team: 1
   _Player: {fileID: 0}
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
-  BuildImage: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -1427,6 +1459,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
+  ShowBuildingQueueUI: 0
   OnlyAppearWhenAttachedToBase: 0
   AttachedBase: {fileID: 114868436975677980}
   LinkedSlots: []
@@ -1455,13 +1488,13 @@ MonoBehaviour:
   ObjectName: Empty Building Slot
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
+  Logo: {fileID: 0}
   ShowSelectionGUI: 1
   Team: 1
   _Player: {fileID: 0}
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
-  BuildImage: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -1482,6 +1515,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
+  ShowBuildingQueueUI: 0
   OnlyAppearWhenAttachedToBase: 0
   AttachedBase: {fileID: 114868436975677980}
   LinkedSlots: []
@@ -1510,13 +1544,13 @@ MonoBehaviour:
   ObjectName: Empty Building Slot
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
+  Logo: {fileID: 0}
   ShowSelectionGUI: 1
   Team: 1
   _Player: {fileID: 0}
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
-  BuildImage: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -1537,6 +1571,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
+  ShowBuildingQueueUI: 0
   OnlyAppearWhenAttachedToBase: 0
   AttachedBase: {fileID: 114868436975677980}
   LinkedSlots: []
@@ -1567,13 +1602,13 @@ MonoBehaviour:
   ObjectDescriptionLong: The station provides a means of economy expansion, with 5
     availiable building slots that can be used to create unit depots or resource generators,
     as well as 2 tower slots for base defence.
+  Logo: {fileID: 0}
   ShowSelectionGUI: 1
   Team: 1
   _Player: {fileID: 0}
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 1741247373506224}
-  BuildImage: {fileID: 0}
   BuildTime: 5
   CostSupplies: 0
   CostPower: 850
@@ -1594,6 +1629,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 300
   _WidgetShieldbarScaleY: 20
   _WidgetShieldbarOffset: 30
+  ShowBuildingQueueUI: 1
   AttachedBuildingSlot: {fileID: 0}
   ObjectHeight: 30
   Selectables:
@@ -1610,7 +1646,8 @@ MonoBehaviour:
   MinimapQuad: {fileID: 1624225091313276}
   BaseType: 1
   TechLevelWhenBuilt: 1
-  UnitSpawnTransform: {fileID: 1238948345608684}
+  GroundUnitSpawnTransform: {fileID: 1739469613156768}
+  AirUnitSpawnTransform: {fileID: 1238948345608684}
   DepotSlots:
   - {fileID: 114656340722537598}
   - {fileID: 114277717463594302}

@@ -80,12 +80,6 @@ public class Unit : Ai {
         // Set recycle amount to the same as the cost amount
         RecycleSupplies = CostSupplies;
         RecyclePower = CostPower;
-
-        // Get component references
-        _Agent = GetComponent<NavMeshAgent>();
-        _CharacterController = GetComponent<CharacterController>();
-
-        _ObjectHeight = _Agent.height;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -107,6 +101,11 @@ public class Unit : Ai {
             PrimaryWeapon = ObjectPooling.Spawn(SecondaryWeapon.gameObject, Vector3.zero, Quaternion.identity).GetComponent<Weapon>();
             SecondaryWeapon.SetUnitAttached(this);
         }
+
+        // Get component references
+        _CharacterController = GetComponent<CharacterController>();
+        _Agent = GetComponent<NavMeshAgent>();
+        _ObjectHeight = _Agent.height;
 
         // Initialize lists
         _PotentialTargets = new List<WorldObject>();
@@ -132,7 +131,7 @@ public class Unit : Ai {
         }
 
         // Force the unit to skip the deployable state and go straight to being active in the world
-        else if (_ObjectState == WorldObjectStates.Deployable) { _ObjectState = WorldObjectStates.Active; }
+        else if (_ObjectState == WorldObjectStates.Deployable) { OnSpawn(); }
 
         // Unit is active in the world
         else if (_ObjectState == WorldObjectStates.Active && IsAlive()) {
@@ -294,8 +293,8 @@ public class Unit : Ai {
             // (the gameobject should be hidden completely until its deployed)
             if (buildingSlot.AttachedBase != null) {
 
-                _ClonedWorldObject.gameObject.transform.position = buildingSlot.AttachedBase.UnitSpawnTransform.transform.position;
-                _ClonedWorldObject.gameObject.transform.rotation = buildingSlot.AttachedBase.UnitSpawnTransform.transform.rotation;
+                _ClonedWorldObject.gameObject.transform.position = buildingSlot.AttachedBase.GroundUnitSpawnTransform.transform.position;
+                _ClonedWorldObject.gameObject.transform.rotation = buildingSlot.AttachedBase.GroundUnitSpawnTransform.transform.rotation;
             }
 
             // No base attached
@@ -326,12 +325,15 @@ public class Unit : Ai {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  
+    //  Called only once, when the unit transitions to an active state.
     /// </summary>
-    public void OnSpawn() {
-
+    public virtual void OnSpawn() {
+                
         // Enable components
+        if (_Agent == null) { _Agent = GetComponent<NavMeshAgent>(); }
         _Agent.enabled = true;
+
+        if (_CharacterController == null) { _CharacterController = GetComponent<CharacterController>(); ; }
         _CharacterController.enabled = true;
 
         SetObjectState(WorldObjectStates.Active);

@@ -23,6 +23,12 @@ public class GameManager : MonoBehaviour {
 
     [Space]
     [Header("-----------------------------------")]
+    [Header(" NAVIGATION")]
+    [Space]
+    public GameObject FlyingNavMesh;
+    
+    [Space]
+    [Header("-----------------------------------")]
     [Header(" PLAYER STARTS")]
     [Space]
     public Base StartingBase;

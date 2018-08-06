@@ -184,7 +184,7 @@ GameObject:
   - component: {fileID: 195338869156008364}
   m_Layer: 9
   m_Name: pfb_CoreAirship
-  m_TagString: Untagged
+  m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -214,7 +214,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1855981135212812}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -76.91, y: 6.2, z: -251.9}
+  m_LocalPosition: {x: -76.91, y: 10, z: -251.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4695208112276192}
@@ -865,10 +865,10 @@ MonoBehaviour:
   MultiSelectable: 1
   _OffsetY: 0
   _ObjectState: 3
-  _WidgetHealthbarScaleX: 100
+  _WidgetHealthbarScaleX: 80
   _WidgetHealthbarScaleY: 15
   _WidgetHealthbarOffset: 15
-  _WidgetShieldbarScaleX: 100
+  _WidgetShieldbarScaleX: 80
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
   ShowBuildingQueueUI: 0
@@ -876,25 +876,24 @@ MonoBehaviour:
   InfantryMovementSpeed: 10
   CanBePlayerControlled: 0
   ShrinkSpeed: 0.1
-  SightCone: {fileID: 0}
-  HearingSphere: {fileID: 0}
   PrimaryWeapon: {fileID: 0}
   SecondaryWeapon: {fileID: 0}
   MuzzleLaunchPoint: {fileID: 0}
   AttackingRange: 100
   WeaponObject: {fileID: 0}
-  Acceleration: 8
-  Deceleration: 4
-  MaxSpeed: 20
-  MaxReverseSpeed: -10
-  BaseRotationSpeed: 45
-  WeaponRotationSpeed: 50
+  Acceleration: 16
+  Deceleration: 8
+  MaxSpeed: 30
+  MaxReverseSpeed: -30
+  BaseRotationSpeed: 65
+  WeaponRotationSpeed: 0
   ForwardAvoidanceRange: 30
   DownwardsAvoidanceRange: 30
   VerticalSpeed: 20
-  MinimumFlyingHeight: 25
-  MaximumFlyingHeight: 80
-  IdealFlyingHeight: 35
+  MinimumFlyingHeight: 50
+  MaximumFlyingHeight: 120
+  IdealFlyingHeightMin: 70
+  IdealFlyingHeightMax: 80
 --- !u!135 &135192853952531444
 SphereCollider:
   m_ObjectHideFlags: 1

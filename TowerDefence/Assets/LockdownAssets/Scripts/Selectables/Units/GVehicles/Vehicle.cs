@@ -102,7 +102,7 @@ public class Vehicle : Unit {
         }
 
         // Move character controller forward / backwards based on current movement speed
-        if (_Controller) { _Controller.Move(transform.forward * _CurrentSpeed * Time.deltaTime); }
+        if (_Controller.enabled) { _Controller.Move(transform.forward * _CurrentSpeed * Time.deltaTime); }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -198,23 +198,5 @@ public class Vehicle : Unit {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  
-    /// </summary>
-    protected override void UpdateSight() {
-
-        // Determine cone properties
-        Vector3 coneOrigin = MuzzleLaunchPoint.transform.position;
-
-        // Fire raycasts
-        int raycount = 8;
-        for (int i = 0; i < raycount; i++) {
-
-
-        }
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    
 }

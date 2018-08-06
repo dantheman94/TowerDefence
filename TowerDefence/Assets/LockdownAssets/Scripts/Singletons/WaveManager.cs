@@ -431,7 +431,7 @@ public class WaveManager : MonoBehaviour {
             }
         }
         _CurrentSubwave++;
-        Debug.Log("Wave: " + _BossWaveCount + "." + _WaveInterval + " / Subwave: " + _CurrentSubwave);
+        ///Debug.Log("Wave: " + _BossWaveCount + "." + _WaveInterval + " / Subwave: " + _CurrentSubwave);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
