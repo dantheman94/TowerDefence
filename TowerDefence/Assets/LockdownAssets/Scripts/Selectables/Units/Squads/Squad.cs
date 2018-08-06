@@ -37,6 +37,7 @@ public class Squad : Ai {
     private int _SquadCurrentSize;
     private float _SquadHealth;
     private List<Unit> _Squad;
+    protected GameObject _SeekWaypoint = null;
 
     //******************************************************************************************************************************
     //
@@ -172,10 +173,10 @@ public class Squad : Ai {
 
             // Create unit
             Unit unit = ObjectPooling.Spawn(SquadUnit.gameObject, Vector3.zero, Quaternion.identity).GetComponent<Unit>();
-            unit.SetObjectState(WorldObjectStates.Active);
+            unit.SetObjectState(WorldObjectStates.Building);
             unit.SetSquadAttached(this);
-            _Squad.Add(unit);
-            _SquadCurrentSize = i;
+            thisSquad._Squad.Add(unit);
+            thisSquad._SquadCurrentSize = i;
 
             // Update unit build time to match the squad build time
             unit.BuildTime = BuildTime;
@@ -190,7 +191,6 @@ public class Squad : Ai {
                 unit.transform.position = pos;
             }
             unit.gameObject.SetActive(true);
-            unit.OnSpawn();
         }
     }
 
@@ -263,10 +263,10 @@ public class Squad : Ai {
         List<Vector3> positions = new List<Vector3>();
         for (int i = 0; i < size; i++) {
 
-            // Creating the units in a circle around the flocking radius
-            float angle = i * Mathf.PI * 2 / SquadMaxSize;
-            Vector3 pos = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)) * FlockingRadius;
-            positions.Add(pos);
+            // Create individual position
+            Vector2 rand = Random.insideUnitCircle * FlockingRadius;
+            Vector3 randPos = point + new Vector3(rand.x, point.y, rand.y);
+            positions.Add(randPos);
         }
         
         return positions;
@@ -287,7 +287,6 @@ public class Squad : Ai {
 
         for (int i = 0; i < size; i++) {
 
-            ///float angle = i * (Mathf.PI * 10.0f / size + /*worldObject.*/ transform.rotation.y);
             float angle = i * (Mathf.PI * 10.0f / size + (facingAngle / 10));
             Vector3 pos = new Vector3(Mathf.Cos((angle / size) / size), 
                                       worldObject.transform.position.y, 
@@ -315,8 +314,20 @@ public class Squad : Ai {
         int i = 0;
         foreach (var unit in _Squad) {
             
-            unit.AgentSeekPosition(positions[i]);
+            unit.AgentSeekPosition(positions[i], false);
             i++;
+        }
+
+        // Create waypoint
+        if (_SeekWaypoint == null) { _SeekWaypoint = ObjectPooling.Spawn(GameManager.Instance.AgentSeekObject, Vector3.zero, Quaternion.identity); }
+        if (_SeekWaypoint != null) {
+
+            // Display waypoint if not already being displayed
+            if (_SeekWaypoint.activeInHierarchy != true) { _SeekWaypoint.SetActive(true); }
+
+            // Update waypoint position
+            _SeekWaypoint.transform.position = seekTarget;
+            _SeekWaypoint.transform.position += Vector3.up;
         }
     }
 

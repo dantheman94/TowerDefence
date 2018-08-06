@@ -373,7 +373,7 @@ public class Unit : Ai {
     //  
     /// </summary>
     /// <param name="seekTarget"></param>
-    public void AgentSeekPosition(Vector3 seekTarget) {
+    public void AgentSeekPosition(Vector3 seekTarget, bool displayWaypoint = true) {
 
         if (_Agent.isOnNavMesh) {
 
@@ -382,15 +382,19 @@ public class Unit : Ai {
             _Agent.speed = InfantryMovementSpeed;
 
             // Show seeking waypoint
-            if (_SeekWaypoint == null) { _SeekWaypoint = ObjectPooling.Spawn(GameManager.Instance.AgentSeekObject, Vector3.zero, Quaternion.identity); }
-            if (_SeekWaypoint != null) {
+            if (displayWaypoint) {
 
-                // Display waypoint if not already being displayed
-                if (_SeekWaypoint.activeInHierarchy != true) { _SeekWaypoint.SetActive(true); }
+                // Create waypoint
+                if (_SeekWaypoint == null) { _SeekWaypoint = ObjectPooling.Spawn(GameManager.Instance.AgentSeekObject, Vector3.zero, Quaternion.identity); }
+                if (_SeekWaypoint != null) {
 
-                // Update waypoint position
-                _SeekWaypoint.transform.position = seekTarget;
-                _SeekWaypoint.transform.position += Vector3.up;
+                    // Display waypoint if not already being displayed
+                    if (_SeekWaypoint.activeInHierarchy != true) { _SeekWaypoint.SetActive(true); }
+
+                    // Update waypoint position
+                    _SeekWaypoint.transform.position = seekTarget;
+                    _SeekWaypoint.transform.position += Vector3.up;
+                }
             }
             _IsSeeking = true;
         }
