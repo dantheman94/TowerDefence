@@ -37,11 +37,6 @@ public class CoreVehicle : Vehicle {
 
         // Initialize vehicle gunner
         _VehicleGunnerAI = GetComponentInChildren<VehicleGunner>();
-        if (_VehicleGunnerAI != null) {
-
-            _VehicleGunnerAI.Team = Team;
-            _VehicleGunnerAI.SetPlayer(_Player);
-        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

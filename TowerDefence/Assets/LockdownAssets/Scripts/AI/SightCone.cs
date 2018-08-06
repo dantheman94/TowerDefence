@@ -63,7 +63,7 @@ public class SightCone : MonoBehaviour {
         if (worldObject != null) {
 
             // Enemy team?
-            if (worldObject.Team != _VehicleGunnerAI.Team) {
+            if (worldObject.Team != _VehicleGunnerAI.GetVehicleAttached().Team) {
 
                 // Add to weighted list
                 _VehicleGunnerAI.GetVehicleAttached().AddPotentialTarget(worldObject);
