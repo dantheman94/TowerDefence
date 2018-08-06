@@ -187,7 +187,7 @@ public class Squad : Ai {
 
                 // Creating the units in a circle around the flocking radius
                 float angle = i * Mathf.PI * 2 / SquadMaxSize;
-                Vector3 pos = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)) * FlockingRadius;
+                Vector3 pos = thisSquad.transform.position + new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)) * FlockingRadius;
                 unit.transform.position = pos;
             }
             unit.gameObject.SetActive(true);
@@ -217,7 +217,7 @@ public class Squad : Ai {
 
                 // Creating the units in a circle around the flocking radius
                 float angle = i * Mathf.PI * 2 / SquadMaxSize;
-                Vector3 pos = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)) * FlockingRadius;
+                Vector3 pos = transform.position + new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)) * FlockingRadius;
                 unit.transform.position = pos;
             }
             unit.gameObject.SetActive(true);
