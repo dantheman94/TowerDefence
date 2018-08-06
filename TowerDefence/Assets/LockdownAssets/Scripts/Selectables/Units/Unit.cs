@@ -32,14 +32,7 @@ public class Unit : Ai {
     [Tooltip("When this unit is killed, the speed in which it shrinks down until it is no longer visible " +
             "before being sent back to the object pool.")]
     public float ShrinkSpeed = 0.1f;
-
-    [Space]
-    [Header("-----------------------------------")]
-    [Header(" UNIT SENSORY PROPERTIES")]
-    [Space]
-    public ConeCollider SightCone = null;
-    public SphereCollider HearingSphere = null;
-
+    
     [Space]
     [Header("-----------------------------------")]
     [Header(" COMBAT/WEAPON PROPERTIES")]
@@ -63,7 +56,8 @@ public class Unit : Ai {
     protected Squad _SquadAttached = null;
     protected bool _IsSeeking = false;
     protected GameObject _SeekWaypoint = null;
-    protected WorldObject _AttackTargetObject = null;
+    protected WorldObject _AttackTarget = null;
+    protected List<WorldObject> _PotentialTargets;
     protected bool _IsAttacking = false;
     protected float _DistanceToTarget = 0f;
     protected bool _IsBeingPlayerControlled = false;
@@ -113,6 +107,9 @@ public class Unit : Ai {
             PrimaryWeapon = ObjectPooling.Spawn(SecondaryWeapon.gameObject, Vector3.zero, Quaternion.identity).GetComponent<Weapon>();
             SecondaryWeapon.SetUnitAttached(this);
         }
+
+        // Initialize lists
+        _PotentialTargets = new List<WorldObject>();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -225,11 +222,11 @@ public class Unit : Ai {
             }
 
             // Update distance to target
-            if (_AttackTargetObject != null) {
+            if (_AttackTarget != null) {
 
-                if (_AttackTargetObject.IsAlive()) {
+                if (_AttackTarget.IsAlive()) {
 
-                    _DistanceToTarget = Vector3.Distance(transform.position, _AttackTargetObject.transform.position);
+                    _DistanceToTarget = Vector3.Distance(transform.position, _AttackTarget.transform.position);
 
                     // Fire primary weapon if within attacking range
                     if (_DistanceToTarget <= AttackingRange && PrimaryWeapon != null) {
@@ -245,8 +242,8 @@ public class Unit : Ai {
                     else { _IsAttacking = false; }
 
                     // Constantly face the attacking target
-                    Vector3 FireAtPos = _AttackTargetObject.transform.position;
-                    FireAtPos.y = FireAtPos.y + _AttackTargetObject.GetObjectHeight() / 2;
+                    Vector3 FireAtPos = _AttackTarget.transform.position;
+                    FireAtPos.y = FireAtPos.y + _AttackTarget.GetObjectHeight() / 2;
                     LookAt(FireAtPos);
                 }
                 else {
@@ -409,7 +406,7 @@ public class Unit : Ai {
     /// <param name="attackTarget"></param>
     public void AgentAttackObject(WorldObject attackTarget, Vector3 seekPosition) {
 
-        _AttackTargetObject = attackTarget;
+        _AttackTarget = attackTarget;
         AgentSeekPosition(seekPosition);
     }
 
@@ -536,7 +533,7 @@ public class Unit : Ai {
     //  
     /// </summary>
     /// <returns></returns>
-    public WorldObject GetAttackTarget() { return _AttackTargetObject; }
+    public WorldObject GetAttackTarget() { return _AttackTarget; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -545,6 +542,35 @@ public class Unit : Ai {
     /// </summary>
     /// <returns></returns>
     public bool IsBeingPlayerControlled() { return _IsBeingPlayerControlled; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Adds a WorldObject to the weighted target list
+    /// </summary>
+    /// <param name="target"></param>
+    public void AddPotentialTarget(WorldObject target) { _PotentialTargets.Add(target); }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Checks if the WorldObject is contained in the weighted 
+    //  target list & removes if it found.
+    /// </summary>
+    /// <param name="target"></param>
+    public void RemovePotentialTarget(WorldObject target) {
+
+        // Look for match
+        for (int i = 0; i < _PotentialTargets.Count; i++) {
+
+            // Match found
+            if (_PotentialTargets[i] == target) {
+
+                _PotentialTargets.Remove(target);
+                break;
+            }
+        }
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
