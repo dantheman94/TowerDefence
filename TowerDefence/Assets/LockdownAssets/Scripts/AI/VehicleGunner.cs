@@ -11,27 +11,22 @@ using UnityEngine;
 //
 //******************************
 
-public class SightCone : MonoBehaviour {
+public class VehicleGunner : MonoBehaviour {
 
     //******************************************************************************************************************************
     //
     //      INSPECTOR
     //
     //******************************************************************************************************************************
-
-    [Space]
-    [Header("-----------------------------------")]
-    [Header(" PROPERTIES")]
-    [Space]
-    public VehicleGunner _VehicleGunnerAI = null;
-
+    
     //******************************************************************************************************************************
     //
     //      VARIABLES
     //
     //******************************************************************************************************************************
 
-    private ConeCollider _ConeCollider = null;
+    private WorldObject _CurrentTarget = null;
+    private Vehicle _VehicleAttached = null;
 
     //******************************************************************************************************************************
     //
@@ -44,35 +39,39 @@ public class SightCone : MonoBehaviour {
     /// <summary>
     // Called when the gameObject is created.
     /// </summary>
-    private void Start() {
+    protected void Start() {
 
         // Get component references
-        _ConeCollider = GetComponent<ConeCollider>();
+        _VehicleAttached = GetComponentInParent<Vehicle>();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    /// 
+    //  Called each frame. 
     /// </summary>
-    /// <param name="other"></param>
-    private void OnTriggerEnter(Collider other) {
+    protected  void Update() {
         
-        // Valid worldObject
-        WorldObject worldObject = other.gameObject.GetComponent<WorldObject>();
-        if (worldObject != null) {
-
-            // Enemy team?
-            if (worldObject.Team != _VehicleGunnerAI.Team) {
-
-                // Add to weighted list
-                _VehicleGunnerAI.GetVehicleAttached().AddPotentialTarget(worldObject);
-            }
-        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="worldObject"></param>
+    public void SetNewTarget(WorldObject worldObject) { _CurrentTarget = worldObject; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <returns>
+    //  Vehicle
+    /// </returns>
+    public Vehicle GetVehicleAttached() { return _VehicleAttached; }
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }

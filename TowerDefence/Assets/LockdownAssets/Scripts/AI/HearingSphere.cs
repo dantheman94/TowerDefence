@@ -11,7 +11,7 @@ using UnityEngine;
 //
 //******************************
 
-public class SightCone : MonoBehaviour {
+public class HearingSphere : MonoBehaviour {
 
     //******************************************************************************************************************************
     //
@@ -23,7 +23,7 @@ public class SightCone : MonoBehaviour {
     [Header("-----------------------------------")]
     [Header(" PROPERTIES")]
     [Space]
-    public VehicleGunner _VehicleGunnerAI = null;
+    public Vehicle _VehicleAttached = null;
 
     //******************************************************************************************************************************
     //
@@ -31,7 +31,7 @@ public class SightCone : MonoBehaviour {
     //
     //******************************************************************************************************************************
 
-    private ConeCollider _ConeCollider = null;
+    private SphereCollider _HearingSphere = null;
 
     //******************************************************************************************************************************
     //
@@ -47,32 +47,30 @@ public class SightCone : MonoBehaviour {
     private void Start() {
 
         // Get component references
-        _ConeCollider = GetComponent<ConeCollider>();
+        _HearingSphere = GetComponent<SphereCollider>();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    /// 
+    //  Called whenever something exits the hearing sphere collider
     /// </summary>
     /// <param name="other"></param>
-    private void OnTriggerEnter(Collider other) {
-        
+    private void OnTriggerExit(Collider other) {
+
         // Valid worldObject
         WorldObject worldObject = other.gameObject.GetComponent<WorldObject>();
         if (worldObject != null) {
 
             // Enemy team?
-            if (worldObject.Team != _VehicleGunnerAI.Team) {
+            if (worldObject.Team != _VehicleAttached.Team) {
 
-                // Add to weighted list
-                _VehicleGunnerAI.GetVehicleAttached().AddPotentialTarget(worldObject);
+                // Remove from weighted list
+                _VehicleAttached.RemovePotentialTarget(worldObject);
             }
         }
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }
