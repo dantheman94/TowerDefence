@@ -49,6 +49,8 @@ public class MatchResults : MonoBehaviour {
     void Start () {
         _IsGameOver = true;
 	}
+
+    /////////////////////////////////////////////////////////////////////
 	
 	// Update is called once per frame
 	void Update () {
@@ -60,6 +62,8 @@ public class MatchResults : MonoBehaviour {
             DisplayEndScreen();
         }
 	}
+
+    /////////////////////////////////////////////////////////////////////
 
     /// <summary>
     /// Displays end screen hud components

@@ -40,16 +40,16 @@ public class PauseMenu : MonoBehaviour {
     //
     //******************************************************************************************************************************
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
 	// Update is called once per frame
 	void Update () {
         DisplayPauseMenu();
 	}
 
+    ////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    /// Activates Pause menu gui and sets timescale to 0.
+    /// </summary>
     void DisplayPauseMenu()
     {
         switch(GameManager.Instance.Players[0]._CurrentController)
@@ -90,6 +90,11 @@ public class PauseMenu : MonoBehaviour {
         }
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    /// Disables pause menu.
+    /// </summary>
     public void Continue()
     {
         if(_IsPaused)
@@ -101,23 +106,43 @@ public class PauseMenu : MonoBehaviour {
         
     }
 
+    /////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    /// Displays settings.
+    /// </summary>
     public void DisplaySettings()
     {
         SettingsMenuObject.SetActive(true);
     }
 
+    //////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    /// Restarts game.
+    /// </summary>
     public void Restart()
     {
         SceneManager.LoadScene(2);
         Time.timeScale = 1;
     }
 
+    /////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    /// Loads menu.
+    /// </summary>
     public void GoBackToMenu()
     {
         SceneManager.LoadScene(0);
         Time.timeScale = 1;
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////
 
+    /// <summary>
+    /// returns pause state.
+    /// </summary>
+    /// <returns></returns>
     public bool IsPaused() { return _IsPaused; }
 }
