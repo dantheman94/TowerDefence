@@ -12,8 +12,7 @@ using UnityEngine.UI;
 //
 //******************************
 
-public class MatchFeed : MonoBehaviour
-{
+public class MatchFeed : MonoBehaviour {
 
     //******************************************************************************************************************************
     //
@@ -45,6 +44,7 @@ public class MatchFeed : MonoBehaviour
 
         public Text _Text;
         public float _TimeOnScreen;
+        public GameObject _GameObject;
     }
 
     private List<MatchFeedObject> _Messages;
@@ -101,7 +101,7 @@ public class MatchFeed : MonoBehaviour
                 // Destroy message object
                 MatchFeedObject feedObject = _Messages[i];
                 _Messages.RemoveAt(i);
-                
+                Destroy(feedObject._GameObject);
             }
         }
     }
@@ -124,15 +124,16 @@ public class MatchFeed : MonoBehaviour
             }
 
             // Create new message instance
+            MatchFeedObject messageObj = new MatchFeedObject();
             GameObject obj = Instantiate(FeedTextStencil);
             Text txt = obj.GetComponent<Text>();
             RectTransform objrect = obj.GetComponent<RectTransform>();
-            MatchFeedObject messageObj = new MatchFeedObject();
 
             // Setup message properties
             txt.text = message.ToUpper();
             messageObj._Text = txt;
             messageObj._TimeOnScreen = MessageOnScreenTime;
+            messageObj._GameObject = obj;
             obj.transform.SetParent(this.gameObject.transform);
             objrect.anchoredPosition = new Vector2(PosX, PosY);
             obj.SetActive(true);

@@ -7,11 +7,11 @@ using UnityEngine;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 6/8/2018
+//  Last edited on: 7/8/2018
 //
 //******************************
 
-public class SightCone : MonoBehaviour {
+public class SightSphere : MonoBehaviour {
 
     //******************************************************************************************************************************
     //
@@ -27,28 +27,9 @@ public class SightCone : MonoBehaviour {
 
     //******************************************************************************************************************************
     //
-    //      VARIABLES
-    //
-    //******************************************************************************************************************************
-
-    private ConeCollider _ConeCollider = null;
-
-    //******************************************************************************************************************************
-    //
     //      FUNCTIONS
     //
     //******************************************************************************************************************************
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    // Called when the gameObject is created.
-    /// </summary>
-    private void Start() {
-
-        // Get component references
-        _ConeCollider = GetComponent<ConeCollider>();
-    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -57,7 +38,7 @@ public class SightCone : MonoBehaviour {
     /// </summary>
     /// <param name="other"></param>
     private void OnTriggerEnter(Collider other) {
-        
+
         // Valid worldObject
         WorldObject worldObject = other.gameObject.GetComponent<WorldObject>();
         if (worldObject != null) {
@@ -68,9 +49,9 @@ public class SightCone : MonoBehaviour {
                 // Add to weighted list
                 _VehicleGunnerAI.GetVehicleAttached().AddPotentialTarget(worldObject);
             }
-        } 
+        }
     }
-    
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }

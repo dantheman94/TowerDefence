@@ -29,9 +29,6 @@ public class Unit : Ai {
             "\n\nNOTE: ONLY APPLIES TO GROUND INFANTRY, VEHICLES DO NOT USE THIS VALUE.")]
     public float InfantryMovementSpeed = 10f;
     public bool CanBePlayerControlled = false;
-    [Tooltip("When this unit is killed, the speed in which it shrinks down until it is no longer visible " +
-            "before being sent back to the object pool.")]
-    public float ShrinkSpeed = 0.2f;
     
     [Space]
     [Header("-----------------------------------")]
@@ -61,7 +58,6 @@ public class Unit : Ai {
     protected bool _IsAttacking = false;
     protected float _DistanceToTarget = 0f;
     protected bool _IsBeingPlayerControlled = false;
-    protected bool _StartShrinking = false;
 
     //******************************************************************************************************************************
     //
@@ -199,7 +195,7 @@ public class Unit : Ai {
         else { _IsBeingPlayerControlled = false; }
 
         // Update player controller movement
-        if (_IsBeingPlayerControlled) {
+        if (_IsBeingPlayerControlled && IsAlive()) {
 
             _IsCurrentlySelected = true;
             _Agent.enabled = false;
@@ -207,7 +203,7 @@ public class Unit : Ai {
         }
 
         // Is the unit currently AI controlled?
-        if (!_IsBeingPlayerControlled && _Agent.enabled) {
+        if (!_IsBeingPlayerControlled && _Agent.enabled && IsAlive()) {
 
             // Update agent seeking status
             _IsSeeking = _Agent.remainingDistance > 20f;
@@ -253,35 +249,16 @@ public class Unit : Ai {
                 // Attack target is now dead
                 else {
 
-                    // GET NEW ATTACK TARGET
+                    // Get new attack target if possible
                     DetermineWeightedTargetFromList();
                 }
             }
-            else { _IsAttacking = false; }
-        }
+            else {
 
-        // Gradually shrink the character then despawn it once its dead
-        UpdateDeathShrinker();
-    }
-    
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  Called every frame. Scales down the unit's transform if its dead &
-    //  Despawn when finished.
-    /// </summary>
-    private void UpdateDeathShrinker() {
-
-        // Check if the unit should be shrinking
-        if (_StartShrinking && !IsAlive()) {
-            
-            // Get in the cold ass water
-            transform.localScale -= Vector3.one * ShrinkSpeed * Time.deltaTime;
-            if (transform.localScale.x < 0.1f) {
-
-                // MAXIMUM shrinkage
-                _StartShrinking = false;
-                ObjectPooling.Despawn(gameObject);
+                _IsAttacking = false;
+                
+                // Get new attack target if possible
+                DetermineWeightedTargetFromList();
             }
         }
     }
@@ -341,7 +318,8 @@ public class Unit : Ai {
     public override void OnDeath() {
         base.OnDeath();
 
-        _StartShrinking = true;
+        // Play ragdoll stuff here
+        _Agent.enabled = false;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -585,7 +563,23 @@ public class Unit : Ai {
     //  Adds a WorldObject to the weighted target list
     /// </summary>
     /// <param name="target"></param>
-    public void AddPotentialTarget(WorldObject target) { _PotentialTargets.Add(target); }
+    public void AddPotentialTarget(WorldObject target) {
+
+        // Look for match
+        bool match = false;
+        for (int i = 0; i < _PotentialTargets.Count; i++) {
+
+            // Match found
+            if (_PotentialTargets[i] == target) {
+
+                match = true;
+                break;
+            }
+        }
+
+        // Add to list if no matching target was found
+        if (!match) { _PotentialTargets.Add(target); }
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

@@ -339,6 +339,11 @@ Prefab:
       propertyPath: DownwardsAvoidanceRange
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 114515141220818086, guid: 19f8332b5119bd04baf0d7fef3d90609,
+        type: 2}
+      propertyPath: ShrinkSpeed
+      value: 0.3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 19f8332b5119bd04baf0d7fef3d90609, type: 2}
   m_IsPrefabParent: 0
@@ -515,6 +520,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 3
   CostSupplies: 0
   CostPower: 0
@@ -536,6 +542,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 0
   _WidgetShieldbarOffset: 0
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 1
   AttachedBase: {fileID: 0}
   LinkedSlots: []
@@ -1171,6 +1178,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 3
   CostSupplies: 0
   CostPower: 0
@@ -1192,6 +1200,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 0
   _WidgetShieldbarOffset: 0
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 1
   AttachedBase: {fileID: 1473383118}
   LinkedSlots: []
@@ -1223,6 +1232,12 @@ Transform:
   m_PrefabParentObject: {fileID: 4526429216962806, guid: b82553ad6d1ad044f979c7b11d141394,
     type: 2}
   m_PrefabInternal: {fileID: 1351370463}
+--- !u!114 &50185411 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114111713111011338, guid: b82553ad6d1ad044f979c7b11d141394,
+    type: 2}
+  m_PrefabInternal: {fileID: 1351370463}
+  m_Script: {fileID: 11500000, guid: 2f586be90bd3d6843a53f71c9c90f80a, type: 3}
 --- !u!1 &50617024
 GameObject:
   m_ObjectHideFlags: 0
@@ -3223,6 +3238,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -3244,6 +3260,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   UpgradeProperties: []
   UpgradeEvents: []
 --- !u!1 &111078226 stripped
@@ -3263,6 +3280,12 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.0000002, y: 1, z: 1.0000002}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &111078230 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114153781662495510, guid: c4ec395ea5e97aa4a88bc42c32cbad1d,
+    type: 2}
+  m_PrefabInternal: {fileID: 557025897}
+  m_Script: {fileID: 11500000, guid: 2f586be90bd3d6843a53f71c9c90f80a, type: 3}
 --- !u!4 &111078233 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4175979071291170, guid: c4ec395ea5e97aa4a88bc42c32cbad1d,
@@ -4643,6 +4666,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 3
   CostSupplies: 0
   CostPower: 0
@@ -4664,6 +4688,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 0
   _WidgetShieldbarOffset: 0
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 1
   AttachedBase: {fileID: 0}
   LinkedSlots: []
@@ -6822,6 +6847,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -6843,6 +6869,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   UpgradeProperties: []
   UpgradeEvents: []
 --- !u!1 &260880696
@@ -6970,7 +6997,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 100
+      scalar: 200
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -10523,6 +10550,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -10544,6 +10572,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   UpgradeProperties: []
   UpgradeEvents: []
 --- !u!1 &272407019
@@ -11949,6 +11978,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -11970,6 +12000,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   UpgradeProperties:
   - {fileID: 982163920}
   - {fileID: 1194770686}
@@ -13034,6 +13065,75 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 344208284}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &351125759
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1470912319}
+    m_Modifications:
+    - target: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -219
+      objectReference: {fileID: 0}
+    - target: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 14.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07, type: 2}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 114585045816634058, guid: b11835252146f2b44a6b262103f36a07,
+        type: 2}
+      propertyPath: PrimaryWeapon
+      value: 
+      objectReference: {fileID: 1246252736}
+    - target: {fileID: 1500859508108806, guid: b11835252146f2b44a6b262103f36a07, type: 2}
+      propertyPath: m_Name
+      value: pfb_CoreVehicle (3) - attacking (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1486696769751106, guid: b11835252146f2b44a6b262103f36a07, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1500859508108806, guid: b11835252146f2b44a6b262103f36a07, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114585045816634058, guid: b11835252146f2b44a6b262103f36a07,
+        type: 2}
+      propertyPath: Team
+      value: 2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: b11835252146f2b44a6b262103f36a07, type: 2}
+  m_IsPrefabParent: 0
+--- !u!4 &351125760 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07,
+    type: 2}
+  m_PrefabInternal: {fileID: 351125759}
 --- !u!1 &353768587
 GameObject:
   m_ObjectHideFlags: 0
@@ -13774,6 +13874,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 3
   CostSupplies: 0
   CostPower: 0
@@ -13795,6 +13896,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 0
   _WidgetShieldbarOffset: 0
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 1
   AttachedBase: {fileID: 0}
   LinkedSlots: []
@@ -13930,7 +14032,7 @@ RectTransform:
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114585045816634058, guid: b11835252146f2b44a6b262103f36a07,
     type: 2}
-  m_PrefabInternal: {fileID: 1536155444}
+  m_PrefabInternal: {fileID: 1287363709}
   m_Script: {fileID: 11500000, guid: 1053666b9bd16cb4ebad8eaf327bdedb, type: 3}
 --- !u!1 &383629188
 GameObject:
@@ -14003,11 +14105,11 @@ MonoBehaviour:
   _MaxDistance: 300
   _AffectedByGravity: 0
   _GravityStrength: 1
-  DamageDefault: 1
+  DamageDefault: 2
   DamageCoreInfantry: 1
   DamageAntiInfantryMarine: 1
   DamageHero: 1
-  DamageCoreVehicle: 1
+  DamageCoreVehicle: 2
   DamageAntiAirVehicle: 1
   DamageMobileArtillery: 1
   DamageBattleTank: 1
@@ -14271,6 +14373,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 628801026}
   ActiveState: {fileID: 53781883}
+  DestroyedState: {fileID: 0}
   BuildTime: 5
   CostSupplies: 200
   CostPower: 0
@@ -14292,6 +14395,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
   ShowBuildingQueueUI: 1
+  ShrinkSpeed: 0.2
   AttachedBuildingSlot: {fileID: 0}
   ObjectHeight: 15
   Selectables:
@@ -15316,6 +15420,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -15337,6 +15442,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   UpgradeProperties: []
   UpgradeEvents: []
 --- !u!1 &447627526
@@ -15548,6 +15654,16 @@ Prefab:
       propertyPath: _ObjectState
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 114111713111011338, guid: b82553ad6d1ad044f979c7b11d141394,
+        type: 2}
+      propertyPath: OnlyAppearWhenAttachedToBase
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114111713111011338, guid: b82553ad6d1ad044f979c7b11d141394,
+        type: 2}
+      propertyPath: AttachedBase
+      value: 
+      objectReference: {fileID: 1473383118}
     m_RemovedComponents:
     - {fileID: 0}
     - {fileID: 0}
@@ -15582,6 +15698,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 3
   CostSupplies: 0
   CostPower: 0
@@ -15603,6 +15720,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 0
   _WidgetShieldbarOffset: 0
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 1
   AttachedBase: {fileID: 1473383118}
   LinkedSlots: []
@@ -15815,6 +15933,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 3
   CostSupplies: 0
   CostPower: 0
@@ -15836,6 +15955,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 0
   _WidgetShieldbarOffset: 0
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 0
   AttachedBase: {fileID: 0}
   LinkedSlots: []
@@ -17000,6 +17120,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -17021,6 +17142,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   UpgradeProperties: []
   UpgradeEvents: []
 --- !u!1 &502104227
@@ -17716,6 +17838,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 3
   CostSupplies: 0
   CostPower: 0
@@ -17737,6 +17860,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 0
   _WidgetShieldbarOffset: 0
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 1
   AttachedBase: {fileID: 0}
   LinkedSlots: []
@@ -18867,6 +18991,75 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!1001 &546811626
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1470912319}
+    m_Modifications:
+    - target: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -167.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 14.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07, type: 2}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 114585045816634058, guid: b11835252146f2b44a6b262103f36a07,
+        type: 2}
+      propertyPath: PrimaryWeapon
+      value: 
+      objectReference: {fileID: 1246252736}
+    - target: {fileID: 1500859508108806, guid: b11835252146f2b44a6b262103f36a07, type: 2}
+      propertyPath: m_Name
+      value: pfb_CoreVehicle (1) - attacking (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1486696769751106, guid: b11835252146f2b44a6b262103f36a07, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1500859508108806, guid: b11835252146f2b44a6b262103f36a07, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114585045816634058, guid: b11835252146f2b44a6b262103f36a07,
+        type: 2}
+      propertyPath: Team
+      value: 2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: b11835252146f2b44a6b262103f36a07, type: 2}
+  m_IsPrefabParent: 0
+--- !u!4 &546811627 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07,
+    type: 2}
+  m_PrefabInternal: {fileID: 546811626}
 --- !u!1 &547568506
 GameObject:
   m_ObjectHideFlags: 0
@@ -20469,6 +20662,16 @@ Prefab:
       propertyPath: _ObjectState
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 114111713111011338, guid: b82553ad6d1ad044f979c7b11d141394,
+        type: 2}
+      propertyPath: OnlyAppearWhenAttachedToBase
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114111713111011338, guid: b82553ad6d1ad044f979c7b11d141394,
+        type: 2}
+      propertyPath: AttachedBase
+      value: 
+      objectReference: {fileID: 1473383118}
     m_RemovedComponents:
     - {fileID: 0}
     - {fileID: 0}
@@ -20503,6 +20706,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 3
   CostSupplies: 0
   CostPower: 0
@@ -20524,6 +20728,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 0
   _WidgetShieldbarOffset: 0
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 1
   AttachedBase: {fileID: 1473383118}
   LinkedSlots: []
@@ -21407,7 +21612,7 @@ Transform:
 Transform:
   m_PrefabParentObject: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07,
     type: 2}
-  m_PrefabInternal: {fileID: 1536155444}
+  m_PrefabInternal: {fileID: 1287363709}
 --- !u!1001 &636278026
 Prefab:
   m_ObjectHideFlags: 0
@@ -22462,6 +22667,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 3
   CostSupplies: 0
   CostPower: 0
@@ -22483,6 +22689,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 0
   _WidgetShieldbarOffset: 0
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 1
   AttachedBase: {fileID: 0}
   LinkedSlots: []
@@ -23412,6 +23619,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 5
   CostSupplies: 130
   CostPower: 0
@@ -23433,6 +23641,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
   ShowBuildingQueueUI: 1
+  ShrinkSpeed: 0.2
   SquadMaxSize: 3
   SquadUnit: {fileID: 220516556}
   FlockingRadius: 10
@@ -28484,11 +28693,6 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 606180902}
   m_Script: {fileID: 11500000, guid: 65749ca3a808d314fbad0518c7da0c4e, type: 3}
---- !u!4 &903950240 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07,
-    type: 2}
-  m_PrefabInternal: {fileID: 1662482107}
 --- !u!1001 &905263425
 Prefab:
   m_ObjectHideFlags: 0
@@ -28496,6 +28700,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 1245013532}
     m_Modifications:
+    - target: {fileID: 114701711299698714, guid: 9e973085ff997a74ca29946b2fafa0f0,
+        type: 2}
+      propertyPath: LinkedSlots.Array.size
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4900670411933588, guid: 9e973085ff997a74ca29946b2fafa0f0, type: 2}
       propertyPath: m_LocalPosition.x
       value: -7.4000015
@@ -28567,6 +28776,31 @@ Prefab:
       propertyPath: _ObjectState
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 114701711299698714, guid: 9e973085ff997a74ca29946b2fafa0f0,
+        type: 2}
+      propertyPath: LinkedSlots.Array.data[3]
+      value: 
+      objectReference: {fileID: 111078230}
+    - target: {fileID: 114701711299698714, guid: 9e973085ff997a74ca29946b2fafa0f0,
+        type: 2}
+      propertyPath: LinkedSlots.Array.data[4]
+      value: 
+      objectReference: {fileID: 1947846900}
+    - target: {fileID: 114701711299698714, guid: 9e973085ff997a74ca29946b2fafa0f0,
+        type: 2}
+      propertyPath: LinkedSlots.Array.data[5]
+      value: 
+      objectReference: {fileID: 50185411}
+    - target: {fileID: 114701711299698714, guid: 9e973085ff997a74ca29946b2fafa0f0,
+        type: 2}
+      propertyPath: LinkedSlots.Array.data[6]
+      value: 
+      objectReference: {fileID: 1947846900}
+    - target: {fileID: 114701711299698714, guid: 9e973085ff997a74ca29946b2fafa0f0,
+        type: 2}
+      propertyPath: LinkedSlots.Array.data[7]
+      value: 
+      objectReference: {fileID: 50185411}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9e973085ff997a74ca29946b2fafa0f0, type: 2}
   m_IsPrefabParent: 0
@@ -28755,6 +28989,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -28776,6 +29011,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 0
   _WidgetShieldbarOffset: 0
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
 --- !u!4 &919222488
 Transform:
   m_ObjectHideFlags: 0
@@ -30102,6 +30338,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 3
   CostSupplies: 0
   CostPower: 0
@@ -30123,6 +30360,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 0
   _WidgetShieldbarOffset: 0
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 1
   AttachedBase: {fileID: 0}
   LinkedSlots: []
@@ -30409,6 +30647,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -30430,6 +30669,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 0
   _WidgetShieldbarOffset: 0
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
 --- !u!1001 &1000166899
 Prefab:
   m_ObjectHideFlags: 0
@@ -30653,6 +30893,11 @@ Prefab:
         type: 2}
       propertyPath: DownwardsAvoidanceRange
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 114036110279440992, guid: ddc75dcadc85db640b601008ffb388bd,
+        type: 2}
+      propertyPath: ShrinkSpeed
+      value: 0.3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ddc75dcadc85db640b601008ffb388bd, type: 2}
@@ -33867,6 +34112,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 832141905}
+  DestroyedState: {fileID: 0}
   BuildTime: 10
   CostSupplies: 0
   CostPower: 0
@@ -33888,6 +34134,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
   ShowBuildingQueueUI: 1
+  ShrinkSpeed: 0.2
   AttachedBuildingSlot: {fileID: 0}
   ObjectHeight: 15
   Selectables:
@@ -34301,6 +34548,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 3
   CostSupplies: 0
   CostPower: 0
@@ -34322,6 +34570,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 0
   _WidgetShieldbarOffset: 0
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 1
   AttachedBase: {fileID: 0}
   LinkedSlots: []
@@ -37607,6 +37856,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -37628,6 +37878,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   UpgradeProperties: []
   UpgradeEvents: []
 --- !u!1 &1229164321
@@ -38337,21 +38588,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FiringDelay: 0.1
-  HitScanProjectile: 0
+  HitScanProjectile: 1
   RaycastDamages:
-    DamageDefault: 0
-    DamageCoreInfantry: 0
-    DamageAntiInfantryMarine: 0
-    DamageHero: 0
-    DamageCoreVehicle: 0
-    DamageAntiAirVehicle: 0
-    DamageMobileArtillery: 0
-    DamageBattleTank: 0
-    DamageCoreAirship: 0
-    DamageSupportShip: 0
-    DamageHeavyAirship: 0
+    DamageDefault: 4
+    DamageCoreInfantry: 4
+    DamageAntiInfantryMarine: 4
+    DamageHero: 4
+    DamageCoreVehicle: 4
+    DamageAntiAirVehicle: 4
+    DamageMobileArtillery: 4
+    DamageBattleTank: 4
+    DamageCoreAirship: 2
+    DamageSupportShip: 2
+    DamageHeavyAirship: 2
   ProjectileClass: {fileID: 384069047}
-  FiringEffect: {fileID: 0}
+  FiringEffect: {fileID: 260880697}
   FiringType: 0
   BottomlessClip: 0
   MagazineSize: 20
@@ -38393,55 +38644,23 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07, type: 2}
       propertyPath: m_RootOrder
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 114511711289293268, guid: b11835252146f2b44a6b262103f36a07,
-        type: 2}
-      propertyPath: PrimaryWeapon
-      value: 
-      objectReference: {fileID: 1246252736}
-    - target: {fileID: 114585045816634058, guid: b11835252146f2b44a6b262103f36a07,
-        type: 2}
-      propertyPath: PrimaryWeapon
-      value: 
-      objectReference: {fileID: 1246252736}
-    - target: {fileID: 1500859508108806, guid: b11835252146f2b44a6b262103f36a07, type: 2}
-      propertyPath: m_TagString
-      value: Unit
-      objectReference: {fileID: 0}
-    - target: {fileID: 1500859508108806, guid: b11835252146f2b44a6b262103f36a07, type: 2}
-      propertyPath: m_Name
-      value: pfb_CoreVehicle (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1500859508108806, guid: b11835252146f2b44a6b262103f36a07, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1486696769751106, guid: b11835252146f2b44a6b262103f36a07, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114585045816634058, guid: b11835252146f2b44a6b262103f36a07,
-        type: 2}
-      propertyPath: UnitType
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114585045816634058, guid: b11835252146f2b44a6b262103f36a07,
-        type: 2}
-      propertyPath: _ObjectState
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114585045816634058, guid: b11835252146f2b44a6b262103f36a07,
-        type: 2}
-      propertyPath: Team
-      value: 1
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 114585045816634058, guid: b11835252146f2b44a6b262103f36a07,
         type: 2}
       propertyPath: _Player
       value: 
       objectReference: {fileID: 1211238011}
-    - target: {fileID: 1895712416796264, guid: b11835252146f2b44a6b262103f36a07, type: 2}
+    - target: {fileID: 114585045816634058, guid: b11835252146f2b44a6b262103f36a07,
+        type: 2}
+      propertyPath: PrimaryWeapon
+      value: 
+      objectReference: {fileID: 1246252736}
+    - target: {fileID: 1500859508108806, guid: b11835252146f2b44a6b262103f36a07, type: 2}
+      propertyPath: m_Name
+      value: pfb_CoreVehicle (1) - defending
+      objectReference: {fileID: 0}
+    - target: {fileID: 1500859508108806, guid: b11835252146f2b44a6b262103f36a07, type: 2}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -39017,6 +39236,58 @@ Transform:
   m_Father: {fileID: 17380303}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1287363709
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 957217410}
+    m_Modifications:
+    - target: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -39.897423
+      objectReference: {fileID: 0}
+    - target: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -171.09242
+      objectReference: {fileID: 0}
+    - target: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07, type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114585045816634058, guid: b11835252146f2b44a6b262103f36a07,
+        type: 2}
+      propertyPath: PrimaryWeapon
+      value: 
+      objectReference: {fileID: 1246252736}
+    - target: {fileID: 114585045816634058, guid: b11835252146f2b44a6b262103f36a07,
+        type: 2}
+      propertyPath: Team
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: b11835252146f2b44a6b262103f36a07, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1001 &1287729279
 Prefab:
   m_ObjectHideFlags: 0
@@ -40183,6 +40454,16 @@ Prefab:
       propertyPath: _ObjectState
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 114111713111011338, guid: b82553ad6d1ad044f979c7b11d141394,
+        type: 2}
+      propertyPath: OnlyAppearWhenAttachedToBase
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114111713111011338, guid: b82553ad6d1ad044f979c7b11d141394,
+        type: 2}
+      propertyPath: AttachedBase
+      value: 
+      objectReference: {fileID: 1473383118}
     m_RemovedComponents:
     - {fileID: 0}
     - {fileID: 0}
@@ -40808,6 +41089,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -40829,6 +41111,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   UpgradeProperties: []
   UpgradeEvents: []
 --- !u!1 &1369343692
@@ -41720,6 +42003,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -41741,6 +42025,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   UpgradeProperties:
   - {fileID: 811841078}
   - {fileID: 1795348590}
@@ -43767,8 +44052,10 @@ Transform:
   - {fileID: 633637587}
   - {fileID: 654060332}
   - {fileID: 147077446}
-  - {fileID: 903950240}
   - {fileID: 1248021896}
+  - {fileID: 546811627}
+  - {fileID: 1823698529}
+  - {fileID: 351125760}
   m_Father: {fileID: 0}
   m_RootOrder: 45
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -45637,7 +45924,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f24bbf81aea765549a797e3e95ee482d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FiringDelay: 6
+  FiringDelay: 1
   HitScanProjectile: 0
   RaycastDamages:
     DamageDefault: 0
@@ -45654,7 +45941,7 @@ MonoBehaviour:
   ProjectileClass: {fileID: 1579576281}
   FiringEffect: {fileID: 0}
   FiringType: 0
-  BottomlessClip: 1
+  BottomlessClip: 0
   MagazineSize: 1
   ReloadTime: 5
 --- !u!4 &1533206634
@@ -45670,58 +45957,6 @@ Transform:
   m_Father: {fileID: 1527989317}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1536155444
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 957217410}
-    m_Modifications:
-    - target: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -39.897423
-      objectReference: {fileID: 0}
-    - target: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -171.09242
-      objectReference: {fileID: 0}
-    - target: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07, type: 2}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114585045816634058, guid: b11835252146f2b44a6b262103f36a07,
-        type: 2}
-      propertyPath: PrimaryWeapon
-      value: 
-      objectReference: {fileID: 1246252736}
-    - target: {fileID: 114585045816634058, guid: b11835252146f2b44a6b262103f36a07,
-        type: 2}
-      propertyPath: ShrinkSpeed
-      value: 0.3
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: b11835252146f2b44a6b262103f36a07, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &1537662731
 GameObject:
   m_ObjectHideFlags: 0
@@ -46114,6 +46349,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 3
   CostSupplies: 0
   CostPower: 0
@@ -46135,6 +46371,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 0
   _WidgetShieldbarOffset: 0
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 1
   AttachedBase: {fileID: 0}
   LinkedSlots: []
@@ -49074,6 +49311,11 @@ Prefab:
       propertyPath: m_Name
       value: pfb_CoreAirShip
       objectReference: {fileID: 0}
+    - target: {fileID: 114909369810655446, guid: 262ff50694620f74badea248fc5e28e4,
+        type: 2}
+      propertyPath: ShrinkSpeed
+      value: 0.3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 262ff50694620f74badea248fc5e28e4, type: 2}
   m_IsPrefabParent: 0
@@ -50237,65 +50479,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 42461c652808b6247aef1b6436b3b522, type: 2}
   m_IsPrefabParent: 0
---- !u!1001 &1662482107
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1470912319}
-    m_Modifications:
-    - target: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -193.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 14.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07, type: 2}
-      propertyPath: m_RootOrder
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 114585045816634058, guid: b11835252146f2b44a6b262103f36a07,
-        type: 2}
-      propertyPath: PrimaryWeapon
-      value: 
-      objectReference: {fileID: 1246252736}
-    - target: {fileID: 1500859508108806, guid: b11835252146f2b44a6b262103f36a07, type: 2}
-      propertyPath: m_Name
-      value: pfb_CoreVehicle (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1500859508108806, guid: b11835252146f2b44a6b262103f36a07, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1486696769751106, guid: b11835252146f2b44a6b262103f36a07, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: b11835252146f2b44a6b262103f36a07, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1001 &1662882691
 Prefab:
   m_ObjectHideFlags: 0
@@ -50953,6 +51136,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -50974,6 +51158,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   UpgradeProperties:
   - {fileID: 1674627543}
   - {fileID: 776618942}
@@ -52035,6 +52220,16 @@ Prefab:
       propertyPath: _ObjectState
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 114111713111011338, guid: b82553ad6d1ad044f979c7b11d141394,
+        type: 2}
+      propertyPath: OnlyAppearWhenAttachedToBase
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114111713111011338, guid: b82553ad6d1ad044f979c7b11d141394,
+        type: 2}
+      propertyPath: AttachedBase
+      value: 
+      objectReference: {fileID: 1473383118}
     m_RemovedComponents:
     - {fileID: 0}
     - {fileID: 0}
@@ -52101,6 +52296,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -52122,6 +52318,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   UpgradeProperties: []
   UpgradeEvents: []
 --- !u!224 &1735921226
@@ -52423,6 +52620,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 3
   CostSupplies: 0
   CostPower: 0
@@ -52444,6 +52642,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 0
   _WidgetShieldbarOffset: 0
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 1
   AttachedBase: {fileID: 0}
   LinkedSlots: []
@@ -54428,6 +54627,75 @@ MonoBehaviour:
   UnitName: {fileID: 542070621}
   AmountCounter: {fileID: 182550900}
   AbilityText: {fileID: 330540127}
+--- !u!1001 &1823698528
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1470912319}
+    m_Modifications:
+    - target: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -193.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 14.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07, type: 2}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114585045816634058, guid: b11835252146f2b44a6b262103f36a07,
+        type: 2}
+      propertyPath: PrimaryWeapon
+      value: 
+      objectReference: {fileID: 1246252736}
+    - target: {fileID: 1500859508108806, guid: b11835252146f2b44a6b262103f36a07, type: 2}
+      propertyPath: m_Name
+      value: pfb_CoreVehicle (2) - attacking (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1486696769751106, guid: b11835252146f2b44a6b262103f36a07, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1500859508108806, guid: b11835252146f2b44a6b262103f36a07, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114585045816634058, guid: b11835252146f2b44a6b262103f36a07,
+        type: 2}
+      propertyPath: Team
+      value: 2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: b11835252146f2b44a6b262103f36a07, type: 2}
+  m_IsPrefabParent: 0
+--- !u!4 &1823698529 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4841273683524894, guid: b11835252146f2b44a6b262103f36a07,
+    type: 2}
+  m_PrefabInternal: {fileID: 1823698528}
 --- !u!1 &1824169289
 GameObject:
   m_ObjectHideFlags: 0
@@ -55543,6 +55811,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 5
   CostSupplies: 130
   CostPower: 0
@@ -55564,6 +55833,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
   ShowBuildingQueueUI: 1
+  ShrinkSpeed: 0.2
   SquadMaxSize: 2
   SquadUnit: {fileID: 1251593855}
   FlockingRadius: 10
@@ -56747,6 +57017,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -56768,6 +57039,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   UpgradeProperties: []
   UpgradeEvents: []
 --- !u!1001 &1932283193
@@ -56935,6 +57207,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 3
   CostSupplies: 0
   CostPower: 0
@@ -56956,6 +57229,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 0
   _WidgetShieldbarOffset: 0
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 1
   AttachedBase: {fileID: 0}
   LinkedSlots: []
@@ -57251,6 +57525,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 3
   CostSupplies: 0
   CostPower: 0
@@ -57272,6 +57547,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 0
   _WidgetShieldbarOffset: 0
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 1
   AttachedBase: {fileID: 1473383118}
   LinkedSlots: []
@@ -57303,6 +57579,12 @@ Transform:
   m_PrefabParentObject: {fileID: 4526429216962806, guid: b82553ad6d1ad044f979c7b11d141394,
     type: 2}
   m_PrefabInternal: {fileID: 1728180313}
+--- !u!114 &1947846900 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114111713111011338, guid: b82553ad6d1ad044f979c7b11d141394,
+    type: 2}
+  m_PrefabInternal: {fileID: 1728180313}
+  m_Script: {fileID: 11500000, guid: 2f586be90bd3d6843a53f71c9c90f80a, type: 3}
 --- !u!1 &1948167000
 GameObject:
   m_ObjectHideFlags: 0
@@ -57985,6 +58267,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -58006,6 +58289,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   UpgradeProperties: []
   UpgradeEvents: []
 --- !u!1 &1980468190
@@ -58859,6 +59143,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 3
   CostSupplies: 0
   CostPower: 0
@@ -58880,6 +59165,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 0
   _WidgetShieldbarOffset: 0
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 1
   AttachedBase: {fileID: 0}
   LinkedSlots: []
@@ -60029,6 +60315,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -60050,6 +60337,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   UpgradeProperties: []
   UpgradeEvents: []
 --- !u!1 &2057742741
