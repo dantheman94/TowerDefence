@@ -28,6 +28,8 @@ public class WorldObject : Selectable {
     public GameObject BuildingState;
     [Tooltip("Reference to the gameobject that represents this object when its in its 'active' state.")]
     public GameObject ActiveState;
+    [Tooltip("Reference to the gameobject that represents this object when its in its 'destroyed' state.")]
+    public GameObject DestroyedState;
     [Space]
     [Header("-----------------------------------")]
     [Header(" WORLD OBJECT PROPERTIES")]
@@ -84,6 +86,10 @@ public class WorldObject : Selectable {
     public float _WidgetShieldbarOffset = 22f;
     [Space]
     public bool ShowBuildingQueueUI;
+    [Space]
+    [Tooltip("When this unit is killed, the speed in which it shrinks down until it is no longer visible " +
+            "before being sent back to the object pool.")]
+    public float ShrinkSpeed = 0.2f;
 
     //******************************************************************************************************************************
     //
@@ -91,7 +97,7 @@ public class WorldObject : Selectable {
     //
     //******************************************************************************************************************************
 
-    public enum WorldObjectStates { Default, Building, Deployable, Active, ENUM_COUNT }
+    public enum WorldObjectStates { Default, Building, Deployable, Active, Destroyed, ENUM_COUNT }
 
     protected bool _ReadyForDeployment = false;
     protected float _CurrentBuildTime = 0f;
@@ -104,6 +110,7 @@ public class WorldObject : Selectable {
     protected float _HitPoints;
     protected int _ShieldPoints;
     protected float _Shield;
+    protected bool _StartShrinking = false;
 
     //******************************************************************************************************************************
     //
@@ -139,46 +146,56 @@ public class WorldObject : Selectable {
 
             case WorldObjectStates.Default: {
 
-                    // Hide meshes
-                    if (BuildingState) { BuildingState.SetActive(false); }
-                    if (ActiveState) { ActiveState.SetActive(false); }
-                    break;
-                }
+                // Hide meshes
+                if (BuildingState) { BuildingState.SetActive(false); }
+                if (ActiveState) { ActiveState.SetActive(false); }
+                if (DestroyedState) { DestroyedState.SetActive(false); }
+                break;
+            }
 
             case WorldObjectStates.Building: {
 
-                    // Is unit building complete?
-                    _ReadyForDeployment = _CurrentBuildTime >= BuildTime;
-                    if (!_ReadyForDeployment) {
+                // Is unit building complete?
+                _ReadyForDeployment = _CurrentBuildTime >= BuildTime;
+                if (!_ReadyForDeployment) {
 
-                        // Add to building timer
-                        if (_CurrentBuildTime < BuildTime) { _CurrentBuildTime += Time.deltaTime; }
-                    } else {
+                    // Add to building timer
+                    if (_CurrentBuildTime < BuildTime) { _CurrentBuildTime += Time.deltaTime; }
+                } else {
 
-                        // Object has finished building
-                        OnBuilt();
-                        _ObjectState = WorldObjectStates.Deployable;
-                    }
-
-                    // Show building state object
-                    if (BuildingState) { BuildingState.SetActive(true); }
-                    if (ActiveState) { ActiveState.SetActive(false); }
-                    break;
+                    // Object has finished building
+                    OnBuilt();
+                    _ObjectState = WorldObjectStates.Deployable;
                 }
 
-            case WorldObjectStates.Deployable: {
+                // Show building state object
+                if (BuildingState) { BuildingState.SetActive(true); }
+                if (ActiveState) { ActiveState.SetActive(false); }
+                if (DestroyedState) { DestroyedState.SetActive(false); }
+                break;
+            }
 
-                    break;
-                }
+            case WorldObjectStates.Deployable: { break; }
 
             case WorldObjectStates.Active: {
 
-                    // Show active state object
-                    if (BuildingState) { BuildingState.SetActive(false); }
-                    if (ActiveState) { ActiveState.SetActive(true); }
-                    break;
-                }
+                // Show active state object
+                if (BuildingState) { BuildingState.SetActive(false); }
+                if (ActiveState) { ActiveState.SetActive(true); }
+                if (DestroyedState) { DestroyedState.SetActive(false); }
+                break;
+            }
 
+            case WorldObjectStates.Destroyed: {
+
+
+                // Show destroyed state object
+                if (BuildingState) { BuildingState.SetActive(false); }
+                if (ActiveState) { ActiveState.SetActive(false); }
+                if (DestroyedState) { DestroyedState.SetActive(true); }
+                break;
+            }
+                                
             default: break;
         }
 
@@ -191,7 +208,8 @@ public class WorldObject : Selectable {
         }
 
         // Update health to be a normalized range of the object's hitpoints
-        if (_HitPoints > 0) { _Health = _HitPoints / MaxHitPoints; } else {
+        if (_HitPoints > 0) { _Health = _HitPoints / MaxHitPoints; }
+        else {
 
             // Clamping health
             _HitPoints = 0;
@@ -200,7 +218,38 @@ public class WorldObject : Selectable {
             if (_ObjectState != WorldObjectStates.Default) {
 
                 // Kill the object
-                OnDeath();
+                ///OnDeath();
+            }
+        }
+        
+        // Gradually shrink the character then despawn it once its dead
+        UpdateDeathShrinker();
+    }
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Called every frame. Scales down the unit's transform if its dead &
+    //  Despawn when finished.
+    /// </summary>
+    private void UpdateDeathShrinker() {
+        
+        // Check if the unit should be shrinking
+        if (_StartShrinking && !IsAlive()) {
+
+            // Get in the cold ass water
+            transform.localScale -= Vector3.one * ShrinkSpeed * Time.deltaTime;
+            if (transform.localScale.x < 0.01f) {
+
+                // MAXIMUM shrinkage
+                _StartShrinking = false;
+
+                // This is so that the next time the object is spawned - it is at its default state already
+                _ObjectState = WorldObjectStates.Default;
+
+                // Despawn the object
+                transform.localScale = new Vector3(1f, 1f, 1f);
+                ObjectPooling.Despawn(gameObject);
             }
         }
     }
@@ -345,34 +394,34 @@ public class WorldObject : Selectable {
     /// </summary>
     public virtual void OnDeath() {
 
+        // Set object state
+        _ObjectState = WorldObjectStates.Destroyed;
+
+        // Destroy healthbar
+        ObjectPooling.Despawn(_HealthBar.gameObject);
+
         // Clamping health
         _HitPoints = 0;
         _Health = 0f;
 
         // Delay then despawn
-        DelayedDespawn(this, 3f);
+        StartCoroutine(DelayedShrinking(3f));
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  A coroutine that waits for the seconds specified then attempts to repool
-    //  the particle effect (or destroyed entirely if re-pooling isn't possible)
+    //  A coroutine that waits for the seconds specified then
+    //  starts the shrinking process before despawning.
     /// </summary>
-    /// <param name="particleEffect"></param>
     /// <param name="delay"></param>
-    /// <returns></returns>
-    IEnumerator DelayedDespawn(WorldObject worldObject, float delay) {
+    protected IEnumerator DelayedShrinking(float delay) {
 
         // Delay
         yield return new WaitForSeconds(delay);
-
-        // This is so that the next time the object is spawned - it is at its default state already
-        _ObjectState = WorldObjectStates.Default;
-
-        // Despawn the object
-        ObjectPooling.Despawn(worldObject.gameObject);
-        transform.localScale = new Vector3(1f, 1f, 1f);
+        
+        // Start shrinking
+        _StartShrinking = true;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

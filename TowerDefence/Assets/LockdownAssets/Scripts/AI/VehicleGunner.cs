@@ -27,7 +27,7 @@ public class VehicleGunner : MonoBehaviour {
 
     private WorldObject _CurrentTarget = null;
     private Vehicle _VehicleAttached = null;
-
+    
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
@@ -51,17 +51,14 @@ public class VehicleGunner : MonoBehaviour {
     //  Called each frame. 
     /// </summary>
     protected  void Update() {
-        
+     
+        // Update current target
+        if (_VehicleAttached != null) {
+
+            _CurrentTarget = _VehicleAttached.GetAttackTarget();
+        }
     }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  
-    /// </summary>
-    /// <param name="worldObject"></param>
-    public void SetNewTarget(WorldObject worldObject) { _CurrentTarget = worldObject; }
-
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
