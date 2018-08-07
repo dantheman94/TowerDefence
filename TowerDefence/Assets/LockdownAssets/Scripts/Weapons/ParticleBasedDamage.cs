@@ -60,6 +60,9 @@ public class ParticleBasedDamage : MonoBehaviour {
                 // Valid world object?
                 if (worldObject != null) {
 
+                    // Cant damage self
+                    if (worldObject == _WeaponAttached.GetUnitAttached()) { return; }
+
                     // Damaging a unit?
                     Unit unitObj = worldObject.GetComponent<Unit>();
                     if (unitObj != null) {
@@ -67,17 +70,17 @@ public class ParticleBasedDamage : MonoBehaviour {
                         // Damage based on unit type
                         switch (unitObj.UnitType) {
 
-                            case Unit.EUnitType.Undefined:          { unitObj.Damage(_WeaponAttached.Damages.DamageDefault); break; }
-                            case Unit.EUnitType.CoreMarine:         { unitObj.Damage(_WeaponAttached.Damages.DamageCoreInfantry); break; }
-                            case Unit.EUnitType.AntiInfantryMarine: { unitObj.Damage(_WeaponAttached.Damages.DamageAntiInfantryMarine); break; }
-                            case Unit.EUnitType.Hero:               { unitObj.Damage(_WeaponAttached.Damages.DamageHero); break; }
-                            case Unit.EUnitType.CoreVehicle:        { unitObj.Damage(_WeaponAttached.Damages.DamageCoreVehicle); break; }
-                            case Unit.EUnitType.AntiAirVehicle:     { unitObj.Damage(_WeaponAttached.Damages.DamageAntiAirVehicle); break; }
-                            case Unit.EUnitType.MobileArtillery:    { unitObj.Damage(_WeaponAttached.Damages.DamageMobileArtillery); break; }
-                            case Unit.EUnitType.BattleTank:         { unitObj.Damage(_WeaponAttached.Damages.DamageBattleTank); break; }
-                            case Unit.EUnitType.CoreAirship:        { unitObj.Damage(_WeaponAttached.Damages.DamageCoreAirship); break; }
-                            case Unit.EUnitType.SupportShip:        { unitObj.Damage(_WeaponAttached.Damages.DamageSupportShip); break; }
-                            case Unit.EUnitType.HeavyAirship:       { unitObj.Damage(_WeaponAttached.Damages.DamageHeavyAirship); break; }
+                            case Unit.EUnitType.Undefined:          { unitObj.Damage(_WeaponAttached.Damages.DamageDefault, _WeaponAttached.GetUnitAttached()); break; }
+                            case Unit.EUnitType.CoreMarine:         { unitObj.Damage(_WeaponAttached.Damages.DamageCoreInfantry, _WeaponAttached.GetUnitAttached()); break; }
+                            case Unit.EUnitType.AntiInfantryMarine: { unitObj.Damage(_WeaponAttached.Damages.DamageAntiInfantryMarine, _WeaponAttached.GetUnitAttached()); break; }
+                            case Unit.EUnitType.Hero:               { unitObj.Damage(_WeaponAttached.Damages.DamageHero, _WeaponAttached.GetUnitAttached()); break; }
+                            case Unit.EUnitType.CoreVehicle:        { unitObj.Damage(_WeaponAttached.Damages.DamageCoreVehicle, _WeaponAttached.GetUnitAttached()); break; }
+                            case Unit.EUnitType.AntiAirVehicle:     { unitObj.Damage(_WeaponAttached.Damages.DamageAntiAirVehicle, _WeaponAttached.GetUnitAttached()); break; }
+                            case Unit.EUnitType.MobileArtillery:    { unitObj.Damage(_WeaponAttached.Damages.DamageMobileArtillery, _WeaponAttached.GetUnitAttached()); break; }
+                            case Unit.EUnitType.BattleTank:         { unitObj.Damage(_WeaponAttached.Damages.DamageBattleTank, _WeaponAttached.GetUnitAttached()); break; }
+                            case Unit.EUnitType.CoreAirship:        { unitObj.Damage(_WeaponAttached.Damages.DamageCoreAirship, _WeaponAttached.GetUnitAttached()); break; }
+                            case Unit.EUnitType.SupportShip:        { unitObj.Damage(_WeaponAttached.Damages.DamageSupportShip, _WeaponAttached.GetUnitAttached()); break; }
+                            case Unit.EUnitType.HeavyAirship:       { unitObj.Damage(_WeaponAttached.Damages.DamageHeavyAirship, _WeaponAttached.GetUnitAttached()); break; }
                             default: break;
                         }
                     }

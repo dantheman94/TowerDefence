@@ -24,14 +24,14 @@ public class Weapon : MonoBehaviour {
     [Header("-----------------------------------")]
     [Header(" FIRING PROPERTIES")]
     [Space]
-    public EDamageType _DamageType;
-    public bool HitScanProjectile = true;
-    public bool ParticleBasedDamage = false;
-    [Space]
+    public EProjectileType _ProjectileType;
     public Projectile ProjectileClass = null;
-    public ParticleSystem MuzzleEffect = null;
     public ParticleSystem FiringEffect = null;
+    [Space]
+    public ParticleSystem MuzzleEffect = null;
+    [Space]
     public FireType FiringType = FireType.FullAuto;
+    public int ProjectilesPerShot = 1;
     public float FiringDelay = 0.5f;
     [Space]
     public ObjectDamages Damages;
@@ -50,7 +50,8 @@ public class Weapon : MonoBehaviour {
     //
     //******************************************************************************************************************************
 
-    public enum EDamageType { Object, Raycast, Particle }
+    public enum EProjectileType { Object, Raycast, Particle }
+    public enum FireType { FullAuto, Spread }
 
     [System.Serializable]
     public struct ObjectDamages {
@@ -67,7 +68,6 @@ public class Weapon : MonoBehaviour {
         public int DamageSupportShip;
         public int DamageHeavyAirship;
     }
-    public enum FireType { FullAuto, Spread }
 
     private int _CurrentMagazineCount;
     private float _FireDelayTimer = 0f;
@@ -114,7 +114,7 @@ public class Weapon : MonoBehaviour {
     /// </summary>
     private void ProjectileObject() {
 
-         if (ProjectileClass && _UnitAttached != null) {
+        if (ProjectileClass && _UnitAttached != null) {
 
             // Create projectile facing forward from the muzzle
             Projectile proj = ObjectPooling.Spawn(ProjectileClass.gameObject, _UnitAttached.MuzzleLaunchPoint.transform.position).GetComponent<Projectile>();
@@ -161,17 +161,17 @@ public class Weapon : MonoBehaviour {
                             // Damage based on unit type
                             switch (unitObj.UnitType) {
 
-                                case Unit.EUnitType.Undefined: { unitObj.Damage(Damages.DamageDefault); break; }
-                                case Unit.EUnitType.CoreMarine: { unitObj.Damage(Damages.DamageCoreInfantry); break; }
-                                case Unit.EUnitType.AntiInfantryMarine: { unitObj.Damage(Damages.DamageAntiInfantryMarine); break; }
-                                case Unit.EUnitType.Hero: { unitObj.Damage(Damages.DamageHero); break; }
-                                case Unit.EUnitType.CoreVehicle: { unitObj.Damage(Damages.DamageCoreVehicle); break; }
-                                case Unit.EUnitType.AntiAirVehicle: { unitObj.Damage(Damages.DamageAntiAirVehicle); break; }
-                                case Unit.EUnitType.MobileArtillery: { unitObj.Damage(Damages.DamageMobileArtillery); break; }
-                                case Unit.EUnitType.BattleTank: { unitObj.Damage(Damages.DamageBattleTank); break; }
-                                case Unit.EUnitType.CoreAirship: { unitObj.Damage(Damages.DamageCoreAirship); break; }
-                                case Unit.EUnitType.SupportShip: { unitObj.Damage(Damages.DamageSupportShip); break; }
-                                case Unit.EUnitType.HeavyAirship: { unitObj.Damage(Damages.DamageHeavyAirship); break; }
+                                case Unit.EUnitType.Undefined:          { unitObj.Damage(Damages.DamageDefault, _UnitAttached); break; }
+                                case Unit.EUnitType.CoreMarine:         { unitObj.Damage(Damages.DamageCoreInfantry, _UnitAttached); break; }
+                                case Unit.EUnitType.AntiInfantryMarine: { unitObj.Damage(Damages.DamageAntiInfantryMarine, _UnitAttached); break; }
+                                case Unit.EUnitType.Hero:               { unitObj.Damage(Damages.DamageHero, _UnitAttached); break; }
+                                case Unit.EUnitType.CoreVehicle:        { unitObj.Damage(Damages.DamageCoreVehicle, _UnitAttached); break; }
+                                case Unit.EUnitType.AntiAirVehicle:     { unitObj.Damage(Damages.DamageAntiAirVehicle, _UnitAttached); break; }
+                                case Unit.EUnitType.MobileArtillery:    { unitObj.Damage(Damages.DamageMobileArtillery, _UnitAttached); break; }
+                                case Unit.EUnitType.BattleTank:         { unitObj.Damage(Damages.DamageBattleTank, _UnitAttached); break; }
+                                case Unit.EUnitType.CoreAirship:        { unitObj.Damage(Damages.DamageCoreAirship, _UnitAttached); break; }
+                                case Unit.EUnitType.SupportShip:        { unitObj.Damage(Damages.DamageSupportShip, _UnitAttached); break; }
+                                case Unit.EUnitType.HeavyAirship:       { unitObj.Damage(Damages.DamageHeavyAirship, _UnitAttached); break; }
                                 default: break;
                             }
                         }
@@ -224,11 +224,11 @@ public class Weapon : MonoBehaviour {
 
             // Fire trace (or projectile)
             // Determine damage type
-            switch (_DamageType) {
+            switch (_ProjectileType) {
 
-                case EDamageType.Object:    { ProjectileObject(); break; }
-                case EDamageType.Raycast:   { ProjectileRaycast(); break; }
-                case EDamageType.Particle:  { ProjectileParticle(); break; }
+                case EProjectileType.Object:    { ProjectileObject(); break; }
+                case EProjectileType.Raycast:   { ProjectileRaycast(); break; }
+                case EProjectileType.Particle:  { ProjectileParticle(); break; }
                 default: { break; }
             }
 

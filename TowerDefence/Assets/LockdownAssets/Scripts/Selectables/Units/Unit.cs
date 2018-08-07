@@ -53,11 +53,10 @@ public class Unit : Ai {
     protected Squad _SquadAttached = null;
     protected bool _IsSeeking = false;
     protected GameObject _SeekWaypoint = null;
-    protected WorldObject _AttackTarget = null;
-    protected List<WorldObject> _PotentialTargets;
     protected bool _IsAttacking = false;
     protected float _DistanceToTarget = 0f;
     protected bool _IsBeingPlayerControlled = false;
+    private float SnapLookAtRange = 0f;
 
     //******************************************************************************************************************************
     //
@@ -76,6 +75,8 @@ public class Unit : Ai {
         // Set recycle amount to the same as the cost amount
         RecycleSupplies = CostSupplies;
         RecyclePower = CostPower;
+
+        SnapLookAtRange = AttackingRange * 0.75f;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -243,7 +244,11 @@ public class Unit : Ai {
                     // Constantly face the attacking target
                     Vector3 FireAtPos = _AttackTarget.transform.position;
                     FireAtPos.y = FireAtPos.y + _AttackTarget.GetObjectHeight() / 2;
-                    LookAt(FireAtPos);
+
+                    // Determine if we should snap to target or lerp rotation
+                    if (_DistanceToTarget <= SnapLookAtRange) { LookAtSnap(FireAtPos); }
+                    else                                      { LookAtLerp(FireAtPos); }
+                    
                 }
 
                 // Attack target is now dead
@@ -349,11 +354,17 @@ public class Unit : Ai {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
+    //  
+    /// </summary>
+    protected virtual void LookAtLerp(Vector3 position) { }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
     //  Snaps the agent's transform to the position specified.
     /// </summary>
-    protected virtual void LookAt(Vector3 position) {
+    protected virtual void LookAtSnap(Vector3 position) {
 
-        // Snap to target
         _Agent.transform.LookAt(position);
     }
 
@@ -557,118 +568,6 @@ public class Unit : Ai {
     /// </returns>
     public bool IsBeingPlayerControlled() { return _IsBeingPlayerControlled; }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  Adds a WorldObject to the weighted target list
-    /// </summary>
-    /// <param name="target"></param>
-    public void AddPotentialTarget(WorldObject target) {
-
-        // Look for match
-        bool match = false;
-        for (int i = 0; i < _PotentialTargets.Count; i++) {
-
-            // Match found
-            if (_PotentialTargets[i] == target) {
-
-                match = true;
-                break;
-            }
-        }
-
-        // Add to list if no matching target was found
-        if (!match) { _PotentialTargets.Add(target); }
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  Checks if the WorldObject is contained in the weighted 
-    //  target list & removes if it found.
-    /// </summary>
-    /// <param name="target"></param>
-    public void RemovePotentialTarget(WorldObject target) {
-
-        // Look for match
-        for (int i = 0; i < _PotentialTargets.Count; i++) {
-
-            // Match found
-            if (_PotentialTargets[i] == target) {
-
-                _PotentialTargets.Remove(target);
-                break;
-            }
-        }
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  
-    /// </summary>
-    private void DetermineWeightedTargetFromList() {
-
-        // Multiple targets to select from
-        if (_PotentialTargets.Count > 0) {
-
-            // WHICH IS THE TANKIEST TARGET?
-
-            // WHICH TARGET HAS DAMAGED ME THE MOST?
-
-            // WHICH TARGET IS THE CLOSEST?
-
-            // WHICH TARGET AM I THE MOST EFFECTIVE AGAINST?
-
-            List<int> targetWeights = new List<int>();
-            for (int i = 0; i < _PotentialTargets.Count; i++) {
-
-                // Temporary weights are just 1 for now
-                targetWeights.Add(1);
-            }
-
-            // Set new target
-            _AttackTarget = _PotentialTargets[GetWeightedRandomIndex(targetWeights)];
-        }
-        
-        // Only a single target in the array
-        else if (_PotentialTargets.Count == 1) { _AttackTarget = _PotentialTargets[0]; }
-
-        // No targets to choose from
-        else { _AttackTarget = null; }
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  Gets a random index based of a list of weighted ints.
-    /// </summary>
-    /// <param name="weights"></param>
-    /// <returns>
-    //  int
-    /// </returns>
-    private int GetWeightedRandomIndex(List<int> weights) {
-        
-        // Get the total sum of all the weights.
-        int weightSum = 0;
-        for (int i = 0; i < weights.Count; ++i) { weightSum += weights[i]; }
-
-        // Step through all the possibilities, one by one, checking to see if each one is selected.
-        int index = 0;
-        int lastIndex = weights.Count - 1;
-        while (index < lastIndex) {
-
-            // Do a probability check with a likelihood of weights[index] / weightSum.
-            if (Random.Range(0, weightSum) < weights[index]) { return index; }
-
-            // Remove the last item from the sum of total untested weights and try again.
-            weightSum -= weights[index++];
-        }
-
-        // No other item was selected, so return very last index.
-        return index;
-    }
-    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }

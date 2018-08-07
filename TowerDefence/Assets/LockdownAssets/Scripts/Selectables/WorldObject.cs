@@ -7,7 +7,7 @@ using UnityEngine;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 5/8/2018
+//  Last edited on: 7/8/2018
 //
 //******************************
 
@@ -380,7 +380,7 @@ public class WorldObject : Selectable {
     //  Damages the object by a set amount.
     /// </summary>
     /// <param name="damage"></param>
-    public void Damage(int damage) {
+    public virtual void Damage(int damage, Ai instigator = null) {
 
         // Damage object & kill it if theres no health left
         _HitPoints -= damage;
