@@ -129,8 +129,11 @@ public class Weapon : MonoBehaviour {
                     Debug.DrawLine(_UnitAttached.MuzzleLaunchPoint.transform.position, hit.point, Color.red);
 
                     // Damage target
-                    WorldObject worldObj = hit.transform.GetComponent<WorldObject>();
-                    if (worldObj != null) {
+                    WorldObject worldObj = hit.transform.GetComponentInParent<WorldObject>();
+
+                    if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Ignore Raycast")) { return; }
+
+                    else if (worldObj != null) {
 
                         // Check if object is of type unit
                         Unit unitObj = worldObj.GetComponent<Unit>();

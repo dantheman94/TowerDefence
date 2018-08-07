@@ -184,6 +184,8 @@ public class Projectile : MonoBehaviour {
         GameObject gameObj = collision.gameObject;
         WorldObject worldObj = gameObj.GetComponentInParent<WorldObject>();
 
+        if (gameObj.layer == LayerMask.NameToLayer("Ignore Raycast")) { return; }
+
         // Successful WorldObject cast
         if (worldObj != null) {
             
@@ -239,6 +241,8 @@ public class Projectile : MonoBehaviour {
         // Get object type
         GameObject gameObj = other.gameObject;
         WorldObject worldObj = gameObj.GetComponentInParent<WorldObject>();
+
+        if (gameObj.layer == LayerMask.NameToLayer("Ignore Raycast")) { return; }
 
         // Successful WorldObject cast
         if (worldObj != null) {

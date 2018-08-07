@@ -695,6 +695,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -716,6 +717,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 0
   AttachedBase: {fileID: 114947448389047210}
   LinkedSlots: []
@@ -751,6 +753,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 1033973573933858}
   ActiveState: {fileID: 1781239863202218}
+  DestroyedState: {fileID: 0}
   BuildTime: 5
   CostSupplies: 400
   CostPower: 150
@@ -772,6 +775,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 20
   _WidgetShieldbarOffset: 30
   ShowBuildingQueueUI: 1
+  ShrinkSpeed: 0.2
   AttachedBuildingSlot: {fileID: 0}
   ObjectHeight: 30
   Selectables:
@@ -792,7 +796,6 @@ MonoBehaviour:
   AirUnitSpawnTransform: {fileID: 1767185476851366}
   DepotSlots:
   - {fileID: 114414285968541356}
-  - {fileID: 0}
   TowerSlots: []
 --- !u!114 &114961305346810820
 MonoBehaviour:

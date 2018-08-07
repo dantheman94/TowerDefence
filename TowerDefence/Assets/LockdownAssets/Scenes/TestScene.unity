@@ -1232,6 +1232,12 @@ Transform:
   m_PrefabParentObject: {fileID: 4526429216962806, guid: b82553ad6d1ad044f979c7b11d141394,
     type: 2}
   m_PrefabInternal: {fileID: 1351370463}
+--- !u!114 &50185411 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114111713111011338, guid: b82553ad6d1ad044f979c7b11d141394,
+    type: 2}
+  m_PrefabInternal: {fileID: 1351370463}
+  m_Script: {fileID: 11500000, guid: 2f586be90bd3d6843a53f71c9c90f80a, type: 3}
 --- !u!1 &50617024
 GameObject:
   m_ObjectHideFlags: 0
@@ -3274,6 +3280,12 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.0000002, y: 1, z: 1.0000002}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &111078230 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114153781662495510, guid: c4ec395ea5e97aa4a88bc42c32cbad1d,
+    type: 2}
+  m_PrefabInternal: {fileID: 557025897}
+  m_Script: {fileID: 11500000, guid: 2f586be90bd3d6843a53f71c9c90f80a, type: 3}
 --- !u!4 &111078233 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4175979071291170, guid: c4ec395ea5e97aa4a88bc42c32cbad1d,
@@ -6985,7 +6997,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 100
+      scalar: 200
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -15642,6 +15654,16 @@ Prefab:
       propertyPath: _ObjectState
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 114111713111011338, guid: b82553ad6d1ad044f979c7b11d141394,
+        type: 2}
+      propertyPath: OnlyAppearWhenAttachedToBase
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114111713111011338, guid: b82553ad6d1ad044f979c7b11d141394,
+        type: 2}
+      propertyPath: AttachedBase
+      value: 
+      objectReference: {fileID: 1473383118}
     m_RemovedComponents:
     - {fileID: 0}
     - {fileID: 0}
@@ -20640,6 +20662,16 @@ Prefab:
       propertyPath: _ObjectState
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 114111713111011338, guid: b82553ad6d1ad044f979c7b11d141394,
+        type: 2}
+      propertyPath: OnlyAppearWhenAttachedToBase
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114111713111011338, guid: b82553ad6d1ad044f979c7b11d141394,
+        type: 2}
+      propertyPath: AttachedBase
+      value: 
+      objectReference: {fileID: 1473383118}
     m_RemovedComponents:
     - {fileID: 0}
     - {fileID: 0}
@@ -28668,6 +28700,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 1245013532}
     m_Modifications:
+    - target: {fileID: 114701711299698714, guid: 9e973085ff997a74ca29946b2fafa0f0,
+        type: 2}
+      propertyPath: LinkedSlots.Array.size
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4900670411933588, guid: 9e973085ff997a74ca29946b2fafa0f0, type: 2}
       propertyPath: m_LocalPosition.x
       value: -7.4000015
@@ -28739,6 +28776,31 @@ Prefab:
       propertyPath: _ObjectState
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 114701711299698714, guid: 9e973085ff997a74ca29946b2fafa0f0,
+        type: 2}
+      propertyPath: LinkedSlots.Array.data[3]
+      value: 
+      objectReference: {fileID: 111078230}
+    - target: {fileID: 114701711299698714, guid: 9e973085ff997a74ca29946b2fafa0f0,
+        type: 2}
+      propertyPath: LinkedSlots.Array.data[4]
+      value: 
+      objectReference: {fileID: 1947846900}
+    - target: {fileID: 114701711299698714, guid: 9e973085ff997a74ca29946b2fafa0f0,
+        type: 2}
+      propertyPath: LinkedSlots.Array.data[5]
+      value: 
+      objectReference: {fileID: 50185411}
+    - target: {fileID: 114701711299698714, guid: 9e973085ff997a74ca29946b2fafa0f0,
+        type: 2}
+      propertyPath: LinkedSlots.Array.data[6]
+      value: 
+      objectReference: {fileID: 1947846900}
+    - target: {fileID: 114701711299698714, guid: 9e973085ff997a74ca29946b2fafa0f0,
+        type: 2}
+      propertyPath: LinkedSlots.Array.data[7]
+      value: 
+      objectReference: {fileID: 50185411}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9e973085ff997a74ca29946b2fafa0f0, type: 2}
   m_IsPrefabParent: 0
@@ -38526,21 +38588,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FiringDelay: 0.1
-  HitScanProjectile: 0
+  HitScanProjectile: 1
   RaycastDamages:
-    DamageDefault: 0
-    DamageCoreInfantry: 0
-    DamageAntiInfantryMarine: 0
-    DamageHero: 0
-    DamageCoreVehicle: 0
-    DamageAntiAirVehicle: 0
-    DamageMobileArtillery: 0
-    DamageBattleTank: 0
-    DamageCoreAirship: 0
-    DamageSupportShip: 0
-    DamageHeavyAirship: 0
+    DamageDefault: 4
+    DamageCoreInfantry: 4
+    DamageAntiInfantryMarine: 4
+    DamageHero: 4
+    DamageCoreVehicle: 4
+    DamageAntiAirVehicle: 4
+    DamageMobileArtillery: 4
+    DamageBattleTank: 4
+    DamageCoreAirship: 2
+    DamageSupportShip: 2
+    DamageHeavyAirship: 2
   ProjectileClass: {fileID: 384069047}
-  FiringEffect: {fileID: 0}
+  FiringEffect: {fileID: 260880697}
   FiringType: 0
   BottomlessClip: 0
   MagazineSize: 20
@@ -40392,6 +40454,16 @@ Prefab:
       propertyPath: _ObjectState
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 114111713111011338, guid: b82553ad6d1ad044f979c7b11d141394,
+        type: 2}
+      propertyPath: OnlyAppearWhenAttachedToBase
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114111713111011338, guid: b82553ad6d1ad044f979c7b11d141394,
+        type: 2}
+      propertyPath: AttachedBase
+      value: 
+      objectReference: {fileID: 1473383118}
     m_RemovedComponents:
     - {fileID: 0}
     - {fileID: 0}
@@ -45852,7 +45924,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f24bbf81aea765549a797e3e95ee482d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FiringDelay: 6
+  FiringDelay: 1
   HitScanProjectile: 0
   RaycastDamages:
     DamageDefault: 0
@@ -45869,7 +45941,7 @@ MonoBehaviour:
   ProjectileClass: {fileID: 1579576281}
   FiringEffect: {fileID: 0}
   FiringType: 0
-  BottomlessClip: 1
+  BottomlessClip: 0
   MagazineSize: 1
   ReloadTime: 5
 --- !u!4 &1533206634
@@ -52148,6 +52220,16 @@ Prefab:
       propertyPath: _ObjectState
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 114111713111011338, guid: b82553ad6d1ad044f979c7b11d141394,
+        type: 2}
+      propertyPath: OnlyAppearWhenAttachedToBase
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114111713111011338, guid: b82553ad6d1ad044f979c7b11d141394,
+        type: 2}
+      propertyPath: AttachedBase
+      value: 
+      objectReference: {fileID: 1473383118}
     m_RemovedComponents:
     - {fileID: 0}
     - {fileID: 0}
@@ -57497,6 +57579,12 @@ Transform:
   m_PrefabParentObject: {fileID: 4526429216962806, guid: b82553ad6d1ad044f979c7b11d141394,
     type: 2}
   m_PrefabInternal: {fileID: 1728180313}
+--- !u!114 &1947846900 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114111713111011338, guid: b82553ad6d1ad044f979c7b11d141394,
+    type: 2}
+  m_PrefabInternal: {fileID: 1728180313}
+  m_Script: {fileID: 11500000, guid: 2f586be90bd3d6843a53f71c9c90f80a, type: 3}
 --- !u!1 &1948167000
 GameObject:
   m_ObjectHideFlags: 0
