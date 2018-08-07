@@ -344,6 +344,14 @@ Prefab:
       propertyPath: ShrinkSpeed
       value: 0.3
       objectReference: {fileID: 0}
+    - target: {fileID: 1337700393634558, guid: 19f8332b5119bd04baf0d7fef3d90609, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1616899401413584, guid: 19f8332b5119bd04baf0d7fef3d90609, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 19f8332b5119bd04baf0d7fef3d90609, type: 2}
   m_IsPrefabParent: 0
@@ -6880,15 +6888,16 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 260880699}
-  - component: {fileID: 260880697}
+  - component: {fileID: 260880700}
   - component: {fileID: 260880698}
+  - component: {fileID: 260880697}
   m_Layer: 0
   m_Name: HitScanParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!198 &260880697
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -6949,7 +6958,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1466916952
+  randomSeed: -880268867
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -9439,11 +9448,11 @@ ParticleSystem:
     radiusScale: 1
     collidesWith:
       serializedVersion: 2
-      m_Bits: 4294967295
+      m_Bits: 1537
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
-    collisionMessages: 0
+    collisionMessages: 1
     collidesWithDynamic: 1
     interiorCollisions: 0
   TriggerModule:
@@ -10317,6 +10326,17 @@ Transform:
   m_Father: {fileID: 547568507}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &260880700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 260880696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f2989cd7047f454b8be057ae5de39f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &267113853
 GameObject:
   m_ObjectHideFlags: 0
@@ -30855,7 +30875,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4575314155230008, guid: ddc75dcadc85db640b601008ffb388bd, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -92.4
+      value: -106.42
       objectReference: {fileID: 0}
     - target: {fileID: 4575314155230008, guid: ddc75dcadc85db640b601008ffb388bd, type: 2}
       propertyPath: m_LocalPosition.y
@@ -30898,6 +30918,14 @@ Prefab:
         type: 2}
       propertyPath: ShrinkSpeed
       value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1227051746626024, guid: ddc75dcadc85db640b601008ffb388bd, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1296253887984688, guid: ddc75dcadc85db640b601008ffb388bd, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ddc75dcadc85db640b601008ffb388bd, type: 2}
@@ -36551,9 +36579,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f24bbf81aea765549a797e3e95ee482d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FiringDelay: 1.5
+  _DamageType: 0
   HitScanProjectile: 0
-  RaycastDamages:
+  ParticleBasedDamage: 0
+  ProjectileClass: {fileID: 384069047}
+  MuzzleEffect: {fileID: 0}
+  FiringEffect: {fileID: 0}
+  FiringType: 0
+  FiringDelay: 1.5
+  Damages:
     DamageDefault: 0
     DamageCoreInfantry: 0
     DamageAntiInfantryMarine: 0
@@ -36565,9 +36599,6 @@ MonoBehaviour:
     DamageCoreAirship: 0
     DamageSupportShip: 0
     DamageHeavyAirship: 0
-  ProjectileClass: {fileID: 384069047}
-  FiringEffect: {fileID: 0}
-  FiringType: 0
   BottomlessClip: 1
   MagazineSize: 3
   ReloadTime: 4
@@ -36582,7 +36613,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1527989317}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1203501935
 GameObject:
@@ -37099,23 +37130,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f24bbf81aea765549a797e3e95ee482d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FiringDelay: 0.15
+  _DamageType: 0
   HitScanProjectile: 1
-  RaycastDamages:
-    DamageDefault: 1
-    DamageCoreInfantry: 1
-    DamageAntiInfantryMarine: 1
-    DamageHero: 0
-    DamageCoreVehicle: 1
-    DamageAntiAirVehicle: 1
-    DamageMobileArtillery: 1
-    DamageBattleTank: 0
-    DamageCoreAirship: 1
-    DamageSupportShip: 1
-    DamageHeavyAirship: 0
+  ParticleBasedDamage: 0
   ProjectileClass: {fileID: 384069047}
+  MuzzleEffect: {fileID: 0}
   FiringEffect: {fileID: 260880697}
   FiringType: 0
+  FiringDelay: 0.15
+  Damages:
+    DamageDefault: 0
+    DamageCoreInfantry: 0
+    DamageAntiInfantryMarine: 0
+    DamageHero: 0
+    DamageCoreVehicle: 0
+    DamageAntiAirVehicle: 0
+    DamageMobileArtillery: 0
+    DamageBattleTank: 0
+    DamageCoreAirship: 0
+    DamageSupportShip: 0
+    DamageHeavyAirship: 0
   BottomlessClip: 0
   MagazineSize: 24
   ReloadTime: 2
@@ -38574,7 +38608,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1527989317}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1246252736
 MonoBehaviour:
@@ -38587,23 +38621,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f24bbf81aea765549a797e3e95ee482d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FiringDelay: 0.1
-  HitScanProjectile: 1
-  RaycastDamages:
-    DamageDefault: 4
-    DamageCoreInfantry: 4
-    DamageAntiInfantryMarine: 4
-    DamageHero: 4
-    DamageCoreVehicle: 4
-    DamageAntiAirVehicle: 4
-    DamageMobileArtillery: 4
-    DamageBattleTank: 4
-    DamageCoreAirship: 2
-    DamageSupportShip: 2
-    DamageHeavyAirship: 2
-  ProjectileClass: {fileID: 384069047}
+  _DamageType: 2
+  HitScanProjectile: 0
+  ParticleBasedDamage: 0
+  ProjectileClass: {fileID: 0}
+  MuzzleEffect: {fileID: 0}
   FiringEffect: {fileID: 260880697}
   FiringType: 0
+  FiringDelay: 0.1
+  Damages:
+    DamageDefault: 1
+    DamageCoreInfantry: 1
+    DamageAntiInfantryMarine: 1
+    DamageHero: 1
+    DamageCoreVehicle: 1
+    DamageAntiAirVehicle: 1
+    DamageMobileArtillery: 1
+    DamageBattleTank: 1
+    DamageCoreAirship: 1
+    DamageSupportShip: 1
+    DamageHeavyAirship: 1
   BottomlessClip: 0
   MagazineSize: 20
   ReloadTime: 4
@@ -44399,7 +44436,7 @@ Prefab:
         type: 2}
       propertyPath: Selectables.Array.data[9]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2120462457}
     - target: {fileID: 114868436975677980, guid: e169e8b0cbb4e664fad3d8683f271b97,
         type: 2}
       propertyPath: Selectables.Array.data[8]
@@ -44472,6 +44509,10 @@ Prefab:
         type: 2}
       propertyPath: _ObjectState
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1624225091313276, guid: e169e8b0cbb4e664fad3d8683f271b97, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e169e8b0cbb4e664fad3d8683f271b97, type: 2}
@@ -45657,10 +45698,11 @@ Transform:
   - {fileID: 384069051}
   - {fileID: 1579576286}
   - {fileID: 1212203794}
+  - {fileID: 1246252735}
   - {fileID: 1984017052}
   - {fileID: 1202579627}
-  - {fileID: 1246252735}
   - {fileID: 1533206634}
+  - {fileID: 2058614871}
   m_Father: {fileID: 0}
   m_RootOrder: 41
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -45924,9 +45966,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f24bbf81aea765549a797e3e95ee482d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FiringDelay: 1
+  _DamageType: 0
   HitScanProjectile: 0
-  RaycastDamages:
+  ParticleBasedDamage: 0
+  ProjectileClass: {fileID: 1579576281}
+  MuzzleEffect: {fileID: 0}
+  FiringEffect: {fileID: 0}
+  FiringType: 0
+  FiringDelay: 1
+  Damages:
     DamageDefault: 0
     DamageCoreInfantry: 0
     DamageAntiInfantryMarine: 0
@@ -45938,9 +45986,6 @@ MonoBehaviour:
     DamageCoreAirship: 0
     DamageSupportShip: 0
     DamageHeavyAirship: 0
-  ProjectileClass: {fileID: 1579576281}
-  FiringEffect: {fileID: 0}
-  FiringType: 0
   BottomlessClip: 0
   MagazineSize: 1
   ReloadTime: 5
@@ -49268,57 +49313,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4189347698131452, guid: 34cbd0820ec4eb043b3c15231b8aa587,
     type: 2}
   m_PrefabInternal: {fileID: 787751947}
---- !u!1001 &1626185726
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1363693304}
-    m_Modifications:
-    - target: {fileID: 4139023003084844, guid: 262ff50694620f74badea248fc5e28e4, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -76.91
-      objectReference: {fileID: 0}
-    - target: {fileID: 4139023003084844, guid: 262ff50694620f74badea248fc5e28e4, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 4139023003084844, guid: 262ff50694620f74badea248fc5e28e4, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -251.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 4139023003084844, guid: 262ff50694620f74badea248fc5e28e4, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4139023003084844, guid: 262ff50694620f74badea248fc5e28e4, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4139023003084844, guid: 262ff50694620f74badea248fc5e28e4, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4139023003084844, guid: 262ff50694620f74badea248fc5e28e4, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4139023003084844, guid: 262ff50694620f74badea248fc5e28e4, type: 2}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1855981135212812, guid: 262ff50694620f74badea248fc5e28e4, type: 2}
-      propertyPath: m_Name
-      value: pfb_CoreAirShip
-      objectReference: {fileID: 0}
-    - target: {fileID: 114909369810655446, guid: 262ff50694620f74badea248fc5e28e4,
-        type: 2}
-      propertyPath: ShrinkSpeed
-      value: 0.3
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 262ff50694620f74badea248fc5e28e4, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &1626378762
 GameObject:
   m_ObjectHideFlags: 0
@@ -55250,7 +55244,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1812625572558694, guid: 48f267e6564f5174aa786648bcff6471, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 48f267e6564f5174aa786648bcff6471, type: 2}
@@ -58387,9 +58381,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f24bbf81aea765549a797e3e95ee482d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FiringDelay: 1
+  _DamageType: 0
   HitScanProjectile: 0
-  RaycastDamages:
+  ParticleBasedDamage: 0
+  ProjectileClass: {fileID: 2060852262}
+  MuzzleEffect: {fileID: 0}
+  FiringEffect: {fileID: 0}
+  FiringType: 0
+  FiringDelay: 1
+  Damages:
     DamageDefault: 0
     DamageCoreInfantry: 0
     DamageAntiInfantryMarine: 0
@@ -58401,9 +58401,6 @@ MonoBehaviour:
     DamageCoreAirship: 0
     DamageSupportShip: 0
     DamageHeavyAirship: 0
-  ProjectileClass: {fileID: 2060852262}
-  FiringEffect: {fileID: 0}
-  FiringType: 0
   BottomlessClip: 0
   MagazineSize: 4
   ReloadTime: 4
@@ -58418,7 +58415,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1527989317}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1986369441
 GameObject:
@@ -60440,6 +60437,69 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!1 &2058614870
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 2058614871}
+  - component: {fileID: 2058614872}
+  m_Layer: 0
+  m_Name: Wep_CoreAirShipGunner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2058614871
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2058614870}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2.57, y: 1.088, z: 3.94}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1527989317}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2058614872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2058614870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f24bbf81aea765549a797e3e95ee482d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _DamageType: 2
+  HitScanProjectile: 0
+  ParticleBasedDamage: 0
+  ProjectileClass: {fileID: 0}
+  MuzzleEffect: {fileID: 0}
+  FiringEffect: {fileID: 260880697}
+  FiringType: 0
+  FiringDelay: 0.1
+  Damages:
+    DamageDefault: 1
+    DamageCoreInfantry: 1
+    DamageAntiInfantryMarine: 1
+    DamageHero: 1
+    DamageCoreVehicle: 1
+    DamageAntiAirVehicle: 1
+    DamageMobileArtillery: 1
+    DamageBattleTank: 1
+    DamageCoreAirship: 1
+    DamageSupportShip: 1
+    DamageHeavyAirship: 1
+  BottomlessClip: 0
+  MagazineSize: 20
+  ReloadTime: 4
 --- !u!1 &2059334683
 GameObject:
   m_ObjectHideFlags: 0
@@ -62492,12 +62552,12 @@ CanvasRenderer:
 Transform:
   m_PrefabParentObject: {fileID: 4139023003084844, guid: 262ff50694620f74badea248fc5e28e4,
     type: 2}
-  m_PrefabInternal: {fileID: 1626185726}
+  m_PrefabInternal: {fileID: 2126603148}
 --- !u!114 &2120462457 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114909369810655446, guid: 262ff50694620f74badea248fc5e28e4,
     type: 2}
-  m_PrefabInternal: {fileID: 1626185726}
+  m_PrefabInternal: {fileID: 2126603148}
   m_Script: {fileID: 11500000, guid: 55ec67cf4fb72b74f88374b1e5d07f70, type: 3}
 --- !u!1 &2123510842
 GameObject:
@@ -62706,6 +62766,62 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2126212852}
+--- !u!1001 &2126603148
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1363693304}
+    m_Modifications:
+    - target: {fileID: 4139023003084844, guid: 262ff50694620f74badea248fc5e28e4, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -76.91
+      objectReference: {fileID: 0}
+    - target: {fileID: 4139023003084844, guid: 262ff50694620f74badea248fc5e28e4, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4139023003084844, guid: 262ff50694620f74badea248fc5e28e4, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -251.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4139023003084844, guid: 262ff50694620f74badea248fc5e28e4, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4139023003084844, guid: 262ff50694620f74badea248fc5e28e4, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4139023003084844, guid: 262ff50694620f74badea248fc5e28e4, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4139023003084844, guid: 262ff50694620f74badea248fc5e28e4, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4139023003084844, guid: 262ff50694620f74badea248fc5e28e4, type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1855981135212812, guid: 262ff50694620f74badea248fc5e28e4, type: 2}
+      propertyPath: m_Name
+      value: pfb_CoreAirShip
+      objectReference: {fileID: 0}
+    - target: {fileID: 114909369810655446, guid: 262ff50694620f74badea248fc5e28e4,
+        type: 2}
+      propertyPath: PrimaryWeapon
+      value: 
+      objectReference: {fileID: 2058614872}
+    - target: {fileID: 114909369810655446, guid: 262ff50694620f74badea248fc5e28e4,
+        type: 2}
+      propertyPath: AttackingRange
+      value: 150
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 262ff50694620f74badea248fc5e28e4, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &2133146443
 GameObject:
   m_ObjectHideFlags: 0

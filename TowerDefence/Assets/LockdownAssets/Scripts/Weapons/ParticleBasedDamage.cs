@@ -67,23 +67,23 @@ public class ParticleBasedDamage : MonoBehaviour {
                         // Damage based on unit type
                         switch (unitObj.UnitType) {
 
-                            case Unit.EUnitType.Undefined:          { unitObj.Damage(_WeaponAttached.RaycastDamages.DamageDefault); break; }
-                            case Unit.EUnitType.CoreMarine:         { unitObj.Damage(_WeaponAttached.RaycastDamages.DamageCoreInfantry); break; }
-                            case Unit.EUnitType.AntiInfantryMarine: { unitObj.Damage(_WeaponAttached.RaycastDamages.DamageAntiInfantryMarine); break; }
-                            case Unit.EUnitType.Hero:               { unitObj.Damage(_WeaponAttached.RaycastDamages.DamageHero); break; }
-                            case Unit.EUnitType.CoreVehicle:        { unitObj.Damage(_WeaponAttached.RaycastDamages.DamageCoreVehicle); break; }
-                            case Unit.EUnitType.AntiAirVehicle:     { unitObj.Damage(_WeaponAttached.RaycastDamages.DamageAntiAirVehicle); break; }
-                            case Unit.EUnitType.MobileArtillery:    { unitObj.Damage(_WeaponAttached.RaycastDamages.DamageMobileArtillery); break; }
-                            case Unit.EUnitType.BattleTank:         { unitObj.Damage(_WeaponAttached.RaycastDamages.DamageBattleTank); break; }
-                            case Unit.EUnitType.CoreAirship:        { unitObj.Damage(_WeaponAttached.RaycastDamages.DamageCoreAirship); break; }
-                            case Unit.EUnitType.SupportShip:        { unitObj.Damage(_WeaponAttached.RaycastDamages.DamageSupportShip); break; }
-                            case Unit.EUnitType.HeavyAirship:       { unitObj.Damage(_WeaponAttached.RaycastDamages.DamageHeavyAirship); break; }
+                            case Unit.EUnitType.Undefined:          { unitObj.Damage(_WeaponAttached.Damages.DamageDefault); break; }
+                            case Unit.EUnitType.CoreMarine:         { unitObj.Damage(_WeaponAttached.Damages.DamageCoreInfantry); break; }
+                            case Unit.EUnitType.AntiInfantryMarine: { unitObj.Damage(_WeaponAttached.Damages.DamageAntiInfantryMarine); break; }
+                            case Unit.EUnitType.Hero:               { unitObj.Damage(_WeaponAttached.Damages.DamageHero); break; }
+                            case Unit.EUnitType.CoreVehicle:        { unitObj.Damage(_WeaponAttached.Damages.DamageCoreVehicle); break; }
+                            case Unit.EUnitType.AntiAirVehicle:     { unitObj.Damage(_WeaponAttached.Damages.DamageAntiAirVehicle); break; }
+                            case Unit.EUnitType.MobileArtillery:    { unitObj.Damage(_WeaponAttached.Damages.DamageMobileArtillery); break; }
+                            case Unit.EUnitType.BattleTank:         { unitObj.Damage(_WeaponAttached.Damages.DamageBattleTank); break; }
+                            case Unit.EUnitType.CoreAirship:        { unitObj.Damage(_WeaponAttached.Damages.DamageCoreAirship); break; }
+                            case Unit.EUnitType.SupportShip:        { unitObj.Damage(_WeaponAttached.Damages.DamageSupportShip); break; }
+                            case Unit.EUnitType.HeavyAirship:       { unitObj.Damage(_WeaponAttached.Damages.DamageHeavyAirship); break; }
                             default: break;
                         }
                     }
 
                     // Damage the object (its not a unit so use the default damage value)
-                    else { worldObject.Damage(_WeaponAttached.RaycastDamages.DamageDefault); }
+                    else { worldObject.Damage(_WeaponAttached.Damages.DamageDefault); }
                 }
                 i++;
             }
