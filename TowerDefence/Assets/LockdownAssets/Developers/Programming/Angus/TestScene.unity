@@ -515,6 +515,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 3
   CostSupplies: 0
   CostPower: 0
@@ -536,6 +537,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 0
   _WidgetShieldbarOffset: 0
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 1
   AttachedBase: {fileID: 0}
   LinkedSlots: []
@@ -1171,6 +1173,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 3
   CostSupplies: 0
   CostPower: 0
@@ -1192,6 +1195,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 0
   _WidgetShieldbarOffset: 0
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 1
   AttachedBase: {fileID: 1473383118}
   LinkedSlots: []
@@ -3370,6 +3374,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -3391,6 +3396,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   UpgradeProperties: []
   UpgradeEvents: []
 --- !u!1 &111078226 stripped
@@ -4872,6 +4878,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 3
   CostSupplies: 0
   CostPower: 0
@@ -4893,6 +4900,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 0
   _WidgetShieldbarOffset: 0
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 1
   AttachedBase: {fileID: 0}
   LinkedSlots: []
@@ -7051,6 +7059,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -7072,6 +7081,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   UpgradeProperties: []
   UpgradeEvents: []
 --- !u!1 &260880696
@@ -10752,6 +10762,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -10773,6 +10784,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   UpgradeProperties: []
   UpgradeEvents: []
 --- !u!1 &272407019
@@ -11450,6 +11462,7 @@ GameObject:
   m_Component:
   - component: {fileID: 289071609}
   - component: {fileID: 289071610}
+  - component: {fileID: 289071611}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -11512,6 +11525,17 @@ MonoBehaviour:
   PreloadWorldObjects: []
   PreloadProjectiles: []
   PreloadParticles: []
+--- !u!114 &289071611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 289071608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e02d9c98e00effc44abe1cb633bf8180, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &292506494
 GameObject:
   m_ObjectHideFlags: 0
@@ -12178,6 +12202,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -12199,6 +12224,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   UpgradeProperties:
   - {fileID: 982163920}
   - {fileID: 1194770686}
@@ -14003,6 +14029,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 3
   CostSupplies: 0
   CostPower: 0
@@ -14024,6 +14051,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 0
   _WidgetShieldbarOffset: 0
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 1
   AttachedBase: {fileID: 0}
   LinkedSlots: []
@@ -14500,6 +14528,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 628801026}
   ActiveState: {fileID: 53781883}
+  DestroyedState: {fileID: 0}
   BuildTime: 5
   CostSupplies: 200
   CostPower: 0
@@ -14521,6 +14550,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
   ShowBuildingQueueUI: 1
+  ShrinkSpeed: 0.2
   AttachedBuildingSlot: {fileID: 0}
   ObjectHeight: 15
   Selectables:
@@ -15614,6 +15644,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -15635,6 +15666,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   UpgradeProperties: []
   UpgradeEvents: []
 --- !u!1 &447627526
@@ -15880,6 +15912,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 3
   CostSupplies: 0
   CostPower: 0
@@ -15901,6 +15934,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 0
   _WidgetShieldbarOffset: 0
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 1
   AttachedBase: {fileID: 1473383118}
   LinkedSlots: []
@@ -16113,6 +16147,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 3
   CostSupplies: 0
   CostPower: 0
@@ -16134,6 +16169,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 0
   _WidgetShieldbarOffset: 0
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 0
   AttachedBase: {fileID: 0}
   LinkedSlots: []
@@ -17453,6 +17489,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -17474,6 +17511,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   UpgradeProperties: []
   UpgradeEvents: []
 --- !u!1 &502104227
@@ -18169,6 +18207,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 3
   CostSupplies: 0
   CostPower: 0
@@ -18190,6 +18229,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 0
   _WidgetShieldbarOffset: 0
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 1
   AttachedBase: {fileID: 0}
   LinkedSlots: []
@@ -20956,6 +20996,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 3
   CostSupplies: 0
   CostPower: 0
@@ -20977,6 +21018,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 0
   _WidgetShieldbarOffset: 0
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 1
   AttachedBase: {fileID: 1473383118}
   LinkedSlots: []
@@ -22971,6 +23013,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 3
   CostSupplies: 0
   CostPower: 0
@@ -22992,6 +23035,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 0
   _WidgetShieldbarOffset: 0
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 1
   AttachedBase: {fileID: 0}
   LinkedSlots: []
@@ -23921,6 +23965,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 5
   CostSupplies: 130
   CostPower: 0
@@ -23942,6 +23987,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
   ShowBuildingQueueUI: 1
+  ShrinkSpeed: 0.2
   SquadMaxSize: 3
   SquadUnit: {fileID: 220516556}
   FlockingRadius: 10
@@ -29359,6 +29405,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -29380,6 +29427,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 0
   _WidgetShieldbarOffset: 0
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
 --- !u!4 &919222488
 Transform:
   m_ObjectHideFlags: 0
@@ -30815,6 +30863,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 3
   CostSupplies: 0
   CostPower: 0
@@ -30836,6 +30885,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 0
   _WidgetShieldbarOffset: 0
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 1
   AttachedBase: {fileID: 0}
   LinkedSlots: []
@@ -31122,6 +31172,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -31143,6 +31194,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 0
   _WidgetShieldbarOffset: 0
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
 --- !u!1001 &1000166899
 Prefab:
   m_ObjectHideFlags: 0
@@ -34580,6 +34632,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 832141905}
+  DestroyedState: {fileID: 0}
   BuildTime: 10
   CostSupplies: 0
   CostPower: 0
@@ -34601,6 +34654,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
   ShowBuildingQueueUI: 1
+  ShrinkSpeed: 0.2
   AttachedBuildingSlot: {fileID: 0}
   ObjectHeight: 15
   Selectables:
@@ -35014,6 +35068,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 3
   CostSupplies: 0
   CostPower: 0
@@ -35035,6 +35090,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 0
   _WidgetShieldbarOffset: 0
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 1
   AttachedBase: {fileID: 0}
   LinkedSlots: []
@@ -37091,6 +37147,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FiringDelay: 1.5
   HitScanProjectile: 0
+  ParticleBasedDamage: 0
   RaycastDamages:
     DamageDefault: 0
     DamageCoreInfantry: 0
@@ -37634,6 +37691,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FiringDelay: 0.15
   HitScanProjectile: 1
+  ParticleBasedDamage: 0
   RaycastDamages:
     DamageDefault: 1
     DamageCoreInfantry: 1
@@ -38532,6 +38590,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -38553,6 +38612,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   UpgradeProperties: []
   UpgradeEvents: []
 --- !u!1 &1229164321
@@ -39263,6 +39323,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FiringDelay: 1.5
   HitScanProjectile: 0
+  ParticleBasedDamage: 0
   RaycastDamages:
     DamageDefault: 0
     DamageCoreInfantry: 0
@@ -41927,6 +41988,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -41948,6 +42010,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   UpgradeProperties: []
   UpgradeEvents: []
 --- !u!1 &1369113639
@@ -42880,6 +42943,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -42901,6 +42965,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   UpgradeProperties:
   - {fileID: 811841078}
   - {fileID: 1795348590}
@@ -46886,6 +46951,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FiringDelay: 6
   HitScanProjectile: 0
+  ParticleBasedDamage: 0
   RaycastDamages:
     DamageDefault: 0
     DamageCoreInfantry: 0
@@ -47309,6 +47375,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 3
   CostSupplies: 0
   CostPower: 0
@@ -47330,6 +47397,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 0
   _WidgetShieldbarOffset: 0
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 1
   AttachedBase: {fileID: 0}
   LinkedSlots: []
@@ -52163,6 +52231,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -52184,6 +52253,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   UpgradeProperties:
   - {fileID: 1674627543}
   - {fileID: 776618942}
@@ -53311,6 +53381,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -53332,6 +53403,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   UpgradeProperties: []
   UpgradeEvents: []
 --- !u!1 &1733120976
@@ -53666,6 +53738,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 3
   CostSupplies: 0
   CostPower: 0
@@ -53687,6 +53760,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 0
   _WidgetShieldbarOffset: 0
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 1
   AttachedBase: {fileID: 0}
   LinkedSlots: []
@@ -56929,6 +57003,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 5
   CostSupplies: 130
   CostPower: 0
@@ -56950,6 +57025,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
   ShowBuildingQueueUI: 1
+  ShrinkSpeed: 0.2
   SquadMaxSize: 2
   SquadUnit: {fileID: 1251593855}
   FlockingRadius: 10
@@ -58133,6 +58209,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -58154,6 +58231,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   UpgradeProperties: []
   UpgradeEvents: []
 --- !u!1001 &1932283193
@@ -58321,6 +58399,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 3
   CostSupplies: 0
   CostPower: 0
@@ -58342,6 +58421,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 0
   _WidgetShieldbarOffset: 0
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 1
   AttachedBase: {fileID: 0}
   LinkedSlots: []
@@ -58637,6 +58717,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 3
   CostSupplies: 0
   CostPower: 0
@@ -58658,6 +58739,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 0
   _WidgetShieldbarOffset: 0
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 1
   AttachedBase: {fileID: 1473383118}
   LinkedSlots: []
@@ -59371,6 +59453,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -59392,6 +59475,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   UpgradeProperties: []
   UpgradeEvents: []
 --- !u!1 &1980468190
@@ -59491,6 +59575,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FiringDelay: 1
   HitScanProjectile: 0
+  ParticleBasedDamage: 0
   RaycastDamages:
     DamageDefault: 0
     DamageCoreInfantry: 0
@@ -60321,6 +60406,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 3
   CostSupplies: 0
   CostPower: 0
@@ -60342,6 +60428,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 0
   _WidgetShieldbarOffset: 0
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 1
   AttachedBase: {fileID: 0}
   LinkedSlots: []
@@ -61491,6 +61578,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -61512,6 +61600,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   UpgradeProperties: []
   UpgradeEvents: []
 --- !u!1 &2057742741
