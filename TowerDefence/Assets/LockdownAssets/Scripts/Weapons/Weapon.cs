@@ -8,7 +8,7 @@ using UnityEngine;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 4/7/2018
+//  Last edited on: 7/8/2018
 //
 //******************************
 
@@ -26,6 +26,7 @@ public class Weapon : MonoBehaviour {
     [Space]
     public float FiringDelay = 0.5f;
     public bool HitScanProjectile = true;
+    public bool ParticleBasedDamage = false;
     public HitScanDamages RaycastDamages;
     [Space]
     public Projectile ProjectileClass = null;
@@ -71,7 +72,7 @@ public class Weapon : MonoBehaviour {
 
     //******************************************************************************************************************************
     //
-    //      INSPECTOR
+    //      FUNCTIONS
     //
     //******************************************************************************************************************************
 
@@ -188,6 +189,8 @@ public class Weapon : MonoBehaviour {
                 // Despawn particle system once it has finished its cycle
                 float effectDuration = effect.duration + effect.startLifetime;
                 StartCoroutine(ParticleDespawn(effect, effectDuration));
+
+                if (ParticleBasedDamage) { effect.GetComponent<ParticleBasedDamage>().SetWeaponAttached(this); }
             }
         }
 
