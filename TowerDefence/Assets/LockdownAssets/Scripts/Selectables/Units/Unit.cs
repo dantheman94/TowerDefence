@@ -323,6 +323,9 @@ public class Unit : Ai {
     public override void OnDeath() {
         base.OnDeath();
 
+        // Remove from squad
+        if (IsInASquad()) { _SquadAttached.RemoveUnitFromSquad(this); }
+
         // Play ragdoll stuff here
         _Agent.enabled = false;
     }
@@ -333,7 +336,9 @@ public class Unit : Ai {
     //  Called only once, when the unit transitions to an active state.
     /// </summary>
     public virtual void OnSpawn() {
-                
+
+        ResetHealth();
+
         // Enable components
         if (_Agent == null) { _Agent = GetComponent<NavMeshAgent>(); }
         _Agent.enabled = true;
@@ -567,6 +572,17 @@ public class Unit : Ai {
     //  bool
     /// </returns>
     public bool IsBeingPlayerControlled() { return _IsBeingPlayerControlled; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    public void ResetHealth() {
+        
+        _HitPoints = MaxHitPoints;
+        _ShieldPoints = MaxShieldPoints;
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

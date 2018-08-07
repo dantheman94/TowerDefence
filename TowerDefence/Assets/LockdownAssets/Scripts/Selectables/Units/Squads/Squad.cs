@@ -36,8 +36,10 @@ public class Squad : Ai {
 
     private int _SquadCurrentSize;
     private float _SquadHealth;
+    private float _SquadHitPoints;
+    private float _SquadMaxPoints;
     private List<Unit> _Squad;
-    protected GameObject _SeekWaypoint = null;
+    private GameObject _SeekWaypoint = null;
 
     //******************************************************************************************************************************
     //
@@ -58,6 +60,9 @@ public class Squad : Ai {
 
         // Create lists
         _Squad = new List<Unit>();
+
+        MaxHitPoints = 0;
+        MaxShieldPoints = 0;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -86,21 +91,21 @@ public class Squad : Ai {
         }
 
         // Update squad health
-        else if (_ObjectState == WorldObjectStates.Active && IsAlive()) {
+        else if (_ObjectState == WorldObjectStates.Active) {
+            
+            if (IsAlive()) {
 
-            // Show the healthbar
-            if (_HealthBar != null) { _HealthBar.gameObject.SetActive(true); }
-
-            // Get total sum of health for all units in the squad
-            float maxSquadHealth = 0, currentSquadHealth = 0;
-            foreach (var unit in _Squad) {
-
-                maxSquadHealth += unit.MaxHitPoints;
-                currentSquadHealth += unit.GetHitPoints();
+                // Show the healthbar
+                if (_HealthBar != null) { _HealthBar.gameObject.SetActive(true); }
             }
 
-            // Normalize the health between a range of 0.0 - 1.0
-            if (maxSquadHealth > 0) { _SquadHealth = currentSquadHealth / maxSquadHealth; }
+            // Update sum hitpoints of the squad
+            float currentSquadHitPoints = 0f;
+            foreach (var unit in _Squad) {
+                
+                currentSquadHitPoints += unit.GetHitPoints();
+            }
+            _HitPoints = currentSquadHitPoints;
         }
 
         // Update squad's position to match the average position of all the units
@@ -167,8 +172,7 @@ public class Squad : Ai {
     /// </summary>
     /// <param name="thisSquad"></param>
     protected void CreateUnits(Squad thisSquad) {
-
-
+        
         // Loop for each unit
         for (int i = 0; i < SquadMaxSize; i++) {
 
@@ -191,7 +195,11 @@ public class Squad : Ai {
                 Vector3 pos = thisSquad.transform.position + new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)) * FlockingRadius;
                 unit.transform.position = pos;
             }
+            unit.ResetHealth();
             unit.gameObject.SetActive(true);
+
+            MaxHitPoints += unit.MaxHitPoints;
+            MaxShieldPoints += unit.MaxShieldPoints;
         }
     }
 
@@ -221,8 +229,12 @@ public class Squad : Ai {
                 Vector3 pos = transform.position + new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)) * FlockingRadius;
                 unit.transform.position = pos;
             }
+            unit.ResetHealth();
             unit.gameObject.SetActive(true);
             unit.OnSpawn();
+
+            MaxHitPoints += unit.MaxHitPoints;
+            MaxShieldPoints += unit.MaxShieldPoints;
         }
     }
 
@@ -351,6 +363,36 @@ public class Squad : Ai {
             i++;
         }
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="unit"></param>
+    public void RemoveUnitFromSquad(Unit unit) {
+
+        // Loop through current squad
+        for (int i = 0; i < _Squad.Count; i++) {
+
+            // Match found
+            if (_Squad[i] == unit) {
+
+                _Squad.RemoveAt(i);
+                _SquadCurrentSize--;
+            }
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <returns>
+    //  int
+    /// </returns>
+    public int GetSquadCount() { return _SquadCurrentSize; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
