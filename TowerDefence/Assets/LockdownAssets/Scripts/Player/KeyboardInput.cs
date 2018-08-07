@@ -273,7 +273,7 @@ public class KeyboardInput : MonoBehaviour {
             // Move left
             if (Input.GetKey(KeyCode.A) && (!Input.GetKey(KeyCode.LeftAlt))) {
 
-                movement.x -= Settings.MovementSpeed;
+                movement.x -= Settings.MovementSpeed * 2;
                 CreateCenterPoint();
                 SnapMovement(movement);
             }
@@ -549,28 +549,33 @@ public class KeyboardInput : MonoBehaviour {
                             // We arent supposed to be able to highlight it right now
                             else { _HighlightFocus.SetIsHighlighted(false); }
                         }
-                        
-                        else { /// selectable == null
 
-                            // De-highlight the object
-                            _HighlightFocus.SetIsHighlighted(false);
-                            _HighlightFocus = null;
-                            _HighlightBuilding = null;
-                            _HighlightAiObject = null;
-                        }
+                        // selectable == null
+                        else { ClearHighlight(); }
                     }
                 }
 
-                else { /// hitObject.tag == "Ground"
-
-                    // De-highlight any object in focus
-                    if (_HighlightFocus != null) _HighlightFocus.SetIsHighlighted(false);
-                    _HighlightFocus = null;
-                    _HighlightBuilding = null;
-                    _HighlightAiObject = null;
-                }
+                // hitObject.tag == "Ground"
+                else { ClearHighlight(); }
             }
+
+            // hitObject || hitPoint == Settings.InvalidPosition
+            else { ClearHighlight(); }
         }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    private void ClearHighlight() {
+
+        if (_HighlightFocus != null) _HighlightFocus.SetIsHighlighted(false);
+        _HighlightFocus = null;
+        _HighlightBuilding = null;
+        _HighlightAiObject = null;
+        _HighlightWorldObject = null;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
