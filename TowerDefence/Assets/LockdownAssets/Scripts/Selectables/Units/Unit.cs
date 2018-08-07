@@ -31,7 +31,7 @@ public class Unit : Ai {
     public bool CanBePlayerControlled = false;
     [Tooltip("When this unit is killed, the speed in which it shrinks down until it is no longer visible " +
             "before being sent back to the object pool.")]
-    public float ShrinkSpeed = 0.1f;
+    public float ShrinkSpeed = 0.2f;
     
     [Space]
     [Header("-----------------------------------")]
@@ -275,11 +275,11 @@ public class Unit : Ai {
         // Check if the unit should be shrinking
         if (_StartShrinking && !IsAlive()) {
             
-            // Continuously scale down
+            // Get in the cold ass water
             transform.localScale -= Vector3.one * ShrinkSpeed * Time.deltaTime;
             if (transform.localScale.x < 0.1f) {
 
-                // Finished shrinking
+                // MAXIMUM shrinkage
                 _StartShrinking = false;
                 ObjectPooling.Despawn(gameObject);
             }
@@ -430,6 +430,7 @@ public class Unit : Ai {
     /// <param name="attackTarget"></param>
     public void AgentAttackObject(WorldObject attackTarget, Vector3 seekPosition) {
 
+        AddPotentialTarget(attackTarget);
         _AttackTarget = attackTarget;
         AgentSeekPosition(seekPosition);
     }

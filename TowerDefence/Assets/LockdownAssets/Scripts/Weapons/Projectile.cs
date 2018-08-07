@@ -182,7 +182,63 @@ public class Projectile : MonoBehaviour {
 
         // Get object type
         GameObject gameObj = collision.gameObject;
-        WorldObject worldObj = gameObj.GetComponent<WorldObject>();
+        WorldObject worldObj = gameObj.GetComponentInParent<WorldObject>();
+
+        // Successful WorldObject cast
+        if (worldObj != null) {
+            
+            // Check if object is of type unit
+            Unit unitObj = worldObj.GetComponent<Unit>();
+            if (unitObj != null) {
+
+                if (_WeaponAttached != null) {
+
+                    // Cant damage self
+                    if (worldObj == _WeaponAttached.GetUnitAttached()) { return; }
+
+                    // Friendly fire is OFF
+                    if (unitObj.Team != _WeaponAttached.GetUnitAttached().Team) {
+
+                        // Damage based on unit type
+                        switch (unitObj.UnitType) {
+
+                            case Unit.EUnitType.Undefined:          { unitObj.Damage(DamageDefault); break; }
+                            case Unit.EUnitType.CoreMarine:         { unitObj.Damage(DamageCoreInfantry); break; }
+                            case Unit.EUnitType.AntiInfantryMarine: { unitObj.Damage(DamageAntiInfantryMarine); break; }
+                            case Unit.EUnitType.Hero:               { unitObj.Damage(DamageHero); break; }
+                            case Unit.EUnitType.CoreVehicle:        { unitObj.Damage(DamageCoreVehicle); break; }
+                            case Unit.EUnitType.AntiAirVehicle:     { unitObj.Damage(DamageAntiAirVehicle); break; }
+                            case Unit.EUnitType.MobileArtillery:    { unitObj.Damage(DamageMobileArtillery); break; }
+                            case Unit.EUnitType.BattleTank:         { unitObj.Damage(DamageBattleTank); break; }
+                            case Unit.EUnitType.CoreAirship:        { unitObj.Damage(DamageCoreAirship); break; }
+                            case Unit.EUnitType.SupportShip:        { unitObj.Damage(DamageSupportShip); break; }
+                            case Unit.EUnitType.HeavyAirship:       { unitObj.Damage(DamageHeavyAirship); break; }
+                            default: break;
+                        }
+                    }
+                }
+
+                // Destroy projectile
+                OnDestroy();
+            }
+
+            // Damage the world object
+            else {
+
+                // Destroy projectile
+                worldObj.Damage(DamageDefault);
+                OnDestroy();
+            }
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    protected void OnTriggerEnter(Collider other) {
+
+        // Get object type
+        GameObject gameObj = other.gameObject;
+        WorldObject worldObj = gameObj.GetComponentInParent<WorldObject>();
 
         // Successful WorldObject cast
         if (worldObj != null) {
@@ -192,6 +248,9 @@ public class Projectile : MonoBehaviour {
             if (unitObj != null) {
 
                 if (_WeaponAttached != null) {
+
+                    // Cant damage self
+                    if (worldObj == _WeaponAttached.GetUnitAttached()) { return; }
 
                     // Friendly fire is OFF
                     if (unitObj.Team != _WeaponAttached.GetUnitAttached().Team) {
