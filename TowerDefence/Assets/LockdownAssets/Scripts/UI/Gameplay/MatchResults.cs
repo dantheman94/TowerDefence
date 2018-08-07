@@ -47,8 +47,10 @@ public class MatchResults : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        _IsGameOver = true;
+    //    _IsGameOver = true;
 	}
+
+    /////////////////////////////////////////////////////////////////////
 	
 	// Update is called once per frame
 	void Update () {
@@ -58,8 +60,12 @@ public class MatchResults : MonoBehaviour {
         if(_IsGameOver)
         {
             DisplayEndScreen();
+            Leaderboard.Instance.OnGameOver();
+            _IsGameOver = false;
         }
 	}
+
+    /////////////////////////////////////////////////////////////////////
 
     /// <summary>
     /// Displays end screen hud components
