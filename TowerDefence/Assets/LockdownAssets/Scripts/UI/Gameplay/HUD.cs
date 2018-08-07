@@ -38,6 +38,12 @@ public class HUD : MonoBehaviour {
     public Text PowerCountText;
     public Text PlayerLevelText;
 
+    [Space]
+    [Header("-----------------------------------")]
+    [Space]
+    [Header(" RAYCAST LAYERMASK")]
+    public LayerMask MaskBlock;
+
     //******************************************************************************************************************************
     //
     //      VARIABLES
@@ -45,7 +51,6 @@ public class HUD : MonoBehaviour {
     //******************************************************************************************************************************
 
     private Player _Player;
-    private int _LayerMask;
 
     //******************************************************************************************************************************
     //
@@ -67,8 +72,6 @@ public class HUD : MonoBehaviour {
         Settings.StoreSelectBoxItems(GameManager.Instance.ObjectSelected);
         Settings.StoreHighlightBoxItems(GameManager.Instance.ObjectHighlighted);
 
-        _LayerMask = 1 << LayerMask.NameToLayer("FlyingAiFloor");
-        _LayerMask = ~_LayerMask;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -124,7 +127,7 @@ public class HUD : MonoBehaviour {
         RaycastHit hit;
 
         // Return object from raycast
-        if (Physics.Raycast(ray, out hit, 1000, _LayerMask))
+        if (Physics.Raycast(ray, out hit, 1000, MaskBlock))
             return hit.collider.gameObject;
 
         return null;
@@ -145,7 +148,7 @@ public class HUD : MonoBehaviour {
         RaycastHit hit;
 
         // Return hit point from raycast
-        if (Physics.Raycast(ray, out hit, 1000, _LayerMask))
+        if (Physics.Raycast(ray, out hit, 1000, MaskBlock))
             return hit.point;
 
         return Settings.InvalidPosition;
