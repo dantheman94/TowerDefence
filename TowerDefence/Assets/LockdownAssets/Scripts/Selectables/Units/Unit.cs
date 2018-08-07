@@ -622,6 +622,18 @@ public class Unit : Ai {
             // WHICH TARGET HAS DAMAGED ME THE MOST?
 
             // WHICH TARGET IS THE CLOSEST?
+
+            // WHICH TARGET AM I THE MOST EFFECTIVE AGAINST?
+
+            List<int> targetWeights = new List<int>();
+            for (int i = 0; i < _PotentialTargets.Count; i++) {
+
+                // Temporary weights are just 1 for now
+                targetWeights.Add(1);
+            }
+
+            // Set new target
+            _AttackTarget = _PotentialTargets[GetWeightedRandomIndex(targetWeights)];
         }
         
         // Only a single target in the array
@@ -631,6 +643,37 @@ public class Unit : Ai {
         else { _AttackTarget = null; }
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Gets a random index based of a list of weighted ints.
+    /// </summary>
+    /// <param name="weights"></param>
+    /// <returns>
+    //  int
+    /// </returns>
+    private int GetWeightedRandomIndex(List<int> weights) {
+        
+        // Get the total sum of all the weights.
+        int weightSum = 0;
+        for (int i = 0; i < weights.Count; ++i) { weightSum += weights[i]; }
+
+        // Step through all the possibilities, one by one, checking to see if each one is selected.
+        int index = 0;
+        int lastIndex = weights.Count - 1;
+        while (index < lastIndex) {
+
+            // Do a probability check with a likelihood of weights[index] / weightSum.
+            if (Random.Range(0, weightSum) < weights[index]) { return index; }
+
+            // Remove the last item from the sum of total untested weights and try again.
+            weightSum -= weights[index++];
+        }
+
+        // No other item was selected, so return very last index.
+        return index;
+    }
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }

@@ -229,7 +229,7 @@ GameObject:
   - component: {fileID: 195251725877969104}
   m_Layer: 9
   m_Name: pfb_CoreVehicle
-  m_TagString: Untagged
+  m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -295,6 +295,21 @@ GameObject:
   - component: {fileID: 23335442336729830}
   m_Layer: 0
   m_Name: Box1537
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1690532709253532
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4262305159717370}
+  m_Layer: 9
+  m_Name: Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -376,7 +391,7 @@ GameObject:
   - component: {fileID: 4675324565323774}
   - component: {fileID: 135994239860887582}
   - component: {fileID: 114879504101688856}
-  m_Layer: 9
+  m_Layer: 2
   m_Name: HearingSphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -452,11 +467,11 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1017586895493424}
-  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -9.69, y: -8.5, z: 1.78}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0.00000023841858, y: -0.00000023841858, z: -0.7071068, w: -0.7071068}
+  m_LocalPosition: {x: 0.010540009, y: 5.814136, z: 8.045944}
+  m_LocalScale: {x: 1.3499382, y: 0.2835921, z: 0.902575}
   m_Children: []
-  m_Father: {fileID: 4335791652749518}
+  m_Father: {fileID: 4262305159717370}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!4 &4113639024031674
@@ -524,6 +539,21 @@ Transform:
   m_Father: {fileID: 4355461513345372}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4262305159717370
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1690532709253532}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4335791652749518}
+  - {fileID: 4049432962678144}
+  m_Father: {fileID: 4481516331845004}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4335791652749518
 Transform:
   m_ObjectHideFlags: 1
@@ -531,13 +561,12 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1308198722199876}
   m_LocalRotation: {x: 0.49999985, y: -0.5000002, z: -0.5000002, w: -0.49999985}
-  m_LocalPosition: {x: -2.4, y: 3.4112468, z: -0.7}
+  m_LocalPosition: {x: -2.4000015, y: 3.4112468, z: -0.69999695}
   m_LocalScale: {x: 0.9025749, y: 0.28359202, z: 1.3499377}
   m_Children:
   - {fileID: 4355461513345372}
-  - {fileID: 4049432962678144}
-  m_Father: {fileID: 4481516331845004}
-  m_RootOrder: 1
+  m_Father: {fileID: 4262305159717370}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90.00001, y: -90, z: -179.99998}
 --- !u!4 &4355461513345372
 Transform:
@@ -579,7 +608,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4507910126636984}
-  - {fileID: 4335791652749518}
+  - {fileID: 4262305159717370}
   - {fileID: 4579528875327620}
   m_Father: {fileID: 4841273683524894}
   m_RootOrder: 0
@@ -1563,45 +1592,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98d0d6d89205fb64dab8da47dcacc224, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObjectName: 
-  ObjectDescriptionShort: 
-  ObjectDescriptionLong: 
-  Logo: {fileID: 0}
-  ShowSelectionGUI: 1
-  Team: 0
-  _Player: {fileID: 0}
-  FogOfWarRadius: 400
-  BuildingState: {fileID: 0}
-  ActiveState: {fileID: 0}
-  BuildTime: 20
-  CostSupplies: 0
-  CostPower: 0
-  CostTechLevel: 1
-  CostPopulation: 0
-  RecycleSupplies: 0
-  RecyclePower: 0
-  MaxHitPoints: 100
-  MaxShieldPoints: 0
-  Garrisonable: 0
-  MaxGarrisonPopulation: 0
-  MultiSelectable: 1
-  _OffsetY: 0
-  _ObjectState: 0
-  _WidgetHealthbarScaleX: 100
-  _WidgetHealthbarScaleY: 15
-  _WidgetHealthbarOffset: 15
-  _WidgetShieldbarScaleX: 100
-  _WidgetShieldbarScaleY: 15
-  _WidgetShieldbarOffset: 22
-  ShowBuildingQueueUI: 0
-  UnitType: 0
-  InfantryMovementSpeed: 0
-  CanBePlayerControlled: 0
-  ShrinkSpeed: 0.1
-  PrimaryWeapon: {fileID: 0}
-  SecondaryWeapon: {fileID: 0}
-  MuzzleLaunchPoint: {fileID: 1017586895493424}
-  AttackingRange: 100
 --- !u!114 &114581787045042278
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1665,9 +1655,9 @@ MonoBehaviour:
   ShrinkSpeed: 0.1
   PrimaryWeapon: {fileID: 0}
   SecondaryWeapon: {fileID: 0}
-  MuzzleLaunchPoint: {fileID: 0}
+  MuzzleLaunchPoint: {fileID: 1017586895493424}
   AttackingRange: 100
-  WeaponObject: {fileID: 1308198722199876}
+  WeaponObject: {fileID: 1690532709253532}
   Acceleration: 16
   Deceleration: 8
   MaxSpeed: 40
