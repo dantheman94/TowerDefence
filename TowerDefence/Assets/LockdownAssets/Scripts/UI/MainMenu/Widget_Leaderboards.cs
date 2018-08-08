@@ -1,17 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 //******************************
 //
 //  Created by: Daniel Marton
 //
-//  Last edited by: Daniel Marton
-//  Last edited on: 29/7/2018
+//  Last edited by: Angus Secomb
+//  Last edited on: 08/08/2018
 //
 //******************************
 
 public class Widget_Leaderboards : MonoBehaviour {
+
+    public Button EnterButton = null;
 
     //******************************************************************************************************************************
     //
@@ -24,7 +26,14 @@ public class Widget_Leaderboards : MonoBehaviour {
     /// <summary>
     //  Called when the widget is activated/focused.
     /// </summary>
-    public void OnWidgetEnter() { gameObject.SetActive(true); }
+    public void OnWidgetEnter()
+    {
+        gameObject.SetActive(true);
+        if (EnterButton != null)
+        {
+            EnterButton.Select();
+        }
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

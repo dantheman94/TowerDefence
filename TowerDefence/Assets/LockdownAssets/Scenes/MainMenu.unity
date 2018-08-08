@@ -2199,6 +2199,11 @@ MonoBehaviour:
   CreditsButton: {fileID: 1235955367}
   SettingsButton: {fileID: 1705528145}
   ExitButton: {fileID: 757845426}
+  MainMenu: {fileID: 1398900587}
+  HighScore: {fileID: 403492815}
+  Credits: {fileID: 0}
+  Settings: {fileID: 1396640243}
+  PlayObject: {fileID: 1796289604}
 --- !u!114 &311979272
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3085,11 +3090,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
+    m_SelectOnLeft: {fileID: 1224926875}
+    m_SelectOnRight: {fileID: 618168991}
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 0, g: 0, b: 0, a: 0.39215687}
@@ -3383,6 +3388,7 @@ GameObject:
   - component: {fileID: 377572891}
   - component: {fileID: 377572889}
   - component: {fileID: 377572888}
+  - component: {fileID: 377572892}
   m_Layer: 5
   m_Name: b_GoBack
   m_TagString: Untagged
@@ -3421,11 +3427,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 0
-    m_SelectOnUp: {fileID: 0}
+    m_Mode: 4
+    m_SelectOnUp: {fileID: 1460473601}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
+    m_SelectOnRight: {fileID: 1946097558}
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
@@ -3519,6 +3525,18 @@ MonoBehaviour:
   TextAttached: {fileID: 2134867889}
   Default_TextColour: {r: 1, g: 1, b: 1, a: 1}
   Hover_TextColour: {r: 0, g: 0, b: 0, a: 1}
+  EnterButton: {fileID: 0}
+--- !u!114 &377572892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 377572886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13b4b799a1de1bf4db429c462bc9f22d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &383058931
 GameObject:
   m_ObjectHideFlags: 0
@@ -3531,6 +3549,7 @@ GameObject:
   - component: {fileID: 383058936}
   - component: {fileID: 383058934}
   - component: {fileID: 383058933}
+  - component: {fileID: 383058937}
   m_Layer: 5
   m_Name: b_Leaderboards
   m_TagString: Untagged
@@ -3667,6 +3686,18 @@ MonoBehaviour:
   TextAttached: {fileID: 113277008}
   Default_TextColour: {r: 1, g: 1, b: 1, a: 1}
   Hover_TextColour: {r: 0, g: 0, b: 0, a: 1}
+  EnterButton: {fileID: 0}
+--- !u!114 &383058937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 383058931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13b4b799a1de1bf4db429c462bc9f22d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &393278206
 GameObject:
   m_ObjectHideFlags: 0
@@ -3724,6 +3755,7 @@ GameObject:
   - component: {fileID: 399309387}
   - component: {fileID: 399309385}
   - component: {fileID: 399309384}
+  - component: {fileID: 399309388}
   m_Layer: 5
   m_Name: b_StartMatch
   m_TagString: Untagged
@@ -3762,10 +3794,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 0
+    m_Mode: 4
     m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnDown: {fileID: 1946097558}
+    m_SelectOnLeft: {fileID: 1866400726}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
@@ -3860,6 +3892,18 @@ MonoBehaviour:
   TextAttached: {fileID: 1638787487}
   Default_TextColour: {r: 1, g: 1, b: 1, a: 1}
   Hover_TextColour: {r: 0, g: 0, b: 0, a: 1}
+  EnterButton: {fileID: 0}
+--- !u!114 &399309388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 399309382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13b4b799a1de1bf4db429c462bc9f22d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &403492815
 GameObject:
   m_ObjectHideFlags: 0
@@ -3920,6 +3964,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5895f94819e376749ac5cfcc76ee3325, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnterButton: {fileID: 516176880}
 --- !u!1 &404036875
 GameObject:
   m_ObjectHideFlags: 0
@@ -4337,6 +4382,7 @@ GameObject:
   - component: {fileID: 463487009}
   - component: {fileID: 463487007}
   - component: {fileID: 463487006}
+  - component: {fileID: 463487010}
   m_Layer: 5
   m_Name: b_Difficulty
   m_TagString: Untagged
@@ -4375,11 +4421,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 0
+    m_Mode: 4
     m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
+    m_SelectOnDown: {fileID: 377572888}
+    m_SelectOnLeft: {fileID: 1460473601}
+    m_SelectOnRight: {fileID: 1866400726}
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
@@ -4462,6 +4508,18 @@ MonoBehaviour:
   TextAttached: {fileID: 122511135}
   Default_TextColour: {r: 1, g: 1, b: 1, a: 1}
   Hover_TextColour: {r: 0, g: 0, b: 0, a: 1}
+  EnterButton: {fileID: 0}
+--- !u!114 &463487010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 463487004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13b4b799a1de1bf4db429c462bc9f22d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &469123392
 GameObject:
   m_ObjectHideFlags: 0
@@ -4651,6 +4709,7 @@ GameObject:
   - component: {fileID: 514649879}
   - component: {fileID: 514649878}
   - component: {fileID: 514649877}
+  - component: {fileID: 514649881}
   m_Layer: 5
   m_Name: b_Settings
   m_TagString: Untagged
@@ -4792,12 +4851,24 @@ MonoBehaviour:
   TextAttached: {fileID: 525127085}
   Default_TextColour: {r: 1, g: 1, b: 1, a: 1}
   Hover_TextColour: {r: 0, g: 0, b: 0, a: 1}
+  EnterButton: {fileID: 0}
 --- !u!222 &514649880
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 514649875}
+--- !u!114 &514649881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 514649875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13b4b799a1de1bf4db429c462bc9f22d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &516176878
 GameObject:
   m_ObjectHideFlags: 0
@@ -4810,6 +4881,7 @@ GameObject:
   - component: {fileID: 516176883}
   - component: {fileID: 516176881}
   - component: {fileID: 516176880}
+  - component: {fileID: 516176884}
   m_Layer: 5
   m_Name: b_GoBack
   m_TagString: Untagged
@@ -4848,11 +4920,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 0
+    m_Mode: 4
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
+    m_SelectOnRight: {fileID: 1353964565}
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
@@ -4946,6 +5018,18 @@ MonoBehaviour:
   TextAttached: {fileID: 287449649}
   Default_TextColour: {r: 1, g: 1, b: 1, a: 1}
   Hover_TextColour: {r: 0, g: 0, b: 0, a: 1}
+  EnterButton: {fileID: 0}
+--- !u!114 &516176884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 516176878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13b4b799a1de1bf4db429c462bc9f22d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &525127083
 GameObject:
   m_ObjectHideFlags: 0
@@ -5614,11 +5698,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
+    m_SelectOnLeft: {fileID: 341725374}
+    m_SelectOnRight: {fileID: 1222145127}
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 0, g: 0, b: 0, a: 0.39215687}
@@ -6931,6 +7015,7 @@ GameObject:
   - component: {fileID: 757845429}
   - component: {fileID: 757845427}
   - component: {fileID: 757845426}
+  - component: {fileID: 757845430}
   m_Layer: 5
   m_Name: b_QuitGame
   m_TagString: Untagged
@@ -7056,6 +7141,18 @@ MonoBehaviour:
   TextAttached: {fileID: 870723795}
   Default_TextColour: {r: 1, g: 1, b: 1, a: 1}
   Hover_TextColour: {r: 0, g: 0, b: 0, a: 1}
+  EnterButton: {fileID: 0}
+--- !u!114 &757845430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 757845424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13b4b799a1de1bf4db429c462bc9f22d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &761834657
 GameObject:
   m_ObjectHideFlags: 0
@@ -10620,7 +10717,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -10770,11 +10867,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
+    m_SelectOnRight: {fileID: 341725374}
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 0, g: 0, b: 0, a: 0.39215687}
@@ -10850,6 +10947,7 @@ GameObject:
   - component: {fileID: 1235955369}
   - component: {fileID: 1235955368}
   - component: {fileID: 1235955367}
+  - component: {fileID: 1235955371}
   m_Layer: 5
   m_Name: b_Credits
   m_TagString: Untagged
@@ -10969,12 +11067,24 @@ MonoBehaviour:
   TextAttached: {fileID: 1821977219}
   Default_TextColour: {r: 1, g: 1, b: 1, a: 1}
   Hover_TextColour: {r: 0, g: 0, b: 0, a: 1}
+  EnterButton: {fileID: 0}
 --- !u!222 &1235955370
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1235955365}
+--- !u!114 &1235955371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1235955365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13b4b799a1de1bf4db429c462bc9f22d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1259240161
 GameObject:
   m_ObjectHideFlags: 0
@@ -11530,6 +11640,7 @@ GameObject:
   - component: {fileID: 1353964568}
   - component: {fileID: 1353964566}
   - component: {fileID: 1353964565}
+  - component: {fileID: 1353964569}
   m_Layer: 5
   m_Name: b_Save
   m_TagString: Untagged
@@ -11568,10 +11679,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 0
+    m_Mode: 4
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnLeft: {fileID: 516176880}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
@@ -11655,6 +11766,18 @@ MonoBehaviour:
   TextAttached: {fileID: 1926022925}
   Default_TextColour: {r: 1, g: 1, b: 1, a: 1}
   Hover_TextColour: {r: 0, g: 0, b: 0, a: 1}
+  EnterButton: {fileID: 0}
+--- !u!114 &1353964569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1353964563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13b4b799a1de1bf4db429c462bc9f22d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1356916426
 GameObject:
   m_ObjectHideFlags: 0
@@ -12182,6 +12305,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3882b8c4681af249be86389b7326337, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnterButton: {fileID: 516176880}
+  ExitButton: {fileID: 1705528145}
 --- !u!1 &1398900587
 GameObject:
   m_ObjectHideFlags: 0
@@ -12240,6 +12365,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WidgetCredits: {fileID: 0}
+  EnterButton: {fileID: 0}
+  ExitButton: {fileID: 1752325289}
 --- !u!1 &1421955302
 GameObject:
   m_ObjectHideFlags: 0
@@ -12571,6 +12698,7 @@ GameObject:
   - component: {fileID: 1449145152}
   - component: {fileID: 1449145150}
   - component: {fileID: 1449145149}
+  - component: {fileID: 1449145153}
   m_Layer: 5
   m_Name: b_GoBack
   m_TagString: Untagged
@@ -12707,6 +12835,18 @@ MonoBehaviour:
   TextAttached: {fileID: 1664666794}
   Default_TextColour: {r: 1, g: 1, b: 1, a: 1}
   Hover_TextColour: {r: 0, g: 0, b: 0, a: 1}
+  EnterButton: {fileID: 0}
+--- !u!114 &1449145153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1449145147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13b4b799a1de1bf4db429c462bc9f22d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1453339363
 GameObject:
   m_ObjectHideFlags: 0
@@ -12867,6 +13007,7 @@ GameObject:
   - component: {fileID: 1460473604}
   - component: {fileID: 1460473602}
   - component: {fileID: 1460473601}
+  - component: {fileID: 1460473605}
   m_Layer: 5
   m_Name: b_Level
   m_TagString: Untagged
@@ -12905,11 +13046,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 0
+    m_Mode: 4
     m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnDown: {fileID: 377572888}
     m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
+    m_SelectOnRight: {fileID: 463487006}
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
@@ -12992,6 +13133,18 @@ MonoBehaviour:
   TextAttached: {fileID: 143652866}
   Default_TextColour: {r: 1, g: 1, b: 1, a: 1}
   Hover_TextColour: {r: 0, g: 0, b: 0, a: 1}
+  EnterButton: {fileID: 0}
+--- !u!114 &1460473605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1460473599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13b4b799a1de1bf4db429c462bc9f22d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1462340165
 GameObject:
   m_ObjectHideFlags: 0
@@ -14852,6 +15005,7 @@ GameObject:
   - component: {fileID: 1705528148}
   - component: {fileID: 1705528146}
   - component: {fileID: 1705528145}
+  - component: {fileID: 1705528149}
   m_Layer: 5
   m_Name: b_Settings
   m_TagString: Untagged
@@ -14999,6 +15153,18 @@ MonoBehaviour:
   TextAttached: {fileID: 1034467973}
   Default_TextColour: {r: 1, g: 1, b: 1, a: 1}
   Hover_TextColour: {r: 0, g: 0, b: 0, a: 1}
+  EnterButton: {fileID: 0}
+--- !u!114 &1705528149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1705528143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13b4b799a1de1bf4db429c462bc9f22d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1725894115
 GameObject:
   m_ObjectHideFlags: 0
@@ -15320,6 +15486,7 @@ GameObject:
   - component: {fileID: 1752325292}
   - component: {fileID: 1752325290}
   - component: {fileID: 1752325289}
+  - component: {fileID: 1752325293}
   m_Layer: 5
   m_Name: b_PlayLockdown
   m_TagString: Untagged
@@ -15366,7 +15533,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -15407,6 +15574,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 1
+      - m_Target: {fileID: 0}
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1752325290
@@ -15448,14 +15626,26 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1752325287}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7b889e04c3dffc14cbe31d5935ca4d65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TextAttached: {fileID: 2070873127}
   Default_TextColour: {r: 1, g: 1, b: 1, a: 1}
-  Hover_TextColour: {r: 0, g: 0, b: 0, a: 1}
+  Hover_TextColour: {r: 1, g: 1, b: 1, a: 1}
+  EnterButton: {fileID: 0}
+--- !u!114 &1752325293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1752325287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13b4b799a1de1bf4db429c462bc9f22d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1753923419
 GameObject:
   m_ObjectHideFlags: 0
@@ -16036,6 +16226,9 @@ MonoBehaviour:
   WidgetDifficulties: {fileID: 339432664}
   WidgetFactions: {fileID: 393278206}
   StartButton: {fileID: 0}
+  GuideButton: {fileID: 1460473601}
+  DifficultyEnterButton: {fileID: 1224926875}
+  FactionEnterButton: {fileID: 262209132}
 --- !u!114 &1796289608
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16551,6 +16744,7 @@ GameObject:
   - component: {fileID: 1866400729}
   - component: {fileID: 1866400727}
   - component: {fileID: 1866400726}
+  - component: {fileID: 1866400730}
   m_Layer: 5
   m_Name: b_Faction
   m_TagString: Untagged
@@ -16589,11 +16783,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 0
+    m_Mode: 4
     m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
+    m_SelectOnDown: {fileID: 1946097558}
+    m_SelectOnLeft: {fileID: 463487006}
+    m_SelectOnRight: {fileID: 399309384}
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
@@ -16676,6 +16870,18 @@ MonoBehaviour:
   TextAttached: {fileID: 421683062}
   Default_TextColour: {r: 1, g: 1, b: 1, a: 1}
   Hover_TextColour: {r: 0, g: 0, b: 0, a: 1}
+  EnterButton: {fileID: 0}
+--- !u!114 &1866400730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1866400724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13b4b799a1de1bf4db429c462bc9f22d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1874896943
 GameObject:
   m_ObjectHideFlags: 0
@@ -17238,6 +17444,7 @@ GameObject:
   - component: {fileID: 1946097561}
   - component: {fileID: 1946097559}
   - component: {fileID: 1946097558}
+  - component: {fileID: 1946097562}
   m_Layer: 5
   m_Name: b_Settings
   m_TagString: Untagged
@@ -17276,10 +17483,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 0
-    m_SelectOnUp: {fileID: 0}
+    m_Mode: 4
+    m_SelectOnUp: {fileID: 399309384}
     m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnLeft: {fileID: 377572888}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
@@ -17385,6 +17592,18 @@ MonoBehaviour:
   TextAttached: {fileID: 144887752}
   Default_TextColour: {r: 1, g: 1, b: 1, a: 1}
   Hover_TextColour: {r: 0, g: 0, b: 0, a: 1}
+  EnterButton: {fileID: 0}
+--- !u!114 &1946097562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1946097556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13b4b799a1de1bf4db429c462bc9f22d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1960843973
 GameObject:
   m_ObjectHideFlags: 0

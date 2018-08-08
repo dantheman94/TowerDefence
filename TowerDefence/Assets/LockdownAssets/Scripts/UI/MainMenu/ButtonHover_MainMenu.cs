@@ -28,6 +28,7 @@ public class ButtonHover_MainMenu : MonoBehaviour, IPointerEnterHandler, IPointe
     public Text TextAttached = null;
     public Color Default_TextColour = Color.white;
     public Color Hover_TextColour = Color.black;
+    public Button EnterButton = null;
 
     //******************************************************************************************************************************
     //
