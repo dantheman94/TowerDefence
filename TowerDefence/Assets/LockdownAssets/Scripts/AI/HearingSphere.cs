@@ -67,6 +67,9 @@ public class HearingSphere : MonoBehaviour {
 
                 // Remove from weighted list
                 _VehicleAttached.RemovePotentialTarget(worldObject);
+
+                // Update new target (if the target that just left was the current target)
+                if (worldObject == _VehicleAttached.GetAttackTarget()) { _VehicleAttached.DetermineWeightedTargetFromList(); }
             }
         }
     }

@@ -24,14 +24,17 @@ public class Weapon : MonoBehaviour {
     [Header("-----------------------------------")]
     [Header(" FIRING PROPERTIES")]
     [Space]
-    public float FiringDelay = 0.5f;
-    public bool HitScanProjectile = true;
-    public bool ParticleBasedDamage = false;
-    public HitScanDamages RaycastDamages;
-    [Space]
+    public EProjectileType _ProjectileType;
     public Projectile ProjectileClass = null;
     public ParticleSystem FiringEffect = null;
+    [Space]
+    public ParticleSystem MuzzleEffect = null;
+    [Space]
     public FireType FiringType = FireType.FullAuto;
+    public int ProjectilesPerShot = 1;
+    public float FiringDelay = 0.5f;
+    [Space]
+    public ObjectDamages Damages;
 
     [Space]
     [Header("-----------------------------------")]
@@ -47,8 +50,11 @@ public class Weapon : MonoBehaviour {
     //
     //******************************************************************************************************************************
 
+    public enum EProjectileType { Object, Raycast, Particle }
+    public enum FireType { FullAuto, Spread }
+
     [System.Serializable]
-    public struct HitScanDamages {
+    public struct ObjectDamages {
 
         public int DamageDefault;
         public int DamageCoreInfantry;
@@ -62,7 +68,6 @@ public class Weapon : MonoBehaviour {
         public int DamageSupportShip;
         public int DamageHeavyAirship;
     }
-    public enum FireType { FullAuto, Spread }
 
     private int _CurrentMagazineCount;
     private float _FireDelayTimer = 0f;
@@ -105,6 +110,106 @@ public class Weapon : MonoBehaviour {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
+    //  Fires a 3D projectile object.
+    /// </summary>
+    private void ProjectileObject() {
+
+        if (ProjectileClass && _UnitAttached != null) {
+
+            // Create projectile facing forward from the muzzle
+            Projectile proj = ObjectPooling.Spawn(ProjectileClass.gameObject, _UnitAttached.MuzzleLaunchPoint.transform.position).GetComponent<Projectile>();
+            proj.transform.rotation = _UnitAttached.MuzzleLaunchPoint.transform.rotation;
+
+            // Start the projectile
+            proj.Init(this);
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Fires a hitscan based projectile.
+    /// </summary>
+    private void ProjectileRaycast() {
+
+        if (_UnitAttached != null) { 
+
+            RaycastHit hit;
+            Vector3 attackPos = _UnitAttached.GetAttackTarget().transform.position;
+            attackPos.y = attackPos.y + _UnitAttached.GetAttackTarget().GetObjectHeight() / 2;
+            Vector3 attackDir = attackPos - _UnitAttached.MuzzleLaunchPoint.transform.position;
+            attackDir.Normalize();
+
+            if (Physics.Raycast(_UnitAttached.MuzzleLaunchPoint.transform.position, attackDir, out hit, _UnitAttached.AttackingRange)) {
+
+                Debug.DrawLine(_UnitAttached.MuzzleLaunchPoint.transform.position, hit.point, Color.red);
+
+                // Damage target
+                WorldObject worldObj = hit.transform.GetComponentInParent<WorldObject>();
+
+                if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Ignore Raycast")) { return; }
+
+                else if (worldObj != null) {
+
+                    // Check if object is of type unit
+                    Unit unitObj = worldObj.GetComponent<Unit>();
+                    if (unitObj != null) {
+
+                        // Cannot damage self
+                        if (unitObj.Team != _UnitAttached.Team) {
+
+                            // Damage based on unit type
+                            switch (unitObj.UnitType) {
+
+                                case Unit.EUnitType.Undefined:          { unitObj.Damage(Damages.DamageDefault, _UnitAttached); break; }
+                                case Unit.EUnitType.CoreMarine:         { unitObj.Damage(Damages.DamageCoreInfantry, _UnitAttached); break; }
+                                case Unit.EUnitType.AntiInfantryMarine: { unitObj.Damage(Damages.DamageAntiInfantryMarine, _UnitAttached); break; }
+                                case Unit.EUnitType.Hero:               { unitObj.Damage(Damages.DamageHero, _UnitAttached); break; }
+                                case Unit.EUnitType.CoreVehicle:        { unitObj.Damage(Damages.DamageCoreVehicle, _UnitAttached); break; }
+                                case Unit.EUnitType.AntiAirVehicle:     { unitObj.Damage(Damages.DamageAntiAirVehicle, _UnitAttached); break; }
+                                case Unit.EUnitType.MobileArtillery:    { unitObj.Damage(Damages.DamageMobileArtillery, _UnitAttached); break; }
+                                case Unit.EUnitType.BattleTank:         { unitObj.Damage(Damages.DamageBattleTank, _UnitAttached); break; }
+                                case Unit.EUnitType.CoreAirship:        { unitObj.Damage(Damages.DamageCoreAirship, _UnitAttached); break; }
+                                case Unit.EUnitType.SupportShip:        { unitObj.Damage(Damages.DamageSupportShip, _UnitAttached); break; }
+                                case Unit.EUnitType.HeavyAirship:       { unitObj.Damage(Damages.DamageHeavyAirship, _UnitAttached); break; }
+                                default: break;
+                            }
+                        }
+                    }
+
+                    // Damage the object (its not a unit so use the default damage value)
+                    else { worldObj.Damage(Damages.DamageDefault); }
+                }
+            }
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Fires a particle effect that uses particle collision to invoke damage.
+    /// </summary>
+    private void ProjectileParticle() {
+        
+        // Play firing effect
+        if (FiringEffect != null) {
+
+            // Play
+            ParticleSystem effect = ObjectPooling.Spawn(FiringEffect.gameObject, 
+                                                        _UnitAttached.MuzzleLaunchPoint.transform.position, 
+                                                        _UnitAttached.MuzzleLaunchPoint.transform.rotation).GetComponent<ParticleSystem>();
+            effect.GetComponent<ParticleBasedDamage>().SetWeaponAttached(this);
+            effect.Play();
+
+            // Despawn particle system once it has finished its cycle
+            float effectDuration = effect.duration + effect.startLifetime;
+            StartCoroutine(ParticleDespawn(effect, effectDuration));
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
     //  Fires either a hitscan or 3D projectile object 
     /// </summary>
     public virtual void FireWeapon() {
@@ -118,79 +223,27 @@ public class Weapon : MonoBehaviour {
             if (!BottomlessClip) { _CurrentMagazineCount--; }
 
             // Fire trace (or projectile)
-            if (HitScanProjectile && _UnitAttached != null) {
+            // Determine damage type
+            switch (_ProjectileType) {
 
-                RaycastHit hit;
-                Vector3 attackPos = _UnitAttached.GetAttackTarget().transform.position;
-                attackPos.y = attackPos.y + _UnitAttached.GetAttackTarget().GetObjectHeight() / 2;
-                Vector3 attackDir = attackPos - _UnitAttached.MuzzleLaunchPoint.transform.position;
-                attackDir.Normalize();
-                if (Physics.Raycast(_UnitAttached.MuzzleLaunchPoint.transform.position, attackDir, out hit, _UnitAttached.AttackingRange)) {
-
-                    Debug.DrawLine(_UnitAttached.MuzzleLaunchPoint.transform.position, hit.point, Color.red);
-
-                    // Damage target
-                    WorldObject worldObj = hit.transform.GetComponentInParent<WorldObject>();
-
-                    if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Ignore Raycast")) { return; }
-
-                    else if (worldObj != null) {
-
-                        // Check if object is of type unit
-                        Unit unitObj = worldObj.GetComponent<Unit>();
-                        if (unitObj != null) {
-
-                            // Cannot damage self
-                            if (unitObj.Team != _UnitAttached.Team) {
-
-                                // Damage based on unit type
-                                switch (unitObj.UnitType) {
-
-                                    case Unit.EUnitType.Undefined:          { unitObj.Damage(RaycastDamages.DamageDefault); break; }
-                                    case Unit.EUnitType.CoreMarine:         { unitObj.Damage(RaycastDamages.DamageCoreInfantry); break; }
-                                    case Unit.EUnitType.AntiInfantryMarine: { unitObj.Damage(RaycastDamages.DamageAntiInfantryMarine); break; }
-                                    case Unit.EUnitType.Hero:               { unitObj.Damage(RaycastDamages.DamageHero); break; }
-                                    case Unit.EUnitType.CoreVehicle:        { unitObj.Damage(RaycastDamages.DamageCoreVehicle); break; }
-                                    case Unit.EUnitType.AntiAirVehicle:     { unitObj.Damage(RaycastDamages.DamageAntiAirVehicle); break; }
-                                    case Unit.EUnitType.MobileArtillery:    { unitObj.Damage(RaycastDamages.DamageMobileArtillery); break; }
-                                    case Unit.EUnitType.BattleTank:         { unitObj.Damage(RaycastDamages.DamageBattleTank); break; }
-                                    case Unit.EUnitType.CoreAirship:        { unitObj.Damage(RaycastDamages.DamageCoreAirship); break; }
-                                    case Unit.EUnitType.SupportShip:        { unitObj.Damage(RaycastDamages.DamageSupportShip); break; }
-                                    case Unit.EUnitType.HeavyAirship:       { unitObj.Damage(RaycastDamages.DamageHeavyAirship); break; }
-                                    default: break;
-                                }
-                            }
-                        }
-
-                        // Damage the object (its not a unit so use the default damage value)
-                        else { worldObj.Damage(RaycastDamages.DamageDefault); }
-                    }
-                }
+                case EProjectileType.Object:    { ProjectileObject(); break; }
+                case EProjectileType.Raycast:   { ProjectileRaycast(); break; }
+                case EProjectileType.Particle:  { ProjectileParticle(); break; }
+                default: { break; }
             }
 
-            // 3D projectile
-            else if (ProjectileClass && _UnitAttached != null) {
-
-                // Create projectile facing forward from the muzzle
-                Projectile proj = ObjectPooling.Spawn(ProjectileClass.gameObject, _UnitAttached.MuzzleLaunchPoint.transform.position).GetComponent<Projectile>();
-                proj.transform.rotation = _UnitAttached.MuzzleLaunchPoint.transform.rotation;
-
-                // Start the projectile
-                proj.Init(this);
-            }
-
-            // Play firing effect
-            if (FiringEffect != null) {
+            // Play muzzle firing effect
+            if (MuzzleEffect != null) {
 
                 // Play
-                ParticleSystem effect = ObjectPooling.Spawn(FiringEffect.gameObject, _UnitAttached.MuzzleLaunchPoint.transform.position, _UnitAttached.MuzzleLaunchPoint.transform.rotation).GetComponent<ParticleSystem>();
+                ParticleSystem effect = ObjectPooling.Spawn(MuzzleEffect.gameObject, 
+                                                            _UnitAttached.MuzzleLaunchPoint.transform.position,
+                                                            _UnitAttached.MuzzleLaunchPoint.transform.rotation).GetComponent<ParticleSystem>();
                 effect.Play();
 
                 // Despawn particle system once it has finished its cycle
                 float effectDuration = effect.duration + effect.startLifetime;
                 StartCoroutine(ParticleDespawn(effect, effectDuration));
-
-                if (ParticleBasedDamage) { effect.GetComponent<ParticleBasedDamage>().SetWeaponAttached(this); }
             }
         }
 
@@ -222,7 +275,6 @@ public class Weapon : MonoBehaviour {
     /// </summary>
     /// <param name="particleEffect"></param>
     /// <param name="delay"></param>
-    /// <returns></returns>
     IEnumerator ParticleDespawn(ParticleSystem particleEffect, float delay) {
 
         // Delay

@@ -27,23 +27,7 @@ public class Projectile : MonoBehaviour {
     public float _MaxDistance = 1000f;
     public bool _AffectedByGravity = false;
     public float _GravityStrength = 1f;
-
-    [Space]
-    [Header("-----------------------------------")]
-    [Header(" DAMAGE")]
-    [Space]
-    public int DamageDefault = 1;
-    public int DamageCoreInfantry = 1;
-    public int DamageAntiInfantryMarine = 1;
-    public int DamageHero = 1;
-    public int DamageCoreVehicle = 1;
-    public int DamageAntiAirVehicle = 1;
-    public int DamageMobileArtillery = 1;
-    public int DamageBattleTank = 1;
-    public int DamageCoreAirship = 1;
-    public int DamageSupportShip = 1;
-    public int DamageHeavyAirship = 1;
-
+    
     [Space]
     [Header("-----------------------------------")]
     [Header(" ON IMPACT")]
@@ -64,6 +48,7 @@ public class Projectile : MonoBehaviour {
     private Vector3 _Downwards = Vector3.down;
     private Weapon _WeaponAttached = null;
     private Vector3 _OriginPosition = Vector3.zero;
+    private Weapon.ObjectDamages _Damages;
 
     //******************************************************************************************************************************
     //
@@ -100,6 +85,7 @@ public class Projectile : MonoBehaviour {
         _WeaponAttached = wep;
         _Velocity = transform.forward;
         _OriginPosition = transform.position;
+        _Damages = wep.Damages;
 
         // This should already be called when it is pulled from its object pool,
         // but this is just incase it somehow isn't
@@ -149,7 +135,7 @@ public class Projectile : MonoBehaviour {
                         float damageMultiplier = 1 - (distanceFromEpicenter / ExplosionRadius);
 
                         // Damage the object
-                        worldObj.Damage(Mathf.FloorToInt(DamageDefault * damageMultiplier));
+                        worldObj.Damage(Mathf.FloorToInt(_Damages.DamageDefault * damageMultiplier));
                     }
                 }
             }            
@@ -204,17 +190,17 @@ public class Projectile : MonoBehaviour {
                         // Damage based on unit type
                         switch (unitObj.UnitType) {
 
-                            case Unit.EUnitType.Undefined:          { unitObj.Damage(DamageDefault); break; }
-                            case Unit.EUnitType.CoreMarine:         { unitObj.Damage(DamageCoreInfantry); break; }
-                            case Unit.EUnitType.AntiInfantryMarine: { unitObj.Damage(DamageAntiInfantryMarine); break; }
-                            case Unit.EUnitType.Hero:               { unitObj.Damage(DamageHero); break; }
-                            case Unit.EUnitType.CoreVehicle:        { unitObj.Damage(DamageCoreVehicle); break; }
-                            case Unit.EUnitType.AntiAirVehicle:     { unitObj.Damage(DamageAntiAirVehicle); break; }
-                            case Unit.EUnitType.MobileArtillery:    { unitObj.Damage(DamageMobileArtillery); break; }
-                            case Unit.EUnitType.BattleTank:         { unitObj.Damage(DamageBattleTank); break; }
-                            case Unit.EUnitType.CoreAirship:        { unitObj.Damage(DamageCoreAirship); break; }
-                            case Unit.EUnitType.SupportShip:        { unitObj.Damage(DamageSupportShip); break; }
-                            case Unit.EUnitType.HeavyAirship:       { unitObj.Damage(DamageHeavyAirship); break; }
+                            case Unit.EUnitType.Undefined:          { unitObj.Damage(_Damages.DamageDefault, _WeaponAttached.GetUnitAttached()); break; }
+                            case Unit.EUnitType.CoreMarine:         { unitObj.Damage(_Damages.DamageCoreInfantry, _WeaponAttached.GetUnitAttached()); break; }
+                            case Unit.EUnitType.AntiInfantryMarine: { unitObj.Damage(_Damages.DamageAntiInfantryMarine, _WeaponAttached.GetUnitAttached()); break; }
+                            case Unit.EUnitType.Hero:               { unitObj.Damage(_Damages.DamageHero, _WeaponAttached.GetUnitAttached()); break; }
+                            case Unit.EUnitType.CoreVehicle:        { unitObj.Damage(_Damages.DamageCoreVehicle, _WeaponAttached.GetUnitAttached()); break; }
+                            case Unit.EUnitType.AntiAirVehicle:     { unitObj.Damage(_Damages.DamageAntiAirVehicle, _WeaponAttached.GetUnitAttached()); break; }
+                            case Unit.EUnitType.MobileArtillery:    { unitObj.Damage(_Damages.DamageMobileArtillery, _WeaponAttached.GetUnitAttached()); break; }
+                            case Unit.EUnitType.BattleTank:         { unitObj.Damage(_Damages.DamageBattleTank, _WeaponAttached.GetUnitAttached()); break; }
+                            case Unit.EUnitType.CoreAirship:        { unitObj.Damage(_Damages.DamageCoreAirship, _WeaponAttached.GetUnitAttached()); break; }
+                            case Unit.EUnitType.SupportShip:        { unitObj.Damage(_Damages.DamageSupportShip, _WeaponAttached.GetUnitAttached()); break; }
+                            case Unit.EUnitType.HeavyAirship:       { unitObj.Damage(_Damages.DamageHeavyAirship, _WeaponAttached.GetUnitAttached()); break; }
                             default: break;
                         }
                     }
@@ -228,7 +214,7 @@ public class Projectile : MonoBehaviour {
             else {
 
                 // Destroy projectile
-                worldObj.Damage(DamageDefault);
+                worldObj.Damage(_Damages.DamageDefault);
                 OnDestroy();
             }
         }
@@ -262,17 +248,17 @@ public class Projectile : MonoBehaviour {
                         // Damage based on unit type
                         switch (unitObj.UnitType) {
 
-                            case Unit.EUnitType.Undefined:          { unitObj.Damage(DamageDefault); break; }
-                            case Unit.EUnitType.CoreMarine:         { unitObj.Damage(DamageCoreInfantry); break; }
-                            case Unit.EUnitType.AntiInfantryMarine: { unitObj.Damage(DamageAntiInfantryMarine); break; }
-                            case Unit.EUnitType.Hero:               { unitObj.Damage(DamageHero); break; }
-                            case Unit.EUnitType.CoreVehicle:        { unitObj.Damage(DamageCoreVehicle); break; }
-                            case Unit.EUnitType.AntiAirVehicle:     { unitObj.Damage(DamageAntiAirVehicle); break; }
-                            case Unit.EUnitType.MobileArtillery:    { unitObj.Damage(DamageMobileArtillery); break; }
-                            case Unit.EUnitType.BattleTank:         { unitObj.Damage(DamageBattleTank); break; }
-                            case Unit.EUnitType.CoreAirship:        { unitObj.Damage(DamageCoreAirship); break; }
-                            case Unit.EUnitType.SupportShip:        { unitObj.Damage(DamageSupportShip); break; }
-                            case Unit.EUnitType.HeavyAirship:       { unitObj.Damage(DamageHeavyAirship); break; }
+                            case Unit.EUnitType.Undefined:          { unitObj.Damage(_Damages.DamageDefault, _WeaponAttached.GetUnitAttached()); break; }
+                            case Unit.EUnitType.CoreMarine:         { unitObj.Damage(_Damages.DamageCoreInfantry, _WeaponAttached.GetUnitAttached()); break; }
+                            case Unit.EUnitType.AntiInfantryMarine: { unitObj.Damage(_Damages.DamageAntiInfantryMarine, _WeaponAttached.GetUnitAttached()); break; }
+                            case Unit.EUnitType.Hero:               { unitObj.Damage(_Damages.DamageHero, _WeaponAttached.GetUnitAttached()); break; }
+                            case Unit.EUnitType.CoreVehicle:        { unitObj.Damage(_Damages.DamageCoreVehicle, _WeaponAttached.GetUnitAttached()); break; }
+                            case Unit.EUnitType.AntiAirVehicle:     { unitObj.Damage(_Damages.DamageAntiAirVehicle, _WeaponAttached.GetUnitAttached()); break; }
+                            case Unit.EUnitType.MobileArtillery:    { unitObj.Damage(_Damages.DamageMobileArtillery, _WeaponAttached.GetUnitAttached()); break; }
+                            case Unit.EUnitType.BattleTank:         { unitObj.Damage(_Damages.DamageBattleTank, _WeaponAttached.GetUnitAttached()); break; }
+                            case Unit.EUnitType.CoreAirship:        { unitObj.Damage(_Damages.DamageCoreAirship, _WeaponAttached.GetUnitAttached()); break; }
+                            case Unit.EUnitType.SupportShip:        { unitObj.Damage(_Damages.DamageSupportShip, _WeaponAttached.GetUnitAttached()); break; }
+                            case Unit.EUnitType.HeavyAirship:       { unitObj.Damage(_Damages.DamageHeavyAirship, _WeaponAttached.GetUnitAttached()); break; }
                             default: break;
                         }
                     }
@@ -286,7 +272,7 @@ public class Projectile : MonoBehaviour {
             else {
 
                 // Destroy projectile
-                worldObj.Damage(DamageDefault);
+                worldObj.Damage(_Damages.DamageDefault);
                 OnDestroy();
             }
         }

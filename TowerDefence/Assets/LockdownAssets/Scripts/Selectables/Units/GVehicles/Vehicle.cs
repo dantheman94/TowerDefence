@@ -181,7 +181,7 @@ public class Vehicle : Unit {
     /// <summary>
     //  
     /// </summary>
-    protected override void LookAt(Vector3 position) {
+    protected override void LookAtLerp(Vector3 position) {
 
         // Rotate the vehicle's weapon to face the target
         if (WeaponObject) {
@@ -198,5 +198,34 @@ public class Vehicle : Unit {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
+
+    /// <summary>
+    //  Snaps the agent's transform to the position specified.
+    /// </summary>
+    protected override void LookAtSnap(Vector3 position) {
+
+        // Use the vehicles attached "gunner object" for the lookAt function
+        if (WeaponObject) { WeaponObject.transform.LookAt(position); }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="delayTime"></param>
+    protected override IEnumerator ResetWeaponPosition(int delayTime) {
+
+        yield return new WaitForSeconds(delayTime);
+
+        // Delay complete so reset position
+        if (_AttackTarget == null) {
+
+            // Face forward
+            if (WeaponObject != null) { LookAtLerp(ActiveState.transform.forward * 100f); }
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 }

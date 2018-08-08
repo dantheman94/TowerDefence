@@ -1026,6 +1026,9 @@ public class KeyboardInput : MonoBehaviour {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /// <summary>
+    //  
+    /// </summary>
     private void AiAbilityCommandInput() {
 
         if (Input.GetKeyDown(KeyCode.R)) {
@@ -1602,7 +1605,7 @@ public class KeyboardInput : MonoBehaviour {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    /// Creates the selection boxes parameters.
+    // Creates the selection boxes parameters.
     /// </summary>
     private void CreateSelectionBox()
     {
@@ -1639,7 +1642,7 @@ public class KeyboardInput : MonoBehaviour {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    /// Draws the selection box for selecting.
+    // Draws the selection box for selecting.
     /// </summary>
     private void OnGUI()
     {
@@ -1653,7 +1656,7 @@ public class KeyboardInput : MonoBehaviour {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    /// Inverts the mouses y position in screen space.
+    // Inverts the mouses y position in screen space.
     /// </summary>
     /// <param name="y"></param>
     /// <returns></returns>

@@ -29,10 +29,8 @@ public class AirVehicle : Vehicle {
     public float DownwardsAvoidanceRange = 20f;
     public float VerticalSpeed = 10f;
     [Space]
-    public float MinimumFlyingHeight = 20f;
     public float MaximumFlyingHeight = 100f;
-    private float _IdealFlyingHeightMin = 40f;
-    private float _IdealFlyingHeightMax = 80f;
+    public LayerMask AvoidanceLayerMask;
 
     //******************************************************************************************************************************
     //
@@ -44,8 +42,10 @@ public class AirVehicle : Vehicle {
     protected bool _DownwardRayDetection = false;
     protected bool _AngleRayDetection = false;
 
-    private int _LayerMask;
-
+    private float MinimumFlyingHeight = 20f;
+    private float _IdealFlyingHeightMin = 40f;
+    private float _IdealFlyingHeightMax = 80f;
+    
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
@@ -59,11 +59,9 @@ public class AirVehicle : Vehicle {
     /// </summary>
     protected override void Start() {
         base.Start();
-
-        _LayerMask = 1 << LayerMask.NameToLayer("Units");
-        _LayerMask = ~_LayerMask;
-
+        
         // Initialize "ideal" flying heights based off game world
+        MinimumFlyingHeight = GameManager.Instance.FlyingNavMesh.transform.position.y;
         _IdealFlyingHeightMin = GameManager.Instance.FlyingNavMesh.transform.position.y + _Agent.height;
         _IdealFlyingHeightMax = GameManager.Instance.FlyingNavMesh.transform.position.y + DownwardsAvoidanceRange + 5f;
     }
@@ -110,7 +108,7 @@ public class AirVehicle : Vehicle {
         
         // Fire a raycast forward
         RaycastHit hitForward;
-        if (_ForwardRayDetection = Physics.Raycast(transform.position, transform.forward, out hitForward, ForwardAvoidanceRange, _LayerMask)) {
+        if (_ForwardRayDetection = Physics.Raycast(transform.position, transform.forward, out hitForward, ForwardAvoidanceRange, AvoidanceLayerMask)) {
 
             Debug.DrawRay(transform.position, transform.forward * ForwardAvoidanceRange, Color.green);
 
@@ -133,7 +131,7 @@ public class AirVehicle : Vehicle {
 
         // Fire a raycast downward
         RaycastHit hitDown;
-        if (_DownwardRayDetection = Physics.Raycast(transform.position, -transform.up, out hitDown, DownwardsAvoidanceRange, _LayerMask)) {
+        if (_DownwardRayDetection = Physics.Raycast(transform.position, -transform.up, out hitDown, DownwardsAvoidanceRange, AvoidanceLayerMask)) {
 
             // Dont test raycast against self
             if (hitDown.transform.gameObject != gameObject) {
@@ -165,7 +163,7 @@ public class AirVehicle : Vehicle {
         // Fire a raycast on a forward / down angle
         Vector3 angle = transform.forward + -transform.up;
         RaycastHit hitAngle;
-        if (_AngleRayDetection = Physics.Raycast(transform.position, angle, out hitAngle, ForwardAvoidanceRange, _LayerMask)) {
+        if (_AngleRayDetection = Physics.Raycast(transform.position, angle, out hitAngle, ForwardAvoidanceRange, AvoidanceLayerMask)) {
 
             Debug.DrawRay(transform.position, angle * ForwardAvoidanceRange, Color.green);
 
