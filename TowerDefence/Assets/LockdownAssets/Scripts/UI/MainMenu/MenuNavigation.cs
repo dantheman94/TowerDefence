@@ -13,7 +13,8 @@ using UnityEngine.SceneManagement;
 //
 //******************************
 
-public class MenuNavigation : MonoBehaviour {
+public class MenuNavigation : MonoBehaviour
+{
 
     //******************************************************************************************************************************
     //
@@ -26,7 +27,14 @@ public class MenuNavigation : MonoBehaviour {
     public Button CreditsButton;
     public Button SettingsButton;
     public Button ExitButton;
-    
+
+    public GameObject MainMenu;
+    public GameObject HighScore;
+    public GameObject Credits;
+    public GameObject Settings;
+    public GameObject PlayObject;
+
+
 
     //******************************************************************************************************************************
     //
@@ -41,6 +49,12 @@ public class MenuNavigation : MonoBehaviour {
     private float _NavigationCooldown = 0.3f;
     private float _NavCdCpy;
     private xb_gamepad gamepad;
+    private bool _IsInMain = false;
+    private bool _IsInGameSelect = false;
+    private bool _IsInLeaderboards = false;
+    private bool _IsInSettings = false;
+    private bool _IsInCredits = false;
+
 
     //******************************************************************************************************************************
     //
@@ -50,82 +64,61 @@ public class MenuNavigation : MonoBehaviour {
 
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         gamepad = GamepadManager.Instance.GetGamepad(1);
         _NavCdCpy = _NavigationCooldown;
         GamemodeButton.Select();
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         _NavigationCooldown -= Time.deltaTime;
-        ControllerNavigation();
-        ChangeNavigationIndex();
-	}
+        GoBack();
+    }
 
 
     /// <summary>
-    /// Controls controller menu navigation
+    /// Goes back depending active gameobject.
     /// </summary>
-    void ControllerNavigation()
+    private void GoBack()
     {
-        switch(_MenuIndexX)
+       if(MainMenu.activeInHierarchy)
         {
-            case -1:
-                break;
 
-            case 0:
-         
-                
-                break;
-
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            default:
-                break;
         }
-
-        switch(_MenuIndexY)
+      else if(PlayObject.activeInHierarchy)
         {
-            case -1:
-                break;
-            case 0:
-                break;
-            case 1:
-                break;
-            case 2:
-                _MenuIndexY = 0;
-                break;
-            default:
-                break;
-
+            if(gamepad.GetButtonDown("B"))
+            {
+                PlayObject.SetActive(false);
+                MainMenu.SetActive(true);
+                GamemodeButton.Select();
+            }
+        }
+       else if(HighScore.activeInHierarchy)
+        {
+            if(gamepad.GetButtonDown("B"))
+            {
+                HighScore.SetActive(false);
+                MainMenu.SetActive(true);
+                LeaderboardButton.Select();
+            }
+        }
+       else if(Settings.activeInHierarchy)
+        {
+            if(gamepad.GetButtonDown("B"))
+            {
+                Settings.SetActive(false);
+                MainMenu.SetActive(true);
+                SettingsButton.Select();
+            }
         }
     }
-    /// <summary>
-    /// Edits controllers navigation index.
-    /// </summary>
-    void ChangeNavigationIndex()
+
+    private void GoIntoMenu()
     {
-        if(gamepad.GetStick_L().Y > _Deadzone && _NavigationCooldown < 0)
-        {
-            _MenuIndexY++;
-        }
-        if (gamepad.GetStick_L().Y < -_Deadzone && _NavigationCooldown < 0)
-        {
-            _MenuIndexY--;
-        }
-        if(gamepad.GetStick_L().X > _Deadzone && _NavigationCooldown < 0)
-        {
-            _MenuIndexX++;
-        }
-        if (gamepad.GetStick_L().X < -_Deadzone && _NavigationCooldown < 0)
-        {
-            _MenuIndexX--;
-        }
-        
+
     }
 }

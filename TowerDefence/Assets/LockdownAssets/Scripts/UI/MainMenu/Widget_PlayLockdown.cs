@@ -8,8 +8,8 @@ using UnityEngine.UI;
 //
 //  Created by: Daniel Marton
 //
-//  Last edited by: Daniel Marton
-//  Last edited on: 29/7/2018
+//  Last edited by: Angus Secomb
+//  Last edited on: 08/08/2018
 //
 //******************************
 
@@ -35,6 +35,9 @@ public class Widget_PlayLockdown : MonoBehaviour {
     [Header(" BUTTONS")]
     [Space]
     public Button StartButton = null;
+    public Button GuideButton;
+    public Button DifficultyEnterButton = null;
+    public Button FactionEnterButton = null;
 
     //******************************************************************************************************************************
     //
@@ -43,6 +46,7 @@ public class Widget_PlayLockdown : MonoBehaviour {
     //******************************************************************************************************************************
 
     private PreLockdownMatchSettings _PreLockdownMatchSettings = null;
+    private xb_gamepad gamepad;
 
     //******************************************************************************************************************************
     //
@@ -59,6 +63,7 @@ public class Widget_PlayLockdown : MonoBehaviour {
 
         // Get component references
         _PreLockdownMatchSettings = GetComponent<PreLockdownMatchSettings>();
+        gamepad = GamepadManager.Instance.GetGamepad(1);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -91,6 +96,8 @@ public class Widget_PlayLockdown : MonoBehaviour {
     public void OnWidgetEnter() {
 
         gameObject.SetActive(true);
+        GuideButton.Select();
+        GuideButton.GetComponentInChildren<Text>().color = Color.black;
         HideAllSubWidgets();
         if (WidgetOverview != null) { WidgetOverview.gameObject.SetActive(true); }
     }
@@ -122,6 +129,10 @@ public class Widget_PlayLockdown : MonoBehaviour {
 
         HideAllSubWidgets();
         if (WidgetDifficulties != null) { WidgetDifficulties.gameObject.SetActive(true); }
+        if(DifficultyEnterButton != null)
+        {
+            DifficultyEnterButton.Select();
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
