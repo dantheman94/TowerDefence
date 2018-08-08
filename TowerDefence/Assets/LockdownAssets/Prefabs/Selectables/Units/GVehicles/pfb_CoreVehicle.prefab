@@ -414,23 +414,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1563522346650150
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4577742779920870}
-  - component: {fileID: 135173729142415388}
-  - component: {fileID: 114897192481495248}
-  m_Layer: 2
-  m_Name: HearingSphere
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1570795034286658
 GameObject:
   m_ObjectHideFlags: 1
@@ -958,7 +941,7 @@ Transform:
   - {fileID: 4190837027807740}
   - {fileID: 4242790208526606}
   m_Father: {fileID: 4992527257772270}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4427794504479452
 Transform:
@@ -1050,7 +1033,7 @@ Transform:
   m_LocalScale: {x: 20, y: 20, z: 1}
   m_Children: []
   m_Father: {fileID: 4992527257772270}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!4 &4493611834431114
 Transform:
@@ -1091,19 +1074,6 @@ Transform:
   m_Father: {fileID: 4481516331845004}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: -90, z: 0}
---- !u!4 &4577742779920870
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1563522346650150}
-  m_LocalRotation: {x: 0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 0, y: 0, z: -1.0999999}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4643887358444288}
-  m_RootOrder: 13
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4604341597395644
 Transform:
   m_ObjectHideFlags: 1
@@ -1180,10 +1150,8 @@ Transform:
   - {fileID: 4073380802505154}
   - {fileID: 4301445983720944}
   - {fileID: 4436837194791550}
-  - {fileID: 4577742779920870}
-  - {fileID: 4890443186812128}
   m_Father: {fileID: 4992527257772270}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: -90, y: -90, z: 0}
 --- !u!4 &4656416239176998
 Transform:
@@ -1244,7 +1212,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1500859508108806}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -39.897423, y: 0, z: -171.09242}
+  m_LocalPosition: {x: -57.36, y: 0, z: -171.09242}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4992527257772270}
@@ -1258,12 +1226,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1570795034286658}
-  m_LocalRotation: {x: 0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 0, y: 0, z: -1.0999999}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4643887358444288}
-  m_RootOrder: 14
+  m_Father: {fileID: 4992527257772270}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4927199952192364
 Transform:
@@ -1314,9 +1282,10 @@ Transform:
   m_LocalPosition: {x: 0, y: 4.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 4482602863758028}
+  - {fileID: 4890443186812128}
   - {fileID: 4643887358444288}
   - {fileID: 4382695797951034}
-  - {fileID: 4482602863758028}
   m_Father: {fileID: 4841273683524894}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2652,7 +2621,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e3a299bc8060d0478dffe78b1b384f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _VehicleGunnerAI: {fileID: 114699793888118050}
 --- !u!114 &114585045816634058
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2697,13 +2665,14 @@ MonoBehaviour:
   _WidgetShieldbarOffset: 22
   ShowBuildingQueueUI: 1
   ShrinkSpeed: 0.3
+  _ChasingDistance: 30
   UnitType: 4
   InfantryMovementSpeed: 10
   CanBePlayerControlled: 0
   PrimaryWeapon: {fileID: 0}
   SecondaryWeapon: {fileID: 0}
   MuzzleLaunchPoint: {fileID: 1694333413479292}
-  AttackingRange: 100
+  AttackingRange: 150
   WeaponObject: {fileID: 1383962776770468}
   Acceleration: 16
   Deceleration: 8
@@ -2735,7 +2704,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_angle: 35
-  m_distance: 100
+  m_distance: 150
   m_isTrigger: 1
   m_isFixScale: 1
 --- !u!114 &114699793888118050
@@ -2749,18 +2718,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98d0d6d89205fb64dab8da47dcacc224, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114897192481495248
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1563522346650150}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f01d50010ddba684eae034ea56e63f45, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _VehicleAttached: {fileID: 114585045816634058}
 --- !u!114 &114990200917873532
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2772,7 +2729,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 206db76a377c0d04f8fbaa2f01e31960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _VehicleGunnerAI: {fileID: 114699793888118050}
+  _GunnerAI: {fileID: 114699793888118050}
 --- !u!135 &135048033472023858
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -2783,19 +2740,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 80
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!135 &135173729142415388
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1563522346650150}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 140
+  m_Radius: 150
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!143 &143431675834279200
 CharacterController:

@@ -8,7 +8,7 @@ using UnityEngine.AI;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 6/8/2018
+//  Last edited on: 8/8/2018
 //
 //******************************
 
@@ -35,11 +35,8 @@ public class Squad : Ai {
     //******************************************************************************************************************************
 
     private int _SquadCurrentSize;
-    private float _SquadHealth;
-    private float _SquadHitPoints;
-    private float _SquadMaxPoints;
-    private List<Unit> _Squad;
     private GameObject _SeekWaypoint = null;
+    private List<Unit> _Squad;
 
     //******************************************************************************************************************************
     //
@@ -106,6 +103,7 @@ public class Squad : Ai {
                 currentSquadHitPoints += unit.GetHitPoints();
             }
             _HitPoints = currentSquadHitPoints;
+            _SquadCurrentSize = _Squad.Count;
         }
 
         // Update squad's position to match the average position of all the units
@@ -168,6 +166,27 @@ public class Squad : Ai {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
+    //  Called each frame. 
+    /// </summary>
+    protected override void UpdateChasingEnemy() {
+        base.UpdateChasingEnemy();
+
+        if (_AttackTarget != null) { SquadSeek(_AttackTarget.transform.position); }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    protected override void ResetToOriginPosition() {
+
+        SquadSeek(_ChaseOriginPosition);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
     //  
     /// </summary>
     /// <param name="thisSquad"></param>
@@ -205,6 +224,9 @@ public class Squad : Ai {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /// <summary>
+    //  
+    /// </summary>
     public void SpawnUnits() {
         
         // Loop for each unit
@@ -321,7 +343,8 @@ public class Squad : Ai {
     public void SquadSeek(Vector3 seekTarget) {
 
         // Get positions with an offset for each unit to seek towards
-        List<Vector3> positions = GetPositionsWithinFlockingBoundsOfPoint(seekTarget, _Squad.Count);
+        _SeekTarget = seekTarget;
+        List<Vector3> positions = GetPositionsWithinFlockingBoundsOfPoint(_SeekTarget, _Squad.Count);
 
         // Get all alive units to seek to the squad seek target
         int i = 0;

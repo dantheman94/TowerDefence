@@ -409,7 +409,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1337700393634558}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -92.4, y: 10, z: -251.9}
+  m_LocalPosition: {x: -53.5, y: 44.1, z: -176.49}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4136237848924230}
@@ -917,6 +917,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 1616899401413584}
+  DestroyedState: {fileID: 0}
   BuildTime: 3
   CostSupplies: 0
   CostPower: 0
@@ -938,10 +939,11 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.3
+  _ChasingDistance: 30
   UnitType: 9
   InfantryMovementSpeed: 10
   CanBePlayerControlled: 0
-  ShrinkSpeed: 0.1
   PrimaryWeapon: {fileID: 0}
   SecondaryWeapon: {fileID: 0}
   MuzzleLaunchPoint: {fileID: 0}
@@ -954,12 +956,12 @@ MonoBehaviour:
   BaseRotationSpeed: 45
   WeaponRotationSpeed: 50
   ForwardAvoidanceRange: 30
-  DownwardsAvoidanceRange: 30
+  DownwardsAvoidanceRange: 20
   VerticalSpeed: 20
-  MinimumFlyingHeight: 50
-  MaximumFlyingHeight: 120
-  IdealFlyingHeightMin: 70
-  IdealFlyingHeightMax: 80
+  MaximumFlyingHeight: 100
+  AvoidanceLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
   HealingAmount: 15
   HealingRange: 10
 --- !u!114 &114793470566493274

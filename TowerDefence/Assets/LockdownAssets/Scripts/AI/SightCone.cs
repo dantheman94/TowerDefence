@@ -23,7 +23,7 @@ public class SightCone : MonoBehaviour {
     [Header("-----------------------------------")]
     [Header(" PROPERTIES")]
     [Space]
-    public VehicleGunner _VehicleGunnerAI = null;
+    public VehicleGunner _GunnerAI = null;
 
     //******************************************************************************************************************************
     //
@@ -63,10 +63,10 @@ public class SightCone : MonoBehaviour {
         if (worldObject != null) {
 
             // Enemy team?
-            if (worldObject.Team != _VehicleGunnerAI.GetVehicleAttached().Team && worldObject.Team != GameManager.Team.Undefined) {
+            if (worldObject.Team != _GunnerAI.GetVehicleAttached().Team && worldObject.Team != GameManager.Team.Undefined) {
 
                 // Add to weighted list
-                _VehicleGunnerAI.GetVehicleAttached().AddPotentialTarget(worldObject);
+                _GunnerAI.GetVehicleAttached().AddPotentialTarget(worldObject);
             }
         } 
     }

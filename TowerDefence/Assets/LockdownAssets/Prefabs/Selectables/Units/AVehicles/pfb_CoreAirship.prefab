@@ -165,23 +165,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1773018315789378
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4721663103537554}
-  - component: {fileID: 135356307208446690}
-  - component: {fileID: 114471743993756822}
-  m_Layer: 2
-  m_Name: HearingSphere
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1855981135212812
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,7 +228,7 @@ Transform:
   m_LocalScale: {x: 5, y: 5, z: 7}
   m_Children: []
   m_Father: {fileID: 4695208112276192}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4630343100220398
 Transform:
@@ -258,7 +241,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4695208112276192}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4666345749863402
 Transform:
@@ -296,27 +279,13 @@ Transform:
   m_LocalPosition: {x: 0, y: 4.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4990244555026760}
   - {fileID: 4847963836368768}
-  - {fileID: 4721663103537554}
   - {fileID: 4630343100220398}
+  - {fileID: 4990244555026760}
   - {fileID: 4820763319726196}
   - {fileID: 4604517267128884}
   m_Father: {fileID: 4139023003084844}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4721663103537554
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1773018315789378}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -29.509995, y: -50, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4695208112276192}
-  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4820763319726196
 Transform:
@@ -329,7 +298,7 @@ Transform:
   m_LocalScale: {x: 8, y: 8, z: 8}
   m_Children: []
   m_Father: {fileID: 4695208112276192}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4836343526446642
 Transform:
@@ -355,7 +324,7 @@ Transform:
   m_LocalScale: {x: 10, y: 10, z: 1}
   m_Children: []
   m_Father: {fileID: 4695208112276192}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!4 &4921525758217656
 Transform:
@@ -385,7 +354,7 @@ Transform:
   - {fileID: 4669186424052252}
   - {fileID: 4666345749863402}
   m_Father: {fileID: 4695208112276192}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23373205722999066
 MeshRenderer:
@@ -708,7 +677,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e3a299bc8060d0478dffe78b1b384f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _VehicleGunnerAI: {fileID: 114119681717542598}
 --- !u!114 &114442686887514452
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -720,19 +688,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 206db76a377c0d04f8fbaa2f01e31960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _VehicleGunnerAI: {fileID: 114119681717542598}
---- !u!114 &114471743993756822
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1773018315789378}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f01d50010ddba684eae034ea56e63f45, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _VehicleAttached: {fileID: 114909369810655446}
+  _GunnerAI: {fileID: 114119681717542598}
 --- !u!114 &114686079721974900
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -804,6 +760,7 @@ MonoBehaviour:
   _WidgetShieldbarOffset: 22
   ShowBuildingQueueUI: 0
   ShrinkSpeed: 0.3
+  _ChasingDistance: 30
   UnitType: 8
   InfantryMovementSpeed: 10
   CanBePlayerControlled: 0
@@ -848,18 +805,6 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 80
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!135 &135356307208446690
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1773018315789378}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 180
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135505437735347864
 SphereCollider:

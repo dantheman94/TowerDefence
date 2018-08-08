@@ -7,11 +7,23 @@ using UnityEngine;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 7/8/2018
+//  Last edited on: 8/8/2018
 //
 //******************************
 
 public class Ai : WorldObject {
+
+    //******************************************************************************************************************************
+    //
+    //      INSPECTOR
+    //
+    //******************************************************************************************************************************
+
+    [Space]
+    [Header("-----------------------------------")]
+    [Header(" AI BEHAVIOURS")]
+    [Space]
+    public float _ChasingDistance = 30f;
 
     //******************************************************************************************************************************
     //
@@ -21,6 +33,14 @@ public class Ai : WorldObject {
 
     protected WorldObject _AttackTarget = null;
     protected List<WorldObject> _PotentialTargets;
+
+    protected bool _IsFollowingPlayerCommand = false;
+    protected bool _IsAttacking;
+    protected bool _IsChasing;
+    protected bool _IsSeeking;
+
+    protected Vector3 _ChaseOriginPosition = Vector3.zero;
+    protected Vector3 _SeekTarget = Vector3.zero;
 
     //******************************************************************************************************************************
     //
@@ -39,6 +59,48 @@ public class Ai : WorldObject {
 
         // Add intigator to the potential list
         if (instigator != null) { AddPotentialTarget(instigator); }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Called each frame. 
+    /// </summary>
+    protected override void Update() {
+        base.Update();
+
+        // Update chasing enemy
+        if (_IsChasing) { UpdateChasingEnemy(); }
+        else { _ChaseOriginPosition = transform.position; }
+
+        if (_IsFollowingPlayerCommand) { UpdatePlayerOverrideCheck(); }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Called each frame. 
+    /// </summary>
+    protected virtual void UpdateChasingEnemy() {
+
+        // Check if we should continue chasing or not
+        float dist = Vector3.Distance(_ChaseOriginPosition, transform.position);
+        if (dist >= _ChasingDistance) {
+
+            // Stop chasing
+            RemovePotentialTarget(_AttackTarget);
+            DetermineWeightedTargetFromList();
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    protected void UpdatePlayerOverrideCheck() {
+        
+        if (!_IsSeeking) { _IsFollowingPlayerCommand = false; }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -163,11 +225,48 @@ public class Ai : WorldObject {
     /// <summary>
     //  
     /// </summary>
+    /// <returns></returns>
+    public WorldObject GetAttackTarget() { return _AttackTarget; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
     /// <param name="delayTime"></param>
     protected virtual IEnumerator ResetWeaponPosition(int delayTime) {
 
         yield return new WaitForSeconds(delayTime);
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="worldObject"></param>
+    public void SetChasingTarget(WorldObject worldObject) {
+
+        if (!_IsFollowingPlayerCommand) {
+
+            _AttackTarget = worldObject;
+            _IsChasing = true;
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    protected virtual void ResetToOriginPosition() { }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    public void PlayerSeekOverride() { _IsFollowingPlayerCommand = true; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

@@ -894,14 +894,22 @@ public class KeyboardInput : MonoBehaviour {
                 if (squads.Count > 0) {
 
                     // Loop through all selected squads & perform SEEK command
-                    foreach (var squad in squads) { squad.SquadSeek(hitPoint); }
+                    foreach (var squad in squads) {
+
+                        squad.PlayerSeekOverride();
+                        squad.SquadSeek(hitPoint);
+                    }
                 }
 
                 // If there are individually selected units
                 if (units.Count > 0) {
 
                     // Loop through all selected units & perform SEEK command
-                    foreach (var unit in units) { unit.AgentSeekPosition(hitPoint); }
+                    foreach (var unit in units) {
+
+                        unit.PlayerSeekOverride();
+                        unit.AgentSeekPosition(hitPoint);
+                    }
                 }
             }
 
@@ -1099,9 +1107,7 @@ public class KeyboardInput : MonoBehaviour {
 
         // Add to platoon 1
         if ((Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.Alpha1) && (Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.LeftControl)))) {
-
-            Debug.Log("Add");
-
+            
             // Get lists of AIs that are selected
             List<Squad> SquadsSelected = new List<Squad>();
             List<Unit> UnitsSelected = new List<Unit>();
@@ -1117,8 +1123,6 @@ public class KeyboardInput : MonoBehaviour {
 
         // Replace platoon 1
         if ((Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.Alpha1) && (!Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.LeftControl)))) {
-
-            Debug.Log("Replace");
 
             // Get lists of AIs that are selected
             List<Squad> SquadsSelected = new List<Squad>();

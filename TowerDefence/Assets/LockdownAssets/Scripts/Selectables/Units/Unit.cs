@@ -8,7 +8,7 @@ using UnityEngine.AI;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 4/8/2018
+//  Last edited on: 8/8/2018
 //
 //******************************
 
@@ -51,9 +51,7 @@ public class Unit : Ai {
     protected CharacterController _CharacterController = null;
     protected NavMeshAgent _Agent = null;
     protected Squad _SquadAttached = null;
-    protected bool _IsSeeking = false;
     protected GameObject _SeekWaypoint = null;
-    protected bool _IsAttacking = false;
     protected float _DistanceToTarget = 0f;
     protected bool _IsBeingPlayerControlled = false;
     private float SnapLookAtRange = 0f;
@@ -76,7 +74,7 @@ public class Unit : Ai {
         RecycleSupplies = CostSupplies;
         RecyclePower = CostPower;
 
-        SnapLookAtRange = AttackingRange * 0.75f;
+        SnapLookAtRange = AttackingRange / 2;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -213,6 +211,7 @@ public class Unit : Ai {
                 // Look at seek point
                 ///_Agent.transform.LookAt(_Agent.destination);
             }
+            else { _IsSeeking = false; }
 
             // Update seeking waypoint visibility
             if (_SeekWaypoint) {
@@ -243,7 +242,7 @@ public class Unit : Ai {
 
                     // Constantly face the attacking target
                     Vector3 FireAtPos = _AttackTarget.transform.position;
-                    FireAtPos.y = FireAtPos.y + _AttackTarget.GetObjectHeight() / 2;
+                    FireAtPos.y = FireAtPos.y + _AttackTarget.GetObjectHeight() * 0.3f;
 
                     // Determine if we should snap to target or lerp rotation
                     if (_DistanceToTarget <= SnapLookAtRange) { LookAtSnap(FireAtPos); }
@@ -258,6 +257,8 @@ public class Unit : Ai {
                     DetermineWeightedTargetFromList();
                 }
             }
+
+            // There is no current attack target
             else {
 
                 _IsAttacking = false;
@@ -318,6 +319,21 @@ public class Unit : Ai {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
+    //  Called each frame. 
+    /// </summary>
+    protected override void UpdateChasingEnemy() {
+        base.UpdateChasingEnemy();
+
+        // Not in s squad? (squad handles their own chasing mechanics for the units!)
+        if (!IsInASquad()) {
+
+            if (_AttackTarget != null) { AgentSeekPosition(_AttackTarget.transform.position); }
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
     //  
     /// </summary>
     public override void OnDeath() {
@@ -372,16 +388,7 @@ public class Unit : Ai {
 
         _Agent.transform.LookAt(position);
     }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //   
-    /// </summary>
-    protected virtual void UpdateSight() {
-
-    }
-
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
@@ -393,7 +400,8 @@ public class Unit : Ai {
         if (_Agent.isOnNavMesh) {
 
             // Set agent's new goto target
-            _Agent.destination = seekTarget;
+            _SeekTarget = seekTarget;
+            _Agent.destination = _SeekTarget;
             _Agent.speed = InfantryMovementSpeed;
 
             // Show seeking waypoint
@@ -463,6 +471,20 @@ public class Unit : Ai {
         Vector3 position = trans.position;
         Destroy(trans.gameObject);
         return position;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    protected override void ResetToOriginPosition() {
+
+        // Not in s squad? (squad handles their own reset mechanics for the units!)
+        if (!IsInASquad()) {
+
+            AgentSeekPosition(_ChaseOriginPosition);
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -555,16 +577,7 @@ public class Unit : Ai {
     public Squad GetSquadAttached() { return _SquadAttached; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  
-    /// </summary>
-    //  WorldObject
-    /// <returns></returns>
-    public WorldObject GetAttackTarget() { return _AttackTarget; }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    
     /// <summary>
     //   
     /// </summary>
