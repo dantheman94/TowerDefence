@@ -23,7 +23,7 @@ public class SightCone : MonoBehaviour {
     [Header("-----------------------------------")]
     [Header(" PROPERTIES")]
     [Space]
-    public VehicleGunner _GunnerAI = null;
+    public Ai _AIAttached = null;
 
     //******************************************************************************************************************************
     //
@@ -53,24 +53,48 @@ public class SightCone : MonoBehaviour {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    /// 
+    //  Adds the other collider to the attached AI's target list
     /// </summary>
     /// <param name="other"></param>
     private void OnTriggerEnter(Collider other) {
         
         // Valid worldObject
         WorldObject worldObject = other.gameObject.GetComponent<WorldObject>();
-        if (worldObject != null) {
+        if (worldObject != null && _AIAttached != null) {
 
             // Enemy team?
-            if (worldObject.Team != _GunnerAI.GetVehicleAttached().Team && worldObject.Team != GameManager.Team.Undefined) {
+            if (worldObject.Team != _AIAttached.Team && worldObject.Team != GameManager.Team.Undefined) {
 
-                // Add to weighted list
-                _GunnerAI.GetVehicleAttached().AddPotentialTarget(worldObject);
+                // Is the object already in the target list?
+                if (!_AIAttached.IsTargetInPotentialList(worldObject)) {
+
+                    // Add to target list
+                    _AIAttached.AddPotentialTarget(worldObject);
+                }
             }
         } 
     }
     
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="other"></param>
+    /*
+    private void OnTriggerStay(Collider other) {
+
+        if (_AIAttached.GetAttackTarget() != null) {
+
+            // Currently the same target that is the AI's attack target
+            if (_AIAttached.GetAttackTarget().gameObject == other.gameObject) {
+
+                // Attempt to pursue
+                _AIAttached.TryToChaseTarget(_AIAttached.GetAttackTarget());
+            }
+        }
+    }
+    */
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }

@@ -187,8 +187,7 @@ public class WorldObject : Selectable {
             }
 
             case WorldObjectStates.Destroyed: {
-
-
+                    
                 // Show destroyed state object
                 if (BuildingState) { BuildingState.SetActive(false); }
                 if (ActiveState) { ActiveState.SetActive(false); }
@@ -240,6 +239,11 @@ public class WorldObject : Selectable {
             // Get in the cold ass water
             transform.localScale -= Vector3.one * ShrinkSpeed * Time.deltaTime;
             if (transform.localScale.x < 0.01f) {
+
+                // Deselect / De-highlight
+                if (_Player) { _Player.RemoveFromSelection(this); }
+                SetIsHighlighted(false);
+                SetIsSelected(false);
 
                 // MAXIMUM shrinkage
                 _StartShrinking = false;

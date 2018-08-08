@@ -7,7 +7,7 @@ using UnityEngine;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 10/7/2018
+//  Last edited on: 8/8/2018
 //
 //******************************
 
@@ -25,8 +25,8 @@ namespace TowerDefence {
         public static float RotateZoomSpeed { get { return 100; } }
 
         // Camera bounds
-        public static float MinCameraHeight { get { return 200; } }
-        public static float MaxCameraHeight { get { return 200; } }
+        public static float MinCameraHeight { get { return 180; } }
+        public static float MaxCameraHeight { get { return 180; } }
         public static float MinFov { get { return 30; } }
         public static float MaxFov { get { return 50; } }
         public static float ZoomSpeed { get { return 160; } }

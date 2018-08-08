@@ -34,6 +34,38 @@ public class UnitHealthBar : MonoBehaviour {
     [Space]
     public Vector3 Offsetting = Vector3.zero;
 
+    [Space]
+    [Header("-----------------------------------")]
+    [Header(" SHIELD-BAR COLOURS")]
+    [Space]
+    public Image ShieldbarTeamColourOutline = null;
+    [Space]
+    public Color ShieldOkayColour = Color.green;
+    [Space]
+    [Range(0f, 1f)]
+    public float ShieldPercentageThresholdDamaged = 0.6f;
+    public Color ShieldDamagedColour = Color.yellow;
+    [Space]
+    [Range(0f, 1f)]
+    public float ShieldPercentageThresholdVeryDamaged = 0.2f;
+    public Color ShieldVeryDamagedColour = Color.red;
+
+    [Space]
+    [Header("-----------------------------------")]
+    [Header(" HEALTH-BAR COLOURS")]
+    [Space]
+    public Image HealthbarTeamColourOutline = null;
+    [Space]
+    public Color HealthOkayColour = Color.green;
+    [Space]
+    [Range(0f, 1f)]
+    public float HealthPercentageThresholdDamaged = 0.6f;
+    public Color HealthDamagedColour = Color.yellow;
+    [Space]
+    [Range(0f, 1f)]
+    public float HealthPercentageThresholdVeryDamaged = 0.2f;
+    public Color HealthVeryDamagedColour = Color.red;
+
     //******************************************************************************************************************************
     //
     //      VARIABLES
@@ -106,6 +138,38 @@ public class UnitHealthBar : MonoBehaviour {
 
             // Object is dead/destroyed
             else { ObjectPooling.Despawn(this.gameObject); }
+
+            // Update team colour
+            switch (_WorldObject.Team) {
+
+                // White outline for undefined team
+                case GameManager.Team.Undefined: {
+
+                    if (ShieldbarTeamColourOutline != null) { ShieldbarTeamColourOutline.color = Color.white; }
+                    if (HealthbarTeamColourOutline != null) { HealthbarTeamColourOutline.color = Color.white; }
+                    break;
+                }
+                
+                // Player owner's colour for defending team
+                case GameManager.Team.Defending: { 
+
+                    if (ShieldbarTeamColourOutline != null) { ShieldbarTeamColourOutline.color = _WorldObject._Player.TeamColor; }
+                    if (HealthbarTeamColourOutline != null) { HealthbarTeamColourOutline.color = _WorldObject._Player.TeamColor; }
+                    break;
+                }
+
+                // Red outline for attacking/AI team
+                case GameManager.Team.Attacking: {
+
+                    if (ShieldbarTeamColourOutline != null) { ShieldbarTeamColourOutline.color = Color.red; }
+                    if (HealthbarTeamColourOutline != null) { HealthbarTeamColourOutline.color = Color.red; }
+                    break;
+                }
+
+                default: break;
+            }
+
+            // Update healthbar colour thresholds
         } 
     }
 

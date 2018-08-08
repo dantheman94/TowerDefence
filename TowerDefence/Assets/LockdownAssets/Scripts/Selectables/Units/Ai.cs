@@ -38,6 +38,7 @@ public class Ai : WorldObject {
     protected bool _IsAttacking;
     protected bool _IsChasing;
     protected bool _IsSeeking;
+    protected bool _IsReturningToOrigin;
 
     protected Vector3 _ChaseOriginPosition = Vector3.zero;
     protected Vector3 _SeekTarget = Vector3.zero;
@@ -74,6 +75,7 @@ public class Ai : WorldObject {
         else { _ChaseOriginPosition = transform.position; }
 
         if (_IsFollowingPlayerCommand) { UpdatePlayerOverrideCheck(); }
+        if (_IsReturningToOrigin) { ResetToOriginPosition(); }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -85,11 +87,10 @@ public class Ai : WorldObject {
 
         // Check if we should continue chasing or not
         float dist = Vector3.Distance(_ChaseOriginPosition, transform.position);
-        if (dist >= _ChasingDistance) {
+        if (_IsReturningToOrigin = dist >= _ChasingDistance) {
 
-            // Stop chasing
+            // Stop chasing & get a new target
             RemovePotentialTarget(_AttackTarget);
-            DetermineWeightedTargetFromList();
         }
     }
 
@@ -104,7 +105,7 @@ public class Ai : WorldObject {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    
     /// <summary>
     //  Adds a WorldObject to the weighted target list
     /// </summary>
@@ -225,6 +226,31 @@ public class Ai : WorldObject {
     /// <summary>
     //  
     /// </summary>
+    /// <param name="target"></param>
+    /// <returns>
+    //  bool
+    /// </returns>
+    public bool IsTargetInPotentialList(WorldObject target) {
+
+        // Look for match
+        bool match = false;
+        for (int i = 0; i < _PotentialTargets.Count; i++) {
+
+            // Match found
+            if (_PotentialTargets[i] == target) {
+
+                match = true;
+                break;
+            }
+        }
+        return match;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
     /// <returns></returns>
     public WorldObject GetAttackTarget() { return _AttackTarget; }
 
@@ -245,13 +271,15 @@ public class Ai : WorldObject {
     //  
     /// </summary>
     /// <param name="worldObject"></param>
-    public void SetChasingTarget(WorldObject worldObject) {
+    public bool TryToChaseTarget(WorldObject worldObject) {
 
         if (!_IsFollowingPlayerCommand) {
 
             _AttackTarget = worldObject;
             _IsChasing = true;
+            return true;
         }
+        return false;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -259,7 +287,10 @@ public class Ai : WorldObject {
     /// <summary>
     //  
     /// </summary>
-    protected virtual void ResetToOriginPosition() { }
+    protected virtual void ResetToOriginPosition() {
+        
+        _IsChasing = false;
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

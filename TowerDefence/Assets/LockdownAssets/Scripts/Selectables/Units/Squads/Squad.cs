@@ -171,7 +171,7 @@ public class Squad : Ai {
     protected override void UpdateChasingEnemy() {
         base.UpdateChasingEnemy();
 
-        if (_AttackTarget != null) { SquadSeek(_AttackTarget.transform.position); }
+        if (_AttackTarget != null) { SquadAttackObject(_AttackTarget); }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -180,7 +180,9 @@ public class Squad : Ai {
     //  
     /// </summary>
     protected override void ResetToOriginPosition() {
+        base.ResetToOriginPosition();
 
+        for (int i = 0; i < _Squad.Count; i++) { _Squad[i]. PlayerSeekOverride(); }
         SquadSeek(_ChaseOriginPosition);
     }
 

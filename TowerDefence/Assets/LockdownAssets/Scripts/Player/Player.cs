@@ -153,6 +153,17 @@ public class Player : MonoBehaviour {
     /// <summary>
     //  
     /// </summary>
+    /// <param name="selectable"></param>
+    public void RemoveFromSelection(Selectable selectable) {
+
+        SelectedWorldObjects.Remove(selectable);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
     public void AddToPopulation(Squad squad) {
 
         // Add to population

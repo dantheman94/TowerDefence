@@ -62,7 +62,7 @@ public class SightSphere : MonoBehaviour {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  Called whenever something exits the hearing sphere collider
+    //  Called whenever something exits the sphere collider
     /// </summary>
     /// <param name="other"></param>
     private void OnTriggerExit(Collider other) {
@@ -74,16 +74,11 @@ public class SightSphere : MonoBehaviour {
             // Enemy team?
             if (_WorldObjectInFocus.Team != _AIAttached.Team) {
 
-                // Should we chase the enemy?
-                ///if (_AIAttached.GetAttackTarget() == _WorldObjectInFocus) { _AIAttached.SetChasingTarget(_AIAttached.GetAttackTarget()); }
-                ///else {
+                // Remove from weighted list
+                _AIAttached.RemovePotentialTarget(_WorldObjectInFocus);
 
-                    // Remove from weighted list
-                    _AIAttached.RemovePotentialTarget(_WorldObjectInFocus);
-
-                    // Update new target (if the target that just left was the current target)
-                    if (_WorldObjectInFocus == _AIAttached.GetAttackTarget()) { _AIAttached.DetermineWeightedTargetFromList(); }
-                ///}
+                // Update new attack target (if the target that just left was the current target)
+                if (_WorldObjectInFocus == _AIAttached.GetAttackTarget()) { _AIAttached.DetermineWeightedTargetFromList(); }
             }
         }
     }
@@ -94,6 +89,27 @@ public class SightSphere : MonoBehaviour {
     //  
     /// </summary>
     /// <param name="other"></param>
+    private void OnTriggerStay(Collider other) {
+
+        if (_AIAttached.GetAttackTarget() != null) {
+
+            // Currently the same target that is the AI's attack target
+            if (_AIAttached.GetAttackTarget().gameObject == other.gameObject) {
+
+                // Try to chase the target
+                _AIAttached.AddPotentialTarget(_AIAttached.GetAttackTarget());
+                _AIAttached.TryToChaseTarget(_AIAttached.GetAttackTarget());
+            }
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="other"></param>
+    /*
     private void OnTriggerStay(Collider other) {
 
         // valid unit
@@ -113,7 +129,7 @@ public class SightSphere : MonoBehaviour {
             }
         }
     }
-
+    */
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }

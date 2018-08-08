@@ -90,16 +90,8 @@ public class Vehicle : Unit {
         base.Update();
 
         // Update movement
-        if (_IsBeingPlayerControlled) {
-
-            _Agent.enabled = false;
-            UpdatePlayerControlledMovement();
-        }
-        else {
-
-            _Agent.enabled = true;
-            UpdateAIControlledMovement();
-        }
+        if (_IsBeingPlayerControlled) { UpdatePlayerControlledMovement(); }
+        else                          { UpdateAIControllerMovement(); }
 
         // Move character controller forward / backwards based on current movement speed
         if (_Controller.enabled) { _Controller.Move(transform.forward * _CurrentSpeed * Time.deltaTime); }
@@ -112,51 +104,55 @@ public class Vehicle : Unit {
     /// </summary>
     protected override void UpdatePlayerControlledMovement() {
 
-        // Update base rotation
-        _BaseRotation = Input.GetAxis("Horizontal") * BaseRotationSpeed * Time.deltaTime;
-        if (_BaseRotation != 0) { transform.eulerAngles += new Vector3(0f, _BaseRotation, 0f); }
-        
-        // Forward input
-        if (Input.GetAxis("Vertical") > 0f) {
+        _Agent.enabled = false;
+        if (_ObjectState == WorldObjectStates.Active) {
+            
+            // Update base rotation
+            _BaseRotation = Input.GetAxis("Horizontal") * BaseRotationSpeed * Time.deltaTime;
+            if (_BaseRotation != 0) { transform.eulerAngles += new Vector3(0f, _BaseRotation, 0f); }
 
-            // Apply forward acceleration
-            _CurrentSpeed += Acceleration;
+            // Forward input
+            if (Input.GetAxis("Vertical") > 0f) {
 
-            // Clamp to top speed
-            if (_CurrentSpeed > MaxSpeed) { _CurrentSpeed = MaxSpeed; }
-        }
+                // Apply forward acceleration
+                _CurrentSpeed += Acceleration;
 
-        // Reverse input
-        else if (Input.GetAxis("Vertical") < 0f) {
+                // Clamp to top speed
+                if (_CurrentSpeed > MaxSpeed) { _CurrentSpeed = MaxSpeed; }
+            }
 
-            // Apply deceleration
-            _CurrentSpeed -= Deceleration;
+            // Reverse input
+            else if (Input.GetAxis("Vertical") < 0f) {
 
-            // Clamp to top reverse speed
-            if (_CurrentSpeed < MaxReverseSpeed) { _CurrentSpeed = MaxReverseSpeed; }
-        }
+                // Apply deceleration
+                _CurrentSpeed -= Deceleration;
 
-        // No input
-        else {
+                // Clamp to top reverse speed
+                if (_CurrentSpeed < MaxReverseSpeed) { _CurrentSpeed = MaxReverseSpeed; }
+            }
 
-            // Slowly decelerate to a stop
-            if      (_CurrentSpeed > 0.01)  { _CurrentSpeed -= Deceleration * 0.5f; }
-            else if (_CurrentSpeed < -0.01) { _CurrentSpeed += Deceleration * 0.5f; }
-            else                            { _CurrentSpeed = 0f; }
-        }
+            // No input
+            else {
 
-        // Update weapon rotation
-        _WeaponRotation = Input.GetAxis("Mouse X") * WeaponRotationSpeed * Time.deltaTime;
-        if (WeaponObject && _WeaponRotation != 0) { WeaponObject.transform.eulerAngles += new Vector3(0f, _WeaponRotation, 0f); }
+                // Slowly decelerate to a stop
+                if (_CurrentSpeed > 0.01) { _CurrentSpeed -= Deceleration * 0.5f; }
+                else if (_CurrentSpeed < -0.01) { _CurrentSpeed += Deceleration * 0.5f; }
+                else { _CurrentSpeed = 0f; }
+            }
 
-        // Check for weapon firing input
-        if (Input.GetMouseButtonDown(0)) {
+            // Update weapon rotation
+            _WeaponRotation = Input.GetAxis("Mouse X") * WeaponRotationSpeed * Time.deltaTime;
+            if (WeaponObject && _WeaponRotation != 0) { WeaponObject.transform.eulerAngles += new Vector3(0f, _WeaponRotation, 0f); }
 
-            // If theres a weapon attached
-            if (PrimaryWeapon) {
-                
-                // Fire the weapon if possible
-                if (PrimaryWeapon.CanFire()) { PrimaryWeapon.FireWeapon(); }
+            // Check for weapon firing input
+            if (Input.GetMouseButtonDown(0)) {
+
+                // If theres a weapon attached
+                if (PrimaryWeapon) {
+
+                    // Fire the weapon if possible
+                    if (PrimaryWeapon.CanFire()) { PrimaryWeapon.FireWeapon(); }
+                }
             }
         }
     }
@@ -166,14 +162,21 @@ public class Vehicle : Unit {
     /// <summary>
     //  
     /// </summary>
-    private void UpdateAIControlledMovement() {
+    protected override void UpdateAIControllerMovement() {
+        base.UpdateAIControllerMovement();
 
-        // Update agent movement characteristics
-        _Agent.autoBraking = true;
-        _Agent.autoRepath = true;
-        _Agent.acceleration = Acceleration;
-        _Agent.angularSpeed = BaseRotationSpeed;
-        _CurrentSpeed = Vector3.Project(_Agent.desiredVelocity, transform.forward).magnitude * Time.deltaTime;
+        if (_ObjectState == WorldObjectStates.Active) {
+
+            _Agent.enabled = true;
+
+            // Update agent movement characteristics
+            _Agent.autoBraking = true;
+            _Agent.autoRepath = true;
+            _Agent.acceleration = Acceleration;
+            _Agent.angularSpeed = BaseRotationSpeed;
+            _CurrentSpeed = Vector3.Project(_Agent.desiredVelocity, transform.forward).magnitude * Time.deltaTime;
+        }
+        else { _Agent.enabled = false; }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
