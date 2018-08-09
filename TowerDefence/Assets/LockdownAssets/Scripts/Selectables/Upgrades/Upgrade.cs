@@ -89,14 +89,17 @@ public class Upgrade : WorldObject {
             if (_BuildingAttached != null) {
 
                 // Checking if the object in the queue is a valid upgrade 'value' 
-                UpgradeValues upgradeVal = _BuildingAttached.GetBuildingQueue()[0].GetComponent<UpgradeValues>();
-                if (upgradeVal != null) {
+                if (_BuildingAttached.GetBuildingQueue().Count > 0) {
 
-                    // Does it match this upgrade's current upgrade 'value'
-                    if (upgradeVal.GetType() == UpgradeProperties[_CurrentUpgradeLevel].GetType()) {
+                    UpgradeValues upgradeVal = _BuildingAttached.GetBuildingQueue()[0].GetComponent<UpgradeValues>();
+                    if (upgradeVal != null) {
 
-                        // Start upgrading
-                        _Upgrading = true;
+                        // Does it match this upgrade's current upgrade 'value'
+                        if (upgradeVal.GetType() == UpgradeProperties[_CurrentUpgradeLevel].GetType()) {
+
+                            // Start upgrading
+                            _Upgrading = true;
+                        }
                     }
                 }
 

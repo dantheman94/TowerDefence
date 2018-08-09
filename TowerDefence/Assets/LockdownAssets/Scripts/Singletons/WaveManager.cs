@@ -414,7 +414,7 @@ public class WaveManager : MonoBehaviour {
             Squad squad = obj.GetComponent<Squad>();
             if (squad != null) {
 
-                squad.SpawnUnits();
+                squad.SpawnUnits(squad);
                 squad.SquadSeek(CentralCore.GetSeekPosition());
                 squad.Team = GameManager.Team.Attacking;
                 _CurrentWaveEnemies.Add(squad);

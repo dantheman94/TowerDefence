@@ -172,19 +172,8 @@ public class Unit : Ai {
                 // Create a healthbar if the unit doesn't have one linked to it
                 else {
 
-                    GameObject healthBarObj = ObjectPooling.Spawn(GameManager.Instance.UnitHealthBar.gameObject);
-                    _HealthBar = healthBarObj.GetComponent<UnitHealthBar>();
-                    _HealthBar.SetObjectAttached(this);
-                    healthBarObj.gameObject.SetActive(true);
-                    healthBarObj.transform.SetParent(GameManager.Instance.WorldSpaceCanvas.gameObject.transform, false);
-
-                    // Assigning player reference
-                    if (_Player == null) {
-
-                        Player plyr = GameManager.Instance.Players[0];
-                        _HealthBar.SetCameraAttached(plyr.PlayerCamera);
-                    }
-                    else { _HealthBar.SetCameraAttached(_Player.PlayerCamera); }
+                    if (_Player == null) { _Player = GameManager.Instance.Players[0]; }
+                    if (_Player != null) { CreateHealthBar(this, _Player.PlayerCamera); }
                 }
             }
         }
@@ -381,7 +370,7 @@ public class Unit : Ai {
 
                     // Constantly face the attacking target
                     Vector3 FireAtPos = _AttackTarget.transform.position;
-                    FireAtPos.y = FireAtPos.y + _AttackTarget.GetObjectHeight() * 0.3f;
+                    FireAtPos.y = FireAtPos.y + _AttackTarget.GetObjectHeight() * 0.1f;
 
                     // Determine if we should snap to target or lerp rotation
                     if (_DistanceToTarget <= SnapLookAtRange) { LookAtSnap(FireAtPos); }

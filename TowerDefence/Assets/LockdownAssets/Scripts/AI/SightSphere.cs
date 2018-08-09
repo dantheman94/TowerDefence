@@ -53,8 +53,17 @@ public class SightSphere : MonoBehaviour {
             // Enemy team?
             if (_WorldObjectInFocus.Team != _AIAttached.Team && _WorldObjectInFocus.Team != GameManager.Team.Undefined) {
 
-                // Add to weighted list
-                _AIAttached.AddPotentialTarget(_WorldObjectInFocus);
+                // Not a squad object?
+                Squad squad = _WorldObjectInFocus.GetComponent<Squad>();
+                if (squad == null) {
+
+                    // Active in the world?
+                    if (_WorldObjectInFocus._ObjectState == WorldObject.WorldObjectStates.Active) {
+
+                        // Try to add to weighted list
+                        _AIAttached.AddPotentialTarget(_WorldObjectInFocus);
+                    }
+                }
             }
         }
     }

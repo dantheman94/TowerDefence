@@ -64,12 +64,17 @@ public class SightCone : MonoBehaviour {
 
             // Enemy team?
             if (worldObject.Team != _AIAttached.Team && worldObject.Team != GameManager.Team.Undefined) {
+                
+                // Not a squad object?
+                Squad squad = worldObject.GetComponent<Squad>();
+                if (squad == null) {
 
-                // Is the object already in the target list?
-                if (!_AIAttached.IsTargetInPotentialList(worldObject)) {
+                    // Active in the world?
+                    if (worldObject._ObjectState == WorldObject.WorldObjectStates.Active) {
 
-                    // Add to target list
-                    _AIAttached.AddPotentialTarget(worldObject);
+                        // Try to add to target list
+                        _AIAttached.AddPotentialTarget(worldObject);
+                    }
                 }
             }
         } 

@@ -4674,7 +4674,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 206db76a377c0d04f8fbaa2f01e31960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _GunnerAI: {fileID: 0}
+  _AIAttached: {fileID: 0}
 --- !u!114 &114320605633406418
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4755,9 +4755,10 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
   ShowBuildingQueueUI: 1
-  ShrinkSpeed: 0.1
+  ShrinkSpeed: 0.3
   _ChasingDistance: 30
   UnitType: 5
+  NavmeshType: 0
   InfantryMovementSpeed: 10
   CanBePlayerControlled: 0
   PrimaryWeapon: {fileID: 0}

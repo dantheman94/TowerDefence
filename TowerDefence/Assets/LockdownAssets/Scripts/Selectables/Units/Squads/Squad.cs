@@ -155,11 +155,10 @@ public class Squad : Ai {
             }
 
             // Create units
-            Squad thisSquad = _ClonedWorldObject as Squad;
-            CreateUnits(thisSquad);
+            CreateUnits(_ClonedWorldObject as Squad);
 
             // Add squad to list of AI (army)
-            _ClonedWorldObject._Player.AddToPopulation(thisSquad);
+            _ClonedWorldObject._Player.AddToPopulation(_ClonedWorldObject as Squad);
         }
     }
 
@@ -192,35 +191,37 @@ public class Squad : Ai {
     //  
     /// </summary>
     /// <param name="thisSquad"></param>
-    protected void CreateUnits(Squad thisSquad) {
+    protected void CreateUnits(Squad squad) {
         
         // Loop for each unit
         for (int i = 0; i < SquadMaxSize; i++) {
 
             // Create unit
-            Unit unit = ObjectPooling.Spawn(SquadUnit.gameObject, thisSquad.transform.position, thisSquad.transform.rotation).GetComponent<Unit>();
+            Unit unit = ObjectPooling.Spawn(SquadUnit.gameObject, squad.transform.position, squad.transform.rotation).GetComponent<Unit>();
             unit.SetObjectState(WorldObjectStates.Building);
-            unit.SetSquadAttached(this);
-            thisSquad._Squad.Add(unit);
-            thisSquad._SquadCurrentSize = i;
+            unit.SetSquadAttached(squad);
+            unit.Team = squad.Team;
+            unit.SetPlayer(squad._Player);
+            squad._Squad.Add(unit);
+            squad._SquadCurrentSize = i;
 
             // Update unit build time to match the squad build time
             unit.BuildTime = BuildTime;
 
             // Creating the first unit at the center
-            if (i == 0) { unit.transform.position = thisSquad.transform.position; ; }
+            if (i == 0) { unit.transform.position = squad.transform.position; ; }
             else {
 
                 // Creating the units in a circle around the flocking radius
-                float angle = i * Mathf.PI * 2 / SquadMaxSize;
-                Vector3 pos = thisSquad.transform.position + new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)) * FlockingRadius;
+                float angle = i * Mathf.PI * 2 / squad.SquadMaxSize;
+                Vector3 pos = squad.transform.position + new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)) * squad.FlockingRadius;
                 unit.transform.position = pos;
             }
             unit.ResetHealth();
             unit.gameObject.SetActive(true);
 
-            MaxHitPoints += unit.MaxHitPoints;
-            MaxShieldPoints += unit.MaxShieldPoints;
+            squad.MaxHitPoints += unit.MaxHitPoints;
+            squad.MaxShieldPoints += unit.MaxShieldPoints;
         }
     }
 
@@ -229,7 +230,7 @@ public class Squad : Ai {
     /// <summary>
     //  
     /// </summary>
-    public void SpawnUnits() {
+    public void SpawnUnits(Squad squad) {
         
         // Loop for each unit
         for (int i = 0; i < SquadMaxSize; i++) {
@@ -237,28 +238,27 @@ public class Squad : Ai {
             // Create unit
             Unit unit = ObjectPooling.Spawn(SquadUnit.gameObject, Vector3.zero, Quaternion.identity).GetComponent<Unit>();
             unit.SetObjectState(WorldObjectStates.Active);
-            unit.SetSquadAttached(this);
-            _Squad.Add(unit);
-            _SquadCurrentSize = i;
+            unit.SetSquadAttached(squad);
+            squad._Squad.Add(unit);
 
             // Update unit build time to match the squad build time
-            unit.BuildTime = BuildTime;
+            unit.BuildTime = squad.BuildTime;
             
             // Creating the first unit at the center
-            if (i == 0) { unit.transform.position = transform.position; ; }
+            if (i == 0) { unit.transform.position = squad.transform.position; ; }
             else {
 
                 // Creating the units in a circle around the flocking radius
-                float angle = i * Mathf.PI * 2 / SquadMaxSize;
-                Vector3 pos = transform.position + new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)) * FlockingRadius;
+                float angle = i * Mathf.PI * 2 / squad.SquadMaxSize;
+                Vector3 pos = squad.transform.position + new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)) * squad.FlockingRadius;
                 unit.transform.position = pos;
             }
             unit.ResetHealth();
             unit.gameObject.SetActive(true);
             unit.OnSpawn();
 
-            MaxHitPoints += unit.MaxHitPoints;
-            MaxShieldPoints += unit.MaxShieldPoints;
+            squad.MaxHitPoints += unit.MaxHitPoints;
+            squad.MaxShieldPoints += unit.MaxShieldPoints;
         }
     }
 
@@ -397,15 +397,13 @@ public class Squad : Ai {
     /// <param name="unit"></param>
     public void RemoveUnitFromSquad(Unit unit) {
 
+        GameObject g = this.gameObject;
+
         // Loop through current squad
-        for (int i = 0; i < _Squad.Count; i++) {
+        for (int i = 0; i < unit.GetSquadAttached().GetSquadMembers().Count; i++) {
 
-            // Match found
-            if (_Squad[i] == unit) {
-
-                _Squad.RemoveAt(i);
-                _SquadCurrentSize--;
-            }
+            // Match found so remove it
+            if (unit.GetSquadAttached().GetSquadMembers()[i] == unit) { unit.GetSquadAttached().GetSquadMembers().RemoveAt(i); }
         }
     }
 
