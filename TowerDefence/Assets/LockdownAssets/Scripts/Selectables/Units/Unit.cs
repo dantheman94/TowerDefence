@@ -8,7 +8,7 @@ using UnityEngine.AI;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 8/8/2018
+//  Last edited on: 9/8/2018
 //
 //******************************
 
@@ -29,6 +29,7 @@ public class Unit : Ai {
     [Tooltip("The movement/walking speed of this unit." +
             "\n\nNOTE: ONLY APPLIES TO GROUND INFANTRY, VEHICLES DO NOT USE THIS VALUE.")]
     public float InfantryMovementSpeed = 10f;
+    [Space]
     public bool CanBePlayerControlled = false;
 
     [Space]
@@ -39,7 +40,10 @@ public class Unit : Ai {
     public Weapon SecondaryWeapon = null;
     [Space]
     public GameObject MuzzleLaunchPoint = null;
-    public float AttackingRange = 100f;
+    [Space]
+    public float MaxAttackingRange = 100f;
+    public float IdealAttackRangeMax = 80f;
+    public float IdealAttackRangeMin = 40f; 
 
     //******************************************************************************************************************************
     //
@@ -47,7 +51,7 @@ public class Unit : Ai {
     //
     //******************************************************************************************************************************
 
-    public enum EUnitType { Undefined, CoreMarine, AntiInfantryMarine, Hero, CoreVehicle, AntiAirVehicle, MobileArtillery, BattleTank, CoreAirship, SupportShip, HeavyAirship }
+    public enum EUnitType { Undefined, CoreMarine, AntiInfantryMarine, Hero, CoreVehicle, AntiAirVehicle, AntiBuildingVehicle, MobileArtillery, BattleTank, CoreAirship, SupportShip, HeavyAirship }
     public enum ENavmeshType { Ground, Air }
 
     protected CharacterController _CharacterController = null;
@@ -77,7 +81,11 @@ public class Unit : Ai {
         RecycleSupplies = CostSupplies;
         RecyclePower = CostPower;
 
-        SnapLookAtRange = AttackingRange / 2;
+        // Behavioural value precautions
+        if (IdealAttackRangeMax < IdealAttackRangeMin) { IdealAttackRangeMax = IdealAttackRangeMin * 1.5f; }
+        if (MaxAttackingRange < IdealAttackRangeMax)   { MaxAttackingRange = IdealAttackRangeMax; }
+        ///SnapLookAtRange = MaxAttackingRange / 2;
+        SnapLookAtRange = IdealAttackRangeMin;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -323,6 +331,9 @@ public class Unit : Ai {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /// <summary>
+    //  Called every frame - updates the soldier/unit's movement and combat behaviours.
+    /// </summary>
     protected virtual void UpdateAIControllerMovement() {
         
         // Is the unit currently AI controlled?
@@ -355,7 +366,7 @@ public class Unit : Ai {
 
                     // Check if the target is within attacking range
                     _DistanceToTarget = Vector3.Distance(transform.position, _AttackTarget.transform.position);
-                    if (_DistanceToTarget <= AttackingRange && PrimaryWeapon != null) {
+                    if (_DistanceToTarget <= MaxAttackingRange && PrimaryWeapon != null) {
 
                         // Look at attack target
                         _IsAttacking = true;
@@ -486,8 +497,17 @@ public class Unit : Ai {
         AddPotentialTarget(attackTarget);
         _AttackTarget = attackTarget;
 
-        // Get attacking position close to the target and seek to it
-        Vector3 seekPos = GetAttackingPositionAtObject(_AttackTarget, 20);
+        // Get attacking position for the target and seek to it (get closer if we have to, or move away if we should)
+        Vector3 seekPos = transform.position;
+        float dist = Vector3.Distance(transform.position, attackTarget.transform.position);
+
+        // Move away from current target
+        if (dist < IdealAttackRangeMin) { seekPos = GetAttackingPositionAtObject(_AttackTarget, IdealAttackRangeMin); }
+
+        // Move towards current target
+        else if (dist > IdealAttackRangeMax) { seekPos = GetAttackingPositionAtObject(_AttackTarget, IdealAttackRangeMax); }
+
+        // Move to attacking position (or stay if were within the ideal range)
         AgentSeekPosition(seekPos);
     }
 
@@ -545,7 +565,7 @@ public class Unit : Ai {
         Transform trans = new GameObject().transform;
         trans.position = worldObject.transform.position;
         trans.LookAt(transform.position);
-        trans.position += trans.forward * AttackingRange / 2;
+        trans.position += trans.forward * MaxAttackingRange / 2;
 
         // Destroy obsolete transform and return the new attacking position
         Vector3 position = trans.position;

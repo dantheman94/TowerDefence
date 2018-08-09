@@ -409,14 +409,16 @@ public class WaveManager : MonoBehaviour {
         for (int i = 0; i < subwaveEnemies.Count; i++) {
 
             GameObject obj = ObjectPooling.Spawn(subwaveEnemies[i].gameObject, spawnPositions[i]);
+            Player player = GameManager.Instance.Players[0];
 
             // Initialize the object as a squad
             Squad squad = obj.GetComponent<Squad>();
             if (squad != null) {
 
+                squad.Team = GameManager.Team.Attacking;
                 squad.SpawnUnits(squad);
                 squad.SquadSeek(CentralCore.GetSeekPosition());
-                squad.Team = GameManager.Team.Attacking;
+                squad.CreateHealthBar(squad, player.PlayerCamera);
                 _CurrentWaveEnemies.Add(squad);
             }
 
@@ -424,9 +426,10 @@ public class WaveManager : MonoBehaviour {
             Unit unit = obj.GetComponent<Unit>();
             if (unit != null) {
 
+                unit.Team = GameManager.Team.Attacking;
                 unit.OnSpawn();
                 unit.AgentSeekPosition(CentralCore.GetSeekPosition());
-                unit.Team = GameManager.Team.Attacking;
+                unit.CreateHealthBar(unit, player.PlayerCamera);
                 _CurrentWaveEnemies.Add(unit);
             }
         }

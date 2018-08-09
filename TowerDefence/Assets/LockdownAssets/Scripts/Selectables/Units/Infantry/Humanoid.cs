@@ -32,6 +32,8 @@ public class Humanoid : Unit {
     //******************************************************************************************************************************
 
     private float _ControlRotation = 0f;
+    protected Vector3 _DirectionToTarget = Vector3.zero;
+    protected Quaternion _LookRotation = Quaternion.identity;
 
     //******************************************************************************************************************************
     //
@@ -85,5 +87,17 @@ public class Humanoid : Unit {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    /// <summary>
+    //  
+    /// </summary>
+    protected override void LookAtLerp(Vector3 position) {
 
+        // This is a temporary fix - will need to make it so the rotating looks 
+        // realistic and not a snap to target as this function call does.
+        LookAtSnap(position);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
 }

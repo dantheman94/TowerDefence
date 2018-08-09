@@ -23,11 +23,15 @@ public class Projectile : MonoBehaviour {
     [Header("-----------------------------------")]
     [Header(" MOVEMENT")]
     [Space]
-    public float _MovementSpeed = 40f;
-    public float _MaxDistance = 1000f;
-    public bool _AffectedByGravity = false;
-    public float _GravityStrength = 1f;
-    
+    public float MovementSpeed = 40f;
+    public float MaxDistance = 1000f;
+    [Space]
+    public bool AffectedByGravity = false;
+    public float GravityStrength = 1f;
+    [Space]
+    public bool HomingProjectile = false;
+    public float TrackingStrength = 0f;
+
     [Space]
     [Header("-----------------------------------")]
     [Header(" ON IMPACT")]
@@ -49,6 +53,9 @@ public class Projectile : MonoBehaviour {
     private Weapon _WeaponAttached = null;
     private Vector3 _OriginPosition = Vector3.zero;
     private Weapon.ObjectDamages _Damages;
+    private WorldObject HomingTarget = null;
+    private Vector3 _DirectionToTarget = Vector3.zero;
+    private Quaternion _WeaponLookRotation = Quaternion.identity;
 
     //******************************************************************************************************************************
     //
@@ -90,6 +97,9 @@ public class Projectile : MonoBehaviour {
         // This should already be called when it is pulled from its object pool,
         // but this is just incase it somehow isn't
         gameObject.SetActive(true);
+
+        // Set homing target for tracking
+        if (HomingProjectile) { HomingTarget = _WeaponAttached.GetUnitAttached().GetAttackTarget(); }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -98,16 +108,30 @@ public class Projectile : MonoBehaviour {
     //  Called each frame. 
     /// </summary>
     private void Update () {
-        
+
         // Constantly move forward
-        transform.position += _Velocity * _MovementSpeed * Time.deltaTime;
+        _Velocity = transform.forward;
+        transform.position += _Velocity * MovementSpeed * Time.deltaTime;
 
         // Apply downward force if affected by gravity
-        if (_AffectedByGravity) { transform.position -= _Downwards * _GravityStrength *Time.deltaTime; }
+        if (AffectedByGravity) { transform.position -= _Downwards * GravityStrength * Time.deltaTime; }
 
         // Re-pool projectile when it has reached max distance threshold
-        if (_DistanceTravelled < _MaxDistance) _DistanceTravelled = Vector3.Distance(_OriginPosition, transform.position);
+        if (_DistanceTravelled < MaxDistance) _DistanceTravelled = Vector3.Distance(_OriginPosition, transform.position);
         else { OnDestroy(); }
+
+        // Track target if possible
+        if (HomingProjectile && HomingTarget != null) {
+            
+            // Find the vector pointing from our position to the target
+            _DirectionToTarget = (HomingTarget.transform.position - transform.position).normalized;
+
+            // Create the rotation we need to be in to look at the target
+            _WeaponLookRotation = Quaternion.LookRotation(_DirectionToTarget);
+
+            // Rotate us over time according to speed until we are in the required rotation
+            transform.rotation = Quaternion.LerpUnclamped(transform.rotation, _WeaponLookRotation, TrackingStrength * Time.deltaTime);
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -236,9 +236,10 @@ public class Squad : Ai {
         for (int i = 0; i < SquadMaxSize; i++) {
 
             // Create unit
-            Unit unit = ObjectPooling.Spawn(SquadUnit.gameObject, Vector3.zero, Quaternion.identity).GetComponent<Unit>();
+            Unit unit = ObjectPooling.Spawn(SquadUnit.gameObject, squad.transform.position, squad.transform.rotation).GetComponent<Unit>();
             unit.SetObjectState(WorldObjectStates.Active);
             unit.SetSquadAttached(squad);
+            unit.Team = squad.Team;
             squad._Squad.Add(unit);
 
             // Update unit build time to match the squad build time
@@ -327,7 +328,7 @@ public class Squad : Ai {
             float angle = i * (Mathf.PI * 10.0f / size + (facingAngle / 10));
             Vector3 pos = new Vector3(Mathf.Cos((angle / size) / size), 
                                       worldObject.transform.position.y, 
-                                      Mathf.Sin((angle / size) / size)) * _Squad[0].GetAgent().radius * _Squad[0].AttackingRange * 0.4f;
+                                      Mathf.Sin((angle / size) / size)) * _Squad[0].GetAgent().radius * _Squad[0].MaxAttackingRange * 0.4f;
             pos += worldObject.transform.position;
 
             positions.Add(pos);
