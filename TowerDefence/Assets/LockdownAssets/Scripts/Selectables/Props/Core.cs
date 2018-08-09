@@ -61,6 +61,11 @@ public class Core : Building {
 
         // Set minimap icon colour to blue
         if (_MinimapRenderer != null) { _MinimapRenderer.material.color = Color.blue; }
+
+        // Initialize spires
+        if (SpireA != null) { SpireA.SetPlayer(_Player); }
+        if (SpireB != null) { SpireB.SetPlayer(_Player); }
+        if (SpireC != null) { SpireC.SetPlayer(_Player); }
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -78,21 +83,7 @@ public class Core : Building {
             if (_HealthBar != null) { _HealthBar.gameObject.SetActive(true); }
 
             // Create a healthbar if the unit doesn't have one linked to it
-            else {
-
-                GameObject healthBarObj = ObjectPooling.Spawn(GameManager.Instance.UnitHealthBar.gameObject);
-                _HealthBar = healthBarObj.GetComponent<UnitHealthBar>();
-                _HealthBar.SetObjectAttached(this);
-                healthBarObj.gameObject.SetActive(true);
-                healthBarObj.transform.SetParent(GameManager.Instance.WorldSpaceCanvas.gameObject.transform, false);
-
-                if (_Player == null) {
-
-                    Player plyr = GameManager.Instance.Players[0];
-                    _HealthBar.SetCameraAttached(plyr.PlayerCamera);
-                }
-                else { _HealthBar.SetCameraAttached(_Player.PlayerCamera); }
-            }
+            else { CreateHealthBar(this, _Player.PlayerCamera); }
         }
     }
 
