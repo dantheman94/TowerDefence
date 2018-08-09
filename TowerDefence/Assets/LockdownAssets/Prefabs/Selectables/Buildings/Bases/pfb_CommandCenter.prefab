@@ -458,7 +458,7 @@ Transform:
   m_GameObject: {fileID: 1615318630619256}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 49, y: -1.75, z: 35.000008}
-  m_LocalScale: {x: 11.999998, y: 1, z: 11.999998}
+  m_LocalScale: {x: 10, y: 1, z: 10}
   m_Children: []
   m_Father: {fileID: 4525829991051924}
   m_RootOrder: 6
@@ -484,7 +484,7 @@ Transform:
   m_GameObject: {fileID: 1316005888446060}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -49, y: -1.75, z: -36}
-  m_LocalScale: {x: 12, y: 1, z: 12}
+  m_LocalScale: {x: 10, y: 1, z: 10}
   m_Children: []
   m_Father: {fileID: 4525829991051924}
   m_RootOrder: 8
@@ -562,7 +562,7 @@ Transform:
   m_GameObject: {fileID: 1842668094881972}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -49, y: -1.75, z: 35}
-  m_LocalScale: {x: 12, y: 1, z: 12}
+  m_LocalScale: {x: 10, y: 1, z: 10}
   m_Children: []
   m_Father: {fileID: 4525829991051924}
   m_RootOrder: 7
@@ -663,7 +663,7 @@ Transform:
   m_GameObject: {fileID: 1378336165506198}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 49, y: -1.75, z: -36}
-  m_LocalScale: {x: 12, y: 1, z: 12}
+  m_LocalScale: {x: 10, y: 1, z: 10}
   m_Children: []
   m_Father: {fileID: 4525829991051924}
   m_RootOrder: 9
@@ -1607,6 +1607,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -1628,6 +1629,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 0
   AttachedBase: {fileID: 114437307112323898}
   LinkedSlots: []
@@ -1663,6 +1665,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -1684,6 +1687,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 0
   AttachedBase: {fileID: 114437307112323898}
   LinkedSlots: []
@@ -1719,6 +1723,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -1740,6 +1745,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 0
   AttachedBase: {fileID: 0}
   LinkedSlots: []
@@ -1775,6 +1781,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -1796,6 +1803,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 0
   AttachedBase: {fileID: 0}
   LinkedSlots: []
@@ -1831,6 +1839,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 1471038247066612}
+  DestroyedState: {fileID: 0}
   BuildTime: 5
   CostSupplies: 0
   CostPower: 1000
@@ -1852,6 +1861,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 20
   _WidgetShieldbarOffset: 30
   ShowBuildingQueueUI: 1
+  ShrinkSpeed: 0.2
   AttachedBuildingSlot: {fileID: 0}
   ObjectHeight: 30
   Selectables:
@@ -1903,6 +1913,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -1924,6 +1935,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 0
   AttachedBase: {fileID: 114437307112323898}
   LinkedSlots: []
@@ -1959,6 +1971,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -1980,6 +1993,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 0
   AttachedBase: {fileID: 114437307112323898}
   LinkedSlots: []
@@ -2015,6 +2029,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -2036,6 +2051,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 0
   AttachedBase: {fileID: 114437307112323898}
   LinkedSlots: []
@@ -2071,6 +2087,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -2092,6 +2109,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 0
   AttachedBase: {fileID: 0}
   LinkedSlots: []
@@ -2139,6 +2157,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -2160,6 +2179,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 0
   AttachedBase: {fileID: 0}
   LinkedSlots: []
@@ -2195,6 +2215,7 @@ MonoBehaviour:
   FogOfWarRadius: 400
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
+  DestroyedState: {fileID: 0}
   BuildTime: 20
   CostSupplies: 0
   CostPower: 0
@@ -2216,6 +2237,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
   ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 0
   AttachedBase: {fileID: 114437307112323898}
   LinkedSlots: []
