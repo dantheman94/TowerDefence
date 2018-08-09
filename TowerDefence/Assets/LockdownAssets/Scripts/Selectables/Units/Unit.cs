@@ -602,11 +602,11 @@ public class Unit : Ai {
 
                 if (KeyboardInput.Selection.Contains(camPos)) {
 
-                    _IsCurrentlySelected = true;
+                 //   _IsCurrentlySelected = true;
                     if (IsInASquad())
                     {
 
-                        if (GetSquadAttached().GetObjectState() == WorldObject.WorldObjectStates.Active)
+                        if (GetSquadAttached().GetObjectState() == WorldObject.WorldObjectStates.Active && !_IsCurrentlySelected)
                         {
                             _Player.SelectedWorldObjects.Add(GetSquadAttached());
                             GetSquadAttached().SetPlayer(_Player);
@@ -616,7 +616,7 @@ public class Unit : Ai {
                     }
                     else
                     {
-                        if (this.GetObjectState() == WorldObject.WorldObjectStates.Active)
+                        if (this.GetObjectState() == WorldObject.WorldObjectStates.Active && !_IsCurrentlySelected)
                         {
                             _Player.SelectedWorldObjects.Add(this);
                             this.SetPlayer(_Player);
