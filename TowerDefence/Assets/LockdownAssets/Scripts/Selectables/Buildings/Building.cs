@@ -177,6 +177,10 @@ public class Building : WorldObject {
 
             // Disable building slot (is re-enabled when the building is recycled)
             buildingSlot.SetIsSelected(false);
+
+            // Add to attached base list (if valid)
+            Base attachedBase = buildingSlot.AttachedBase;
+            if (attachedBase != null ) { attachedBase.AddBuildingToList(building); }
         }
     }
 

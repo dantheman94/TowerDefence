@@ -181,7 +181,7 @@ public class Squad : Ai {
     protected override void ResetToOriginPosition() {
         base.ResetToOriginPosition();
 
-        for (int i = 0; i < _Squad.Count; i++) { _Squad[i]. PlayerSeekOverride(); }
+        for (int i = 0; i < _Squad.Count; i++) { _Squad[i].ResetToOrigin(); }
         SquadSeek(_ChaseOriginPosition);
     }
 
@@ -266,7 +266,7 @@ public class Squad : Ai {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    /// 
+    //  
     /// </summary>
     /// <returns></returns>
     public Vector3 FindCenterOfAllUnits() {
@@ -317,7 +317,9 @@ public class Squad : Ai {
     /// </summary>
     /// <param name="worldObject"></param>
     /// <param name="size"></param>
-    /// <returns></returns>
+    /// <returns>
+    //  List<Vector3>
+    /// </returns>
     private List<Vector3> GetAttackingPositionsAtObject(WorldObject worldObject, int size) {
         
         float facingAngle = Vector3.Angle(worldObject.transform.forward, worldObject.transform.position - transform.position);

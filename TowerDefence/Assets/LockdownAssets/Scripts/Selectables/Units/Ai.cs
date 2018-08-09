@@ -273,7 +273,7 @@ public class Ai : WorldObject {
     /// <param name="worldObject"></param>
     public bool TryToChaseTarget(WorldObject worldObject) {
 
-        if (!_IsFollowingPlayerCommand) {
+        if (!_IsFollowingPlayerCommand && !_IsReturningToOrigin) {
 
             _AttackTarget = worldObject;
             _IsChasing = true;
@@ -297,7 +297,19 @@ public class Ai : WorldObject {
     /// <summary>
     //  
     /// </summary>
-    public void PlayerSeekOverride() { _IsFollowingPlayerCommand = true; }
+    public void PlayerSeekOverride() {
+
+        _IsFollowingPlayerCommand = true;
+        _IsReturningToOrigin = false;
+        _IsChasing = false;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    public void ResetToOrigin() { _IsReturningToOrigin = true; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

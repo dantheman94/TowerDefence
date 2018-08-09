@@ -99,4 +99,21 @@ public class Core : Building {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /// <summary>
+    //  Damages the object by a set amount.
+    /// </summary>
+    /// <param name="damage"></param>
+    /// <param name="instigator"></param>
+    public override void Damage(int damage, Ai instigator = null) {
+
+        // Only damage the core if all spires are destroyed
+        if (SpireA.GetHitPoints() <= 0 && SpireB.GetHitPoints() <= 0 && SpireC.GetHitPoints() <= 0) {
+
+            // Damage the core
+            base.Damage(damage, instigator);
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 }

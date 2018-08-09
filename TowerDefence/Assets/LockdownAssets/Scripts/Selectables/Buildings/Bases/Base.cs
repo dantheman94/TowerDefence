@@ -44,7 +44,7 @@ public class Base : Building {
     //******************************************************************************************************************************
 
     public enum eBaseType { Outpost, Station, CommandCenter, Headquarters, Minibase }
-
+    protected List<Building> _BuildingList;
     protected Renderer _MinimapRenderer;
 
     //******************************************************************************************************************************
@@ -63,6 +63,7 @@ public class Base : Building {
 
         // Get component references
         if (MinimapQuad != null) { _MinimapRenderer = MinimapQuad.GetComponent<Renderer>(); }
+        _BuildingList = new List<Building>();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -192,6 +193,34 @@ public class Base : Building {
         // Show any hidden base slots that are linked to the building slot
         if (AttachedBuildingSlot != null) { AttachedBuildingSlot.SetLinkedSlotsBase(this); }
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    public override void OnDeath() {
+
+        // Destroy all the attached buildings (towers, depots, etc...)
+        for (int i = 0; i < _BuildingList.Count; i++) {
+
+            float dmgHealth = _BuildingList[i].GetHitPoints();
+            float dmgShield = _BuildingList[i].GetShieldPoints();
+            _BuildingList[i].Damage((int)dmgHealth);
+        }
+        _BuildingList.Clear();
+
+        // Now we can safely be destroyed
+        base.OnDeath();
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="building"></param>
+    public void AddBuildingToList(Building building) { _BuildingList.Add(building); }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

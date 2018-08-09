@@ -148,17 +148,17 @@ public class Unit : Ai {
 
                     case ENavmeshType.Ground: {
 
-                            _Agent.transform.position = _BuildingSlotInstigator.AttachedBase.GroundUnitSpawnTransform.transform.position;
-                            _Agent.transform.rotation = _BuildingSlotInstigator.AttachedBase.GroundUnitSpawnTransform.transform.rotation;
-                            break;
-                        }
+                        _Agent.transform.position = _BuildingSlotInstigator.AttachedBase.GroundUnitSpawnTransform.transform.position;
+                        _Agent.transform.rotation = _BuildingSlotInstigator.AttachedBase.GroundUnitSpawnTransform.transform.rotation;
+                        break;
+                    }
 
                     case ENavmeshType.Air: {
 
-                            _Agent.transform.position = _BuildingSlotInstigator.AttachedBase.AirUnitSpawnTransform.transform.position;
-                            _Agent.transform.rotation = _BuildingSlotInstigator.AttachedBase.AirUnitSpawnTransform.transform.rotation;
-                            break;
-                        }
+                        _Agent.transform.position = _BuildingSlotInstigator.AttachedBase.AirUnitSpawnTransform.transform.position;
+                        _Agent.transform.rotation = _BuildingSlotInstigator.AttachedBase.AirUnitSpawnTransform.transform.rotation;
+                        break;
+                    }
 
                     default: break;
                 }
@@ -350,6 +350,7 @@ public class Unit : Ai {
 
                 _IsSeeking = false;
                 _IsReturningToOrigin = false;
+                _IsFollowingPlayerCommand = false;
             }
 
             // Update seeking waypoint visibility
@@ -582,10 +583,10 @@ public class Unit : Ai {
     protected override void ResetToOriginPosition() {
         base.ResetToOriginPosition();
 
-        // Not in s squad? (squad handles their own reset mechanics for the units!)
+        // Not in a squad? (squad handles their own reset mechanics for the units!)
         if (!IsInASquad()) {
-
-            PlayerSeekOverride();
+            
+            _IsReturningToOrigin = true;
             AgentSeekPosition(_ChaseOriginPosition);
         }
     }

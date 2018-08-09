@@ -70,6 +70,7 @@ public class Weapon : MonoBehaviour {
     }
 
     private int _CurrentMagazineCount;
+    private bool _IsFiring = false;
     private float _FireDelayTimer = 0f;
     private bool _IsReloading = false;
     private float _ReloadTimer = 0f;
@@ -100,7 +101,11 @@ public class Weapon : MonoBehaviour {
     private void Update() {
 
         // Firing delay timer
-        if (_FireDelayTimer > 0f) { _FireDelayTimer -= Time.deltaTime; }
+        if (_FireDelayTimer > 0f) {
+
+            _IsFiring = false;
+            _FireDelayTimer -= Time.deltaTime;
+        }
 
         // Reloading timer
         if (_ReloadTimer > 0f) { _ReloadTimer -= Time.deltaTime; }
@@ -217,6 +222,7 @@ public class Weapon : MonoBehaviour {
         // If the weapon can be fired
         if (_CurrentMagazineCount > 0 && CanFire()) {
 
+            _IsFiring = true;
             _FireDelayTimer = FiringDelay;
 
             // Deduct ammo (if not bottomless clip)
@@ -260,7 +266,8 @@ public class Weapon : MonoBehaviour {
 
         // Only reload if magazine ISN'T max size
         if (_CurrentMagazineCount < MagazineSize) {
-
+            
+            _IsFiring = false;
             _ReloadTimer = ReloadTime;
             _IsReloading = true;
             _CurrentMagazineCount = MagazineSize;
@@ -307,6 +314,14 @@ public class Weapon : MonoBehaviour {
     /// </summary>
     /// <returns></returns>
     public bool IsReloading() { return _IsReloading; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <returns></returns>
+    public bool IsFiring() { return _IsFiring; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
