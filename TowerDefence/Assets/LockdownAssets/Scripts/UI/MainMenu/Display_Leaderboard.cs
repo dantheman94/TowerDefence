@@ -11,7 +11,7 @@ using System.Linq;
 //  Created by: Angus Secomb
 //
 //  Last edited by: Angus Secomb
-//  Last edited on: 7/08/2018
+//  Last edited on: 9/08/2018
 //
 //******************************
 
@@ -68,6 +68,7 @@ public class Display_Leaderboard : MonoBehaviour
     /// </summary>
     public void SortHighscores()
     {
+        if(_SaveDataList != null)
         _SortedSaveData = _SaveDataList.OrderByDescending(o => o.Score).ToList();
     }
 
@@ -77,6 +78,7 @@ public class Display_Leaderboard : MonoBehaviour
     public void InstantiatePanels()
     {
         int counterIncrement = 18;
+        if(_SortedSaveData != null)
         for (int i = 0; i < _SortedSaveData.Count; ++i)
         {
 
