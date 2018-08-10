@@ -24,9 +24,13 @@ public class UnitHealthBar : MonoBehaviour {
     [Header("-----------------------------------")]
     [Header(" UI COMPONENTS")]
     [Space]
-    public Slider _ShieldSlider = null;
-    public Slider _HealthSlider = null;
     public Text _TextComponent;
+    [Space]
+    public Slider ShieldSlider = null;
+    public Image ShieldFill = null;
+    [Space]
+    public Slider HealthSlider = null;
+    public Image HealthFill = null;
 
     [Space]
     [Header("-----------------------------------")]
@@ -108,20 +112,20 @@ public class UnitHealthBar : MonoBehaviour {
             else { _TextComponent.enabled = false; }
 
             // Update health bar
-            if (_HealthSlider != null) { _HealthSlider.value = _WorldObject.GetHealth(); }
+            if (HealthSlider != null) { HealthSlider.value = _WorldObject.GetHealth(); }
 
             // Update shield bar
-            if (_ShieldSlider != null) {
+            if (ShieldSlider != null) {
 
                 // Show the shield bar if theres some shield left
                 if (_WorldObject.GetShield() > 0) {
 
-                    _ShieldSlider.value = _WorldObject.GetShield();
-                    _ShieldSlider.gameObject.SetActive(true);
+                    ShieldSlider.value = _WorldObject.GetShield();
+                    ShieldSlider.gameObject.SetActive(true);
                 }
 
                 // Hide the shield
-                else { _ShieldSlider.gameObject.SetActive(false); }
+                else { ShieldSlider.gameObject.SetActive(false); }
             }
 
             // Object is alive - display the widget
@@ -169,7 +173,31 @@ public class UnitHealthBar : MonoBehaviour {
                 default: break;
             }
 
+            // Update shieldbar colour thresholds
+            if (ShieldFill != null && ShieldSlider != null) {
+
+                // Shield okay
+                if (ShieldSlider.value >= ShieldPercentageThresholdDamaged) { ShieldFill.color = ShieldOkayColour; }
+
+                // Shield damaged
+                else if (ShieldSlider.value >= ShieldPercentageThresholdVeryDamaged) { ShieldFill.color = ShieldDamagedColour; }
+
+                // Shield very damaged
+                else { ShieldFill.color = ShieldVeryDamagedColour; }
+            }
+
             // Update healthbar colour thresholds
+            if (HealthFill != null && HealthSlider != null) {
+
+                // Health okay
+                if  (HealthSlider.value >= HealthPercentageThresholdDamaged) { HealthFill.color = HealthOkayColour; }
+
+                // Health damaged
+                else if (HealthSlider.value >= HealthPercentageThresholdVeryDamaged) { HealthFill.color = HealthDamagedColour; }
+
+                // Health very damaged
+                else { HealthFill.color = HealthVeryDamagedColour; }
+            }
         } 
     }
 
