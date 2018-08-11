@@ -30,9 +30,7 @@ public class Core : Building {
     [Header("-----------------------------------")]
     [Header(" SPIRES")]
     [Space]
-    public Spire SpireA;
-    public Spire SpireB;
-    public Spire SpireC;
+    public List<Spire> Spires;
 
     //******************************************************************************************************************************
     //
@@ -63,9 +61,11 @@ public class Core : Building {
         if (_MinimapRenderer != null) { _MinimapRenderer.material.color = Color.blue; }
 
         // Initialize spires
-        if (SpireA != null) { SpireA.SetPlayer(_Player); }
-        if (SpireB != null) { SpireB.SetPlayer(_Player); }
-        if (SpireC != null) { SpireC.SetPlayer(_Player); }
+        for (int i = 0; i < Spires.Count; i++) {
+
+            Spires[i].SetPlayer(_Player);
+            MaxShieldPoints += Spires[i].MaxHitPoints;
+        }
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -84,6 +84,11 @@ public class Core : Building {
 
             // Create a healthbar if the unit doesn't have one linked to it
             else { CreateHealthBar(this, _Player.PlayerCamera); }
+
+            // Update current shield hitpoints based on the spire hitpoints
+            float points = 0;
+            for (int i = 0; i < Spires.Count; i++) { points += Spires[i].GetHitPoints(); }
+            _ShieldPoints = points;
         }
     }
 
@@ -107,11 +112,57 @@ public class Core : Building {
     public override void Damage(int damage, Ai instigator = null) {
 
         // Only damage the core if all spires are destroyed
-        if (SpireA.GetHitPoints() <= 0 && SpireB.GetHitPoints() <= 0 && SpireC.GetHitPoints() <= 0) {
+        bool damageCore = true;
+        for (int i = 0; i < Spires.Count; i++) {
 
-            // Damage the core
-            base.Damage(damage, instigator);
+            if (Spires[i].GetHitPoints() > 0) {
+
+                damageCore = false;
+                break;
+            }
         }
+
+        // Damage the core
+        if (damageCore) { base.Damage(damage, instigator); }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <returns>
+    //  WorldObject
+    /// </returns>
+    public WorldObject GetAttackObject() {
+
+        // Return the core center if all the spires are destroyed
+        bool core = true;
+        for (int i = 0; i < Spires.Count; i++) {
+
+            if (Spires[i].GetHitPoints() > 0) {
+
+                core = false;
+                break;
+            }
+        }
+        if (core) { return this; }
+
+        // Theres a spire still alive so return that instead
+        Spire spire = null;
+        bool match = false;
+        while (!match) {
+
+            int i = Random.Range(0, Spires.Count);
+            if (Spires[i].GetHitPoints() > 0) {
+
+                spire = Spires[i];
+                match = true;
+                break;
+            }
+        }
+        if (spire != null) { return spire; }
+        else { return this; } /// This should never hit but is a precaution so there isnt a null returned
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

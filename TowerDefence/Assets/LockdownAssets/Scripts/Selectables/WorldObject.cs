@@ -108,7 +108,7 @@ public class WorldObject : Selectable {
     protected int _CurrentGarrisonPopulation = 0;
     protected float _ObjectHeight = 0f;
     protected float _HitPoints;
-    protected int _ShieldPoints;
+    protected float _ShieldPoints;
     protected float _Shield;
     protected bool _StartShrinking = false;
 
@@ -405,6 +405,9 @@ public class WorldObject : Selectable {
     /// </summary>
     public virtual void OnDeath() {
 
+        // Force deselect
+        SetIsSelected(false);
+
         // Set object state
         _ObjectState = WorldObjectStates.Destroyed;
 
@@ -475,12 +478,15 @@ public class WorldObject : Selectable {
         healthBarObj.transform.SetParent(GameManager.Instance.WorldSpaceCanvas.gameObject.transform, false);
 
         // Set healthbar widget size & anchoring
-        RectTransform healthRectTransform = _HealthBar._HealthSlider.GetComponent<RectTransform>();
+        RectTransform healthRectTransform = _HealthBar.HealthSlider.GetComponent<RectTransform>();
         healthRectTransform.sizeDelta = new Vector2(_WidgetHealthbarScaleX, _WidgetHealthbarScaleY);
         healthRectTransform.anchoredPosition = new Vector2(0, _WidgetHealthbarOffset);
-        RectTransform shieldRectTransform = _HealthBar._ShieldSlider.GetComponent<RectTransform>();
+        RectTransform shieldRectTransform = _HealthBar.ShieldSlider.GetComponent<RectTransform>();
         shieldRectTransform.sizeDelta = new Vector2(_WidgetShieldbarScaleX, _WidgetShieldbarScaleY);
         shieldRectTransform.anchoredPosition = new Vector2(0, _WidgetShieldbarOffset);
+
+        // Force enable the healthbar (It would have been disabled if it was a recycled GameObject)
+        healthBarObj.SetActive(true);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -561,7 +567,7 @@ public class WorldObject : Selectable {
     /// <returns>
     //  int
     /// </returns>
-    public int GetShieldPoints() { return _ShieldPoints; }
+    public float GetShieldPoints() { return _ShieldPoints; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

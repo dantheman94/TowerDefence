@@ -25,11 +25,26 @@ public class Ai : WorldObject {
     [Space]
     public float _ChasingDistance = 30f;
 
+    [Space]
+    [Header("-----------------------------------")]
+    [Header(" TARGETTING OBJECT WEIGHTS")]
+    [Space]
+    public TargetWeight[] TargetWeights = new TargetWeight[_WeightLength];
+
     //******************************************************************************************************************************
     //
     //      VARIABLES
     //
     //******************************************************************************************************************************
+
+    [System.Serializable]
+    public struct TargetWeight {
+
+        public Unit.EUnitType UnitType;
+        public int Weight;
+    }
+
+    public const int _WeightLength = (int)Unit.EUnitType.ENUM_COUNT;
 
     protected WorldObject _AttackTarget = null;
     protected List<WorldObject> _PotentialTargets;
@@ -48,6 +63,18 @@ public class Ai : WorldObject {
     //      FUNCTIONS
     //
     //******************************************************************************************************************************
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Called before Start().
+    /// </summary>
+    protected override void Awake() {
+        base.Awake();
+
+        // Initialize lists
+        _PotentialTargets = new List<WorldObject>();
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -158,7 +185,7 @@ public class Ai : WorldObject {
     /// <summary>
     //  
     /// </summary>
-    public void DetermineWeightedTargetFromList() {
+    public void DetermineWeightedTargetFromList(TargetWeight[] weightList) {
 
         // Multiple targets to select from
         if (_PotentialTargets.Count > 0) {
@@ -170,13 +197,34 @@ public class Ai : WorldObject {
             // WHICH TARGET IS THE CLOSEST?
 
             // WHICH TARGET AM I THE MOST EFFECTIVE AGAINST?
-
+            
             List<int> targetWeights = new List<int>();
-            for (int i = 0; i < _PotentialTargets.Count; i++) {
+            /*
+            if (weightList != null || weightList.Length > 0) {
+                
+                // For each knwon potential target
+                for (int i = 0; i < _PotentialTargets.Count; i++) {
 
-                // Temporary weights are just 1 for now
-                targetWeights.Add(1);
+                    // Look for a match within the passed in weight list
+                    for (int j = 0; j < weightList.Length; j++) {
+
+                        // Current potential target matches the current iterator in the weight list
+                        Unit unit = _PotentialTargets[i].GetComponent<Unit>();
+                        if (unit.UnitType == weightList[j].UnitType) {
+
+                            // Add to local targetweights array
+                            targetWeights.Add(weightList[j].Weight);
+                        }
+                    }
+                }
+
             }
+            */
+            ///else { /// weightList == null
+
+                // All potential targets have a weight of 1 to be the next target
+                for (int i = 0; i < _PotentialTargets.Count; i++) { targetWeights.Add(1); }
+            ///}
 
             // Set new target
             _AttackTarget = _PotentialTargets[GetWeightedRandomIndex(targetWeights)];
@@ -310,6 +358,36 @@ public class Ai : WorldObject {
     //  
     /// </summary>
     public void ResetToOrigin() { _IsReturningToOrigin = true; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    /// <summary>
+    //  
+    /// </summary>
+    /// <returns>
+    //  bool
+    /// </returns>
+    public bool IsChasing() { return _IsChasing; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <returns>
+    //  bool
+    /// </returns>
+    public bool IsReturningToOrigin() { return _IsReturningToOrigin; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <returns>
+    //  bool
+    /// </returns>
+    public bool IsAttacking() { return _IsAttacking; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

@@ -19,6 +19,18 @@ public class SightSphere : MonoBehaviour {
     //
     //******************************************************************************************************************************
 
+    [Space]
+    [Header("-----------------------------------")]
+    [Header(" TARGETTING OBJECT WEIGHTS")]
+    [Space]
+    public Ai.TargetWeight[] TargetWeights = new Ai.TargetWeight[Ai._WeightLength];
+
+    //******************************************************************************************************************************
+    //
+    //      VARIABLES
+    //
+    //******************************************************************************************************************************
+
     private Ai _AIAttached = null;
     private WorldObject _WorldObjectInFocus = null;
 
@@ -87,7 +99,7 @@ public class SightSphere : MonoBehaviour {
                 _AIAttached.RemovePotentialTarget(_WorldObjectInFocus);
 
                 // Update new attack target (if the target that just left was the current target)
-                if (_WorldObjectInFocus == _AIAttached.GetAttackTarget()) { _AIAttached.DetermineWeightedTargetFromList(); }
+                if (_WorldObjectInFocus == _AIAttached.GetAttackTarget()) { _AIAttached.DetermineWeightedTargetFromList(TargetWeights); }
             }
         }
     }
@@ -113,32 +125,5 @@ public class SightSphere : MonoBehaviour {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  
-    /// </summary>
-    /// <param name="other"></param>
-    /*
-    private void OnTriggerStay(Collider other) {
-
-        // valid unit
-        if (other.gameObject.CompareTag("Unit")) {
-
-            // Same gameobject in focus?
-            if (_WorldObjectInFocus != null) {
-
-                if (_WorldObjectInFocus.gameObject == other.gameObject) {
-
-                    // Chase the enemy?
-                    ///if (_AIAttached.GetAttackTarget() == _WorldObjectInFocus) { _AIAttached.SetChasingTarget(_AIAttached.GetAttackTarget()); }
-
-                    // Add to weighted list
-                    _AIAttached.AddPotentialTarget(_WorldObjectInFocus);
-                }
-            }
-        }
-    }
-    */
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    
 }

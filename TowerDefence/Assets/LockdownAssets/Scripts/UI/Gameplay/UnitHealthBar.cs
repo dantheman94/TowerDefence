@@ -118,7 +118,7 @@ public class UnitHealthBar : MonoBehaviour {
             if (ShieldSlider != null) {
 
                 // Show the shield bar if theres some shield left
-                if (_WorldObject.GetShield() > 0) {
+                if (_WorldObject.GetShieldPoints() > 0) {
 
                     ShieldSlider.value = _WorldObject.GetShield();
                     ShieldSlider.gameObject.SetActive(true);

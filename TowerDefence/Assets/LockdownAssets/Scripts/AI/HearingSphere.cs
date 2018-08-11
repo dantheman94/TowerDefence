@@ -63,10 +63,13 @@ public class HearingSphere : MonoBehaviour {
 
                             // Is it currently shooting right now?
                             Unit unit = _WorldObjectInFocus.GetComponent<Unit>();
-                            if(unit.PrimaryWeapon.IsFiring()) {
+                            if (unit.PrimaryWeapon != null) {
 
-                                // Add to weighted list
-                                _AIAttached.RemovePotentialTarget(unit);
+                                if (unit.PrimaryWeapon.IsFiring()) {
+
+                                    // Add to weighted list
+                                    _AIAttached.RemovePotentialTarget(unit);
+                                }
                             }
                         }
                     }
@@ -95,7 +98,7 @@ public class HearingSphere : MonoBehaviour {
                     _AIAttached.RemovePotentialTarget(_WorldObjectInFocus);
 
                     // Update new attack target (if the target that just left was the current target)
-                    if (_WorldObjectInFocus == _AIAttached.GetAttackTarget()) { _AIAttached.DetermineWeightedTargetFromList(); }
+                    if (_WorldObjectInFocus == _AIAttached.GetAttackTarget()) { _AIAttached.DetermineWeightedTargetFromList(null); }
                 }
             }
         }

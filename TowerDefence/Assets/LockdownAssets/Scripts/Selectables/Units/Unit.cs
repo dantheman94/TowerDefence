@@ -51,7 +51,7 @@ public class Unit : Ai {
     //
     //******************************************************************************************************************************
 
-    public enum EUnitType { Undefined, CoreMarine, AntiInfantryMarine, Hero, CoreVehicle, AntiAirVehicle, AntiBuildingVehicle, MobileArtillery, BattleTank, CoreAirship, SupportShip, HeavyAirship }
+    public enum EUnitType { Undefined, CoreMarine, AntiInfantryMarine, Hero, CoreVehicle, AntiAirVehicle, AntiBuildingVehicle, MobileArtillery, BattleTank, CoreAirship, SupportShip, HeavyAirship, ENUM_COUNT }
     public enum ENavmeshType { Ground, Air }
 
     protected CharacterController _CharacterController = null;
@@ -112,9 +112,6 @@ public class Unit : Ai {
         _CharacterController = GetComponent<CharacterController>();
         _Agent = GetComponent<NavMeshAgent>();
         _ObjectHeight = _Agent.height;
-
-        // Initialize lists
-        _PotentialTargets = new List<WorldObject>();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -304,6 +301,9 @@ public class Unit : Ai {
     public override void OnDeath() {
         base.OnDeath();
 
+        // Destroy waypoint
+        if (_SeekWaypoint != null) { ObjectPooling.Despawn(_SeekWaypoint.gameObject); }
+
         // Remove from squad
         if (IsInASquad()) { _SquadAttached.RemoveUnitFromSquad(this); }
 
@@ -394,7 +394,7 @@ public class Unit : Ai {
                 else {
 
                     // Get new attack target if possible
-                    DetermineWeightedTargetFromList();
+                    DetermineWeightedTargetFromList(TargetWeights);
                 }
             }
 
@@ -404,7 +404,7 @@ public class Unit : Ai {
                 _IsAttacking = false;
 
                 // Get new attack target if possible
-                DetermineWeightedTargetFromList();
+                DetermineWeightedTargetFromList(TargetWeights);
             }
         }
     }

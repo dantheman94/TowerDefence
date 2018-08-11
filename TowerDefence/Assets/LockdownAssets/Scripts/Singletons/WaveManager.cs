@@ -30,6 +30,7 @@ public class WaveManager : MonoBehaviour {
     [Header("-----------------------------------")]
     [Header(" PROPS")]
     [Space]
+    public List<Transform> CorePatrolPositions;
     public Core CentralCore;
     [Space]
     public List<LockdownPad> LockdownPads;
@@ -59,7 +60,7 @@ public class WaveManager : MonoBehaviour {
     public int StartingWaveTimer = 30;
     public int TimeAddedPerWave = 5;
     public int TimeTillNextWaveAfterClear = 10;
-
+    
     [Space]
     [Header("-----------------------------------")]
     [Header(" WAVE TYPES")]
@@ -71,7 +72,7 @@ public class WaveManager : MonoBehaviour {
     //      VARIABLES
     //
     //******************************************************************************************************************************
-
+    
     public enum WaveSeverity { SuperLight, Light, Small, Medium, Heavy, ENUM_COUNT }
     public enum WaveType { GroundTroops, GroundVehicles, MixedGround, AirVehicles, MixedVehicles, Mixed, Boss, ENUM_COUNT }
 
@@ -93,6 +94,8 @@ public class WaveManager : MonoBehaviour {
 
         public string Name;
         public WorldObject EnemyReference;
+        [Space]
+        public int StartAtSubwave = 1;
         public int PerSpawnInterval;
         public int WaveMax;
         [HideInInspector]
@@ -417,8 +420,14 @@ public class WaveManager : MonoBehaviour {
 
                 squad.Team = GameManager.Team.Attacking;
                 squad.SpawnUnits(squad);
-                squad.SquadSeek(CentralCore.GetSeekPosition());
+                squad.SquadAttackObject(CentralCore.GetAttackObject());
                 squad.CreateHealthBar(squad, player.PlayerCamera);
+
+                ///squad.SquadSeek(CentralCore.GetSeekPosition());
+                            
+                ///AiPatrol patrol = squad.gameObject.AddComponent<AiPatrol>();
+                ///patrol.UpdatePatrolPositions(CorePatrolPositions);
+
                 _CurrentWaveEnemies.Add(squad);
             }
 
@@ -428,8 +437,14 @@ public class WaveManager : MonoBehaviour {
 
                 unit.Team = GameManager.Team.Attacking;
                 unit.OnSpawn();
-                unit.AgentSeekPosition(CentralCore.GetSeekPosition());
+                unit.AgentAttackObject(CentralCore.GetAttackObject());
                 unit.CreateHealthBar(unit, player.PlayerCamera);
+
+                ///unit.AgentSeekPosition(CentralCore.GetSeekPosition());
+
+                ///AiPatrol patrol = unit.gameObject.AddComponent<AiPatrol>();
+                ///patrol.UpdatePatrolPositions(CorePatrolPositions);
+
                 _CurrentWaveEnemies.Add(unit);
             }
         }

@@ -484,10 +484,17 @@ public class KeyboardInput : MonoBehaviour {
         if      (Input.GetMouseButtonDown(0)) { LeftMouseClick(); }
         else if (Input.GetMouseButtonDown(1)) { RightMouseClick(); }
 
-        /*
-         *  HIGHLIGHTING OBJECTS 
-         */
-        
+        // Highlighting selectables
+        UpdateHighlightingObjects();
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    private void UpdateHighlightingObjects() {
+
         // Not currently rotating the camera
         if (!_RotatingCamera) {
 
@@ -510,12 +517,12 @@ public class KeyboardInput : MonoBehaviour {
 
                             // Check if we should highlight the selectable
                             if (!_HighlightFocus.GetIsSelected()) {
-                                
+
                                 // Check if its a building
                                 if (_HighlightBuilding == null) { _HighlightBuilding = _HighlightFocus.GetComponent<Building>(); }
                                 if (_HighlightBuilding != null) {
 
-                                    if (_HighlightBuilding.GetObjectState() == WorldObject.WorldObjectStates.Active || 
+                                    if (_HighlightBuilding.GetObjectState() == WorldObject.WorldObjectStates.Active ||
                                         _HighlightBuilding.GetObjectState() == WorldObject.WorldObjectStates.Building) {
 
                                         // Highlight building

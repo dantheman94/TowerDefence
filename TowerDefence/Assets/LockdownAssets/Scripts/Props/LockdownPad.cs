@@ -40,6 +40,7 @@ public class LockdownPad : MonoBehaviour {
     //******************************************************************************************************************************
 
     private Renderer _MinimapRenderer;
+    private SphereCollider _SpawnSphere = null;
 
     //******************************************************************************************************************************
     //
@@ -134,12 +135,12 @@ public class LockdownPad : MonoBehaviour {
     public List<Vector3> GetSpawnLocations(int amount) {
 
         List<Vector3> locations = new List<Vector3>();
-        SphereCollider sphere = gameObject.AddComponent<SphereCollider>();
-        sphere.center = gameObject.transform.position;
-        sphere.radius = SpawnRadius;
+        if (_SpawnSphere == null) { _SpawnSphere = gameObject.AddComponent<SphereCollider>(); }
+        _SpawnSphere.center = transform.position;
+        _SpawnSphere.radius = SpawnRadius;
 
         // Loop for each location and add it to the list
-        for (int i = 0; i < amount; i++) { locations.Add(GetSpawnLocationWithinPad(locations, sphere)); }
+        for (int i = 0; i < amount; i++) { locations.Add(GetSpawnLocationWithinPad(locations, _SpawnSphere)); }
 
         return locations;
     }
