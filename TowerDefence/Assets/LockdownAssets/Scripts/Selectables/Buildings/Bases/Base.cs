@@ -78,7 +78,7 @@ public class Base : Building {
         if (_MinimapRenderer != null) {
 
             // Attacking team colour
-            if (Team == GameManager.Team.Attacking) { _MinimapRenderer.material.color = Color.red; }
+            if (Team == GameManager.Team.Attacking) { _MinimapRenderer.material.color = WaveManager.Instance.AttackingTeamColour; }
             
             // Defending team
             else if (Team == GameManager.Team.Defending) {

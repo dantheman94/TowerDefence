@@ -467,6 +467,11 @@ public class WorldObject : Selectable {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="thisObject"></param>
+    /// <param name="camera"></param>
     public void CreateHealthBar(WorldObject thisObject, Camera camera) {
 
         // Create a health bar and allocate it to the unit
@@ -474,8 +479,8 @@ public class WorldObject : Selectable {
         _HealthBar = healthBarObj.GetComponent<UnitHealthBar>();
         _HealthBar.SetObjectAttached(thisObject);
         _HealthBar.SetCameraAttached(camera);
-        healthBarObj.gameObject.SetActive(true);
         healthBarObj.transform.SetParent(GameManager.Instance.WorldSpaceCanvas.gameObject.transform, false);
+        healthBarObj.gameObject.SetActive(true);
 
         // Set healthbar widget size & anchoring
         RectTransform healthRectTransform = _HealthBar.HealthSlider.GetComponent<RectTransform>();
@@ -484,9 +489,6 @@ public class WorldObject : Selectable {
         RectTransform shieldRectTransform = _HealthBar.ShieldSlider.GetComponent<RectTransform>();
         shieldRectTransform.sizeDelta = new Vector2(_WidgetShieldbarScaleX, _WidgetShieldbarScaleY);
         shieldRectTransform.anchoredPosition = new Vector2(0, _WidgetShieldbarOffset);
-
-        // Force enable the healthbar (It would have been disabled if it was a recycled GameObject)
-        healthBarObj.SetActive(true);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

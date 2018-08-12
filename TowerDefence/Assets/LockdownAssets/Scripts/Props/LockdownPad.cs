@@ -59,7 +59,7 @@ public class LockdownPad : MonoBehaviour {
         if (MinimapQuad != null) { _MinimapRenderer = MinimapQuad.GetComponent<Renderer>(); }
 
         // Set minimap icon colour to red
-        if (_MinimapRenderer != null) { _MinimapRenderer.material.color = Color.red; }
+        if (_MinimapRenderer != null) { _MinimapRenderer.material.color = WaveManager.Instance.AttackingTeamColour; }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
