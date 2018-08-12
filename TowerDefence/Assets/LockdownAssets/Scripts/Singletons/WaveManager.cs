@@ -21,6 +21,12 @@ public class WaveManager : MonoBehaviour {
 
     [Space]
     [Header("-----------------------------------")]
+    [Header(" AI")]
+    [Space]
+    public Color AttackingTeamColour = Color.red;
+
+    [Space]
+    [Header("-----------------------------------")]
     [Header(" MATCH START")]
     [Space]
     public float StartingDamageModifier = 0.75f;
@@ -449,7 +455,6 @@ public class WaveManager : MonoBehaviour {
             }
         }
         _CurrentSubwave++;
-        ///Debug.Log("Wave: " + _BossWaveCount + "." + _WaveInterval + " / Subwave: " + _CurrentSubwave);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
