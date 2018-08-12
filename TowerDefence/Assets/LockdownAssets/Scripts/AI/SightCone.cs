@@ -82,24 +82,4 @@ public class SightCone : MonoBehaviour {
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    /// <summary>
-    //  
-    /// </summary>
-    /// <param name="other"></param>
-    /*
-    private void OnTriggerStay(Collider other) {
-
-        if (_AIAttached.GetAttackTarget() != null) {
-
-            // Currently the same target that is the AI's attack target
-            if (_AIAttached.GetAttackTarget().gameObject == other.gameObject) {
-
-                // Attempt to pursue
-                _AIAttached.TryToChaseTarget(_AIAttached.GetAttackTarget());
-            }
-        }
-    }
-    */
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 }

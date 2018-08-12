@@ -7,7 +7,7 @@ using UnityEngine;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 14/7/2018
+//  Last edited on: 8/12/2018
 //
 //******************************
 
@@ -136,7 +136,7 @@ public class Core : Building {
     /// </returns>
     public WorldObject GetAttackObject() {
 
-        // Return the core center if all the spires are destroyed
+        // Return the center core if all the spires are destroyed
         bool core = true;
         for (int i = 0; i < Spires.Count; i++) {
 

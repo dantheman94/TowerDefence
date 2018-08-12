@@ -901,22 +901,14 @@ public class KeyboardInput : MonoBehaviour {
                 if (squads.Count > 0) {
 
                     // Loop through all selected squads & perform SEEK command
-                    foreach (var squad in squads) {
-
-                        squad.PlayerSeekOverride();
-                        squad.SquadSeek(hitPoint);
-                    }
+                    foreach (var squad in squads) { squad.SquadSeek(hitPoint, true); }
                 }
 
                 // If there are individually selected units
                 if (units.Count > 0) {
 
                     // Loop through all selected units & perform SEEK command
-                    foreach (var unit in units) {
-
-                        unit.PlayerSeekOverride();
-                        unit.AgentSeekPosition(hitPoint);
-                    }
+                    foreach (var unit in units) { unit.AgentSeekPosition(hitPoint, true); }
                 }
             }
 
@@ -968,14 +960,14 @@ public class KeyboardInput : MonoBehaviour {
                             if (squads.Count > 0) {
 
                                 // Loop through all selected squads & perform ATTACK command on the squad
-                                foreach (var squad in squads) { squad.SquadAttackObject(squadObj); }
+                                foreach (var squad in squads) { squad.SquadAttackObject(squadObj, true); }
                             }
 
                             // If there are individually selected units
                             if (units.Count > 0) {
 
                                 // Loop through all selected units & perform ATTACK command on the squad
-                                foreach (var unit in units) { unit.AgentAttackObject(squadObj, unit.GetAttackingPositionAtObject(squadObj)); }
+                                foreach (var unit in units) { unit.AgentAttackObject(squadObj, unit.GetAttackingPositionAtObject(squadObj), true); }
                             }
                         }
                     }
@@ -990,14 +982,14 @@ public class KeyboardInput : MonoBehaviour {
                             if (squads.Count > 0) {
 
                                 // Loop through all selected squads & perform ATTACK command on the unit
-                                foreach (var squad in squads) { squad.SquadAttackObject(unitObj); }
+                                foreach (var squad in squads) { squad.SquadAttackObject(unitObj, true); }
                             }
 
                             // If there are individually selected units
                             if (units.Count > 0) {
 
                                 // Loop through all selected units & perform ATTACK command on the unit
-                                foreach (var unit in units) { unit.AgentAttackObject(unitObj, unit.GetAttackingPositionAtObject(unitObj)); }
+                                foreach (var unit in units) { unit.AgentAttackObject(unitObj, unit.GetAttackingPositionAtObject(unitObj), true); }
                             }
                         }
                     }
@@ -1013,14 +1005,14 @@ public class KeyboardInput : MonoBehaviour {
                         if (squads.Count > 0) {
 
                             // Loop through all selected squads & perform ATTACK command on the building
-                            foreach (var squad in squads) { squad.SquadAttackObject(buildingObj); }
+                            foreach (var squad in squads) { squad.SquadAttackObject(buildingObj, true); }
                         }
 
                         // If there are individually selected units
                         if (units.Count > 0) {
 
                             // Loop through all selected units & perform ATTACK command on the building
-                            foreach (var unit in units) { unit.AgentAttackObject(buildingObj, unit.GetAttackingPositionAtObject(buildingObj)); }
+                            foreach (var unit in units) { unit.AgentAttackObject(buildingObj, unit.GetAttackingPositionAtObject(buildingObj), true); }
                         }
                     }
 
@@ -1667,10 +1659,12 @@ public class KeyboardInput : MonoBehaviour {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    // Inverts the mouses y position in screen space.
+    //  Inverts the mouses y position in screen space.
     /// </summary>
     /// <param name="y"></param>
-    /// <returns></returns>
+    /// <returns>
+    //  float
+    /// </returns>
     public static float InvertMouseY(float y) { return Screen.height - y; }
 
     public void SetStartPoint(Vector3 a_vector) { _BoxStartPoint = a_vector; }

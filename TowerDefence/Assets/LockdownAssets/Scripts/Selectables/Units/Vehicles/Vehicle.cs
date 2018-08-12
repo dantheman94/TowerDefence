@@ -7,7 +7,7 @@ using UnityEngine;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 21/7/2018
+//  Last edited on: 12/8/2018
 //
 //******************************
 
@@ -91,10 +91,13 @@ public class Vehicle : Unit {
 
         // Update movement
         if (_IsBeingPlayerControlled) { UpdatePlayerControlledMovement(); }
-        else                          { UpdateAIControllerMovement(); }
+        else { UpdateAIControllerMovement(); }
 
         // Move character controller forward / backwards based on current movement speed
-        if (_Controller.enabled) { _Controller.Move(transform.forward * _CurrentSpeed * Time.deltaTime); }
+        if (_Controller != null) {
+
+            if (_Controller.enabled) { _Controller.Move(transform.forward * _CurrentSpeed * Time.deltaTime); }
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

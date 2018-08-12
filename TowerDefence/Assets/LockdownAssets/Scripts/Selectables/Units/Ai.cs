@@ -128,7 +128,7 @@ public class Ai : WorldObject {
     /// </summary>
     protected void UpdatePlayerOverrideCheck() {
         
-        if (!_IsSeeking) { _IsFollowingPlayerCommand = false; }
+        ///if (!_IsSeeking) { _IsFollowingPlayerCommand = false; }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -345,11 +345,12 @@ public class Ai : WorldObject {
     /// <summary>
     //  
     /// </summary>
-    public void PlayerSeekOverride() {
+    protected void CommandOverride() {
 
         _IsFollowingPlayerCommand = true;
         _IsReturningToOrigin = false;
         _IsChasing = false;
+        _IsAttacking = false;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

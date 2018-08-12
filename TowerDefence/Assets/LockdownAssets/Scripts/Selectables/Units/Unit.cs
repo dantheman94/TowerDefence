@@ -348,13 +348,14 @@ public class Unit : Ai {
             }
             else {
 
+                _IsChasing = false;
                 _IsSeeking = false;
                 _IsReturningToOrigin = false;
                 _IsFollowingPlayerCommand = false;
             }
 
-            // Update seeking waypoint visibility
-            if (_SeekWaypoint) {
+            // Update seeking waypoint visibility (only for player controlled units)
+            if (_SeekWaypoint && Team == GameManager.Team.Defending) {
 
                 if (_IsSeeking && (_IsCurrentlySelected || _IsCurrentlyHighlighted)) { _SeekWaypoint.SetActive(true); }
                 else { _SeekWaypoint.SetActive(false); }
@@ -392,6 +393,9 @@ public class Unit : Ai {
 
                 // Attack target is now dead
                 else {
+
+                    // Remove from target list
+                    RemovePotentialTarget(_AttackTarget);
 
                     // Get new attack target if possible
                     DetermineWeightedTargetFromList(TargetWeights);
@@ -436,12 +440,12 @@ public class Unit : Ai {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  Sets the agent's destination aswell as updating a waypoint gameObject
-    //  to show the player where the agent is trying to go to.
+    //  Sets the agent's destination for seeking.
     /// </summary>
     /// <param name="seekTarget"></param>
-    public void AgentSeekPosition(Vector3 seekTarget, bool displayWaypoint = true) {
+    public void AgentSeekPosition(Vector3 seekTarget, bool overwrite = false , bool displayWaypoint = true) {
 
+        if (overwrite) { CommandOverride(); }
         if (_Agent.isOnNavMesh) {
 
             // Set agent's new goto target
@@ -450,7 +454,7 @@ public class Unit : Ai {
             _Agent.speed = InfantryMovementSpeed;
 
             // Show seeking waypoint
-            if (displayWaypoint) {
+            if (displayWaypoint && Team == GameManager.Team.Defending) {
 
                 // Create waypoint
                 if (_SeekWaypoint == null) { _SeekWaypoint = ObjectPooling.Spawn(GameManager.Instance.AgentSeekObject, Vector3.zero, Quaternion.identity); }
@@ -475,14 +479,16 @@ public class Unit : Ai {
     //  as well as pathfinding to the position passed in.
     /// </summary>
     /// <param name="attackTarget"></param>
-    public void AgentAttackObject(WorldObject attackTarget, Vector3 seekPosition) {
+    /// <param name="seekPosition"></param>
+    /// <param name="overwrite"></param>
+    public void AgentAttackObject(WorldObject attackTarget, Vector3 seekPosition, bool overwrite = false) {
 
         // Set target
         AddPotentialTarget(attackTarget);
         _AttackTarget = attackTarget;
 
         // Seek
-        AgentSeekPosition(seekPosition);
+        AgentSeekPosition(seekPosition, overwrite);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -497,7 +503,7 @@ public class Unit : Ai {
         // Add target to list and make it the current target
         AddPotentialTarget(attackTarget);
         _AttackTarget = attackTarget;
-
+        
         // Get attacking position for the target and seek to it (get closer if we have to, or move away if we should)
         Vector3 seekPos = transform.position;
         float dist = Vector3.Distance(transform.position, attackTarget.transform.position);

@@ -47,6 +47,8 @@ public class Selectable : Abstraction {
     protected bool _PlayerOwned = false;
     protected GameObject _SelectionObj = null;
     protected GameObject _HighlightObj = null;
+    private Renderer _SelectionObjRenderer = null;
+    private Renderer _HighlightObjRenderer = null;
 
     //******************************************************************************************************************************
     //
@@ -145,6 +147,18 @@ public class Selectable : Abstraction {
                 pos.y = 1.1f;
                 pos.z = transform.position.z;
                 _SelectionObj.transform.position = pos;
+
+                // Update selection prefab colour
+                if (_SelectionObjRenderer == null) { _SelectionObjRenderer = _SelectionObj.GetComponent<Renderer>(); }
+                if (_SelectionObjRenderer != null) {
+
+                    switch (Team) {
+                        case GameManager.Team.Undefined: { _SelectionObjRenderer.material.color = Color.black; break; }
+                        case GameManager.Team.Defending: { _SelectionObjRenderer.material.color = _Player.TeamColor; break; }
+                        case GameManager.Team.Attacking: { _SelectionObjRenderer.material.color = Color.red; break; }
+                        default: break;
+                    }
+                }
             }
         }
 
@@ -176,6 +190,18 @@ public class Selectable : Abstraction {
                 pos.y = 1.1f;
                 pos.z = transform.position.z;
                 _HighlightObj.transform.position = pos;
+
+                // Update highlight prefab colour
+                if (_HighlightObjRenderer == null) { _HighlightObjRenderer = _HighlightObj.GetComponent<Renderer>(); }
+                if (_HighlightObjRenderer != null) {
+
+                    switch (Team) {
+                        case GameManager.Team.Undefined: { _HighlightObjRenderer.material.color = Color.grey; break; } /// Temporary colour - just so it isnt white (will need to be white later but it clashes with the environment atm)
+                        case GameManager.Team.Defending: { _HighlightObjRenderer.material.color = Color.cyan; break; } /// Temporary colour - just to show a different colour to selected (ideally it should be a shade lighter than the player's colour!)
+                        case GameManager.Team.Attacking: { _HighlightObjRenderer.material.color = Color.red; break; }
+                        default: break;
+                    }
+                }
             }
         }
 

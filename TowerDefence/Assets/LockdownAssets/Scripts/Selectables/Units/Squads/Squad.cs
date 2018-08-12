@@ -345,7 +345,8 @@ public class Squad : Ai {
     //  
     /// </summary>
     /// <param name="seekTarget"></param>
-    public void SquadSeek(Vector3 seekTarget) {
+    /// <param name="overwrite"></param>
+    public void SquadSeek(Vector3 seekTarget, bool overwrite = false) {
 
         // Get positions with an offset for each unit to seek towards
         _SeekTarget = seekTarget;
@@ -355,7 +356,8 @@ public class Squad : Ai {
         int i = 0;
         foreach (var unit in _Squad) {
             
-            unit.AgentSeekPosition(positions[i], false);
+            
+            unit.AgentSeekPosition(positions[i], overwrite, false);
             i++;
         }
 
@@ -364,7 +366,7 @@ public class Squad : Ai {
         if (_SeekWaypoint != null) {
 
             // Display waypoint if not already being displayed
-            if (_SeekWaypoint.activeInHierarchy != true) { _SeekWaypoint.SetActive(true); }
+            if (_SeekWaypoint.activeInHierarchy != true && Team == GameManager.Team.Defending) { _SeekWaypoint.SetActive(true); }
 
             // Update waypoint position
             _SeekWaypoint.transform.position = seekTarget;
@@ -378,7 +380,8 @@ public class Squad : Ai {
     //  
     /// </summary>
     /// <param name="attackTarget"></param>
-    public void SquadAttackObject(WorldObject attackTarget) {
+    /// <param name="overwrite"></param>
+    public void SquadAttackObject(WorldObject attackTarget, bool overwrite = false) {
 
         // Get positions with an offset for each unit to seek towards
         List<Vector3> positions = GetAttackingPositionsAtObject(attackTarget, _Squad.Count);
@@ -386,8 +389,8 @@ public class Squad : Ai {
         // Get all alive units to attack the object (while positioning ourselves)
         int i = 0;
         foreach (var unit in _Squad) {
-            
-            unit.AgentAttackObject(attackTarget, positions[i]);
+
+            unit.AgentAttackObject(attackTarget, positions[i], overwrite);
             i++;
         }
     }
