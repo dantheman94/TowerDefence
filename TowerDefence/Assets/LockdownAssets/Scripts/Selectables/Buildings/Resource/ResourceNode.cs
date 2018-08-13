@@ -39,7 +39,7 @@ public class ResourceNode : WorldObject {
     public float CaptureDecreaseRate = 0.7f;
     
     [Tooltip("What type of resource this node generates.")]
-    public ResourceType resourceType;
+    public Generator.eResourceType resourceType;
 
     public GameObject BottomPad;
     public Color BaseColor;
@@ -67,15 +67,13 @@ public class ResourceNode : WorldObject {
 
 
     private bool _WidgetOn = false;
-
-    public enum ResourceType { POWER, SUPPLY};
-
+    
     public float GetCaptureMax() { return _CaptureProgressMax; }
     public float GetCaptureProg() { return _CaptureProgress; }
 
 
     // Update is called once per frame
-    void Update () {
+    protected override void Update() {
        
         if(!_Player)
         {
@@ -272,10 +270,10 @@ public class ResourceNode : WorldObject {
                     _TickTimer = 0.0f;
                     switch (resourceType)
                     {
-                        case ResourceType.POWER:
+                        case Generator.eResourceType.Power:
                             _Player.PowerCount += (int)(GenerationPerTick * _ResourceMultiplier);
                             break;
-                        case ResourceType.SUPPLY:
+                        case Generator.eResourceType.Supplies:
                             _Player.SuppliesCount += (int)(GenerationPerTick * _ResourceMultiplier);
                             break;
                         default:
