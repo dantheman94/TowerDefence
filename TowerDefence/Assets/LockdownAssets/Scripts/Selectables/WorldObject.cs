@@ -412,7 +412,12 @@ public class WorldObject : Selectable {
         _ObjectState = WorldObjectStates.Destroyed;
 
         // Destroy healthbar
-        if (_HealthBar != null) { ObjectPooling.Despawn(_HealthBar.gameObject); }
+        if (_HealthBar != null) {
+
+            // Null the bitch
+            _HealthBar.SetObjectAttached(null);
+            ObjectPooling.Despawn(_HealthBar.gameObject);
+        }
 
         // Clamping health
         _HitPoints = 0;
