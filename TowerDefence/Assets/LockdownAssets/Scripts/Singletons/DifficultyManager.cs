@@ -106,6 +106,8 @@ public class DifficultyManager : MonoBehaviour {
     //      VARIABLES
     //
     //******************************************************************************************************************************
+    
+    public static DifficultyManager Instance;
 
     public enum EDifficultyModifiers { Health, FiringRate, MovementSpeed }
     public enum Difficulties { Easy, Normal, Hard, Impossible }
@@ -186,6 +188,25 @@ public class DifficultyManager : MonoBehaviour {
     //      FUNCTIONS
     //
     //******************************************************************************************************************************
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  This is called before Startup().
+    /// </summary>
+    private void Awake() {
+
+        // Initialize singleton
+        if (Instance != null && Instance != this) {
+
+            Destroy(this.gameObject);
+            return;
+        }
+
+        Instance = this;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     //  
