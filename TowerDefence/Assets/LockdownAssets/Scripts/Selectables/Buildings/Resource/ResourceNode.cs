@@ -41,7 +41,10 @@ public class ResourceNode : WorldObject {
     [Tooltip("What type of resource this node generates.")]
     public ResourceType resourceType;
 
-    
+    public GameObject BottomPad;
+    public Color BaseColor;
+
+
     //******************************************************************************************************************************
     //
     //      VARIABLES
@@ -58,6 +61,10 @@ public class ResourceNode : WorldObject {
     private float _CaptureTickTimer = 0.0f;
     private float _CaptureDecreaseTimer = 0.0f;
     private NodeCaptureCounter _NodeWidget = null;
+    private WorldObject _ObjectReference = null;
+    private GameManager.Team CapturingTeam;
+    private GameManager.Team CapturedTeam;
+
 
     private bool _WidgetOn = false;
 
@@ -66,20 +73,18 @@ public class ResourceNode : WorldObject {
     public float GetCaptureMax() { return _CaptureProgressMax; }
     public float GetCaptureProg() { return _CaptureProgress; }
 
-    private void FixedUpdate()
-    {
-        Debug.Log("Resource multiplier: " + _ResourceMultiplier);
-        Debug.Log("Capture progress: " + _CaptureProgress + " / " + _CaptureProgressMax);
-    }
 
     // Update is called once per frame
     void Update () {
-
+       
         if(!_Player)
         {
             _Player = GameManager.Instance.Players[0];
         }
-
+        if(_CaptureProgress < 0)
+        {
+            _CaptureProgress = 0;
+        }
         if(_Player && !_WidgetOn)
         {
             GameObject progressWidget = ObjectPooling.Spawn(GameManager.Instance.CaptureProgressPanel.gameObject);
@@ -92,7 +97,22 @@ public class ResourceNode : WorldObject {
             progressWidget.transform.SetParent(GameManager.Instance.WorldSpaceCanvas.transform, false);
             _WidgetOn = true;
         }
-       
+        if (_IsCaptured)
+        {
+            if (CapturedTeam == GameManager.Team.Attacking)
+            {
+                BottomPad.GetComponent<Renderer>().material.color = WaveManager.Instance.AttackingTeamColour;
+            }
+            else
+            {
+                BottomPad.GetComponent<Renderer>().material.color = _Player.TeamColor;
+            }
+        }
+        else
+        {
+            BottomPad.GetComponent<Renderer>().material.color = BaseColor;
+        }
+
         CaptureProcess();
         GenerateResources();
         _ResourceMultiplier = (_CaptureProgress / _CaptureProgressMax);
@@ -100,25 +120,75 @@ public class ResourceNode : WorldObject {
      
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Unit")
+        if (other.CompareTag("Unit"))
         {
+        
             StartCapture();
+
+            if (_ObjectReference != null)
+            {
+
+                if (_ObjectReference.gameObject != other.gameObject)
+                {
+                    _ObjectReference = other.GetComponent<WorldObject>();
+                    if (_ObjectReference != null)
+                    {
+                        CapturingTeam = _ObjectReference.Team;
+                    }
+                }
+            }
         }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Unit"))
+        {
+            if (_ObjectReference != null)
+            {
+
+                if (_ObjectReference.gameObject != other.gameObject)
+                {
+                    _ObjectReference = other.GetComponent<WorldObject>();
+                    if (_ObjectReference != null)
+                    {
+                        CapturingTeam = _ObjectReference.Team;
+                    }
+                }
+                if (!_IsCapturing)
+                {
+                    StartCapture();
+                }
+
+                if (_ObjectReference != null)
+                {
+                    CapturingTeam = _ObjectReference.Team;
+                }
+            }
+        }
+       
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if(other.gameObject.tag == "Unit")
+        if (other.CompareTag("Unit"))
         {
             CancelCapture();
         }
+ 
     }
 
+    /// <summary>
+    /// Starts captures process.
+    /// </summary>
     private void StartCapture()
     {
         _IsCapturing = true;
     }
 
+    /// <summary>
+    /// Cancels capture process.
+    /// </summary>
     private void CancelCapture()
     {
         _IsCapturing = false;
@@ -148,6 +218,10 @@ public class ResourceNode : WorldObject {
             if(_CaptureProgress >= _CaptureProgressMax)
             {
                 _IsCaptured = true;
+                if(_ObjectReference != null)
+                {
+                    CapturedTeam = _ObjectReference.Team;
+                }
             }
 
         }
@@ -167,7 +241,7 @@ public class ResourceNode : WorldObject {
             {
                 _CaptureDecreaseTimer = 0;
                 if(_CaptureProgress <= _CaptureProgressMax && 
-                   _CaptureProgress >= 0)
+                   _CaptureProgress > 0)
                 {
                     _CaptureProgress--;
                 }
