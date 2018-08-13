@@ -69,6 +69,8 @@ public class GameManager : MonoBehaviour {
     [Space]
     public UI_SelectedUnits SelectedUnitsHUD;
     public UI_PlatoonUnits PlatoonUnitsHUD;
+    public UI_WaveStats WaveStatsHUD;
+    public MatchResults MatchResultsHUD;
 
     [Space]
     [Header("-----------------------------------")]

@@ -75,6 +75,7 @@ public class Player : MonoBehaviour {
     private int WavesSurvived = 0;
 
     // Army
+    private List<Base> _Bases;
     private List<WorldObject> _Army;
     private List<Platoon> _Platoons;
     const int _PlatoonCount = 10;
@@ -94,7 +95,8 @@ public class Player : MonoBehaviour {
     //  Called when this object is created.
     /// </summary>
     private void Start() {
-            // Get component references
+
+        // Get component references
         _KeyboardInputManager = GetComponent<KeyboardInput>();
         _XboxGamepadInputManager = GetComponent<XboxGamepadInput>();
         _HUD = GetComponent<HUD>();
@@ -128,6 +130,7 @@ public class Player : MonoBehaviour {
 
         // Create army
         _Army = new List<WorldObject>();
+        _Bases = new List<Base>();
 
         // Create platoons
         _Platoons = new List<Platoon>();

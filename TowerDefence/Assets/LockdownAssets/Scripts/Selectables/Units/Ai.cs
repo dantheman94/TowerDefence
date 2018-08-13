@@ -82,7 +82,7 @@ public class Ai : WorldObject {
     //  Damages the object by a set amount.
     /// </summary>
     /// <param name="damage"></param>
-    public override void Damage(int damage, Ai instigator) {
+    public override void Damage(float damage, Ai instigator) {
         base.Damage(damage);
 
         // Add intigator to the potential list
@@ -103,6 +103,19 @@ public class Ai : WorldObject {
 
         if (_IsFollowingPlayerCommand) { UpdatePlayerOverrideCheck(); }
         if (_IsReturningToOrigin) { ResetToOriginPosition(); }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Called when the object is killed/destroyed
+    /// </summary>
+    public override void OnDeath() {
+        base.OnDeath();
+
+        // If were in the wave manager's enemies array - remove it
+        if (WaveManager.Instance._CurrentWaveEnemies.Contains(this)) { WaveManager.Instance._CurrentWaveEnemies.Remove(this); }
+        if (Team == GameManager.Team.Attacking) { GameManager.Instance.WaveStatsHUD.DeductLifeFromCurrentPopulation(); }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

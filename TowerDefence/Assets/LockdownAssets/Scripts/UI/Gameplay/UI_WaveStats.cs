@@ -27,6 +27,7 @@ public class UI_WaveStats : MonoBehaviour {
     public Text WaveName = null;
     public Text WavePopulation = null;
     public Text WaveCounterText = null;
+    public Slider WaveSlider = null;
     [Space]
     public Text DamageModiferText = null;
     public Text HealthModiferText = null;
@@ -39,8 +40,8 @@ public class UI_WaveStats : MonoBehaviour {
     //
     //******************************************************************************************************************************
 
-    private int _CurrentWavePopLeft;
-    private int _CurrentWavePopMax;
+    private int _CurrentWavePopLeft = 0;
+    private int _CurrentWavePopMax = 0;
 
     //******************************************************************************************************************************
     //
@@ -54,7 +55,7 @@ public class UI_WaveStats : MonoBehaviour {
     //  Called each frame. 
     /// </summary>
     private void Update() {
-        
+
         // Update wave name text
         if (WaveName != null) { WaveName.text = string.Concat(WaveManager.Instance.GetCurrentWaveInfo().Name + ":"); }
 
@@ -64,6 +65,19 @@ public class UI_WaveStats : MonoBehaviour {
 
         // Update wave counter text
         if (WaveCounterText != null) { WaveCounterText.text = WaveManager.Instance.GetWaveCount().ToString(); }
+
+        // Update wave population text
+        if (WavePopulation != null) { WavePopulation.text = string.Concat(_CurrentWavePopLeft.ToString() + " / " + _CurrentWavePopMax.ToString()); }
+
+        // Update wave slider population
+        if (WaveSlider != null) {
+
+            float percent;
+            if (_CurrentWavePopLeft > 0f) { percent = (float)_CurrentWavePopLeft / (float)_CurrentWavePopMax; }
+            else { percent = 0f; }
+
+            WaveSlider.value = percent;
+        }
 
         // Update next wave timer text
         if (!WaveManager.Instance.IsBossWave()) {
@@ -78,5 +92,25 @@ public class UI_WaveStats : MonoBehaviour {
         // Is boss wave so dont show the timer
         else { if (NextWaveTimerText != null) { NextWaveTimerText.text = ""; } }
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    public void UpdatePopulationCount(int current, int max) {
+
+        _CurrentWavePopLeft = current;
+        _CurrentWavePopMax = max;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    public void DeductLifeFromCurrentPopulation() { _CurrentWavePopLeft--; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }

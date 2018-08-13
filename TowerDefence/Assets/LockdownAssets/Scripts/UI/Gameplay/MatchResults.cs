@@ -65,6 +65,11 @@ public class MatchResults : MonoBehaviour {
         }
 	}
 
+    /// <summary>
+    /// Sets game over to true.
+    /// </summary>
+    public void SetGameOver() { _IsGameOver = true; }
+
     /////////////////////////////////////////////////////////////////////
 
     /// <summary>

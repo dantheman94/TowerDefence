@@ -369,6 +369,12 @@ public class WaveManager : MonoBehaviour {
             _CurrentWaveInfo.Enemies[i].CurrentLives = _CurrentWaveInfo.Enemies[i].WaveMax;
         }
 
+        // Get max pop enemy count for UI
+        int max = 0; int current = 0;
+        for (int i = 0; i < _CurrentWaveInfo.Enemies.Count; i++) { max += _CurrentWaveInfo.Enemies[i].WaveMax; }
+        current = max;
+        GameManager.Instance.WaveStatsHUD.UpdatePopulationCount(current, max);
+
         // First subwave
         SpawnSubwave(GetSubwave());
         _WaveInProgress = true;

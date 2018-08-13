@@ -164,19 +164,21 @@ public class Weapon : MonoBehaviour {
                         if (unitObj.Team != _UnitAttached.Team) {
 
                             // Damage based on unit type
+                            DifficultyManager dM = DifficultyManager.Instance;
+                            DifficultyManager.EDifficultyModifiers mod = DifficultyManager.EDifficultyModifiers.Damage;
                             switch (unitObj.UnitType) {
 
-                                case Unit.EUnitType.Undefined:          { unitObj.Damage(Damages.DamageDefault, _UnitAttached); break; }
-                                case Unit.EUnitType.CoreMarine:         { unitObj.Damage(Damages.DamageCoreInfantry, _UnitAttached); break; }
-                                case Unit.EUnitType.AntiInfantryMarine: { unitObj.Damage(Damages.DamageAntiInfantryMarine, _UnitAttached); break; }
-                                case Unit.EUnitType.Hero:               { unitObj.Damage(Damages.DamageHero, _UnitAttached); break; }
-                                case Unit.EUnitType.CoreVehicle:        { unitObj.Damage(Damages.DamageCoreVehicle, _UnitAttached); break; }
-                                case Unit.EUnitType.AntiAirVehicle:     { unitObj.Damage(Damages.DamageAntiAirVehicle, _UnitAttached); break; }
-                                case Unit.EUnitType.MobileArtillery:    { unitObj.Damage(Damages.DamageMobileArtillery, _UnitAttached); break; }
-                                case Unit.EUnitType.BattleTank:         { unitObj.Damage(Damages.DamageBattleTank, _UnitAttached); break; }
-                                case Unit.EUnitType.CoreAirship:        { unitObj.Damage(Damages.DamageCoreAirship, _UnitAttached); break; }
-                                case Unit.EUnitType.SupportShip:        { unitObj.Damage(Damages.DamageSupportShip, _UnitAttached); break; }
-                                case Unit.EUnitType.HeavyAirship:       { unitObj.Damage(Damages.DamageHeavyAirship, _UnitAttached); break; }
+                                case Unit.EUnitType.Undefined:          { unitObj.Damage(Damages.DamageDefault * dM.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
+                                case Unit.EUnitType.CoreMarine:         { unitObj.Damage(Damages.DamageCoreInfantry * dM.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
+                                case Unit.EUnitType.AntiInfantryMarine: { unitObj.Damage(Damages.DamageAntiInfantryMarine * dM.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
+                                case Unit.EUnitType.Hero:               { unitObj.Damage(Damages.DamageHero * dM.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
+                                case Unit.EUnitType.CoreVehicle:        { unitObj.Damage(Damages.DamageCoreVehicle * dM.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
+                                case Unit.EUnitType.AntiAirVehicle:     { unitObj.Damage(Damages.DamageAntiAirVehicle * dM.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
+                                case Unit.EUnitType.MobileArtillery:    { unitObj.Damage(Damages.DamageMobileArtillery * dM.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
+                                case Unit.EUnitType.BattleTank:         { unitObj.Damage(Damages.DamageBattleTank * dM.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
+                                case Unit.EUnitType.CoreAirship:        { unitObj.Damage(Damages.DamageCoreAirship * dM.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
+                                case Unit.EUnitType.SupportShip:        { unitObj.Damage(Damages.DamageSupportShip * dM.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
+                                case Unit.EUnitType.HeavyAirship:       { unitObj.Damage(Damages.DamageHeavyAirship * dM.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
                                 default: break;
                             }
                         }

@@ -30,9 +30,9 @@ public class DifficultyManager : MonoBehaviour {
     [Header(" EASY DIFFICULTY")]
     [Space]
     [Header("  HEALTH")]
-    public HealthModifier EasyEnemyHealthModifier;
+    public DamageModifier EasyEnemyHealthModifier;
     [Space]
-    public HealthModifier EasyFriendlyHealthModifier;
+    public DamageModifier EasyFriendlyHealthModifier;
     [Space]
     [Header("  FIRING RATE")]
     public FiringRateModifier EasyEnemyFiringRateModifier;
@@ -49,9 +49,9 @@ public class DifficultyManager : MonoBehaviour {
     [Header(" NORMAL DIFFICULTY")]
     [Space]
     [Header("  HEALTH")]
-    public HealthModifier NormalEnemyHealthModifier;
+    public DamageModifier NormalEnemyHealthModifier;
     [Space]
-    public HealthModifier NormalFriendlyHealthModifier;
+    public DamageModifier NormalFriendlyHealthModifier;
     [Space]
     [Header("  FIRING RATE")]
     public FiringRateModifier NormalEnemyFiringRateModifier;
@@ -68,9 +68,9 @@ public class DifficultyManager : MonoBehaviour {
     [Header(" HARD DIFFICULTY")]
     [Space]
     [Header("  HEALTH")]
-    public HealthModifier HardEnemyHealthModifier;
+    public DamageModifier HardEnemyHealthModifier;
     [Space]
-    public HealthModifier HardFriendlyHealthModifier;
+    public DamageModifier HardFriendlyHealthModifier;
     [Space]
     [Header("  FIRING RATE")]
     public FiringRateModifier HardEnemyFiringRateModifier;
@@ -87,9 +87,9 @@ public class DifficultyManager : MonoBehaviour {
     [Header(" IMPOSSIBLE DIFFICULTY")]
     [Space]
     [Header("  HEALTH")]
-    public HealthModifier ImpossibleEnemyHealthModifier;
+    public DamageModifier ImpossibleEnemyHealthModifier;
     [Space]
-    public HealthModifier ImpossibleFriendlyHealthModifier;
+    public DamageModifier ImpossibleFriendlyHealthModifier;
     [Space]
     [Header("  FIRING RATE")]
     public FiringRateModifier ImpossibleEnemyFiringRateModifier;
@@ -109,7 +109,7 @@ public class DifficultyManager : MonoBehaviour {
     
     public static DifficultyManager Instance;
 
-    public enum EDifficultyModifiers { Health, FiringRate, MovementSpeed }
+    public enum EDifficultyModifiers { Damage, FiringRate, MovementSpeed }
     public enum Difficulties { Easy, Normal, Hard, Impossible }
     
     //******************************************************************************************************************************
@@ -121,22 +121,22 @@ public class DifficultyManager : MonoBehaviour {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     [System.Serializable]
-    public class HealthModifier {
+    public class DamageModifier {
 
-        public float HealthUndefined = 1f;
+        public float DamageUndefined = 1f;
 
-        public float HealthCoreMarine = 1f;
-        public float HealthAntiInfantryMarine = 1f;
-        public float HealthHero = 1f;
+        public float DamageCoreMarine = 1f;
+        public float DamageAntiInfantryMarine = 1f;
+        public float DamageHero = 1f;
 
-        public float HealthCoreVehicle = 1f;
-        public float HealthAntiAirVehicle = 1f;
-        public float HealthMobileArtillery = 1f;
-        public float HealthBattleTank = 1f;
+        public float DamageCoreVehicle = 1f;
+        public float DamageAntiAirVehicle = 1f;
+        public float DamageMobileArtillery = 1f;
+        public float DamageBattleTank = 1f;
 
-        public float HealthCoreAirship = 1f;
-        public float HealthSupportAirship = 1f;
-        public float HealthHeavyAirship = 1f;
+        public float DamageCoreAirship = 1f;
+        public float DamageSupportAirship = 1f;
+        public float DamageHeavyAirship = 1f;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -216,7 +216,10 @@ public class DifficultyManager : MonoBehaviour {
     /// <returns>
     //  float
     /// </returns>
-    public float GetDifficultyModifier(Unit.EUnitType unitType, EDifficultyModifiers modifier, bool friendly) {
+    public float GetDifficultyModifier(Unit unit, EDifficultyModifiers modifier) {
+
+        Unit.EUnitType unitType = unit.UnitType;
+        bool friendly = unit.Team == unit._Player.Team;
 
         float fMod = 1f;
         switch (CurrentDifficulty) {
@@ -244,7 +247,7 @@ public class DifficultyManager : MonoBehaviour {
         float fMod = 1f;
         switch (modifier) {
 
-            case EDifficultyModifiers.Health:           { fMod = GetEasyHealth(unitType, friendly); break; }
+            case EDifficultyModifiers.Damage:           { fMod = GetEasyDamage(unitType, friendly); break; }
             case EDifficultyModifiers.FiringRate:       { fMod = GetEasyFiringRate(unitType, friendly); break; }
             case EDifficultyModifiers.MovementSpeed:    { fMod = GetEasyMovementSpeed(unitType, friendly); break; }
             default: break;
@@ -266,7 +269,7 @@ public class DifficultyManager : MonoBehaviour {
         float fMod = 1f;
         switch (modifier) {
 
-            case EDifficultyModifiers.Health:           { fMod = GetNormalHealth(unitType, friendly); break; }
+            case EDifficultyModifiers.Damage:           { fMod = GetNormalDamage(unitType, friendly); break; }
             case EDifficultyModifiers.FiringRate:       { fMod = GetNormalFiringRate(unitType, friendly); break; }
             case EDifficultyModifiers.MovementSpeed:    { fMod = GetNormalMovementSpeed(unitType, friendly); break; }
             default: break;
@@ -288,7 +291,7 @@ public class DifficultyManager : MonoBehaviour {
         float fMod = 1f;
         switch (modifier) {
 
-            case EDifficultyModifiers.Health:           { fMod = GetHardHealth(unitType, friendly); break; }
+            case EDifficultyModifiers.Damage:           { fMod = GetHardDamage(unitType, friendly); break; }
             case EDifficultyModifiers.FiringRate:       { fMod = GetHardFiringRate(unitType, friendly); break; }
             case EDifficultyModifiers.MovementSpeed:    { fMod = GetHardMovementSpeed(unitType, friendly); break; }
             default: break;
@@ -310,7 +313,7 @@ public class DifficultyManager : MonoBehaviour {
         float fMod = 1f;
         switch (modifier) {
 
-            case EDifficultyModifiers.Health:           { fMod = GetImpossibleHealth(unitType, friendly); break; }
+            case EDifficultyModifiers.Damage:           { fMod = GetImpossibleDamage(unitType, friendly); break; }
             case EDifficultyModifiers.FiringRate:       { fMod = GetImpossibleFiringRate(unitType, friendly); break; }
             case EDifficultyModifiers.MovementSpeed:    { fMod = GetImpossibleMovementSpeed(unitType, friendly); break; }
             default: break;
@@ -327,7 +330,7 @@ public class DifficultyManager : MonoBehaviour {
     /// <returns>
     //  float
     /// </returns>
-    private float GetEasyHealth(Unit.EUnitType unitType, bool friendly) {
+    private float GetEasyDamage(Unit.EUnitType unitType, bool friendly) {
 
         float fMod = 1f;
         if (friendly) {
@@ -336,18 +339,18 @@ public class DifficultyManager : MonoBehaviour {
             switch (unitType) {
 
                 // Easy difficulty
-                case Unit.EUnitType.Undefined:              { fMod = EasyFriendlyHealthModifier.HealthUndefined; break; }
-                case Unit.EUnitType.CoreMarine:             { fMod = EasyFriendlyHealthModifier.HealthCoreMarine; break; }
-                case Unit.EUnitType.AntiInfantryMarine:     { fMod = EasyFriendlyHealthModifier.HealthAntiInfantryMarine; break; }
-                case Unit.EUnitType.Hero:                   { fMod = EasyFriendlyHealthModifier.HealthHero; break; }
-                case Unit.EUnitType.CoreVehicle:            { fMod = EasyFriendlyHealthModifier.HealthCoreVehicle; break; }
-                case Unit.EUnitType.AntiAirVehicle:         { fMod = EasyFriendlyHealthModifier.HealthAntiAirVehicle; break; }
-                case Unit.EUnitType.AntiBuildingVehicle:    { fMod = EasyFriendlyHealthModifier.HealthUndefined; break; }
-                case Unit.EUnitType.MobileArtillery:        { fMod = EasyFriendlyHealthModifier.HealthMobileArtillery; break; }
-                case Unit.EUnitType.BattleTank:             { fMod = EasyFriendlyHealthModifier.HealthBattleTank; break; }
-                case Unit.EUnitType.CoreAirship:            { fMod = EasyFriendlyHealthModifier.HealthCoreAirship; break; }
-                case Unit.EUnitType.SupportShip:            { fMod = EasyFriendlyHealthModifier.HealthSupportAirship; break; }
-                case Unit.EUnitType.HeavyAirship:           { fMod = EasyFriendlyHealthModifier.HealthHeavyAirship; break; }
+                case Unit.EUnitType.Undefined:              { fMod = EasyFriendlyHealthModifier.DamageUndefined; break; }
+                case Unit.EUnitType.CoreMarine:             { fMod = EasyFriendlyHealthModifier.DamageCoreMarine; break; }
+                case Unit.EUnitType.AntiInfantryMarine:     { fMod = EasyFriendlyHealthModifier.DamageAntiInfantryMarine; break; }
+                case Unit.EUnitType.Hero:                   { fMod = EasyFriendlyHealthModifier.DamageHero; break; }
+                case Unit.EUnitType.CoreVehicle:            { fMod = EasyFriendlyHealthModifier.DamageCoreVehicle; break; }
+                case Unit.EUnitType.AntiAirVehicle:         { fMod = EasyFriendlyHealthModifier.DamageAntiAirVehicle; break; }
+                case Unit.EUnitType.AntiBuildingVehicle:    { fMod = EasyFriendlyHealthModifier.DamageUndefined; break; }
+                case Unit.EUnitType.MobileArtillery:        { fMod = EasyFriendlyHealthModifier.DamageMobileArtillery; break; }
+                case Unit.EUnitType.BattleTank:             { fMod = EasyFriendlyHealthModifier.DamageBattleTank; break; }
+                case Unit.EUnitType.CoreAirship:            { fMod = EasyFriendlyHealthModifier.DamageCoreAirship; break; }
+                case Unit.EUnitType.SupportShip:            { fMod = EasyFriendlyHealthModifier.DamageSupportAirship; break; }
+                case Unit.EUnitType.HeavyAirship:           { fMod = EasyFriendlyHealthModifier.DamageHeavyAirship; break; }
                 default: break;
             }
         } else {
@@ -356,18 +359,18 @@ public class DifficultyManager : MonoBehaviour {
             switch (unitType) {
 
                 // Easy difficulty
-                case Unit.EUnitType.Undefined:              { fMod = EasyEnemyHealthModifier.HealthUndefined; break; }
-                case Unit.EUnitType.CoreMarine:             { fMod = EasyEnemyHealthModifier.HealthCoreMarine; break; }
-                case Unit.EUnitType.AntiInfantryMarine:     { fMod = EasyEnemyHealthModifier.HealthAntiInfantryMarine; break; }
-                case Unit.EUnitType.Hero:                   { fMod = EasyEnemyHealthModifier.HealthHero; break; }
-                case Unit.EUnitType.CoreVehicle:            { fMod = EasyEnemyHealthModifier.HealthCoreVehicle; break; }
-                case Unit.EUnitType.AntiAirVehicle:         { fMod = EasyEnemyHealthModifier.HealthAntiAirVehicle; break; }
-                case Unit.EUnitType.AntiBuildingVehicle:    { fMod = EasyEnemyHealthModifier.HealthUndefined; break; }
-                case Unit.EUnitType.MobileArtillery:        { fMod = EasyEnemyHealthModifier.HealthMobileArtillery; break; }
-                case Unit.EUnitType.BattleTank:             { fMod = EasyEnemyHealthModifier.HealthBattleTank; break; }
-                case Unit.EUnitType.CoreAirship:            { fMod = EasyEnemyHealthModifier.HealthCoreAirship; break; }
-                case Unit.EUnitType.SupportShip:            { fMod = EasyEnemyHealthModifier.HealthSupportAirship; break; }
-                case Unit.EUnitType.HeavyAirship:           { fMod = EasyEnemyHealthModifier.HealthHeavyAirship; break; }
+                case Unit.EUnitType.Undefined:              { fMod = EasyEnemyHealthModifier.DamageUndefined; break; }
+                case Unit.EUnitType.CoreMarine:             { fMod = EasyEnemyHealthModifier.DamageCoreMarine; break; }
+                case Unit.EUnitType.AntiInfantryMarine:     { fMod = EasyEnemyHealthModifier.DamageAntiInfantryMarine; break; }
+                case Unit.EUnitType.Hero:                   { fMod = EasyEnemyHealthModifier.DamageHero; break; }
+                case Unit.EUnitType.CoreVehicle:            { fMod = EasyEnemyHealthModifier.DamageCoreVehicle; break; }
+                case Unit.EUnitType.AntiAirVehicle:         { fMod = EasyEnemyHealthModifier.DamageAntiAirVehicle; break; }
+                case Unit.EUnitType.AntiBuildingVehicle:    { fMod = EasyEnemyHealthModifier.DamageUndefined; break; }
+                case Unit.EUnitType.MobileArtillery:        { fMod = EasyEnemyHealthModifier.DamageMobileArtillery; break; }
+                case Unit.EUnitType.BattleTank:             { fMod = EasyEnemyHealthModifier.DamageBattleTank; break; }
+                case Unit.EUnitType.CoreAirship:            { fMod = EasyEnemyHealthModifier.DamageCoreAirship; break; }
+                case Unit.EUnitType.SupportShip:            { fMod = EasyEnemyHealthModifier.DamageSupportAirship; break; }
+                case Unit.EUnitType.HeavyAirship:           { fMod = EasyEnemyHealthModifier.DamageHeavyAirship; break; }
                 default: break;
             }
         }
@@ -383,7 +386,7 @@ public class DifficultyManager : MonoBehaviour {
     /// <returns>
     //  float
     /// </returns>
-    private float GetNormalHealth(Unit.EUnitType unitType, bool friendly) {
+    private float GetNormalDamage(Unit.EUnitType unitType, bool friendly) {
 
         float fMod = 1f;
         if (friendly) {
@@ -392,18 +395,18 @@ public class DifficultyManager : MonoBehaviour {
             switch (unitType) {
 
                 // Normal difficulty
-                case Unit.EUnitType.Undefined:              { fMod = NormalFriendlyHealthModifier.HealthUndefined; break; }
-                case Unit.EUnitType.CoreMarine:             { fMod = NormalFriendlyHealthModifier.HealthCoreMarine; break; }
-                case Unit.EUnitType.AntiInfantryMarine:     { fMod = NormalFriendlyHealthModifier.HealthAntiInfantryMarine; break; }
-                case Unit.EUnitType.Hero:                   { fMod = NormalFriendlyHealthModifier.HealthHero; break; }
-                case Unit.EUnitType.CoreVehicle:            { fMod = NormalFriendlyHealthModifier.HealthCoreVehicle; break; }
-                case Unit.EUnitType.AntiAirVehicle:         { fMod = NormalFriendlyHealthModifier.HealthAntiAirVehicle; break; }
-                case Unit.EUnitType.AntiBuildingVehicle:    { fMod = NormalFriendlyHealthModifier.HealthUndefined; break; }
-                case Unit.EUnitType.MobileArtillery:        { fMod = NormalFriendlyHealthModifier.HealthMobileArtillery; break; }
-                case Unit.EUnitType.BattleTank:             { fMod = NormalFriendlyHealthModifier.HealthBattleTank; break; }
-                case Unit.EUnitType.CoreAirship:            { fMod = NormalFriendlyHealthModifier.HealthCoreAirship; break; }
-                case Unit.EUnitType.SupportShip:            { fMod = NormalFriendlyHealthModifier.HealthSupportAirship; break; }
-                case Unit.EUnitType.HeavyAirship:           { fMod = NormalFriendlyHealthModifier.HealthHeavyAirship; break; }
+                case Unit.EUnitType.Undefined:              { fMod = NormalFriendlyHealthModifier.DamageUndefined; break; }
+                case Unit.EUnitType.CoreMarine:             { fMod = NormalFriendlyHealthModifier.DamageCoreMarine; break; }
+                case Unit.EUnitType.AntiInfantryMarine:     { fMod = NormalFriendlyHealthModifier.DamageAntiInfantryMarine; break; }
+                case Unit.EUnitType.Hero:                   { fMod = NormalFriendlyHealthModifier.DamageHero; break; }
+                case Unit.EUnitType.CoreVehicle:            { fMod = NormalFriendlyHealthModifier.DamageCoreVehicle; break; }
+                case Unit.EUnitType.AntiAirVehicle:         { fMod = NormalFriendlyHealthModifier.DamageAntiAirVehicle; break; }
+                case Unit.EUnitType.AntiBuildingVehicle:    { fMod = NormalFriendlyHealthModifier.DamageUndefined; break; }
+                case Unit.EUnitType.MobileArtillery:        { fMod = NormalFriendlyHealthModifier.DamageMobileArtillery; break; }
+                case Unit.EUnitType.BattleTank:             { fMod = NormalFriendlyHealthModifier.DamageBattleTank; break; }
+                case Unit.EUnitType.CoreAirship:            { fMod = NormalFriendlyHealthModifier.DamageCoreAirship; break; }
+                case Unit.EUnitType.SupportShip:            { fMod = NormalFriendlyHealthModifier.DamageSupportAirship; break; }
+                case Unit.EUnitType.HeavyAirship:           { fMod = NormalFriendlyHealthModifier.DamageHeavyAirship; break; }
                 default: break;
             }
         }
@@ -413,18 +416,18 @@ public class DifficultyManager : MonoBehaviour {
             switch (unitType) {
 
                 // Normal difficulty
-                case Unit.EUnitType.Undefined:              { fMod = NormalEnemyHealthModifier.HealthUndefined; break; }
-                case Unit.EUnitType.CoreMarine:             { fMod = NormalEnemyHealthModifier.HealthCoreMarine; break; }
-                case Unit.EUnitType.AntiInfantryMarine:     { fMod = NormalEnemyHealthModifier.HealthAntiInfantryMarine; break; }
-                case Unit.EUnitType.Hero:                   { fMod = NormalEnemyHealthModifier.HealthHero; break; }
-                case Unit.EUnitType.CoreVehicle:            { fMod = NormalEnemyHealthModifier.HealthCoreVehicle; break; }
-                case Unit.EUnitType.AntiAirVehicle:         { fMod = NormalEnemyHealthModifier.HealthAntiAirVehicle; break; }
-                case Unit.EUnitType.AntiBuildingVehicle:    { fMod = NormalEnemyHealthModifier.HealthUndefined; break; }
-                case Unit.EUnitType.MobileArtillery:        { fMod = NormalEnemyHealthModifier.HealthMobileArtillery; break; }
-                case Unit.EUnitType.BattleTank:             { fMod = NormalEnemyHealthModifier.HealthBattleTank; break; }
-                case Unit.EUnitType.CoreAirship:            { fMod = NormalEnemyHealthModifier.HealthCoreAirship; break; }
-                case Unit.EUnitType.SupportShip:            { fMod = NormalEnemyHealthModifier.HealthSupportAirship; break; }
-                case Unit.EUnitType.HeavyAirship:           { fMod = NormalEnemyHealthModifier.HealthHeavyAirship; break; }
+                case Unit.EUnitType.Undefined:              { fMod = NormalEnemyHealthModifier.DamageUndefined; break; }
+                case Unit.EUnitType.CoreMarine:             { fMod = NormalEnemyHealthModifier.DamageCoreMarine; break; }
+                case Unit.EUnitType.AntiInfantryMarine:     { fMod = NormalEnemyHealthModifier.DamageAntiInfantryMarine; break; }
+                case Unit.EUnitType.Hero:                   { fMod = NormalEnemyHealthModifier.DamageHero; break; }
+                case Unit.EUnitType.CoreVehicle:            { fMod = NormalEnemyHealthModifier.DamageCoreVehicle; break; }
+                case Unit.EUnitType.AntiAirVehicle:         { fMod = NormalEnemyHealthModifier.DamageAntiAirVehicle; break; }
+                case Unit.EUnitType.AntiBuildingVehicle:    { fMod = NormalEnemyHealthModifier.DamageUndefined; break; }
+                case Unit.EUnitType.MobileArtillery:        { fMod = NormalEnemyHealthModifier.DamageMobileArtillery; break; }
+                case Unit.EUnitType.BattleTank:             { fMod = NormalEnemyHealthModifier.DamageBattleTank; break; }
+                case Unit.EUnitType.CoreAirship:            { fMod = NormalEnemyHealthModifier.DamageCoreAirship; break; }
+                case Unit.EUnitType.SupportShip:            { fMod = NormalEnemyHealthModifier.DamageSupportAirship; break; }
+                case Unit.EUnitType.HeavyAirship:           { fMod = NormalEnemyHealthModifier.DamageHeavyAirship; break; }
                 default: break;
             }
         }
@@ -440,7 +443,7 @@ public class DifficultyManager : MonoBehaviour {
     /// <returns>
     //  float
     /// </returns>
-    private float GetHardHealth(Unit.EUnitType unitType, bool friendly) {
+    private float GetHardDamage(Unit.EUnitType unitType, bool friendly) {
 
         float fMod = 1f;
         if (friendly) {
@@ -449,18 +452,18 @@ public class DifficultyManager : MonoBehaviour {
             switch (unitType) {
 
                 // Hard difficulty
-                case Unit.EUnitType.Undefined:              { fMod = HardFriendlyHealthModifier.HealthUndefined; break; }
-                case Unit.EUnitType.CoreMarine:             { fMod = HardFriendlyHealthModifier.HealthCoreMarine; break; }
-                case Unit.EUnitType.AntiInfantryMarine:     { fMod = HardFriendlyHealthModifier.HealthAntiInfantryMarine; break; }
-                case Unit.EUnitType.Hero:                   { fMod = HardFriendlyHealthModifier.HealthHero; break; }
-                case Unit.EUnitType.CoreVehicle:            { fMod = HardFriendlyHealthModifier.HealthCoreVehicle; break; }
-                case Unit.EUnitType.AntiAirVehicle:         { fMod = HardFriendlyHealthModifier.HealthAntiAirVehicle; break; }
-                case Unit.EUnitType.AntiBuildingVehicle:    { fMod = HardFriendlyHealthModifier.HealthUndefined; break; }
-                case Unit.EUnitType.MobileArtillery:        { fMod = HardFriendlyHealthModifier.HealthMobileArtillery; break; }
-                case Unit.EUnitType.BattleTank:             { fMod = HardFriendlyHealthModifier.HealthBattleTank; break; }
-                case Unit.EUnitType.CoreAirship:            { fMod = HardFriendlyHealthModifier.HealthCoreAirship; break; }
-                case Unit.EUnitType.SupportShip:            { fMod = HardFriendlyHealthModifier.HealthSupportAirship; break; }
-                case Unit.EUnitType.HeavyAirship:           { fMod = HardFriendlyHealthModifier.HealthHeavyAirship; break; }
+                case Unit.EUnitType.Undefined:              { fMod = HardFriendlyHealthModifier.DamageUndefined; break; }
+                case Unit.EUnitType.CoreMarine:             { fMod = HardFriendlyHealthModifier.DamageCoreMarine; break; }
+                case Unit.EUnitType.AntiInfantryMarine:     { fMod = HardFriendlyHealthModifier.DamageAntiInfantryMarine; break; }
+                case Unit.EUnitType.Hero:                   { fMod = HardFriendlyHealthModifier.DamageHero; break; }
+                case Unit.EUnitType.CoreVehicle:            { fMod = HardFriendlyHealthModifier.DamageCoreVehicle; break; }
+                case Unit.EUnitType.AntiAirVehicle:         { fMod = HardFriendlyHealthModifier.DamageAntiAirVehicle; break; }
+                case Unit.EUnitType.AntiBuildingVehicle:    { fMod = HardFriendlyHealthModifier.DamageUndefined; break; }
+                case Unit.EUnitType.MobileArtillery:        { fMod = HardFriendlyHealthModifier.DamageMobileArtillery; break; }
+                case Unit.EUnitType.BattleTank:             { fMod = HardFriendlyHealthModifier.DamageBattleTank; break; }
+                case Unit.EUnitType.CoreAirship:            { fMod = HardFriendlyHealthModifier.DamageCoreAirship; break; }
+                case Unit.EUnitType.SupportShip:            { fMod = HardFriendlyHealthModifier.DamageSupportAirship; break; }
+                case Unit.EUnitType.HeavyAirship:           { fMod = HardFriendlyHealthModifier.DamageHeavyAirship; break; }
                 default: break;
             }
         }
@@ -470,18 +473,18 @@ public class DifficultyManager : MonoBehaviour {
             switch (unitType) {
 
                 // Hard difficulty
-                case Unit.EUnitType.Undefined:              { fMod = HardEnemyHealthModifier.HealthUndefined; break; }
-                case Unit.EUnitType.CoreMarine:             { fMod = HardEnemyHealthModifier.HealthCoreMarine; break; }
-                case Unit.EUnitType.AntiInfantryMarine:     { fMod = HardEnemyHealthModifier.HealthAntiInfantryMarine; break; }
-                case Unit.EUnitType.Hero:                   { fMod = HardEnemyHealthModifier.HealthHero; break; }
-                case Unit.EUnitType.CoreVehicle:            { fMod = HardEnemyHealthModifier.HealthCoreVehicle; break; }
-                case Unit.EUnitType.AntiAirVehicle:         { fMod = HardEnemyHealthModifier.HealthAntiAirVehicle; break; }
-                case Unit.EUnitType.AntiBuildingVehicle:    { fMod = HardEnemyHealthModifier.HealthUndefined; break; }
-                case Unit.EUnitType.MobileArtillery:        { fMod = HardEnemyHealthModifier.HealthMobileArtillery; break; }
-                case Unit.EUnitType.BattleTank:             { fMod = HardEnemyHealthModifier.HealthBattleTank; break; }
-                case Unit.EUnitType.CoreAirship:            { fMod = HardEnemyHealthModifier.HealthCoreAirship; break; }
-                case Unit.EUnitType.SupportShip:            { fMod = HardEnemyHealthModifier.HealthSupportAirship; break; }
-                case Unit.EUnitType.HeavyAirship:           { fMod = HardEnemyHealthModifier.HealthHeavyAirship; break; }
+                case Unit.EUnitType.Undefined:              { fMod = HardEnemyHealthModifier.DamageUndefined; break; }
+                case Unit.EUnitType.CoreMarine:             { fMod = HardEnemyHealthModifier.DamageCoreMarine; break; }
+                case Unit.EUnitType.AntiInfantryMarine:     { fMod = HardEnemyHealthModifier.DamageAntiInfantryMarine; break; }
+                case Unit.EUnitType.Hero:                   { fMod = HardEnemyHealthModifier.DamageHero; break; }
+                case Unit.EUnitType.CoreVehicle:            { fMod = HardEnemyHealthModifier.DamageCoreVehicle; break; }
+                case Unit.EUnitType.AntiAirVehicle:         { fMod = HardEnemyHealthModifier.DamageAntiAirVehicle; break; }
+                case Unit.EUnitType.AntiBuildingVehicle:    { fMod = HardEnemyHealthModifier.DamageUndefined; break; }
+                case Unit.EUnitType.MobileArtillery:        { fMod = HardEnemyHealthModifier.DamageMobileArtillery; break; }
+                case Unit.EUnitType.BattleTank:             { fMod = HardEnemyHealthModifier.DamageBattleTank; break; }
+                case Unit.EUnitType.CoreAirship:            { fMod = HardEnemyHealthModifier.DamageCoreAirship; break; }
+                case Unit.EUnitType.SupportShip:            { fMod = HardEnemyHealthModifier.DamageSupportAirship; break; }
+                case Unit.EUnitType.HeavyAirship:           { fMod = HardEnemyHealthModifier.DamageHeavyAirship; break; }
                 default: break;
             }
         }
@@ -497,7 +500,7 @@ public class DifficultyManager : MonoBehaviour {
     /// <returns>
     //  float
     /// </returns>
-    private float GetImpossibleHealth(Unit.EUnitType unitType, bool friendly) {
+    private float GetImpossibleDamage(Unit.EUnitType unitType, bool friendly) {
 
         float fMod = 1f;
         if (friendly) {
@@ -506,18 +509,18 @@ public class DifficultyManager : MonoBehaviour {
             switch (unitType) {
 
                 // Impossible difficulty
-                case Unit.EUnitType.Undefined:              { fMod = ImpossibleFriendlyHealthModifier.HealthUndefined; break; }
-                case Unit.EUnitType.CoreMarine:             { fMod = ImpossibleFriendlyHealthModifier.HealthCoreMarine; break; }
-                case Unit.EUnitType.AntiInfantryMarine:     { fMod = ImpossibleFriendlyHealthModifier.HealthAntiInfantryMarine; break; }
-                case Unit.EUnitType.Hero:                   { fMod = ImpossibleFriendlyHealthModifier.HealthHero; break; }
-                case Unit.EUnitType.CoreVehicle:            { fMod = ImpossibleFriendlyHealthModifier.HealthCoreVehicle; break; }
-                case Unit.EUnitType.AntiAirVehicle:         { fMod = ImpossibleFriendlyHealthModifier.HealthAntiAirVehicle; break; }
-                case Unit.EUnitType.AntiBuildingVehicle:    { fMod = ImpossibleFriendlyHealthModifier.HealthUndefined; break; }
-                case Unit.EUnitType.MobileArtillery:        { fMod = ImpossibleFriendlyHealthModifier.HealthMobileArtillery; break; }
-                case Unit.EUnitType.BattleTank:             { fMod = ImpossibleFriendlyHealthModifier.HealthBattleTank; break; }
-                case Unit.EUnitType.CoreAirship:            { fMod = ImpossibleFriendlyHealthModifier.HealthCoreAirship; break; }
-                case Unit.EUnitType.SupportShip:            { fMod = ImpossibleFriendlyHealthModifier.HealthSupportAirship; break; }
-                case Unit.EUnitType.HeavyAirship:           { fMod = ImpossibleFriendlyHealthModifier.HealthHeavyAirship; break; }
+                case Unit.EUnitType.Undefined:              { fMod = ImpossibleFriendlyHealthModifier.DamageUndefined; break; }
+                case Unit.EUnitType.CoreMarine:             { fMod = ImpossibleFriendlyHealthModifier.DamageCoreMarine; break; }
+                case Unit.EUnitType.AntiInfantryMarine:     { fMod = ImpossibleFriendlyHealthModifier.DamageAntiInfantryMarine; break; }
+                case Unit.EUnitType.Hero:                   { fMod = ImpossibleFriendlyHealthModifier.DamageHero; break; }
+                case Unit.EUnitType.CoreVehicle:            { fMod = ImpossibleFriendlyHealthModifier.DamageCoreVehicle; break; }
+                case Unit.EUnitType.AntiAirVehicle:         { fMod = ImpossibleFriendlyHealthModifier.DamageAntiAirVehicle; break; }
+                case Unit.EUnitType.AntiBuildingVehicle:    { fMod = ImpossibleFriendlyHealthModifier.DamageUndefined; break; }
+                case Unit.EUnitType.MobileArtillery:        { fMod = ImpossibleFriendlyHealthModifier.DamageMobileArtillery; break; }
+                case Unit.EUnitType.BattleTank:             { fMod = ImpossibleFriendlyHealthModifier.DamageBattleTank; break; }
+                case Unit.EUnitType.CoreAirship:            { fMod = ImpossibleFriendlyHealthModifier.DamageCoreAirship; break; }
+                case Unit.EUnitType.SupportShip:            { fMod = ImpossibleFriendlyHealthModifier.DamageSupportAirship; break; }
+                case Unit.EUnitType.HeavyAirship:           { fMod = ImpossibleFriendlyHealthModifier.DamageHeavyAirship; break; }
                 default: break;
             }
         }
@@ -527,18 +530,18 @@ public class DifficultyManager : MonoBehaviour {
             switch (unitType) {
 
                 // Impossible difficulty
-                case Unit.EUnitType.Undefined:              { fMod = ImpossibleEnemyHealthModifier.HealthUndefined; break; }
-                case Unit.EUnitType.CoreMarine:             { fMod = ImpossibleEnemyHealthModifier.HealthCoreMarine; break; }
-                case Unit.EUnitType.AntiInfantryMarine:     { fMod = ImpossibleEnemyHealthModifier.HealthAntiInfantryMarine; break; }
-                case Unit.EUnitType.Hero:                   { fMod = ImpossibleEnemyHealthModifier.HealthHero; break; }
-                case Unit.EUnitType.CoreVehicle:            { fMod = ImpossibleEnemyHealthModifier.HealthCoreVehicle; break; }
-                case Unit.EUnitType.AntiAirVehicle:         { fMod = ImpossibleEnemyHealthModifier.HealthAntiAirVehicle; break; }
-                case Unit.EUnitType.AntiBuildingVehicle:    { fMod = ImpossibleEnemyHealthModifier.HealthUndefined; break; }
-                case Unit.EUnitType.MobileArtillery:        { fMod = ImpossibleEnemyHealthModifier.HealthMobileArtillery; break; }
-                case Unit.EUnitType.BattleTank:             { fMod = ImpossibleEnemyHealthModifier.HealthBattleTank; break; }
-                case Unit.EUnitType.CoreAirship:            { fMod = ImpossibleEnemyHealthModifier.HealthCoreAirship; break; }
-                case Unit.EUnitType.SupportShip:            { fMod = ImpossibleEnemyHealthModifier.HealthSupportAirship; break; }
-                case Unit.EUnitType.HeavyAirship:           { fMod = ImpossibleEnemyHealthModifier.HealthHeavyAirship; break; }
+                case Unit.EUnitType.Undefined:              { fMod = ImpossibleEnemyHealthModifier.DamageUndefined; break; }
+                case Unit.EUnitType.CoreMarine:             { fMod = ImpossibleEnemyHealthModifier.DamageCoreMarine; break; }
+                case Unit.EUnitType.AntiInfantryMarine:     { fMod = ImpossibleEnemyHealthModifier.DamageAntiInfantryMarine; break; }
+                case Unit.EUnitType.Hero:                   { fMod = ImpossibleEnemyHealthModifier.DamageHero; break; }
+                case Unit.EUnitType.CoreVehicle:            { fMod = ImpossibleEnemyHealthModifier.DamageCoreVehicle; break; }
+                case Unit.EUnitType.AntiAirVehicle:         { fMod = ImpossibleEnemyHealthModifier.DamageAntiAirVehicle; break; }
+                case Unit.EUnitType.AntiBuildingVehicle:    { fMod = ImpossibleEnemyHealthModifier.DamageUndefined; break; }
+                case Unit.EUnitType.MobileArtillery:        { fMod = ImpossibleEnemyHealthModifier.DamageMobileArtillery; break; }
+                case Unit.EUnitType.BattleTank:             { fMod = ImpossibleEnemyHealthModifier.DamageBattleTank; break; }
+                case Unit.EUnitType.CoreAirship:            { fMod = ImpossibleEnemyHealthModifier.DamageCoreAirship; break; }
+                case Unit.EUnitType.SupportShip:            { fMod = ImpossibleEnemyHealthModifier.DamageSupportAirship; break; }
+                case Unit.EUnitType.HeavyAirship:           { fMod = ImpossibleEnemyHealthModifier.DamageHeavyAirship; break; }
                 default: break;
             }
         }

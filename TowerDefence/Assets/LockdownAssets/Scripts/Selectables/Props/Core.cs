@@ -105,11 +105,23 @@ public class Core : Building {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
+    //  
+    /// </summary>
+    public override void OnDeath() {
+        base.OnDeath();
+
+        // Game is over
+        GameManager.Instance.MatchResultsHUD.SetGameOver();
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
     //  Damages the object by a set amount.
     /// </summary>
     /// <param name="damage"></param>
     /// <param name="instigator"></param>
-    public override void Damage(int damage, Ai instigator = null) {
+    public override void Damage(float damage, Ai instigator = null) {
 
         // Only damage the core if all spires are destroyed
         bool damageCore = true;

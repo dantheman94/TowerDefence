@@ -391,11 +391,11 @@ public class WorldObject : Selectable {
     //  Damages the object by a set amount.
     /// </summary>
     /// <param name="damage"></param>
-    public virtual void Damage(int damage, Ai instigator = null) {
+    public virtual void Damage(float damage, Ai instigator = null) {
 
         // Damage object & kill it if theres no health left
         _HitPoints -= damage;
-        if (_HitPoints <= 0) { OnDeath(); }
+        if (_HitPoints <= 0 && _ObjectState != WorldObjectStates.Destroyed) { OnDeath(); }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
