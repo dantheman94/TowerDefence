@@ -40,6 +40,7 @@ public class ResourceNode : WorldObject {
     
     [Tooltip("What type of resource this node generates.")]
     public Generator.eResourceType resourceType;
+    public GameObject MinimapQuad = null;
 
     public GameObject BottomPad;
     public Color BaseColor;
@@ -65,9 +66,22 @@ public class ResourceNode : WorldObject {
     private GameManager.Team CapturingTeam;
     private GameManager.Team CapturedTeam;
 
+    private Renderer _MinimapRenderer;
+
 
     private bool _WidgetOn = false;
-    
+
+    protected override void Start() {
+        base.Start();
+         
+        // Get component references
+        if (MinimapQuad != null) { _MinimapRenderer = MinimapQuad.GetComponent<Renderer>(); }
+
+        // Set minimap icon colour to blue
+        if (_MinimapRenderer != null) { _MinimapRenderer.material.color = Color.grey; }
+
+    }
+
     public float GetCaptureMax() { return _CaptureProgressMax; }
     public float GetCaptureProg() { return _CaptureProgress; }
 

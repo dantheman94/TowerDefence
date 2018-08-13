@@ -103,7 +103,7 @@ public class Weapon : MonoBehaviour {
         // Firing delay timer
         if (_FireDelayTimer > 0f) {
 
-            _IsFiring = false;
+            ///_IsFiring = false;
             _FireDelayTimer -= Time.deltaTime;
         }
 
@@ -223,7 +223,7 @@ public class Weapon : MonoBehaviour {
 
         // If the weapon can be fired
         if (_CurrentMagazineCount > 0 && CanFire()) {
-
+        
             _IsFiring = true;
             _FireDelayTimer = FiringDelay;
 

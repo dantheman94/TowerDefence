@@ -70,6 +70,7 @@ public class GameManager : MonoBehaviour {
     public UI_SelectedUnits SelectedUnitsHUD;
     public UI_PlatoonUnits PlatoonUnitsHUD;
     public UI_WaveStats WaveStatsHUD;
+    public UI_GameOver GameOverHUD;
     public MatchResults MatchResultsHUD;
 
     [Space]
@@ -271,6 +272,17 @@ public class GameManager : MonoBehaviour {
     //  bool
     /// </returns>
     public bool GetMatchVictory() { return _MatchVictory; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    public void GameOver() {
+
+        // Show the game over notification screen
+        GameOverHUD.gameObject.SetActive(true);
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
