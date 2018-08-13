@@ -211,10 +211,13 @@ public class UnitHealthBar : MonoBehaviour {
 
         // Set localized reference of world object attached
         _WorldObject = obj;
-        _BuildingAttached = _WorldObject.GetComponent<Building>();
+        if (_WorldObject != null) {
 
-        // Set object's health bar reference
-        _WorldObject.SetHealthBar(this);
+            _BuildingAttached = _WorldObject.GetComponent<Building>();
+
+            // Set object's health bar reference
+            _WorldObject.SetHealthBar(this);
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

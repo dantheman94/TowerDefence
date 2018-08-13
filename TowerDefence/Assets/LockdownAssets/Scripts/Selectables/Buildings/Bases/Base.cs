@@ -114,7 +114,6 @@ public class Base : Building {
 
             hitpoints = originalBase._HitPoints;
             if (originalBase._HealthBar != null) { ObjectPooling.Despawn(originalBase._HealthBar.gameObject); }
-
         }
 
         // Start building process
