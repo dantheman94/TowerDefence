@@ -31,7 +31,7 @@ public class InstanceManager : MonoBehaviour {
     //
     //******************************************************************************************************************************
 
-    public enum EFaction { EtherealNibbas, Faction2, Faction3, Faction4 }
+    public enum EFaction { Ethereal, Faction2, Faction3, Faction4 }
 
     public static InstanceManager Instance;
     

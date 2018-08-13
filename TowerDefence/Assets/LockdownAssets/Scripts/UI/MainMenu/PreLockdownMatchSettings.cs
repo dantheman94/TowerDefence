@@ -37,7 +37,7 @@ public class PreLockdownMatchSettings : MonoBehaviour {
     //
     //******************************************************************************************************************************
 
-    private InstanceManager.EFaction _Faction = InstanceManager.EFaction.EtherealNibbas;
+    private InstanceManager.EFaction _Faction = InstanceManager.EFaction.Ethereal;
     private Info_Level _Level = null;
     private Info_Difficulty _Difficulty = null;
 

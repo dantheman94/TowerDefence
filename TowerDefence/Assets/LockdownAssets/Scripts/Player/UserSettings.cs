@@ -25,7 +25,7 @@ public class UserSettings : MonoBehaviour {
     //
     //******************************************************************************************************************************
 
-    private InstanceManager.EFaction _Faction = InstanceManager.EFaction.EtherealNibbas;
+    private InstanceManager.EFaction _Faction = InstanceManager.EFaction.Ethereal;
 
     //******************************************************************************************************************************
     //

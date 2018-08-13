@@ -54,7 +54,7 @@ public class UI_LoadingScreen : MonoBehaviour {
         // Update gamemode text
         if (Gamemode != null) {
 
-            string text = string.Concat(InstanceManager.Instance._Difficulty.GetUIEnumerator().ToUpper() + " | GAMEMODE NAME");
+            string text = string.Concat(InstanceManager.Instance._Difficulty.GetUIEnumerator().ToUpper() + " | CORE DEFENCE");
             Gamemode.text = text;
         }
 
