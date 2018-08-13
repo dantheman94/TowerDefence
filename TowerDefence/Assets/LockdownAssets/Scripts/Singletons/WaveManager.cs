@@ -425,6 +425,7 @@ public class WaveManager : MonoBehaviour {
             if (squad != null) {
 
                 squad.Team = GameManager.Team.Attacking;
+                squad.SetPlayer(player);
                 squad.SpawnUnits(squad);
                 squad.SquadAttackObject(CentralCore.GetAttackObject());
                 squad.CreateHealthBar(squad, player.PlayerCamera);

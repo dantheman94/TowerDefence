@@ -240,7 +240,9 @@ public class Squad : Ai {
             unit.SetObjectState(WorldObjectStates.Active);
             unit.SetSquadAttached(squad);
             unit.Team = squad.Team;
+            unit.SetPlayer(squad._Player);
             squad._Squad.Add(unit);
+            squad._SquadCurrentSize = i;
 
             // Update unit build time to match the squad build time
             unit.BuildTime = squad.BuildTime;
@@ -261,6 +263,7 @@ public class Squad : Ai {
             squad.MaxHitPoints += unit.MaxHitPoints;
             squad.MaxShieldPoints += unit.MaxShieldPoints;
         }
+        squad.SetObjectState(WorldObjectStates.Active);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

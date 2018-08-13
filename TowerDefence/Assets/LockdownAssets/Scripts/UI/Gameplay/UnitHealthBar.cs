@@ -141,7 +141,7 @@ public class UnitHealthBar : MonoBehaviour {
             }
 
             // Object is dead/destroyed
-            else { ObjectPooling.Despawn(this.gameObject); }
+            else { ObjectPooling.Despawn(gameObject); }
 
             // Update team colour
             switch (_WorldObject.Team) {
@@ -165,8 +165,8 @@ public class UnitHealthBar : MonoBehaviour {
                 // Red outline for attacking/AI team
                 case GameManager.Team.Attacking: {
 
-                    if (ShieldbarTeamColourOutline != null) { ShieldbarTeamColourOutline.color = Color.red; }
-                    if (HealthbarTeamColourOutline != null) { HealthbarTeamColourOutline.color = Color.red; }
+                    if (ShieldbarTeamColourOutline != null) { ShieldbarTeamColourOutline.color = WaveManager.Instance.AttackingTeamColour; }
+                    if (HealthbarTeamColourOutline != null) { HealthbarTeamColourOutline.color = WaveManager.Instance.AttackingTeamColour; }
                     break;
                 }
 
