@@ -26,7 +26,6 @@ public class Selectable : Abstraction {
     [Header("-----------------------------------")]
     [Header(" SELECTABLE PROPERTIES")]
     [Space]
-    public bool ShowSelectionGUI = true;
     [Tooltip("The team associated with this object.")]
     public GameManager.Team Team;
     [Tooltip("The controller/player reference attached to this object.")]
@@ -34,6 +33,9 @@ public class Selectable : Abstraction {
     [Space]
     [Tooltip("The radius of the Fog Of War sphere attached to this object.")]
     public float FogOfWarRadius = 400f;
+    [Space]
+    [Tooltip("When the player clicks/highlights this object, does the selection wheel (Radial or box) display?")]
+    public bool ShowSelectionGUI = true;
 
     //******************************************************************************************************************************
     //
