@@ -76,11 +76,7 @@ public class Unit : Ai {
     /// </summary>
     protected override void Awake() {
         base.Awake();
-
-        // Set recycle amount to the same as the cost amount
-        RecycleSupplies = CostSupplies;
-        RecyclePower = CostPower;
-
+        
         // Behavioural value precautions
         if (IdealAttackRangeMax < IdealAttackRangeMin) { IdealAttackRangeMax = IdealAttackRangeMin * 1.5f; }
         if (MaxAttackingRange < IdealAttackRangeMax)   { MaxAttackingRange = IdealAttackRangeMax; }

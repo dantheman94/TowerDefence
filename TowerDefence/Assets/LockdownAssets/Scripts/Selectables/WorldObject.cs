@@ -46,11 +46,6 @@ public class WorldObject : Selectable {
     [Tooltip("The army population size needed for this object to be built.")]
     public int CostPopulation = 0;
     [Space]
-    [Tooltip("How much supply resources are returned when this object is recycled?")]
-    public int RecycleSupplies = 0;
-    [Tooltip("How much power resources are returned when this object is recycled?")]
-    public int RecyclePower = 0;
-    [Space]
     public int MaxHitPoints = 100;
     public int MaxShieldPoints = 0;
     [Space]
@@ -99,18 +94,24 @@ public class WorldObject : Selectable {
 
     public enum WorldObjectStates { Default, Building, Deployable, Active, Destroyed, ENUM_COUNT }
 
-    protected bool _ReadyForDeployment = false;
     protected float _CurrentBuildTime = 0f;
+    protected bool _ReadyForDeployment = false;
+
     protected UnitHealthBar _HealthBar = null;
     protected UnitBuildingCounter _BuildingProgressCounter = null;
-    protected WorldObject _ClonedWorldObject = null;
-    protected float _Health;
+
     protected int _CurrentGarrisonPopulation = 0;
+    protected bool _StartShrinking = false;
     protected float _ObjectHeight = 0f;
+    protected WorldObject _ClonedWorldObject = null;
+
     protected float _HitPoints;
+    protected float _Health;
     protected float _ShieldPoints;
     protected float _Shield;
-    protected bool _StartShrinking = false;
+    
+    private int _RecycleSupplies = 0;
+    private int _RecyclePower = 0;
 
     //******************************************************************************************************************************
     //
@@ -132,6 +133,10 @@ public class WorldObject : Selectable {
 
         // Get vertical offset based off the prefab template
         _OffsetY = transform.position.y;
+
+        // Set recycle values
+        _RecycleSupplies = CostSupplies / 2;
+        _RecyclePower = CostPower / 2;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -639,5 +644,25 @@ public class WorldObject : Selectable {
     public float GetObjectHeight() { return _ObjectHeight; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <returns>
+    //  int
+    /// </returns>
+    public int GetRecycleSuppliesAmount() { return _RecycleSupplies; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <returns>
+    //  int
+    /// </returns>
+    public int GetRecyclePowerAmount() { return _RecyclePower; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 }

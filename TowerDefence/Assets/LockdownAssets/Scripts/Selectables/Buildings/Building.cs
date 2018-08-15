@@ -197,8 +197,8 @@ public class Building : WorldObject {
         // Add resources back to player
         if (_Player != null) {
 
-            _Player.SuppliesCount += RecycleSupplies;
-            _Player.PowerCount += RecyclePower;
+            _Player.SuppliesCount += GetRecycleSuppliesAmount();
+            _Player.PowerCount += GetRecyclePowerAmount();
         }
 
         // Destroy building
