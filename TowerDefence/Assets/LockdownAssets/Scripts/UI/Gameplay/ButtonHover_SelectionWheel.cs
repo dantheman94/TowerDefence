@@ -45,7 +45,7 @@ public class ButtonHover_SelectionWheel : MonoBehaviour, IPointerEnterHandler {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    /// 
+    //  Called when this gameObject is created.
     /// </summary>
     private void Start() {
 
@@ -65,18 +65,20 @@ public class ButtonHover_SelectionWheel : MonoBehaviour, IPointerEnterHandler {
         if (SelectionWheel != null && _ObjectRefComponent != null && _ButtonComponent != null) {
 
             // Update the highlight text in the selection wheel
+            if (_ObjectRefComponent.AbstractRef != null) {
 
-            // Detail window
-            SelectionWheel.DetailedHighlightTitle.text = _ObjectRefComponent.AbstractRef.ObjectName.ToUpper();
-            SelectionWheel.DetailedHighlightDescriptionShort.text = _ObjectRefComponent.AbstractRef.ObjectDescriptionShort.ToUpper();
-            SelectionWheel.DetailedHighlightDescriptionLong.text = _ObjectRefComponent.AbstractRef.ObjectDescriptionLong;
+                // Detail window
+                SelectionWheel.DetailedHighlightTitle.text = _ObjectRefComponent.AbstractRef.ObjectName.ToUpper();
+                SelectionWheel.DetailedHighlightDescriptionShort.text = _ObjectRefComponent.AbstractRef.ObjectDescriptionShort.ToUpper();
+                SelectionWheel.DetailedHighlightDescriptionLong.text = _ObjectRefComponent.AbstractRef.ObjectDescriptionLong;
 
-            // Center panel
-            SelectionWheel.CenterHighlightTitle.text = _ObjectRefComponent.AbstractRef.ObjectName;
-            SelectionWheel.CenterTechLevelText.text = _ObjectRefComponent.AbstractRef.CostTechLevel.ToString();
-            SelectionWheel.CenterSupplyText.text = _ObjectRefComponent.AbstractRef.CostSupplies.ToString();
-            SelectionWheel.CenterPowerText.text = _ObjectRefComponent.AbstractRef.CostPower.ToString();
-            SelectionWheel.CenterPopulationText.text = _ObjectRefComponent.AbstractRef.CostPopulation.ToString();
+                // Center panel
+                SelectionWheel.CenterHighlightTitle.text = _ObjectRefComponent.AbstractRef.ObjectName;
+                SelectionWheel.CenterTechLevelText.text = _ObjectRefComponent.AbstractRef.CostTechLevel.ToString();
+                SelectionWheel.CenterSupplyText.text = _ObjectRefComponent.AbstractRef.CostSupplies.ToString();
+                SelectionWheel.CenterPowerText.text = _ObjectRefComponent.AbstractRef.CostPower.ToString();
+                SelectionWheel.CenterPopulationText.text = _ObjectRefComponent.AbstractRef.CostPopulation.ToString();
+            }
         }
     }
 

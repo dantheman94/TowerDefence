@@ -62,6 +62,22 @@ public class Building : WorldObject {
         // Initialize
         _ObjectHeight = ObjectHeight;
         _BuildingQueue = new List<GameObject>();
+
+        // Create upgrade instances & replace the selectable reference
+        for (int i = 0; i < Selectables.Count; i++) {
+
+            if (Selectables[i] != null) {
+
+                // Check if the selectable option is an upgrade tree
+                UpgradeTree tree = Selectables[i].GetComponent<UpgradeTree>();
+                if (tree != null) {
+
+                    // Replace reference with the runtime version
+                    UpgradeTree newTree = Instantiate(tree.gameObject).GetComponent<UpgradeTree>();
+                    Selectables[i] = newTree;
+                }
+            }
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

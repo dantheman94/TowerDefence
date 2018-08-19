@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 224974471701023274}
   - component: {fileID: 114059456701285264}
   m_Layer: 0
-  m_Name: AntiInfantry_Upgrade (3)
+  m_Name: Flame Enhancement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -53,7 +53,7 @@ GameObject:
   - component: {fileID: 224553058299872586}
   - component: {fileID: 114125244387616210}
   m_Layer: 0
-  m_Name: AntiInfantry_Upgrade (2)
+  m_Name: Fireman
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -69,7 +69,7 @@ GameObject:
   - component: {fileID: 224196889856965814}
   - component: {fileID: 114136940372283948}
   m_Layer: 0
-  m_Name: AntiInfantry_Upgrade (1)
+  m_Name: Napalm Burn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -90,15 +90,11 @@ MonoBehaviour:
   ObjectDescriptionShort: Passive Ability
   ObjectDescriptionLong: Increases the burn effect duration.
   Logo: {fileID: 0}
-  BuildingTime: 20
+  BuildingTime: 10
   CostSupplies: 0
   CostPower: 0
   CostTechLevel: 1
   CostPopulation: 0
-  PlayerLevel: 3
-  SupplyCost: 0
-  PowerCost: 700
-  BuildTime: 10
 --- !u!114 &114125244387616210
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -115,15 +111,11 @@ MonoBehaviour:
   ObjectDescriptionLong: Adds an additional anti-infantry unit to the squad, which
     can increase combat efficiency.
   Logo: {fileID: 0}
-  BuildingTime: 20
+  BuildingTime: 10
   CostSupplies: 0
   CostPower: 0
   CostTechLevel: 1
   CostPopulation: 0
-  PlayerLevel: 2
-  SupplyCost: 0
-  PowerCost: 600
-  BuildTime: 10
 --- !u!114 &114136940372283948
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -140,15 +132,11 @@ MonoBehaviour:
   ObjectDescriptionLong: Adds a burn effect to the anti-infantry unit's weapon. The
     burn effect will deal minor damage over time.
   Logo: {fileID: 0}
-  BuildingTime: 20
+  BuildingTime: 10
   CostSupplies: 0
   CostPower: 0
   CostTechLevel: 1
   CostPopulation: 0
-  PlayerLevel: 1
-  SupplyCost: 0
-  PowerCost: 450
-  BuildTime: 10
 --- !u!114 &114855041923369434
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -169,28 +157,6 @@ MonoBehaviour:
   CostPower: 0
   CostTechLevel: 1
   CostPopulation: 0
-  Team: 0
-  _Player: {fileID: 0}
-  FogOfWarRadius: 400
-  ShowSelectionGUI: 1
-  BuildingState: {fileID: 0}
-  ActiveState: {fileID: 0}
-  DestroyedState: {fileID: 0}
-  MaxHitPoints: 100
-  MaxShieldPoints: 0
-  Garrisonable: 0
-  MaxGarrisonPopulation: 0
-  MultiSelectable: 1
-  _OffsetY: 0
-  _ObjectState: 0
-  _WidgetHealthbarScaleX: 100
-  _WidgetHealthbarScaleY: 15
-  _WidgetHealthbarOffset: 15
-  _WidgetShieldbarScaleX: 100
-  _WidgetShieldbarScaleY: 15
-  _WidgetShieldbarOffset: 22
-  ShowBuildingQueueUI: 0
-  ShrinkSpeed: 0.2
   UpgradeProperties:
   - {fileID: 114136940372283948}
   - {fileID: 114125244387616210}
@@ -203,7 +169,7 @@ MonoBehaviour:
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 114136940372283948}
-          m_ObjectArgumentAssemblyTypeName: UpgradeValues, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: Upgrade, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -218,7 +184,7 @@ MonoBehaviour:
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 114125244387616210}
-          m_ObjectArgumentAssemblyTypeName: UpgradeValues, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: Upgrade, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -233,7 +199,7 @@ MonoBehaviour:
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 114059456701285264}
-          m_ObjectArgumentAssemblyTypeName: UpgradeValues, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: Upgrade, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

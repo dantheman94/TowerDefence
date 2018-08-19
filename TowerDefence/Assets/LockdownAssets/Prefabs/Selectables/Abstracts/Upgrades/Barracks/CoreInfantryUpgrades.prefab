@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 224168542045361226}
   - component: {fileID: 114111722407728542}
   m_Layer: 0
-  m_Name: CoreInfantry_Upgrade (3)
+  m_Name: Rocket Launcher
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -37,7 +37,7 @@ GameObject:
   - component: {fileID: 224917670387932436}
   - component: {fileID: 114424368329824102}
   m_Layer: 0
-  m_Name: CoreInfantry_Upgrade (2)
+  m_Name: Technician
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -69,7 +69,7 @@ GameObject:
   - component: {fileID: 224695785253377628}
   - component: {fileID: 114833299284835852}
   m_Layer: 0
-  m_Name: CoreInfantry_Upgrade (4)
+  m_Name: Medic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -85,7 +85,7 @@ GameObject:
   - component: {fileID: 224805727448966100}
   - component: {fileID: 114180078511151728}
   m_Layer: 0
-  m_Name: CoreInfantry_Upgrade (1)
+  m_Name: Grenade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -108,15 +108,11 @@ MonoBehaviour:
     rocket launcher is an upgrade for the grenade ability and now be used to target
     air units.
   Logo: {fileID: 0}
-  BuildingTime: 20
+  BuildingTime: 10
   CostSupplies: 0
-  CostPower: 0
-  CostTechLevel: 1
+  CostPower: 750
+  CostTechLevel: 2
   CostPopulation: 0
-  PlayerLevel: 2
-  SupplyCost: 0
-  PowerCost: 750
-  BuildTime: 10
 --- !u!114 &114121519198232314
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -137,28 +133,6 @@ MonoBehaviour:
   CostPower: 0
   CostTechLevel: 1
   CostPopulation: 0
-  Team: 0
-  _Player: {fileID: 0}
-  FogOfWarRadius: 400
-  ShowSelectionGUI: 1
-  BuildingState: {fileID: 0}
-  ActiveState: {fileID: 0}
-  DestroyedState: {fileID: 0}
-  MaxHitPoints: 100
-  MaxShieldPoints: 0
-  Garrisonable: 0
-  MaxGarrisonPopulation: 0
-  MultiSelectable: 1
-  _OffsetY: 0
-  _ObjectState: 0
-  _WidgetHealthbarScaleX: 100
-  _WidgetHealthbarScaleY: 15
-  _WidgetHealthbarOffset: 15
-  _WidgetShieldbarScaleX: 100
-  _WidgetShieldbarScaleY: 15
-  _WidgetShieldbarOffset: 22
-  ShowBuildingQueueUI: 0
-  ShrinkSpeed: 0.2
   UpgradeProperties:
   - {fileID: 114180078511151728}
   - {fileID: 114424368329824102}
@@ -172,7 +146,7 @@ MonoBehaviour:
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 114180078511151728}
-          m_ObjectArgumentAssemblyTypeName: UpgradeValues, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: Upgrade, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -187,7 +161,7 @@ MonoBehaviour:
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 114424368329824102}
-          m_ObjectArgumentAssemblyTypeName: UpgradeValues, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: Upgrade, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -202,7 +176,7 @@ MonoBehaviour:
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 114111722407728542}
-          m_ObjectArgumentAssemblyTypeName: UpgradeValues, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: Upgrade, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -217,7 +191,7 @@ MonoBehaviour:
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 114833299284835852}
-          m_ObjectArgumentAssemblyTypeName: UpgradeValues, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: Upgrade, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -241,15 +215,11 @@ MonoBehaviour:
   ObjectDescriptionLong: Unlocks the grenade ability for all core infantry units.
     Grenades deal an damage AOE that can target ground units & buildings.
   Logo: {fileID: 0}
-  BuildingTime: 20
+  BuildingTime: 10
   CostSupplies: 0
-  CostPower: 0
+  CostPower: 300
   CostTechLevel: 1
   CostPopulation: 0
-  PlayerLevel: 1
-  SupplyCost: 0
-  PowerCost: 400
-  BuildTime: 10
 --- !u!114 &114424368329824102
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -266,15 +236,11 @@ MonoBehaviour:
   ObjectDescriptionLong: Adds an additional unit to all core infantry squads. The
     technician can heal friendly vehicles & buildings when not in combat.
   Logo: {fileID: 0}
-  BuildingTime: 20
+  BuildingTime: 10
   CostSupplies: 0
-  CostPower: 0
-  CostTechLevel: 1
+  CostPower: 550
+  CostTechLevel: 2
   CostPopulation: 0
-  PlayerLevel: 2
-  SupplyCost: 0
-  PowerCost: 650
-  BuildTime: 10
 --- !u!114 &114833299284835852
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -291,15 +257,11 @@ MonoBehaviour:
   ObjectDescriptionLong: An additional medic unit is added to the squad. The medic
     will slowly heal the squad when not in a combat state & idle.
   Logo: {fileID: 0}
-  BuildingTime: 20
+  BuildingTime: 10
   CostSupplies: 0
-  CostPower: 0
-  CostTechLevel: 1
+  CostPower: 950
+  CostTechLevel: 3
   CostPopulation: 0
-  PlayerLevel: 3
-  SupplyCost: 0
-  PowerCost: 850
-  BuildTime: 10
 --- !u!224 &224168542045361226
 RectTransform:
   m_ObjectHideFlags: 1

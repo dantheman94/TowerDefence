@@ -147,7 +147,7 @@ public class SelectionWheel : MonoBehaviour {
             if (obj != null) {
 
                 // If slot is an upgrade
-                Upgrade upgrade = obj.GetComponent<Upgrade>();
+                UpgradeTree upgrade = obj.GetComponent<UpgradeTree>();
                 if (upgrade != null) {
 
                     // Dont update wheel with this button since its the upgrade is maxed out

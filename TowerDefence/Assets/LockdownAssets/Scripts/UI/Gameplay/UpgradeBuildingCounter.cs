@@ -33,7 +33,7 @@ public class UpgradeBuildingCounter : MonoBehaviour {
     //******************************************************************************************************************************
 
     private Camera _CameraAttached = null;
-    private Upgrade _Upgrade = null;
+    private UpgradeTree _Upgrade = null;
     private Text _TextComponent;
 
     //******************************************************************************************************************************
@@ -90,7 +90,7 @@ public class UpgradeBuildingCounter : MonoBehaviour {
     /// 
     /// </summary>
     /// <param name="upgrade"></param>
-    public void SetUpgradeAttached(Upgrade upgrade) { _Upgrade = upgrade; }
+    public void SetUpgradeAttached(UpgradeTree upgrade) { _Upgrade = upgrade; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
