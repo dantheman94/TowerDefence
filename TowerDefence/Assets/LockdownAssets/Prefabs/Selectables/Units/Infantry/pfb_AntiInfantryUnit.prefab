@@ -28,7 +28,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1069939583836596
 GameObject:
   m_ObjectHideFlags: 0
@@ -38,16 +38,17 @@ GameObject:
   m_Component:
   - component: {fileID: 4560889387648658}
   - component: {fileID: 114111503209636942}
-  - component: {fileID: 114908419093975514}
   - component: {fileID: 54060824295473646}
   - component: {fileID: 195658404461530648}
+  - component: {fileID: 143092564948579068}
+  - component: {fileID: 114908419093975514}
   m_Layer: 9
   m_Name: pfb_AntiInfantryUnit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1764022900238628
 GameObject:
   m_ObjectHideFlags: 0
@@ -158,7 +159,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!114 &114111503209636942
 MonoBehaviour:
@@ -187,19 +188,19 @@ MonoBehaviour:
   ObjectDescriptionShort: Anti Infantry Specialist
   ObjectDescriptionLong: Specialized marine squad that deals an increased damage on
     opposing ground infantry units.
-  Team: 0
-  _Player: {fileID: 0}
-  FogOfWarRadius: 400
-  BuildingState: {fileID: 0}
-  ActiveState: {fileID: 1014736554635206}
-  BuildImage: {fileID: 0}
-  BuildTime: 20
+  Logo: {fileID: 0}
+  BuildingTime: 20
   CostSupplies: 0
   CostPower: 0
   CostTechLevel: 1
   CostPopulation: 0
-  RecycleSupplies: 0
-  RecyclePower: 0
+  Team: 0
+  _Player: {fileID: 0}
+  FogOfWarRadius: 400
+  ShowSelectionGUI: 1
+  BuildingState: {fileID: 0}
+  ActiveState: {fileID: 1014736554635206}
+  DestroyedState: {fileID: 0}
   MaxHitPoints: 100
   MaxShieldPoints: 0
   Garrisonable: 0
@@ -213,16 +214,47 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 0
   _WidgetShieldbarScaleY: 0
   _WidgetShieldbarOffset: 0
-  UnitType: 0
-  InfantryMovementSpeed: 10
-  CanBePlayerControlled: 0
+  ShowBuildingQueueUI: 0
   ShrinkSpeed: 0.1
-  SightCone: {fileID: 0}
-  HearingSphere: {fileID: 0}
-  PrimaryWeapon: {fileID: 0}
+  _ChasingDistance: 30
+  TargetWeights:
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  UnitType: 2
+  NavmeshType: 0
+  InfantryMovementSpeed: 12
+  CanBePlayerControlled: 0
+  PrimaryWeapon: {fileID: 114186958178133812, guid: 55558531628f80d43b1ccde107f02404,
+    type: 2}
   SecondaryWeapon: {fileID: 0}
   MuzzleLaunchPoint: {fileID: 1764022900238628}
-  AttackingRange: 30
+  MaxAttackingRange: 100
+  IdealAttackRangeMax: 80
+  IdealAttackRangeMin: 40
+  CanBeStunned: 1
+  RotatingSpeed: 100
 --- !u!136 &136156600834734192
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -236,6 +268,23 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!143 &143092564948579068
+CharacterController:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1069939583836596}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 8
+  m_Radius: 3
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 4, z: 0}
 --- !u!195 &195658404461530648
 NavMeshAgent:
   m_ObjectHideFlags: 1

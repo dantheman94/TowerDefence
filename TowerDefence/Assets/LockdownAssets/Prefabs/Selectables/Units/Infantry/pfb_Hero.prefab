@@ -60,7 +60,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1922081337666764
 GameObject:
   m_ObjectHideFlags: 0
@@ -70,17 +70,17 @@ GameObject:
   m_Component:
   - component: {fileID: 4778447074791084}
   - component: {fileID: 114734663134070038}
-  - component: {fileID: 114963470945021714}
   - component: {fileID: 54472104824154228}
   - component: {fileID: 195296353692755372}
   - component: {fileID: 143816153546426832}
+  - component: {fileID: 114963470945021714}
   m_Layer: 9
   m_Name: pfb_Hero
   m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4012546971058010
 Transform:
   m_ObjectHideFlags: 1
@@ -260,20 +260,18 @@ MonoBehaviour:
   ObjectDescriptionShort: Hero Unit
   ObjectDescriptionLong: 
   Logo: {fileID: 0}
-  ShowSelectionGUI: 1
-  Team: 0
-  _Player: {fileID: 0}
-  FogOfWarRadius: 400
-  BuildingState: {fileID: 0}
-  ActiveState: {fileID: 1615040517092228}
-  DestroyedState: {fileID: 0}
-  BuildTime: 3
+  BuildingTime: 20
   CostSupplies: 350
   CostPower: 250
   CostTechLevel: 2
   CostPopulation: 0
-  RecycleSupplies: 0
-  RecyclePower: 0
+  Team: 0
+  _Player: {fileID: 0}
+  FogOfWarRadius: 400
+  ShowSelectionGUI: 1
+  BuildingState: {fileID: 0}
+  ActiveState: {fileID: 1615040517092228}
+  DestroyedState: {fileID: 0}
   MaxHitPoints: 100
   MaxShieldPoints: 0
   Garrisonable: 0
@@ -290,14 +288,42 @@ MonoBehaviour:
   ShowBuildingQueueUI: 1
   ShrinkSpeed: 0.3
   _ChasingDistance: 30
+  TargetWeights:
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
   UnitType: 3
   NavmeshType: 0
-  InfantryMovementSpeed: 12
-  CanBePlayerControlled: 1
+  InfantryMovementSpeed: 13
+  CanBePlayerControlled: 0
   PrimaryWeapon: {fileID: 0}
   SecondaryWeapon: {fileID: 0}
   MuzzleLaunchPoint: {fileID: 0}
-  AttackingRange: 100
+  MaxAttackingRange: 100
+  IdealAttackRangeMax: 80
+  IdealAttackRangeMin: 40
+  CanBeStunned: 0
   RotatingSpeed: 100
 --- !u!136 &136833826445094840
 CapsuleCollider:

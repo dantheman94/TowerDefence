@@ -54,9 +54,9 @@ GameObject:
   - component: {fileID: 4465727479051524}
   - component: {fileID: 95540640986924554}
   - component: {fileID: 114394934853265518}
-  - component: {fileID: 114481798048649180}
-  - component: {fileID: 143259429870631478}
   - component: {fileID: 195957280471848642}
+  - component: {fileID: 143872037235850598}
+  - component: {fileID: 114481798048649180}
   m_Layer: 9
   m_Name: pfb_SupportShip
   m_TagString: Untagged
@@ -261,19 +261,19 @@ MonoBehaviour:
   ObjectName: Support Airship
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
-  Team: 0
-  _Player: {fileID: 0}
-  FogOfWarRadius: 400
-  BuildingState: {fileID: 0}
-  ActiveState: {fileID: 1225915462733972}
-  BuildImage: {fileID: 0}
-  BuildTime: 3
+  Logo: {fileID: 0}
+  BuildingTime: 20
   CostSupplies: 0
   CostPower: 0
   CostTechLevel: 2
   CostPopulation: 4
-  RecycleSupplies: 0
-  RecyclePower: 0
+  Team: 0
+  _Player: {fileID: 0}
+  FogOfWarRadius: 400
+  ShowSelectionGUI: 1
+  BuildingState: {fileID: 0}
+  ActiveState: {fileID: 1225915462733972}
+  DestroyedState: {fileID: 0}
   MaxHitPoints: 100
   MaxShieldPoints: 0
   Garrisonable: 0
@@ -287,16 +287,44 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
-  UnitType: 9
+  ShowBuildingQueueUI: 0
+  ShrinkSpeed: 0.1
+  _ChasingDistance: 30
+  TargetWeights:
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  UnitType: 10
+  NavmeshType: 1
   InfantryMovementSpeed: 10
   CanBePlayerControlled: 0
-  ShrinkSpeed: 0.1
-  SightCone: {fileID: 0}
-  HearingSphere: {fileID: 0}
   PrimaryWeapon: {fileID: 0}
   SecondaryWeapon: {fileID: 0}
   MuzzleLaunchPoint: {fileID: 0}
-  AttackingRange: 100
+  MaxAttackingRange: 100
+  IdealAttackRangeMax: 80
+  IdealAttackRangeMin: 40
   WeaponObject: {fileID: 0}
   Acceleration: 8
   Deceleration: 4
@@ -307,9 +335,12 @@ MonoBehaviour:
   ForwardAvoidanceRange: 30
   DownwardsAvoidanceRange: 30
   VerticalSpeed: 20
-  MinimumFlyingHeight: 25
   MaximumFlyingHeight: 80
-  IdealFlyingHeight: 35
+  AvoidanceLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  HealingAmount: 15
+  HealingRange: 10
 --- !u!135 &135216512815667746
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -322,7 +353,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!143 &143259429870631478
+--- !u!143 &143872037235850598
 CharacterController:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -330,15 +361,15 @@ CharacterController:
   m_GameObject: {fileID: 1734302136085430}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
-  m_Height: 8
-  m_Radius: 8
+  m_Height: 2
+  m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 8, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!195 &195957280471848642
 NavMeshAgent:
   m_ObjectHideFlags: 1

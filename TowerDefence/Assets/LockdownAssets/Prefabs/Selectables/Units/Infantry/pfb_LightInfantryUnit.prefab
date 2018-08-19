@@ -71,17 +71,17 @@ GameObject:
   m_Component:
   - component: {fileID: 4100269033822204}
   - component: {fileID: 114155556465891958}
-  - component: {fileID: 114590780585830690}
   - component: {fileID: 54120274061859600}
   - component: {fileID: 195078531811043044}
   - component: {fileID: 143425126207165704}
+  - component: {fileID: 114590780585830690}
   m_Layer: 9
   m_Name: pfb_LightInfantryUnit
   m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4047263960234036
 Transform:
   m_ObjectHideFlags: 1
@@ -262,20 +262,18 @@ MonoBehaviour:
   ObjectDescriptionLong: Cheap & expendable, the light marine squad provides a means
     of a quick army boost & can be upgraded to increase its efficiency.
   Logo: {fileID: 0}
-  ShowSelectionGUI: 1
-  Team: 0
-  _Player: {fileID: 0}
-  FogOfWarRadius: 400
-  BuildingState: {fileID: 0}
-  ActiveState: {fileID: 1225286814047630}
-  DestroyedState: {fileID: 1350864527022574}
-  BuildTime: 0
+  BuildingTime: 20
   CostSupplies: 0
   CostPower: 0
   CostTechLevel: 1
   CostPopulation: 0
-  RecycleSupplies: 0
-  RecyclePower: 0
+  Team: 0
+  _Player: {fileID: 0}
+  FogOfWarRadius: 400
+  ShowSelectionGUI: 1
+  BuildingState: {fileID: 0}
+  ActiveState: {fileID: 1225286814047630}
+  DestroyedState: {fileID: 1350864527022574}
   MaxHitPoints: 100
   MaxShieldPoints: 0
   Garrisonable: 0
@@ -292,14 +290,43 @@ MonoBehaviour:
   ShowBuildingQueueUI: 1
   ShrinkSpeed: 0.3
   _ChasingDistance: 30
+  TargetWeights:
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
   UnitType: 1
   NavmeshType: 0
-  InfantryMovementSpeed: 15
+  InfantryMovementSpeed: 12
   CanBePlayerControlled: 0
-  PrimaryWeapon: {fileID: 0}
+  PrimaryWeapon: {fileID: 114268630985064268, guid: f80aaa3f8c2b3be4bb1dfe02625d8ce8,
+    type: 2}
   SecondaryWeapon: {fileID: 0}
   MuzzleLaunchPoint: {fileID: 1575968896447494}
-  AttackingRange: 40
+  MaxAttackingRange: 100
+  IdealAttackRangeMax: 80
+  IdealAttackRangeMin: 40
+  CanBeStunned: 1
   RotatingSpeed: 100
 --- !u!136 &136472980792829224
 CapsuleCollider:

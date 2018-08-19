@@ -175,9 +175,9 @@ GameObject:
   - component: {fileID: 4139023003084844}
   - component: {fileID: 95552493719075836}
   - component: {fileID: 114783033624894588}
-  - component: {fileID: 114909369810655446}
-  - component: {fileID: 143120300712250002}
   - component: {fileID: 195338869156008364}
+  - component: {fileID: 143525089756320476}
+  - component: {fileID: 114909369810655446}
   m_Layer: 9
   m_Name: pfb_CoreAirship
   m_TagString: Unit
@@ -677,6 +677,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e3a299bc8060d0478dffe78b1b384f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TargetWeights:
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
 --- !u!114 &114442686887514452
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -688,7 +713,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 206db76a377c0d04f8fbaa2f01e31960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _GunnerAI: {fileID: 114119681717542598}
+  _AIAttached: {fileID: 0}
 --- !u!114 &114686079721974900
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -731,20 +756,18 @@ MonoBehaviour:
   ObjectDescriptionShort: Core Air Vehicle
   ObjectDescriptionLong: 
   Logo: {fileID: 0}
-  ShowSelectionGUI: 1
-  Team: 0
-  _Player: {fileID: 0}
-  FogOfWarRadius: 400
-  BuildingState: {fileID: 0}
-  ActiveState: {fileID: 1149650769780974}
-  DestroyedState: {fileID: 0}
-  BuildTime: 3
+  BuildingTime: 20
   CostSupplies: 300
   CostPower: 0
   CostTechLevel: 2
   CostPopulation: 4
-  RecycleSupplies: 0
-  RecyclePower: 0
+  Team: 0
+  _Player: {fileID: 0}
+  FogOfWarRadius: 400
+  ShowSelectionGUI: 1
+  BuildingState: {fileID: 0}
+  ActiveState: {fileID: 1149650769780974}
+  DestroyedState: {fileID: 0}
   MaxHitPoints: 100
   MaxShieldPoints: 0
   Garrisonable: 0
@@ -761,13 +784,42 @@ MonoBehaviour:
   ShowBuildingQueueUI: 0
   ShrinkSpeed: 0.3
   _ChasingDistance: 30
-  UnitType: 8
+  TargetWeights:
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  UnitType: 9
+  NavmeshType: 1
   InfantryMovementSpeed: 10
   CanBePlayerControlled: 0
-  PrimaryWeapon: {fileID: 0}
+  PrimaryWeapon: {fileID: 114159103679655948, guid: 8c2079f1bd09ca442beeaf8ca9ca73ef,
+    type: 2}
   SecondaryWeapon: {fileID: 0}
   MuzzleLaunchPoint: {fileID: 1625202026561154}
-  AttackingRange: 150
+  MaxAttackingRange: 100
+  IdealAttackRangeMax: 80
+  IdealAttackRangeMin: 40
   WeaponObject: {fileID: 1422115605180928}
   Acceleration: 16
   Deceleration: 8
@@ -818,7 +870,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!143 &143120300712250002
+--- !u!143 &143525089756320476
 CharacterController:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -826,15 +878,15 @@ CharacterController:
   m_GameObject: {fileID: 1855981135212812}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
-  m_Height: 8
-  m_Radius: 8
+  m_Height: 2
+  m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 8, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!195 &195338869156008364
 NavMeshAgent:
   m_ObjectHideFlags: 1
