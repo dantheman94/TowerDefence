@@ -92,7 +92,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4621391833468634}
   m_Layer: 0
-  m_Name: Tower_Base_Building
+  m_Name: BaseTurret_Building
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -197,15 +197,15 @@ GameObject:
   m_Component:
   - component: {fileID: 4962471436290332}
   - component: {fileID: 114452461510054222}
+  - component: {fileID: 208842142845006054}
   - component: {fileID: 114067246028920440}
-  - component: {fileID: 208338307098684074}
   m_Layer: 0
-  m_Name: pfb_Turret
+  m_Name: pfb_BaseTurret
   m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1486493925419512
 GameObject:
   m_ObjectHideFlags: 1
@@ -219,6 +219,21 @@ GameObject:
   - component: {fileID: 23350186070964182}
   m_Layer: 0
   m_Name: Cube (7)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1543433638849548
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4513768768398372}
+  m_Layer: 0
+  m_Name: TowerHead
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -326,7 +341,24 @@ GameObject:
   - component: {fileID: 65090749782154338}
   - component: {fileID: 23427738579883344}
   m_Layer: 0
-  m_Name: Cube (1)
+  m_Name: GunBarrel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1851806165549774
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4700223464076412}
+  - component: {fileID: 135842445966652130}
+  - component: {fileID: 114517690388648908}
+  m_Layer: 2
+  m_Name: SightSphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -359,12 +391,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4350221023550192}
   m_Layer: 0
-  m_Name: Tower_Base_Active
+  m_Name: BaseTurret_Active
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1977295045596936
 GameObject:
   m_ObjectHideFlags: 1
@@ -412,7 +444,7 @@ Transform:
   m_LocalScale: {x: 8, y: 10, z: 8}
   m_Children: []
   m_Father: {fileID: 4350221023550192}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4075612976236520
 Transform:
@@ -425,7 +457,7 @@ Transform:
   m_LocalScale: {x: 1, y: 5, z: 10.000017}
   m_Children: []
   m_Father: {fileID: 4350221023550192}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!4 &4096071583370386
 Transform:
@@ -438,7 +470,7 @@ Transform:
   m_LocalScale: {x: 1, y: 5, z: 10.000017}
   m_Children: []
   m_Father: {fileID: 4350221023550192}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!4 &4130707942351878
 Transform:
@@ -477,7 +509,7 @@ Transform:
   m_LocalScale: {x: 1, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 4350221023550192}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4350221023550192
 Transform:
@@ -489,8 +521,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 4513768768398372}
+  - {fileID: 4700223464076412}
   - {fileID: 4040867855208044}
-  - {fileID: 4924960905022090}
   - {fileID: 4860380348996136}
   - {fileID: 4786786576165226}
   - {fileID: 4819927198630258}
@@ -554,6 +587,20 @@ Transform:
   m_Father: {fileID: 4621391833468634}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!4 &4513768768398372
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1543433638849548}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4924960905022090}
+  m_Father: {fileID: 4350221023550192}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4571104908063002
 Transform:
   m_ObjectHideFlags: 1
@@ -600,8 +647,21 @@ Transform:
   m_LocalScale: {x: 10.000017, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 4350221023550192}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!4 &4700223464076412
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1851806165549774}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4350221023550192}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4749984948544960
 Transform:
   m_ObjectHideFlags: 1
@@ -639,7 +699,7 @@ Transform:
   m_LocalScale: {x: 1, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 4350221023550192}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!4 &4819927198630258
 Transform:
@@ -652,7 +712,7 @@ Transform:
   m_LocalScale: {x: 1, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 4350221023550192}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4860380348996136
 Transform:
@@ -665,7 +725,7 @@ Transform:
   m_LocalScale: {x: 1, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 4350221023550192}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!4 &4900324651588166
 Transform:
@@ -678,7 +738,7 @@ Transform:
   m_LocalScale: {x: 10.000017, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 4350221023550192}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!4 &4924960905022090
 Transform:
@@ -686,13 +746,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1834506970763114}
-  m_LocalRotation: {x: -0, y: -0.6852212, z: -0, w: 0.728335}
-  m_LocalPosition: {x: 0.32, y: 4.71, z: 3.26}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 4}
   m_LocalScale: {x: 10, y: 2, z: 2}
   m_Children: []
-  m_Father: {fileID: 4350221023550192}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Father: {fileID: 4513768768398372}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!4 &4962471436290332
 Transform:
   m_ObjectHideFlags: 1
@@ -700,7 +760,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1476746386672702}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -18.4, y: 10, z: 58.9}
+  m_LocalPosition: {x: -244.68358, y: 45.5, z: -219.65164}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4621391833468634}
@@ -1704,10 +1764,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ObjectName: Turret
   ObjectDescriptionShort: Stationary Defence Tower
-  ObjectDescriptionLong: Standard defence tower. Can be upgrade to prioritize & damage
+  ObjectDescriptionLong: Standard defence tower. Can be upgraded to prioritize & damage
     specific unit types.
   Logo: {fileID: 0}
-  BuildTime: 4
+  BuildingTime: 5
   CostSupplies: 300
   CostPower: 0
   CostTechLevel: 1
@@ -1749,8 +1809,33 @@ MonoBehaviour:
   - {fileID: 0}
   TowerType: 2
   TowerWeapon: {fileID: 0}
-  TurretCannon: {fileID: 0}
-  WeaponAimingSpeed: 5
+  WeaponObject: {fileID: 1543433638849548}
+  WeaponAimingSpeed: 2
+  TargetWeights:
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
 --- !u!114 &114452461510054222
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1763,6 +1848,54 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TagArray: []
+--- !u!114 &114517690388648908
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1851806165549774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e3a299bc8060d0478dffe78b1b384f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TargetWeights:
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 1
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 0
+    Weight: 0
+--- !u!135 &135842445966652130
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1851806165549774}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 150
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!136 &136165789198742092
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -1789,7 +1922,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!208 &208338307098684074
+--- !u!208 &208842142845006054
 NavMeshObstacle:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -1798,7 +1931,7 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 5, y: 15, z: 5}
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1

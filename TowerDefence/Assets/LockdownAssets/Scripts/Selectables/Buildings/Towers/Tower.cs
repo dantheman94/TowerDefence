@@ -7,7 +7,7 @@ using UnityEngine;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 13/7/2018
+//  Last edited on: 19/8/2018
 //
 //******************************
 
@@ -27,6 +27,7 @@ public class Tower : Building {
     [Space]
     public Weapon TowerWeapon = null;
     public GameObject WeaponObject = null;
+    public float WeaponAimingSpeed = 5f;
 
     [Space]
     [Header("-----------------------------------")]

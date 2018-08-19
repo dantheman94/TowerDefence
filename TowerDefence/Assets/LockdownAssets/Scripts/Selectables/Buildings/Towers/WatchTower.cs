@@ -7,7 +7,7 @@ using UnityEngine;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 8/18/2018
+//  Last edited on: 19/8/2018
 //
 //******************************
 
@@ -24,7 +24,6 @@ public class WatchTower : Tower {
     [Header(" WATCHTOWER PROPERTIES")]
     [Space]
     public GameObject SearchLightObject = null;
-    public float LookAtSpeed = 5f;
     [Space]
     public float TargetInaccuracyOffset = 3f;
     public float TargetGeneratorDistance = 20f;
@@ -40,8 +39,6 @@ public class WatchTower : Tower {
     //******************************************************************************************************************************
 
     private Vector3 _SearchLightTarget = Vector3.zero;
-    private Vector3 _TargetDirection = Vector3.zero;
-    private Quaternion _LookRotation = Quaternion.identity;
 
     private float _StareAtTargetTime = 0f;
     private float _StareAtTimer = 0f;
@@ -77,9 +74,9 @@ public class WatchTower : Tower {
         if (SearchLightObject != null && _CombatState == ETowerState.Idle) {
 
             // Lerp search light to target position
-            _TargetDirection = (_SearchLightTarget - SearchLightObject.transform.position).normalized;
-            _LookRotation = Quaternion.LookRotation(_TargetDirection);
-            SearchLightObject.transform.rotation = Quaternion.LerpUnclamped(SearchLightObject.transform.rotation, _LookRotation, Time.deltaTime * LookAtSpeed);
+            Vector3 direction = (_SearchLightTarget - SearchLightObject.transform.position).normalized;
+            Quaternion lookAtRot = Quaternion.LookRotation(direction);
+            SearchLightObject.transform.rotation = Quaternion.LerpUnclamped(SearchLightObject.transform.rotation, lookAtRot, Time.deltaTime * WeaponAimingSpeed);
 
             // Constantly fire a raycast to check if the tower has reached its search target (non-combat state)
             RaycastHit hit;
