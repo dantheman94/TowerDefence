@@ -34,18 +34,6 @@ public class WorldObject : Selectable {
     [Header("-----------------------------------")]
     [Header(" WORLD OBJECT PROPERTIES")]
     [Space]
-    [Tooltip("The amount of time in SECONDS that this object takes to build.")]
-    public int BuildTime = 20;
-    [Space]
-    [Tooltip("How much supply resource are required to build this object.")]
-    public int CostSupplies = 0;
-    [Tooltip("How much power resource are required to build this object.")]
-    public int CostPower = 0;
-    [Tooltip("Minimum player tech level required to build this object.")]
-    public int CostTechLevel = 1;
-    [Tooltip("The army population size needed for this object to be built.")]
-    public int CostPopulation = 0;
-    [Space]
     public int MaxHitPoints = 100;
     public int MaxShieldPoints = 0;
     [Space]
@@ -161,11 +149,11 @@ public class WorldObject : Selectable {
             case WorldObjectStates.Building: {
 
                 // Is unit building complete?
-                _ReadyForDeployment = _CurrentBuildTime >= BuildTime;
+                _ReadyForDeployment = _CurrentBuildTime >= BuildingTime;
                 if (!_ReadyForDeployment) {
 
                     // Add to building timer
-                    if (_CurrentBuildTime < BuildTime) { _CurrentBuildTime += Time.deltaTime; }
+                    if (_CurrentBuildTime < BuildingTime) { _CurrentBuildTime += Time.deltaTime; }
                 } else {
 
                     // Object has finished building
@@ -320,7 +308,7 @@ public class WorldObject : Selectable {
     //  The building slot that instigated the selection wheel.
     //  (EG: If you're making a building, this is the building slot thats being used.)
     /// </param>
-    public virtual void OnWheelSelect(BuildingSlot buildingSlot) {
+    public override void OnWheelSelect(BuildingSlot buildingSlot) {
 
         // Deselect
         buildingSlot._IsCurrentlySelected = false;
@@ -358,7 +346,7 @@ public class WorldObject : Selectable {
             // Set object's properties
             _ClonedWorldObject.Team = plyr.Team;
             _ClonedWorldObject._IsCurrentlySelected = false;
-            _CurrentBuildTime = BuildTime;
+            _CurrentBuildTime = BuildingTime;
 
             if (ShowBuildingQueueUI) {
 
@@ -599,7 +587,7 @@ public class WorldObject : Selectable {
     /// <returns>
     //  float
     /// </returns>
-    public float GetCurrentBuildTimeRemaining() { return BuildTime - _CurrentBuildTime; }
+    public float GetCurrentBuildTimeRemaining() { return BuildingTime - _CurrentBuildTime; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

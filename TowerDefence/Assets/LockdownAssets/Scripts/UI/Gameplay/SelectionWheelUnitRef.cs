@@ -14,9 +14,12 @@ using UnityEngine;
 public class SelectionWheelUnitRef : MonoBehaviour {
 
     //******************************************************************************************************************************
-    // VARIABES
+    //
+    //      VARIABLES
+    //
+    //******************************************************************************************************************************
 
     [HideInInspector]
-    public WorldObject Object;
+    public Abstraction AbstractRef { get; set; }
 
 }

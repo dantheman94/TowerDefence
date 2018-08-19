@@ -7,11 +7,11 @@ using UnityEngine;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 11/6/2018
+//  Last edited on: 8/15/2018
 //
 //******************************
 
-public class BuildingRecycle : WorldObject {
+public class RecycleBuilding : Abstraction {
 
     //******************************************************************************************************************************
     //

@@ -104,14 +104,17 @@ public class SelectionWheel : MonoBehaviour {
 
                 // Update list with new slots
                 Building building = obj.GetComponent<Building>();
-                _BuildingList.Add(building);
-                
-                // Update reference unit
-                SelectionWheelUnitRef unitRef = _WheelButtons[i].GetComponent<SelectionWheelUnitRef>();
-                unitRef.Object = building.GetComponent<WorldObject>();
+                if (building != null) {
 
-                // Update button click event
-                _WheelButtons[i].onClick.AddListener(delegate { building.OnWheelSelect(buildingSlotInFocus); });
+                    _BuildingList.Add(building);
+
+                    // Update reference unit
+                    SelectionWheelUnitRef unitRef = _WheelButtons[i].GetComponent<SelectionWheelUnitRef>();
+                    unitRef.AbstractRef = building;
+
+                    // Update button click event
+                    _WheelButtons[i].onClick.AddListener(delegate { unitRef.AbstractRef.OnWheelSelect(buildingSlotInFocus); });
+                }
             }
             ++i;
         }
@@ -156,10 +159,10 @@ public class SelectionWheel : MonoBehaviour {
 
                 // Update reference unit
                 SelectionWheelUnitRef unitRef = _WheelButtons[i].GetComponent<SelectionWheelUnitRef>();
-                unitRef.Object = obj.GetComponent<WorldObject>();
+                unitRef.AbstractRef = obj.GetComponent<Abstraction>();
 
                 // Update button click event
-                _WheelButtons[i].onClick.AddListener(delegate { obj.GetComponent<WorldObject>().OnWheelSelect(buildingSlotInFocus); });
+                _WheelButtons[i].onClick.AddListener(delegate { unitRef.AbstractRef.OnWheelSelect(buildingSlotInFocus); });
             }
             ++i;
         }
@@ -188,9 +191,9 @@ public class SelectionWheel : MonoBehaviour {
 
                     // Update button interactibility state
                     SelectionWheelUnitRef unitRef = button.GetComponent<SelectionWheelUnitRef>();
-                    if (unitRef.Object != null) {
+                    if (unitRef.AbstractRef != null) {
 
-                        bool unlock = GameManager.Instance.Players[0].Level >= unitRef.Object.CostTechLevel;
+                        bool unlock = GameManager.Instance.Players[0].Level >= unitRef.AbstractRef.CostTechLevel;
                         button.interactable = unlock;
                     }
 
@@ -234,6 +237,8 @@ public class SelectionWheel : MonoBehaviour {
             else                                                { txtComp.color = new Color(0, 0, 0, 1); }
         }
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     /// 

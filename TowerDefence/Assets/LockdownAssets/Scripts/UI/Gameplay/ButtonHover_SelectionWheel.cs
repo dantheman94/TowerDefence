@@ -67,16 +67,16 @@ public class ButtonHover_SelectionWheel : MonoBehaviour, IPointerEnterHandler {
             // Update the highlight text in the selection wheel
 
             // Detail window
-            SelectionWheel.DetailedHighlightTitle.text = _ObjectRefComponent.Object.ObjectName.ToUpper();
-            SelectionWheel.DetailedHighlightDescriptionShort.text = _ObjectRefComponent.Object.ObjectDescriptionShort.ToUpper();
-            SelectionWheel.DetailedHighlightDescriptionLong.text = _ObjectRefComponent.Object.ObjectDescriptionLong;
+            SelectionWheel.DetailedHighlightTitle.text = _ObjectRefComponent.AbstractRef.ObjectName.ToUpper();
+            SelectionWheel.DetailedHighlightDescriptionShort.text = _ObjectRefComponent.AbstractRef.ObjectDescriptionShort.ToUpper();
+            SelectionWheel.DetailedHighlightDescriptionLong.text = _ObjectRefComponent.AbstractRef.ObjectDescriptionLong;
 
             // Center panel
-            SelectionWheel.CenterHighlightTitle.text = _ObjectRefComponent.Object.ObjectName;
-            SelectionWheel.CenterTechLevelText.text = _ObjectRefComponent.Object.CostTechLevel.ToString();
-            SelectionWheel.CenterSupplyText.text = _ObjectRefComponent.Object.CostSupplies.ToString();
-            SelectionWheel.CenterPowerText.text = _ObjectRefComponent.Object.CostPower.ToString();
-            SelectionWheel.CenterPopulationText.text = _ObjectRefComponent.Object.CostPopulation.ToString();
+            SelectionWheel.CenterHighlightTitle.text = _ObjectRefComponent.AbstractRef.ObjectName;
+            SelectionWheel.CenterTechLevelText.text = _ObjectRefComponent.AbstractRef.CostTechLevel.ToString();
+            SelectionWheel.CenterSupplyText.text = _ObjectRefComponent.AbstractRef.CostSupplies.ToString();
+            SelectionWheel.CenterPowerText.text = _ObjectRefComponent.AbstractRef.CostPower.ToString();
+            SelectionWheel.CenterPopulationText.text = _ObjectRefComponent.AbstractRef.CostPopulation.ToString();
         }
     }
 

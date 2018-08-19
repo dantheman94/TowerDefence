@@ -206,7 +206,7 @@ public class Squad : Ai {
             squad._SquadCurrentSize = i;
 
             // Update unit build time to match the squad build time
-            unit.BuildTime = BuildTime;
+            unit.BuildingTime = BuildingTime;
 
             // Creating the first unit at the center
             if (i == 0) { unit.transform.position = squad.transform.position; ; }
@@ -245,7 +245,7 @@ public class Squad : Ai {
             squad._SquadCurrentSize = i;
 
             // Update unit build time to match the squad build time
-            unit.BuildTime = squad.BuildTime;
+            unit.BuildingTime = squad.BuildingTime;
             
             // Creating the first unit at the center
             if (i == 0) { unit.transform.position = squad.transform.position; ; }

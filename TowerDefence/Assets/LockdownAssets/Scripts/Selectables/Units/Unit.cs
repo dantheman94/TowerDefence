@@ -43,7 +43,9 @@ public class Unit : Ai {
     [Space]
     public float MaxAttackingRange = 100f;
     public float IdealAttackRangeMax = 80f;
-    public float IdealAttackRangeMin = 40f; 
+    public float IdealAttackRangeMin = 40f;
+    [Space]
+    public bool CanBeStunned = false;
 
     //******************************************************************************************************************************
     //
@@ -333,7 +335,7 @@ public class Unit : Ai {
     protected virtual void UpdateAIControllerMovement() {
         
         // Is the unit currently AI controlled?
-        if (!_IsBeingPlayerControlled && _Agent.enabled && IsAlive()) {
+        if (!_IsBeingPlayerControlled && _Agent.enabled && _Agent.isOnNavMesh && IsAlive()) {
 
             // Update agent seeking status
             _IsSeeking = _Agent.remainingDistance > 20f;

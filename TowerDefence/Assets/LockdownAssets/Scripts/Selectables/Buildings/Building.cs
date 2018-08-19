@@ -38,7 +38,7 @@ public class Building : WorldObject {
     //
     //******************************************************************************************************************************
 
-    protected BuildingRecycle _RecycleOption;
+    protected RecycleBuilding _RecycleOption;
     protected bool _IsBuildingSomething = false;
     protected WorldObject _ObjectBeingBuilt = null;
     private List<GameObject> _BuildingQueue;
@@ -111,7 +111,7 @@ public class Building : WorldObject {
                 _Player._HUD.SelectionWheel.UpdateListWithBuildables(Selectables, AttachedBuildingSlot);
 
                 // Get reference to the recycle building option
-                if (Selectables[5] != null) { _RecycleOption = Selectables[5].GetComponent<BuildingRecycle>(); }
+                if (Selectables[5] != null) { _RecycleOption = Selectables[5].GetComponent<RecycleBuilding>(); }
 
                 // Show selection wheel
                 if (ShowSelectionGUI) { GameManager.Instance.SelectionWheel.SetActive(true); }
@@ -132,7 +132,7 @@ public class Building : WorldObject {
 
                         if (_RecycleOption == null) {
 
-                            _RecycleOption = ObjectPooling.Spawn(GameManager.Instance.RecycleBuilding).GetComponent<BuildingRecycle>();
+                            _RecycleOption = ObjectPooling.Spawn(GameManager.Instance.RecycleBuilding).GetComponent<RecycleBuilding>();
                         }
                         _RecycleOption.SetBuildingToRecycle(this);
                         _RecycleOption.SetToBeDestroyed(true);
