@@ -65,8 +65,6 @@ public class WorldObject : Selectable {
     [Tooltip("The 'Pos Y' of the RectTransform that represents the shieldbar tied to this object.")]
     public float _WidgetShieldbarOffset = 22f;
     [Space]
-    public bool ShowBuildingQueueUI;
-    [Space]
     [Tooltip("When this unit is killed, the speed in which it shrinks down until it is no longer visible " +
             "before being sent back to the object pool.")]
     public float ShrinkSpeed = 0.2f;
@@ -271,9 +269,6 @@ public class WorldObject : Selectable {
         SelectionWheel selectionWheel = null;
         if (GameManager.Instance._IsRadialMenu) { selectionWheel = GameManager.Instance.SelectionWheel.GetComponentInChildren<SelectionWheel>(); }
         else { selectionWheel = GameManager.Instance.selectionWindow.GetComponentInChildren<SelectionWheel>(); }
-
-        // Set building queue UI visiblity
-        selectionWheel.BuildingQueue.gameObject.SetActive(ShowBuildingQueueUI);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -303,9 +298,6 @@ public class WorldObject : Selectable {
         SelectionWheel selectionWheel = null;
         if (GameManager.Instance._IsRadialMenu) { selectionWheel = GameManager.Instance.SelectionWheel.GetComponentInChildren<SelectionWheel>(); }
         else                                    { selectionWheel = GameManager.Instance.selectionWindow.GetComponentInChildren<SelectionWheel>(); }
-
-        // Set building queue UI visiblity
-        selectionWheel.BuildingQueue.gameObject.SetActive(ShowBuildingQueueUI);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -365,15 +357,12 @@ public class WorldObject : Selectable {
             _ClonedWorldObject._IsCurrentlySelected = false;
             _CurrentBuildTime = BuildingTime;
 
-            if (ShowBuildingQueueUI) {
-
-                // Add to building queue UI
-                bool radialWheeel = GameManager.Instance._IsRadialMenu;
-                SelectionWheel selectionWheel = null;
-                if (radialWheeel) { selectionWheel = GameManager.Instance.SelectionWheel.GetComponentInChildren<SelectionWheel>(); }
-                else { selectionWheel = GameManager.Instance.selectionWindow.GetComponentInChildren<SelectionWheel>(); }
-                selectionWheel.BuildingQueue.AddToQueue(_ClonedWorldObject);
-            }
+            // Add to building queue UI
+            bool radialWheeel = GameManager.Instance._IsRadialMenu;
+            SelectionWheel selectionWheel = null;
+            if (radialWheeel)   { selectionWheel = GameManager.Instance.SelectionWheel.GetComponentInChildren<SelectionWheel>(); }
+            else                { selectionWheel = GameManager.Instance.selectionWindow.GetComponentInChildren<SelectionWheel>(); }
+            selectionWheel.BuildingQueue.AddToQueue(_ClonedWorldObject);
         }
     }
 

@@ -130,8 +130,8 @@ public class UI_BuildingQueue : MonoBehaviour {
                 // Still enough room in the row
                 if (_ItemRows[_CurrentRow] < MaxItemsPerRow) {
 
-                    x = StartingPositionX - _ItemOffset * _ItemRows[_CurrentRow] + 1;
-                    y = StartingPositionY - _ItemOffset * _CurrentRow + 1;
+                    x = StartingPositionX + _ItemOffset * _ItemRows[_CurrentRow] + 1;
+                    y = StartingPositionY + _ItemOffset * _CurrentRow + 1;
                     _ItemRows[_CurrentRow] += 1;
                 }
                 
@@ -139,7 +139,7 @@ public class UI_BuildingQueue : MonoBehaviour {
                 else {
 
                    x = StartingPositionX;
-                   y = previousRect.position.y - _ItemOffset;
+                   y = StartingPositionY + _ItemOffset * _CurrentRow + 2;
                    _CurrentRow += 1;
                    _ItemRows.Add(1);
                 }
