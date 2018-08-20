@@ -84,7 +84,7 @@ public class Abstraction : MonoBehaviour {
     /// <summary>
     //  
     /// </summary>
-    public void StartBuildingObject() { _ObjectState = WorldObjectStates.Building; }
+    public virtual void StartBuildingObject(BuildingSlot buildingSlot = null) { _ObjectState = WorldObjectStates.Building; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

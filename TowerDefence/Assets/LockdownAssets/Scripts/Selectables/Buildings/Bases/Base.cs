@@ -7,7 +7,7 @@ using UnityEngine;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 19/7/2018
+//  Last edited on: 20/8/2018
 //
 //******************************
 
@@ -46,6 +46,7 @@ public class Base : Building {
     public enum eBaseType { Outpost, Station, CommandCenter, Headquarters, Minibase }
     protected List<Building> _BuildingList;
     protected Renderer _MinimapRenderer;
+    private Base _PreviousBase = null;
 
     //******************************************************************************************************************************
     //
@@ -102,47 +103,59 @@ public class Base : Building {
     public override void OnWheelSelect(BuildingSlot buildingSlot) {
 
         // Gets reference to the original base (before the upgrade)
-        Base originalBase = null;
         if (buildingSlot != null) {
 
-            if (buildingSlot.AttachedBase != null) { originalBase = buildingSlot.AttachedBase; }
+            if (buildingSlot.AttachedBase != null) { _PreviousBase = buildingSlot.AttachedBase; }
         }
-
-        // Remove old healthbar (if valid)
-        float hitpoints = MaxHitPoints;
-        if (originalBase != null) {
-
-            hitpoints = originalBase._HitPoints;
-            if (originalBase._HealthBar != null) { ObjectPooling.Despawn(originalBase._HealthBar.gameObject); }
-        }
-
+        
         // Start building process
         base.OnWheelSelect(buildingSlot);
+        _ClonedWorldObject.SetClonedObject(_ClonedWorldObject);
+        _ClonedWorldObject.GetComponent<Base>()._PreviousBase = _PreviousBase;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="buildingSlot"></param>
+    public override void StartBuildingObject(BuildingSlot buildingSlot) {
+        base.StartBuildingObject();
+
+        float hitpoints = MaxHitPoints;
 
         // Only proceed if there was a previous building and we are upgrading from that
-        if (originalBase != null) {
+        Base newBase = _ClonedWorldObject.GetComponent<Base>();
+        if (newBase._PreviousBase != null) {
+
+            // Remove old healthbar (if valid)
+            if (newBase._PreviousBase != null) {
+
+                hitpoints = _PreviousBase._HitPoints;
+                if (newBase._PreviousBase._HealthBar != null) { ObjectPooling.Despawn(newBase._PreviousBase._HealthBar.gameObject); }
+            }
 
             // Update player ref
-            _ClonedWorldObject._Player = originalBase._Player;
-                        
-            // Set the new bases building state object to be the currently active base
-            _ClonedWorldObject.BuildingState = originalBase.gameObject;
+            _ClonedWorldObject._Player = newBase._PreviousBase._Player;
+
+            // Set the new bases queued/building state object to be the currently active base
+            _ClonedWorldObject.InQueueState = newBase._PreviousBase.gameObject;
+            _ClonedWorldObject.BuildingState = newBase._PreviousBase.gameObject;
 
             // Get references to all the buildings that were in the previous base & allocate them to the new one
-            Base newBase = _ClonedWorldObject.GetComponent<Base>();
-
             // Depot/Generator slots
             for (int i = 0; i < newBase.DepotSlots.Count; i++) {
 
                 // Only go as far as the previous bases slot size
-                if (i < originalBase.DepotSlots.Count) {
+                if (i < newBase._PreviousBase.DepotSlots.Count) {
 
                     // Reallocate building to new base (if there is one)
-                    if (originalBase.DepotSlots[i] != null) {
+                    if (newBase._PreviousBase.DepotSlots[i] != null) {
 
                         // Send building to new base
-                        newBase.DepotSlots[i].SetBuildingOnSlot(originalBase.DepotSlots[i].GetBuildingOnSlot());
-                        originalBase.DepotSlots[i].SetBuildingOnSlot(null);
+                        newBase.DepotSlots[i].SetBuildingOnSlot(newBase._PreviousBase.DepotSlots[i].GetBuildingOnSlot());
+                        newBase._PreviousBase.DepotSlots[i].SetBuildingOnSlot(null);
                     }
                     else { continue; }
                 }
@@ -153,18 +166,24 @@ public class Base : Building {
             for (int i = 0; i < newBase.TowerSlots.Count; i++) {
 
                 // Only go as far as the previous bases slot size
-                if (i < originalBase.TowerSlots.Count) {
+                if (i < newBase._PreviousBase.TowerSlots.Count) {
 
                     // Reallocate tower to new base (if there is one)
-                    if (originalBase.TowerSlots[i] != null) {
+                    if (newBase._PreviousBase.TowerSlots[i] != null) {
 
                         // Send tower to new base
-                        newBase.TowerSlots[i].SetBuildingOnSlot(originalBase.TowerSlots[i].GetBuildingOnSlot());
-                        originalBase.TowerSlots[i].SetBuildingOnSlot(null);
+                        newBase.TowerSlots[i].SetBuildingOnSlot(_PreviousBase.TowerSlots[i].GetBuildingOnSlot());
+                        newBase._PreviousBase.TowerSlots[i].SetBuildingOnSlot(null);
                     }
                     else { continue; }
                 }
                 else { break; }
+            }
+
+            // Pass the building queue to the new building
+            for (int i = 0; i < newBase._PreviousBase.GetBuildingQueue().Count; i++) {
+
+                newBase.AddToQueue(newBase._PreviousBase.GetBuildingQueue()[i]);
             }
         }
 

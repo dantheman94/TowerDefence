@@ -144,7 +144,6 @@ public class WorldObject : Selectable {
 
                 // Show inqueue state object
                 if (InQueueState) { InQueueState.SetActive(true); }
-                if (BuildingState) { BuildingState.SetActive(false); }
                 if (ActiveState) { ActiveState.SetActive(false); }
                 if (DestroyedState) { DestroyedState.SetActive(false); }
                 break;
@@ -646,6 +645,14 @@ public class WorldObject : Selectable {
     //  int
     /// </returns>
     public int GetRecyclePowerAmount() { return _RecyclePower; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="clone"></param>
+    public void SetClonedObject(WorldObject clone) { _ClonedWorldObject = clone; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

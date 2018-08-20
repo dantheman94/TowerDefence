@@ -44,6 +44,8 @@ public class Building : WorldObject {
     protected WorldObject _ObjectBeingBuilt = null;
     private List<Abstraction> _BuildingQueue;
 
+    protected bool _IsInBuildingQueue = false;
+
     private bool _RebuildNavmesh = false;
 
     //******************************************************************************************************************************
@@ -190,7 +192,7 @@ public class Building : WorldObject {
         // Update building queue UI
         GameManager.Instance.BuildingQueueHUD.UpdateQueueItemList(this);
     }
-
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>

@@ -22,14 +22,13 @@ public class UI_BuildingQueue : MonoBehaviour {
 
     [Space]
     [Header("-----------------------------------")]
-    [Header(" WORLD OBJECT STATES")]
+    [Header(" BUILDING QUEUE PROPERTIES")]
     [Space]
     public UI_BuildingQueueItem StencilQueueItem = null;
     public Transform ListTransform = null;
     public float StartingPositionX = -30f;
     public float StartingPositionY = -40f;
     public float ItemSpacing = 35f;
-    public int MaxItemsPerRow = 5;
 
     //******************************************************************************************************************************
     //
@@ -39,8 +38,6 @@ public class UI_BuildingQueue : MonoBehaviour {
 
     private float _ItemOffset = 45;
     private List<UI_BuildingQueueItem> _Items;
-    private List<int> _ItemRows;
-    private int _CurrentRow = 0;
 
     //******************************************************************************************************************************
     //
@@ -57,7 +54,6 @@ public class UI_BuildingQueue : MonoBehaviour {
 
         // Initialize lists
         _Items = new List<UI_BuildingQueueItem>();
-        _ItemRows = new List<int>();
 
         if (StencilQueueItem != null) {
 
@@ -76,7 +72,6 @@ public class UI_BuildingQueue : MonoBehaviour {
 
         // Clear the list
         if (_Items.Count > 0)       { _Items.Clear(); }
-        if (_ItemRows.Count > 0)    { _ItemRows.Clear(); }
         for (int i = 0; i < ListTransform.childCount; i++) { Destroy(ListTransform.GetChild(i).gameObject); }
 
         // Replace with current building queue items
@@ -115,35 +110,17 @@ public class UI_BuildingQueue : MonoBehaviour {
                 _Items.Add(queueItem);
                 RectTransform rect = queueItem.GetComponent<RectTransform>();
                 rect.anchoredPosition = new Vector2(StartingPositionX, StartingPositionY);
-                _CurrentRow = 0;
-                _ItemRows.Add(1);
             }
             else {
                 
                 // Not the first item in the list
                 _Items.Add(queueItem);
                 RectTransform rect = queueItem.GetComponent<RectTransform>();
-                float x, y;
-                
                 RectTransform previousRect = _Items[_Items.Count - 1].GetComponent<RectTransform>();
-
-                // Still enough room in the row
-                if (_ItemRows[_CurrentRow] < MaxItemsPerRow) {
-
-                    x = StartingPositionX + _ItemOffset * _ItemRows[_CurrentRow] + 1;
-                    y = StartingPositionY + _ItemOffset * _CurrentRow + 1;
-                    _ItemRows[_CurrentRow] += 1;
-                }
+                float x, y;
+                x = StartingPositionX + (_ItemOffset * _Items.Count) + (ItemSpacing * _Items.Count);
+                y = StartingPositionY;
                 
-                // Make a new row
-                else {
-
-                   x = StartingPositionX;
-                   y = StartingPositionY + _ItemOffset * _CurrentRow + 2;
-                   _CurrentRow += 1;
-                   _ItemRows.Add(1);
-                }
-
                 rect.anchoredPosition = new Vector2(x, y);
 
             }
