@@ -21,9 +21,8 @@ GameObject:
   - component: {fileID: 4943786731867298}
   - component: {fileID: 33799124484817386}
   - component: {fileID: 23353960193626000}
-  - component: {fileID: 114622629148929174}
-  - component: {fileID: 65449474788215902}
   - component: {fileID: 65707829621266394}
+  - component: {fileID: 114622629148929174}
   m_Layer: 11
   m_Name: pfb_MinibaseSlot
   m_TagString: Untagged
@@ -85,18 +84,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1439407924731022}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &65449474788215902
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1439407924731022}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.0000002, y: 1, z: 1.0000002}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65707829621266394
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -124,15 +111,17 @@ MonoBehaviour:
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
   Logo: {fileID: 0}
-  BuildTime: 20
+  BuildingTime: 20
   CostSupplies: 0
   CostPower: 0
   CostTechLevel: 1
   CostPopulation: 0
+  _ObjectState: 0
   Team: 0
   _Player: {fileID: 0}
   FogOfWarRadius: 400
   ShowSelectionGUI: 1
+  InQueueState: {fileID: 0}
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   DestroyedState: {fileID: 0}
@@ -142,7 +131,6 @@ MonoBehaviour:
   MaxGarrisonPopulation: 0
   MultiSelectable: 0
   _OffsetY: 0
-  _ObjectState: 0
   _WidgetHealthbarScaleX: 100
   _WidgetHealthbarScaleY: 15
   _WidgetHealthbarOffset: 15

@@ -9,10 +9,11 @@ using UnityEngine.EventSystems;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 18/9/2018
+//  Last edited on: 20/9/2018
 //
 //******************************
 
+[System.Serializable]
 public class UpgradeTree : Abstraction {
 
     //******************************************************************************************************************************
@@ -153,20 +154,20 @@ public class UpgradeTree : Abstraction {
     /// <summary>
     //  
     /// </summary>
-    public void QueueUpgrade(Upgrade costs) {
+    public void QueueUpgrade(Upgrade upgrade) {
 
         // Check if the player can afford the upgrade
-        bool affordable = ((GameManager.Instance.Players[0].Level >= costs.CostTechLevel) && (GameManager.Instance.Players[0].SuppliesCount >= costs.CostSupplies) && (GameManager.Instance.Players[0].PowerCount >= costs.CostPower));
+        bool affordable = ((GameManager.Instance.Players[0].Level >= upgrade.CostTechLevel) && (GameManager.Instance.Players[0].SuppliesCount >= upgrade.CostSupplies) && (GameManager.Instance.Players[0].PowerCount >= upgrade.CostPower));
         if (affordable) {
             
             // Deduct cost from player
-            GameManager.Instance.Players[0].SuppliesCount -= costs.CostSupplies;
-            GameManager.Instance.Players[0].PowerCount -= costs.CostPower;
+            GameManager.Instance.Players[0].SuppliesCount -= upgrade.CostSupplies;
+            GameManager.Instance.Players[0].PowerCount -= upgrade.CostPower;
 
             // Start upgrading (or add to the queue)
             _UpgradeTimer = 0f;
-            _UpgradeBuildTime = costs.BuildingTime;
-            _BuildingAttached.GetBuildingQueue().Add(costs.gameObject);
+            _UpgradeBuildTime = upgrade.BuildingTime;
+            _BuildingAttached.GetBuildingQueue().Add(upgrade);
 
             // Create worldspace UI
             ///GameObject progressWidget = ObjectPooling.Spawn(GameManager.Instance.BuildingInProgressPanel.gameObject);
@@ -182,7 +183,7 @@ public class UpgradeTree : Abstraction {
             SelectionWheel selectionWheel = null;
             if (radialWheeel)   { selectionWheel = GameManager.Instance.SelectionWheel.GetComponentInChildren<SelectionWheel>(); }
             else                { selectionWheel = GameManager.Instance.selectionWindow.GetComponentInChildren<SelectionWheel>(); }
-            selectionWheel.BuildingQueue.AddToQueue(costs);
+            selectionWheel.BuildingQueue.AddToQueue(upgrade);
         }
     }
 

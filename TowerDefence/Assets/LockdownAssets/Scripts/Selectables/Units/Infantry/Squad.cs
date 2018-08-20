@@ -358,8 +358,7 @@ public class Squad : Ai {
         // Get all alive units to seek to the squad seek target
         int i = 0;
         foreach (var unit in _Squad) {
-            
-            
+                            
             unit.AgentSeekPosition(positions[i], overwrite, false);
             i++;
         }

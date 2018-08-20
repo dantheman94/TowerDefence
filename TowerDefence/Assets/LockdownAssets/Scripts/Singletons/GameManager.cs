@@ -71,6 +71,7 @@ public class GameManager : MonoBehaviour {
     public UI_PlatoonUnits PlatoonUnitsHUD;
     public UI_WaveStats WaveStatsHUD;
     public UI_GameOver GameOverHUD;
+    public UI_BuildingQueue BuildingQueueHUD;
     public MatchResults MatchResultsHUD;
 
     [Space]

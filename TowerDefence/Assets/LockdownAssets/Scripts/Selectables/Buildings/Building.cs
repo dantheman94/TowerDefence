@@ -15,6 +15,7 @@ using UnityEngine.EventSystems;
 //
 //******************************
 
+[System.Serializable]
 public class Building : WorldObject {
 
     //******************************************************************************************************************************
@@ -41,7 +42,7 @@ public class Building : WorldObject {
     protected RecycleBuilding _RecycleOption;
     protected bool _IsBuildingSomething = false;
     protected WorldObject _ObjectBeingBuilt = null;
-    private List<GameObject> _BuildingQueue;
+    private List<Abstraction> _BuildingQueue;
 
     private bool _RebuildNavmesh = false;
 
@@ -61,7 +62,7 @@ public class Building : WorldObject {
         
         // Initialize
         _ObjectHeight = ObjectHeight;
-        _BuildingQueue = new List<GameObject>();
+        _BuildingQueue = new List<Abstraction>();
 
         // Create upgrade instances & replace the selectable reference
         for (int i = 0; i < Selectables.Count; i++) {
@@ -94,6 +95,24 @@ public class Building : WorldObject {
             _ObjectState = WorldObjectStates.Active;
             _RebuildNavmesh = true;
             OnActiveState();
+        }
+
+        // Update building queue
+        if (_BuildingQueue.Count > 0) {
+
+            // Check if current building is complete
+            _BuildingQueue[0]._ObjectState = WorldObjectStates.Building;
+            if (_BuildingQueue[0].GetCurrentBuildTimeRemaining() <= 0f) {
+
+                // Remove from queue
+                _BuildingQueue.RemoveAt(0);
+                
+                // Start building next item
+                if (_BuildingQueue.Count > 0) { _BuildingQueue[0].StartBuildingObject(); }
+
+                // Update building queue UI
+                GameManager.Instance.BuildingQueueHUD.UpdateQueueItemList(this);
+            }
         }
     }
 
@@ -167,6 +186,9 @@ public class Building : WorldObject {
             }
             _IsCurrentlySelected = true;
         }
+
+        // Update building queue UI
+        GameManager.Instance.BuildingQueueHUD.UpdateQueueItemList(this);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -196,7 +218,7 @@ public class Building : WorldObject {
 
             // Add to attached base list (if valid)
             Base attachedBase = buildingSlot.AttachedBase;
-            if (attachedBase != null ) { attachedBase.AddBuildingToList(building); }
+            if (attachedBase != null) { attachedBase.AddBuildingToList(building); }
         }
     }
 
@@ -258,7 +280,7 @@ public class Building : WorldObject {
     //  
     /// </summary>
     /// <param name="queueObject"></param>
-    public void AddToQueue(GameObject queueObject) { _BuildingQueue.Add(queueObject); }
+    public void AddToQueue(Abstraction queueObject) { _BuildingQueue.Add(queueObject); }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -268,7 +290,17 @@ public class Building : WorldObject {
     /// <returns>
     //  List<WorldObject>
     /// </returns>
-    public List<GameObject> GetBuildingQueue() { return _BuildingQueue; }
+    public List<Abstraction> GetBuildingQueue() { return _BuildingQueue; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Returns TRUE if the object is either inQueue/building/active in the game world.
+    /// </summary>
+    /// <returns>
+    //  bool
+    /// </returns>
+    public override bool IsInWorld() { return base.IsInWorld() || _ObjectState == WorldObjectStates.InQueue; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

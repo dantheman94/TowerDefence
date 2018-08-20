@@ -101,7 +101,7 @@ public class UnitHealthBar : MonoBehaviour {
                 _TextComponent.text = _WorldObject.ObjectName;
 
                 // Only show the building name if it is built & active in the game world
-                if (_WorldObject.GetObjectState() == WorldObject.WorldObjectStates.Active) {
+                if (_WorldObject.GetObjectState() == Abstraction.WorldObjectStates.Active ) {
 
                     _TextComponent.enabled = true;
                 }

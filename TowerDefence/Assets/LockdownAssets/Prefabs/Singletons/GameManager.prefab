@@ -1,0 +1,93 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1162486525421322}
+  m_IsPrefabParent: 1
+--- !u!1 &1162486525421322
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4666510405837378}
+  - component: {fileID: 114378756795125336}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4666510405837378
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1162486525421322}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -50.114594, y: 105.42339, z: -70.0204}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114378756795125336
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1162486525421322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90b78cdabd605534580ad70e610d9892, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FlyingNavMesh: {fileID: 0}
+  StartingBase: {fileID: 0}
+  StartingSupplyCount: 50000
+  StartingPowerCount: 20000
+  StartingMaxSupplyCount: 100000
+  StartingMaxPowerCount: 100000
+  StartingTechLevel: 3
+  StartingMaxPopulation: 60
+  StartingWave: 0
+  HUDWrapper: {fileID: 0}
+  WorldSpaceCanvas: {fileID: 0}
+  ScreenSpaceCanvas: {fileID: 0}
+  CinematicBars: {fileID: 0}
+  _IsRadialMenu: 1
+  SelectionWheel: {fileID: 0}
+  selectionWindow: {fileID: 0}
+  ConfirmRecycleScreen: {fileID: 0}
+  AbilityWheel: {fileID: 0}
+  UnitHealthBar: {fileID: 0}
+  BuildingInProgressPanel: {fileID: 0}
+  CaptureProgressPanel: {fileID: 0}
+  RecycleBuilding: {fileID: 1686393191144852, guid: 79277ac9396fb6649b8e74d19bdac0b4,
+    type: 2}
+  ObjectSelected: {fileID: 1316711828955324, guid: deef73c21c83ffa448286ecc25312cf7,
+    type: 2}
+  ObjectHighlighted: {fileID: 1103044040107444, guid: 01e1986d03a2f92459d4d4d50a107850,
+    type: 2}
+  AgentSeekObject: {fileID: 1134938833437318, guid: ea031de5b8365524f8aaa65938b35a46,
+    type: 2}
+  SelectedUnitsHUD: {fileID: 0}
+  PlatoonUnitsHUD: {fileID: 0}
+  WaveStatsHUD: {fileID: 0}
+  GameOverHUD: {fileID: 0}
+  MatchResultsHUD: {fileID: 0}
+  PreloadGameObjects:
+  - gameObject: {fileID: 0}
+    size: 100
+  PreloadWorldObjects: []
+  PreloadProjectiles: []
+  PreloadParticles: []

@@ -11,6 +11,7 @@ using UnityEngine;
 //
 //******************************
 
+[System.Serializable]
 public class WorldObject : Selectable {
 
     //******************************************************************************************************************************
@@ -23,6 +24,8 @@ public class WorldObject : Selectable {
     [Header("-----------------------------------")]
     [Header(" WORLD OBJECT STATES")]
     [Space]
+    [Tooltip("Reference to the gameobject that represents this object when its in its 'queuing' state.")]
+    public GameObject InQueueState;
     [Tooltip("Reference to the gameobject that represents this object when its in its 'Building' state. " +
             "\n\nNOTE:  Upgraded versions of the base object get this variable referenced at runtime and will overwrite this for you.")]
     public GameObject BuildingState;
@@ -47,12 +50,6 @@ public class WorldObject : Selectable {
     public bool MultiSelectable = true;
     [Tooltip("Uh just leave this variable empty for now. May be obsolete, but not yet... (IDK, Dan's fault :/)")]
     public float _OffsetY;
-    [Tooltip("The current game state of the object. " +
-        "\n\nDEFAULT = Any disabled objects that are going to be instantiated at runtime " +
-        "\n\nBUILDING = The object is active in the world, but is still being built. " +
-        "\n\nDEPLOYABLE = The object has been built but is locked/hidden in its building (IE: AI Units). " +
-        "\n\nACTIVE = The object is active/interactable within the game world.")]
-    public WorldObjectStates _ObjectState = WorldObjectStates.Default;
     [Space]
     [Tooltip("The 'width' of the RectTransform that represents the healthbar tied to this object.")]
     public float _WidgetHealthbarScaleX = 100f;
@@ -80,9 +77,7 @@ public class WorldObject : Selectable {
     //
     //******************************************************************************************************************************
 
-    public enum WorldObjectStates { Default, Building, Deployable, Active, Destroyed, ENUM_COUNT }
 
-    protected float _CurrentBuildTime = 0f;
     protected bool _ReadyForDeployment = false;
 
     protected UnitHealthBar _HealthBar = null;
@@ -140,6 +135,17 @@ public class WorldObject : Selectable {
             case WorldObjectStates.Default: {
 
                 // Hide meshes
+                if (InQueueState) { InQueueState.SetActive(false); }
+                if (BuildingState) { BuildingState.SetActive(false); }
+                if (ActiveState) { ActiveState.SetActive(false); }
+                if (DestroyedState) { DestroyedState.SetActive(false); }
+                break;
+            }
+
+            case WorldObjectStates.InQueue: {
+
+                // Show inqueue state object
+                if (InQueueState) { InQueueState.SetActive(true); }
                 if (BuildingState) { BuildingState.SetActive(false); }
                 if (ActiveState) { ActiveState.SetActive(false); }
                 if (DestroyedState) { DestroyedState.SetActive(false); }
@@ -162,6 +168,7 @@ public class WorldObject : Selectable {
                 }
 
                 // Show building state object
+                if (InQueueState) { InQueueState.SetActive(false); }
                 if (BuildingState) { BuildingState.SetActive(true); }
                 if (ActiveState) { ActiveState.SetActive(false); }
                 if (DestroyedState) { DestroyedState.SetActive(false); }
@@ -173,6 +180,7 @@ public class WorldObject : Selectable {
             case WorldObjectStates.Active: {
 
                 // Show active state object
+                if (InQueueState) { InQueueState.SetActive(false); }
                 if (BuildingState) { BuildingState.SetActive(false); }
                 if (ActiveState) { ActiveState.SetActive(true); }
                 if (DestroyedState) { DestroyedState.SetActive(false); }
@@ -182,6 +190,7 @@ public class WorldObject : Selectable {
             case WorldObjectStates.Destroyed: {
                     
                 // Show destroyed state object
+                if (InQueueState) { InQueueState.SetActive(false); }
                 if (BuildingState) { BuildingState.SetActive(false); }
                 if (ActiveState) { ActiveState.SetActive(false); }
                 if (DestroyedState) { DestroyedState.SetActive(true); }
@@ -321,12 +330,11 @@ public class WorldObject : Selectable {
         // Check if the player has enough resources to build the object
         if ((plyr.SuppliesCount >= this.CostSupplies) && (plyr.PowerCount >= this.CostPower)) {
 
-            // Start building object on the selected building slot
+            // Add to building queue on the selected building slot
             _ClonedWorldObject = ObjectPooling.Spawn(gameObject, Vector3.zero, Quaternion.identity).GetComponent<WorldObject>();
             _ClonedWorldObject.SetBuildingPosition(buildingSlot);
             _ClonedWorldObject.gameObject.SetActive(true);
-            _ClonedWorldObject._ObjectState = WorldObjectStates.Building;
-
+            
             // Create healthbar
             CreateHealthBar(_ClonedWorldObject, plyr.PlayerCamera);
 
@@ -338,6 +346,15 @@ public class WorldObject : Selectable {
             buildProgressObj.gameObject.SetActive(true);
             buildProgressObj.transform.SetParent(GameManager.Instance.WorldSpaceCanvas.gameObject.transform, false);
 
+            // Add to building queue
+            _ClonedWorldObject._ObjectState = WorldObjectStates.InQueue;
+            if (buildingSlot.GetBuildingOnSlot() != null) { buildingSlot.GetBuildingOnSlot().AddToQueue(_ClonedWorldObject); }
+            else {
+
+                // Add to base queue
+                if (buildingSlot.AttachedBase != null) { buildingSlot.AttachedBase.AddToQueue(_ClonedWorldObject); }
+            }
+            
             // Deduct resources from player
             _ClonedWorldObject.SetPlayer(plyr);
             plyr.SuppliesCount -= _ClonedWorldObject.CostSupplies;
@@ -505,7 +522,7 @@ public class WorldObject : Selectable {
     /// <returns>
     //  bool
     /// </returns>
-    public bool IsInWorld() { return IsAlive() && (_ObjectState == WorldObjectStates.Active || _ObjectState == WorldObjectStates.Building); }
+    public virtual bool IsInWorld() { return IsAlive() && (_ObjectState == WorldObjectStates.Active || _ObjectState == WorldObjectStates.Building); }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -578,16 +595,6 @@ public class WorldObject : Selectable {
     //  float
     /// </returns>
     public float GetShield() { return _Shield; }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  
-    /// </summary>
-    /// <returns>
-    //  float
-    /// </returns>
-    public float GetCurrentBuildTimeRemaining() { return BuildingTime - _CurrentBuildTime; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

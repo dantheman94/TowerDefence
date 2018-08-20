@@ -11,6 +11,7 @@ using UnityEngine;
 //
 //******************************
 
+[System.Serializable]
 public class Abstraction : MonoBehaviour {
 
     //******************************************************************************************************************************
@@ -43,6 +44,23 @@ public class Abstraction : MonoBehaviour {
     public int CostTechLevel = 1;
     [Tooltip("The army population size needed for this object to be built.")]
     public int CostPopulation = 0;
+    [Space]
+    [Tooltip("The current game state of the object. " +
+        "\n\nDEFAULT = Any disabled objects that are going to be instantiated at runtime " +
+        "\n\nBUILDING = The object is active in the world, but is still being built. " +
+        "\n\nDEPLOYABLE = The object has been built but is locked/hidden in its building (IE: AI Units). " +
+        "\n\nACTIVE = The object is active/interactable within the game world.")]
+    public WorldObjectStates _ObjectState = WorldObjectStates.Default;
+
+    //******************************************************************************************************************************
+    //
+    //      VARIABLES
+    //
+    //******************************************************************************************************************************
+
+    public enum WorldObjectStates { Default, InQueue, Building, Deployable, Active, Destroyed, ENUM_COUNT }
+
+    protected float _CurrentBuildTime = 0f;
 
     //******************************************************************************************************************************
     //
@@ -60,6 +78,33 @@ public class Abstraction : MonoBehaviour {
     //  (EG: If you're making a building, this is the building slot thats being used.)
     /// </param>
     public virtual void OnWheelSelect(BuildingSlot buildingSlot) { }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    public void StartBuildingObject() { _ObjectState = WorldObjectStates.Building; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <returns>
+    //  float
+    /// </returns>
+    public float GetCurrentBuildTimeRemaining() { return BuildingTime - _CurrentBuildTime; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    /// <summary>
+    //  
+    /// </summary>
+    /// <returns>
+    //  float
+    /// </returns>
+    public float GetBuildPercentage() { return _CurrentBuildTime / BuildingTime; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

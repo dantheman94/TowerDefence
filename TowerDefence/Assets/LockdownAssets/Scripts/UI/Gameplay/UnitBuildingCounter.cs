@@ -62,9 +62,10 @@ public class UnitBuildingCounter : MonoBehaviour {
 
         if (_WorldObject != null && _CameraAttached != null) {
 
-            // Only show widget if the object is currently being built
-            if (_WorldObject.GetObjectState() == WorldObject.WorldObjectStates.Building) {
-
+            // Only show widget if the object is currently being built (or in queue)
+            if (_WorldObject.GetObjectState() == Abstraction.WorldObjectStates.Building ||
+                _WorldObject.GetObjectState() == Abstraction.WorldObjectStates.InQueue) {
+                
                 // Update text to show how much time is remaining in the build
                 int time = (int)_WorldObject.GetCurrentBuildTimeRemaining();
                 string healthString = time.ToString();

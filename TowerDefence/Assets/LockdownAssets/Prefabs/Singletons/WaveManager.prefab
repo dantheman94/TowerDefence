@@ -1,0 +1,260 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1414996840087634}
+  m_IsPrefabParent: 1
+--- !u!1 &1414996840087634
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4010875856422582}
+  - component: {fileID: 114268670636041262}
+  m_Layer: 0
+  m_Name: WaveManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4010875856422582
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1414996840087634}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114268670636041262
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1414996840087634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cf9ef5805592b04b8342f3b6b73faec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackingTeamColour: {r: 1, g: 0, b: 0, a: 1}
+  StartingDamageModifier: 0.75
+  StartingHealthModifier: 0.7
+  CorePatrolPositions:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  CentralCore: {fileID: 0}
+  LockdownPads:
+  - {fileID: 0}
+  EnemyBases:
+  - {fileID: 0}
+  WaveNotificationWidget: {fileID: 0}
+  PerWaveIncrementDamage: 0.01
+  PerWaveIncrementHealth: 0.01
+  PerBossWaveIncrementDamage: 0.15
+  PerBossWaveIncrementHealth: 0.2
+  WavesPerInterval: 10
+  StartingWaveTimer: 60
+  TimeAddedPerWave: 5
+  TimeTillNextWaveAfterClear: 10
+  Waves:
+  - Name: Very Light Ground Infantry
+    Severity: 0
+    Type: 0
+    WaveIntervals:
+      MinimumWaveInterval: 1
+      MaximumWaveInterval: 5
+    BossWaveIntervals:
+      MinimumBossWaveInterval: 0
+      UnlimitedBossWaveIntervals: 0
+      MaximumBossWaveInterval: 0
+    Subwaves: 2
+    Enemies:
+    - Name: Core Marine
+      EnemyReference: {fileID: 114321492504333980, guid: ff2e544a035e3134aa61515841e03126,
+        type: 2}
+      StartAtSubwave: 1
+      PerSpawnInterval: 2
+      WaveMax: 4
+      CurrentLives: 0
+    - Name: Anti Infantry
+      EnemyReference: {fileID: 114637479626047606, guid: b0b553943343fae4e89f6bffadf50807,
+        type: 2}
+      StartAtSubwave: 1
+      PerSpawnInterval: 1
+      WaveMax: 2
+      CurrentLives: 0
+  - Name: Very Light Ground Vehicles
+    Severity: 0
+    Type: 1
+    WaveIntervals:
+      MinimumWaveInterval: 1
+      MaximumWaveInterval: 5
+    BossWaveIntervals:
+      MinimumBossWaveInterval: 0
+      UnlimitedBossWaveIntervals: 0
+      MaximumBossWaveInterval: 0
+    Subwaves: 2
+    Enemies:
+    - Name: Core Marine
+      EnemyReference: {fileID: 114321492504333980, guid: ff2e544a035e3134aa61515841e03126,
+        type: 2}
+      StartAtSubwave: 1
+      PerSpawnInterval: 2
+      WaveMax: 4
+      CurrentLives: 0
+    - Name: Core Vehicle
+      EnemyReference: {fileID: 114585045816634058, guid: b11835252146f2b44a6b262103f36a07,
+        type: 2}
+      StartAtSubwave: 1
+      PerSpawnInterval: 1
+      WaveMax: 2
+      CurrentLives: 0
+  - Name: Very Light Ground Mixed
+    Severity: 0
+    Type: 2
+    WaveIntervals:
+      MinimumWaveInterval: 1
+      MaximumWaveInterval: 9
+    BossWaveIntervals:
+      MinimumBossWaveInterval: 0
+      UnlimitedBossWaveIntervals: 0
+      MaximumBossWaveInterval: 0
+    Subwaves: 2
+    Enemies:
+    - Name: Core Marine Squad
+      EnemyReference: {fileID: 114321492504333980, guid: ff2e544a035e3134aa61515841e03126,
+        type: 2}
+      StartAtSubwave: 1
+      PerSpawnInterval: 2
+      WaveMax: 4
+      CurrentLives: 0
+    - Name: Core Vehicle
+      EnemyReference: {fileID: 114585045816634058, guid: b11835252146f2b44a6b262103f36a07,
+        type: 2}
+      StartAtSubwave: 1
+      PerSpawnInterval: 1
+      WaveMax: 2
+      CurrentLives: 0
+    - Name: Anti Infantry Squad
+      EnemyReference: {fileID: 114637479626047606, guid: b0b553943343fae4e89f6bffadf50807,
+        type: 2}
+      StartAtSubwave: 1
+      PerSpawnInterval: 1
+      WaveMax: 2
+      CurrentLives: 0
+  - Name: Very Light Air
+    Severity: 0
+    Type: 3
+    WaveIntervals:
+      MinimumWaveInterval: 1
+      MaximumWaveInterval: 5
+    BossWaveIntervals:
+      MinimumBossWaveInterval: 0
+      UnlimitedBossWaveIntervals: 0
+      MaximumBossWaveInterval: 0
+    Subwaves: 2
+    Enemies:
+    - Name: Core Airship
+      EnemyReference: {fileID: 114909369810655446, guid: 262ff50694620f74badea248fc5e28e4,
+        type: 2}
+      StartAtSubwave: 1
+      PerSpawnInterval: 2
+      WaveMax: 4
+      CurrentLives: 0
+    - Name: Support Airship
+      EnemyReference: {fileID: 114481798048649180, guid: c4a0f18ee5b21b74fbcb5adc9b905af4,
+        type: 2}
+      StartAtSubwave: 1
+      PerSpawnInterval: 1
+      WaveMax: 2
+      CurrentLives: 0
+  - Name: Very Light Mixed
+    Severity: 0
+    Type: 5
+    WaveIntervals:
+      MinimumWaveInterval: 5
+      MaximumWaveInterval: 9
+    BossWaveIntervals:
+      MinimumBossWaveInterval: 0
+      UnlimitedBossWaveIntervals: 0
+      MaximumBossWaveInterval: 0
+    Subwaves: 3
+    Enemies:
+    - Name: Core Airship
+      EnemyReference: {fileID: 114909369810655446, guid: 262ff50694620f74badea248fc5e28e4,
+        type: 2}
+      StartAtSubwave: 1
+      PerSpawnInterval: 1
+      WaveMax: 3
+      CurrentLives: 0
+    - Name: Support Airship
+      EnemyReference: {fileID: 114481798048649180, guid: c4a0f18ee5b21b74fbcb5adc9b905af4,
+        type: 2}
+      StartAtSubwave: 1
+      PerSpawnInterval: 1
+      WaveMax: 2
+      CurrentLives: 0
+    - Name: Core Marine
+      EnemyReference: {fileID: 114321492504333980, guid: ff2e544a035e3134aa61515841e03126,
+        type: 2}
+      StartAtSubwave: 1
+      PerSpawnInterval: 2
+      WaveMax: 6
+      CurrentLives: 0
+    - Name: Anti-Infantry Marine
+      EnemyReference: {fileID: 114637479626047606, guid: b0b553943343fae4e89f6bffadf50807,
+        type: 2}
+      StartAtSubwave: 1
+      PerSpawnInterval: 2
+      WaveMax: 4
+      CurrentLives: 0
+    - Name: Hero
+      EnemyReference: {fileID: 114963470945021714, guid: b428dfdc6baddce46b81aed55d5c7396,
+        type: 2}
+      StartAtSubwave: 1
+      PerSpawnInterval: 1
+      WaveMax: 1
+      CurrentLives: 0
+    - Name: Core Vehicle
+      EnemyReference: {fileID: 114585045816634058, guid: b11835252146f2b44a6b262103f36a07,
+        type: 2}
+      StartAtSubwave: 1
+      PerSpawnInterval: 1
+      WaveMax: 2
+      CurrentLives: 0
+  _CurrentWaveInfo:
+    Name: 
+    Severity: 0
+    Type: 0
+    WaveIntervals:
+      MinimumWaveInterval: 1
+      MaximumWaveInterval: 10
+    BossWaveIntervals:
+      MinimumBossWaveInterval: 0
+      UnlimitedBossWaveIntervals: 1
+      MaximumBossWaveInterval: 0
+    Subwaves: 0
+    Enemies: []
+  _CurrentWaveEnemies: []
+  _PreviousWavesEnemies: []
+  _CurrentLockdownPad: {fileID: 0}

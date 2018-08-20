@@ -23,7 +23,6 @@ GameObject:
   - component: {fileID: 23481144506865268}
   - component: {fileID: 114153781662495510}
   - component: {fileID: 65382407879312390}
-  - component: {fileID: 65610269582664046}
   m_Layer: 11
   m_Name: pfb_DepotSlot
   m_TagString: BuildingSlot
@@ -38,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1078649281621368}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -6.1000023, y: 0.5, z: -432.59998}
+  m_LocalPosition: {x: -102.565796, y: 45.5, z: -117.1314}
   m_LocalScale: {x: 30.000015, y: 1, z: 20}
   m_Children: []
   m_Father: {fileID: 0}
@@ -97,18 +96,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.0000002, y: 1, z: 1.0000002}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65610269582664046
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1078649281621368}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114153781662495510
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -124,15 +111,17 @@ MonoBehaviour:
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
   Logo: {fileID: 0}
-  BuildTime: 20
+  BuildingTime: 20
   CostSupplies: 0
   CostPower: 0
   CostTechLevel: 1
   CostPopulation: 0
+  _ObjectState: 4
   Team: 0
   _Player: {fileID: 0}
   FogOfWarRadius: 400
   ShowSelectionGUI: 1
+  InQueueState: {fileID: 0}
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   DestroyedState: {fileID: 0}
@@ -142,7 +131,6 @@ MonoBehaviour:
   MaxGarrisonPopulation: 0
   MultiSelectable: 0
   _OffsetY: 0
-  _ObjectState: 3
   _WidgetHealthbarScaleX: 100
   _WidgetHealthbarScaleY: 15
   _WidgetHealthbarOffset: 15
@@ -158,8 +146,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 114346840076971176, guid: 318af2593dae43f49b3ad5386de9d721, type: 2}
   - {fileID: 114017345909741574, guid: 04c64a5c69b88bd4baabd0d85f77b558, type: 2}
-  - {fileID: 114637804514872438, guid: fe940b62357be4f48bd38c2fabe24c5b, type: 2}
   - {fileID: 114306093193310104, guid: 6465691795d88d5428c690933f8fa003, type: 2}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 114951768522124020, guid: 7a49f022dbc88594ca3d350493ad7107, type: 2}

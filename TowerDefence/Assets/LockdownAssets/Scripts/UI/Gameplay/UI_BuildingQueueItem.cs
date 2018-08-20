@@ -8,7 +8,7 @@ using UnityEngine.UI;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 4/8/2018
+//  Last edited on: 20/8/2018
 //
 //******************************
 
@@ -20,19 +20,17 @@ public class UI_BuildingQueueItem : MonoBehaviour {
     //
     //******************************************************************************************************************************
 
-    [Space]
-    [Header("-----------------------------------")]
-    [Header(" QUEUE ITEM PROPERTIES")]
-    [Space]
-    public Text AmountTextComponent = null;
-
     //******************************************************************************************************************************
     //
     //      VARIABLES
     //
     //******************************************************************************************************************************
 
-    private bool _ShowAmountText = false;
+    private Text _TextComponent = null;
+
+    private Abstraction _AbstractionAttached = null;
+    private Slider _SliderComponent = null;
+    private float _BuildPercentage = 0f;
 
     //******************************************************************************************************************************
     //
@@ -46,8 +44,10 @@ public class UI_BuildingQueueItem : MonoBehaviour {
     //  Called when this gameObject is created.
     /// </summary>
     private void Start() {
-        
 
+        // Get component references
+        _SliderComponent = GetComponent<Slider>();
+        _TextComponent = GetComponentInChildren<Text>();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -56,9 +56,14 @@ public class UI_BuildingQueueItem : MonoBehaviour {
     //  Called each frame. 
     /// </summary>
     private void Update() {
+        
+        // Update build percentage / slider value
+        if (_SliderComponent != null && _AbstractionAttached != null) {
 
-        // Update amount text visiblity
-        if (AmountTextComponent != null) { AmountTextComponent.enabled = _ShowAmountText; }
+            _TextComponent.text = _AbstractionAttached.ObjectName;
+            _BuildPercentage = _AbstractionAttached.GetBuildPercentage();
+            _SliderComponent.value = _BuildPercentage;
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -66,8 +71,8 @@ public class UI_BuildingQueueItem : MonoBehaviour {
     /// <summary>
     //  
     /// </summary>
-    /// <param name="value"></param>
-    public void SetAmountTextVisiblity(bool value) { _ShowAmountText = value; }
+    /// <param name="abs"></param>
+    public void SetAbstractionAttached(Abstraction abs) { _AbstractionAttached = abs; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
