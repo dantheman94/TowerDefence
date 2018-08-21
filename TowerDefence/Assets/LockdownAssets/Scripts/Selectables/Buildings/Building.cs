@@ -198,7 +198,11 @@ public class Building : WorldObject {
         }
 
         // Update building queue UI
-        if (AttachedBuildingSlot.AttachedBase != null) { AttachedBuildingSlot.AttachedBase._BuildingQueueUI.UpdateQueueItemList(); }
+        ///Base attachBase = AttachedBuildingSlot.AttachedBase;
+        ///if (attachBase != null) {
+        ///
+        ///    if (attachBase._BuildingQueueUI != null) { attachBase._BuildingQueueUI.UpdateQueueItemList(); }
+        ///}
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -226,37 +230,55 @@ public class Building : WorldObject {
             // Disable building slot (is re-enabled when the building is recycled)
             buildingSlot.SetIsSelected(false);
 
-            // Add to attached base list (if valid)
             Base attachedBase = buildingSlot.AttachedBase;
-            if (attachedBase != null) {
-
-                attachedBase.AddBuildingToList(building);
-                attachedBase.AddToQueue(building);
-
-                // Add to queue wrapper
-                if (building._BuildingQueueUI != null) {
-
-                    if (!UI_BuildingQueueWrapper.Instance.ContainsQueue(building._BuildingQueueUI)) { UI_BuildingQueueWrapper.Instance.AddNewQueue(building._BuildingQueueUI); }
-                    building._BuildingQueueUI.transform.SetParent(UI_BuildingQueueWrapper.Instance.QueueListTransform);
-                    building._BuildingQueueUI.gameObject.SetActive(true);
-                }
-                else { building.CreateQueueWidget(); }
-            }
-
-            // Add to attached building list (if valid)
             Building attachedBuilding = buildingSlot.AttachedBuilding;
-            if (attachedBuilding != null && attachedBase == null) {
 
-                attachedBuilding.AddToQueue(building);
-                    
-                // Add to queue wrapper
-                if (building._BuildingQueueUI != null) {
+            if (buildingSlot.ObjectsCreatedAreQueued) {
 
-                    if (!UI_BuildingQueueWrapper.Instance.ContainsQueue(building._BuildingQueueUI)) { UI_BuildingQueueWrapper.Instance.AddNewQueue(building._BuildingQueueUI); }
-                    building._BuildingQueueUI.transform.SetParent(UI_BuildingQueueWrapper.Instance.QueueListTransform);
-                    building._BuildingQueueUI.gameObject.SetActive(true);
+                // Add to attached base list (if valid)
+                if (attachedBase != null) {
+
+                    attachedBase.AddBuildingToList(building);
+                    ////attachedBase.AddToQueue(building);
+
+                    // Add to queue wrapper
+                    if (building._BuildingQueueUI != null) {
+
+                        if (!UI_BuildingQueueWrapper.Instance.ContainsQueue(building._BuildingQueueUI)) { UI_BuildingQueueWrapper.Instance.AddNewQueue(building._BuildingQueueUI); }
+                        building._BuildingQueueUI.transform.SetParent(UI_BuildingQueueWrapper.Instance.QueueListTransform);
+                        building._BuildingQueueUI.gameObject.SetActive(true);
+                    }
+                    else { building.CreateQueueWidget(); }
                 }
-                else { building.CreateQueueWidget(); }
+
+                // Add to attached building list (if valid)
+                if (attachedBuilding != null && attachedBase == null) {
+
+                    if (!attachedBuilding.RemoveFromQueue(building)) {
+
+                        attachedBuilding.AddToQueue(building);
+                    }
+
+                    // Add to queue wrapper
+                    if (building._BuildingQueueUI != null) {
+
+                        if (!UI_BuildingQueueWrapper.Instance.ContainsQueue(building._BuildingQueueUI)) { UI_BuildingQueueWrapper.Instance.AddNewQueue(building._BuildingQueueUI); }
+                        building._BuildingQueueUI.transform.SetParent(UI_BuildingQueueWrapper.Instance.QueueListTransform);
+                        building._BuildingQueueUI.gameObject.SetActive(true);
+                    }
+                    else { building.CreateQueueWidget(); }
+                }
+            }
+            
+            // Skip the queue process and start building the object immediately
+            else { /// (!buildingSlot.ObjectsCreatedAreQueued)
+
+                // Remove it from the base/building's queue (WorldObject class adds it at the start!)
+                if (attachedBase != null)       { attachedBase.RemoveFromQueue(building); }
+                if (attachedBuilding != null)   { attachedBuilding.RemoveFromQueue(building); }
+
+                // Start building the object
+                building.StartBuildingObject();
             }
         }
     }

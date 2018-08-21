@@ -66,6 +66,8 @@ public class Core : Building {
             Spires[i].SetPlayer(_Player);
             MaxShieldPoints += Spires[i].MaxHitPoints;
         }
+
+        CreateQueueWidget();
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

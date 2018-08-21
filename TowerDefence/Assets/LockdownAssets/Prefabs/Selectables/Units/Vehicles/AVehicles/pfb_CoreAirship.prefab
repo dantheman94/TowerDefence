@@ -42,7 +42,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1376207182730974
 GameObject:
   m_ObjectHideFlags: 1
@@ -184,7 +184,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1874837222866134
 GameObject:
   m_ObjectHideFlags: 1
@@ -761,10 +761,12 @@ MonoBehaviour:
   CostPower: 0
   CostTechLevel: 2
   CostPopulation: 4
+  _ObjectState: 3
   Team: 0
   _Player: {fileID: 0}
   FogOfWarRadius: 400
   ShowSelectionGUI: 1
+  InQueueState: {fileID: 0}
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 1149650769780974}
   DestroyedState: {fileID: 0}
@@ -774,14 +776,12 @@ MonoBehaviour:
   MaxGarrisonPopulation: 0
   MultiSelectable: 1
   _OffsetY: 0
-  _ObjectState: 3
   _WidgetHealthbarScaleX: 80
   _WidgetHealthbarScaleY: 15
   _WidgetHealthbarOffset: 15
   _WidgetShieldbarScaleX: 80
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
-  ShowBuildingQueueUI: 0
   ShrinkSpeed: 0.3
   _ChasingDistance: 30
   TargetWeights:
@@ -820,6 +820,7 @@ MonoBehaviour:
   MaxAttackingRange: 100
   IdealAttackRangeMax: 80
   IdealAttackRangeMin: 40
+  CanBeStunned: 0
   WeaponObject: {fileID: 1422115605180928}
   Acceleration: 16
   Deceleration: 8

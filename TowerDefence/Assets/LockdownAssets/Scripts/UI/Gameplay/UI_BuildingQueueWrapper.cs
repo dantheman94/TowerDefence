@@ -136,7 +136,6 @@ public class UI_BuildingQueueWrapper : MonoBehaviour {
 
                 x = rect.rect.width / 2 + QueueSpacing;
                 y = ((rect.rect.height / 2 + QueueSpacing) * (i + 1)) * -1;
-                ///(ItemSpacing * _Items.Count)
             }
             rect.anchoredPosition = new Vector2(x, y);
         }

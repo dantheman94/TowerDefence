@@ -228,7 +228,7 @@ public class Vehicle : Unit {
         if (_AttackTarget == null) {
 
             // Face forward
-            if (WeaponObject != null) { LookAtLerp(ActiveState.transform.forward * 100f); }
+            ///if (WeaponObject != null) { LookAtLerp(ActiveState.transform.forward * 100f); }
         }
     }
 
