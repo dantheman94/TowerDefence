@@ -28,6 +28,8 @@ public class BuildingSlot : WorldObject {
     public Base AttachedBase = null;
     public Building AttachedBuilding = null;
     [Space]
+    public bool ObjectsCreatedAreQueued = true;
+    [Space]
     public List<BuildingSlot> LinkedSlots;
     [Space]
     public List<Building> Buildings;
