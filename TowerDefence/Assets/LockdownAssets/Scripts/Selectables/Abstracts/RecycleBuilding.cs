@@ -48,6 +48,10 @@ public class RecycleBuilding : Abstraction {
 
             _BuildingToRecycle.SetIsSelected(false);
 
+            // Remove the building from any queues it is currently in
+            if (buildingSlot.AttachedBase != null)          { buildingSlot.AttachedBase.RemoveFromQueue(_BuildingToRecycle); }
+            if (buildingSlot.GetBuildingOnSlot() != null)   { buildingSlot.GetBuildingOnSlot().RemoveFromQueue(_BuildingToRecycle); }
+
             // Recycle building
             _BuildingToRecycle.RecycleBuilding();
 

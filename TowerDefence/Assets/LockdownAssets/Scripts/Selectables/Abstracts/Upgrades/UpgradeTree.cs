@@ -179,11 +179,7 @@ public class UpgradeTree : Abstraction {
             progressWidget.gameObject.SetActive(true);
 
             // Add to building queue UI
-            bool radialWheeel = GameManager.Instance._IsRadialMenu;
-            SelectionWheel selectionWheel = null;
-            if (radialWheeel)   { selectionWheel = GameManager.Instance.SelectionWheel.GetComponentInChildren<SelectionWheel>(); }
-            else                { selectionWheel = GameManager.Instance.selectionWindow.GetComponentInChildren<SelectionWheel>(); }
-            selectionWheel.BuildingQueue.AddToQueue(upgrade);
+            _BuildingAttached.AddToQueue(this);
         }
     }
 

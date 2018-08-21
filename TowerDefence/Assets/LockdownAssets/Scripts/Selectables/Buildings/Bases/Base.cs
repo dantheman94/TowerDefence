@@ -242,4 +242,25 @@ public class Base : Building {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="building"></param>
+    public void RemoveFromList(Building building) {
+
+        // look for match
+        for (int i = 0; i < _BuildingList.Count; i++) {
+
+            // Check for reference match
+            if (_BuildingList[i] == building) {
+
+                // Remove from list
+                _BuildingList.RemoveAt(i);
+                break;
+            }
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 }

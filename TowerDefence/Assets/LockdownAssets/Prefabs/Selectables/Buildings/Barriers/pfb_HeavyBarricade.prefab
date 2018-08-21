@@ -28,7 +28,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1474427594815508
 GameObject:
   m_ObjectHideFlags: 0
@@ -46,7 +46,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1724886060387722
 GameObject:
   m_ObjectHideFlags: 1
@@ -227,15 +227,17 @@ MonoBehaviour:
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
   Logo: {fileID: 0}
-  BuildTime: 5
+  BuildingTime: 20
   CostSupplies: 1000
   CostPower: 0
   CostTechLevel: 3
   CostPopulation: 0
+  _ObjectState: 0
   Team: 0
   _Player: {fileID: 0}
   FogOfWarRadius: 400
   ShowSelectionGUI: 1
+  InQueueState: {fileID: 0}
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 1347355967974238}
   DestroyedState: {fileID: 0}
@@ -245,17 +247,16 @@ MonoBehaviour:
   MaxGarrisonPopulation: 10
   MultiSelectable: 0
   _OffsetY: 2.25
-  _ObjectState: 0
   _WidgetHealthbarScaleX: 300
   _WidgetHealthbarScaleY: 20
   _WidgetHealthbarOffset: 20
   _WidgetShieldbarScaleX: 300
   _WidgetShieldbarScaleY: 20
   _WidgetShieldbarOffset: 27
-  ShowBuildingQueueUI: 0
   ShrinkSpeed: 0.2
   AttachedBuildingSlot: {fileID: 0}
   ObjectHeight: 15
+  HasABuildingQueue: 1
   Selectables:
   - {fileID: 0}
   - {fileID: 0}

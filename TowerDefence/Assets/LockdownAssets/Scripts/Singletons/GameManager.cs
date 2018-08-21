@@ -71,7 +71,7 @@ public class GameManager : MonoBehaviour {
     public UI_PlatoonUnits PlatoonUnitsHUD;
     public UI_WaveStats WaveStatsHUD;
     public UI_GameOver GameOverHUD;
-    public UI_BuildingQueue BuildingQueueHUD;
+    public UI_BuildingQueueWrapper BuildingQueueHUD;
     public MatchResults MatchResultsHUD;
 
     [Space]
@@ -185,11 +185,11 @@ public class GameManager : MonoBehaviour {
 
             // Set camera starting position behind the starting base's position
             Players[0].PlayerCamera.transform.position = new Vector3(StartingBase.transform.position.x, Settings.MaxCameraHeight, StartingBase.transform.position.z - 100);
-            ///Players[0].PlayerCamera.transform.rotation = StartingBase.transform.rotation
 
             // Initialize starting base
             StartingBase.SetPlayer(Players[0]);
             StartingBase.CreateHealthBar(StartingBase, StartingBase._Player.PlayerCamera);
+            StartingBase.CreateQueueWidget();
         }
         
     }

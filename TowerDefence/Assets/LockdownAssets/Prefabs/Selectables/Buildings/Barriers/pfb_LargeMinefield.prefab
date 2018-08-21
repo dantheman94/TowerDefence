@@ -73,7 +73,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1410691350010598
 GameObject:
   m_ObjectHideFlags: 0
@@ -88,7 +88,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1971894109246546
 GameObject:
   m_ObjectHideFlags: 1
@@ -231,15 +231,17 @@ MonoBehaviour:
   ObjectDescriptionShort: Mine Field Upgrade
   ObjectDescriptionLong: Additional mines resulting in an increase in damage output.
   Logo: {fileID: 0}
-  BuildTime: 5
+  BuildingTime: 20
   CostSupplies: 200
   CostPower: 100
   CostTechLevel: 1
   CostPopulation: 0
+  _ObjectState: 0
   Team: 0
   _Player: {fileID: 0}
   FogOfWarRadius: 400
   ShowSelectionGUI: 1
+  InQueueState: {fileID: 0}
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 1410691350010598}
   DestroyedState: {fileID: 0}
@@ -249,17 +251,16 @@ MonoBehaviour:
   MaxGarrisonPopulation: 10
   MultiSelectable: 0
   _OffsetY: 2.25
-  _ObjectState: 0
   _WidgetHealthbarScaleX: 100
   _WidgetHealthbarScaleY: 15
   _WidgetHealthbarOffset: 15
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
-  ShowBuildingQueueUI: 0
   ShrinkSpeed: 0.2
   AttachedBuildingSlot: {fileID: 0}
   ObjectHeight: 15
+  HasABuildingQueue: 1
   Selectables:
   - {fileID: 0}
   - {fileID: 0}

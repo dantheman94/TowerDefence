@@ -143,6 +143,7 @@ public class WorldObject : Selectable {
             case WorldObjectStates.InQueue: {
 
                 // Show inqueue state object
+                if (BuildingState) { BuildingState.SetActive(false); }
                 if (InQueueState) { InQueueState.SetActive(true); }
                 if (ActiveState) { ActiveState.SetActive(false); }
                 if (DestroyedState) { DestroyedState.SetActive(false); }
@@ -280,10 +281,7 @@ public class WorldObject : Selectable {
 
         selectionBounds = new Bounds(transform.position, Vector3.zero);
 
-        foreach (Renderer r in GetComponentsInChildren<Renderer>()) {
-
-            selectionBounds.Encapsulate(r.bounds);
-        }
+        foreach (Renderer r in GetComponentsInChildren<Renderer>()) { selectionBounds.Encapsulate(r.bounds); }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -355,13 +353,6 @@ public class WorldObject : Selectable {
             _ClonedWorldObject.Team = plyr.Team;
             _ClonedWorldObject._IsCurrentlySelected = false;
             _CurrentBuildTime = BuildingTime;
-
-            // Add to building queue UI
-            bool radialWheeel = GameManager.Instance._IsRadialMenu;
-            SelectionWheel selectionWheel = null;
-            if (radialWheeel)   { selectionWheel = GameManager.Instance.SelectionWheel.GetComponentInChildren<SelectionWheel>(); }
-            else                { selectionWheel = GameManager.Instance.selectionWindow.GetComponentInChildren<SelectionWheel>(); }
-            selectionWheel.BuildingQueue.AddToQueue(_ClonedWorldObject);
         }
     }
 
@@ -471,7 +462,7 @@ public class WorldObject : Selectable {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  
+    //  Creates a healthbar widget for the object. (This also attachs it to the object afterwards).
     /// </summary>
     /// <param name="thisObject"></param>
     /// <param name="camera"></param>
@@ -497,7 +488,7 @@ public class WorldObject : Selectable {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    /// 
+    //  Sets reference to the object's health bar widget.
     /// </summary>
     /// <param name="healthBar"></param>
     public void SetHealthBar(UnitHealthBar healthBar) { _HealthBar = healthBar; }
@@ -525,7 +516,7 @@ public class WorldObject : Selectable {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  
+    //  Sets the current hitpoints of this object by the amount specified.
     /// </summary>
     /// <param name="value"></param>
     public void SetHitPoints(float value) { _HitPoints = value; }
@@ -605,7 +596,7 @@ public class WorldObject : Selectable {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  
+    //  Returns reference to the current population of garrisoned infantry in this object.s
     /// </summary>
     /// <returns>
     //  int
@@ -617,7 +608,6 @@ public class WorldObject : Selectable {
     /// <summary>
     //  Returns the current height value of the object (used for AI attacking offsets
     //  so they don't shoot at the target's position but actually at the target's 'chest').
-    //
     //  (For buildings, the height should be '0' by default & units auto assign this 
     //  value based off their specified agent height).
     /// </summary>
@@ -629,7 +619,8 @@ public class WorldObject : Selectable {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  
+    //  Returns reference to the amount of SUPPLIES that is to be given
+    //  to the owning player controller when the building is recycled.
     /// </summary>
     /// <returns>
     //  int
@@ -639,7 +630,8 @@ public class WorldObject : Selectable {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  
+    //  Returns reference to the amount of POWER that is to be given
+    //  to the owning player controller when the building is recycled.
     /// </summary>
     /// <returns>
     //  int
@@ -649,7 +641,7 @@ public class WorldObject : Selectable {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     /// <summary>
-    //  
+    //  Sets reference to the "Cloned" object that was created from this prefab.
     /// </summary>
     /// <param name="clone"></param>
     public void SetClonedObject(WorldObject clone) { _ClonedWorldObject = clone; }

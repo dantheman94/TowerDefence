@@ -11,7 +11,7 @@ using UnityEngine.EventSystems;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 23/6/2018
+//  Last edited on: 21/8/2018
 //
 //******************************
 
@@ -30,6 +30,7 @@ public class Building : WorldObject {
     [Space]
     public BuildingSlot AttachedBuildingSlot = null;
     public float ObjectHeight = 15f;
+    public bool HasABuildingQueue = true;
     [Space]
     public List<Abstraction> Selectables;
 
@@ -45,6 +46,7 @@ public class Building : WorldObject {
     private List<Abstraction> _BuildingQueue;
 
     protected bool _IsInBuildingQueue = false;
+    private UI_BuildingQueue _BuildingQueueUI = null;
 
     private bool _RebuildNavmesh = false;
 
@@ -64,7 +66,7 @@ public class Building : WorldObject {
         
         // Initialize
         _ObjectHeight = ObjectHeight;
-        _BuildingQueue = new List<Abstraction>();
+        if (HasABuildingQueue) { _BuildingQueue = new List<Abstraction>(); }
 
         // Create upgrade instances & replace the selectable reference
         for (int i = 0; i < Selectables.Count; i++) {
@@ -100,26 +102,32 @@ public class Building : WorldObject {
         }
 
         // Update building queue
-        if (_BuildingQueue.Count > 0) {
+        if (_BuildingQueue != null) {
 
-            // Check if current building is complete
-            _BuildingQueue[0]._ObjectState = WorldObjectStates.Building;
-            if (_BuildingQueue[0].GetCurrentBuildTimeRemaining() <= 0f) {
+            if (_BuildingQueue.Count > 0) {
 
-                // Remove from queue
-                _BuildingQueue.RemoveAt(0);
-                
-                // Start building next item
-                if (_BuildingQueue.Count > 0) { _BuildingQueue[0].StartBuildingObject(); }
+                // Check if current building is complete
+                _BuildingQueue[0]._ObjectState = WorldObjectStates.Building;
+                if (_BuildingQueue[0].GetCurrentBuildTimeRemaining() <= 0f) {
 
-                // Update building queue UI
-                GameManager.Instance.BuildingQueueHUD.UpdateQueueItemList(this);
+                    // Remove from queue
+                    _BuildingQueue.RemoveAt(0);
+
+                    // Start building next item
+                    if (_BuildingQueue.Count > 0) { _BuildingQueue[0].StartBuildingObject(); }
+
+                    // Update building queue UI
+                    _BuildingQueueUI.UpdateQueueItemList();
+                }
             }
         }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /// <summary>
+    //  Is called during the next frame. (1 frame delay)
+    /// </summary>
     protected void LateUpdate() {
 
         if (_RebuildNavmesh) {
@@ -157,7 +165,7 @@ public class Building : WorldObject {
         }
 
         // Show a wheel with recycle only as the selection (so you can cancel building the world object)
-        else if (_ObjectState == WorldObjectStates.Building) {
+        else if (_ObjectState == WorldObjectStates.Building || _ObjectState == WorldObjectStates.InQueue) {
 
             if (_Player) {
 
@@ -190,7 +198,7 @@ public class Building : WorldObject {
         }
 
         // Update building queue UI
-        GameManager.Instance.BuildingQueueHUD.UpdateQueueItemList(this);
+        if (AttachedBuildingSlot.AttachedBase != null) { AttachedBuildingSlot.AttachedBase._BuildingQueueUI.UpdateQueueItemList(); }
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -220,14 +228,64 @@ public class Building : WorldObject {
 
             // Add to attached base list (if valid)
             Base attachedBase = buildingSlot.AttachedBase;
-            if (attachedBase != null) { attachedBase.AddBuildingToList(building); }
+            if (attachedBase != null) {
+
+                attachedBase.AddBuildingToList(building);
+                attachedBase.AddToQueue(building);
+
+                // Add to queue wrapper
+                if (building._BuildingQueueUI != null) {
+
+                    if (!UI_BuildingQueueWrapper.Instance.ContainsQueue(building._BuildingQueueUI)) { UI_BuildingQueueWrapper.Instance.AddNewQueue(building._BuildingQueueUI); }
+                    building._BuildingQueueUI.transform.SetParent(UI_BuildingQueueWrapper.Instance.QueueListTransform);
+                    building._BuildingQueueUI.gameObject.SetActive(true);
+                }
+                else { building.CreateQueueWidget(); }
+            }
+
+            // Add to attached building list (if valid)
+            Building attachedBuilding = buildingSlot.AttachedBuilding;
+            if (attachedBuilding != null && attachedBase == null) {
+
+                attachedBuilding.AddToQueue(building);
+                    
+                // Add to queue wrapper
+                if (building._BuildingQueueUI != null) {
+
+                    if (!UI_BuildingQueueWrapper.Instance.ContainsQueue(building._BuildingQueueUI)) { UI_BuildingQueueWrapper.Instance.AddNewQueue(building._BuildingQueueUI); }
+                    building._BuildingQueueUI.transform.SetParent(UI_BuildingQueueWrapper.Instance.QueueListTransform);
+                    building._BuildingQueueUI.gameObject.SetActive(true);
+                }
+                else { building.CreateQueueWidget(); }
+            }
         }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    /// 
+    //  Creates the building's personal queue widget 
+    //  (the widget will not display anything until there are items in the queue.
+    /// </summary>
+    public void CreateQueueWidget() {
+
+        // Create queue widget
+        if (_BuildingQueueUI == null) {
+
+            _BuildingQueueUI = Instantiate(UI_BuildingQueueWrapper.Instance.BuildingQueueStencil);
+            _BuildingQueueUI.SetBuildingAttached(this);
+        }
+
+        // Add to wrapper singleton list
+        if (!UI_BuildingQueueWrapper.Instance.ContainsQueue(_BuildingQueueUI)) { UI_BuildingQueueWrapper.Instance.AddNewQueue(_BuildingQueueUI); }
+        _BuildingQueueUI.transform.SetParent(UI_BuildingQueueWrapper.Instance.QueueListTransform);
+        _BuildingQueueUI.gameObject.SetActive(true);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Destroys the building & returns some resources back to the player who owns the building.
     /// </summary>
     public void RecycleBuilding() {
 
@@ -251,13 +309,42 @@ public class Building : WorldObject {
             if (AttachedBuildingSlot.GetBuildingOnSlot()._HealthBar) { ObjectPooling.Despawn(AttachedBuildingSlot.GetBuildingOnSlot()._HealthBar.gameObject); }
             if (AttachedBuildingSlot.GetBuildingOnSlot()._BuildingProgressCounter) { ObjectPooling.Despawn(AttachedBuildingSlot.GetBuildingOnSlot()._BuildingProgressCounter.gameObject); }
 
+            // Remove from queues/lists
+            // Bases
+            if (AttachedBuildingSlot.AttachedBase != null) {
+
+                AttachedBuildingSlot.AttachedBase.RemoveFromQueue(AttachedBuildingSlot.GetBuildingOnSlot());
+                AttachedBuildingSlot.AttachedBase.RemoveFromList(AttachedBuildingSlot.GetBuildingOnSlot());
+
+                if (UI_BuildingQueueWrapper.Instance.ContainsQueue(_BuildingQueueUI)) {
+
+                    UI_BuildingQueueWrapper.Instance.RemoveFromQueue(_BuildingQueueUI);
+                    Destroy(_BuildingQueueUI);
+                }
+            }
+            // Buildings
+            if (AttachedBuildingSlot.AttachedBuilding != null && AttachedBuildingSlot.AttachedBase == null) {
+
+                AttachedBuildingSlot.AttachedBuilding.RemoveFromQueue(AttachedBuildingSlot.GetBuildingOnSlot());
+
+                if (UI_BuildingQueueWrapper.Instance.ContainsQueue(_BuildingQueueUI)) {
+
+                    UI_BuildingQueueWrapper.Instance.RemoveFromQueue(_BuildingQueueUI);
+                    Destroy(_BuildingQueueUI);
+                }
+            }
+
             // Destroy Building
+            if (_BuildingQueueUI != null) { UI_BuildingQueueWrapper.Instance.RemoveFromQueue(_BuildingQueueUI); }
             ObjectPooling.Despawn(AttachedBuildingSlot.GetBuildingOnSlot().gameObject);
         }
 
         // Make building slot available again
         AttachedBuildingSlot.SetBuildingOnSlot(null);
         AttachedBuildingSlot.gameObject.SetActive(true);
+
+        // Update building queue UI
+        if (AttachedBuildingSlot.AttachedBase != null) { AttachedBuildingSlot.AttachedBase._BuildingQueueUI.UpdateQueueItemList(); }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -279,15 +366,21 @@ public class Building : WorldObject {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  
+    //  Adds an abstraction object to the building's personal queue.
     /// </summary>
     /// <param name="queueObject"></param>
-    public void AddToQueue(Abstraction queueObject) { _BuildingQueue.Add(queueObject); }
+    public void AddToQueue(Abstraction queueObject) {
+
+        _BuildingQueue.Add(queueObject);
+
+        if (_BuildingQueueUI == null) { CreateQueueWidget(); }
+        _BuildingQueueUI.UpdateQueueItemList();
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  
+    //  Returns reference to the building's personal queue.
     /// </summary>
     /// <returns>
     //  List<WorldObject>
@@ -303,6 +396,33 @@ public class Building : WorldObject {
     //  bool
     /// </returns>
     public override bool IsInWorld() { return base.IsInWorld() || _ObjectState == WorldObjectStates.InQueue; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Checks to see if THIS building is in the building's queue 
+    //  & removes it from the list if there is a match.
+    /// </summary>
+    /// <param name="queueBuilding"></param>
+    /// <returns>
+    //  bool
+    /// returns>
+    public bool RemoveFromQueue(Building buildingToRemove) {
+
+        // Loop through the queue
+        for (int i = 0; i < GetBuildingQueue().Count; i++) {
+
+            // Reference match?
+            if (GetBuildingQueue()[i] == buildingToRemove) {
+
+                // Remove from the queue
+                GetBuildingQueue().RemoveAt(i);
+                _BuildingQueueUI.UpdateQueueItemList();
+                return true;
+            }
+        }
+        return false;
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

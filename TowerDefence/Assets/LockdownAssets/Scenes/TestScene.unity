@@ -2253,6 +2253,11 @@ Prefab:
       propertyPath: Selectables.Array.data[2]
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 114286593509319122, guid: c4160f4040f7c0845a951b7882352f08,
+        type: 2}
+      propertyPath: HasABuildingQueue
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c4160f4040f7c0845a951b7882352f08, type: 2}
   m_IsPrefabParent: 0
@@ -11989,6 +11994,11 @@ Prefab:
       propertyPath: m_Name
       value: BuildingSlot_Tower (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 114111713111011338, guid: b82553ad6d1ad044f979c7b11d141394,
+        type: 2}
+      propertyPath: AttachedBuilding
+      value: 
+      objectReference: {fileID: 1859223703}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b82553ad6d1ad044f979c7b11d141394, type: 2}
   m_IsPrefabParent: 0
@@ -13174,6 +13184,11 @@ Prefab:
       propertyPath: m_Name
       value: BuildingSlot_Tower (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 114111713111011338, guid: b82553ad6d1ad044f979c7b11d141394,
+        type: 2}
+      propertyPath: AttachedBuilding
+      value: 
+      objectReference: {fileID: 1859223703}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b82553ad6d1ad044f979c7b11d141394, type: 2}
   m_IsPrefabParent: 0
@@ -20319,7 +20334,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &693475048
 RectTransform:
   m_ObjectHideFlags: 0
@@ -20336,9 +20351,9 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -55}
-  m_SizeDelta: {x: 0, y: 110}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 800, y: 110}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &693475050
 CanvasRenderer:
@@ -22240,6 +22255,11 @@ Prefab:
       propertyPath: m_Name
       value: BuildingSlot_Tower (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 114111713111011338, guid: b82553ad6d1ad044f979c7b11d141394,
+        type: 2}
+      propertyPath: AttachedBuilding
+      value: 
+      objectReference: {fileID: 1859223703}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b82553ad6d1ad044f979c7b11d141394, type: 2}
   m_IsPrefabParent: 0
@@ -24655,6 +24675,7 @@ MonoBehaviour:
   ShrinkSpeed: 0.2
   AttachedBuildingSlot: {fileID: 0}
   ObjectHeight: 50
+  HasABuildingQueue: 0
   Selectables:
   - {fileID: 0}
   - {fileID: 0}
@@ -26450,6 +26471,11 @@ Prefab:
       propertyPath: m_Name
       value: BuildingSlot_Tower (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 114111713111011338, guid: b82553ad6d1ad044f979c7b11d141394,
+        type: 2}
+      propertyPath: AttachedBuilding
+      value: 
+      objectReference: {fileID: 1859223703}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b82553ad6d1ad044f979c7b11d141394, type: 2}
   m_IsPrefabParent: 0
@@ -28111,6 +28137,7 @@ MonoBehaviour:
   ShrinkSpeed: 0.2
   AttachedBuildingSlot: {fileID: 0}
   ObjectHeight: 50
+  HasABuildingQueue: 0
   Selectables:
   - {fileID: 0}
   - {fileID: 0}
@@ -37384,6 +37411,7 @@ MonoBehaviour:
   ShrinkSpeed: 0.2
   AttachedBuildingSlot: {fileID: 0}
   ObjectHeight: 50
+  HasABuildingQueue: 0
   Selectables:
   - {fileID: 0}
   - {fileID: 0}
@@ -38349,10 +38377,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1162486525421322, guid: c4c393ebdeccc4a49a63075ada35ffff, type: 2}
-      propertyPath: m_Name
-      value: Game Manager
-      objectReference: {fileID: 0}
     - target: {fileID: 114378756795125336, guid: c4c393ebdeccc4a49a63075ada35ffff,
         type: 2}
       propertyPath: FlyingNavMesh
@@ -38440,6 +38464,11 @@ Prefab:
       objectReference: {fileID: 375332676}
     - target: {fileID: 114378756795125336, guid: c4c393ebdeccc4a49a63075ada35ffff,
         type: 2}
+      propertyPath: BuildingQueueHUD
+      value: 
+      objectReference: {fileID: 1399237447}
+    - target: {fileID: 114378756795125336, guid: c4c393ebdeccc4a49a63075ada35ffff,
+        type: 2}
       propertyPath: MatchResultsHUD
       value: 
       objectReference: {fileID: 851527702}
@@ -38448,11 +38477,10 @@ Prefab:
       propertyPath: PreloadGameObjects.Array.data[0].gameObject
       value: 
       objectReference: {fileID: 1358827862}
-    - target: {fileID: 114378756795125336, guid: c4c393ebdeccc4a49a63075ada35ffff,
-        type: 2}
-      propertyPath: BuildingQueueHUD
-      value: 
-      objectReference: {fileID: 693475051}
+    - target: {fileID: 1162486525421322, guid: c4c393ebdeccc4a49a63075ada35ffff, type: 2}
+      propertyPath: m_Name
+      value: Game Manager
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c4c393ebdeccc4a49a63075ada35ffff, type: 2}
   m_IsPrefabParent: 0
@@ -39282,6 +39310,11 @@ Prefab:
       propertyPath: m_Name
       value: BuildingSlot_Tower (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 114111713111011338, guid: b82553ad6d1ad044f979c7b11d141394,
+        type: 2}
+      propertyPath: AttachedBuilding
+      value: 
+      objectReference: {fileID: 1859223703}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b82553ad6d1ad044f979c7b11d141394, type: 2}
   m_IsPrefabParent: 0
@@ -46377,6 +46410,7 @@ MonoBehaviour:
   ShrinkSpeed: 0.2
   AttachedBuildingSlot: {fileID: 0}
   ObjectHeight: 60
+  HasABuildingQueue: 1
   Selectables:
   - {fileID: 0}
   - {fileID: 0}
@@ -46617,10 +46651,10 @@ RectTransform:
   m_Father: {fileID: 1399237446}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1877104599
 GameObject:
@@ -50545,6 +50579,11 @@ Prefab:
       propertyPath: m_Name
       value: BuildingSlot_Tower (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 114111713111011338, guid: b82553ad6d1ad044f979c7b11d141394,
+        type: 2}
+      propertyPath: AttachedBuilding
+      value: 
+      objectReference: {fileID: 1859223703}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b82553ad6d1ad044f979c7b11d141394, type: 2}
   m_IsPrefabParent: 0

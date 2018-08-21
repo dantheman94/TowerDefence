@@ -26,6 +26,7 @@ public class BuildingSlot : WorldObject {
     [Space]
     public bool OnlyAppearWhenAttachedToBase = false;
     public Base AttachedBase = null;
+    public Building AttachedBuilding = null;
     [Space]
     public List<BuildingSlot> LinkedSlots;
     [Space]

@@ -36,6 +36,7 @@ public class UI_BuildingQueue : MonoBehaviour {
     //
     //******************************************************************************************************************************
 
+    private Building _BuildingAttached = null;
     private float _ItemOffset = 45;
     private List<UI_BuildingQueueItem> _Items;
 
@@ -68,21 +69,30 @@ public class UI_BuildingQueue : MonoBehaviour {
     //  
     /// </summary>
     /// <param name="buildingInstigator"></param>
-    public void UpdateQueueItemList(Building buildingInstigator = null) {
+    public void UpdateQueueItemList() {
 
         // Clear the list
-        if (_Items.Count > 0)       { _Items.Clear(); }
-        for (int i = 0; i < ListTransform.childCount; i++) { Destroy(ListTransform.GetChild(i).gameObject); }
+        if (_Items != null) {
+
+            if (_Items.Count > 0) { _Items.Clear(); }
+            for (int i = 0; i < ListTransform.childCount; i++) { Destroy(ListTransform.GetChild(i).gameObject); }
+        }
+        else {
+
+            // Reinitialize precaution
+            Start();
+            UpdateQueueItemList();
+        }
 
         // Replace with current building queue items
-        if (buildingInstigator != null) {
+        if (_BuildingAttached != null) {
 
             // Add current items
-            for (int i = 0; i < buildingInstigator.GetBuildingQueue().Count; i++) {
+            for (int i = 0; i < _BuildingAttached.GetBuildingQueue().Count; i++) {
 
-                AddToQueue(buildingInstigator.GetBuildingQueue()[i]);
+                AddToQueue(_BuildingAttached.GetBuildingQueue()[i]);
             }
-        }
+        }        
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -122,11 +132,18 @@ public class UI_BuildingQueue : MonoBehaviour {
                 y = StartingPositionY;
                 
                 rect.anchoredPosition = new Vector2(x, y);
-
             }
             queueItem.gameObject.SetActive(true);
         }
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="building"></param>
+    public void SetBuildingAttached(Building building) { _BuildingAttached = building; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
