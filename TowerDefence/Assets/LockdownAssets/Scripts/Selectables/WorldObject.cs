@@ -371,7 +371,7 @@ public class WorldObject : Selectable {
     protected virtual void OnBuilt() {
 
         // Send message to match feed
-        MatchFeed.Instance.AddMessage(string.Concat(ObjectName, " built."));
+        MatchFeed.Instance.AddMessage(string.Concat(ObjectName, " constructed."));
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -411,6 +411,9 @@ public class WorldObject : Selectable {
         // Clamping health
         _HitPoints = 0;
         _Health = 0f;
+        
+        // Send message to match feed
+        MatchFeed.Instance.AddMessage(string.Concat(ObjectName, " destroyed."));
 
         // Delay then despawn
         StartCoroutine(DelayedShrinking(3f));

@@ -360,8 +360,8 @@ public class WaveManager : MonoBehaviour {
         int subwaves = _CurrentWaveInfo.Subwaves;
         if (subwaves == 0)  { _TimeTillNextSubwave = _TimeTillNextWave; }
         else                { _TimeTillNextSubwave = _TimeTillNextWave / subwaves; }
-        Debug.Log("Amount of subwaves: " + subwaves);
-        Debug.Log("Time till next subwave: " + _TimeTillNextSubwave);
+        ///Debug.Log("Amount of subwaves: " + subwaves);
+        ///Debug.Log("Time till next subwave: " + _TimeTillNextSubwave);
 
         // Set the waves lives to max
         for (int i = 0; i < _CurrentWaveInfo.Enemies.Count; i++) {

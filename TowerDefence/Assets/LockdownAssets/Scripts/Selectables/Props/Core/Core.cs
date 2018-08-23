@@ -23,7 +23,6 @@ public class Core : Building {
     [Header("-----------------------------------")]
     [Header(" CORE PROPERTIES")]
     [Space]
-    public GameObject MinimapQuad = null;
     public float SeekSphereRadius = 80f;
 
     [Space]
@@ -31,15 +30,7 @@ public class Core : Building {
     [Header(" SPIRES")]
     [Space]
     public List<Spire> Spires;
-
-    //******************************************************************************************************************************
-    //
-    //      VARIABLES
-    //
-    //******************************************************************************************************************************
-
-    private Renderer _MinimapRenderer;
-
+    
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
@@ -53,12 +44,6 @@ public class Core : Building {
     /// </summary>
     protected override void Start() {
         base.Start();
-
-        // Get component references
-        if (MinimapQuad != null) { _MinimapRenderer = MinimapQuad.GetComponent<Renderer>(); }
-
-        // Set minimap icon colour to blue
-        if (_MinimapRenderer != null) { _MinimapRenderer.material.color = Color.blue; }
 
         // Initialize spires
         for (int i = 0; i < Spires.Count; i++) {

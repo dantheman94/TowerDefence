@@ -34,6 +34,12 @@ public class Building : WorldObject {
     [Space]
     public List<Abstraction> Selectables;
 
+    [Space]
+    [Header("-----------------------------------")]
+    [Header(" MINIMAP PROPERTIES")]
+    [Space]
+    public GameObject QuadMinimap = null;
+
     //******************************************************************************************************************************
     //
     //      VARIABLES
@@ -49,6 +55,8 @@ public class Building : WorldObject {
     private UI_BuildingQueue _BuildingQueueUI = null;
 
     private bool _RebuildNavmesh = false;
+
+    private Renderer _MinimapQuadRenderer;
 
     //******************************************************************************************************************************
     //
@@ -83,6 +91,9 @@ public class Building : WorldObject {
                 }
             }
         }
+
+        // Get component references
+        if (QuadMinimap != null) { _MinimapQuadRenderer = QuadMinimap.GetComponent<Renderer>(); }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -119,6 +130,20 @@ public class Building : WorldObject {
                     // Update building queue UI
                     _BuildingQueueUI.UpdateQueueItemList();
                 }
+            }
+        }
+
+        // Change minimap colour based on attacking/defending & team colour
+        if (_MinimapQuadRenderer != null) {
+
+            // Attacking team colour
+            if (Team == GameManager.Team.Attacking) { _MinimapQuadRenderer.material.color = WaveManager.Instance.AttackingTeamColour; }
+
+            // Defending team
+            else if (Team == GameManager.Team.Defending) {
+
+                // Use individual player colour
+                if (_Player) { _MinimapQuadRenderer.material.color = _Player.TeamColor; }
             }
         }
     }
@@ -268,6 +293,9 @@ public class Building : WorldObject {
                     }
                     else { building.CreateQueueWidget(); }
                 }
+
+                // Send message to match feed
+                MatchFeed.Instance.AddMessage(string.Concat(ObjectName, " added to queue."));
             }
             
             // Skip the queue process and start building the object immediately
@@ -359,6 +387,9 @@ public class Building : WorldObject {
             // Destroy Building
             if (_BuildingQueueUI != null) { UI_BuildingQueueWrapper.Instance.RemoveFromQueue(_BuildingQueueUI); }
             ObjectPooling.Despawn(AttachedBuildingSlot.GetBuildingOnSlot().gameObject);
+
+            // Send message to match feed
+            MatchFeed.Instance.AddMessage(string.Concat(ObjectName, " recycled."));
         }
 
         // Make building slot available again

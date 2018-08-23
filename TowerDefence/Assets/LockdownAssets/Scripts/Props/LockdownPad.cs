@@ -7,7 +7,7 @@ using UnityEngine;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 19/7/2018
+//  Last edited on: 23/8/2018
 //
 //******************************
 
@@ -60,6 +60,28 @@ public class LockdownPad : MonoBehaviour {
 
         // Set minimap icon colour to red
         if (_MinimapRenderer != null) { _MinimapRenderer.material.color = WaveManager.Instance.AttackingTeamColour; }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Called each frame.
+    /// </summary>
+    private void Update() {
+        
+        // No base on the slot
+        if (BuildingSlotAttached.AttachedBase == null) {
+
+            // Remove from waves manager
+            WaveManager.Instance.LockdownPads.Remove(this);
+        }
+
+        // No attacking team base on the slot
+        else if (BuildingSlotAttached.AttachedBase.Team != GameManager.Team.Attacking) {
+
+            // Remove from waves manager
+            WaveManager.Instance.LockdownPads.Remove(this);
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

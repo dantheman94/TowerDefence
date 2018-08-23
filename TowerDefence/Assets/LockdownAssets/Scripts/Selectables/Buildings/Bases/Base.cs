@@ -126,72 +126,75 @@ public class Base : Building {
         float hitpoints = MaxHitPoints;
 
         // Only proceed if there was a previous building and we are upgrading from that
-        Base newBase = _ClonedWorldObject.GetComponent<Base>();
-        if (newBase._PreviousBase != null) {
+        if (_ClonedWorldObject != null) {
 
-            // Remove old healthbar (if valid)
+            Base newBase = _ClonedWorldObject.GetComponent<Base>();
             if (newBase._PreviousBase != null) {
 
-                hitpoints = _PreviousBase._HitPoints;
-                if (newBase._PreviousBase._HealthBar != null) { ObjectPooling.Despawn(newBase._PreviousBase._HealthBar.gameObject); }
-            }
+                // Remove old healthbar (if valid)
+                if (newBase._PreviousBase != null) {
 
-            // Update player ref
-            _ClonedWorldObject._Player = newBase._PreviousBase._Player;
-
-            // Set the new bases queued/building state object to be the currently active base
-            _ClonedWorldObject.InQueueState = newBase._PreviousBase.gameObject;
-            _ClonedWorldObject.BuildingState = newBase._PreviousBase.gameObject;
-
-            // Get references to all the buildings that were in the previous base & allocate them to the new one
-            // Depot/Generator slots
-            for (int i = 0; i < newBase.DepotSlots.Count; i++) {
-
-                // Only go as far as the previous bases slot size
-                if (i < newBase._PreviousBase.DepotSlots.Count) {
-
-                    // Reallocate building to new base (if there is one)
-                    if (newBase._PreviousBase.DepotSlots[i] != null) {
-
-                        // Send building to new base
-                        newBase.DepotSlots[i].SetBuildingOnSlot(newBase._PreviousBase.DepotSlots[i].GetBuildingOnSlot());
-                        newBase._PreviousBase.DepotSlots[i].SetBuildingOnSlot(null);
-                    }
-                    else { continue; }
+                    hitpoints = _PreviousBase._HitPoints;
+                    if (newBase._PreviousBase._HealthBar != null) { ObjectPooling.Despawn(newBase._PreviousBase._HealthBar.gameObject); }
                 }
-                else { break; }
-            }
 
-            // Tower slots
-            for (int i = 0; i < newBase.TowerSlots.Count; i++) {
+                // Update player ref
+                _ClonedWorldObject._Player = newBase._PreviousBase._Player;
 
-                // Only go as far as the previous bases slot size
-                if (i < newBase._PreviousBase.TowerSlots.Count) {
+                // Set the new bases queued/building state object to be the currently active base
+                _ClonedWorldObject.InQueueState = newBase._PreviousBase.gameObject;
+                _ClonedWorldObject.BuildingState = newBase._PreviousBase.gameObject;
 
-                    // Reallocate tower to new base (if there is one)
-                    if (newBase._PreviousBase.TowerSlots[i] != null) {
+                // Get references to all the buildings that were in the previous base & allocate them to the new one
+                // Depot/Generator slots
+                for (int i = 0; i < newBase.DepotSlots.Count; i++) {
 
-                        // Send tower to new base
-                        newBase.TowerSlots[i].SetBuildingOnSlot(_PreviousBase.TowerSlots[i].GetBuildingOnSlot());
-                        newBase._PreviousBase.TowerSlots[i].SetBuildingOnSlot(null);
+                    // Only go as far as the previous bases slot size
+                    if (i < newBase._PreviousBase.DepotSlots.Count) {
+
+                        // Reallocate building to new base (if there is one)
+                        if (newBase._PreviousBase.DepotSlots[i] != null) {
+
+                            // Send building to new base
+                            newBase.DepotSlots[i].SetBuildingOnSlot(newBase._PreviousBase.DepotSlots[i].GetBuildingOnSlot());
+                            newBase._PreviousBase.DepotSlots[i].SetBuildingOnSlot(null);
+                        }
+                        else { continue; }
                     }
-                    else { continue; }
+                    else { break; }
                 }
-                else { break; }
+
+                // Tower slots
+                for (int i = 0; i < newBase.TowerSlots.Count; i++) {
+
+                    // Only go as far as the previous bases slot size
+                    if (i < newBase._PreviousBase.TowerSlots.Count) {
+
+                        // Reallocate tower to new base (if there is one)
+                        if (newBase._PreviousBase.TowerSlots[i] != null) {
+
+                            // Send tower to new base
+                            newBase.TowerSlots[i].SetBuildingOnSlot(_PreviousBase.TowerSlots[i].GetBuildingOnSlot());
+                            newBase._PreviousBase.TowerSlots[i].SetBuildingOnSlot(null);
+                        }
+                        else { continue; }
+                    }
+                    else { break; }
+                }
+
+                // Pass the building queue to the new building
+                for (int i = 0; i < newBase._PreviousBase.GetBuildingQueue().Count; i++) {
+
+                    newBase.AddToQueue(newBase._PreviousBase.GetBuildingQueue()[i]);
+                }
             }
 
-            // Pass the building queue to the new building
-            for (int i = 0; i < newBase._PreviousBase.GetBuildingQueue().Count; i++) {
+            // Update attached base reference
+            if (buildingSlot != null) { buildingSlot.AttachedBase = _ClonedWorldObject.GetComponent<Base>(); }
 
-                newBase.AddToQueue(newBase._PreviousBase.GetBuildingQueue()[i]);
-            }
+            // Update new bases health with the old bases health
+            _ClonedWorldObject.SetHitPoints(hitpoints);
         }
-
-        // Update attached base reference
-        if (buildingSlot != null) { buildingSlot.AttachedBase = _ClonedWorldObject.GetComponent<Base>(); }
-
-        // Update new bases health with the old bases health
-        _ClonedWorldObject.SetHitPoints(hitpoints);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -84,7 +84,13 @@ public class Abstraction : MonoBehaviour {
     /// <summary>
     //  
     /// </summary>
-    public virtual void StartBuildingObject(BuildingSlot buildingSlot = null) { _ObjectState = WorldObjectStates.Building; }
+    public virtual void StartBuildingObject(BuildingSlot buildingSlot = null) {
+
+        _ObjectState = WorldObjectStates.Building;
+
+        // Send message to match feed
+        MatchFeed.Instance.AddMessage(string.Concat(ObjectName, " started construction."));
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

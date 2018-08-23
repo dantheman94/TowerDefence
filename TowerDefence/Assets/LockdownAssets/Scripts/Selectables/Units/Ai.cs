@@ -103,6 +103,16 @@ public class Ai : WorldObject {
 
         if (_IsFollowingPlayerCommand) { UpdatePlayerOverrideCheck(); }
         if (_IsReturningToOrigin) { ResetToOriginPosition(); }
+
+        // Always attack the core if we dont have a target
+        if (Team == GameManager.Team.Attacking) {
+
+            if (_AttackTarget == null) {
+
+                AddPotentialTarget(WaveManager.Instance.CentralCore.GetAttackObject());
+                DetermineWeightedTargetFromList(TargetWeights);
+            }
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

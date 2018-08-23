@@ -44,35 +44,47 @@ public class GameManager : MonoBehaviour {
 
     [Space]
     [Header("-----------------------------------")]
-    [Header(" HEADS UP DISPLAY")]
+    [Header(" USER INTERFACE")]
     [Space]
     public GameObject HUDWrapper;
     public Canvas WorldSpaceCanvas;
     public Canvas ScreenSpaceCanvas;
     [Space]
-    public CinematicBars CinematicBars;
+    public GameObject AgentSeekObject;
     [Space]
+    [Header("-----------------------------------")]
+    [Header(" HUD")]
+    [Space]
+    public CinematicBars CinematicBars;
     public bool _IsRadialMenu = false;
     public GameObject SelectionWheel;
     public GameObject selectionWindow;
     public GameObject ConfirmRecycleScreen;
     public GameObject AbilityWheel;
     [Space]
+    public UI_SelectedUnits SelectedUnitsHUD;
+    public UI_PlatoonUnits PlatoonUnitsHUD;
+    public UI_WaveStats WaveStatsHUD;
+    public UI_BuildingQueueWrapper BuildingQueueHUD;
+    [Space]
+    [Header("-----------------------------------")]
+    [Header(" PROGRESS BARS")]
+    [Space]
     public GameObject UnitHealthBar;
     public GameObject BuildingInProgressPanel;
     public GameObject CaptureProgressPanel;
     [Space]
+    [Header("-----------------------------------")]
+    [Header(" MISCELLANEOUS")]
+    [Space]
     public GameObject RecycleBuilding;
     public GameObject ObjectSelected;
     public GameObject ObjectHighlighted;
-    public GameObject AgentSeekObject;
+    [Header("-----------------------------------")]
+    [Header(" SCREENS")]
     [Space]
-    public UI_SelectedUnits SelectedUnitsHUD;
-    public UI_PlatoonUnits PlatoonUnitsHUD;
-    public UI_WaveStats WaveStatsHUD;
-    public UI_GameOver GameOverHUD;
-    public UI_BuildingQueueWrapper BuildingQueueHUD;
-    public MatchResults MatchResultsHUD;
+    public UI_PauseWidget PauseWidget;
+    public UI_GameOver GameOverWidget;
 
     [Space]
     [Header("-----------------------------------")]
@@ -133,6 +145,7 @@ public class GameManager : MonoBehaviour {
     private bool _ManuallyControllingAUnit = false;
     private bool _GameOver = false;
     private bool _MatchVictory = false;
+    private bool _GameIsPaused = false;
     
     //******************************************************************************************************************************
     //
@@ -204,6 +217,68 @@ public class GameManager : MonoBehaviour {
         // Update menu type
         if (!_IsRadialMenu) { SelectionWheel = selectionWindow; }
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Called once when the game is over
+    /// </summary>
+    public void OnGameover() {
+
+        Time.timeScale = 0f;
+        _GameOver = true;
+
+        if (GameOverWidget != null) {
+
+            // Show widget and play game over UI animation
+            GameOverWidget.gameObject.SetActive(true);
+            GameOverWidget.OnGameOver();
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    public void OnPause() {
+
+        Time.timeScale = 0f;
+        _GameIsPaused = true;
+
+        // Show pause widget
+        if (PauseWidget != null) { PauseWidget.gameObject.SetActive(true); }
+
+        // Hide ingame HUD
+        if (HUDWrapper != null) { HUDWrapper.gameObject.SetActive(false); }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    public void OnUnpause() {
+
+        Time.timeScale = 1f;
+        _GameIsPaused = false;
+
+        // Hide pause widget
+        if (PauseWidget != null) { PauseWidget.gameObject.SetActive(false); }
+
+        // Show ingame HUD
+        if (HUDWrapper != null) { HUDWrapper.gameObject.SetActive(true); }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <returns>
+    //  
+    /// </returns>
+    public bool IsGamePause() { return _GameIsPaused; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -282,7 +357,7 @@ public class GameManager : MonoBehaviour {
     public void GameOver() {
 
         // Show the game over notification screen
-        GameOverHUD.gameObject.SetActive(true);
+        GameOverWidget.gameObject.SetActive(true);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

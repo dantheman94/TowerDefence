@@ -198,7 +198,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1451109839115348
 GameObject:
   m_ObjectHideFlags: 1
@@ -298,7 +298,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1632785531051458
 GameObject:
   m_ObjectHideFlags: 1
@@ -472,7 +472,7 @@ Transform:
   m_GameObject: {fileID: 1857399623730000}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 20, y: 20, z: 1}
+  m_LocalScale: {x: 40, y: 40, z: 1}
   m_Children: []
   m_Father: {fileID: 4178686464863436}
   m_RootOrder: 2
@@ -500,7 +500,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1364828568622108}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -39.897423, y: 0, z: -171.09242}
+  m_LocalPosition: {x: -141.2165, y: -6.961801e-17, z: 96.37215}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4178686464863436}
@@ -1707,15 +1707,17 @@ MonoBehaviour:
     capabilities to opposing ground units. Main cannon cannot attack air units by
     default, but the tank can be upgrade to support air unit combat capabilities.
   Logo: {fileID: 0}
-  BuildTime: 3
+  BuildingTime: 20
   CostSupplies: 750
   CostPower: 50
   CostTechLevel: 3
   CostPopulation: 8
+  _ObjectState: 0
   Team: 0
   _Player: {fileID: 0}
   FogOfWarRadius: 400
   ShowSelectionGUI: 1
+  InQueueState: {fileID: 0}
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 1631074540637170}
   DestroyedState: {fileID: 0}
@@ -1725,14 +1727,12 @@ MonoBehaviour:
   MaxGarrisonPopulation: 10
   MultiSelectable: 1
   _OffsetY: 0
-  _ObjectState: 0
   _WidgetHealthbarScaleX: 200
   _WidgetHealthbarScaleY: 15
   _WidgetHealthbarOffset: 15
   _WidgetShieldbarScaleX: 200
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
-  ShowBuildingQueueUI: 1
   ShrinkSpeed: 0.3
   _ChasingDistance: 30
   TargetWeights:
@@ -1771,6 +1771,7 @@ MonoBehaviour:
   MaxAttackingRange: 100
   IdealAttackRangeMax: 80
   IdealAttackRangeMin: 40
+  CanBeStunned: 0
   WeaponObject: {fileID: 1818383497240308}
   Acceleration: 5
   Deceleration: 2

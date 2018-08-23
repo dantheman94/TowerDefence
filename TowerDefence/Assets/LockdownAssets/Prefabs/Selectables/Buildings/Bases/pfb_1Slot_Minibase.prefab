@@ -261,7 +261,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1436160660344852}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10.6826935, y: 45.5, z: -146.88954}
+  m_LocalPosition: {x: -223.92139, y: 4.0164764e-17, z: 794.01404}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4049379426001726}
@@ -718,18 +718,20 @@ MonoBehaviour:
   ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 0
   AttachedBase: {fileID: 114947448389047210}
+  AttachedBuilding: {fileID: 0}
+  ObjectsCreatedAreQueued: 1
   LinkedSlots: []
   Buildings:
   - {fileID: 0}
+  - {fileID: 114346840076971176, guid: 318af2593dae43f49b3ad5386de9d721, type: 2}
+  - {fileID: 114017345909741574, guid: 04c64a5c69b88bd4baabd0d85f77b558, type: 2}
+  - {fileID: 114306093193310104, guid: 6465691795d88d5428c690933f8fa003, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 114951768522124020, guid: 7a49f022dbc88594ca3d350493ad7107, type: 2}
+  - {fileID: 114962387785300862, guid: e3c54a520ddcdc440aa7794768b47d71, type: 2}
+  - {fileID: 114556115896821994, guid: a924b60d8e0df404ca14707de2f3e32e, type: 2}
 --- !u!114 &114947448389047210
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -774,8 +776,9 @@ MonoBehaviour:
   ShrinkSpeed: 0.2
   AttachedBuildingSlot: {fileID: 0}
   ObjectHeight: 30
+  HasABuildingQueue: 1
   Selectables:
-  - {fileID: 0}
+  - {fileID: 114878690511021116, guid: 9502e9a3761bb2247b59cc9694566488, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

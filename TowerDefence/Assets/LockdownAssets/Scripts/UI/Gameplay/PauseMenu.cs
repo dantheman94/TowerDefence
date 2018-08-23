@@ -23,8 +23,7 @@ public class PauseMenu : MonoBehaviour {
     //******************************************************************************************************************************
 
     public GameObject PauseMenuObject;
-    public GameObject SettingsMenuObject;
-    
+    public GameObject SettingsMenuObject;    
 
     //******************************************************************************************************************************
     //
@@ -34,6 +33,7 @@ public class PauseMenu : MonoBehaviour {
 
     private bool _IsPaused = false;
     private bool _DisplaySettings = false;
+
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
@@ -61,13 +61,13 @@ public class PauseMenu : MonoBehaviour {
                     if (_IsPaused)
                     {
                         _IsPaused = false;
-                        PauseMenuObject.SetActive(false);
+                        gameObject.SetActive(false);
                         Time.timeScale = 1;
                     }
                     else
                     {
                         _IsPaused = true;
-                        PauseMenuObject.SetActive(true);
+                        gameObject.SetActive(true);
                         Time.timeScale = 0;
                     }
                 }

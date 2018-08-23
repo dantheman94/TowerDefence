@@ -25,6 +25,9 @@ public class UI_GameOver : MonoBehaviour {
     [Header(" TEXT COMPONENTS")]
     [Space]
     public Text TextMatchResult = null;
+    public float TimeTillDetailsShow = 3f;
+    [Space]
+    public GameObject MatchDetailsPanel = null;
     public Text TextScore = null;
     public Text TextWavesSurvived = null;
     public Text TextDifficulty = null;
@@ -34,6 +37,9 @@ public class UI_GameOver : MonoBehaviour {
     //      VARIABLES
     //
     //******************************************************************************************************************************
+
+    private float _GameOverDetailsTimer = 0f;
+    private bool _GameOverTimerActive = false;
 
     //******************************************************************************************************************************
     //
@@ -48,26 +54,59 @@ public class UI_GameOver : MonoBehaviour {
     /// </summary>
     private void Update() {
 
-        // Update match result
-        if (TextMatchResult != null) {
+        // When widget is active
+        if (gameObject.activeInHierarchy) {
 
-            string result;
-            if (GameManager.Instance.GetMatchVictory()) { result = "VICTORY"; }
-            else { result = "DEFEAT"; }
+            // Update details panel visibilty
+            if (_GameOverTimerActive && _GameOverDetailsTimer < TimeTillDetailsShow) {
 
-            TextMatchResult.text = result;
+                // Add to timer
+                _GameOverDetailsTimer += Time.fixedUnscaledDeltaTime;
+                if (_GameOverDetailsTimer >= TimeTillDetailsShow) {
+
+                    // Show details panel
+                    if (MatchDetailsPanel != null) { MatchDetailsPanel.SetActive(true); }
+
+                    // Stop timer
+                    _GameOverTimerActive = false;
+                }
+            } 
+
+            // Update match result
+            if (TextMatchResult != null) {
+
+                string result;
+                if (GameManager.Instance.GetMatchVictory()) { result = "VICTORY"; }
+                else { result = "DEFEAT"; }
+
+                TextMatchResult.text = result;
+            }
+
+            // Update player score
+            if (TextScore != null) { TextScore.text = GameManager.Instance.Players[0].GetScore().ToString(); }
+
+            // Update waves survived
+            if (TextWavesSurvived != null) { TextWavesSurvived.text = string.Concat(WaveManager.Instance.GetWaveCount() - 1).ToString(); }
+
+            // Update difficulty text
+            if (TextDifficulty != null) { TextDifficulty.text = DifficultyManager.Instance.CurrentDifficulty.ToString(); }
         }
-
-        // Update player score
-        if (TextScore != null) { TextScore.text = GameManager.Instance.Players[0].GetScore().ToString(); }
-
-        // Update waves survived
-        if (TextWavesSurvived != null) { TextWavesSurvived.text = string.Concat(WaveManager.Instance.GetWaveCount() - 1).ToString(); }
-
-        // Update difficulty text
-        if (TextDifficulty != null) { TextDifficulty.text = DifficultyManager.Instance.CurrentDifficulty.ToString(); }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /// <summary>
+    //  Called once when the match is over.
+    /// </summary>
+    public void OnGameOver() {
+
+        // Hide details panel
+        if (MatchDetailsPanel != null) { MatchDetailsPanel.SetActive(false); }
+
+        // Start the details panel timer
+        _GameOverTimerActive = true;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
 }

@@ -7,13 +7,13 @@ using UnityEngine.UI;
 //
 //  Created by: Angus Secomb
 //
-//  Last edited by: Angus Secomb
-//  Last edited on: 7/08/2018
+//  Last edited by: Daniel Marton
+//  Last edited on: 23/8/2018
 //
 //******************************
 
 
-public class MatchResults : MonoBehaviour {
+public class UI_MatchResults : MonoBehaviour {
 
     //******************************************************************************************************************************
     //
@@ -21,11 +21,17 @@ public class MatchResults : MonoBehaviour {
     //
     //******************************************************************************************************************************
 
-    public GameObject EndScreenObject;
+    [Space]
+    [Header("-----------------------------------")]
+    [Header(" GAME OVER PROPERTIES")]
+    [Space]
+    public GameObject GameOverWidget;
+    [Space]
+    public Text OutcomeText;
+    [Space]
     public Text ScoreText;
     public Text WaveText;
     public Text DifficultyText;
-    public Text OutcomeText;
 
     //******************************************************************************************************************************
     //
@@ -44,20 +50,16 @@ public class MatchResults : MonoBehaviour {
     //
     //******************************************************************************************************************************
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    // Use this for initialization
-    void Start () {
-    //    _IsGameOver = true;
-	}
+    /// <summary>
+    //  Called each frame. 
+    /// </summary>
+    void Update () {
 
-    /////////////////////////////////////////////////////////////////////
-	
-	// Update is called once per frame
-	void Update () {
- //       _IsGameOver = GameManager.Instance.GetGameOverState();
+        // _IsGameOver = GameManager.Instance.GetGameOverState();
 
-
-        if(_IsGameOver)
+        if (_IsGameOver)
         {
             DisplayEndScreen();
             Leaderboard.Instance.OnGameOver();
@@ -66,14 +68,14 @@ public class MatchResults : MonoBehaviour {
 	}
 
     /// <summary>
-    /// Sets game over to true.
+    //   Sets game over to true.
     /// </summary>
     public void SetGameOver() { _IsGameOver = true; }
 
-    /////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    /// Displays end screen hud components
+    //  Displays end screen hud components.
     /// </summary>
     void DisplayEndScreen()
     {
@@ -92,10 +94,11 @@ public class MatchResults : MonoBehaviour {
             OutcomeText.color = Color.red;
             OutcomeText.text = _Player.Outcome;
         }
-    
-     
-
-        EndScreenObject.SetActive(true);
+       
+        GameOverWidget.SetActive(true);
         Time.timeScale = 0;
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 }

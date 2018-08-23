@@ -130,7 +130,7 @@ public class Projectile : MonoBehaviour {
             _WeaponLookRotation = Quaternion.LookRotation(_DirectionToTarget);
 
             // Rotate us over time according to speed until we are in the required rotation
-            transform.rotation = Quaternion.LerpUnclamped(transform.rotation, _WeaponLookRotation, TrackingStrength * Time.deltaTime);
+            transform.rotation = Quaternion.Lerp(transform.rotation, _WeaponLookRotation, TrackingStrength * Time.deltaTime);
         }
     }
 
@@ -194,7 +194,7 @@ public class Projectile : MonoBehaviour {
         GameObject gameObj = collision.gameObject;
         WorldObject worldObj = gameObj.GetComponentInParent<WorldObject>();
 
-        if (gameObj.layer == LayerMask.NameToLayer("Ignore Raycast")) { return; }
+        ///if (gameObj.layer == LayerMask.NameToLayer("Ignore Raycast")) { return; }
 
         // Successful WorldObject cast
         if (worldObj != null) {
@@ -252,7 +252,7 @@ public class Projectile : MonoBehaviour {
         GameObject gameObj = other.gameObject;
         WorldObject worldObj = gameObj.GetComponentInParent<WorldObject>();
 
-        if (gameObj.layer == LayerMask.NameToLayer("Ignore Raycast")) { return; }
+        ///if (gameObj.layer == LayerMask.NameToLayer("Ignore Raycast")) { return; }
 
         // Successful WorldObject cast
         if (worldObj != null) {

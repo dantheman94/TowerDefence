@@ -54,7 +54,7 @@ Transform:
   m_GameObject: {fileID: 1117207462444076}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 20, y: 20, z: 1}
+  m_LocalScale: {x: 40, y: 40, z: 1}
   m_Children: []
   m_Father: {fileID: 4937949402279746}
   m_RootOrder: 0
@@ -147,10 +147,12 @@ MonoBehaviour:
   CostPower: 0
   CostTechLevel: 1
   CostPopulation: 3
+  _ObjectState: 0
   Team: 0
   _Player: {fileID: 0}
   FogOfWarRadius: 400
   ShowSelectionGUI: 1
+  InQueueState: {fileID: 0}
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   DestroyedState: {fileID: 0}
@@ -160,14 +162,12 @@ MonoBehaviour:
   MaxGarrisonPopulation: 10
   MultiSelectable: 1
   _OffsetY: 0
-  _ObjectState: 0
   _WidgetHealthbarScaleX: 100
   _WidgetHealthbarScaleY: 15
   _WidgetHealthbarOffset: 15
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
-  ShowBuildingQueueUI: 1
   ShrinkSpeed: 0.2
   _ChasingDistance: 30
   TargetWeights:

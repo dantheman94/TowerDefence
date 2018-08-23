@@ -71,7 +71,6 @@ public class HUD : MonoBehaviour {
         // Initialize selectable properties
         Settings.StoreSelectBoxItems(GameManager.Instance.ObjectSelected);
         Settings.StoreHighlightBoxItems(GameManager.Instance.ObjectHighlighted);
-
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -84,7 +83,49 @@ public class HUD : MonoBehaviour {
         // Update menu type
         if (!GameManager.Instance._IsRadialMenu) { SelectionWheel = SelectionWindow; }
 
+        // Check for pause screen input
+        UpdatePauseScreen();
+
         UpdateTextComponents();
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    private void UpdatePauseScreen() {
+
+        if (_Player != null) {
+
+            // Keyboard input
+            if (_Player._KeyboardInputManager.IsPrimaryController) {
+
+                // On ESC or F10
+                if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.F10)) {
+
+                    // Resume gameplay
+                    if (GameManager.Instance.IsGamePause()) { GameManager.Instance.OnUnpause(); }
+
+                    // Initiate pause
+                    else { GameManager.Instance.OnPause(); }
+                } 
+            }
+
+            // Xbox input
+            else if (_Player._XboxGamepadInputManager.IsPrimaryController) {
+
+                // On START 
+                if (_Player._XboxGamepadInputManager.GetStartButtonClicked()) {
+
+                    // Resume gameplay
+                    if (GameManager.Instance.IsGamePause()) { GameManager.Instance.OnUnpause(); }
+
+                    // Initiate pause
+                    else { GameManager.Instance.OnPause(); }                
+                }
+            }
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

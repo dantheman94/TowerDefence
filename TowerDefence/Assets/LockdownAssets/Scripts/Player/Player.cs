@@ -135,6 +135,9 @@ public class Player : MonoBehaviour {
         // Create platoons
         _Platoons = new List<Platoon>();
         for (int i = 0; i < _PlatoonCount; i++) { _Platoons.Add(GameManager.Instance.PlatoonUnitsHUD.UnitInfoPanels[i].GetComponent<Platoon>()); }
+
+        // Setup camera
+        if(PlayerCamera != null) { PlayerCamera.GetComponent<CameraPlayer>().SetPlayerAttached(this); }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -198,7 +198,7 @@ public class Squad : Ai {
 
             // Create unit
             Unit unit = ObjectPooling.Spawn(SquadUnit.gameObject, squad.transform.position, squad.transform.rotation).GetComponent<Unit>();
-            unit.SetObjectState(WorldObjectStates.Building);
+            unit.SetObjectState(WorldObjectStates.InQueue);
             unit.SetSquadAttached(squad);
             unit.Team = squad.Team;
             unit.SetPlayer(squad._Player);

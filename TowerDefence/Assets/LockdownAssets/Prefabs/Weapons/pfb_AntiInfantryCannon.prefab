@@ -51,18 +51,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f24bbf81aea765549a797e3e95ee482d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ProjectileType: 2
-  ProjectileClass: {fileID: 0}
+  _ProjectileType: 0
+  ProjectileClass: {fileID: 114655802817277132, guid: 0650dad43cbc0dd4b99d69916ce9a2d3,
+    type: 2}
   FiringEffect: {fileID: 0}
   MuzzleEffect: {fileID: 0}
   FiringType: 0
   ProjectilesPerShot: 1
-  FiringDelay: 0.15
+  FiringDelay: 1
   Damages:
-    DamageDefault: 1
-    DamageCoreInfantry: 1
-    DamageAntiInfantryMarine: 1
-    DamageHero: 1
+    DamageDefault: 2
+    DamageCoreInfantry: 6
+    DamageAntiInfantryMarine: 6
+    DamageHero: 6
     DamageCoreVehicle: 1
     DamageAntiAirVehicle: 1
     DamageMobileArtillery: 1
@@ -71,5 +72,5 @@ MonoBehaviour:
     DamageSupportShip: 1
     DamageHeavyAirship: 1
   BottomlessClip: 0
-  MagazineSize: 24
-  ReloadTime: 3.5
+  MagazineSize: 1
+  ReloadTime: 4
