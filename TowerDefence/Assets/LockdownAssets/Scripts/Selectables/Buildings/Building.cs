@@ -47,11 +47,12 @@ public class Building : WorldObject {
     //******************************************************************************************************************************
 
     protected RecycleBuilding _RecycleOption;
+    protected GameObject _Rallypoint = null;
+
     protected bool _IsBuildingSomething = false;
     protected WorldObject _ObjectBeingBuilt = null;
-    private List<Abstraction> _BuildingQueue;
-
     protected bool _IsInBuildingQueue = false;
+    private List<Abstraction> _BuildingQueue;
     private UI_BuildingQueue _BuildingQueueUI = null;
 
     private bool _RebuildNavmesh = false;
@@ -308,6 +309,9 @@ public class Building : WorldObject {
                 // Start building the object
                 building.StartBuildingObject();
             }
+
+            // Set rally point
+            if (buildingSlot.AttachedBase != null) { _Rallypoint = buildingSlot.AttachedBase.GetRallyPoint(); }
         }
     }
 
@@ -331,7 +335,7 @@ public class Building : WorldObject {
         _BuildingQueueUI.transform.SetParent(UI_BuildingQueueWrapper.Instance.QueueListTransform);
         _BuildingQueueUI.gameObject.SetActive(true);
     }
-
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
@@ -476,6 +480,16 @@ public class Building : WorldObject {
         }
         return false;
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <returns>
+    //  GameObject
+    /// </returns>
+    public GameObject GetRallyPoint() { return _Rallypoint; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

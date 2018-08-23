@@ -74,6 +74,21 @@ GameObject:
   m_Component:
   - component: {fileID: 4501677899689124}
   m_Layer: 0
+  m_Name: RallyPointTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1284777463057748
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4983365189126796}
+  m_Layer: 0
   m_Name: AirUnitSpawnTransform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -345,7 +360,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4106250607515488}
-  m_RootOrder: 7
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4106250607515488
 Transform:
@@ -357,6 +372,10 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 4809757321218236}
+  - {fileID: 4047248899580830}
+  - {fileID: 4983365189126796}
+  - {fileID: 4501677899689124}
   - {fileID: 4821138566819950}
   - {fileID: 4419751014017030}
   - {fileID: 4863639794256536}
@@ -364,9 +383,6 @@ Transform:
   - {fileID: 4155786167374220}
   - {fileID: 4203597660709270}
   - {fileID: 4740150061783362}
-  - {fileID: 4047248899580830}
-  - {fileID: 4501677899689124}
-  - {fileID: 4809757321218236}
   m_Father: {fileID: 4353242395558570}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -394,7 +410,7 @@ Transform:
   m_LocalScale: {x: 12, y: 2, z: 12}
   m_Children: []
   m_Father: {fileID: 4106250607515488}
-  m_RootOrder: 4
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4203597660709270
 Transform:
@@ -407,7 +423,7 @@ Transform:
   m_LocalScale: {x: 6, y: 8, z: 6}
   m_Children: []
   m_Father: {fileID: 4106250607515488}
-  m_RootOrder: 5
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4245450390674092
 Transform:
@@ -442,7 +458,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1903063004008702}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.4000015, y: 2.25, z: -268.8}
+  m_LocalPosition: {x: 94.71735, y: -3.554241e-17, z: -147.0243}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4106250607515488}
@@ -473,7 +489,7 @@ Transform:
   m_LocalScale: {x: 40, y: 5, z: 50}
   m_Children: []
   m_Father: {fileID: 4106250607515488}
-  m_RootOrder: 1
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4431623234821522
 Transform:
@@ -495,11 +511,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1238948345608684}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 200, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 100}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4106250607515488}
-  m_RootOrder: 8
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4590852336392956
 Transform:
@@ -525,7 +541,7 @@ Transform:
   m_LocalScale: {x: 11.999998, y: 2, z: 11.999998}
   m_Children: []
   m_Father: {fileID: 4106250607515488}
-  m_RootOrder: 6
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4809757321218236
 Transform:
@@ -538,7 +554,7 @@ Transform:
   m_LocalScale: {x: 100, y: 100, z: 1}
   m_Children: []
   m_Father: {fileID: 4106250607515488}
-  m_RootOrder: 9
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!4 &4821138566819950
 Transform:
@@ -557,7 +573,7 @@ Transform:
   - {fileID: 4431623234821522}
   - {fileID: 4245450390674092}
   m_Father: {fileID: 4106250607515488}
-  m_RootOrder: 0
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4863639794256536
 Transform:
@@ -570,7 +586,7 @@ Transform:
   m_LocalScale: {x: 35, y: 4, z: 40}
   m_Children: []
   m_Father: {fileID: 4106250607515488}
-  m_RootOrder: 2
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4869473574909542
 Transform:
@@ -583,7 +599,20 @@ Transform:
   m_LocalScale: {x: 6, y: 8, z: 6}
   m_Children: []
   m_Father: {fileID: 4106250607515488}
-  m_RootOrder: 3
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4983365189126796
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1284777463057748}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 200, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4106250607515488}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23013619005296236
 MeshRenderer:
@@ -1656,11 +1685,13 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  QuadMinimap: {fileID: 0}
   MinimapQuad: {fileID: 1624225091313276}
   BaseType: 1
   TechLevelWhenBuilt: 1
   GroundUnitSpawnTransform: {fileID: 1739469613156768}
-  AirUnitSpawnTransform: {fileID: 1238948345608684}
+  AirUnitSpawnTransform: {fileID: 1284777463057748}
+  RallyPointDefaultTransform: {fileID: 1238948345608684}
   DepotSlots:
   - {fileID: 114656340722537598}
   - {fileID: 114277717463594302}

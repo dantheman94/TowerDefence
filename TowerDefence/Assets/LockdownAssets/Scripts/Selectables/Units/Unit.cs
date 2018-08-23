@@ -273,6 +273,24 @@ public class Unit : Ai {
 
             // Add to list of AI(army)
             _ClonedWorldObject._Player.AddToPopulation(_ClonedWorldObject as Unit);
+
+            unit._AttachedBuilding = buildingSlot.GetBuildingOnSlot();
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    protected override void OnBuilt() {
+        base.OnBuilt();
+
+        // Single unit
+        if (!IsInASquad() && _AttachedBuilding != null) {
+
+            // Go to rally point
+            if (_AttachedBuilding.GetRallyPoint() != null) { AgentSeekPosition(_AttachedBuilding.GetRallyPoint().transform.position); }
         }
     }
 

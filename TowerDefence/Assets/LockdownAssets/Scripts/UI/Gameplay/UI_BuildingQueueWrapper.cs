@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -106,7 +107,7 @@ public class UI_BuildingQueueWrapper : MonoBehaviour {
 
                 // Remove & destroy
                 _Queues.RemoveAt(i);
-                Destroy(queue);
+                Destroy(queue.gameObject);
                 UpdateQueuePositions();
             }
         }
@@ -119,7 +120,9 @@ public class UI_BuildingQueueWrapper : MonoBehaviour {
     /// </summary>
     public void UpdateQueuePositions() {
 
-        // Update the positions off all the currently active queues (older queues at the top)
+        SortChildren();
+
+        // Update the positions off all the currently active queues (longer queues at the top)
         for (int i = 0; i < _Queues.Count; i++) {
 
             // First queue item is in the top left corner of the screen
@@ -128,18 +131,53 @@ public class UI_BuildingQueueWrapper : MonoBehaviour {
             if (i == 0) {
 
                 x = rect.rect.width / 2 + QueueSpacing;
-                y = (rect.rect.height / 2 + QueueSpacing) * -1;
+                y = (rect.rect.height / 1 /*+ QueueSpacing*/) * -1;
+                ///y = _ItemOffset * -1;
             }
 
-            // Remaining queues are allocated a new row for each
+            // Remaining queues are placed as rows in descending order
             else {
 
                 x = rect.rect.width / 2 + QueueSpacing;
-                y = ((rect.rect.height / 2 + QueueSpacing) * (i + 1)) * -1;
+                y = ((rect.rect.height / 1) * (i + 1) + QueueSpacing /** (i + 1)*/) * -1;
+                ///y = (_ItemOffset * (i + 1)) * -1;
             }
             rect.anchoredPosition = new Vector2(x, y);
+            rect.gameObject.transform.SetParent(QueueListTransform);
         }
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Sorts the queue list transform's children.
+    /// </summary>
+    private void SortChildren() {
+
+        SortQueues();
+        QueueListTransform.DetachChildren();
+
+        for (int i = 0; i < _Queues.Count; i++) { _Queues[i].transform.SetParent(QueueListTransform); }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Sorts the queues.
+    /// </summary>
+    private void SortQueues() { _Queues.Sort(SortQueueLength); }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Static function that compares the item count's between 2 UI_BuildingQueues.
+    /// </summary>
+    /// <param name="queue1"></param>
+    /// <param name="queue2"></param>
+    /// <returns>
+    //  static int
+    /// </returns>
+    static int SortQueueLength(UI_BuildingQueue queue1, UI_BuildingQueue queue2) { return queue2.GetQueueSize().CompareTo(queue1.GetQueueSize()); }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

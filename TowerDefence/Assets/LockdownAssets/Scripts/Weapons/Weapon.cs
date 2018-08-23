@@ -34,6 +34,9 @@ public class Weapon : MonoBehaviour {
     public int ProjectilesPerShot = 1;
     public float FiringDelay = 0.5f;
     [Space]
+    public bool RandomOffset = false;
+    public Vector3 AngularOffset = Vector3.zero;
+    [Space]
     public ObjectDamages Damages;
 
     [Space]
@@ -121,9 +124,18 @@ public class Weapon : MonoBehaviour {
 
         if (ProjectileClass && _UnitAttached != null) {
 
-            // Create projectile facing forward from the muzzle
+            // Create projectile facing forward * offset from the muzzle 
             Projectile proj = ObjectPooling.Spawn(ProjectileClass.gameObject, _UnitAttached.MuzzleLaunchPoint.transform.position).GetComponent<Projectile>();
-            proj.transform.rotation = _UnitAttached.MuzzleLaunchPoint.transform.rotation;
+            Quaternion rot = _UnitAttached.MuzzleLaunchPoint.transform.rotation;
+            
+            // Random offset
+            int i = UnityEngine.Random.Range(-1, 1);
+            if (i == 0) { i = 1; }
+            if (RandomOffset) { AngularOffset = AngularOffset * i; }
+
+            // Set rotation by offset
+            rot.eulerAngles += AngularOffset;
+            proj.transform.rotation = rot;
 
             // Start the projectile
             proj.Init(this);

@@ -51,6 +51,7 @@ public class GameManager : MonoBehaviour {
     public Canvas ScreenSpaceCanvas;
     [Space]
     public GameObject AgentSeekObject;
+
     [Space]
     [Header("-----------------------------------")]
     [Header(" HUD")]
@@ -66,6 +67,7 @@ public class GameManager : MonoBehaviour {
     public UI_PlatoonUnits PlatoonUnitsHUD;
     public UI_WaveStats WaveStatsHUD;
     public UI_BuildingQueueWrapper BuildingQueueHUD;
+
     [Space]
     [Header("-----------------------------------")]
     [Header(" PROGRESS BARS")]
@@ -73,6 +75,7 @@ public class GameManager : MonoBehaviour {
     public GameObject UnitHealthBar;
     public GameObject BuildingInProgressPanel;
     public GameObject CaptureProgressPanel;
+
     [Space]
     [Header("-----------------------------------")]
     [Header(" MISCELLANEOUS")]
@@ -80,6 +83,8 @@ public class GameManager : MonoBehaviour {
     public GameObject RecycleBuilding;
     public GameObject ObjectSelected;
     public GameObject ObjectHighlighted;
+    public GameObject RallyPointObject = null;
+
     [Header("-----------------------------------")]
     [Header(" SCREENS")]
     [Space]
@@ -203,8 +208,8 @@ public class GameManager : MonoBehaviour {
             StartingBase.SetPlayer(Players[0]);
             StartingBase.CreateHealthBar(StartingBase, StartingBase._Player.PlayerCamera);
             StartingBase.CreateQueueWidget();
-        }
-        
+            StartingBase.CreateRallyPoint();
+        }        
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

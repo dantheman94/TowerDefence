@@ -159,6 +159,9 @@ public class Squad : Ai {
 
             // Add squad to list of AI (army)
             _ClonedWorldObject._Player.AddToPopulation(_ClonedWorldObject as Squad);
+
+            Squad squad = _ClonedWorldObject.GetComponent<Squad>();
+            squad._AttachedBuilding = buildingSlot.GetBuildingOnSlot();
         }
     }
 
@@ -264,6 +267,18 @@ public class Squad : Ai {
             squad.MaxShieldPoints += unit.MaxShieldPoints;
         }
         squad.SetObjectState(WorldObjectStates.Active);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    protected override void OnBuilt() {
+        base.OnBuilt();
+
+        // Go to rally point
+        if (_AttachedBuilding != null) { SquadSeek(_AttachedBuilding.GetRallyPoint().transform.position); }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

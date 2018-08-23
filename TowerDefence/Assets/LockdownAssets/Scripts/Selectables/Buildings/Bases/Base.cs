@@ -31,8 +31,10 @@ public class Base : Building {
     [Space]
     public eBaseType BaseType;
     public int TechLevelWhenBuilt;
+    [Space]
     public GameObject GroundUnitSpawnTransform;
     public GameObject AirUnitSpawnTransform;
+    public GameObject RallyPointDefaultTransform;
     [Space]
     public List<BuildingSlot> DepotSlots;
     public List<BuildingSlot> TowerSlots;
@@ -213,6 +215,13 @@ public class Base : Building {
 
         // Show any hidden base slots that are linked to the building slot
         if (AttachedBuildingSlot != null) { AttachedBuildingSlot.SetLinkedSlotsBase(this); }
+
+        // Create a rally point
+        if (GameManager.Instance.RallyPointObject != null && RallyPointDefaultTransform != null) {
+
+            // Set rally point
+            _Rallypoint = ObjectPooling.Spawn(GameManager.Instance.RallyPointObject, RallyPointDefaultTransform.transform.position);
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -261,6 +270,21 @@ public class Base : Building {
                 _BuildingList.RemoveAt(i);
                 break;
             }
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Create a rally point
+    /// </summary>
+    public void CreateRallyPoint() {
+
+        // Check for null reference
+        if (GameManager.Instance.RallyPointObject != null && RallyPointDefaultTransform != null) {
+
+            // Set rally point
+            _Rallypoint = ObjectPooling.Spawn(GameManager.Instance.RallyPointObject, RallyPointDefaultTransform.transform.position);
         }
     }
 

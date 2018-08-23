@@ -58,6 +58,8 @@ public class Ai : WorldObject {
     protected Vector3 _ChaseOriginPosition = Vector3.zero;
     protected Vector3 _SeekTarget = Vector3.zero;
 
+    protected Building _AttachedBuilding;
+
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
@@ -114,6 +116,7 @@ public class Ai : WorldObject {
             }
         }
     }
+
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

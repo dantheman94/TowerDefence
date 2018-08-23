@@ -343,7 +343,10 @@ public class WorldObject : Selectable {
                 // Add to base queue
                 if (buildingSlot.AttachedBase != null) { buildingSlot.AttachedBase.AddToQueue(_ClonedWorldObject); }
             }
-            
+
+            // Update queue widget
+            UI_BuildingQueueWrapper.Instance.UpdateQueuePositions();
+
             // Deduct resources from player
             _ClonedWorldObject.SetPlayer(plyr);
             plyr.SuppliesCount -= _ClonedWorldObject.CostSupplies;
