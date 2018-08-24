@@ -9,7 +9,7 @@ using TowerDefence;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 5/8/2018
+//  Last edited on: 25/8/2018
 //
 //******************************
 
@@ -23,8 +23,9 @@ public class GameManager : MonoBehaviour {
 
     [Space]
     [Header("-----------------------------------")]
-    [Header(" NAVIGATION")]
+    [Header(" LEVEL INFORMATION")]
     [Space]
+    public Info_Level _Level;
     public GameObject FlyingNavMesh;
     
     [Space]
@@ -151,6 +152,7 @@ public class GameManager : MonoBehaviour {
     private bool _GameOver = false;
     private bool _MatchVictory = false;
     private bool _GameIsPaused = false;
+
     
     //******************************************************************************************************************************
     //
@@ -355,16 +357,5 @@ public class GameManager : MonoBehaviour {
     public bool GetMatchVictory() { return _MatchVictory; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  
-    /// </summary>
-    public void GameOver() {
-
-        // Show the game over notification screen
-        GameOverWidget.gameObject.SetActive(true);
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    
 }

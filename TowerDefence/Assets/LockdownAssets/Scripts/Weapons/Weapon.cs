@@ -34,7 +34,7 @@ public class Weapon : MonoBehaviour {
     public int ProjectilesPerShot = 1;
     public float FiringDelay = 0.5f;
     [Space]
-    public bool RandomOffset = false;
+    public EOffsetType AngularOffsetType = EOffsetType.Alternate;
     public Vector3 AngularOffset = Vector3.zero;
     [Space]
     public ObjectDamages Damages;
@@ -55,6 +55,7 @@ public class Weapon : MonoBehaviour {
 
     public enum EProjectileType { Object, Raycast, Particle }
     public enum FireType { FullAuto, Spread }
+    public enum EOffsetType { Alternate, Consecutive, Random }
 
     [System.Serializable]
     public struct ObjectDamages {
@@ -78,6 +79,8 @@ public class Weapon : MonoBehaviour {
     private bool _IsReloading = false;
     private float _ReloadTimer = 0f;
     private Unit _UnitAttached = null;
+
+    private float _CurrentOffsetMultiplier = 1f;
 
     //******************************************************************************************************************************
     //
@@ -127,12 +130,40 @@ public class Weapon : MonoBehaviour {
             // Create projectile facing forward * offset from the muzzle 
             Projectile proj = ObjectPooling.Spawn(ProjectileClass.gameObject, _UnitAttached.MuzzleLaunchPoint.transform.position).GetComponent<Projectile>();
             Quaternion rot = _UnitAttached.MuzzleLaunchPoint.transform.rotation;
-            
-            // Random offset
-            int i = UnityEngine.Random.Range(-1, 1);
-            if (i == 0) { i = 1; }
-            if (RandomOffset) { AngularOffset = AngularOffset * i; }
 
+            // Apply offset pattern
+            switch (AngularOffsetType) {
+
+                case EOffsetType.Alternate: {
+
+                    // Apply alternating pattern
+                    _CurrentOffsetMultiplier *= -1;
+
+                    AngularOffset = AngularOffset * _CurrentOffsetMultiplier;
+                    break;
+                }
+
+                case EOffsetType.Consecutive: {
+
+                    // Apply alternating pattern
+                    _CurrentOffsetMultiplier *= -1;
+
+                    AngularOffset = AngularOffset * _CurrentOffsetMultiplier;
+                    break;
+                }
+
+                case EOffsetType.Random: {
+
+                    // Random offset
+                    int i = UnityEngine.Random.Range(-1, 1);
+                    if (i == 0) { i = 1; }
+                    AngularOffset = AngularOffset * i;
+                    break;
+                }
+
+                default: break;
+            }
+            
             // Set rotation by offset
             rot.eulerAngles += AngularOffset;
             proj.transform.rotation = rot;

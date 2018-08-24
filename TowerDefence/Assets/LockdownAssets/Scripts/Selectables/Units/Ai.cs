@@ -105,16 +105,6 @@ public class Ai : WorldObject {
 
         if (_IsFollowingPlayerCommand) { UpdatePlayerOverrideCheck(); }
         if (_IsReturningToOrigin) { ResetToOriginPosition(); }
-
-        // Always attack the core if we dont have a target
-        if (Team == GameManager.Team.Attacking) {
-
-            if (_AttackTarget == null) {
-
-                AddPotentialTarget(WaveManager.Instance.CentralCore.GetAttackObject());
-                DetermineWeightedTargetFromList(TargetWeights);
-            }
-        }
     }
 
 
@@ -345,13 +335,16 @@ public class Ai : WorldObject {
     //  
     /// </summary>
     /// <param name="worldObject"></param>
-    public bool TryToChaseTarget(WorldObject worldObject) {
+    public bool TryToChaseTarget(WorldObject objTarget) {
 
-        if (!_IsFollowingPlayerCommand && !_IsReturningToOrigin) {
+        if (objTarget != null) {
 
-            _AttackTarget = worldObject;
-            _IsChasing = true;
-            return true;
+            if (!_IsFollowingPlayerCommand && !_IsReturningToOrigin) {
+
+                _AttackTarget = objTarget;
+                _IsChasing = true;
+                return true;
+            }
         }
         return false;
     }

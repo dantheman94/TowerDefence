@@ -19,6 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4439370589867364}
+  - component: {fileID: 114222093602020462}
   - component: {fileID: 114927367226679498}
   m_Layer: 0
   m_Name: DifficultyManager
@@ -40,6 +41,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114222093602020462
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1401717708383488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b41fcbb1fa3cc994cb07f75e86dfde45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Difficulty: 0
+  DifficultyDescription: 
+  DifficultyThumbnailSprite: {fileID: 0}
+  HoverText: {fileID: 0}
 --- !u!114 &114927367226679498
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -51,7 +67,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 166b989730c7ea84cafdc70ea26fb6f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentDifficulty: 1
+  _Difficulty: {fileID: 114222093602020462}
   EasyEnemyHealthModifier:
     DamageUndefined: 1
     DamageCoreMarine: 1

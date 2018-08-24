@@ -7,7 +7,7 @@ using UnityEngine;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 13/8/2018
+//  Last edited on: 25/8/2018
 //
 //******************************
 
@@ -23,7 +23,7 @@ public class DifficultyManager : MonoBehaviour {
     [Header("-----------------------------------")]
     [Header(" STARTING DIFFICULTY")]
     [Space]
-    public Difficulties CurrentDifficulty = Difficulties.Normal;
+    public Info_Difficulty _Difficulty;
 
     [Space]
     [Header("-----------------------------------")]
@@ -205,7 +205,7 @@ public class DifficultyManager : MonoBehaviour {
 
         Instance = this;
     }
-
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
@@ -222,7 +222,7 @@ public class DifficultyManager : MonoBehaviour {
         bool friendly = unit.Team == unit._Player.Team;
 
         float fMod = 1f;
-        switch (CurrentDifficulty) {
+        switch (_Difficulty.Difficulty) {
 
             case Difficulties.Easy:         { fMod = GetEasyModifier(unitType, modifier, friendly); break; }
             case Difficulties.Normal:       { fMod = GetNormalModifier(unitType, modifier, friendly); break; }

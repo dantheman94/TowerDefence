@@ -407,6 +407,30 @@ public class Building : WorldObject {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
+    //  Called when the object is killed/destroyed
+    /// </summary>
+    public override void OnDeath() {
+        base.OnDeath();
+
+        // Detach from any bases & buildings
+        if (AttachedBuildingSlot != null) {
+
+            Base b = AttachedBuildingSlot.AttachedBase;
+            if (b != null) {
+
+                // Detach from base
+                b.RemoveFromList(this);
+                b.RemoveFromQueue(this);
+            }
+
+            // Detach from slot
+            AttachedBuildingSlot.SetBuildingOnSlot(null);
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
     //  
     /// </summary>
     /// <param name="value"></param>

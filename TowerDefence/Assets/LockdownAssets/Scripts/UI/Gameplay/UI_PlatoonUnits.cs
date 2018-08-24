@@ -58,10 +58,13 @@ public class UI_PlatoonUnits : MonoBehaviour {
     /// </summary>
     private void Update() {
 
-        for (int i = 0; i < UnitInfoPanels.Count; i++) {
+        if (_PlayerAttached != null) {
 
-            // Update platoon size
-            UnitInfoPanels[i].AmountCounter.text = _PlayerAttached.GetPlatoon(i)._Size.ToString();
+            for (int i = 0; i < UnitInfoPanels.Count; i++) {
+
+                // Update platoon size
+                UnitInfoPanels[i].AmountCounter.text = _PlayerAttached.GetPlatoon(i)._Size.ToString();
+            }
         }
     }
     

@@ -98,7 +98,7 @@ public class Core : Building {
         base.OnDeath();
 
         // Game is over
-        GameManager.Instance.GameOver();
+        GameManager.Instance.OnGameover();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

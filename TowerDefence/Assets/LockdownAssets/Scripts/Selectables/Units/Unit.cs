@@ -425,6 +425,17 @@ public class Unit : Ai {
 
                 // Get new attack target if possible
                 DetermineWeightedTargetFromList(TargetWeights);
+
+                // Always attack the core if we dont have a target (ATTACKING TEAM ONLY)
+                if (Team == GameManager.Team.Attacking && !IsInASquad()) {
+
+                    if (_AttackTarget == null) {
+
+                        AddPotentialTarget(WaveManager.Instance.CentralCore.GetAttackObject());
+                        DetermineWeightedTargetFromList(TargetWeights);
+                        TryToChaseTarget(_AttackTarget);
+                    }
+                }
             }
         }
     }

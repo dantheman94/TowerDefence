@@ -56,7 +56,7 @@ public class UI_PauseWidget : MonoBehaviour {
         if (gameObject.activeInHierarchy) {
 
             // Update difficulty text
-            if (DifficultyTrackerText != null) { DifficultyTrackerText.text = DifficultyManager.Instance.CurrentDifficulty.ToString(); }
+            if (DifficultyTrackerText != null) { DifficultyTrackerText.text = DifficultyManager.Instance._Difficulty.Difficulty.ToString(); }
 
             // Update player score
             if (ScoreTrackerText != null) { ScoreTrackerText.text = GameManager.Instance.Players[0].GetScore().ToString(); }
@@ -182,6 +182,10 @@ public class UI_PauseWidget : MonoBehaviour {
     //  
     /// </summary>
     public void OnRestartLevel() {
+
+        // Setup
+        InstanceManager.Instance._Level = GameManager.Instance._Level;
+        InstanceManager.Instance._Difficulty = DifficultyManager.Instance._Difficulty;
 
         // Load the "loading" scene
         ASyncLoading.Instance.LoadLevel(1);

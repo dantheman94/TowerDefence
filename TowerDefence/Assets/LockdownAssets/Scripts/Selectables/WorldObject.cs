@@ -385,9 +385,13 @@ public class WorldObject : Selectable {
     /// <param name="damage"></param>
     public virtual void Damage(float damage, Ai instigator = null) {
 
-        // Damage object & kill it if theres no health left
-        _HitPoints -= damage;
-        if (_HitPoints <= 0 && _ObjectState != WorldObjectStates.Destroyed) { OnDeath(); }
+        // Cant damage if were already destroyed
+        if (_ObjectState != WorldObjectStates.Destroyed) {
+
+            // Damage object & kill it if theres no health left
+            _HitPoints -= damage;
+            if (_HitPoints <= 0 && _ObjectState != WorldObjectStates.Destroyed) { OnDeath(); }
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

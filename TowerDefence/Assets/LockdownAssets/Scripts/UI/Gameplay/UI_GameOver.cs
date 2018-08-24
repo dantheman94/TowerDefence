@@ -89,7 +89,7 @@ public class UI_GameOver : MonoBehaviour {
             if (TextWavesSurvived != null) { TextWavesSurvived.text = string.Concat(WaveManager.Instance.GetWaveCount() - 1).ToString(); }
 
             // Update difficulty text
-            if (TextDifficulty != null) { TextDifficulty.text = DifficultyManager.Instance.CurrentDifficulty.ToString(); }
+            if (TextDifficulty != null) { TextDifficulty.text = DifficultyManager.Instance._Difficulty.Difficulty.ToString(); }
         }
     }
 
