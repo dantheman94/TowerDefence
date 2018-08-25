@@ -68,7 +68,11 @@ public class BaseTurret : Tower {
 
                     if (TowerWeapon != null) {
 
+                        // Set attach reference
+                        TowerWeapon.SetTowerAttached(this);
+
                         // Fire the turret's weapon
+                        TowerWeapon.SetReload(false);
                         if (TowerWeapon.CanFire()) { TowerWeapon.FireWeapon(); }
                     }
                 }
@@ -108,6 +112,9 @@ public class BaseTurret : Tower {
             hitpoints = originalTurret.GetHitPoints();
             if (originalTurret._HealthBar != null) { ObjectPooling.Despawn(originalTurret._HealthBar.gameObject); }
         }
+
+        // Create weapon
+        if (TowerWeapon != null) { TowerWeapon = ObjectPooling.Spawn(TowerWeapon.gameObject).GetComponent<Weapon>(); }
 
         // Start building process
         base.OnWheelSelect(buildingSlot);

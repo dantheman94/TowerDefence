@@ -9,43 +9,43 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1991508073944400}
+  m_RootGameObject: {fileID: 1778131047065300}
   m_IsPrefabParent: 1
---- !u!1 &1991508073944400
+--- !u!1 &1778131047065300
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4986104674784384}
-  - component: {fileID: 114407150224619950}
+  - component: {fileID: 4671617682868192}
+  - component: {fileID: 114248795644060262}
   m_Layer: 0
-  m_Name: pfb_BaseTurretCannon
+  m_Name: pfb_BaseTurretWeapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4986104674784384
+--- !u!4 &4671617682868192
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1991508073944400}
+  m_GameObject: {fileID: 1778131047065300}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 56.780334, y: -6.4368753e-17, z: -4.2197876}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114407150224619950
+--- !u!114 &114248795644060262
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1991508073944400}
+  m_GameObject: {fileID: 1778131047065300}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f24bbf81aea765549a797e3e95ee482d, type: 3}
@@ -58,19 +58,21 @@ MonoBehaviour:
   MuzzleEffect: {fileID: 0}
   FiringType: 0
   ProjectilesPerShot: 1
-  FiringDelay: 0.15
+  FiringDelay: 0.5
+  AngularOffsetType: 0
+  AngularOffset: {x: 0, y: 0, z: 0}
   Damages:
-    DamageDefault: 1
-    DamageCoreInfantry: 1
-    DamageAntiInfantryMarine: 1
-    DamageHero: 1
-    DamageCoreVehicle: 1
-    DamageAntiAirVehicle: 1
-    DamageMobileArtillery: 1
-    DamageBattleTank: 1
-    DamageCoreAirship: 1
-    DamageSupportShip: 1
-    DamageHeavyAirship: 1
-  BottomlessClip: 0
+    DamageDefault: 5
+    DamageCoreInfantry: 5
+    DamageAntiInfantryMarine: 5
+    DamageHero: 5
+    DamageCoreVehicle: 5
+    DamageAntiAirVehicle: 5
+    DamageMobileArtillery: 5
+    DamageBattleTank: 5
+    DamageCoreAirship: 5
+    DamageSupportShip: 5
+    DamageHeavyAirship: 5
+  BottomlessClip: 1
   MagazineSize: 24
-  ReloadTime: 3.5
+  ReloadTime: 2

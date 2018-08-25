@@ -79,6 +79,7 @@ public class Weapon : MonoBehaviour {
     private bool _IsReloading = false;
     private float _ReloadTimer = 0f;
     private Unit _UnitAttached = null;
+    private Tower _TowerAttached = null;
 
     private float _CurrentOffsetMultiplier = 1f;
 
@@ -113,6 +114,13 @@ public class Weapon : MonoBehaviour {
             _FireDelayTimer -= Time.deltaTime;
         }
 
+        // Bottomless clip setup
+        if (BottomlessClip) {
+
+            _ReloadTimer = 0;
+            _IsReloading = false;
+        }
+
         // Reloading timer
         if (_ReloadTimer > 0f) { _ReloadTimer -= Time.deltaTime; }
         else { _IsReloading = false; }
@@ -128,8 +136,20 @@ public class Weapon : MonoBehaviour {
         if (ProjectileClass && _UnitAttached != null) {
 
             // Create projectile facing forward * offset from the muzzle 
-            Projectile proj = ObjectPooling.Spawn(ProjectileClass.gameObject, _UnitAttached.MuzzleLaunchPoint.transform.position).GetComponent<Projectile>();
-            Quaternion rot = _UnitAttached.MuzzleLaunchPoint.transform.rotation;
+            Projectile proj = ObjectPooling.Spawn(ProjectileClass.gameObject).GetComponent<Projectile>();
+            Quaternion rot = Quaternion.identity;
+
+            // Set position
+            if (_UnitAttached != null) {
+
+                proj.transform.position = _UnitAttached.MuzzleLaunchPoint.transform.position;
+                rot = _UnitAttached.MuzzleLaunchPoint.transform.rotation;
+            }
+            else if (_TowerAttached != null) {
+
+                proj.transform.position = _TowerAttached.MuzzleLaunchPoint.transform.position;
+                rot = _TowerAttached.MuzzleLaunchPoint.transform.rotation;
+            }
 
             // Apply offset pattern
             switch (AngularOffsetType) {
@@ -243,12 +263,24 @@ public class Weapon : MonoBehaviour {
         
         // Play firing effect
         if (FiringEffect != null) {
+            
+            // Spawn
+            ParticleSystem effect = ObjectPooling.Spawn(FiringEffect.gameObject).GetComponent<ParticleSystem>();
+            effect.GetComponent<ParticleBasedDamage>().SetWeaponAttached(this);
+
+            // Set position
+            if (_UnitAttached != null) {
+
+                effect.transform.position = _UnitAttached.MuzzleLaunchPoint.transform.position;
+                effect.transform.rotation = _UnitAttached.MuzzleLaunchPoint.transform.rotation;
+            }
+            else if (_TowerAttached != null) {
+
+                effect.transform.position = _TowerAttached.MuzzleLaunchPoint.transform.position;
+                effect.transform.rotation = _TowerAttached.MuzzleLaunchPoint.transform.rotation;
+            }
 
             // Play
-            ParticleSystem effect = ObjectPooling.Spawn(FiringEffect.gameObject, 
-                                                        _UnitAttached.MuzzleLaunchPoint.transform.position, 
-                                                        _UnitAttached.MuzzleLaunchPoint.transform.rotation).GetComponent<ParticleSystem>();
-            effect.GetComponent<ParticleBasedDamage>().SetWeaponAttached(this);
             effect.Play();
 
             // Despawn particle system once it has finished its cycle
@@ -286,10 +318,22 @@ public class Weapon : MonoBehaviour {
             // Play muzzle firing effect
             if (MuzzleEffect != null) {
 
+                // Spawn
+                ParticleSystem effect = ObjectPooling.Spawn(MuzzleEffect.gameObject).GetComponent<ParticleSystem>();
+
+                // Set position
+                if (_UnitAttached != null) {
+
+                    effect.transform.position = _UnitAttached.MuzzleLaunchPoint.transform.position;
+                    effect.transform.rotation = _UnitAttached.MuzzleLaunchPoint.transform.rotation;
+                }
+                else if (_TowerAttached != null) {
+
+                    effect.transform.position = _TowerAttached.MuzzleLaunchPoint.transform.position;
+                    effect.transform.rotation = _TowerAttached.MuzzleLaunchPoint.transform.rotation;
+                }
+
                 // Play
-                ParticleSystem effect = ObjectPooling.Spawn(MuzzleEffect.gameObject, 
-                                                            _UnitAttached.MuzzleLaunchPoint.transform.position,
-                                                            _UnitAttached.MuzzleLaunchPoint.transform.rotation).GetComponent<ParticleSystem>();
                 effect.Play();
 
                 // Despawn particle system once it has finished its cycle
@@ -357,6 +401,14 @@ public class Weapon : MonoBehaviour {
     /// <summary>
     //  
     /// </summary>
+    /// <param name="unit"></param>
+    public void SetTowerAttached(Tower tower) { _TowerAttached = tower; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
     /// <returns></returns>
     public bool IsReloading() { return _IsReloading; }
 
@@ -376,6 +428,22 @@ public class Weapon : MonoBehaviour {
     /// </summary>
     /// <returns></returns>
     public bool CanFire() { return _FireDelayTimer <= 0 && !_IsReloading; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="value"></param>
+    public void SetReload(bool value) {
+
+        if (value) { Reload(); }
+        else {
+
+            _ReloadTimer = 0;
+            _IsReloading = false;
+        }
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

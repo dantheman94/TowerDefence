@@ -610,6 +610,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1997638962654970
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4470695454894462}
+  m_Layer: 0
+  m_Name: MuzzleLaunchPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &4040867855208044
 Transform:
   m_ObjectHideFlags: 1
@@ -802,6 +817,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4621391833468634}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!4 &4470695454894462
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1997638962654970}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0.549, y: 0, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4924960905022090}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!4 &4489835413052880
 Transform:
@@ -1065,7 +1093,8 @@ Transform:
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 4}
   m_LocalScale: {x: 10, y: 2, z: 2}
-  m_Children: []
+  m_Children:
+  - {fileID: 4470695454894462}
   m_Father: {fileID: 4513768768398372}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
@@ -1076,7 +1105,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1476746386672702}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -171.8269, y: 45.5, z: 64.92853}
+  m_LocalPosition: {x: 108.411194, y: 15.5, z: -52.45941}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4621391833468634}
@@ -2549,7 +2578,7 @@ MonoBehaviour:
   ObjectDescriptionLong: Standard defence tower. Can be upgraded to prioritize & damage
     specific unit types.
   Logo: {fileID: 0}
-  BuildingTime: 15
+  BuildingTime: 1
   CostSupplies: 300
   CostPower: 0
   CostTechLevel: 1
@@ -2592,10 +2621,11 @@ MonoBehaviour:
   - {fileID: 0}
   QuadMinimap: {fileID: 0}
   TowerType: 2
-  TowerWeapon: {fileID: 114407150224619950, guid: 3928dc9e094da03469b33d2af8b01cce,
+  TowerWeapon: {fileID: 114248795644060262, guid: 3ff7cd3d7a347fc4eaef6fd98e14146a,
     type: 2}
   WeaponObject: {fileID: 1543433638849548}
   WeaponAimingSpeed: 2
+  MuzzleLaunchPoint: {fileID: 1997638962654970}
   TargetWeights:
   - UnitType: 0
     Weight: 0

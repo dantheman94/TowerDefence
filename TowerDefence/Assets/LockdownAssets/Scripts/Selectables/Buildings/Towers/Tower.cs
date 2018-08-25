@@ -28,6 +28,7 @@ public class Tower : Building {
     public Weapon TowerWeapon = null;
     public GameObject WeaponObject = null;
     public float WeaponAimingSpeed = 5f;
+    public GameObject MuzzleLaunchPoint = null;
 
     [Space]
     [Header("-----------------------------------")]
