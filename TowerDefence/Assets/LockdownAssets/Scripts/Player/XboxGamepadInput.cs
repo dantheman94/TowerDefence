@@ -1,7 +1,7 @@
 ﻿using TowerDefence;
 using UnityEngine;
 using XInputDotNetPure;
-
+using UnityEngine.UI;
 //******************************
 //
 //  Created by: Daniel Marton
@@ -22,6 +22,10 @@ public class XboxGamepadInput : MonoBehaviour {
     private Player _PlayerAttached;
     private KeyboardInput _KeyboardInputManager = null;
     public bool IsPrimaryController { get; set; }
+    public GameObject SphereSelectorObject;
+    public float MaxSphereRadius = 250;
+    public float SphereGrowRate = 10;
+    private SphereCollider _SphereCollider;
 
     private Vector3 _LookPoint;
     private Vector3 _CurrentVelocity = Vector3.zero;
@@ -31,6 +35,8 @@ public class XboxGamepadInput : MonoBehaviour {
     private bool _ControllerIsRumbling = false;
     private float _TimerRumble, _RumbleTime = 0f;
     private float _MotorLeft, _MotorRight = 0f;
+    private xb_gamepad _Gamepad;
+    private GameObject _SphereReference;
 
     //******************************************************************************************************************************
     //
@@ -42,7 +48,7 @@ public class XboxGamepadInput : MonoBehaviour {
     // Called when the gameObject is created.
     /// </summary>
     private void Start() {
-
+        _Gamepad = GamepadManager.Instance.GetGamepad(1);
         // Get component references
         _PlayerAttached = GetComponent<Player>();
         _KeyboardInputManager = GetComponent<KeyboardInput>();
@@ -61,7 +67,7 @@ public class XboxGamepadInput : MonoBehaviour {
     //  Called each frame. 
     /// </summary>
     private void Update() {
-
+        CreateSelection();
         if (_PlayerAttached) {
 
             // Update primary controller
@@ -87,6 +93,7 @@ public class XboxGamepadInput : MonoBehaviour {
 
                 // Update point/click input
                 PointClickActivity();
+                Cursor.visible = false;
 
                 // Update abilities input
                 ///AbilitiesInput();
@@ -251,6 +258,40 @@ public class XboxGamepadInput : MonoBehaviour {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+ 
+    /// <summary>
+    /// Creates sphere collider on raycast point.
+    /// </summary>
+    private void CreateSelection()
+    {
+        if (!_PlayerAttached._HUD.WheelActive())
+        {
+
+            if (_Gamepad.GetButtonDown("A"))
+            {
+                Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+                RaycastHit hit;
+
+                if(Physics.Raycast(ray,out hit, 1000,_PlayerAttached._HUD.MaskBlock))
+                {
+                    _SphereReference = Instantiate(SphereSelectorObject, hit.point, new Quaternion());
+                }
+            }
+
+            if (_Gamepad.GetButton("A"))
+            {
+                if (_SphereReference.transform.localScale.x < 40 && _SphereReference.transform.localScale.y < 40)
+                _SphereReference.transform.localScale += _SphereReference.transform.localScale * Time.deltaTime * SphereGrowRate;
+            }
+
+            if (_Gamepad.GetButtonUp("A"))
+            {
+                Destroy(_SphereReference);
+            }
+        }
+    }
+
 
     /// <summary>
     //  
@@ -716,5 +757,6 @@ public class XboxGamepadInput : MonoBehaviour {
     //  bool
     /// </returns>
     public bool OnRightTrigger() { return _GamepadState.Triggers.Right > 0f; }
+
 
 }

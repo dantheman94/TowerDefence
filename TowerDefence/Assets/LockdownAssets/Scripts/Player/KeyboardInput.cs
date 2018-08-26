@@ -79,6 +79,7 @@ public class KeyboardInput : MonoBehaviour {
             
             if (IsPrimaryController) {
 
+                Cursor.visible = true;
                 // Update camera
                 MoveCamera();
                 RotateCamera();
