@@ -3,6 +3,7 @@ using UnityEngine;
 using XInputDotNetPure;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System.Collections;
 //******************************
 //
 //  Created by: Daniel Marton
@@ -47,6 +48,7 @@ public class XboxGamepadInput : MonoBehaviour {
     private float _MotorLeft, _MotorRight = 0f;
     private xb_gamepad _Gamepad;
     private GameObject _SphereReference;
+    private SelectionWheel _SelectionWheel;
 
     //******************************************************************************************************************************
     //
@@ -59,6 +61,7 @@ public class XboxGamepadInput : MonoBehaviour {
     /// </summary>
     private void Start() {
         _Gamepad = GamepadManager.Instance.GetGamepad(1);
+        _SelectionWheel = GameManager.Instance.SelectionWheel.GetComponentInChildren<SelectionWheel>();
         // Get component references
         _PlayerAttached = GetComponent<Player>();
         _KeyboardInputManager = GetComponent<KeyboardInput>();
@@ -80,6 +83,9 @@ public class XboxGamepadInput : MonoBehaviour {
         CreateSelection();
         MoveSelectedUnits("X");
         ExitUI("B");
+        ChangeSelectionWheel();
+        Debug.Log("X: " + _Gamepad.GetStick_R().X);
+        Debug.Log("Y: " + _Gamepad.GetStick_R().Y);
         if (_PlayerAttached) {
 
             // Update primary controller
@@ -96,12 +102,17 @@ public class XboxGamepadInput : MonoBehaviour {
             
             if (IsPrimaryController) {
 
-                // Update camera
-                MoveCamera();
-                RotateCamera();
 
-                // Update camera FOV
-                ZoomCamera();
+                if(!GameManager.Instance.SelectionWheel.activeInHierarchy)
+                {
+                    // Update camera
+                    MoveCamera();
+                    RotateCamera();
+
+                    // Update camera FOV
+                    ZoomCamera();
+                }
+       
 
                 // Update point/click input
                 PointClickActivity();
@@ -206,6 +217,73 @@ public class XboxGamepadInput : MonoBehaviour {
         Physics.Raycast(_PlayerAttached.PlayerCamera.transform.position, _PlayerAttached.PlayerCamera.transform.forward * 1000, out hit);
         _LookPoint = hit.point;
     }
+
+    /// <summary>
+    /// Change selection.
+    /// </summary>
+    public void ChangeSelectionWheel()
+    {
+        if(GameManager.Instance.SelectionWheel.activeInHierarchy)
+        {
+            //top button.
+           if(_Gamepad.GetStick_R().Y == 1 && _Gamepad.GetStick_R().X <= 0)
+            {
+
+                StartCoroutine(DelayedSelect(_SelectionWheel._WheelButtons[0]));
+            }       
+           else if((_Gamepad.GetStick_R().Y < 1 && _Gamepad.GetStick_R().Y > 0.75f) &&
+                   ( _Gamepad.GetStick_R().X < 0.75f && _Gamepad.GetStick_R().X > 0))
+            {
+                StartCoroutine(DelayedSelect(_SelectionWheel._WheelButtons[1]));
+            }
+           else if((_Gamepad.GetStick_R().Y > 0 && _Gamepad.GetStick_R().Y < 0.75f) &&
+                ( _Gamepad.GetStick_R().X > 0.75 && _Gamepad.GetStick_R().X < 1))
+            {
+                StartCoroutine(DelayedSelect(_SelectionWheel._WheelButtons[2]));
+            }
+           else if((_Gamepad.GetStick_R().Y > -0.75f && _Gamepad.GetStick_R().Y < 0) &&
+                    (_Gamepad.GetStick_R().X > 0.75 &&  _Gamepad.GetStick_R().X < 1))
+            {
+                StartCoroutine(DelayedSelect(_SelectionWheel._WheelButtons[3]));
+            }
+           else if((_Gamepad.GetStick_R().X > 0 && _Gamepad.GetStick_R().X < 0.75f) &&
+                   (_Gamepad.GetStick_R().Y > -1 && _Gamepad.GetStick_R().Y < -0.75))
+            {
+                StartCoroutine(DelayedSelect(_SelectionWheel._WheelButtons[4]));
+            }
+            else if (_Gamepad.GetStick_R().Y == -1)
+            {
+                StartCoroutine(DelayedSelect(_SelectionWheel._WheelButtons[5]));
+            }
+            else if((_Gamepad.GetStick_R().X < 0 && _Gamepad.GetStick_R().X > -0.75f) &&
+                    (_Gamepad.GetStick_R().Y < -0.75 && _Gamepad.GetStick_R().Y > -1))
+            {
+                StartCoroutine(DelayedSelect(_SelectionWheel._WheelButtons[6]));
+            }
+           else if((_Gamepad.GetStick_R().X > -1 && _Gamepad.GetStick_R().X < -0.75f) &&
+                    (_Gamepad.GetStick_R().Y < 0 && _Gamepad.GetStick_R().Y < -0.75f))
+            {
+                StartCoroutine(DelayedSelect(_SelectionWheel._WheelButtons[7]));
+            }
+            else if ((_Gamepad.GetStick_R().X > -1 && _Gamepad.GetStick_R().X < -0.75f) &&
+                     (_Gamepad.GetStick_R().Y > 0 && _Gamepad.GetStick_R().Y < 0.75f))
+            {
+                StartCoroutine(DelayedSelect(_SelectionWheel._WheelButtons[8]));
+            }
+            else if ((_Gamepad.GetStick_R().X < 0 && _Gamepad.GetStick_R().X > -0.75f) &&
+                   (_Gamepad.GetStick_R().Y < 1 && _Gamepad.GetStick_R().Y > 0.75f))
+            {
+                StartCoroutine(DelayedSelect(_SelectionWheel._WheelButtons[9]));
+            }
+        }
+    }
+
+    IEnumerator DelayedSelect(Button a_button)
+    {
+        yield return new WaitForSeconds(0.05f);
+        a_button.Select();
+    }
+ 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
