@@ -12,7 +12,8 @@ using UnityEngine.AI;
 //
 //******************************
 
-public class Unit : Ai {
+public class Unit : Ai
+{
 
     //******************************************************************************************************************************
     //
@@ -47,6 +48,8 @@ public class Unit : Ai {
     [Space]
     public bool CanBeStunned = false;
 
+    public bool HasReachedTarget = true;
+
     //******************************************************************************************************************************
     //
     //      VARIABLES
@@ -65,6 +68,10 @@ public class Unit : Ai {
     private float SnapLookAtRange = 0f;
     private BuildingSlot _BuildingSlotInstigator = null;
 
+    public NavMeshPath _NavMeshPath;
+    private bool _Calculating = false;
+    private bool _Calculated = false;
+
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
@@ -76,12 +83,13 @@ public class Unit : Ai {
     /// <summary>
     //  Called before Start().
     /// </summary>
-    protected override void Awake() {
+    protected override void Awake()
+    {
         base.Awake();
-        
+
         // Behavioural value precautions
         if (IdealAttackRangeMax < IdealAttackRangeMin) { IdealAttackRangeMax = IdealAttackRangeMin * 1.5f; }
-        if (MaxAttackingRange < IdealAttackRangeMax)   { MaxAttackingRange = IdealAttackRangeMax; }
+        if (MaxAttackingRange < IdealAttackRangeMax) { MaxAttackingRange = IdealAttackRangeMax; }
         ///SnapLookAtRange = MaxAttackingRange / 2;
         SnapLookAtRange = IdealAttackRangeMin;
     }
@@ -91,17 +99,20 @@ public class Unit : Ai {
     /// <summary>
     // Called when the gameObject is created.
     /// </summary>
-    protected override void Start() {
+    protected override void Start()
+    {
         base.Start();
 
         // Create copy of weapons & re-assign them to replace the old ones
-        if (PrimaryWeapon != null) {
-            
+        if (PrimaryWeapon != null)
+        {
+
             PrimaryWeapon = ObjectPooling.Spawn(PrimaryWeapon.gameObject, Vector3.zero, Quaternion.identity).GetComponent<Weapon>();
             PrimaryWeapon.SetUnitAttached(this);
         }
-        if (SecondaryWeapon != null) {
-            
+        if (SecondaryWeapon != null)
+        {
+
             PrimaryWeapon = ObjectPooling.Spawn(SecondaryWeapon.gameObject, Vector3.zero, Quaternion.identity).GetComponent<Weapon>();
             SecondaryWeapon.SetUnitAttached(this);
         }
@@ -117,14 +128,16 @@ public class Unit : Ai {
     /// <summary>
     //  Called each frame. 
     /// </summary>
-    protected override void Update() {
+    protected override void Update()
+    {
         base.Update();
-
+        
         // Selecting the unit via drag selection
         UpdateBoxSelection();
 
         // Hide the unit UI widgets if it is building
-        if (_ObjectState == WorldObjectStates.Building) {
+        if (_ObjectState == WorldObjectStates.Building)
+        {
 
             // Disable components
             _CharacterController.enabled = false;
@@ -137,23 +150,27 @@ public class Unit : Ai {
             if (_BuildingProgressCounter != null) { ObjectPooling.Despawn(_BuildingProgressCounter.gameObject); }
 
             // Force the position of the object to be at the attached buildings vector
-            if (_BuildingSlotInstigator != null) {
-                
-                switch (NavmeshType) {
+            if (_BuildingSlotInstigator != null)
+            {
 
-                    case ENavmeshType.Ground: {
+                switch (NavmeshType)
+                {
 
-                        _Agent.transform.position = _BuildingSlotInstigator.AttachedBase.GroundUnitSpawnTransform.transform.position;
-                        _Agent.transform.rotation = _BuildingSlotInstigator.AttachedBase.GroundUnitSpawnTransform.transform.rotation;
-                        break;
-                    }
+                    case ENavmeshType.Ground:
+                        {
 
-                    case ENavmeshType.Air: {
+                            _Agent.transform.position = _BuildingSlotInstigator.AttachedBase.GroundUnitSpawnTransform.transform.position;
+                            _Agent.transform.rotation = _BuildingSlotInstigator.AttachedBase.GroundUnitSpawnTransform.transform.rotation;
+                            break;
+                        }
 
-                        _Agent.transform.position = _BuildingSlotInstigator.AttachedBase.AirUnitSpawnTransform.transform.position;
-                        _Agent.transform.rotation = _BuildingSlotInstigator.AttachedBase.AirUnitSpawnTransform.transform.rotation;
-                        break;
-                    }
+                    case ENavmeshType.Air:
+                        {
+
+                            _Agent.transform.position = _BuildingSlotInstigator.AttachedBase.AirUnitSpawnTransform.transform.position;
+                            _Agent.transform.rotation = _BuildingSlotInstigator.AttachedBase.AirUnitSpawnTransform.transform.rotation;
+                            break;
+                        }
 
                     default: break;
                 }
@@ -164,16 +181,19 @@ public class Unit : Ai {
         else if (_ObjectState == WorldObjectStates.Deployable) { OnSpawn(); }
 
         // Unit is active in the world
-        else if (_ObjectState == WorldObjectStates.Active && IsAlive()) {
+        else if (_ObjectState == WorldObjectStates.Active && IsAlive())
+        {
 
             // And isn't part of a squad
-            if (_SquadAttached == null) {
+            if (_SquadAttached == null)
+            {
 
                 // Show the healthbar
                 if (_HealthBar != null) { _HealthBar.gameObject.SetActive(true); }
 
                 // Create a healthbar if the unit doesn't have one linked to it
-                else {
+                else
+                {
 
                     if (_Player == null) { _Player = GameManager.Instance.Players[0]; }
                     if (_Player != null) { CreateHealthBar(this, _Player.PlayerCamera); }
@@ -182,14 +202,17 @@ public class Unit : Ai {
         }
 
         // Is the unit currently being player controlled? (manually)
-        if (CanBePlayerControlled && _IsCurrentlySelected) {
+        if (CanBePlayerControlled && _IsCurrentlySelected)
+        {
 
             // Flip the player/AI controlled states
-            if (Input.GetKeyDown(KeyCode.R)) {
+            if (Input.GetKeyDown(KeyCode.R))
+            {
 
                 _IsBeingPlayerControlled = !_IsBeingPlayerControlled;
 
-                if (_IsBeingPlayerControlled) {
+                if (_IsBeingPlayerControlled)
+                {
 
                     GameManager.Instance.SetUnitControlling(true);
 
@@ -201,7 +224,8 @@ public class Unit : Ai {
                     // Hide any seek points that are currently visible
                     if (_SeekWaypoint) { _SeekWaypoint.SetActive(false); }
                 }
-                else {
+                else
+                {
 
                     GameManager.Instance.SetUnitControlling(false);
                     _Player._CameraFollow.SetFollowing(false);
@@ -216,7 +240,8 @@ public class Unit : Ai {
         else { _IsBeingPlayerControlled = false; }
 
         // Update player controller movement
-        if (_IsBeingPlayerControlled && IsAlive()) {
+        if (_IsBeingPlayerControlled && IsAlive())
+        {
 
             _IsCurrentlySelected = true;
             _Agent.enabled = false;
@@ -225,6 +250,7 @@ public class Unit : Ai {
 
         UpdateAIControllerMovement();
     }
+    
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -235,11 +261,13 @@ public class Unit : Ai {
     //  The building slot that instigated the selection wheel.
     //  (EG: If you're making a building, this is the building slot thats being used.)
     /// </param>
-    public override void OnWheelSelect(BuildingSlot buildingSlot) {
+    public override void OnWheelSelect(BuildingSlot buildingSlot)
+    {
         base.OnWheelSelect(buildingSlot);
 
         // Get reference to the newly cloned unit
-        if (_ClonedWorldObject != null) {
+        if (_ClonedWorldObject != null)
+        {
 
             Unit unit = _ClonedWorldObject.GetComponent<Unit>();
             unit._BuildingSlotInstigator = buildingSlot;
@@ -248,7 +276,8 @@ public class Unit : Ai {
             if (_BuildingProgressCounter != null) { ObjectPooling.Despawn(_BuildingProgressCounter.gameObject); }
 
             // Let the building attached know that it is "building" something
-            if (buildingSlot.GetBuildingOnSlot() != null) {
+            if (buildingSlot.GetBuildingOnSlot() != null)
+            {
 
                 buildingSlot.GetBuildingOnSlot().SetIsBuildingSomething(true);
                 buildingSlot.GetBuildingOnSlot().SetObjectBeingBuilt(_ClonedWorldObject);
@@ -256,14 +285,16 @@ public class Unit : Ai {
 
             // Set position to be at the bases spawn vector while it is building
             // (the gameobject should be hidden completely until its deployed)
-            if (buildingSlot.AttachedBase != null) {
+            if (buildingSlot.AttachedBase != null)
+            {
 
                 _ClonedWorldObject.gameObject.transform.position = buildingSlot.AttachedBase.GroundUnitSpawnTransform.transform.position;
                 _ClonedWorldObject.gameObject.transform.rotation = buildingSlot.AttachedBase.GroundUnitSpawnTransform.transform.rotation;
             }
 
             // No base attached
-            else {
+            else
+            {
 
                 // Set position to be at the buildings spawn vector while it is building
                 // (the gameobject should be hidden completely until its deployed)
@@ -273,24 +304,6 @@ public class Unit : Ai {
 
             // Add to list of AI(army)
             _ClonedWorldObject._Player.AddToPopulation(_ClonedWorldObject as Unit);
-
-            unit._AttachedBuilding = buildingSlot.GetBuildingOnSlot();
-        }
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  
-    /// </summary>
-    protected override void OnBuilt() {
-        base.OnBuilt();
-
-        // Single unit
-        if (!IsInASquad() && _AttachedBuilding != null) {
-
-            // Go to rally point
-            if (_AttachedBuilding.GetRallyPoint() != null) { AgentSeekPosition(_AttachedBuilding.GetRallyPoint().transform.position); }
         }
     }
 
@@ -299,22 +312,25 @@ public class Unit : Ai {
     /// <summary>
     //  Called each frame. 
     /// </summary>
-    protected override void UpdateChasingEnemy() {
+    protected override void UpdateChasingEnemy()
+    {
         base.UpdateChasingEnemy();
 
         // Not in a squad? (squad handles their own chasing mechanics for the units!)
-        if (!IsInASquad()) {
+        if (!IsInASquad())
+        {
 
             if (_AttackTarget != null) { AgentAttackObject(_AttackTarget); }
         }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
+
     /// <summary>
     //  
     /// </summary>
-    public override void OnDeath() {
+    public override void OnDeath()
+    {
         base.OnDeath();
 
         // Destroy waypoint
@@ -332,7 +348,8 @@ public class Unit : Ai {
     /// <summary>
     //  Called only once, when the unit transitions to an active state.
     /// </summary>
-    public virtual void OnSpawn() {
+    public virtual void OnSpawn()
+    {
 
         ResetHealth();
 
@@ -350,19 +367,25 @@ public class Unit : Ai {
     /// <summary>
     //  Called every frame - updates the soldier/unit's movement and combat behaviours.
     /// </summary>
-    protected virtual void UpdateAIControllerMovement() {
-        
+    protected virtual void UpdateAIControllerMovement()
+    {
+
         // Is the unit currently AI controlled?
-        if (!_IsBeingPlayerControlled && _Agent.enabled && _Agent.isOnNavMesh && IsAlive()) {
+        if (!_IsBeingPlayerControlled && _Agent.enabled && _Agent.isOnNavMesh && IsAlive())
+        {
 
             // Update agent seeking status
-            _IsSeeking = _Agent.remainingDistance > 20f;
-            if (_IsSeeking) {
+            _IsSeeking = _Agent.remainingDistance > 2f;
+            HasReachedTarget = _Agent.remainingDistance < 2f;
+
+            if (_IsSeeking)
+            {
 
                 // Look at seek point
                 ///_Agent.transform.LookAt(_Agent.destination);
             }
-            else {
+            else
+            {
 
                 _IsChasing = false;
                 _IsSeeking = false;
@@ -371,20 +394,24 @@ public class Unit : Ai {
             }
 
             // Update seeking waypoint visibility (only for player controlled units)
-            if (_SeekWaypoint && Team == GameManager.Team.Defending) {
+            if (_SeekWaypoint && Team == GameManager.Team.Defending)
+            {
 
                 if (_IsSeeking && (_IsCurrentlySelected || _IsCurrentlyHighlighted)) { _SeekWaypoint.SetActive(true); }
                 else { _SeekWaypoint.SetActive(false); }
             }
 
             // Update distance to attacking target
-            if (_AttackTarget != null) {
+            if (_AttackTarget != null)
+            {
 
-                if (_AttackTarget.IsAlive()) {
+                if (_AttackTarget.IsAlive())
+                {
 
                     // Check if the target is within attacking range
                     _DistanceToTarget = Vector3.Distance(transform.position, _AttackTarget.transform.position);
-                    if (_DistanceToTarget <= MaxAttackingRange && PrimaryWeapon != null) {
+                    if (_DistanceToTarget <= MaxAttackingRange && PrimaryWeapon != null)
+                    {
 
                         // Look at attack target
                         _IsAttacking = true;
@@ -408,7 +435,8 @@ public class Unit : Ai {
                 }
 
                 // Attack target is now dead
-                else {
+                else
+                {
 
                     // Remove from target list
                     RemovePotentialTarget(_AttackTarget);
@@ -419,23 +447,13 @@ public class Unit : Ai {
             }
 
             // There is no current attack target
-            else { /// _AttackTarget == null
+            else
+            { /// _AttackTarget == null
 
                 _IsAttacking = false;
 
                 // Get new attack target if possible
                 DetermineWeightedTargetFromList(TargetWeights);
-
-                // Always attack the core if we dont have a target (ATTACKING TEAM ONLY)
-                if (Team == GameManager.Team.Attacking && !IsInASquad()) {
-
-                    if (_AttackTarget == null) {
-
-                        AddPotentialTarget(WaveManager.Instance.CentralCore.GetAttackObject());
-                        DetermineWeightedTargetFromList(TargetWeights);
-                        TryToChaseTarget(_AttackTarget);
-                    }
-                }
             }
         }
     }
@@ -459,21 +477,24 @@ public class Unit : Ai {
     /// <summary>
     //  Snaps the agent's transform to the position specified.
     /// </summary>
-    protected virtual void LookAtSnap(Vector3 position) {
+    protected virtual void LookAtSnap(Vector3 position)
+    {
 
         _Agent.transform.LookAt(position);
     }
-    
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     //  Sets the agent's destination for seeking.
     /// </summary>
     /// <param name="seekTarget"></param>
-    public void AgentSeekPosition(Vector3 seekTarget, bool overwrite = false , bool displayWaypoint = true) {
+    public void AgentSeekPosition(Vector3 seekTarget, bool overwrite = false, bool displayWaypoint = true)
+    {
 
         if (overwrite) { CommandOverride(); }
-        if (_Agent.isOnNavMesh) {
+        if (_Agent.isOnNavMesh)
+        {
 
             // Set agent's new goto target
             _SeekTarget = seekTarget;
@@ -481,11 +502,13 @@ public class Unit : Ai {
             _Agent.speed = InfantryMovementSpeed;
 
             // Show seeking waypoint
-            if (displayWaypoint && Team == GameManager.Team.Defending) {
+            if (displayWaypoint && Team == GameManager.Team.Defending)
+            {
 
                 // Create waypoint
                 if (_SeekWaypoint == null) { _SeekWaypoint = ObjectPooling.Spawn(GameManager.Instance.AgentSeekObject, Vector3.zero, Quaternion.identity); }
-                if (_SeekWaypoint != null) {
+                if (_SeekWaypoint != null)
+                {
 
                     // Display waypoint if not already being displayed
                     if (_SeekWaypoint.activeInHierarchy != true) { _SeekWaypoint.SetActive(true); }
@@ -508,7 +531,8 @@ public class Unit : Ai {
     /// <param name="attackTarget"></param>
     /// <param name="seekPosition"></param>
     /// <param name="overwrite"></param>
-    public void AgentAttackObject(WorldObject attackTarget, Vector3 seekPosition, bool overwrite = false) {
+    public void AgentAttackObject(WorldObject attackTarget, Vector3 seekPosition, bool overwrite = false)
+    {
 
         // Set target
         AddPotentialTarget(attackTarget);
@@ -525,12 +549,13 @@ public class Unit : Ai {
     //  creates a seek position internally.
     /// </summary>
     /// <param name="attackTarget"></param>
-    public void AgentAttackObject(WorldObject attackTarget) {
+    public void AgentAttackObject(WorldObject attackTarget)
+    {
 
         // Add target to list and make it the current target
         AddPotentialTarget(attackTarget);
         _AttackTarget = attackTarget;
-        
+
         // Get attacking position for the target and seek to it (get closer if we have to, or move away if we should)
         Vector3 seekPos = transform.position;
         float dist = Vector3.Distance(transform.position, attackTarget.transform.position);
@@ -551,10 +576,12 @@ public class Unit : Ai {
     //  
     /// </summary>
     /// <param name="hitPoint"></param>
-    public virtual void AgentPerformAbility(Vector3 hitPoint) {
+    public virtual void AgentPerformAbility(Vector3 hitPoint)
+    {
 
         // Does the unit have an ability?
-        if (SecondaryWeapon != null) {
+        if (SecondaryWeapon != null)
+        {
 
             // Fire secondary weapon (its used to be its ability)
             if (SecondaryWeapon.CanFire()) { SecondaryWeapon.FireWeapon(); }
@@ -570,7 +597,8 @@ public class Unit : Ai {
     /// <returns>
     //  Vector3
     /// </returns>
-    public Vector3 GetAttackingPositionAtObject(WorldObject worldObject, float distanceFrom) {
+    public Vector3 GetAttackingPositionAtObject(WorldObject worldObject, float distanceFrom)
+    {
 
         // Create transform and create a position in the direction of the target * distance specified
         Transform trans = new GameObject().transform;
@@ -593,7 +621,8 @@ public class Unit : Ai {
     /// <returns>
     //  Vector3
     /// </returns>
-    public Vector3 GetAttackingPositionAtObject(WorldObject worldObject) {
+    public Vector3 GetAttackingPositionAtObject(WorldObject worldObject)
+    {
 
         // Create transform and create a position in the direction of the target * distance specified
         Transform trans = new GameObject().transform;
@@ -613,12 +642,14 @@ public class Unit : Ai {
     //  Makes the agent return back to its origin position.
     //  (Usually the position is where the unit was before it was pursuing a target).
     /// </summary>
-    protected override void ResetToOriginPosition() {
+    protected override void ResetToOriginPosition()
+    {
         base.ResetToOriginPosition();
 
         // Not in a squad? (squad handles their own reset mechanics for the units!)
-        if (!IsInASquad()) {
-            
+        if (!IsInASquad())
+        {
+
             _IsReturningToOrigin = true;
             AgentSeekPosition(_ChaseOriginPosition);
         }
@@ -632,20 +663,22 @@ public class Unit : Ai {
     private void UpdateBoxSelection()
     {
         // Precautions
-        if (_Player != null) {
+        if (_Player != null)
+        {
 
-            if(!KeyboardInput.MouseIsDown)
+            if (!KeyboardInput.MouseIsDown)
             {
 
-         
-            //if (Input.GetMouseButton(0)) {
+
+                //if (Input.GetMouseButton(0)) {
 
                 Vector3 camPos = _Player.PlayerCamera.WorldToScreenPoint(transform.position);
                 camPos.y = KeyboardInput.InvertMouseY(camPos.y);
 
-                if (KeyboardInput.Selection.Contains(camPos)) {
+                if (KeyboardInput.Selection.Contains(camPos))
+                {
 
-                 //   _IsCurrentlySelected = true;
+                    //   _IsCurrentlySelected = true;
                     if (IsInASquad())
                     {
 
@@ -715,7 +748,7 @@ public class Unit : Ai {
     public Squad GetSquadAttached() { return _SquadAttached; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
+
     /// <summary>
     //   
     /// </summary>
@@ -729,8 +762,9 @@ public class Unit : Ai {
     /// <summary>
     //  Set's the worldobject's hitpoints & shieldpoints to the current maximum value.
     /// </summary>
-    public void ResetHealth() {
-        
+    public void ResetHealth()
+    {
+
         _HitPoints = MaxHitPoints;
         _ShieldPoints = MaxShieldPoints;
     }

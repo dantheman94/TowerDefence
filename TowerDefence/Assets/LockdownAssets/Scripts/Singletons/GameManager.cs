@@ -27,7 +27,8 @@ public class GameManager : MonoBehaviour {
     [Space]
     public Info_Level _Level;
     public GameObject FlyingNavMesh;
-    
+    public GameObject GroundNavMesh;
+
     [Space]
     [Header("-----------------------------------")]
     [Header(" PLAYER STARTS")]
