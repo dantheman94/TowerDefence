@@ -265,7 +265,7 @@ public class Building : WorldObject {
                 if (attachedBase != null) {
 
                     attachedBase.AddBuildingToList(building);
-                    ////attachedBase.AddToQueue(building);
+                    ///attachedBase.AddToQueue(building);
 
                     // Add to queue wrapper
                     if (building._BuildingQueueUI != null) {
