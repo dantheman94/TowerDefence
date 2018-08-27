@@ -76,6 +76,7 @@ public class XboxGamepadInput : MonoBehaviour {
     private void Update() {
         CreateSelection();
         MoveSelectedUnits("X");
+        ExitUI("B");
         if (_PlayerAttached) {
 
             // Update primary controller
@@ -161,8 +162,7 @@ public class XboxGamepadInput : MonoBehaviour {
         {
             if (_Gamepad.GetButtonDown(buttonPress))
             {
-                GameManager.Instance.SelectionWheel.SetActive
-
+                GameManager.Instance.SelectionWheel.GetComponentInChildren<SelectionWheel>().HideSelectionWheel();
             }
 
         }
@@ -555,10 +555,11 @@ public class XboxGamepadInput : MonoBehaviour {
                 _SphereReference.transform.localScale += _SphereReference.transform.localScale * Time.deltaTime * SphereGrowRate;
             }
 
-            if (_Gamepad.GetButtonUp("A"))
-            {
-                Destroy(_SphereReference);
-            }
+        }
+
+        if (_Gamepad.GetButtonUp("A"))
+        {
+            Destroy(_SphereReference);
         }
     }
 
