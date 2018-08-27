@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -1786,8 +1786,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76a0c587996abcc43a57d5be4dbc5117, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _SettingsNavigator: {fileID: 311979273}
-  CurrentSetting: TextureQuality
 --- !u!1 &250628948
 GameObject:
   m_ObjectHideFlags: 0
@@ -2391,31 +2389,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 670a2c0bb5ae5e64884686a7b27ad2d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
 --- !u!1 &303377482
 GameObject:
   m_ObjectHideFlags: 0
@@ -6251,8 +6224,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76a0c587996abcc43a57d5be4dbc5117, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _SettingsNavigator: {fileID: 311979273}
-  CurrentSetting: MenuType
 --- !u!1 &633569320
 GameObject:
   m_ObjectHideFlags: 0
@@ -7812,7 +7783,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: TEMP_LEVEL
+  m_Text: 
 --- !u!222 &780514937
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8132,7 +8103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.25882354, g: 0.25882354, b: 0.25882354, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -8152,7 +8123,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: LOCKED
+  m_Text: Alpha Level
 --- !u!222 &797260938
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8417,8 +8388,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76a0c587996abcc43a57d5be4dbc5117, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _SettingsNavigator: {fileID: 311979273}
-  CurrentSetting: WindowMode
 --- !u!1 &853902538
 GameObject:
   m_ObjectHideFlags: 0
@@ -8571,8 +8540,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76a0c587996abcc43a57d5be4dbc5117, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _SettingsNavigator: {fileID: 311979273}
-  CurrentSetting: MasterVolume
 --- !u!1 &863612006
 GameObject:
   m_ObjectHideFlags: 0
@@ -9013,8 +8980,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76a0c587996abcc43a57d5be4dbc5117, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _SettingsNavigator: {fileID: 311979273}
-  CurrentSetting: MusicVolume
 --- !u!1 &913355013
 GameObject:
   m_ObjectHideFlags: 0
@@ -9271,7 +9236,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: TEMP_DIFF
+  m_Text: 
 --- !u!222 &941027581
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9474,8 +9439,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76a0c587996abcc43a57d5be4dbc5117, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _SettingsNavigator: {fileID: 311979273}
-  CurrentSetting: Resolution
 --- !u!1 &958739794
 GameObject:
   m_ObjectHideFlags: 0
@@ -10792,10 +10755,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e80a813b58a051445abd38d0963ce651, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelIndex: 2
+  LevelIndex: 3
   LevelName: Test Scene
-  LevelDescription: '[ INTERNAL DEVELOPER TESTSCENE ]. Yall can just mess around in
-    this fam.'
+  LevelDescription: '[ INTERNAL DEVELOPER TESTSCENE ]'
   LevelThumbnailSprite: {fileID: 21300000, guid: 1bd0c20caedd9bb47862953570ed1ec0,
     type: 3}
   HoverText: {fileID: 1910428165}
@@ -11465,8 +11427,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76a0c587996abcc43a57d5be4dbc5117, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _SettingsNavigator: {fileID: 311979273}
-  CurrentSetting: KeyboardBindings
 --- !u!1 &1180586413
 GameObject:
   m_ObjectHideFlags: 0
@@ -14173,8 +14133,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76a0c587996abcc43a57d5be4dbc5117, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _SettingsNavigator: {fileID: 311979273}
-  CurrentSetting: VSync
 --- !u!1 &1449145147
 GameObject:
   m_ObjectHideFlags: 0
@@ -15604,8 +15562,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76a0c587996abcc43a57d5be4dbc5117, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _SettingsNavigator: {fileID: 311979273}
-  CurrentSetting: Gamepad
 --- !u!1 &1600963861
 GameObject:
   m_ObjectHideFlags: 0
@@ -15802,8 +15758,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76a0c587996abcc43a57d5be4dbc5117, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _SettingsNavigator: {fileID: 311979273}
-  CurrentSetting: SFXVolume
 --- !u!1 &1604262556
 GameObject:
   m_ObjectHideFlags: 0
@@ -16444,8 +16398,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76a0c587996abcc43a57d5be4dbc5117, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _SettingsNavigator: {fileID: 311979273}
-  CurrentSetting: AspectRatio
 --- !u!1 &1670338391
 GameObject:
   m_ObjectHideFlags: 0
@@ -18662,7 +18614,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -18684,7 +18636,7 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 1874896945}
   m_OnClick:
     m_PersistentCalls:
@@ -18706,7 +18658,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 1874896948}
           m_ObjectArgumentAssemblyTypeName: Info_Level, Assembly-CSharp
-          m_IntArgument: 0
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -18724,10 +18676,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e80a813b58a051445abd38d0963ce651, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelIndex: 0
-  LevelName: 
-  LevelDescription: 
-  LevelThumbnailSprite: {fileID: 0}
+  LevelIndex: 2
+  LevelName: Alpha Level
+  LevelDescription: The ashes of this barren wasteland show no mercy to those who
+    dare to traverse its harsh environment.
+  LevelThumbnailSprite: {fileID: 21300000, guid: 023d316709acb3649bcea65c388a3b67,
+    type: 3}
   HoverText: {fileID: 1910428165}
 --- !u!1 &1874923727
 GameObject:
