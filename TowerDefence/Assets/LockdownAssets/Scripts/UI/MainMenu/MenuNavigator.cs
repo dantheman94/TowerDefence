@@ -5,7 +5,23 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Serialization;
 
+//******************************
+//
+//  Created by: Angus Secomb
+//
+//  Last edited by: Angus Secomb
+//  Last edited on: 27/08/2018
+//
+//******************************
+
+
 public class MenuNavigator : MonoBehaviour {
+
+    //******************************************************************************************************************************
+    //
+    //      DEFINITION
+    //
+    //******************************************************************************************************************************
 
     public enum SceneAreaState
     {
@@ -26,7 +42,11 @@ public class MenuNavigator : MonoBehaviour {
         public Dropdown DropButton;
     }
 
-
+    //******************************************************************************************************************************
+    //
+    //      INSPECTOR
+    //
+    //******************************************************************************************************************************
 
     [Tooltip("Main menu area.")]
     public MenuArea MainMenu;
@@ -48,14 +68,24 @@ public class MenuNavigator : MonoBehaviour {
 
     public List<Image> ButtonImage;
 
-
+    //******************************************************************************************************************************
+    //
+    //      VARIABLES
+    //
+    //******************************************************************************************************************************
 
     private MenuArea _ActiveMenu;
 
     private xb_gamepad gamepad;
 
-	// Use this for initialization
-	void Start () {
+    //******************************************************************************************************************************
+    //
+    //      FUNCTIONS
+    //
+    //******************************************************************************************************************************
+
+    // Use this for initialization
+    void Start () {
         gamepad = GamepadManager.Instance.GetGamepad(1);
 
         MainMenu.AreaState = SceneAreaState.ACTIVE;
@@ -65,13 +95,16 @@ public class MenuNavigator : MonoBehaviour {
         CreditsMenu.AreaState = SceneAreaState.INACTIVE;
         MainMenu.StartButton.Select();
 	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // Update is called once per frame
+    void Update () {
         NavigateMenu();
         ChangeButtonColor();
 	}
 
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     /// Enter desired menu area.
@@ -133,6 +166,8 @@ public class MenuNavigator : MonoBehaviour {
         }
     }
 
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     public void EnterPlayArea(string DesiredSubMenu)
     {
         switch (DesiredSubMenu)
@@ -153,6 +188,8 @@ public class MenuNavigator : MonoBehaviour {
         }
     
     }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     /// Switches between menu states.
@@ -239,6 +276,8 @@ public class MenuNavigator : MonoBehaviour {
         }   
     }
 
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     /// Selects button after 0.05 seconds as unity wont register
     /// the highlight without it.
@@ -257,6 +296,7 @@ public class MenuNavigator : MonoBehaviour {
         dropdown.Select();
     }
 
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     /// Presses "B" to return to the previous screen.
@@ -268,6 +308,8 @@ public class MenuNavigator : MonoBehaviour {
 
         }
     }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     private void ChangeButtonColor()
     {
@@ -287,10 +329,12 @@ public class MenuNavigator : MonoBehaviour {
         }
     }
 
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     public void Test()
     {
         Debug.Log("test!!!");
     }
 
-   
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }

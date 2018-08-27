@@ -3,7 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//******************************
+//
+//  Created by: Angus Secomb
+//
+//  Last edited by: Angus Secomb
+//  Last edited on: 27/08/2018
+//
+//******************************
+
+
 public class SettingsMenuNavigator : MonoBehaviour {
+
+    //******************************************************************************************************************************
+    //
+    //      DEFINITION
+    //
+    //******************************************************************************************************************************
+
 
     [System.Serializable]
     public struct SettingsInfo
@@ -57,7 +74,14 @@ public class SettingsMenuNavigator : MonoBehaviour {
     {
         SIXTEEN_NINE,
     }
-    
+
+    //******************************************************************************************************************************
+    //
+    //      INSPECTOR
+    //
+    //******************************************************************************************************************************
+
+
     [Tooltip("0 = false 1 = true for vsync")]
     public int VSync = 0;
 
@@ -87,11 +111,20 @@ public class SettingsMenuNavigator : MonoBehaviour {
 
     public SettingsInfo SettingInfo;
 
+    //******************************************************************************************************************************
+    //
+    //      VARIABLES
+    //
+    //******************************************************************************************************************************
+
+
     private MenuNavigator _MenuNavigator;
 
     private xb_gamepad gamepad;
 
     private MenuNavigator.MenuArea SettingsMenu;
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // Use this for initialization
     void Start () {
@@ -99,15 +132,18 @@ public class SettingsMenuNavigator : MonoBehaviour {
         _MenuNavigator = GetComponent<MenuNavigator>();
 
 	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // Update is called once per frame
+    void Update () {
         NavigateSettingsMenu();
         SwitchSettings();
         UpdateText();
         Debug.Log(CurrentSelection);
     }
 
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     /// Saves player settings to player prefs.
@@ -126,7 +162,11 @@ public class SettingsMenuNavigator : MonoBehaviour {
         Debug.Log("Player Settings Saved!");
     }
 
-    
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    ///  Do actions based on current active scene.
+    /// </summary>
     private void SwitchSettings()
     {
          switch(CurrentSelection)
@@ -277,6 +317,11 @@ public class SettingsMenuNavigator : MonoBehaviour {
         }
     }
 
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    /// Updates setting text.
+    /// </summary>
     private void UpdateText()
     {
         if(VSync == 0)
@@ -372,6 +417,11 @@ public class SettingsMenuNavigator : MonoBehaviour {
         }
     }
 
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        /// <summary>
+        /// Saves values from UI widgets to variables to be saved to player prefs.
+        /// </summary>
     private void NavigateSettingsMenu()
     {
         MasterVolSlider.value = MasterVolume;
@@ -381,4 +431,6 @@ public class SettingsMenuNavigator : MonoBehaviour {
         MusicVolSlider.GetComponentInChildren<Text>().text = MusicVolume.ToString();
         EffectVolSlider.GetComponentInChildren<Text>().text = EffectsVolume.ToString();
     }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
