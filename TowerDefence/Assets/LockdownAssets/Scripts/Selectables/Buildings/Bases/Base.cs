@@ -227,9 +227,12 @@ public class Base : Building {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  
+    //  d
     /// </summary>
     public override void OnDeath() {
+        
+        // This is an enemy base >> remove its building slot from the enemy slot array in the wave manager
+        if (Team == GameManager.Team.Attacking) { WaveManager.Instance.EnemyBaseDestroyed(AttachedBuildingSlot.AttachedBase); }
 
         // Destroy all the attached buildings (towers, depots, etc...)
         for (int i = 0; i < _BuildingList.Count; i++) {

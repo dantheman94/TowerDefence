@@ -15,7 +15,7 @@ public class Debug_Gameover : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.Home)) {
 
-            GameManager.Instance.OnGameover();
+            GameManager.Instance.OnGameover(false);
         }
     }
 }
