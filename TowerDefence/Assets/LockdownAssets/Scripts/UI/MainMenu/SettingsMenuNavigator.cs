@@ -91,24 +91,40 @@ public class SettingsMenuNavigator : MonoBehaviour {
     private TextureQuality _TextureQuality;
     private MenuType _MenuType;
 
+    [Header("----------------------")]
+    [Space]
+    [Header("CURRENT SELECTION")]
+    [Tooltip("What menu is currently selected.")]
     public string CurrentSelection;
 
+    [Header("----------------------")]
+    [Space]
+    [Header("VOLUME REFERENCES")]
     public float MasterVolume = 100;
     public float MusicVolume = 100;
     public float EffectsVolume = 100;
 
 
+    [Header("----------------------")]
+    [Space]
+    [Header("TEXT REFERENCES")]
     public Text AspectRatioText;
     public Text MenuTypeText;
     public Text TextureQualityText;
     public Text VSyncText;
     public Text ResolutionText;
     public Text WindowModeText;
+
+    [Header("----------------------")]
+    [Space]
+    [Header("SLIDER REFERENCES")]
     public Slider MasterVolSlider;
     public Slider MusicVolSlider;
     public Slider EffectVolSlider;
 
-
+    [Header("----------------------")]
+    [Space]
+    [Header("SETTINGS INFO")]
     public SettingsInfo SettingInfo;
 
     //******************************************************************************************************************************

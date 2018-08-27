@@ -24,6 +24,10 @@ public class XboxGamepadInput : MonoBehaviour {
     private KeyboardInput _KeyboardInputManager = null;
     public bool IsPrimaryController { get; set; }
     public GameObject SphereSelectorObject;
+
+    [Header("----------------------")]
+    [Space]
+    [Header("SPHERE SELECTION PROPERTIES")]
     public float MaxSphereRadius = 250;
     public float SphereGrowRate = 10;
 
@@ -147,6 +151,23 @@ public class XboxGamepadInput : MonoBehaviour {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    /// Exits user interface.
+    /// </summary>
+    private void ExitUI(string buttonPress)
+    {
+        if(GameManager.Instance.SelectionWheel.activeInHierarchy)
+        {
+            if (_Gamepad.GetButtonDown(buttonPress))
+            {
+                GameManager.Instance.SelectionWheel.SetActive
+
+            }
+
+        }
+    }
+
 
     /// <summary>
     //  Initiates the controller rumble process (vibration)
@@ -278,7 +299,7 @@ public class XboxGamepadInput : MonoBehaviour {
             {
 
                 // There are AI currently selected and therefore we can command them
-                if (SquadsSelected.Count > 0 || UnitsSelected.Count > 0) { AiMouseCommandsInput(SquadsSelected, UnitsSelected); }
+                if (SquadsSelected.Count > 0 || UnitsSelected.Count > 0) { AiControllerInput(SquadsSelected, UnitsSelected); }
             }
         }
     }
@@ -286,9 +307,9 @@ public class XboxGamepadInput : MonoBehaviour {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //
+    // Takes centre screen point and gets all selected units to move towards it.
     /// </summary>
-    private void AiMouseCommandsInput(List<Squad> squads, List<Unit> units)
+    private void AiControllerInput(List<Squad> squads, List<Unit> units)
     {
 
         // Get point in world that is used to command the AI currently selected (go position, attack target, etc)
