@@ -153,7 +153,10 @@ public class WaveManager : MonoBehaviour {
     private float _CurrentWaveTime = 0f;
     private float _TimeTillNextWave = 0f;
     private float _NextWaveTimer = 0f;
-    
+
+    private List<BuildingSlot> _PadSlots = null;
+    private List<BuildingSlot> _EnemyPadSlots = null;
+
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
@@ -186,6 +189,8 @@ public class WaveManager : MonoBehaviour {
         // Initialize lists
         _CurrentWaveEnemies = new List<WorldObject>();
         _PreviousWavesEnemies = new List<WorldObject>();
+        _PadSlots = new List<BuildingSlot>();
+        _EnemyPadSlots = new List<BuildingSlot>();
 
         // Initialize enemy bases
         for (int i = 0; i < EnemyBases.Count; i++) {
@@ -193,6 +198,10 @@ public class WaveManager : MonoBehaviour {
             // Create healthbar
             EnemyBases[i].CreateHealthBar(EnemyBases[i], GameManager.Instance.Players[0].PlayerCamera);
         }
+
+        // Get reference to all the pad slots
+        for (int i = 0; i < LockdownPads.Count; i++) { _PadSlots.Add(LockdownPads[i].BuildingSlotAttached); }
+        _EnemyPadSlots = _PadSlots;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -203,6 +212,12 @@ public class WaveManager : MonoBehaviour {
     private void Update() {
 
         UpdateWave();
+
+        // Check for win conditions
+        if (_EnemyPadSlots.Count == 0 && !GameManager.Instance.GetGameOverState()) {
+
+            GameManager.Instance.OnGameover(true);
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -575,6 +590,26 @@ public class WaveManager : MonoBehaviour {
     //  bool
     /// </returns>
     public bool IsBossWave() { return _BossWave; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="building"></param>
+    public void EnemyBaseDestroyed(Base baseBuilding) {
+
+        // Check for match in the active enemy base slots array
+        for (int i = 0; i < _EnemyPadSlots.Count; i++) {
+
+            // Match found
+            if (_EnemyPadSlots[i].AttachedBase == baseBuilding) {
+
+                // Remove slot from array
+                _EnemyPadSlots.RemoveAt(i);
+            }
+        }
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

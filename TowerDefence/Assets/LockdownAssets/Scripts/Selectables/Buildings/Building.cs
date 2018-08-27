@@ -411,7 +411,7 @@ public class Building : WorldObject {
     /// </summary>
     public override void OnDeath() {
         base.OnDeath();
-
+        
         // Detach from any bases & buildings
         if (AttachedBuildingSlot != null) {
 
@@ -490,16 +490,19 @@ public class Building : WorldObject {
     /// returns>
     public bool RemoveFromQueue(Building buildingToRemove) {
 
-        // Loop through the queue
-        for (int i = 0; i < GetBuildingQueue().Count; i++) {
+        if (GetBuildingQueue() != null) {
 
-            // Reference match?
-            if (GetBuildingQueue()[i] == buildingToRemove) {
+            // Loop through the queue
+            for (int i = 0; i < GetBuildingQueue().Count; i++) {
 
-                // Remove from the queue
-                GetBuildingQueue().RemoveAt(i);
-                _BuildingQueueUI.UpdateQueueItemList();
-                return true;
+                // Reference match?
+                if (GetBuildingQueue()[i] == buildingToRemove) {
+
+                    // Remove from the queue
+                    GetBuildingQueue().RemoveAt(i);
+                    _BuildingQueueUI.UpdateQueueItemList();
+                    return true;
+                }
             }
         }
         return false;

@@ -149,10 +149,9 @@ public class GameManager : MonoBehaviour {
     
     private int _LabratoryCount = 0;
     private bool _ManuallyControllingAUnit = false;
-    private bool _GameOver = false;
     private bool _MatchVictory = false;
     private bool _GameIsPaused = false;
-
+    private bool _GameIsOver = false;
     
     //******************************************************************************************************************************
     //
@@ -230,17 +229,17 @@ public class GameManager : MonoBehaviour {
     /// <summary>
     //  Called once when the game is over
     /// </summary>
-    public void OnGameover() {
+    public void OnGameover(bool win) {
 
-        Time.timeScale = 0f;
-        _GameOver = true;
-
+        _MatchVictory = win;
+        _GameIsOver = true;
         if (GameOverWidget != null) {
 
             // Show widget and play game over UI animation
             GameOverWidget.gameObject.SetActive(true);
             GameOverWidget.OnGameOver();
         }
+        Time.timeScale = 0f;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -283,7 +282,7 @@ public class GameManager : MonoBehaviour {
     //  
     /// </summary>
     /// <returns>
-    //  
+    //  bool
     /// </returns>
     public bool IsGamePause() { return _GameIsPaused; }
 
@@ -335,17 +334,7 @@ public class GameManager : MonoBehaviour {
     /// </summary>
     /// <returns></returns>
     public bool GetIsUnitControlling() { return _ManuallyControllingAUnit; }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  
-    /// </summary>
-    /// <returns>
-    //  bool
-    /// </returns>
-    public bool GetGameOverState() { return _GameOver; }
-
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
@@ -357,5 +346,15 @@ public class GameManager : MonoBehaviour {
     public bool GetMatchVictory() { return _MatchVictory; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <returns>
+    //  bool
+    /// </returns>
+    public bool GetGameOverState() { return _GameIsOver; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 }
