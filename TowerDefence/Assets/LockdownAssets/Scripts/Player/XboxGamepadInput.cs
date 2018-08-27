@@ -23,14 +23,17 @@ public class XboxGamepadInput : MonoBehaviour {
     private Player _PlayerAttached;
     private KeyboardInput _KeyboardInputManager = null;
     public bool IsPrimaryController { get; set; }
+    [Header("----------------------")]
+    [Space]
+    [Header("OBJECT REFERENCES")]
     public GameObject SphereSelectorObject;
-
+    public Image ReticleImage;
     [Header("----------------------")]
     [Space]
     [Header("SPHERE SELECTION PROPERTIES")]
     public float MaxSphereRadius = 250;
     public float SphereGrowRate = 10;
-
+    public float SphereStartRadius = 5;
     [Header(" RAYCAST LAYERMASK")]
     public LayerMask MaskBlock;
 
@@ -160,11 +163,16 @@ public class XboxGamepadInput : MonoBehaviour {
     {
         if(GameManager.Instance.SelectionWheel.activeInHierarchy)
         {
+            ReticleImage.enabled = false;
             if (_Gamepad.GetButtonDown(buttonPress))
             {
                 GameManager.Instance.SelectionWheel.GetComponentInChildren<SelectionWheel>().HideSelectionWheel();
             }
 
+        }
+        else
+        {
+            ReticleImage.enabled = true;
         }
     }
 
@@ -546,12 +554,13 @@ public class XboxGamepadInput : MonoBehaviour {
                 if(Physics.Raycast(ray,out hit, 1000,_PlayerAttached._HUD.MaskBlock))
                 {
                     _SphereReference = Instantiate(SphereSelectorObject, hit.point, new Quaternion());
+                    _SphereReference.transform.localScale = new Vector3(SphereStartRadius, SphereStartRadius, SphereStartRadius);
                 }
             }
 
             if (_Gamepad.GetButton("A"))
             {
-                if (_SphereReference.transform.localScale.x < 40 && _SphereReference.transform.localScale.y < 40)
+                if (_SphereReference.transform.localScale.x < MaxSphereRadius && _SphereReference.transform.localScale.y < MaxSphereRadius)
                 _SphereReference.transform.localScale += _SphereReference.transform.localScale * Time.deltaTime * SphereGrowRate;
             }
 
