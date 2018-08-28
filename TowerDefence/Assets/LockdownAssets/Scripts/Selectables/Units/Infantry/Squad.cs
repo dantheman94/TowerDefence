@@ -27,16 +27,7 @@ public class Squad : Ai
     [Space]
     public int SquadMaxSize = 0;
     public Unit SquadUnit;
-
-    public float MinVelocity;
-    public float MaxVelocity;
-
-    public float SeparationForce;
-    public float AlignmentForce;
-    public float CohesionForce;
-
     public float FlockingRadius;
-
     public float CornerDistanceThreshold = 10f;
 
     //******************************************************************************************************************************
@@ -50,18 +41,13 @@ public class Squad : Ai
     private List<Vector3> _PathCorners;
     private List<Unit> _Squad;
 
-    Vector3 _SeparationWeight;
-    Vector3 _AllignmentSpeed;
-    Vector3 _CohesionWeight;
-
-    Vector3 _ForceToApply;
-
     private bool _UpdateBoids = false;
     private bool _HasPath = false;
 
     public LayerMask layerMask;
 
     private bool _PathCalculated = false;
+    private bool _SeekPathComplete = false;
     private NavMeshPath _CurrentPath;
     private Vector3 _CurrentCornerTarget;
     private int _NodeIterator = 0;
@@ -100,10 +86,10 @@ public class Squad : Ai
     protected override void Update() {
         base.Update();
 
-            // Hide the unit UI widgets if it is building
-            if (_ObjectState == WorldObjectStates.Building) {
+        // Hide the unit UI widgets if it is building
+        if (_ObjectState == WorldObjectStates.Building) {
 
-            // Hide the healthbar
+             // Hide the healthbar
             if (_HealthBar != null) {
 
                 _HealthBar.gameObject.SetActive(false);
@@ -126,8 +112,7 @@ public class Squad : Ai
         // Update squad health
         else if (_ObjectState == WorldObjectStates.Active) {
 
-            if (IsAlive())
-            {
+            if (IsAlive()) {
 
                 // Show the healthbar
                 if (_HealthBar != null) { _HealthBar.gameObject.SetActive(true); }
@@ -167,7 +152,9 @@ public class Squad : Ai
         // If the distance to the corner is less than the threshold
         if (dist < CornerDistanceThreshold && _PathCorners != null) {
 
-            // Assign
+            _SeekPathComplete = false;
+
+            // Update node iterator
             if (_NodeIterator + 1 <= _PathCorners.Count) {
 
                 _NodeIterator++;
@@ -179,6 +166,11 @@ public class Squad : Ai
 
                     _Squad[i].AgentSeekPosition(positions[i], false, true);
                 }
+
+            }
+            else if (_NodeIterator == _PathCorners.Count)
+            {
+                _SeekPathComplete = true;
             }
         }
     }
@@ -240,19 +232,25 @@ public class Squad : Ai
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+    /// <summary>
+    ///
+    /// </summary>
     public void SquadCalculatePath(Vector3 targetPos) {
+
+        _SeekTarget = targetPos;
 
         // Create new path
         _CurrentPath = new NavMeshPath();
 
         // Calculate the path
-        NavMesh.CalculatePath(transform.position, _SeekTarget, NavMesh.AllAreas, _CurrentPath);
+        NavMesh.CalculatePath(transform.position, targetPos, NavMesh.AllAreas, _CurrentPath);
 
         // Start coroutine
-        StartCoroutine(PathCalculated());
+        StartCoroutine(SeekPathCalculated());
     }
 
-    IEnumerator PathCalculated() {
+    IEnumerator SeekPathCalculated() {
 
         yield return new WaitUntil(() => _PathCalculated);
 
@@ -494,17 +492,14 @@ public class Squad : Ai
     public void SquadSeek(Vector3 seekTarget, bool overwrite = false)
     {
 
-        // Get positions with an offset for each unit to seek towards
-        _SeekTarget = seekTarget;
-
         SquadCalculatePath(seekTarget);
 
         // Get all alive units to seek to the squad seek target
-        _UpdateBoids = true;
-        for (int i = 0; i < _Squad.Count; i++)
-        {
-            _Squad[i].HasReachedTarget = true;
-        }
+        //_UpdateBoids = true;
+        //for (int i = 0; i < _Squad.Count; i++)
+        //{
+        //    _Squad[i].HasReachedTarget = true;
+        //}
 
         // Create waypoint
         if (_SeekWaypoint == null) { _SeekWaypoint = ObjectPooling.Spawn(GameManager.Instance.AgentSeekObject, Vector3.zero, Quaternion.identity); }
@@ -527,19 +522,31 @@ public class Squad : Ai
     /// </summary>
     /// <param name="attackTarget"></param>
     /// <param name="overwrite"></param>
-    public void SquadAttackObject(WorldObject attackTarget, bool overwrite = false)
+    public void SquadAttackObject(WorldObject attackTarget, bool overwrite = false) {
+
+        // Set seek target and calculate a path to it
+        SquadSeek(attackTarget.transform.position, overwrite);
+
+        //StartCoroutine(AttackPathComplete(attackTarget));
+    }
+
+    IEnumerator AttackPathComplete(WorldObject attackTarget)
     {
+
+        yield return new WaitUntil(() => _SeekPathComplete);
 
         // Get positions with an offset for each unit to seek towards
         List<Vector3> positions = GetAttackingPositionsAtObject(attackTarget, _Squad.Count);
-
-        // Get all alive units to attack the object (while positioning ourselves)
-        int i = 0;
-        foreach (var unit in _Squad)
+        for (int i = 0; i < _Squad.Count; i++)
         {
 
-            unit.AgentAttackObject(attackTarget, positions[i], overwrite);
-            i++;
+            // Get all alive units to attack the object (while positioning ourselves)
+            foreach (var unit in _Squad)
+            {
+
+                unit.AgentAttackObject(attackTarget, positions[i], false);
+                i++;
+            }
         }
     }
 
@@ -584,5 +591,4 @@ public class Squad : Ai
     public List<Unit> GetSquadMembers() { return _Squad; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 }
