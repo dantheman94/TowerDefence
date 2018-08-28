@@ -17,13 +17,16 @@ public class XboxGamepadInput : MonoBehaviour {
 
     //******************************************************************************************************************************
     //
-    //      VARIABLES
+    //      INSPECTOR
     //
     //******************************************************************************************************************************
 
     private Player _PlayerAttached;
     private KeyboardInput _KeyboardInputManager = null;
     public bool IsPrimaryController { get; set; }
+
+    [HideInInspector]
+    public bool CanSelect = false;
     [Header("----------------------")]
     [Space]
     [Header("OBJECT REFERENCES")]
@@ -37,6 +40,12 @@ public class XboxGamepadInput : MonoBehaviour {
     public float SphereStartRadius = 5;
     [Header(" RAYCAST LAYERMASK")]
     public LayerMask MaskBlock;
+
+    //******************************************************************************************************************************
+    //
+    //      VARIABLES
+    //
+    //******************************************************************************************************************************
 
     private Vector3 _LookPoint;
     private Vector3 _CurrentVelocity = Vector3.zero;
@@ -52,6 +61,7 @@ public class XboxGamepadInput : MonoBehaviour {
     private float _CurrentAngle = 0f;
     float _AngleOffset = 360 / 10;
     private int _RadialIndex = 0;
+    
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
@@ -82,10 +92,7 @@ public class XboxGamepadInput : MonoBehaviour {
     //  Called each frame. 
     /// </summary>
     private void Update() {
-        CreateSelection();
-        MoveSelectedUnits("X");
-        ExitUI("B");
-        ChangeSelectionWheel();
+ 
    //     TogglePause();
         if (_PlayerAttached) {
 
@@ -103,9 +110,14 @@ public class XboxGamepadInput : MonoBehaviour {
             _GamepadState = GamePad.GetState(_PlayerAttached.Index);
             
             if (IsPrimaryController) {
-
-
-                if(!GameManager.Instance.SelectionWheel.activeInHierarchy)
+                //Gamepad function presses.
+  
+                MoveSelectedUnits("X");
+                ExitUI("B");
+                ChangeSelectionWheel();
+                StartCoroutine(Select());
+                CreateSelection();
+                if (!GameManager.Instance.SelectionWheel.activeInHierarchy)
                 {
                     // Update camera
                     MoveCamera();
@@ -168,6 +180,11 @@ public class XboxGamepadInput : MonoBehaviour {
         }
     }
 
+
+    private void LateUpdate()
+    {
+       
+    }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     private void TogglePause()
@@ -187,6 +204,8 @@ public class XboxGamepadInput : MonoBehaviour {
             }
         }
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     /// Exits user interface.
@@ -208,6 +227,7 @@ public class XboxGamepadInput : MonoBehaviour {
         }
     }
 
+    //////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     //  Initiates the controller rumble process (vibration)
@@ -239,6 +259,8 @@ public class XboxGamepadInput : MonoBehaviour {
         _LookPoint = hit.point;
     }
 
+    /////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     /// Change selection.
     /// </summary>
@@ -254,52 +276,24 @@ public class XboxGamepadInput : MonoBehaviour {
             {
                 _CurrentAngle = NormalizeAngle(-_RawAngle + 90 - globalOffset + (_AngleOffset / 2f));
                 GameManager.Instance.SelectionWheel.GetComponentInChildren<SelectionWheel>().
-                 SelectionMarker.rotation = Quaternion.Euler(0, 0, _RawAngle + 270);
+                SelectionMarker.rotation = Quaternion.Euler(0, 0, _RawAngle + 270);
             }
 
             if (_AngleOffset != 0)
             {
-
                 _RadialIndex = (int)(_CurrentAngle / _AngleOffset);
             }
 
-            switch (_RadialIndex)
+            for(int i = 0; i < _SelectionWheel._WheelButtons.Count; ++i)
             {
-                case 0:
-                    StartCoroutine(DelayedSelect(_SelectionWheel._WheelButtons[0]));
-                    break;
-                case 1:
-                    StartCoroutine(DelayedSelect(_SelectionWheel._WheelButtons[1]));
-                    break;
-                case 2:
-                    StartCoroutine(DelayedSelect(_SelectionWheel._WheelButtons[2]));
-                    break;
-                case 3:
-                    StartCoroutine(DelayedSelect(_SelectionWheel._WheelButtons[3]));
-                    break;
-                case 4:
-                    StartCoroutine(DelayedSelect(_SelectionWheel._WheelButtons[4]));
-                    break;
-                case 5:
-                    StartCoroutine(DelayedSelect(_SelectionWheel._WheelButtons[5]));
-                    break;
-                case 6:
-                    StartCoroutine(DelayedSelect(_SelectionWheel._WheelButtons[6]));
-                    break;
-                case 7:
-                    StartCoroutine(DelayedSelect(_SelectionWheel._WheelButtons[7]));
-                    break;
-                case 8:
-                    StartCoroutine(DelayedSelect(_SelectionWheel._WheelButtons[8]));
-                    break;
-                case 9:
-                    StartCoroutine(DelayedSelect(_SelectionWheel._WheelButtons[9]));
-                    break;
-
+                    if(_RadialIndex == i)
+                   {
+                    StartCoroutine(DelayedSelect(_SelectionWheel._WheelButtons[i]));
+                }
             }
-
+     
         }
-        }
+    }
 
     IEnumerator DelayedSelect(Button a_button)
     {
@@ -307,7 +301,11 @@ public class XboxGamepadInput : MonoBehaviour {
         a_button.Select();
     }
  
-
+    IEnumerator Select()
+    {
+        yield return new WaitForSeconds(0.1f);
+    
+    }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
@@ -644,7 +642,7 @@ public class XboxGamepadInput : MonoBehaviour {
     /// </summary>
     private void CreateSelection()
     {
-        //If the selection windo is not currently active.
+        //If the selection window is not currently active.
         if (!_PlayerAttached._HUD.WheelActive())
         {
             //If A is pressed.
@@ -668,8 +666,6 @@ public class XboxGamepadInput : MonoBehaviour {
                         _SphereReference.transform.localScale += _SphereReference.transform.localScale * Time.deltaTime * SphereGrowRate;
                 }
             }
-              
-
         }
         //Destroy the sphere when the button is brought up.
         if (_Gamepad.GetButtonUp("A"))
@@ -677,7 +673,6 @@ public class XboxGamepadInput : MonoBehaviour {
             Destroy(_SphereReference);
         }
     }
-
 
     /// <summary>
     //  Rotates camera.
