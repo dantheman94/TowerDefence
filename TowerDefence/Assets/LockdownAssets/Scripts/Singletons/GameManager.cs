@@ -152,7 +152,7 @@ public class GameManager : MonoBehaviour {
     private bool _GameOver = false;
     private bool _MatchVictory = false;
     private bool _GameIsPaused = false;
-
+    private xb_gamepad _Gamepad;
     
     //******************************************************************************************************************************
     //
@@ -186,7 +186,7 @@ public class GameManager : MonoBehaviour {
     //  Called when this object is created.
     /// </summary>
     private void Start() {
-
+        _Gamepad = GamepadManager.Instance.GetGamepad(1);
         // Get all player entities
         Players = new List<Player>();
         GameObject[] objs = GameObject.FindGameObjectsWithTag("Player");
@@ -220,9 +220,17 @@ public class GameManager : MonoBehaviour {
     //  Called each frame. 
     /// </summary>
     private void Update() {
-
+        EnableControls();
         // Update menu type
         if (!_IsRadialMenu) { SelectionWheel = selectionWindow; }
+    }
+
+    private void EnableControls()
+    {
+        if(Input.anyKey)
+        {
+            Players[0]._KeyboardInputManager.enabled = true;
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -244,6 +252,11 @@ public class GameManager : MonoBehaviour {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public xb_gamepad GetGamepad()
+    {
+        return _Gamepad;
+    }
 
     /// <summary>
     //  

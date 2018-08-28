@@ -80,6 +80,7 @@ public class KeyboardInput : MonoBehaviour {
             if (IsPrimaryController) {
 
                 Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
                 // Update camera
                 MoveCamera();
                 RotateCamera();
@@ -354,7 +355,7 @@ public class KeyboardInput : MonoBehaviour {
                 Settings.MovementSpeed = Settings.CameraWalkSpeed;
             }
         }
-
+        
         // Horizontal camera movement via mouse
         if (xPos >= 0 && xPos < Settings.ScreenOffset)
             movement.x -= Settings.MovementSpeed;

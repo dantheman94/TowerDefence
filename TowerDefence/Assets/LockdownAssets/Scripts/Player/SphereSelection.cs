@@ -30,7 +30,7 @@ public class SphereSelection : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag != "Ground")
+        if (other.gameObject.tag != "Ground" && other.gameObject.layer != LayerMask.NameToLayer("Ignore Raycast"))
         {
             // Deselect any objects that are currently selected
             foreach (var obj in _Player.SelectedWorldObjects) { obj.SetIsSelected(false); }

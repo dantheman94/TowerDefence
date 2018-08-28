@@ -84,6 +84,7 @@ public class XboxGamepadInput : MonoBehaviour {
         MoveSelectedUnits("X");
         ExitUI("B");
         ChangeSelectionWheel();
+   //     TogglePause();
         Debug.Log("X: " + _Gamepad.GetStick_R().X);
         Debug.Log("Y: " + _Gamepad.GetStick_R().Y);
         if (_PlayerAttached) {
@@ -94,6 +95,7 @@ public class XboxGamepadInput : MonoBehaviour {
                 // Disable keyboard / Enable gamepad
                 IsPrimaryController = true;
                 if (_KeyboardInputManager != null) { _KeyboardInputManager.IsPrimaryController = false; }
+                _KeyboardInputManager.enabled = false;
             }
             
             // Update gamepad states
@@ -117,6 +119,7 @@ public class XboxGamepadInput : MonoBehaviour {
                 // Update point/click input
                 PointClickActivity();
                 Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
 
                 // Update abilities input
                 ///AbilitiesInput();
@@ -166,6 +169,24 @@ public class XboxGamepadInput : MonoBehaviour {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    private void TogglePause()
+    {
+        if(GameManager.Instance.PauseWidget.transform.gameObject.activeInHierarchy)
+        {
+            if(_Gamepad.GetButtonDown("start"))
+            {
+                GameManager.Instance.PauseWidget.gameObject.SetActive(false);
+            }
+        }
+        else
+        {
+            if (_Gamepad.GetButtonDown("start"))
+            {
+                GameManager.Instance.PauseWidget.gameObject.SetActive(true);
+            }
+        }
+    }
 
     /// <summary>
     /// Exits user interface.

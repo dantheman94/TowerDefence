@@ -151,6 +151,8 @@ public class xb_gamepad : MonoBehaviour {
         inputMap["B"] = B;
         inputMap["Y"] = Y;
 
+        inputMap["start"] = start;
+
         inputMap["dPadUp"] = dPadUP;
         inputMap["dPadDown"] = dPadDown;
         inputMap["dPadLeft"] = dPadLeft;
