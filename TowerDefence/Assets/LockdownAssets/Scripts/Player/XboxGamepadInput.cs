@@ -49,7 +49,8 @@ public class XboxGamepadInput : MonoBehaviour {
     private xb_gamepad _Gamepad;
     private GameObject _SphereReference;
     private SelectionWheel _SelectionWheel;
-
+    private float _CurrentAngle = 0f;
+    float _AngleOffset = 360 / 10;
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
@@ -244,7 +245,19 @@ public class XboxGamepadInput : MonoBehaviour {
     /// </summary>
     public void ChangeSelectionWheel()
     {
-        if(GameManager.Instance.SelectionWheel.activeInHierarchy)
+
+         float _RawAngle;
+         float globalOffset = 0;
+        _RawAngle = Mathf.Atan2(_Gamepad.GetStick_R().Y, _Gamepad.GetStick_R().X) * Mathf.Rad2Deg;
+       
+        if(_Gamepad.GetStick_R().X != 0 || _Gamepad.GetStick_R().Y != 0)
+        {
+            _CurrentAngle = NormalizeAngle(-_RawAngle + 90 - globalOffset + (_AngleOffset / 2f));
+            GameManager.Instance.SelectionWheel.GetComponentInChildren<SelectionWheel>().
+             SelectionMarker.rotation = Quaternion.Euler(0, 0, _RawAngle + 270);
+        }
+
+        if (GameManager.Instance.SelectionWheel.activeInHierarchy)
         {
             //top button.
            if(_Gamepad.GetStick_R().Y == 1 && _Gamepad.GetStick_R().X <= 0)
@@ -642,21 +655,22 @@ public class XboxGamepadInput : MonoBehaviour {
     /// </summary>
     private void CreateSelection()
     {
+        //If the selection windo is not currently active.
         if (!_PlayerAttached._HUD.WheelActive())
         {
-
+            //If A is pressed.
             if (_Gamepad.GetButtonDown("A"))
             {
                 Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
                 RaycastHit hit;
-
+                //Fire raycast from middle of the screen.
                 if(Physics.Raycast(ray,out hit, 1000,_PlayerAttached._HUD.MaskBlock))
                 {
                     _SphereReference = Instantiate(SphereSelectorObject, hit.point, new Quaternion());
                     _SphereReference.transform.localScale = new Vector3(SphereStartRadius, SphereStartRadius, SphereStartRadius);
                 }
             }
-
+            //Increase size of sphere while button is held down.
             if (_Gamepad.GetButton("A"))
             {
                 if (_SphereReference.transform.localScale.x < MaxSphereRadius && _SphereReference.transform.localScale.y < MaxSphereRadius)
@@ -664,7 +678,7 @@ public class XboxGamepadInput : MonoBehaviour {
             }
 
         }
-
+        //Destroy the sphere when the button is brought up.
         if (_Gamepad.GetButtonUp("A"))
         {
             Destroy(_SphereReference);
@@ -821,6 +835,23 @@ public class XboxGamepadInput : MonoBehaviour {
         if (OnRightThumbstickUp()) { result = true; }
 
         return result;
+    }
+
+    /// <summary>
+    /// Keeps the cheeky angle between 0 and 360.
+    /// </summary>
+    /// <param name="angle"></param>
+    /// <returns></returns>
+    private float NormalizeAngle(float angle)
+    {
+        angle = angle % 360f;
+
+        if(angle < 0)
+        {
+            angle += 360;
+        }
+
+        return angle;
     }
 
     /// <summary>

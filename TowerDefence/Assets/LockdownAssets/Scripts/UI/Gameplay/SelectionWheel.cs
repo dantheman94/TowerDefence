@@ -44,6 +44,7 @@ public class SelectionWheel : MonoBehaviour {
     [Header(" ITEM HIGHLIGHT DETAIL WINDOW")]
     [Space]
     public UI_BuildingQueue BuildingQueue;
+    public RectTransform SelectionMarker;
 
     [Space]
     [Header("-----------------------------------")]
