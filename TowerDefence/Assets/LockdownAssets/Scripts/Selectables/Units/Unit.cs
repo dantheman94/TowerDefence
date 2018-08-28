@@ -108,7 +108,7 @@ public class Unit : Ai {
 
         // Get component references
         _CharacterController = GetComponent<CharacterController>();
-        _Agent = GetComponent<NavMeshAgent>();
+        _Agent = GetComponentInChildren<NavMeshAgent>();
         _ObjectHeight = _Agent.height;
     }
 

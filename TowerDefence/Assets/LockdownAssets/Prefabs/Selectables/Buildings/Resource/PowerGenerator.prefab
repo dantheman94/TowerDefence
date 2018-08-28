@@ -170,6 +170,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1430483934314032
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4420440687844880}
+  - component: {fileID: 33133826859391368}
+  - component: {fileID: 64390954186118214}
+  - component: {fileID: 23735868913615180}
+  m_Layer: 8
+  m_Name: quad_Minimap
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
 --- !u!1 &1475887673948976
 GameObject:
   m_ObjectHideFlags: 1
@@ -240,7 +258,7 @@ Transform:
   - {fileID: 4750236905629884}
   - {fileID: 4933803729213550}
   m_Father: {fileID: 4724847416450164}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4333754779713920
 Transform:
@@ -268,6 +286,19 @@ Transform:
   m_Father: {fileID: 4253336252100062}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4420440687844880
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1430483934314032}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 8, z: 0}
+  m_LocalScale: {x: 10, y: 10, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4724847416450164}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!4 &4429593723015170
 Transform:
   m_ObjectHideFlags: 1
@@ -306,7 +337,7 @@ Transform:
   m_Children:
   - {fileID: 4333754779713920}
   m_Father: {fileID: 4724847416450164}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4582070327277194
 Transform:
@@ -354,9 +385,10 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1079679644633822}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -65.17, y: 0, z: -164.3518}
+  m_LocalPosition: {x: -1019.65, y: 0, z: -590.36}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 4420440687844880}
   - {fileID: 4253336252100062}
   - {fileID: 4547434203417698}
   m_Father: {fileID: 0}
@@ -626,6 +658,40 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!23 &23735868913615180
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1430483934314032}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 1
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!23 &23947775557802984
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -701,6 +767,13 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1336359850632776}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &33133826859391368
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1430483934314032}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &33273900675890488
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -757,6 +830,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1063838953317704}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!64 &64390954186118214
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1430483934314032}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!65 &65148909120121628
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -886,7 +973,7 @@ MonoBehaviour:
   ObjectDescriptionLong: Provides a stream of power for you to spend on base & unit
     upgrades. Can be stacked to increase resource streaming with more power generation.
   Logo: {fileID: 0}
-  BuildingTime: 15
+  BuildingTime: 20
   CostSupplies: 0
   CostPower: 500
   CostTechLevel: 1
@@ -905,7 +992,7 @@ MonoBehaviour:
   Garrisonable: 0
   MaxGarrisonPopulation: 0
   MultiSelectable: 0
-  _OffsetY: 1
+  _OffsetY: 0
   _WidgetHealthbarScaleX: 150
   _WidgetHealthbarScaleY: 15
   _WidgetHealthbarOffset: 15
@@ -927,16 +1014,13 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  QuadMinimap: {fileID: 0}
+  QuadMinimap: {fileID: 1430483934314032}
   ResourceType: 1
   UpgradedGenerator: 0
   ResourcesGivenWhenBuilt: 0
   ResourcesGivenPerTickOver: 1
   GeneratorRate: 1
-  Pylons:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  Pylons: []
   PylonVerticalOffset: 2
   RotateSpeed: 8
   OrbitSpeed: 100
