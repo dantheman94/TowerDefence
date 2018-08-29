@@ -61,23 +61,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1332144672527672
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4547675676522130}
-  - component: {fileID: 33751636020308598}
-  - component: {fileID: 23765944601208456}
-  m_Layer: 0
-  m_Name: Arrow_Asset
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
 --- !u!1 &1686846711742006
 GameObject:
   m_ObjectHideFlags: 0
@@ -191,7 +174,6 @@ Transform:
   - {fileID: 4967966220119360}
   - {fileID: 4380084211056656}
   - {fileID: 4364828451444738}
-  - {fileID: 4547675676522130}
   m_Father: {fileID: 4904643683662644}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -202,7 +184,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1142319483322070}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 8, z: 0}
+  m_LocalPosition: {x: 0, y: 20, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 1}
   m_Children: []
   m_Father: {fileID: 4904643683662644}
@@ -234,19 +216,6 @@ Transform:
   - {fileID: 4802715780329456}
   m_Father: {fileID: 4071067982752452}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4547675676522130
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1332144672527672}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 11.004004, z: 2.4841309}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4071067982752452}
-  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4557124194051648
 Transform:
@@ -419,40 +388,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!23 &23765944601208456
-MeshRenderer:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1332144672527672}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_Materials:
-  - {fileID: 2100000, guid: de362a8fb0034f749b1d72389019134f, type: 3}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
 --- !u!23 &23843318469932992
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -508,13 +443,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1289730731140058}
   m_Mesh: {fileID: 4300000, guid: 35705018764dae143bdf08b8ec09a043, type: 3}
---- !u!33 &33751636020308598
-MeshFilter:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1332144672527672}
-  m_Mesh: {fileID: 4300002, guid: de362a8fb0034f749b1d72389019134f, type: 3}
 --- !u!33 &33819549336602660
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -618,8 +546,8 @@ MonoBehaviour:
   MaxShieldPoints: 0
   Garrisonable: 0
   MaxGarrisonPopulation: 0
-  MultiSelectable: 1
-  _OffsetY: 2
+  MultiSelectable: 0
+  _OffsetY: 0
   _WidgetHealthbarScaleX: 100
   _WidgetHealthbarScaleY: 15
   _WidgetHealthbarOffset: 15
@@ -632,8 +560,8 @@ MonoBehaviour:
   HasABuildingQueue: 1
   Selectables:
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 114109408995356522, guid: 9bd9a45d85e93434b932a5ceae3f10e8, type: 2}
+  - {fileID: 114109675360212542, guid: 5d7749804cd8d9345889d69bbdb88af3, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 114086916006409686, guid: 79277ac9396fb6649b8e74d19bdac0b4, type: 2}

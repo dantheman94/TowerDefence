@@ -137,15 +137,11 @@ public class WaveManager : MonoBehaviour {
 
     private float _CurrentDamageModifier;
     private float _CurrentHealthModifier;
-
-    [Space]
-    public WaveInfo _CurrentWaveInfo;
-    [Space]
-    public List<WorldObject> _CurrentWaveEnemies;
-    [Space]
-    public List<WorldObject> _PreviousWavesEnemies;
-    [Space]
-    public LockdownPad _CurrentLockdownPad;
+    
+    private WaveInfo _CurrentWaveInfo;
+    private List<WorldObject> _CurrentWaveEnemies;
+    private List<WorldObject> _PreviousWavesEnemies;
+    private LockdownPad _CurrentLockdownPad;
 
     private bool _WaveInProgress = false;
     private float _CurrentSubwaveTime = 0f;
@@ -610,6 +606,16 @@ public class WaveManager : MonoBehaviour {
             }
         }
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <returns>
+    //  List<WorldObject>
+    /// </returns>
+    public List<WorldObject> GetCurrentWaveEnemies() { return _CurrentWaveEnemies; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

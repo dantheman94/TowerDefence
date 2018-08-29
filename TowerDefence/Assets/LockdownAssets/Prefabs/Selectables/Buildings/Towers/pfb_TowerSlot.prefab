@@ -20,11 +20,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4526429216962806}
   - component: {fileID: 33277053966590976}
-  - component: {fileID: 65781076893644664}
   - component: {fileID: 23882741015571352}
-  - component: {fileID: 65967885872433396}
-  - component: {fileID: 114111713111011338}
   - component: {fileID: 208827606067205368}
+  - component: {fileID: 114111713111011338}
   m_Layer: 11
   m_Name: pfb_TowerSlot
   m_TagString: BuildingSlot
@@ -86,30 +84,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1148801069332518}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &65781076893644664
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1148801069332518}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65967885872433396
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1148801069332518}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114111713111011338
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -152,10 +126,10 @@ MonoBehaviour:
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
   ShrinkSpeed: 0.2
-  OnlyAppearWhenAttachedToBase: 1
+  OnlyAppearWhenAttachedToBase: 0
   AttachedBase: {fileID: 0}
   AttachedBuilding: {fileID: 0}
-  ObjectsCreatedAreQueued: 0
+  ObjectsCreatedAreQueued: 1
   LinkedSlots: []
   Buildings:
   - {fileID: 0}

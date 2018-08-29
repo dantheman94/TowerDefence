@@ -20,9 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4900670411933588}
   - component: {fileID: 33516127585031960}
-  - component: {fileID: 65046531059814156}
   - component: {fileID: 23304275798438528}
-  - component: {fileID: 65909136821395142}
   - component: {fileID: 114701711299698714}
   m_Layer: 11
   m_Name: pfb_BaseSlot
@@ -38,8 +36,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1605634473593036}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -16.4, y: 0.5, z: -167.8}
-  m_LocalScale: {x: 20, y: 1, z: 25}
+  m_LocalPosition: {x: -7.4000015, y: 0, z: -195.8}
+  m_LocalScale: {x: 40, y: 1, z: 50}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -85,30 +83,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1605634473593036}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &65046531059814156
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1605634473593036}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65909136821395142
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1605634473593036}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114701711299698714
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -124,13 +98,13 @@ MonoBehaviour:
   ObjectDescriptionShort: 
   ObjectDescriptionLong: 
   Logo: {fileID: 0}
-  BuildingTime: 20
+  BuildingTime: 0
   CostSupplies: 0
   CostPower: 0
   CostTechLevel: 1
   CostPopulation: 0
-  _ObjectState: 3
-  Team: 0
+  _ObjectState: 4
+  Team: 1
   _Player: {fileID: 0}
   FogOfWarRadius: 400
   ShowSelectionGUI: 1
@@ -154,16 +128,10 @@ MonoBehaviour:
   OnlyAppearWhenAttachedToBase: 0
   AttachedBase: {fileID: 0}
   AttachedBuilding: {fileID: 0}
-  ObjectsCreatedAreQueued: 0
-  LinkedSlots:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  ObjectsCreatedAreQueued: 1
+  LinkedSlots: []
   Buildings:
-  - {fileID: 0}
+  - {fileID: 114056886330466534, guid: 4aeb19e7521dd0e45a67a8be38e74913, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

@@ -117,7 +117,7 @@ public class Ai : WorldObject {
         base.OnDeath();
 
         // If were in the wave manager's enemies array - remove it
-        if (WaveManager.Instance._CurrentWaveEnemies.Contains(this)) { WaveManager.Instance._CurrentWaveEnemies.Remove(this); }
+        if (WaveManager.Instance.GetCurrentWaveEnemies().Contains(this)) { WaveManager.Instance.GetCurrentWaveEnemies().Remove(this); }
         if (Team == GameManager.Team.Attacking) { GameManager.Instance.WaveStatsHUD.DeductLifeFromCurrentPopulation(); }
     }
 
