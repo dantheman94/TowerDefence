@@ -166,7 +166,7 @@ public class GameManager : MonoBehaviour {
     //  This is called before Startup().
     /// </summary>
     private void Awake() {
-        
+        Input.mousePosition.Set(Screen.width / 2, Screen.height / 2,0);
         // Initialize singleton
         if (Instance != null && Instance != this) {
 

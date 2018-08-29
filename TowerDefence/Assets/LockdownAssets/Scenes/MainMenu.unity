@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -583,8 +583,8 @@ RectTransform:
   m_Father: {fileID: 1287378707}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1676,6 +1676,7 @@ GameObject:
   - component: {fileID: 247954030}
   - component: {fileID: 247954029}
   - component: {fileID: 247954032}
+  - component: {fileID: 247954033}
   m_Layer: 5
   m_Name: TexQualNav
   m_TagString: Untagged
@@ -1784,6 +1785,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 76a0c587996abcc43a57d5be4dbc5117, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &247954033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 247954027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f185df1360aef0459894146acbd2749, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _SettingsNavigator: {fileID: 311979273}
@@ -2391,31 +2403,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 670a2c0bb5ae5e64884686a7b27ad2d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
 --- !u!1 &303377482
 GameObject:
   m_ObjectHideFlags: 0
@@ -6248,7 +6235,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 628760288}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76a0c587996abcc43a57d5be4dbc5117, type: 3}
+  m_Script: {fileID: 11500000, guid: 6f185df1360aef0459894146acbd2749, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _SettingsNavigator: {fileID: 311979273}
@@ -6660,8 +6647,8 @@ RectTransform:
   m_Father: {fileID: 1890907277}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -8258,7 +8245,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -8307,6 +8294,7 @@ GameObject:
   - component: {fileID: 845963816}
   - component: {fileID: 845963815}
   - component: {fileID: 845963819}
+  - component: {fileID: 845963820}
   m_Layer: 5
   m_Name: WindowModeNav
   m_TagString: Untagged
@@ -8415,6 +8403,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 76a0c587996abcc43a57d5be4dbc5117, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &845963820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 845963814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f185df1360aef0459894146acbd2749, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _SettingsNavigator: {fileID: 311979273}
@@ -8571,8 +8570,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76a0c587996abcc43a57d5be4dbc5117, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _SettingsNavigator: {fileID: 311979273}
-  CurrentSetting: MasterVolume
 --- !u!1 &863612006
 GameObject:
   m_ObjectHideFlags: 0
@@ -9013,8 +9010,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76a0c587996abcc43a57d5be4dbc5117, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _SettingsNavigator: {fileID: 311979273}
-  CurrentSetting: MusicVolume
 --- !u!1 &913355013
 GameObject:
   m_ObjectHideFlags: 0
@@ -9364,6 +9359,7 @@ GameObject:
   - component: {fileID: 955073770}
   - component: {fileID: 955073769}
   - component: {fileID: 955073773}
+  - component: {fileID: 955073774}
   m_Layer: 5
   m_Name: ResolutionNav
   m_TagString: Untagged
@@ -9472,6 +9468,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 76a0c587996abcc43a57d5be4dbc5117, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &955073774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 955073768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f185df1360aef0459894146acbd2749, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _SettingsNavigator: {fileID: 311979273}
@@ -9870,7 +9877,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -11354,6 +11361,7 @@ GameObject:
   - component: {fileID: 1174985844}
   - component: {fileID: 1174985843}
   - component: {fileID: 1174985846}
+  - component: {fileID: 1174985847}
   m_Layer: 5
   m_Name: b_KeyBindings
   m_TagString: Untagged
@@ -11465,6 +11473,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76a0c587996abcc43a57d5be4dbc5117, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1174985847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1174985841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f185df1360aef0459894146acbd2749, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   _SettingsNavigator: {fileID: 311979273}
   CurrentSetting: KeyboardBindings
 --- !u!1 &1180586413
@@ -11572,8 +11591,8 @@ RectTransform:
   m_Father: {fileID: 253674784}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -13624,7 +13643,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1396640244
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14063,6 +14082,7 @@ GameObject:
   - component: {fileID: 1448085428}
   - component: {fileID: 1448085427}
   - component: {fileID: 1448085431}
+  - component: {fileID: 1448085432}
   m_Layer: 5
   m_Name: VSyncNav
   m_TagString: Untagged
@@ -14171,6 +14191,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 76a0c587996abcc43a57d5be4dbc5117, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1448085432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1448085426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f185df1360aef0459894146acbd2749, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _SettingsNavigator: {fileID: 311979273}
@@ -15493,6 +15524,7 @@ GameObject:
   - component: {fileID: 1569999549}
   - component: {fileID: 1569999548}
   - component: {fileID: 1569999551}
+  - component: {fileID: 1569999552}
   m_Layer: 5
   m_Name: b_Gamepad
   m_TagString: Untagged
@@ -15602,6 +15634,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 76a0c587996abcc43a57d5be4dbc5117, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1569999552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1569999546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f185df1360aef0459894146acbd2749, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _SettingsNavigator: {fileID: 311979273}
@@ -15802,8 +15845,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76a0c587996abcc43a57d5be4dbc5117, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _SettingsNavigator: {fileID: 311979273}
-  CurrentSetting: SFXVolume
 --- !u!1 &1604262556
 GameObject:
   m_ObjectHideFlags: 0
@@ -16334,6 +16375,7 @@ GameObject:
   - component: {fileID: 1668365719}
   - component: {fileID: 1668365718}
   - component: {fileID: 1668365722}
+  - component: {fileID: 1668365723}
   m_Layer: 5
   m_Name: AspectNav
   m_TagString: Untagged
@@ -16442,6 +16484,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 76a0c587996abcc43a57d5be4dbc5117, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1668365723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1668365717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f185df1360aef0459894146acbd2749, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _SettingsNavigator: {fileID: 311979273}
@@ -16625,7 +16678,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -17873,7 +17926,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1796289605
 RectTransform:
   m_ObjectHideFlags: 0

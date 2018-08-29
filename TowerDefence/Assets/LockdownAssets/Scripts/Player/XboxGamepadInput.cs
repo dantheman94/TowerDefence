@@ -41,6 +41,14 @@ public class XboxGamepadInput : MonoBehaviour {
     [Header(" RAYCAST LAYERMASK")]
     public LayerMask MaskBlock;
 
+    [Header("----------------------")]
+    [Space]
+    [Header("BUTTON IMAGES")]
+    public Image AButton;
+    public Image XButton;
+    public Image BButton;
+    public Image YButton;
+
     //******************************************************************************************************************************
     //
     //      VARIABLES
@@ -111,7 +119,7 @@ public class XboxGamepadInput : MonoBehaviour {
             
             if (IsPrimaryController) {
                 //Gamepad function presses.
-  
+                DisplayButtonUI();
                 MoveSelectedUnits("X");
                 ExitUI("B");
                 ChangeSelectionWheel();
@@ -307,6 +315,50 @@ public class XboxGamepadInput : MonoBehaviour {
     
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    private void DisplayButtonUI()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+        RaycastHit hit;
+        //Fire raycast from middle of the screen.
+        if (Physics.Raycast(ray, out hit, 1000, _PlayerAttached._HUD.MaskBlock))
+        {
+            if(hit.transform.gameObject.tag != "Ground" && !GameManager.Instance.SelectionWheel.activeInHierarchy)
+            {
+                AButton.enabled = true;
+                if(_Gamepad.GetButton("A"))
+                {
+                    AButton.color = Color.grey;
+                }
+                else
+                {
+                    AButton.color = Color.white;    
+                }
+            }
+            else
+            {
+                AButton.enabled = false;
+            }
+
+            if(hit.transform.gameObject.tag == "Ground" && _PlayerAttached.SelectedWorldObjects.Count > 0)
+            {
+                XButton.enabled = true;
+                if(_Gamepad.GetButton("X"))
+                {
+                    XButton.color = Color.grey;
+                }
+                else
+                {
+                    XButton.color = Color.white;
+                }
+            }
+            else
+            {
+                XButton.enabled = false;
+            }
+        }
+    }
+
 
     /// <summary>
     //  

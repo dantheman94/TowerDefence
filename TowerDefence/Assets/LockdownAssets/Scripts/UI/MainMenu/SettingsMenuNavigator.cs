@@ -57,7 +57,7 @@ public class SettingsMenuNavigator : MonoBehaviour {
 
     public enum TextureQuality
     {
-        LOW, MEDIUM, HIGH, ULTRA
+        VERY_LOW, LOW, MEDIUM, HIGH, VERY_HIGH, ULTRA
     }
 
     public enum WindowMode
@@ -72,7 +72,7 @@ public class SettingsMenuNavigator : MonoBehaviour {
 
     public enum AspectRatio
     {
-        SIXTEEN_NINE,
+        SIXTEEN_NINE, SIXTEEN_TEN, FOUR_THREE,THREE_TWO, FIVE_FOUR,
     }
 
     //******************************************************************************************************************************
@@ -142,12 +142,14 @@ public class SettingsMenuNavigator : MonoBehaviour {
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    // Use this for initialization
-    void Start () {
+    private void Awake()
+    {
+        LoadSettings();
         gamepad = GamepadManager.Instance.GetGamepad(1);
         _MenuNavigator = GetComponent<MenuNavigator>();
+        UpdateTextAndApplySettings();
+    }
 
-	}
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -155,7 +157,8 @@ public class SettingsMenuNavigator : MonoBehaviour {
     void Update () {
         NavigateSettingsMenu();
         SwitchSettings();
-        UpdateText();
+        UpdateTextAndApplySettings();
+        ApplySettings();
         Debug.Log(CurrentSelection);
     }
 
@@ -235,6 +238,28 @@ public class SettingsMenuNavigator : MonoBehaviour {
             case "Resolution":
                 break;
             case "AspectRatio":
+                if (gamepad.GetButtonDown("RB"))
+                {
+                    if (_AspectRatio < AspectRatio.FIVE_FOUR)
+                    {
+                        _AspectRatio++;
+                    }
+                    else
+                    {
+                        _AspectRatio = AspectRatio.SIXTEEN_NINE;
+                    }
+                }
+                else if(gamepad.GetButtonDown("LB"))
+                {
+                    if (_AspectRatio > AspectRatio.SIXTEEN_NINE)
+                    {
+                        _AspectRatio--;
+                    }
+                    else
+                    {
+                        _AspectRatio = AspectRatio.FIVE_FOUR;
+                    }
+                }
                 break;
             case "VSync":
                 if (gamepad.GetButtonDown("RB"))
@@ -272,7 +297,7 @@ public class SettingsMenuNavigator : MonoBehaviour {
                 }
                 else if (gamepad.GetButtonDown("LB"))
                 {
-                    if (_TextureQuality > TextureQuality.HIGH)
+                    if (_TextureQuality > TextureQuality.VERY_LOW)
                         _TextureQuality--;
                     else
                     {
@@ -335,18 +360,78 @@ public class SettingsMenuNavigator : MonoBehaviour {
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    private void ApplySettings()
+    {
+        switch (_AspectRatio)
+        {
+            case AspectRatio.SIXTEEN_NINE:
+                break;
+            default:
+                break;
+        }
+
+        switch (_WindowMode)
+        {
+            case WindowMode.FULLSCREEN:
+           
+                break;
+            case WindowMode.WINDOWED:
+            
+                break;
+            default:
+                break;
+        }
+        
+    }
+
+    private void LoadSettings()
+    {
+        PlayerPrefs.GetFloat("MasterVolume", MasterVolume);
+        PlayerPrefs.GetFloat("MusicVolume", MusicVolume);
+        PlayerPrefs.GetFloat("SFXVolume", EffectsVolume);
+        _Resolution = (Resolution)PlayerPrefs.GetInt("Resolution");
+        _AspectRatio = (AspectRatio)PlayerPrefs.GetInt("AspectRatio");
+        VSync = PlayerPrefs.GetInt("VSync");
+        _WindowMode = (WindowMode)PlayerPrefs.GetInt("WindowMode");
+        _TextureQuality = (TextureQuality)PlayerPrefs.GetInt("TextureQuality");
+        Debug.Log("Player Settings Loaded!");
+    }
+
     /// <summary>
     /// Updates setting text.
     /// </summary>
-    private void UpdateText()
+    private void UpdateTextAndApplySettings()
     {
         if(VSync == 0)
         {
             VSyncText.text = "OFF";
+            QualitySettings.vSyncCount = 0;
         }
         else if(VSync == 1)
         {
             VSyncText.text = "ON";
+            QualitySettings.vSyncCount = 1;
+        }
+
+        switch(_AspectRatio)
+        {
+            case AspectRatio.FIVE_FOUR:
+                AspectRatioText.text = "5:4";
+                break;
+            case AspectRatio.FOUR_THREE:
+                AspectRatioText.text = "4:3";
+                break;
+            case AspectRatio.SIXTEEN_NINE:
+                AspectRatioText.text = "16:9";
+                break;
+            case AspectRatio.SIXTEEN_TEN:
+                AspectRatioText.text = "16:10";
+                break;
+            case AspectRatio.THREE_TWO:
+                AspectRatioText.text = "3:2";
+                break;
+            default:
+                break;
         }
 
         switch(_MenuType)
@@ -363,15 +448,27 @@ public class SettingsMenuNavigator : MonoBehaviour {
         {
             case TextureQuality.HIGH:
                 TextureQualityText.text = "HIGH";
+                QualitySettings.SetQualityLevel(3);
                 break;
             case TextureQuality.MEDIUM:
                 TextureQualityText.text = "MEDIUM";
+                QualitySettings.SetQualityLevel(2);
                 break;
             case TextureQuality.LOW:
                 TextureQualityText.text = "LOW";
+                QualitySettings.SetQualityLevel(1);
                 break;
             case TextureQuality.ULTRA:
                 TextureQualityText.text = "ULTRA";
+                QualitySettings.SetQualityLevel(5);
+                break;
+            case TextureQuality.VERY_LOW:
+                TextureQualityText.text = "VERY LOW";
+                QualitySettings.SetQualityLevel(0);
+                break;
+            case TextureQuality.VERY_HIGH:
+                TextureQualityText.text = "VERY HIGH";
+                QualitySettings.SetQualityLevel(4);
                 break;
             default:
                 break;
@@ -381,9 +478,17 @@ public class SettingsMenuNavigator : MonoBehaviour {
         {
             case WindowMode.FULLSCREEN:
                 WindowModeText.text = "FULLSCREEN";
+                if (!Screen.fullScreen)
+                {
+                    Screen.fullScreen = !Screen.fullScreen;
+                }
                 break;
             case WindowMode.WINDOWED:
                 WindowModeText.text = "WINDOWED";
+                if (Screen.fullScreen)
+                {
+                    Screen.fullScreen = !Screen.fullScreen;
+                }
                 break;
             default:
                 break;
@@ -393,6 +498,12 @@ public class SettingsMenuNavigator : MonoBehaviour {
         {
             case Resolution.NINETEEN_TWENTY_BY_TEN_EIGHTY:
                 ResolutionText.text = "1920 x 1080";
+                bool fullscreen = false;
+                if(_WindowMode == WindowMode.FULLSCREEN)
+                {
+                    fullscreen = true;
+                }
+                Screen.SetResolution(1920, 1080,fullscreen);
                 break;
             default:
                 break;
