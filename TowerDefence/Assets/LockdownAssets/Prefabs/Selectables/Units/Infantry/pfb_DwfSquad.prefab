@@ -125,9 +125,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e03daeb6467b09d4f80d0f4122e6cadf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObjectName: Dwarven Combat Squad
+  ObjectName: Dwarf Soldier
   ObjectDescriptionShort: Core Infantry
-  ObjectDescriptionLong: Cheap & expendable, the Dwarf Combat Squad provides a means
+  ObjectDescriptionLong: Cheap & expendable, the Dwarven Soldier provides a means
     of a quick army boost & can be upgraded to increase its efficiency.
   Logo: {fileID: 0}
   BuildingTime: 15
@@ -150,13 +150,14 @@ MonoBehaviour:
   MaxGarrisonPopulation: 10
   MultiSelectable: 1
   _OffsetY: 0
-  _WidgetHealthbarScaleX: 100
-  _WidgetHealthbarScaleY: 15
-  _WidgetHealthbarOffset: 15
-  _WidgetShieldbarScaleX: 100
-  _WidgetShieldbarScaleY: 15
-  _WidgetShieldbarOffset: 22
-  ShrinkSpeed: 0.2
+  _WidgetHealthbarScaleX: 80
+  _WidgetHealthbarScaleY: 8
+  _WidgetHealthbarOffset: 0
+  _WidgetShieldbarScaleX: 80
+  _WidgetShieldbarScaleY: 8
+  _WidgetShieldbarOffset: 8
+  ShrinkSpeed: 0.3
+  MinimapQuad: {fileID: 0}
   _ChasingDistance: 20
   TargetWeights:
   - UnitType: 0
@@ -207,7 +208,7 @@ SphereCollider:
   m_GameObject: {fileID: 1034263255590004}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Radius: 6
   m_Center: {x: 0, y: 0, z: 0}

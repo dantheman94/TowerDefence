@@ -11,22 +11,6 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1855981135212812}
   m_IsPrefabParent: 1
---- !u!1 &1020413257557160
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4855755232971428}
-  - component: {fileID: 195336179090829026}
-  m_Layer: 9
-  m_Name: Agent
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1066059873784790
 GameObject:
   m_ObjectHideFlags: 1
@@ -143,6 +127,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1814398875104052
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4774037910379816}
+  m_Layer: 0
+  m_Name: MuzzleLaunchPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1855981135212812
 GameObject:
   m_ObjectHideFlags: 0
@@ -153,6 +152,7 @@ GameObject:
   - component: {fileID: 4139023003084844}
   - component: {fileID: 95552493719075836}
   - component: {fileID: 114783033624894588}
+  - component: {fileID: 195345531679988408}
   - component: {fileID: 114909369810655446}
   m_Layer: 9
   m_Name: pfb_Airship
@@ -171,7 +171,6 @@ Transform:
   m_LocalPosition: {x: -1022.11, y: 0, z: -519.61346}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4855755232971428}
   - {fileID: 4695208112276192}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -182,13 +181,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1809263736075102}
-  m_LocalRotation: {x: -0.05353785, y: -0, z: -0, w: 0.9985658}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0, y: 0.529329, z: 1.159309}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4774037910379816}
   m_Father: {fileID: 4512794021737436}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: -6.1380005, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4410257634664610
 Transform:
   m_ObjectHideFlags: 1
@@ -258,8 +258,21 @@ Transform:
   - {fileID: 4630343100220398}
   - {fileID: 4410257634664610}
   m_Father: {fileID: 4139023003084844}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4774037910379816
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1814398875104052}
+  m_LocalRotation: {x: 0.30070576, y: 0, z: 0, w: 0.953717}
+  m_LocalPosition: {x: 0, y: -1.118, z: 1.458}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4350366052900316}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 35, y: 0, z: 0}
 --- !u!4 &4847963836368768
 Transform:
   m_ObjectHideFlags: 1
@@ -273,19 +286,6 @@ Transform:
   m_Father: {fileID: 4695208112276192}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!4 &4855755232971428
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1020413257557160}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4139023003084844}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23062318348319240
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -539,13 +539,14 @@ MonoBehaviour:
   MaxGarrisonPopulation: 0
   MultiSelectable: 1
   _OffsetY: 0
-  _WidgetHealthbarScaleX: 80
-  _WidgetHealthbarScaleY: 15
-  _WidgetHealthbarOffset: 15
-  _WidgetShieldbarScaleX: 80
-  _WidgetShieldbarScaleY: 15
-  _WidgetShieldbarOffset: 22
+  _WidgetHealthbarScaleX: 35
+  _WidgetHealthbarScaleY: 10
+  _WidgetHealthbarOffset: 0
+  _WidgetShieldbarScaleX: 35
+  _WidgetShieldbarScaleY: 10
+  _WidgetShieldbarOffset: 10
   ShrinkSpeed: 0.3
+  MinimapQuad: {fileID: 0}
   _ChasingDistance: 30
   TargetWeights:
   - UnitType: 0
@@ -579,18 +580,18 @@ MonoBehaviour:
   PrimaryWeapon: {fileID: 114159103679655948, guid: 8c2079f1bd09ca442beeaf8ca9ca73ef,
     type: 2}
   SecondaryWeapon: {fileID: 0}
-  MuzzleLaunchPoint: {fileID: 0}
+  MuzzleLaunchPoint: {fileID: 1814398875104052}
   MaxAttackingRange: 100
   IdealAttackRangeMax: 80
   IdealAttackRangeMin: 40
   CanBeStunned: 0
-  WeaponObject: {fileID: 0}
-  Acceleration: 16
+  WeaponObject: {fileID: 1809263736075102}
+  Acceleration: 10
   Deceleration: 8
-  MaxSpeed: 30
-  MaxReverseSpeed: -30
+  MaxSpeed: 20
+  MaxReverseSpeed: -20
   BaseRotationSpeed: 65
-  WeaponRotationSpeed: 0
+  WeaponRotationSpeed: 15
   ForwardAvoidanceRange: 30
   DownwardsAvoidanceRange: 20
   VerticalSpeed: 20
@@ -622,12 +623,12 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 150
   m_Center: {x: 0, y: 0, z: 0}
---- !u!195 &195336179090829026
+--- !u!195 &195345531679988408
 NavMeshAgent:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1020413257557160}
+  m_GameObject: {fileID: 1855981135212812}
   m_Enabled: 1
   m_AgentTypeID: -334000983
   m_Radius: 2.5

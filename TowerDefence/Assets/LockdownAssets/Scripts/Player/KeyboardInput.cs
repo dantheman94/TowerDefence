@@ -657,7 +657,7 @@ public class KeyboardInput : MonoBehaviour {
                             if (buildingSlot == null) {
 
                                 // Matching team
-                                if (buildingSlot.Team == _PlayerAttached.Team) {
+                                if (buildingObj.Team == _PlayerAttached.Team) {
 
                                     // Add selection to list
                                     _PlayerAttached.SelectedWorldObjects.Add(buildingObj);

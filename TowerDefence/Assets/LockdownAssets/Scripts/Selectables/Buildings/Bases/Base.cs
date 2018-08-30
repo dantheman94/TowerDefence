@@ -18,13 +18,7 @@ public class Base : Building {
     //      INSPECTOR
     //
     //******************************************************************************************************************************
-
-    [Space]
-    [Header("-----------------------------------")]
-    [Header(" MINIMAP PROPERTIES")]
-    [Space]
-    public GameObject MinimapQuad = null;
-
+    
     [Space]
     [Header("-----------------------------------")]
     [Header(" BASE PROPERTIES")]
@@ -48,7 +42,7 @@ public class Base : Building {
     public enum eBaseType { Outpost, Station, CommandCenter, Headquarters, Minibase }
     protected List<Building> _BuildingList;
     protected Renderer _MinimapRenderer;
-    private Base _PreviousBase = null;
+    protected Base _PreviousBase = null;
 
     //******************************************************************************************************************************
     //
@@ -72,29 +66,6 @@ public class Base : Building {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  Called each frame. 
-    /// </summary>
-    protected override void Update() {
-        base.Update();
-
-        // Change minimap colour based on attacking/defending & team colour
-        if (_MinimapRenderer != null) {
-
-            // Attacking team colour
-            if (Team == GameManager.Team.Attacking) { _MinimapRenderer.material.color = WaveManager.Instance.AttackingTeamColour; }
-            
-            // Defending team
-            else if (Team == GameManager.Team.Defending) {
-
-                // Use individual player colour
-                if (_Player) { _MinimapRenderer.material.color = _Player.TeamColor; }
-            }
-        }
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
     //  Called when the player presses a button on the selection wheel with this world object
     //  linked to the button.
     /// </summary>
@@ -110,10 +81,22 @@ public class Base : Building {
             if (buildingSlot.AttachedBase != null) { _PreviousBase = buildingSlot.AttachedBase; }
         }
         
-        // Start building process
+        // Create the base and initialize it
         base.OnWheelSelect(buildingSlot);
         _ClonedWorldObject.SetClonedObject(_ClonedWorldObject);
         _ClonedWorldObject.GetComponent<Base>()._PreviousBase = _PreviousBase;
+
+        // Start building the base (if were meant to)
+        Base attachedBase = buildingSlot.AttachedBase;
+        if (attachedBase != null) {
+
+            // This base is at the front of the queue
+            if (attachedBase.GetBuildingQueue()[0] == _ClonedWorldObject) {
+
+                // Start building it
+                StartBuildingObject(buildingSlot);
+            }
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -134,11 +117,8 @@ public class Base : Building {
             if (newBase._PreviousBase != null) {
 
                 // Remove old healthbar (if valid)
-                if (newBase._PreviousBase != null) {
-
-                    hitpoints = _PreviousBase._HitPoints;
-                    if (newBase._PreviousBase._HealthBar != null) { ObjectPooling.Despawn(newBase._PreviousBase._HealthBar.gameObject); }
-                }
+                hitpoints = _PreviousBase._HitPoints;
+                if (newBase._PreviousBase._HealthBar != null) { ObjectPooling.Despawn(newBase._PreviousBase._HealthBar.gameObject); }                
 
                 // Update player ref
                 _ClonedWorldObject._Player = newBase._PreviousBase._Player;
@@ -183,12 +163,6 @@ public class Base : Building {
                     }
                     else { break; }
                 }
-
-                // Pass the building queue to the new building
-                for (int i = 0; i < newBase._PreviousBase.GetBuildingQueue().Count; i++) {
-
-                    newBase.AddToQueue(newBase._PreviousBase.GetBuildingQueue()[i]);
-                }
             }
 
             // Update attached base reference
@@ -215,6 +189,25 @@ public class Base : Building {
 
         // Show any hidden base slots that are linked to the building slot
         if (AttachedBuildingSlot != null) { AttachedBuildingSlot.SetLinkedSlotsBase(this); }
+
+        // Pass the building queue to the new building   
+        Base newBase = _ClonedWorldObject.GetComponent<Base>();
+        for (int i = 0; i < newBase._PreviousBase.GetBuildingQueue().Count; i++) {
+
+            // BUT DONT ADD OURSELF TO THE QUEUE
+            if (newBase._PreviousBase.GetBuildingQueue()[i] != _ClonedWorldObject) {
+
+                // Add to queue
+                newBase.AddToQueue(newBase._PreviousBase.GetBuildingQueue()[i]);
+            }
+        }
+        // Clear/destroy the previous building's queue
+        newBase._PreviousBase.GetBuildingQueue().Clear();
+        if (UI_BuildingQueueWrapper.Instance.ContainsQueue(newBase._PreviousBase._BuildingQueueUI)) {
+
+            UI_BuildingQueueWrapper.Instance.RemoveFromQueue(newBase._PreviousBase._BuildingQueueUI);
+            Destroy(newBase._PreviousBase._BuildingQueueUI);
+        }
 
         // Create a rally point
         if (GameManager.Instance.RallyPointObject != null && RallyPointDefaultTransform != null) {
@@ -279,7 +272,7 @@ public class Base : Building {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  Create a rally point
+    //  Creates a rally point for newly spawned units to seek to when built.
     /// </summary>
     public void CreateRallyPoint() {
 
@@ -290,6 +283,14 @@ public class Base : Building {
             _Rallypoint = ObjectPooling.Spawn(GameManager.Instance.RallyPointObject, RallyPointDefaultTransform.transform.position);
         }
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Sets reference to the _Previous base memeber variable.
+    /// </summary>
+    /// <param name="value"></param>
+    public void SetPreviousBase(Base value) { _PreviousBase = value; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

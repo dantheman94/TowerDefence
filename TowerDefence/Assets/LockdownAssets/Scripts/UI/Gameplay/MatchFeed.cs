@@ -134,7 +134,7 @@ public class MatchFeed : MonoBehaviour {
             messageObj._Text = txt;
             messageObj._TimeOnScreen = MessageOnScreenTime;
             messageObj._GameObject = obj;
-            obj.transform.SetParent(this.gameObject.transform);
+            obj.transform.SetParent(gameObject.transform);
             objrect.anchoredPosition = new Vector2(PosX, PosY);
             obj.SetActive(true);
             _Messages.Add(messageObj);

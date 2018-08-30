@@ -68,6 +68,8 @@ public class WorldObject : Selectable {
     [Tooltip("When this unit is killed, the speed in which it shrinks down until it is no longer visible " +
             "before being sent back to the object pool.")]
     public float ShrinkSpeed = 0.2f;
+    [Space]
+    public GameObject MinimapQuad = null;
 
     //******************************************************************************************************************************
     //
@@ -81,10 +83,9 @@ public class WorldObject : Selectable {
     protected UnitHealthBar _HealthBar = null;
     protected UnitBuildingCounter _BuildingProgressCounter = null;
 
-    protected int _CurrentGarrisonPopulation = 0;
     protected bool _StartShrinking = false;
+    protected int _CurrentGarrisonPopulation = 0;
     protected float _ObjectHeight = 0f;
-    protected WorldObject _ClonedWorldObject = null;
 
     protected float _HitPoints;
     protected float _Health;
@@ -93,6 +94,9 @@ public class WorldObject : Selectable {
     
     private int _RecycleSupplies = 0;
     private int _RecyclePower = 0;
+
+    protected WorldObject _ClonedWorldObject = null;
+    private Renderer _MinimapQuadRenderer;
 
     //******************************************************************************************************************************
     //
@@ -118,6 +122,9 @@ public class WorldObject : Selectable {
         // Set recycle values
         _RecycleSupplies = CostSupplies / 2;
         _RecyclePower = CostPower / 2;
+
+        // Get component references
+        if (MinimapQuad != null) { _MinimapQuadRenderer = MinimapQuad.GetComponent<Renderer>(); }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -220,7 +227,21 @@ public class WorldObject : Selectable {
                 ///OnDeath();
             }
         }
-        
+
+        // Change minimap colour based on attacking/defending & team colour
+        if (_MinimapQuadRenderer != null) {
+
+            // Attacking team colour
+            if (Team == GameManager.Team.Attacking) { _MinimapQuadRenderer.material.color = WaveManager.Instance.AttackingTeamColour; }
+
+            // Defending team
+            else if (Team == GameManager.Team.Defending) {
+
+                // Use individual player colour
+                if (_Player) { _MinimapQuadRenderer.material.color = _Player.TeamColor; }
+            }
+        }
+
         // Gradually shrink the character then despawn it once its dead
         UpdateDeathShrinker();
     }
@@ -323,6 +344,7 @@ public class WorldObject : Selectable {
             _ClonedWorldObject = ObjectPooling.Spawn(gameObject, Vector3.zero, Quaternion.identity).GetComponent<WorldObject>();
             _ClonedWorldObject.SetBuildingPosition(buildingSlot);
             _ClonedWorldObject.gameObject.SetActive(true);
+            _ClonedWorldObject.Start();
             
             // Create healthbar
             CreateHealthBar(_ClonedWorldObject, plyr.PlayerCamera);

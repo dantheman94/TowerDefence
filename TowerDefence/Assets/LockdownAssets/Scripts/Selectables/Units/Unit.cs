@@ -108,7 +108,7 @@ public class Unit : Ai {
 
         // Get component references
         _CharacterController = GetComponent<CharacterController>();
-        _Agent = GetComponentInChildren<NavMeshAgent>();
+        _Agent = GetComponent<NavMeshAgent>();
         _ObjectHeight = _Agent.height;
     }
 
@@ -127,7 +127,7 @@ public class Unit : Ai {
         if (_ObjectState == WorldObjectStates.Building) {
 
             // Disable components
-            _CharacterController.enabled = false;
+            if (_CharacterController != null) { _CharacterController.enabled = false; }
             _Agent.enabled = false;
 
             // Hide the healthbar
@@ -223,7 +223,8 @@ public class Unit : Ai {
             UpdatePlayerControlledMovement();
         }
 
-        UpdateAIControllerMovement();
+        // Update Ai controller movement
+        else if (IsAlive()) { UpdateAIControllerMovement(); }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -340,7 +341,7 @@ public class Unit : Ai {
         if (_Agent == null) { _Agent = GetComponent<NavMeshAgent>(); }
         _Agent.enabled = true;
         if (_CharacterController == null) { _CharacterController = GetComponent<CharacterController>(); ; }
-        _CharacterController.enabled = true;
+        if (_CharacterController != null) { _CharacterController.enabled = true; }
 
         SetObjectState(WorldObjectStates.Active);
     }

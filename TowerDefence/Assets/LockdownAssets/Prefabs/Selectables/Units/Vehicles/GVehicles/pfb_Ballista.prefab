@@ -11,22 +11,6 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1830067331789510}
   m_IsPrefabParent: 1
---- !u!1 &1121439060180306
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4775681735345810}
-  - component: {fileID: 195580668775348128}
-  m_Layer: 9
-  m_Name: Agent
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1222785192572726
 GameObject:
   m_ObjectHideFlags: 0
@@ -171,6 +155,7 @@ GameObject:
   - component: {fileID: 95974601054357960}
   - component: {fileID: 114822013794197926}
   - component: {fileID: 143663171851473070}
+  - component: {fileID: 195181909551336146}
   - component: {fileID: 114520428206191618}
   m_Layer: 9
   m_Name: pfb_Ballista
@@ -194,7 +179,7 @@ Transform:
   - {fileID: 4871975168685064}
   - {fileID: 4807566233324550}
   m_Father: {fileID: 4754792251937448}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4046651221902770
 Transform:
@@ -208,7 +193,7 @@ Transform:
   m_Children:
   - {fileID: 4174421597266370}
   m_Father: {fileID: 4754792251937448}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4174421597266370
 Transform:
@@ -259,23 +244,9 @@ Transform:
   m_LocalPosition: {x: -961.9, y: 0, z: -520.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4775681735345810}
   - {fileID: 4033337995101438}
   - {fileID: 4046651221902770}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4775681735345810
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1121439060180306}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4754792251937448}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4807566233324550
@@ -567,13 +538,14 @@ MonoBehaviour:
   MaxGarrisonPopulation: 0
   MultiSelectable: 1
   _OffsetY: 0
-  _WidgetHealthbarScaleX: 110
-  _WidgetHealthbarScaleY: 15
-  _WidgetHealthbarOffset: 15
-  _WidgetShieldbarScaleX: 110
-  _WidgetShieldbarScaleY: 15
-  _WidgetShieldbarOffset: 22
+  _WidgetHealthbarScaleX: 50
+  _WidgetHealthbarScaleY: 10
+  _WidgetHealthbarOffset: 0
+  _WidgetShieldbarScaleX: 50
+  _WidgetShieldbarScaleY: 10
+  _WidgetShieldbarOffset: 10
   ShrinkSpeed: 0.3
+  MinimapQuad: {fileID: 0}
   _ChasingDistance: 300
   TargetWeights:
   - UnitType: 0
@@ -686,12 +658,12 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 4, z: 0.5}
---- !u!195 &195580668775348128
+--- !u!195 &195181909551336146
 NavMeshAgent:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1121439060180306}
+  m_GameObject: {fileID: 1830067331789510}
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 4

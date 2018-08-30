@@ -89,10 +89,6 @@ public class Vehicle : Unit {
     protected override void Update() {
         base.Update();
 
-        // Update movement
-        if (_IsBeingPlayerControlled) { UpdatePlayerControlledMovement(); }
-        else { UpdateAIControllerMovement(); }
-
         // Move character controller forward / backwards based on current movement speed
         if (_Controller != null) {
 

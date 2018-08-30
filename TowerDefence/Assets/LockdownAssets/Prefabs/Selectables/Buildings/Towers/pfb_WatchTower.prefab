@@ -34,8 +34,25 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4447760387068690}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: SearchLight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1450874687233716
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4996196373324336}
+  - component: {fileID: 33107008798095288}
+  - component: {fileID: 23239102957214882}
+  m_Layer: 0
+  m_Name: BlockoutMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -67,7 +84,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4614210238387384}
   - component: {fileID: 108025493464512916}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Spotlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,7 +132,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4611551284624312}
   - component: {fileID: 108687019092187098}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Point light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -152,7 +169,7 @@ Transform:
   m_Children:
   - {fileID: 4614210238387384}
   m_Father: {fileID: 4872427131017210}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4530130613021846
 Transform:
@@ -160,7 +177,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1468916063055670}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -1025.75, y: 0, z: -575.38}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -179,7 +196,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4601990878105212}
   m_Father: {fileID: 4530130613021846}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -193,7 +211,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4872427131017210}
+  m_Father: {fileID: 4581037129577200}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4611551284624312
@@ -246,10 +264,23 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4601990878105212}
   - {fileID: 4447760387068690}
+  - {fileID: 4996196373324336}
   m_Father: {fileID: 4530130613021846}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4996196373324336
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1450874687233716}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4872427131017210}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23209181681671324
 MeshRenderer:
@@ -285,12 +316,12 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!23 &23452223718153732
+--- !u!23 &23239102957214882
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1807783571404810}
+  m_GameObject: {fileID: 1450874687233716}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -319,6 +350,47 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!23 &23452223718153732
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1807783571404810}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 2100000, guid: 8fdd48ab12246aa4789cbc61ee70fd3c, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &33107008798095288
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1450874687233716}
+  m_Mesh: {fileID: 4300000, guid: 5eb5a249083d62f4fa0d4aa2e18b37bf, type: 3}
 --- !u!33 &33131353463365860
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -357,9 +429,9 @@ Light:
   serializedVersion: 8
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 2
-  m_Range: 50
-  m_SpotAngle: 20
+  m_Intensity: 10
+  m_Range: 100
+  m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
     m_Type: 0
@@ -375,7 +447,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 11777
   m_Lightmapping: 4
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -435,12 +507,12 @@ MonoBehaviour:
   ObjectDescriptionLong: Provides a larger vision radius around the tower aswell as
     a stun effect on enemy units caught within its watchlight.
   Logo: {fileID: 0}
-  BuildingTime: 15
+  BuildingTime: 20
   CostSupplies: 150
   CostPower: 0
   CostTechLevel: 1
   CostPopulation: 0
-  _ObjectState: 0
+  _ObjectState: 4
   Team: 0
   _Player: {fileID: 0}
   FogOfWarRadius: 400
@@ -449,21 +521,22 @@ MonoBehaviour:
   BuildingState: {fileID: 1853791158513370}
   ActiveState: {fileID: 1126988834088362}
   DestroyedState: {fileID: 0}
-  MaxHitPoints: 100
+  MaxHitPoints: 130
   MaxShieldPoints: 0
   Garrisonable: 0
   MaxGarrisonPopulation: 0
   MultiSelectable: 0
   _OffsetY: 0
-  _WidgetHealthbarScaleX: 100
-  _WidgetHealthbarScaleY: 15
-  _WidgetHealthbarOffset: 15
-  _WidgetShieldbarScaleX: 100
-  _WidgetShieldbarScaleY: 15
-  _WidgetShieldbarOffset: 22
-  ShrinkSpeed: 0.2
+  _WidgetHealthbarScaleX: 50
+  _WidgetHealthbarScaleY: 10
+  _WidgetHealthbarOffset: 0
+  _WidgetShieldbarScaleX: 50
+  _WidgetShieldbarScaleY: 10
+  _WidgetShieldbarOffset: 10
+  ShrinkSpeed: 0.3
+  MinimapQuad: {fileID: 0}
   AttachedBuildingSlot: {fileID: 0}
-  ObjectHeight: 25
+  ObjectHeight: 20
   HasABuildingQueue: 1
   Selectables:
   - {fileID: 0}
@@ -476,10 +549,9 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  QuadMinimap: {fileID: 0}
   TowerType: 0
   TowerWeapon: {fileID: 0}
-  WeaponObject: {fileID: 1928718487550088}
+  WeaponObject: {fileID: 0}
   WeaponAimingSpeed: 5
   MuzzleLaunchPoint: {fileID: 0}
   TargetWeights:
@@ -508,11 +580,11 @@ MonoBehaviour:
   - UnitType: 0
     Weight: 0
   SearchLightObject: {fileID: 1156674751946904}
-  TargetInaccuracyOffset: 3
+  TargetInaccuracyOffset: 15
   TargetGeneratorDistance: 65
   TargetGeneratorRadius: 35
-  StareAtTargetPositionTimeMin: 0.1
-  StareAtTargetPositionTimeMax: 1.5
+  StareAtTargetPositionTimeMin: 1
+  StareAtTargetPositionTimeMax: 2
 --- !u!114 &114703488509881482
 MonoBehaviour:
   m_ObjectHideFlags: 1

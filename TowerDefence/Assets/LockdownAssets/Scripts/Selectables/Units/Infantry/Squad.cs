@@ -279,7 +279,10 @@ public class Squad : Ai {
         base.OnBuilt();
 
         // Go to rally point
-        if (_AttachedBuilding != null) { SquadSeek(_AttachedBuilding.GetRallyPoint().transform.position); }
+        if (_AttachedBuilding != null) {
+
+            if (_AttachedBuilding.GetRallyPoint() != null) { SquadSeek(_AttachedBuilding.GetRallyPoint().transform.position); }
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

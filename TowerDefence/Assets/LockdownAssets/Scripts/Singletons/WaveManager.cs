@@ -7,7 +7,7 @@ using UnityEngine;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 5/8/2018
+//  Last edited on: 29/8/2018
 //
 //******************************
 
@@ -34,14 +34,10 @@ public class WaveManager : MonoBehaviour {
 
     [Space]
     [Header("-----------------------------------")]
-    [Header(" PROPS")]
+    [Header(" CORE PROPERTIES")]
     [Space]
-    public List<Transform> CorePatrolPositions;
     public Core CentralCore;
-    [Space]
     public List<LockdownPad> LockdownPads;
-    [Space]
-    public List<Base> EnemyBases;
 
     [Space]
     [Header("-----------------------------------")]
@@ -189,10 +185,10 @@ public class WaveManager : MonoBehaviour {
         _EnemyPadSlots = new List<BuildingSlot>();
 
         // Initialize enemy bases
-        for (int i = 0; i < EnemyBases.Count; i++) {
+        for (int i = 0; i < LockdownPads.Count; i++) {
 
             // Create healthbar
-            EnemyBases[i].CreateHealthBar(EnemyBases[i], GameManager.Instance.Players[0].PlayerCamera);
+            LockdownPads[i].BuildingSlotAttached.AttachedBase.CreateHealthBar(LockdownPads[i].BuildingSlotAttached.AttachedBase, LockdownPads[i].BuildingSlotAttached.AttachedBase._Player.PlayerCamera);
         }
 
         // Get reference to all the pad slots
@@ -447,11 +443,6 @@ public class WaveManager : MonoBehaviour {
                 squad.SquadAttackObject(CentralCore.GetAttackObject());
                 squad.CreateHealthBar(squad, player.PlayerCamera);
 
-                ///squad.SquadSeek(CentralCore.GetSeekPosition());
-                            
-                ///AiPatrol patrol = squad.gameObject.AddComponent<AiPatrol>();
-                ///patrol.UpdatePatrolPositions(CorePatrolPositions);
-
                 _CurrentWaveEnemies.Add(squad);
             }
 
@@ -463,11 +454,6 @@ public class WaveManager : MonoBehaviour {
                 unit.OnSpawn();
                 unit.AgentAttackObject(CentralCore.GetAttackObject());
                 unit.CreateHealthBar(unit, player.PlayerCamera);
-
-                ///unit.AgentSeekPosition(CentralCore.GetSeekPosition());
-
-                ///AiPatrol patrol = unit.gameObject.AddComponent<AiPatrol>();
-                ///patrol.UpdatePatrolPositions(CorePatrolPositions);
 
                 _CurrentWaveEnemies.Add(unit);
             }

@@ -113,22 +113,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1885382137950410
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4937011913610692}
-  - component: {fileID: 195363121575225966}
-  m_Layer: 9
-  m_Name: Agent
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1922081337666764
 GameObject:
   m_ObjectHideFlags: 0
@@ -140,6 +124,7 @@ GameObject:
   - component: {fileID: 114734663134070038}
   - component: {fileID: 54472104824154228}
   - component: {fileID: 143816153546426832}
+  - component: {fileID: 195372817850572956}
   - component: {fileID: 114963470945021714}
   m_Layer: 9
   m_Name: pfb_Sorcerer
@@ -159,7 +144,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4778447074791084}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4060543609838682
 Transform:
@@ -210,7 +195,6 @@ Transform:
   m_LocalPosition: {x: -961.29, y: 0, z: -491.23}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4937011913610692}
   - {fileID: 4884508651950702}
   - {fileID: 4012546971058010}
   m_Father: {fileID: 0}
@@ -230,19 +214,6 @@ Transform:
   - {fileID: 4060543609838682}
   - {fileID: 4628708787619302}
   - {fileID: 4612044073039464}
-  m_Father: {fileID: 4778447074791084}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4937011913610692
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1885382137950410}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
   m_Father: {fileID: 4778447074791084}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -491,13 +462,14 @@ MonoBehaviour:
   MaxGarrisonPopulation: 0
   MultiSelectable: 1
   _OffsetY: 0
-  _WidgetHealthbarScaleX: 100
-  _WidgetHealthbarScaleY: 15
-  _WidgetHealthbarOffset: 15
-  _WidgetShieldbarScaleX: 100
-  _WidgetShieldbarScaleY: 15
-  _WidgetShieldbarOffset: 22
+  _WidgetHealthbarScaleX: 110
+  _WidgetHealthbarScaleY: 8
+  _WidgetHealthbarOffset: 0
+  _WidgetShieldbarScaleX: 110
+  _WidgetShieldbarScaleY: 8
+  _WidgetShieldbarOffset: 8
   ShrinkSpeed: 0.3
+  MinimapQuad: {fileID: 0}
   _ChasingDistance: 20
   TargetWeights:
   - UnitType: 0
@@ -526,7 +498,7 @@ MonoBehaviour:
     Weight: 0
   UnitType: 3
   NavmeshType: 0
-  InfantryMovementSpeed: 13
+  InfantryMovementSpeed: 8.5
   CanBePlayerControlled: 0
   PrimaryWeapon: {fileID: 0}
   SecondaryWeapon: {fileID: 0}
@@ -603,12 +575,12 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
---- !u!195 &195363121575225966
+--- !u!195 &195372817850572956
 NavMeshAgent:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1885382137950410}
+  m_GameObject: {fileID: 1922081337666764}
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.6

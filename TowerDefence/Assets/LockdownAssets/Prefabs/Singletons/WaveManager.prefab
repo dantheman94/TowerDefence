@@ -33,7 +33,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1414996840087634}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -54,18 +54,9 @@ MonoBehaviour:
   AttackingTeamColour: {r: 1, g: 0, b: 0, a: 1}
   StartingDamageModifier: 0.75
   StartingHealthModifier: 0.7
-  CorePatrolPositions:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   CentralCore: {fileID: 0}
   LockdownPads:
   - {fileID: 0}
-  EnemyBases:
   - {fileID: 0}
   WaveNotificationWidget: {fileID: 0}
   PerWaveIncrementDamage: 0.01
@@ -94,7 +85,7 @@ MonoBehaviour:
         type: 2}
       StartAtSubwave: 1
       PerSpawnInterval: 2
-      WaveMax: 4
+      WaveMax: 2
       CurrentLives: 0
     - Name: Anti Infantry
       EnemyReference: {fileID: 114637479626047606, guid: b0b553943343fae4e89f6bffadf50807,
@@ -123,7 +114,7 @@ MonoBehaviour:
       WaveMax: 4
       CurrentLives: 0
     - Name: Core Vehicle
-      EnemyReference: {fileID: 114585045816634058, guid: b11835252146f2b44a6b262103f36a07,
+      EnemyReference: {fileID: 114585045816634058, guid: 71a43feeb36f7ac4faaaad78429ccc75,
         type: 2}
       StartAtSubwave: 1
       PerSpawnInterval: 1
@@ -149,7 +140,7 @@ MonoBehaviour:
       WaveMax: 4
       CurrentLives: 0
     - Name: Core Vehicle
-      EnemyReference: {fileID: 114585045816634058, guid: b11835252146f2b44a6b262103f36a07,
+      EnemyReference: {fileID: 114585045816634058, guid: 71a43feeb36f7ac4faaaad78429ccc75,
         type: 2}
       StartAtSubwave: 1
       PerSpawnInterval: 1
@@ -175,7 +166,7 @@ MonoBehaviour:
     Subwaves: 2
     Enemies:
     - Name: Core Airship
-      EnemyReference: {fileID: 114909369810655446, guid: 262ff50694620f74badea248fc5e28e4,
+      EnemyReference: {fileID: 114909369810655446, guid: af5b11a941f2b054891c736f4b77e2a2,
         type: 2}
       StartAtSubwave: 1
       PerSpawnInterval: 2
@@ -201,8 +192,7 @@ MonoBehaviour:
     Subwaves: 3
     Enemies:
     - Name: Core Airship
-      EnemyReference: {fileID: 114909369810655446, guid: 262ff50694620f74badea248fc5e28e4,
-        type: 2}
+      EnemyReference: {fileID: 0}
       StartAtSubwave: 1
       PerSpawnInterval: 1
       WaveMax: 3
@@ -236,25 +226,9 @@ MonoBehaviour:
       WaveMax: 1
       CurrentLives: 0
     - Name: Core Vehicle
-      EnemyReference: {fileID: 114585045816634058, guid: b11835252146f2b44a6b262103f36a07,
+      EnemyReference: {fileID: 114585045816634058, guid: 71a43feeb36f7ac4faaaad78429ccc75,
         type: 2}
       StartAtSubwave: 1
       PerSpawnInterval: 1
       WaveMax: 2
       CurrentLives: 0
-  _CurrentWaveInfo:
-    Name: 
-    Severity: 0
-    Type: 0
-    WaveIntervals:
-      MinimumWaveInterval: 1
-      MaximumWaveInterval: 10
-    BossWaveIntervals:
-      MinimumBossWaveInterval: 0
-      UnlimitedBossWaveIntervals: 1
-      MaximumBossWaveInterval: 0
-    Subwaves: 0
-    Enemies: []
-  _CurrentWaveEnemies: []
-  _PreviousWavesEnemies: []
-  _CurrentLockdownPad: {fileID: 0}

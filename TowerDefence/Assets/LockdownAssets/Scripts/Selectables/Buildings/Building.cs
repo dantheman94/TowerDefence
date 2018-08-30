@@ -34,11 +34,6 @@ public class Building : WorldObject {
     [Space]
     public List<Abstraction> Selectables;
 
-    [Space]
-    [Header("-----------------------------------")]
-    [Header(" MINIMAP PROPERTIES")]
-    [Space]
-    public GameObject QuadMinimap = null;
 
     //******************************************************************************************************************************
     //
@@ -52,13 +47,9 @@ public class Building : WorldObject {
     protected bool _IsBuildingSomething = false;
     protected WorldObject _ObjectBeingBuilt = null;
     protected bool _IsInBuildingQueue = false;
-    private List<Abstraction> _BuildingQueue;
-    private UI_BuildingQueue _BuildingQueueUI = null;
-
-    private bool _RebuildNavmesh = false;
-
-    private Renderer _MinimapQuadRenderer;
-
+    protected List<Abstraction> _BuildingQueue;
+    protected UI_BuildingQueue _BuildingQueueUI = null;
+    
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
@@ -92,9 +83,6 @@ public class Building : WorldObject {
                 }
             }
         }
-
-        // Get component references
-        if (QuadMinimap != null) { _MinimapQuadRenderer = QuadMinimap.GetComponent<Renderer>(); }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -109,7 +97,6 @@ public class Building : WorldObject {
         if (_ObjectState == WorldObjectStates.Deployable) {
 
             _ObjectState = WorldObjectStates.Active;
-            _RebuildNavmesh = true;
             OnActiveState();
         }
 
@@ -133,37 +120,8 @@ public class Building : WorldObject {
                 }
             }
         }
-
-        // Change minimap colour based on attacking/defending & team colour
-        if (_MinimapQuadRenderer != null) {
-
-            // Attacking team colour
-            if (Team == GameManager.Team.Attacking) { _MinimapQuadRenderer.material.color = WaveManager.Instance.AttackingTeamColour; }
-
-            // Defending team
-            else if (Team == GameManager.Team.Defending) {
-
-                // Use individual player colour
-                if (_Player) { _MinimapQuadRenderer.material.color = _Player.TeamColor; }
-            }
-        }
     }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  Is called during the next frame. (1 frame delay)
-    /// </summary>
-    protected void LateUpdate() {
-
-        if (_RebuildNavmesh) {
-
-            // Re-bake navMeshes
-            ///GameManager.Instance.RebakeNavmesh();
-            _RebuildNavmesh = false;
-        }
-    }
-
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
@@ -222,13 +180,6 @@ public class Building : WorldObject {
             }
             _IsCurrentlySelected = true;
         }
-
-        // Update building queue UI
-        ///Base attachBase = AttachedBuildingSlot.AttachedBase;
-        ///if (attachBase != null) {
-        ///
-        ///    if (attachBase._BuildingQueueUI != null) { attachBase._BuildingQueueUI.UpdateQueueItemList(); }
-        ///}
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -259,6 +210,7 @@ public class Building : WorldObject {
             Base attachedBase = buildingSlot.AttachedBase;
             Building attachedBuilding = buildingSlot.AttachedBuilding;
 
+            // Add the building to the buildingslot's building's queue (i know, confusing right?)
             if (buildingSlot.ObjectsCreatedAreQueued) {
 
                 // Add to attached base list (if valid)
@@ -266,6 +218,10 @@ public class Building : WorldObject {
 
                     attachedBase.AddBuildingToList(building);
                     ///attachedBase.AddToQueue(building);
+
+                    // Get rally point reference
+                    if (attachedBase.GetRallyPoint() == null) { attachedBase.CreateRallyPoint(); }
+                    building._Rallypoint = attachedBase.GetRallyPoint();
 
                     // Add to queue wrapper
                     if (building._BuildingQueueUI != null) {
@@ -298,7 +254,7 @@ public class Building : WorldObject {
                 // Send message to match feed
                 MatchFeed.Instance.AddMessage(string.Concat(ObjectName, " added to queue."));
             }
-            
+                        
             // Skip the queue process and start building the object immediately
             else { /// (!buildingSlot.ObjectsCreatedAreQueued)
 

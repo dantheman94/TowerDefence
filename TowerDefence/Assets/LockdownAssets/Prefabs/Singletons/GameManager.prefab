@@ -19,6 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4666510405837378}
+  - component: {fileID: 114555998984486396}
   - component: {fileID: 114378756795125336}
   m_Layer: 0
   m_Name: GameManager
@@ -51,6 +52,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90b78cdabd605534580ad70e610d9892, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _Level: {fileID: 114555998984486396}
   FlyingNavMesh: {fileID: 0}
   StartingBase: {fileID: 0}
   StartingSupplyCount: 50000
@@ -63,32 +65,54 @@ MonoBehaviour:
   HUDWrapper: {fileID: 0}
   WorldSpaceCanvas: {fileID: 0}
   ScreenSpaceCanvas: {fileID: 0}
+  AgentSeekObject: {fileID: 1134938833437318, guid: ea031de5b8365524f8aaa65938b35a46,
+    type: 2}
   CinematicBars: {fileID: 0}
   _IsRadialMenu: 1
   SelectionWheel: {fileID: 0}
   selectionWindow: {fileID: 0}
   ConfirmRecycleScreen: {fileID: 0}
   AbilityWheel: {fileID: 0}
-  UnitHealthBar: {fileID: 0}
-  BuildingInProgressPanel: {fileID: 0}
-  CaptureProgressPanel: {fileID: 0}
+  SelectedUnitsHUD: {fileID: 0}
+  PlatoonUnitsHUD: {fileID: 0}
+  WaveStatsHUD: {fileID: 0}
+  BuildingQueueHUD: {fileID: 0}
+  UnitHealthBar: {fileID: 1286360948267456, guid: 7673b65b15c71f74587469d8c157abbf,
+    type: 2}
+  BuildingInProgressPanel: {fileID: 1450678203001116, guid: fdac97a7b32ac224eb51920a9dec0613,
+    type: 2}
+  CaptureProgressPanel: {fileID: 1624020617670622, guid: a93afcb6feaab6e4f959f93bf2af90eb,
+    type: 2}
   RecycleBuilding: {fileID: 1686393191144852, guid: 79277ac9396fb6649b8e74d19bdac0b4,
     type: 2}
   ObjectSelected: {fileID: 1316711828955324, guid: deef73c21c83ffa448286ecc25312cf7,
     type: 2}
   ObjectHighlighted: {fileID: 1103044040107444, guid: 01e1986d03a2f92459d4d4d50a107850,
     type: 2}
-  AgentSeekObject: {fileID: 1134938833437318, guid: ea031de5b8365524f8aaa65938b35a46,
+  RallyPointObject: {fileID: 1844536012740676, guid: eaffd4d8b9ec4fe41a865b53070c4def,
     type: 2}
-  SelectedUnitsHUD: {fileID: 0}
-  PlatoonUnitsHUD: {fileID: 0}
-  WaveStatsHUD: {fileID: 0}
-  GameOverHUD: {fileID: 0}
-  BuildingQueueHUD: {fileID: 0}
-  MatchResultsHUD: {fileID: 0}
+  PauseWidget: {fileID: 0}
+  GameOverWidget: {fileID: 0}
   PreloadGameObjects:
-  - gameObject: {fileID: 0}
+  - gameObject: {fileID: 1286360948267456, guid: 7673b65b15c71f74587469d8c157abbf,
+      type: 2}
     size: 100
   PreloadWorldObjects: []
   PreloadProjectiles: []
   PreloadParticles: []
+--- !u!114 &114555998984486396
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1162486525421322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e80a813b58a051445abd38d0963ce651, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LevelIndex: 0
+  LevelName: Test Scene
+  LevelDescription: 
+  LevelThumbnailSprite: {fileID: 0}
+  HoverText: {fileID: 0}
