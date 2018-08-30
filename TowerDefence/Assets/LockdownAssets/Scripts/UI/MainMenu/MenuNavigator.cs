@@ -110,7 +110,27 @@ public class MenuNavigator : MonoBehaviour {
     void Update () {
         NavigateMenu();
         ChangeButtonColor();
+        DisableButtonUI();
 	}
+
+    void DisableButtonUI()
+    {
+        if(gamepad.IsConnected)
+        {
+            for (int i = 0; i < ButtonImage.Count; ++i)
+            {
+                ButtonImage[i].enabled = true;
+            }
+        }
+        else
+        {
+            for (int i = 0; i < ButtonImage.Count; ++i)
+            {
+                ButtonImage[i].enabled = false;
+            }
+        }
+       
+    }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

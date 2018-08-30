@@ -30,6 +30,10 @@ public class UI_PauseWidget : MonoBehaviour {
     public Text CurrentWaveTrackerText = null;
     public Button StartButton;
 
+    public GameObject SettingsMenu;
+    public GameObject PauseMenu;
+    public GameObject GamepadUI;
+
     //******************************************************************************************************************************
     //
     //      VARIABLES
@@ -68,6 +72,7 @@ public class UI_PauseWidget : MonoBehaviour {
             // Update inputs
             UpdateKeyboardInput();
             UpdateGamepadInput();
+            GoBack();
         }
     }
 
@@ -216,7 +221,30 @@ public class UI_PauseWidget : MonoBehaviour {
     //  
     /// </summary>
     public void OnSettings() {
+        SettingsMenu.SetActive(true);
+        PauseMenu.SetActive(false);
+    }
 
+    private void GoBack()
+    {
+        if(GamepadManager.Instance.GetGamepad(1).IsConnected)
+        {
+            GamepadUI.SetActive(true);
+            if(GamepadManager.Instance.GetGamepad(1).GetButtonDown("B"))
+            {
+                SettingsToMenu();
+            }
+        }
+        else
+        {
+            GamepadUI.SetActive(false);
+        }
+    }
+
+    public void SettingsToMenu()
+    {
+        SettingsMenu.SetActive(false);
+        PauseMenu.SetActive(true);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
