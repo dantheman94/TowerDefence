@@ -84,7 +84,7 @@ public class Ai : WorldObject {
     //  Damages the object by a set amount.
     /// </summary>
     /// <param name="damage"></param>
-    public override void Damage(float damage, Ai instigator) {
+    public override void Damage(float damage, WorldObject instigator) {
         base.Damage(damage);
 
         // Add intigator to the potential list

@@ -28,7 +28,7 @@ public class Tower : Building {
     public Weapon TowerWeapon = null;
     public GameObject WeaponObject = null;
     public float WeaponAimingSpeed = 5f;
-    public GameObject MuzzleLaunchPoint = null;
+    public List<GameObject> MuzzleLaunchPoints;
 
     [Space]
     [Header("-----------------------------------")]
@@ -73,6 +73,22 @@ public class Tower : Building {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
+    //  Called when this object is created.
+    /// </summary>
+    protected override void Start() {
+        base.Start();
+
+        // Create copy of its weaopn & re-assign it to replace the old reference
+        if (TowerWeapon != null) {
+
+            TowerWeapon = ObjectPooling.Spawn(TowerWeapon.gameObject, Vector3.zero, Quaternion.identity).GetComponent<Weapon>();
+            TowerWeapon.SetTowerAttached(this);
+        }
+    }        
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
     //  Called each frame. 
     /// </summary>
     protected override void Update() {
@@ -97,6 +113,15 @@ public class Tower : Building {
                 if (_AttackTarget == null) { _CombatState = ETowerState.Idle; }
             }
         }
+
+        // Target is dead so try to get a new attack target
+        else {
+
+            DetermineWeightedTargetFromList(TargetWeights);
+
+            // There is currently no valid attack target >> return to idle
+            if (_AttackTarget == null) { _CombatState = ETowerState.Idle; }
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -105,7 +130,7 @@ public class Tower : Building {
     //  Damages the object by a set amount.
     /// </summary>
     /// <param name="damage"></param>
-    public override void Damage(float damage, Ai instigator) {
+    public override void Damage(float damage, WorldObject instigator) {
         base.Damage(damage);
 
         // Add intigator to the potential list

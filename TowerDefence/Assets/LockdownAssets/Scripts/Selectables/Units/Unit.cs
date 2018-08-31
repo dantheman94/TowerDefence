@@ -8,7 +8,7 @@ using UnityEngine.AI;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 9/8/2018
+//  Last edited on: 31/8/2018
 //
 //******************************
 
@@ -39,7 +39,7 @@ public class Unit : Ai {
     public Weapon PrimaryWeapon = null;
     public Weapon SecondaryWeapon = null;
     [Space]
-    public GameObject MuzzleLaunchPoint = null;
+    public List<GameObject> MuzzleLaunchPoints;
     [Space]
     public float MaxAttackingRange = 100f;
     public float IdealAttackRangeMax = 80f;
@@ -82,7 +82,6 @@ public class Unit : Ai {
         // Behavioural value precautions
         if (IdealAttackRangeMax < IdealAttackRangeMin) { IdealAttackRangeMax = IdealAttackRangeMin * 1.5f; }
         if (MaxAttackingRange < IdealAttackRangeMax)   { MaxAttackingRange = IdealAttackRangeMax; }
-        ///SnapLookAtRange = MaxAttackingRange / 2;
         SnapLookAtRange = IdealAttackRangeMin;
     }
 

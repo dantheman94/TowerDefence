@@ -8,7 +8,7 @@ using UnityEngine;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 7/8/2018
+//  Last edited on: 31/8/2018
 //
 //******************************
 
@@ -30,12 +30,13 @@ public class Weapon : MonoBehaviour {
     [Space]
     public ParticleSystem MuzzleEffect = null;
     [Space]
-    public FireType FiringType = FireType.FullAuto;
     public int ProjectilesPerShot = 1;
     public float FiringDelay = 0.5f;
     [Space]
     public EOffsetType AngularOffsetType = EOffsetType.Alternate;
     public Vector3 AngularOffset = Vector3.zero;
+    [Space]
+    public EMuzzleFiringPatternType MuzzlePatternType = EMuzzleFiringPatternType.Consective;
     [Space]
     public ObjectDamages Damages;
 
@@ -54,8 +55,8 @@ public class Weapon : MonoBehaviour {
     //******************************************************************************************************************************
 
     public enum EProjectileType { Object, Raycast, Particle }
-    public enum FireType { FullAuto, Spread }
     public enum EOffsetType { Alternate, Consecutive, Random }
+    public enum EMuzzleFiringPatternType { Consective, Random }
 
     [System.Serializable]
     public struct ObjectDamages {
@@ -83,11 +84,28 @@ public class Weapon : MonoBehaviour {
 
     private float _CurrentOffsetMultiplier = 1f;
 
+    private int _MuzzleIterator = 0;
+    private List<Transform> _MuzzleLaunchPoints = null;
+    private List<int> _UnusedLaunchPoints = null;
+
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
     //
     //******************************************************************************************************************************
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Called before Start().
+    /// </summary>
+    protected void Awake() {
+
+
+        // Create lists
+        _MuzzleLaunchPoints = new List<Transform>();
+        _UnusedLaunchPoints = new List<int>();
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -133,24 +151,43 @@ public class Weapon : MonoBehaviour {
     /// </summary>
     private void ProjectileObject() {
 
-        if (ProjectileClass && _UnitAttached != null) {
+        if (ProjectileClass) {
 
             // Create projectile facing forward * offset from the muzzle 
             Projectile proj = ObjectPooling.Spawn(ProjectileClass.gameObject).GetComponent<Projectile>();
             Quaternion rot = Quaternion.identity;
+            
+            // Determine muzzle firing pattern & projectile starting position
+            switch (MuzzlePatternType) {
 
-            // Set position
-            if (_UnitAttached != null) {
+                // Consecutive pattern
+                case EMuzzleFiringPatternType.Consective: {
+                                            
+                    // Use the first point in the list
+                    _MuzzleIterator = _UnusedLaunchPoints[0];
+                    _UnusedLaunchPoints.RemoveAt(0);
+                    ///_MuzzleIterator++;
+                    break;
+                }
 
-                proj.transform.position = _UnitAttached.MuzzleLaunchPoint.transform.position;
-                rot = _UnitAttached.MuzzleLaunchPoint.transform.rotation;
+                // Random pattern
+                case EMuzzleFiringPatternType.Random: {
+
+                    // Get an unused launch point
+                    int i = UnityEngine.Random.Range(0, _UnusedLaunchPoints.Count - 1);
+                    _MuzzleIterator = _UnusedLaunchPoints[i];
+
+                    // Remove launch point from availibility
+                    _UnusedLaunchPoints.RemoveAt(i);
+                    break;
+                }
+
+                default: break;
             }
-            else if (_TowerAttached != null) {
 
-                proj.transform.position = _TowerAttached.MuzzleLaunchPoint.transform.position;
-                rot = _TowerAttached.MuzzleLaunchPoint.transform.rotation;
-            }
-
+            proj.transform.position = _MuzzleLaunchPoints[_MuzzleIterator].position;
+            rot = _MuzzleLaunchPoints[_MuzzleIterator].rotation;
+            
             // Apply offset pattern
             switch (AngularOffsetType) {
 
@@ -199,7 +236,7 @@ public class Weapon : MonoBehaviour {
     //  Fires a hitscan based projectile.
     /// </summary>
     private void ProjectileRaycast() {
-
+        /*
         if (_UnitAttached != null) { 
 
             RaycastHit hit;
@@ -251,7 +288,7 @@ public class Weapon : MonoBehaviour {
                     else { worldObj.Damage(Damages.DamageDefault); }
                 }
             }
-        }
+        }*/
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -267,18 +304,38 @@ public class Weapon : MonoBehaviour {
             // Spawn
             ParticleSystem effect = ObjectPooling.Spawn(FiringEffect.gameObject).GetComponent<ParticleSystem>();
             effect.GetComponent<ParticleBasedDamage>().SetWeaponAttached(this);
+            
+            // Determine muzzle firing pattern & projectile starting position
+            switch (MuzzlePatternType) {
 
-            // Set position
-            if (_UnitAttached != null) {
+                // Consecutive pattern
+                case EMuzzleFiringPatternType.Consective: {
 
-                effect.transform.position = _UnitAttached.MuzzleLaunchPoint.transform.position;
-                effect.transform.rotation = _UnitAttached.MuzzleLaunchPoint.transform.rotation;
+                    // Use the first point in the list
+                    _MuzzleIterator = _UnusedLaunchPoints[0];
+
+                    // Pop front of the unused list
+                    _UnusedLaunchPoints.RemoveAt(0);
+                    break;
+                }
+
+                // Random pattern
+                case EMuzzleFiringPatternType.Random: {
+
+                    // Get an unused launch point
+                    int i = UnityEngine.Random.Range(0, _UnusedLaunchPoints.Count - 1);
+                    _MuzzleIterator = _UnusedLaunchPoints[i];
+
+                    // Remove launch point from availibility
+                    _UnusedLaunchPoints.RemoveAt(i);
+                    break;
+                }
+
+                default: break;
             }
-            else if (_TowerAttached != null) {
 
-                effect.transform.position = _TowerAttached.MuzzleLaunchPoint.transform.position;
-                effect.transform.rotation = _TowerAttached.MuzzleLaunchPoint.transform.rotation;
-            }
+            effect.transform.position = _MuzzleLaunchPoints[_MuzzleIterator].position;
+            effect.transform.rotation = _MuzzleLaunchPoints[_MuzzleIterator].rotation;
 
             // Play
             effect.Play();
@@ -320,18 +377,11 @@ public class Weapon : MonoBehaviour {
 
                 // Spawn
                 ParticleSystem effect = ObjectPooling.Spawn(MuzzleEffect.gameObject).GetComponent<ParticleSystem>();
-
-                // Set position
-                if (_UnitAttached != null) {
-
-                    effect.transform.position = _UnitAttached.MuzzleLaunchPoint.transform.position;
-                    effect.transform.rotation = _UnitAttached.MuzzleLaunchPoint.transform.rotation;
-                }
-                else if (_TowerAttached != null) {
-
-                    effect.transform.position = _TowerAttached.MuzzleLaunchPoint.transform.position;
-                    effect.transform.rotation = _TowerAttached.MuzzleLaunchPoint.transform.rotation;
-                }
+                
+                // Muzzle iterator should be set already coz the firing weapon mechanism has already been set this frame
+                // (in the switch statement just above)
+                effect.transform.position = _MuzzleLaunchPoints[_MuzzleIterator].position;
+                effect.transform.rotation = _MuzzleLaunchPoints[_MuzzleIterator].rotation;
 
                 // Play
                 effect.Play();
@@ -360,6 +410,10 @@ public class Weapon : MonoBehaviour {
             _ReloadTimer = ReloadTime;
             _IsReloading = true;
             _CurrentMagazineCount = MagazineSize;
+
+            // Make all muzzle points available again
+            _UnusedLaunchPoints.Clear();
+            for (int i = 0; i < _MuzzleLaunchPoints.Count; i++) { _UnusedLaunchPoints.Add(i); }
         }
     }
 
@@ -383,10 +437,22 @@ public class Weapon : MonoBehaviour {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  
+    //  Sets references to the unit that this weapon is associated with &
+    //  updates references to the muzzle launch point transforms for the weapon's firing mechanism.
     /// </summary>
     /// <param name="unit"></param>
-    public void SetUnitAttached(Unit unit) { _UnitAttached = unit; }
+    public void SetUnitAttached(Unit unit) {
+
+        _UnitAttached = unit;
+
+        // Get muzzle launch point transforms for the weapon
+        _MuzzleLaunchPoints.Clear();
+        for (int i = 0; i < unit.MuzzleLaunchPoints.Count; i++) { _MuzzleLaunchPoints.Add(unit.MuzzleLaunchPoints[i].transform); }
+
+        // Make all muzzle points again
+        _UnusedLaunchPoints.Clear();
+        for (int i = 0; i < _MuzzleLaunchPoints.Count; i++) { _UnusedLaunchPoints.Add(i); }
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -399,10 +465,30 @@ public class Weapon : MonoBehaviour {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  
+    //  Sets references to the tower building that this weapon is associated with &
+    //  updates references to the muzzle launch point transforms for the weapon's firing mechanism.
     /// </summary>
     /// <param name="unit"></param>
-    public void SetTowerAttached(Tower tower) { _TowerAttached = tower; }
+    public void SetTowerAttached(Tower tower) {
+
+        _TowerAttached = tower;
+
+        // Get muzzle launch point transforms for the weapon
+        _MuzzleLaunchPoints.Clear();
+        for (int i = 0; i < tower.MuzzleLaunchPoints.Count; i++) { _MuzzleLaunchPoints.Add(tower.MuzzleLaunchPoints[i].transform); }
+
+        // Make all muzzle points again
+        _UnusedLaunchPoints.Clear();
+        for (int i = 0; i < _MuzzleLaunchPoints.Count; i++) { _UnusedLaunchPoints.Add(i); }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <returns></returns>
+    public Tower GetTowerAttached() { return _TowerAttached; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

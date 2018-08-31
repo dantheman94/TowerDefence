@@ -108,7 +108,7 @@ public class Core : Building {
     /// </summary>
     /// <param name="damage"></param>
     /// <param name="instigator"></param>
-    public override void Damage(float damage, Ai instigator = null) {
+    public override void Damage(float damage, WorldObject instigator = null) {
 
         // Only damage the core if all spires are destroyed
         bool damageCore = true;

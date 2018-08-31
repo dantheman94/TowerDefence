@@ -405,7 +405,7 @@ public class WorldObject : Selectable {
     //  Damages the object by a set amount.
     /// </summary>
     /// <param name="damage"></param>
-    public virtual void Damage(float damage, Ai instigator = null) {
+    public virtual void Damage(float damage, WorldObject instigator = null) {
 
         // Cant damage if were already destroyed
         if (_ObjectState != WorldObjectStates.Destroyed) {

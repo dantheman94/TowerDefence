@@ -99,7 +99,11 @@ public class Projectile : MonoBehaviour {
         gameObject.SetActive(true);
 
         // Set homing target for tracking
-        if (HomingProjectile) { HomingTarget = _WeaponAttached.GetUnitAttached().GetAttackTarget(); }
+        if (HomingProjectile) {
+
+            if (_WeaponAttached.GetUnitAttached() != null) { HomingTarget = _WeaponAttached.GetUnitAttached().GetAttackTarget(); }
+            if (_WeaponAttached.GetTowerAttached() != null) { HomingTarget = _WeaponAttached.GetTowerAttached().GetAttackTarget(); }
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -144,6 +148,18 @@ public class Projectile : MonoBehaviour {
 
         if (ExplodeOnImpact) {
 
+            /*
+                // DEBUGGING SPHERECAST
+                // Uncomment LINE 273 (the ignore raycast line) otherwise this will give unintended results!
+                GameObject child = new GameObject();
+                child.transform.parent = gameObject.transform;
+                SphereCollider debug = child.AddComponent<SphereCollider>();
+                debug.radius = ExplosionRadius;
+                debug.isTrigger = true;
+                debug.transform.localPosition = new Vector3(0, 0, 0);
+                child.layer = LayerMask.NameToLayer("Ignore Raycast");
+            */
+
             // Use a spherical raycast for an AOE damage with falloff
             RaycastHit[] hits = Physics.SphereCastAll(transform.position, ExplosionRadius, transform.forward, 0f);
             foreach (var rayHit in hits) {
@@ -151,12 +167,17 @@ public class Projectile : MonoBehaviour {
                 WorldObject worldObj = rayHit.transform.gameObject.GetComponentInParent<WorldObject>();
                 if (worldObj != null) {
 
+                    // Get reference to the instigator this projectile belongs to
+                    WorldObject worldObjAttached = null;
+                    if (_WeaponAttached.GetUnitAttached() != null) { worldObjAttached = _WeaponAttached.GetUnitAttached(); }
+                    if (_WeaponAttached.GetTowerAttached() != null) { worldObjAttached = _WeaponAttached.GetTowerAttached(); }
+
                     // Friendly fire is OFF
-                    if (worldObj.Team != _WeaponAttached.GetUnitAttached().Team) {
+                    if (worldObj.Team != worldObjAttached.Team) {
 
                         // Determine damage falloff
                         float distanceFromEpicenter = Vector3.Distance(transform.position, rayHit.point);
-                        float damageMultiplier = 1 - (distanceFromEpicenter / ExplosionRadius);
+                        float damageMultiplier = (distanceFromEpicenter / ExplosionRadius) * DamageFalloff;
 
                         // Damage the object
                         worldObj.Damage(Mathf.FloorToInt(_Damages.DamageDefault * damageMultiplier));
@@ -178,7 +199,7 @@ public class Projectile : MonoBehaviour {
         }
 
         gameObject.SetActive(false);
-        ObjectPooling.Despawn(this.gameObject);
+        ObjectPooling.Despawn(gameObject);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -263,27 +284,59 @@ public class Projectile : MonoBehaviour {
 
                 if (_WeaponAttached != null) {
 
-                    // Cant damage self
-                    if (worldObj == _WeaponAttached.GetUnitAttached()) { return; }
+                    // Does this projectile belong to a unit?
+                    if (_WeaponAttached.GetUnitAttached() != null) {
 
-                    // Friendly fire is OFF
-                    if (unitObj.Team != _WeaponAttached.GetUnitAttached().Team) {
+                        // Cant damage self
+                        if (worldObj == _WeaponAttached.GetUnitAttached()) { return; }
 
-                        // Damage based on unit type
-                        switch (unitObj.UnitType) {
+                        // Friendly fire is OFF
+                        if (unitObj.Team != _WeaponAttached.GetUnitAttached().Team) {
 
-                            case Unit.EUnitType.Undefined:          { unitObj.Damage(_Damages.DamageDefault, _WeaponAttached.GetUnitAttached()); break; }
-                            case Unit.EUnitType.CoreMarine:         { unitObj.Damage(_Damages.DamageCoreInfantry, _WeaponAttached.GetUnitAttached()); break; }
-                            case Unit.EUnitType.AntiInfantryMarine: { unitObj.Damage(_Damages.DamageAntiInfantryMarine, _WeaponAttached.GetUnitAttached()); break; }
-                            case Unit.EUnitType.Hero:               { unitObj.Damage(_Damages.DamageHero, _WeaponAttached.GetUnitAttached()); break; }
-                            case Unit.EUnitType.CoreVehicle:        { unitObj.Damage(_Damages.DamageCoreVehicle, _WeaponAttached.GetUnitAttached()); break; }
-                            case Unit.EUnitType.AntiAirVehicle:     { unitObj.Damage(_Damages.DamageAntiAirVehicle, _WeaponAttached.GetUnitAttached()); break; }
-                            case Unit.EUnitType.MobileArtillery:    { unitObj.Damage(_Damages.DamageMobileArtillery, _WeaponAttached.GetUnitAttached()); break; }
-                            case Unit.EUnitType.BattleTank:         { unitObj.Damage(_Damages.DamageBattleTank, _WeaponAttached.GetUnitAttached()); break; }
-                            case Unit.EUnitType.CoreAirship:        { unitObj.Damage(_Damages.DamageCoreAirship, _WeaponAttached.GetUnitAttached()); break; }
-                            case Unit.EUnitType.SupportShip:        { unitObj.Damage(_Damages.DamageSupportShip, _WeaponAttached.GetUnitAttached()); break; }
-                            case Unit.EUnitType.HeavyAirship:       { unitObj.Damage(_Damages.DamageHeavyAirship, _WeaponAttached.GetUnitAttached()); break; }
-                            default: break;
+                            // Damage based on unit type
+                            switch (unitObj.UnitType) {
+
+                                case Unit.EUnitType.Undefined:          { unitObj.Damage(_Damages.DamageDefault, _WeaponAttached.GetUnitAttached()); break; }
+                                case Unit.EUnitType.CoreMarine:         { unitObj.Damage(_Damages.DamageCoreInfantry, _WeaponAttached.GetUnitAttached()); break; }
+                                case Unit.EUnitType.AntiInfantryMarine: { unitObj.Damage(_Damages.DamageAntiInfantryMarine, _WeaponAttached.GetUnitAttached()); break; }
+                                case Unit.EUnitType.Hero:               { unitObj.Damage(_Damages.DamageHero, _WeaponAttached.GetUnitAttached()); break; }
+                                case Unit.EUnitType.CoreVehicle:        { unitObj.Damage(_Damages.DamageCoreVehicle, _WeaponAttached.GetUnitAttached()); break; }
+                                case Unit.EUnitType.AntiAirVehicle:     { unitObj.Damage(_Damages.DamageAntiAirVehicle, _WeaponAttached.GetUnitAttached()); break; }
+                                case Unit.EUnitType.MobileArtillery:    { unitObj.Damage(_Damages.DamageMobileArtillery, _WeaponAttached.GetUnitAttached()); break; }
+                                case Unit.EUnitType.BattleTank:         { unitObj.Damage(_Damages.DamageBattleTank, _WeaponAttached.GetUnitAttached()); break; }
+                                case Unit.EUnitType.CoreAirship:        { unitObj.Damage(_Damages.DamageCoreAirship, _WeaponAttached.GetUnitAttached()); break; }
+                                case Unit.EUnitType.SupportShip:        { unitObj.Damage(_Damages.DamageSupportShip, _WeaponAttached.GetUnitAttached()); break; }
+                                case Unit.EUnitType.HeavyAirship:       { unitObj.Damage(_Damages.DamageHeavyAirship, _WeaponAttached.GetUnitAttached()); break; }
+                                default: break;
+                            }
+                        }
+                    }
+
+                    // Does this projectile belong to a tower?
+                    if (_WeaponAttached.GetTowerAttached() != null) {
+
+                        // Cant damage self
+                        if (worldObj == _WeaponAttached.GetTowerAttached()) { return; }
+
+                        // Friendly fire is OFF
+                        if (unitObj.Team != _WeaponAttached.GetTowerAttached().Team) {
+
+                            // Damage based on unit type
+                            switch (unitObj.UnitType) {
+
+                                case Unit.EUnitType.Undefined:          { unitObj.Damage(_Damages.DamageDefault, _WeaponAttached.GetTowerAttached()); break; }
+                                case Unit.EUnitType.CoreMarine:         { unitObj.Damage(_Damages.DamageCoreInfantry, _WeaponAttached.GetTowerAttached()); break; }
+                                case Unit.EUnitType.AntiInfantryMarine: { unitObj.Damage(_Damages.DamageAntiInfantryMarine, _WeaponAttached.GetTowerAttached()); break; }
+                                case Unit.EUnitType.Hero:               { unitObj.Damage(_Damages.DamageHero, _WeaponAttached.GetTowerAttached()); break; }
+                                case Unit.EUnitType.CoreVehicle:        { unitObj.Damage(_Damages.DamageCoreVehicle, _WeaponAttached.GetTowerAttached()); break; }
+                                case Unit.EUnitType.AntiAirVehicle:     { unitObj.Damage(_Damages.DamageAntiAirVehicle, _WeaponAttached.GetTowerAttached()); break; }
+                                case Unit.EUnitType.MobileArtillery:    { unitObj.Damage(_Damages.DamageMobileArtillery, _WeaponAttached.GetTowerAttached()); break; }
+                                case Unit.EUnitType.BattleTank:         { unitObj.Damage(_Damages.DamageBattleTank, _WeaponAttached.GetTowerAttached()); break; }
+                                case Unit.EUnitType.CoreAirship:        { unitObj.Damage(_Damages.DamageCoreAirship, _WeaponAttached.GetTowerAttached()); break; }
+                                case Unit.EUnitType.SupportShip:        { unitObj.Damage(_Damages.DamageSupportShip, _WeaponAttached.GetTowerAttached()); break; }
+                                case Unit.EUnitType.HeavyAirship:       { unitObj.Damage(_Damages.DamageHeavyAirship, _WeaponAttached.GetTowerAttached()); break; }
+                                default: break;
+                            }
                         }
                     }
                 }
