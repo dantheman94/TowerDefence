@@ -67,10 +67,7 @@ public class BaseTurret : Tower {
                     WeaponObject.transform.rotation = Quaternion.Lerp(WeaponObject.transform.rotation, lookAtRot, WeaponAimingSpeed * Time.deltaTime);
 
                     if (TowerWeapon != null) {
-
-                        // Set attach reference
-                        TowerWeapon.SetTowerAttached(this);
-
+                        
                         // Fire the turret's weapon
                         if (TowerWeapon.CanFire()) { TowerWeapon.FireWeapon(); }
                     }
@@ -138,5 +135,5 @@ public class BaseTurret : Tower {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    
 }

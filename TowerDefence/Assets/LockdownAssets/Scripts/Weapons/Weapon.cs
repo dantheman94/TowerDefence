@@ -98,8 +98,7 @@ public class Weapon : MonoBehaviour {
     //  Called before Start().
     /// </summary>
     protected void Awake() {
-
-
+        
         // Create lists
         _MuzzleLaunchPoints = new List<Transform>();
         _UnusedLaunchPoints = new List<int>();
@@ -172,7 +171,7 @@ public class Weapon : MonoBehaviour {
                 case EMuzzleFiringPatternType.Random: {
 
                     // Get an unused launch point
-                    int i = UnityEngine.Random.Range(0, _UnusedLaunchPoints.Count - 1);
+                    int i = UnityEngine.Random.Range(0, _UnusedLaunchPoints.Count);
                     _MuzzleIterator = _UnusedLaunchPoints[i];
 
                     // Remove launch point from availibility
@@ -189,27 +188,25 @@ public class Weapon : MonoBehaviour {
             // Apply offset pattern
             switch (AngularOffsetType) {
 
+                // Apply alternating pattern
                 case EOffsetType.Alternate: {
-
-                    // Apply alternating pattern
-                    _CurrentOffsetMultiplier *= -1;
-
-                    AngularOffset = AngularOffset * _CurrentOffsetMultiplier;
+                        
+                    AngularOffset = AngularOffset * -1;
                     break;
                 }
 
+                // Apply consecutive pattern
                 case EOffsetType.Consecutive: {
 
-                    // Apply alternating pattern
                     _CurrentOffsetMultiplier *= -1;
 
                     AngularOffset = AngularOffset * _CurrentOffsetMultiplier;
                     break;
                 }
 
+                // Random offset
                 case EOffsetType.Random: {
 
-                    // Random offset
                     int i = UnityEngine.Random.Range(-1, 1);
                     if (i == 0) { i = 1; }
                     AngularOffset = AngularOffset * i;
