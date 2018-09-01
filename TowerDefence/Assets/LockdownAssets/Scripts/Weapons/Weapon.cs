@@ -8,7 +8,7 @@ using UnityEngine;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 31/8/2018
+//  Last edited on: 1/9/2018
 //
 //******************************
 
@@ -29,14 +29,12 @@ public class Weapon : MonoBehaviour {
     public ParticleSystem FiringEffect = null;
     [Space]
     public ParticleSystem MuzzleEffect = null;
+    public EMuzzleFiringPatternType MuzzlePatternType = EMuzzleFiringPatternType.Consective;
     [Space]
-    public int ProjectilesPerShot = 1;
     public float FiringDelay = 0.5f;
     [Space]
     public EOffsetType AngularOffsetType = EOffsetType.Alternate;
     public Vector3 AngularOffset = Vector3.zero;
-    [Space]
-    public EMuzzleFiringPatternType MuzzlePatternType = EMuzzleFiringPatternType.Consective;
     [Space]
     public ObjectDamages Damages;
 
@@ -516,21 +514,5 @@ public class Weapon : MonoBehaviour {
     public bool CanFire() { return _FireDelayTimer <= 0 && !_IsReloading; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  
-    /// </summary>
-    /// <param name="value"></param>
-    public void SetReload(bool value) {
-
-        if (value) { Reload(); }
-        else {
-
-            _ReloadTimer = 0;
-            _IsReloading = false;
-        }
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    
 }
