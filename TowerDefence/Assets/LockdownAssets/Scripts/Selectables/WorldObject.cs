@@ -65,6 +65,7 @@ public class WorldObject : Selectable {
     [Tooltip("The 'Pos Y' of the RectTransform that represents the shieldbar tied to this object.")]
     public float _WidgetShieldbarOffset = 22f;
     [Space]
+    public bool ShrinkWhenDestroyed = true;
     [Tooltip("When this unit is killed, the speed in which it shrinks down until it is no longer visible " +
             "before being sent back to the object pool.")]
     public float ShrinkSpeed = 0.2f;
@@ -255,7 +256,7 @@ public class WorldObject : Selectable {
     private void UpdateDeathShrinker() {
         
         // Check if the unit should be shrinking
-        if (_StartShrinking && !IsAlive()) {
+        if (_StartShrinking && !IsAlive() && ShrinkWhenDestroyed) {
 
             // Get in the cold ass water
             transform.localScale -= Vector3.one * ShrinkSpeed * Time.deltaTime;

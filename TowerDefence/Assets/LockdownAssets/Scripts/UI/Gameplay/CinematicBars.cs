@@ -7,7 +7,7 @@ using UnityEngine;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 10/7/2018
+//  Last edited on: 2/9/2018
 //
 //******************************
 
@@ -131,5 +131,7 @@ public class CinematicBars : MonoBehaviour {
         // Begin animation
         _AnimationComplete = false;
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }

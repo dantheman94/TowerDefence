@@ -77,6 +77,9 @@ public class Core : Building {
             for (int i = 0; i < Spires.Count; i++) { points += Spires[i].GetHitPoints(); }
             _ShieldPoints = points;
         }
+
+        // Always show the active state mesh
+        if (ActiveState != null) { ActiveState.SetActive(true); }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

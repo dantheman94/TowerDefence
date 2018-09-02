@@ -7,7 +7,7 @@ using UnityEngine;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 29/8/2018
+//  Last edited on: 2/9/2018
 //
 //******************************
 
@@ -48,8 +48,13 @@ public class WaveManager : MonoBehaviour {
 
     [Space]
     [Header("-----------------------------------")]
-    [Header(" WAVE PROPERTIES")]
+    [Header(" CORE PROPERTIES")]
     [Space]
+    public Cinematic CinematicDefeat = null;
+
+    [Space]
+    [Header("-----------------------------------")]
+    [Header(" WAVE PROPERTIES")]
     [Space]
     public float PerWaveIncrementDamage = 0.01f;
     public float PerWaveIncrementHealth = 0.01f;

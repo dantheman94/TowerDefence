@@ -9,7 +9,7 @@ using TowerDefence;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 25/8/2018
+//  Last edited on: 2/9/2018
 //
 //******************************
 
@@ -233,13 +233,30 @@ public class GameManager : MonoBehaviour {
 
         _MatchVictory = win;
         _GameIsOver = true;
+
+        // Start game over cinematic
+        Cinematic cine = WaveManager.Instance.CinematicDefeat;
+        if (cine != null) { cine.StartCinematic(); }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    public void ShowGameOverWidget() {
+
         if (GameOverWidget != null) {
 
-            // Show widget and play game over UI animation
+            Time.timeScale = 0f;
+
+            // Show widget
             GameOverWidget.gameObject.SetActive(true);
             GameOverWidget.OnGameOver();
+
+            // Show mouse cursor
+            Cursor.visible = true;
         }
-        Time.timeScale = 0f;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
