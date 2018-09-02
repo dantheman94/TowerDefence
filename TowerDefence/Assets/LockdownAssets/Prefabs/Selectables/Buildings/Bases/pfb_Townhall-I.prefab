@@ -70,6 +70,8 @@ GameObject:
   - component: {fileID: 4020611926675870}
   - component: {fileID: 114518659976873610}
   - component: {fileID: 65091111777278770}
+  - component: {fileID: 65387749265389546}
+  - component: {fileID: 65288380428146940}
   - component: {fileID: 114056886330466534}
   m_Layer: 0
   m_Name: pfb_Townhall-I
@@ -506,6 +508,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65288380428146940
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1270316501524382}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 20, y: 9, z: 9}
+  m_Center: {x: 0, y: 5, z: 6.25}
 --- !u!65 &65331720954398300
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -518,6 +532,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65387749265389546
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1270316501524382}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 8, y: 25, z: 8}
+  m_Center: {x: 0, y: 10, z: -8}
 --- !u!95 &95827186976749818
 Animator:
   serializedVersion: 3
@@ -578,6 +604,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 150
   _WidgetShieldbarScaleY: 10
   _WidgetShieldbarOffset: 10
+  ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.3
   MinimapQuad: {fileID: 1970705690808564}
   AttachedBuildingSlot: {fileID: 0}
@@ -644,6 +671,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
+  ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.2
   MinimapQuad: {fileID: 0}
   OnlyAppearWhenAttachedToBase: 0
@@ -715,6 +743,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
+  ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.2
   MinimapQuad: {fileID: 0}
   OnlyAppearWhenAttachedToBase: 0

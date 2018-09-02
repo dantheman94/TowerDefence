@@ -81,6 +81,8 @@ GameObject:
   - component: {fileID: 4787349855401586}
   - component: {fileID: 114764638250755420}
   - component: {fileID: 65421668453796990}
+  - component: {fileID: 65845328071568332}
+  - component: {fileID: 65449705312360732}
   - component: {fileID: 114286593509319122}
   m_Layer: 0
   m_Name: pfb_Townhall-Iv
@@ -1189,6 +1191,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 25, y: 10, z: 30}
   m_Center: {x: 0, y: 5, z: 0}
+--- !u!65 &65449705312360732
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1194806562900834}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 20, y: 9, z: 9}
+  m_Center: {x: 0, y: 5, z: 6.25}
 --- !u!65 &65513910017336044
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -1273,6 +1287,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65845328071568332
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1194806562900834}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 8, y: 25, z: 8}
+  m_Center: {x: 0, y: 10, z: -8}
 --- !u!95 &95107880142386116
 Animator:
   serializedVersion: 3
@@ -1331,6 +1357,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
+  ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.2
   MinimapQuad: {fileID: 0}
   OnlyAppearWhenAttachedToBase: 0
@@ -1390,6 +1417,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
+  ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.2
   MinimapQuad: {fileID: 0}
   OnlyAppearWhenAttachedToBase: 0
@@ -1449,6 +1477,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
+  ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.2
   MinimapQuad: {fileID: 0}
   OnlyAppearWhenAttachedToBase: 0
@@ -1510,6 +1539,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 150
   _WidgetShieldbarScaleY: 10
   _WidgetShieldbarOffset: 10
+  ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.3
   MinimapQuad: {fileID: 1760803257945720}
   AttachedBuildingSlot: {fileID: 0}
@@ -1585,6 +1615,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
+  ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.2
   MinimapQuad: {fileID: 0}
   OnlyAppearWhenAttachedToBase: 0
@@ -1644,6 +1675,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
+  ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.2
   MinimapQuad: {fileID: 0}
   OnlyAppearWhenAttachedToBase: 0
@@ -1703,6 +1735,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
+  ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.2
   MinimapQuad: {fileID: 0}
   OnlyAppearWhenAttachedToBase: 0
@@ -1762,6 +1795,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
+  ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.2
   MinimapQuad: {fileID: 0}
   OnlyAppearWhenAttachedToBase: 0
@@ -1821,6 +1855,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
+  ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.2
   MinimapQuad: {fileID: 0}
   OnlyAppearWhenAttachedToBase: 0
@@ -1880,6 +1915,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
+  ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.2
   MinimapQuad: {fileID: 0}
   OnlyAppearWhenAttachedToBase: 0
@@ -1939,6 +1975,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
+  ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.2
   MinimapQuad: {fileID: 0}
   OnlyAppearWhenAttachedToBase: 0
@@ -2010,6 +2047,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
+  ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.2
   MinimapQuad: {fileID: 0}
   OnlyAppearWhenAttachedToBase: 0
