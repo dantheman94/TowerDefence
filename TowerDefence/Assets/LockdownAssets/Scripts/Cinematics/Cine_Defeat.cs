@@ -40,8 +40,6 @@ public class Cine_Defeat : Cinematic {
 
     private Transform _TargetTransform = null;
     private Vector3 _CurrentVelocity = Vector3.zero;
-
-    private float _TimerCoreExplosion = 0f;
     private float _TimeTillWidgetIsDisplayed = 0f;
 
     //******************************************************************************************************************************
@@ -93,17 +91,10 @@ public class Cine_Defeat : Cinematic {
                 // Display widget coroutine
                 StartCoroutine(DelayedWidgetDisplay());
 
-                // Play some explosions before the big finale
-                _TimerCoreExplosion += Time.deltaTime;
-                if (_TimerCoreExplosion >= TimeTillFinalExplosion) {
+                // Play some mini explosions with random scaling
 
-                    // Final explosion=
-                    UI_ScreenFade.Instance.StartAnimation(new Color(1, 1, 1, 0), new Color(1, 1, 1, 1), 1f);
-                }
-                else {
-
-                    // Mini explosions with random scaling
-                }
+                // Final explosion
+                StartCoroutine(BigFinale());                
             }
         }
     }
@@ -125,13 +116,31 @@ public class Cine_Defeat : Cinematic {
     //  Waits till the final core explosion is complete, then delays momentarily
     //  before showing the gameover widget with timescale being set to 0.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>
+    //  IEnumerator
+    /// </returns>
     IEnumerator DelayedWidgetDisplay() {
 
         yield return new WaitForSeconds(_TimeTillWidgetIsDisplayed);
 
         // Show widget
         GameManager.Instance.ShowGameOverWidget();
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Waits a few seconds before setting off the final explosion and fading the screen into white.
+    /// </summary>
+    /// <returns>
+    //  IEnumerator
+    /// </returns>
+    IEnumerator BigFinale() {
+
+        yield return new WaitForSeconds(TimeTillFinalExplosion);
+
+        // Fade screen into white
+        UI_ScreenFade.Instance.StartAnimation(new Color(1, 1, 1, 0), new Color(1, 1, 1, 1), 2f);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

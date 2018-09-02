@@ -94,7 +94,7 @@ public class UI_ScreenFade : MonoBehaviour {
     /// </summary>
     /// <param name="directon"></param>
     public void StartAnimation(Color startCol, Color endcol, float fadeTime) {
-
+        
         // Set values
         _StartColour = startCol;
         _TargetColour = endcol;
