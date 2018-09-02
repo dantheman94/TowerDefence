@@ -652,6 +652,7 @@ public class Unit : Ai {
                         if (GetSquadAttached().GetObjectState() == WorldObject.WorldObjectStates.Active && !_IsCurrentlySelected)
                         {
                             _Player.SelectedWorldObjects.Add(GetSquadAttached());
+                            _Player.SelectedUnits.Add(GetSquadAttached());
                             GetSquadAttached().SetPlayer(_Player);
                             GetSquadAttached().SetIsSelected(true);
                         }
@@ -662,6 +663,7 @@ public class Unit : Ai {
                         if (this.GetObjectState() == WorldObject.WorldObjectStates.Active && !_IsCurrentlySelected)
                         {
                             _Player.SelectedWorldObjects.Add(this);
+                            _Player.SelectedUnits.Add(this);
                             this.SetPlayer(_Player);
                             this.SetIsSelected(true);
                         }

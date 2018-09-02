@@ -109,6 +109,7 @@ public class XboxGamepadInput : MonoBehaviour {
 
                         // Add to selection list
                         _PlayerAttached.SelectedWorldObjects.Add(ai);
+                        _PlayerAttached.SelectedUnits.Add(ai);
                         ai.SetPlayer(_PlayerAttached);
                         ai.SetIsSelected(true);
                     }

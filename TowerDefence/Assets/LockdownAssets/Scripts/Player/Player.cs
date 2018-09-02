@@ -62,6 +62,7 @@ public class Player : MonoBehaviour {
     public CameraFollow _CameraFollow { get; private set; }
     public BuildingSlot SelectedBuildingSlot { get; set; }
     public List<Selectable> SelectedWorldObjects { get; set; }
+    public List<Ai> SelectedUnits { get; set; }
 
     // Economy
     public int MaxPopulation { get; set; }
@@ -76,7 +77,7 @@ public class Player : MonoBehaviour {
 
     // Army
     private List<Base> _Bases;
-    private List<WorldObject> _Army;
+    private List<Ai> _Army;
     private List<Platoon> _Platoons;
     const int _PlatoonCount = 10;
     
@@ -114,7 +115,6 @@ public class Player : MonoBehaviour {
 
         PopulationCount = 0;
         MaxPopulation = GameManager.Instance.StartingMaxPopulation;
-        SelectedWorldObjects = new List<Selectable>();
 
         // Initialize controller
         switch (_CurrentController) {
@@ -129,7 +129,9 @@ public class Player : MonoBehaviour {
         }
 
         // Create army
-        _Army = new List<WorldObject>();
+        SelectedWorldObjects = new List<Selectable>();
+        SelectedUnits = new List<Ai>();
+        _Army = new List<Ai>();
         _Bases = new List<Base>();
 
         // Create platoons
@@ -149,9 +151,11 @@ public class Player : MonoBehaviour {
 
         // Set all objects to NOT selected
         foreach (var obj in SelectedWorldObjects) { obj.SetIsSelected(false); }
+        foreach (var obj in SelectedUnits) { obj.SetIsSelected(false); }
 
         // Clear the list
         if (SelectedWorldObjects.Count > 0) { SelectedWorldObjects.Clear(); }
+        if (SelectedUnits.Count > 0) { SelectedUnits.Clear(); }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -196,7 +200,7 @@ public class Player : MonoBehaviour {
     //  
     /// </summary>
     /// <returns></returns>
-    public List<WorldObject> GetArmy() { return _Army; }
+    public List<Ai> GetArmy() { return _Army; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

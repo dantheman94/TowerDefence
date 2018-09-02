@@ -19,7 +19,7 @@ public class Platoon : MonoBehaviour {
     //
     //******************************************************************************************************************************
 
-    private List<WorldObject> _PlatoonAi;
+    private List<Ai> _PlatoonAi;
     public int _Size { get; set; }
 
     //******************************************************************************************************************************
@@ -35,7 +35,7 @@ public class Platoon : MonoBehaviour {
     /// </summary>
     private void Start() {
 
-        _PlatoonAi = new List<WorldObject>();
+        _PlatoonAi = new List<Ai>();
         _Size = 0;
     }
 
@@ -81,7 +81,7 @@ public class Platoon : MonoBehaviour {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public List<WorldObject> GetAi() { return _PlatoonAi; }
+    public List<Ai> GetAi() { return _PlatoonAi; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

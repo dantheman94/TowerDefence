@@ -119,6 +119,8 @@ public class Selectable : Abstraction {
         // Clear the world objects selection list
         foreach (var obj in _Player.SelectedWorldObjects) { obj.SetIsSelected(false); }
         _Player.SelectedWorldObjects.Clear();
+        foreach (var obj in _Player.SelectedUnits) { obj.SetIsSelected(false); }
+        _Player.SelectedUnits.Clear();
 
         // Add new selection to the list
         _Player.SelectedWorldObjects.Add(selectObj);

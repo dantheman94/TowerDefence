@@ -107,6 +107,7 @@ public class KeyboardInput : MonoBehaviour {
 
                         // Add to selection list
                         _PlayerAttached.SelectedWorldObjects.Add(ai);
+                        _PlayerAttached.SelectedUnits.Add(ai);
                         ai.SetPlayer(_PlayerAttached);
                         ai.SetIsSelected(true);
                     }
@@ -610,6 +611,8 @@ public class KeyboardInput : MonoBehaviour {
                             // Deselect any objects that are currently selected
                             foreach (var obj in _PlayerAttached.SelectedWorldObjects) { obj.SetIsSelected(false); }
                             _PlayerAttached.SelectedWorldObjects.Clear();
+                            foreach (var obj in _PlayerAttached.SelectedUnits) { obj.SetIsSelected(false); }
+                            _PlayerAttached.SelectedUnits.Clear();
 
                             if (_PlayerAttached.SelectedBuildingSlot != null) {
 
@@ -736,6 +739,7 @@ public class KeyboardInput : MonoBehaviour {
 
                                     // Add selection to list
                                     _PlayerAttached.SelectedWorldObjects.Add(squadObj);
+                                    _PlayerAttached.SelectedUnits.Add(squadObj);
                                     squadObj.SetPlayer(_PlayerAttached);
                                     squadObj.SetIsSelected(true);
                                 }
@@ -751,13 +755,14 @@ public class KeyboardInput : MonoBehaviour {
                                 squadObj = unitObj.GetSquadAttached();
 
                                 // Squad is active in the world
-                                if (squadObj.GetObjectState() == WorldObject.WorldObjectStates.Active) {
+                                if (squadObj.GetObjectState() == Abstraction.WorldObjectStates.Active) {
 
                                     // Matching team
                                     if (squadObj.Team == _PlayerAttached.Team) {
 
                                         // Add selection to list
                                         _PlayerAttached.SelectedWorldObjects.Add(squadObj);
+                                        _PlayerAttached.SelectedUnits.Add(squadObj);
                                         squadObj.SetPlayer(_PlayerAttached);
                                         squadObj.SetIsSelected(true);
                                     }
@@ -768,13 +773,14 @@ public class KeyboardInput : MonoBehaviour {
                             else {
 
                                 // Unit is active in the world
-                                if (unitObj.GetObjectState() == WorldObject.WorldObjectStates.Active) {
+                                if (unitObj.GetObjectState() == Abstraction.WorldObjectStates.Active) {
 
                                     // Matching team
                                     if (unitObj.Team == _PlayerAttached.Team) {
 
                                         // Add selection to list
                                         _PlayerAttached.SelectedWorldObjects.Add(unitObj);
+                                        _PlayerAttached.SelectedUnits.Add(unitObj);
                                         unitObj.SetPlayer(_PlayerAttached);
                                         unitObj.SetIsSelected(true);
                                     }
@@ -1085,6 +1091,8 @@ public class KeyboardInput : MonoBehaviour {
                 // Deselect any objects that are currently selected
                 foreach (var obj in _PlayerAttached.SelectedWorldObjects) { obj.SetIsSelected(false); }
                 _PlayerAttached.SelectedWorldObjects.Clear();
+                foreach (var obj in _PlayerAttached.SelectedUnits) { obj.SetIsSelected(false); }
+                _PlayerAttached.SelectedUnits.Clear();
 
                 // hide selection wheel if on screen
                 if (GameManager.Instance.SelectionWheel.activeInHierarchy) { GameManager.Instance.SelectionWheel.SetActive(false); }
@@ -1150,6 +1158,7 @@ public class KeyboardInput : MonoBehaviour {
 
                 // Add to selection list
                 _PlayerAttached.SelectedWorldObjects.Add(ai);
+                _PlayerAttached.SelectedUnits.Add(ai);
                 ai.SetPlayer(_PlayerAttached);
                 ai.SetIsSelected(true);
             }
@@ -1200,6 +1209,7 @@ public class KeyboardInput : MonoBehaviour {
 
                 // Add to selection list
                 _PlayerAttached.SelectedWorldObjects.Add(ai);
+                _PlayerAttached.SelectedUnits.Add(ai);
                 ai.SetPlayer(_PlayerAttached);
                 ai.SetIsSelected(true);
             }
@@ -1250,6 +1260,7 @@ public class KeyboardInput : MonoBehaviour {
 
                 // Add to selection list
                 _PlayerAttached.SelectedWorldObjects.Add(ai);
+                _PlayerAttached.SelectedUnits.Add(ai);
                 ai.SetPlayer(_PlayerAttached);
                 ai.SetIsSelected(true);
             }
@@ -1300,6 +1311,7 @@ public class KeyboardInput : MonoBehaviour {
 
                 // Add to selection list
                 _PlayerAttached.SelectedWorldObjects.Add(ai);
+                _PlayerAttached.SelectedUnits.Add(ai);
                 ai.SetPlayer(_PlayerAttached);
                 ai.SetIsSelected(true);
             }
@@ -1350,6 +1362,7 @@ public class KeyboardInput : MonoBehaviour {
 
                 // Add to selection list
                 _PlayerAttached.SelectedWorldObjects.Add(ai);
+                _PlayerAttached.SelectedUnits.Add(ai);
                 ai.SetPlayer(_PlayerAttached);
                 ai.SetIsSelected(true);
             }
@@ -1400,6 +1413,7 @@ public class KeyboardInput : MonoBehaviour {
 
                 // Add to selection list
                 _PlayerAttached.SelectedWorldObjects.Add(ai);
+                _PlayerAttached.SelectedUnits.Add(ai);
                 ai.SetPlayer(_PlayerAttached);
                 ai.SetIsSelected(true);
             }
@@ -1500,6 +1514,7 @@ public class KeyboardInput : MonoBehaviour {
 
                 // Add to selection list
                 _PlayerAttached.SelectedWorldObjects.Add(ai);
+                _PlayerAttached.SelectedUnits.Add(ai);
                 ai.SetPlayer(_PlayerAttached);
                 ai.SetIsSelected(true);
             }
@@ -1550,6 +1565,7 @@ public class KeyboardInput : MonoBehaviour {
 
                 // Add to selection list
                 _PlayerAttached.SelectedWorldObjects.Add(ai);
+                _PlayerAttached.SelectedUnits.Add(ai);
                 ai.SetPlayer(_PlayerAttached);
                 ai.SetIsSelected(true);
             }
@@ -1600,6 +1616,7 @@ public class KeyboardInput : MonoBehaviour {
 
                 // Add to selection list
                 _PlayerAttached.SelectedWorldObjects.Add(ai);
+                _PlayerAttached.SelectedUnits.Add(ai);
                 ai.SetPlayer(_PlayerAttached);
                 ai.SetIsSelected(true);
             }

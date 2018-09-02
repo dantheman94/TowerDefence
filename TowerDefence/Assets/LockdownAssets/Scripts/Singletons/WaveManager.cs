@@ -44,6 +44,7 @@ public class WaveManager : MonoBehaviour {
     [Header(" UI")]
     [Space]
     public UI_WaveNotification WaveNotificationWidget = null;
+    public UI_CoreDamagedNotification CoreDamagedWidget = null;
 
     [Space]
     [Header("-----------------------------------")]
@@ -247,6 +248,9 @@ public class WaveManager : MonoBehaviour {
                 else { _NextWaveTimer = 0; }
             }
         }
+
+        // Update boss wave notification
+        if (WaveNotificationWidget != null) { WaveNotificationWidget._BossWave = _BossWave; }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

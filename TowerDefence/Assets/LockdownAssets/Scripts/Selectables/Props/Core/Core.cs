@@ -88,7 +88,7 @@ public class Core : Building {
     //  Vector3
     /// </returns>
     public Vector3 GetSeekPosition() { return Random.onUnitSphere * SeekSphereRadius; }
-
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
@@ -109,6 +109,9 @@ public class Core : Building {
     /// <param name="damage"></param>
     /// <param name="instigator"></param>
     public override void Damage(float damage, WorldObject instigator = null) {
+
+        // Notify the player
+        WaveManager.Instance.CoreDamagedWidget.ShowNotification();
 
         // Only damage the core if all spires are destroyed
         bool damageCore = true;

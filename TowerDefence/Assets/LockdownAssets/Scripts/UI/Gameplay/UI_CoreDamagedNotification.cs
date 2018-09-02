@@ -12,7 +12,7 @@ using UnityEngine.UI;
 //
 //******************************
 
-public class UI_WaveNotification : MonoBehaviour {
+public class UI_CoreDamagedNotification : MonoBehaviour {
 
     //******************************************************************************************************************************
     //
@@ -24,9 +24,12 @@ public class UI_WaveNotification : MonoBehaviour {
     [Header("-----------------------------------")]
     [Header(" COMPONENTS")]
     [Space]
-    public Text WaveNameTitle = null;
-    public Text WaveNameDescription = null;
+    public Text NotificationText = null;
     public float TimeOnScreen = 3f;
+    [Space]
+    public Color ColourA = Color.black;
+    public Color ColourB = Color.white;
+    public float ColourTransitionSpeed = 1f;
 
     //******************************************************************************************************************************
     //
@@ -37,7 +40,7 @@ public class UI_WaveNotification : MonoBehaviour {
     private bool _OnScreen = false;
     private float _TimerOnScreen = 0f;
 
-    public bool _BossWave { get; set; }
+    private Color _Colour;
 
     //******************************************************************************************************************************
     //
@@ -54,6 +57,10 @@ public class UI_WaveNotification : MonoBehaviour {
 
         if (_OnScreen) {
 
+            // Lerp between Colour A & B
+            _Colour = Color.Lerp(ColourA, ColourB, (Mathf.Sin(Time.time * ColourTransitionSpeed) + 1) / 2f);
+            if (NotificationText != null) { NotificationText.color = _Colour; }
+
             // Add to timer
             _TimerOnScreen += Time.deltaTime;
             if (_TimerOnScreen >= TimeOnScreen) {
@@ -69,33 +76,14 @@ public class UI_WaveNotification : MonoBehaviour {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  
+    //  Starts the core damaged warning process.
     /// </summary>
-    public void NewWaveNotification(WaveManager.WaveInfo waveInfo) {
+    public void ShowNotification() {
 
-        if (WaveNameDescription != null) {
-
-            // Next wave is a boss wave - only show title text
-            if (_BossWave) {
-
-                WaveNameTitle.text = "BOSS WAVE";
-                _TimerOnScreen = 0f;
-                _OnScreen = true;
-                gameObject.SetActive(true);
-                WaveNameDescription.enabled = false;
-            }
-
-            // Not a boss wave
-            else {
-
-                WaveNameTitle.text = "NEW WAVE";
-                WaveNameDescription.text = waveInfo.Name;
-                _TimerOnScreen = 0f;
-                _OnScreen = true;
-                gameObject.SetActive(true);
-                WaveNameDescription.enabled = true;
-            }
-        }
+        // Reset timers and display the widget gameObject
+        _TimerOnScreen = 0f;
+        _OnScreen = true;
+        gameObject.SetActive(true);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

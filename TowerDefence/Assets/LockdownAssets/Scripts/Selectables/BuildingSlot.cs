@@ -134,6 +134,8 @@ public class BuildingSlot : WorldObject {
         // Clear the world objects selection list
         foreach (var obj in _Player.SelectedWorldObjects) { obj.SetIsSelected(false); }
         _Player.SelectedWorldObjects.Clear();
+        foreach (var obj in _Player.SelectedUnits) { obj.SetIsSelected(false); }
+        _Player.SelectedUnits.Clear();
 
         // Clear the selected building slot (if theres one already been selected)
         if (_Player.SelectedBuildingSlot) { _Player.SelectedBuildingSlot.SetIsSelected(false); }

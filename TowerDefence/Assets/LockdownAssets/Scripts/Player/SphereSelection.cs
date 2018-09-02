@@ -34,6 +34,8 @@ public class SphereSelection : MonoBehaviour
             // Deselect any objects that are currently selected
             foreach (var obj in _Player.SelectedWorldObjects) { obj.SetIsSelected(false); }
             _Player.SelectedWorldObjects.Clear();
+            foreach (var obj in _Player.SelectedUnits) { obj.SetIsSelected(false); }
+            _Player.SelectedUnits.Clear();
 
             if (_Player.SelectedBuildingSlot != null)
             {
@@ -177,6 +179,7 @@ public class SphereSelection : MonoBehaviour
 
                             // Add selection to list
                             _Player.SelectedWorldObjects.Add(squadObj);
+                            _Player.SelectedUnits.Add(squadObj);
                             squadObj.SetPlayer(_Player);
                             squadObj.SetIsSelected(true);
                         }
@@ -203,6 +206,7 @@ public class SphereSelection : MonoBehaviour
 
                                 // Add selection to list
                                 _Player.SelectedWorldObjects.Add(squadObj);
+                                _Player.SelectedUnits.Add(squadObj);
                                 squadObj.SetPlayer(_Player);
                                 squadObj.SetIsSelected(true);
                             }
@@ -223,6 +227,7 @@ public class SphereSelection : MonoBehaviour
 
                                 // Add selection to list
                                 _Player.SelectedWorldObjects.Add(unitObj);
+                                _Player.SelectedUnits.Add(unitObj);
                                 unitObj.SetPlayer(_Player);
                                 unitObj.SetIsSelected(true);
                             }
@@ -288,6 +293,8 @@ public class SphereSelection : MonoBehaviour
             // Deselect any objects that are currently selected
             foreach (var obj in _Player.SelectedWorldObjects) { obj.SetIsSelected(false); }
             _Player.SelectedWorldObjects.Clear();
+            foreach (var obj in _Player.SelectedUnits) { obj.SetIsSelected(false); }
+            _Player.SelectedUnits.Clear();
 
             if (_Player.SelectedBuildingSlot != null)
             {
@@ -431,6 +438,7 @@ public class SphereSelection : MonoBehaviour
 
                             // Add selection to list
                             _Player.SelectedWorldObjects.Add(squadObj);
+                            _Player.SelectedUnits.Add(squadObj);
                             squadObj.SetPlayer(_Player);
                             squadObj.SetIsSelected(true);
                         }
@@ -457,6 +465,7 @@ public class SphereSelection : MonoBehaviour
 
                                 // Add selection to list
                                 _Player.SelectedWorldObjects.Add(squadObj);
+                                _Player.SelectedUnits.Add(squadObj);
                                 squadObj.SetPlayer(_Player);
                                 squadObj.SetIsSelected(true);
                             }
@@ -477,6 +486,7 @@ public class SphereSelection : MonoBehaviour
 
                                 // Add selection to list
                                 _Player.SelectedWorldObjects.Add(unitObj);
+                                _Player.SelectedUnits.Add(unitObj);
                                 unitObj.SetPlayer(_Player);
                                 unitObj.SetIsSelected(true);
                             }

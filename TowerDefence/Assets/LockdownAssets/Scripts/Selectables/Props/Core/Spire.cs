@@ -12,13 +12,13 @@ using UnityEngine;
 //******************************
 
 public class Spire : Building {
-    
+
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
     //
     //******************************************************************************************************************************
-    
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
@@ -50,6 +50,21 @@ public class Spire : Building {
                 else { _HealthBar.SetCameraAttached(_Player.PlayerCamera); }
             }
         }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Damages the object by a set amount.
+    /// </summary>
+    /// <param name="damage"></param>
+    /// <param name="instigator"></param>
+    public override void Damage(float damage, WorldObject instigator = null) {
+        base.Damage(damage, instigator);
+
+        // Notify the player
+        WaveManager.Instance.CoreDamagedWidget.ShowNotification();
+
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
