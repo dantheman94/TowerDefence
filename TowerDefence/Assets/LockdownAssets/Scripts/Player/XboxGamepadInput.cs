@@ -69,6 +69,8 @@ public class XboxGamepadInput : MonoBehaviour {
     private float _CurrentAngle = 0f;
     float _AngleOffset = 360 / 10;
     private int _RadialIndex = 0;
+    private Vector3 _MousePosReference;
+    private GameObject _ReticleObject;
     
     //******************************************************************************************************************************
     //
@@ -80,6 +82,7 @@ public class XboxGamepadInput : MonoBehaviour {
     // Called when the gameObject is created.
     /// </summary>
     private void Start() {
+        _ReticleObject = ReticleImage.gameObject;
         _Gamepad = GamepadManager.Instance.GetGamepad(1);
         _SelectionWheel = GameManager.Instance.SelectionWheel.GetComponentInChildren<SelectionWheel>();
         // Get component references
@@ -100,7 +103,7 @@ public class XboxGamepadInput : MonoBehaviour {
     //  Called each frame. 
     /// </summary>
     private void Update() {
- 
+    
    //     TogglePause();
         if (_PlayerAttached) {
 
@@ -118,6 +121,7 @@ public class XboxGamepadInput : MonoBehaviour {
             _GamepadState = GamePad.GetState(_PlayerAttached.Index);
             
             if (IsPrimaryController) {
+                _ReticleObject.SetActive(true);
                 //Gamepad function presses.
                 DisplayButtonUI();
                 MoveSelectedUnits("X");
@@ -125,6 +129,8 @@ public class XboxGamepadInput : MonoBehaviour {
                 ChangeSelectionWheel();
                 StartCoroutine(Select());
                 CreateSelection();
+                ChangeReticle();
+                DisableGamepadUI();
                 if (!GameManager.Instance.SelectionWheel.activeInHierarchy)
                 {
                     // Update camera
@@ -139,7 +145,7 @@ public class XboxGamepadInput : MonoBehaviour {
                 // Update point/click input
                 PointClickActivity();
                 Cursor.visible = false;
-                Cursor.lockState = CursorLockMode.Locked;
+             //   Cursor.lockState = CursorLockMode.Locked;
 
                 // Update abilities input
                 ///AbilitiesInput();
@@ -159,6 +165,10 @@ public class XboxGamepadInput : MonoBehaviour {
                         ai.SetIsSelected(true);
                     }
                 }
+            }
+            else
+            {
+                _ReticleObject.SetActive(false);
             }
         }
     }
@@ -188,10 +198,53 @@ public class XboxGamepadInput : MonoBehaviour {
         }
     }
 
-
-    private void LateUpdate()
+    private void DisableGamepadUI()
     {
-       
+        if(!_PlayerAttached._KeyboardInputManager.IsPrimaryController)
+        {
+            if(_MousePosReference != Input.mousePosition && _MousePosReference != new Vector3(0,0,0))
+            {
+                _PlayerAttached._KeyboardInputManager.IsPrimaryController = true;
+                IsPrimaryController = false;
+            }
+            _MousePosReference = Input.mousePosition;
+        }
+    }
+
+
+    private void ChangeReticle()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+        RaycastHit hit;
+        //Fire raycast from middle of the screen.
+        if (Physics.Raycast(ray, out hit, 1000, _PlayerAttached._HUD.MaskBlock))
+        {
+            if (hit.transform.gameObject.tag != "Ground")
+            {
+                WorldObject wo = hit.transform.gameObject.GetComponent<WorldObject>();
+                if(wo == null)
+                {
+                    wo = hit.transform.gameObject.GetComponentInChildren<WorldObject>();
+                }
+                if(wo != null)
+                {
+                   
+                    if (wo.Team == GameManager.Team.Defending)
+                    {
+                        ReticleImage.color = _PlayerAttached.TeamColor;
+                    }
+                    else if (wo.Team == GameManager.Team.Attacking)
+                    {
+                        ReticleImage.color = WaveManager.Instance.AttackingTeamColour;
+                    }
+                }
+        
+            }
+            else
+            {
+                ReticleImage.color = Color.white;
+            }
+        }
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

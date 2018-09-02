@@ -66,7 +66,7 @@ public class KeyboardInput : MonoBehaviour {
     /// </summary>
     private void Update() {
         CreateSelectionBox();
-
+        Debug.Log(Cursor.visible);
         if (_PlayerAttached) {
 
             // Update primary controller
@@ -80,7 +80,7 @@ public class KeyboardInput : MonoBehaviour {
             if (IsPrimaryController) {
 
                 Cursor.visible = true;
-                Cursor.lockState = CursorLockMode.None;
+                
                 // Update camera
                 MoveCamera();
                 RotateCamera();
