@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4666510405837378}
   - component: {fileID: 114555998984486396}
-  - component: {fileID: 114378756795125336}
+  - component: {fileID: 114841784551271276}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -41,7 +41,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114378756795125336
+--- !u!114 &114555998984486396
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -49,16 +49,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 1162486525421322}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90b78cdabd605534580ad70e610d9892, type: 3}
+  m_Script: {fileID: 11500000, guid: e80a813b58a051445abd38d0963ce651, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LevelIndex: 0
+  LevelName: Test Scene
+  LevelDescription: 
+  LevelThumbnailSprite: {fileID: 0}
+  HoverText: {fileID: 0}
+--- !u!114 &114841784551271276
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1162486525421322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8596901773f7c24abafb2224b812462, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _Level: {fileID: 114555998984486396}
   FlyingNavMesh: {fileID: 0}
   StartingBase: {fileID: 0}
-  StartingSupplyCount: 50000
-  StartingPowerCount: 20000
-  StartingMaxSupplyCount: 100000
-  StartingMaxPowerCount: 100000
+  StartingSupplyCount: 10000
+  StartingPowerCount: 10000
+  StartingMaxSupplyCount: 60000
+  StartingMaxPowerCount: 60000
   StartingTechLevel: 3
   StartingMaxPopulation: 60
   StartingWave: 0
@@ -100,19 +116,3 @@ MonoBehaviour:
   PreloadWorldObjects: []
   PreloadProjectiles: []
   PreloadParticles: []
---- !u!114 &114555998984486396
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1162486525421322}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e80a813b58a051445abd38d0963ce651, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LevelIndex: 0
-  LevelName: Test Scene
-  LevelDescription: 
-  LevelThumbnailSprite: {fileID: 0}
-  HoverText: {fileID: 0}

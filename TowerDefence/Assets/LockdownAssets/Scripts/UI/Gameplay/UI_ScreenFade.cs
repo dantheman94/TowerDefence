@@ -39,6 +39,7 @@ public class UI_ScreenFade : MonoBehaviour {
     private Color _TargetColour;
 
     private float _CurrentLerpTime = 0f;
+    private bool _IsFading = false;
 
     //******************************************************************************************************************************
     //
@@ -71,7 +72,7 @@ public class UI_ScreenFade : MonoBehaviour {
 
         if (ImageComponent != null) {
 
-            if (ImageComponent.enabled) {
+            if (_IsFading = ImageComponent.enabled) {
 
                 // Increment lerp timer once per frame
                 _CurrentLerpTime += Time.deltaTime;
@@ -94,15 +95,18 @@ public class UI_ScreenFade : MonoBehaviour {
     /// </summary>
     /// <param name="directon"></param>
     public void StartAnimation(Color startCol, Color endcol, float fadeTime) {
-        
-        // Set values
-        _StartColour = startCol;
-        _TargetColour = endcol;
-        _FadeTime = fadeTime;
-        if (ImageComponent != null) { ImageComponent.color = startCol; }
 
-        // Begin animation
-        ImageComponent.enabled = true;
+        if (!_IsFading) {
+
+            // Set values
+            _StartColour = startCol;
+            _TargetColour = endcol;
+            _FadeTime = fadeTime;
+            if (ImageComponent != null) { ImageComponent.color = startCol; }
+
+            // Begin animation
+            ImageComponent.enabled = true;
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

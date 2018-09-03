@@ -116,7 +116,7 @@ public class HUD : MonoBehaviour {
             if (_Player._XboxGamepadInputManager.IsPrimaryController) {
 
                 // On START 
-                if (GameManager.Instance.GetGamepad().GetButtonDown("start")) {
+                if (GamepadManager.Instance.GetGamepad(1).GetButtonDown("start")) {
                     
                     // Resume gameplay
                     if (GameManager.Instance.IsGamePause()) { GameManager.Instance.OnUnpause(); }
