@@ -59,10 +59,18 @@ public class MenuNavigator : MonoBehaviour {
     [Tooltip("Credit Menu Area")]
     public MenuArea CreditsMenu;
 
+
+    [Header("----------------------")]
+    [Space]
+    [Header("PLAYGAME MENU AREA SUB-MENU REFERENCES")]
     public GameObject LevelUIObject;
 
     public GameObject DifficultyUIObject;
 
+
+    [Header("----------------------")]
+    [Space]
+    [Header("PLAYGAME SUB MENU BUTTON REFERENCES")]
     public Button LevelStartButton;
     public Button DifficultyStartButton;
 
@@ -102,7 +110,27 @@ public class MenuNavigator : MonoBehaviour {
     void Update () {
         NavigateMenu();
         ChangeButtonColor();
+        DisableButtonUI();
 	}
+
+    void DisableButtonUI()
+    {
+        if(gamepad.IsConnected)
+        {
+            for (int i = 0; i < ButtonImage.Count; ++i)
+            {
+                ButtonImage[i].enabled = true;
+            }
+        }
+        else
+        {
+            for (int i = 0; i < ButtonImage.Count; ++i)
+            {
+                ButtonImage[i].enabled = false;
+            }
+        }
+       
+    }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -337,4 +365,6 @@ public class MenuNavigator : MonoBehaviour {
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    
 }

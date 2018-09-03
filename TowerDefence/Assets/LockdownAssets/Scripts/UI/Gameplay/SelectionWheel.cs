@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -43,6 +44,7 @@ public class SelectionWheel : MonoBehaviour {
     [Header(" ITEM HIGHLIGHT DETAIL WINDOW")]
     [Space]
     public UI_BuildingQueue BuildingQueue;
+    public RectTransform SelectionMarker;
 
     [Space]
     [Header("-----------------------------------")]
@@ -251,17 +253,22 @@ public class SelectionWheel : MonoBehaviour {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    /// <summary>
-    /// 
-    /// </summary>
-    public void HideSelectionWheel() {
-
+    private IEnumerator WaitHide()
+    {
+        yield return new WaitForSeconds(0.05f);
         // Deselect all objects
         foreach (var selectable in GameManager.Instance.Selectables) { selectable.SetIsSelected(false); }
 
         // Hide widget
         GameManager.Instance.SelectionWheel.SetActive(false);
         MasterButton.enabled = false;
+    }
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    public void HideSelectionWheel() {
+        StartCoroutine(WaitHide());
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

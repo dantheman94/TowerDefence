@@ -7,7 +7,7 @@ using TowerDefence;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Angus Secomb
-//  Last edited on: 1/8/2018
+//  Last edited on: 27/8/2018
 //
 //******************************
 
@@ -66,7 +66,7 @@ public class KeyboardInput : MonoBehaviour {
     /// </summary>
     private void Update() {
         CreateSelectionBox();
-
+        Debug.Log(Cursor.visible);
         if (_PlayerAttached) {
 
             // Update primary controller
@@ -80,6 +80,7 @@ public class KeyboardInput : MonoBehaviour {
             if (IsPrimaryController) {
 
                 Cursor.visible = true;
+                
                 // Update camera
                 MoveCamera();
                 RotateCamera();
@@ -355,7 +356,7 @@ public class KeyboardInput : MonoBehaviour {
                 Settings.MovementSpeed = Settings.CameraWalkSpeed;
             }
         }
-
+        
         // Horizontal camera movement via mouse
         if (xPos >= 0 && xPos < Settings.ScreenOffset)
             movement.x -= Settings.MovementSpeed;

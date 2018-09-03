@@ -2,6 +2,8 @@
 using UnityEngine;
 using XInputDotNetPure;
 using UnityEngine.UI;
+using System.Collections.Generic;
+using System.Collections;
 //******************************
 //
 //  Created by: Daniel Marton
@@ -15,17 +17,43 @@ public class XboxGamepadInput : MonoBehaviour {
 
     //******************************************************************************************************************************
     //
-    //      VARIABLES
+    //      INSPECTOR
     //
     //******************************************************************************************************************************
 
     private Player _PlayerAttached;
     private KeyboardInput _KeyboardInputManager = null;
     public bool IsPrimaryController { get; set; }
+
+    [HideInInspector]
+    public bool CanSelect = false;
+    [Header("----------------------")]
+    [Space]
+    [Header("OBJECT REFERENCES")]
     public GameObject SphereSelectorObject;
+    public Image ReticleImage;
+    [Header("----------------------")]
+    [Space]
+    [Header("SPHERE SELECTION PROPERTIES")]
     public float MaxSphereRadius = 250;
     public float SphereGrowRate = 10;
-    private SphereCollider _SphereCollider;
+    public float SphereStartRadius = 5;
+    [Header(" RAYCAST LAYERMASK")]
+    public LayerMask MaskBlock;
+
+    [Header("----------------------")]
+    [Space]
+    [Header("BUTTON IMAGES")]
+    public Image AButton;
+    public Image XButton;
+    public Image BButton;
+    public Image YButton;
+
+    //******************************************************************************************************************************
+    //
+    //      VARIABLES
+    //
+    //******************************************************************************************************************************
 
     private Vector3 _LookPoint;
     private Vector3 _CurrentVelocity = Vector3.zero;
@@ -37,7 +65,13 @@ public class XboxGamepadInput : MonoBehaviour {
     private float _MotorLeft, _MotorRight = 0f;
     private xb_gamepad _Gamepad;
     private GameObject _SphereReference;
-
+    private SelectionWheel _SelectionWheel;
+    private float _CurrentAngle = 0f;
+    float _AngleOffset = 360 / 10;
+    private int _RadialIndex = 0;
+    private Vector3 _MousePosReference;
+    private GameObject _ReticleObject;
+    
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
@@ -48,7 +82,9 @@ public class XboxGamepadInput : MonoBehaviour {
     // Called when the gameObject is created.
     /// </summary>
     private void Start() {
+        _ReticleObject = ReticleImage.gameObject;
         _Gamepad = GamepadManager.Instance.GetGamepad(1);
+        _SelectionWheel = GameManager.Instance.SelectionWheel.GetComponentInChildren<SelectionWheel>();
         // Get component references
         _PlayerAttached = GetComponent<Player>();
         _KeyboardInputManager = GetComponent<KeyboardInput>();
@@ -67,7 +103,8 @@ public class XboxGamepadInput : MonoBehaviour {
     //  Called each frame. 
     /// </summary>
     private void Update() {
-        CreateSelection();
+    
+   //     TogglePause();
         if (_PlayerAttached) {
 
             // Update primary controller
@@ -76,6 +113,7 @@ public class XboxGamepadInput : MonoBehaviour {
                 // Disable keyboard / Enable gamepad
                 IsPrimaryController = true;
                 if (_KeyboardInputManager != null) { _KeyboardInputManager.IsPrimaryController = false; }
+                _KeyboardInputManager.enabled = false;
             }
             
             // Update gamepad states
@@ -83,17 +121,31 @@ public class XboxGamepadInput : MonoBehaviour {
             _GamepadState = GamePad.GetState(_PlayerAttached.Index);
             
             if (IsPrimaryController) {
+                _ReticleObject.SetActive(true);
+                //Gamepad function presses.
+                DisplayButtonUI();
+                MoveSelectedUnits("X");
+                ExitUI("B");
+                ChangeSelectionWheel();
+                StartCoroutine(Select());
+                CreateSelection();
+                ChangeReticle();
+                DisableGamepadUI();
+                if (!GameManager.Instance.SelectionWheel.activeInHierarchy)
+                {
+                    // Update camera
+                    MoveCamera();
+                    RotateCamera();
 
-                // Update camera
-                MoveCamera();
-                RotateCamera();
-
-                // Update camera FOV
-                ZoomCamera();
+                    // Update camera FOV
+                    ZoomCamera();
+                }
+       
 
                 // Update point/click input
                 PointClickActivity();
                 Cursor.visible = false;
+             //   Cursor.lockState = CursorLockMode.Locked;
 
                 // Update abilities input
                 ///AbilitiesInput();
@@ -114,6 +166,10 @@ public class XboxGamepadInput : MonoBehaviour {
                         ai.SetIsSelected(true);
                     }
                 }
+            }
+            else
+            {
+                _ReticleObject.SetActive(false);
             }
         }
     }
@@ -143,7 +199,97 @@ public class XboxGamepadInput : MonoBehaviour {
         }
     }
 
+    private void DisableGamepadUI()
+    {
+        if(!_PlayerAttached._KeyboardInputManager.IsPrimaryController)
+        {
+            if(_MousePosReference != Input.mousePosition && _MousePosReference != new Vector3(0,0,0))
+            {
+                _PlayerAttached._KeyboardInputManager.IsPrimaryController = true;
+                IsPrimaryController = false;
+            }
+            _MousePosReference = Input.mousePosition;
+        }
+    }
+
+
+    private void ChangeReticle()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+        RaycastHit hit;
+        //Fire raycast from middle of the screen.
+        if (Physics.Raycast(ray, out hit, 1000, _PlayerAttached._HUD.MaskBlock))
+        {
+            if (hit.transform.gameObject.tag != "Ground")
+            {
+                WorldObject wo = hit.transform.gameObject.GetComponent<WorldObject>();
+                if(wo == null)
+                {
+                    wo = hit.transform.gameObject.GetComponentInChildren<WorldObject>();
+                }
+                if(wo != null)
+                {
+                   
+                    if (wo.Team == GameManager.Team.Defending)
+                    {
+                        ReticleImage.color = _PlayerAttached.TeamColor;
+                    }
+                    else if (wo.Team == GameManager.Team.Attacking)
+                    {
+                        ReticleImage.color = WaveManager.Instance.AttackingTeamColour;
+                    }
+                }
+        
+            }
+            else
+            {
+                ReticleImage.color = Color.white;
+            }
+        }
+    }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    private void TogglePause()
+    {
+        if(GameManager.Instance.PauseWidget.transform.gameObject.activeInHierarchy)
+        {
+            if(_Gamepad.GetButtonDown("start"))
+            {
+                GameManager.Instance.PauseWidget.gameObject.SetActive(false);
+            }
+        }
+        else
+        {
+            if (_Gamepad.GetButtonDown("start"))
+            {
+                GameManager.Instance.PauseWidget.gameObject.SetActive(true);
+            }
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    /// Exits user interface.
+    /// </summary>
+    private void ExitUI(string buttonPress)
+    {
+        if(GameManager.Instance.SelectionWheel.activeInHierarchy)
+        {
+            ReticleImage.enabled = false;
+            if (_Gamepad.GetButtonDown(buttonPress))
+            {
+                GameManager.Instance.SelectionWheel.GetComponentInChildren<SelectionWheel>().HideSelectionWheel();
+            }
+
+        }
+        else
+        {
+            ReticleImage.enabled = true;
+        }
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     //  Initiates the controller rumble process (vibration)
@@ -175,7 +321,98 @@ public class XboxGamepadInput : MonoBehaviour {
         _LookPoint = hit.point;
     }
 
+    /////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    /// Change selection.
+    /// </summary>
+    public void ChangeSelectionWheel()
+    {
+        if (GameManager.Instance.SelectionWheel.activeInHierarchy)
+        {
+            float _RawAngle;
+            float globalOffset = 0;
+            _RawAngle = Mathf.Atan2(_Gamepad.GetStick_L().Y, _Gamepad.GetStick_L().X) * Mathf.Rad2Deg;
+
+            if (_Gamepad.GetStick_L().X != 0 || _Gamepad.GetStick_L().Y != 0)
+            {
+                _CurrentAngle = NormalizeAngle(-_RawAngle + 90 - globalOffset + (_AngleOffset / 2f));
+                GameManager.Instance.SelectionWheel.GetComponentInChildren<SelectionWheel>().
+                SelectionMarker.rotation = Quaternion.Euler(0, 0, _RawAngle + 270);
+            }
+
+            if (_AngleOffset != 0)
+            {
+                _RadialIndex = (int)(_CurrentAngle / _AngleOffset);
+            }
+
+            for(int i = 0; i < _SelectionWheel._WheelButtons.Count; ++i)
+            {
+                    if(_RadialIndex == i)
+                   {
+                    StartCoroutine(DelayedSelect(_SelectionWheel._WheelButtons[i]));
+                }
+            }
+     
+        }
+    }
+
+    IEnumerator DelayedSelect(Button a_button)
+    {
+        yield return new WaitForSeconds(0.05f);
+        a_button.Select();
+    }
+ 
+    IEnumerator Select()
+    {
+        yield return new WaitForSeconds(0.1f);
+    
+    }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    private void DisplayButtonUI()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+        RaycastHit hit;
+        //Fire raycast from middle of the screen.
+        if (Physics.Raycast(ray, out hit, 1000, _PlayerAttached._HUD.MaskBlock))
+        {
+            if(hit.transform.gameObject.tag != "Ground" && !GameManager.Instance.SelectionWheel.activeInHierarchy)
+            {
+                AButton.enabled = true;
+                if(_Gamepad.GetButton("A"))
+                {
+                    AButton.color = Color.grey;
+                }
+                else
+                {
+                    AButton.color = Color.white;    
+                }
+            }
+            else
+            {
+                AButton.enabled = false;
+            }
+
+            if(hit.transform.gameObject.tag == "Ground" && _PlayerAttached.SelectedWorldObjects.Count > 0)
+            {
+                XButton.enabled = true;
+                if(_Gamepad.GetButton("X"))
+                {
+                    XButton.color = Color.grey;
+                }
+                else
+                {
+                    XButton.color = Color.white;
+                }
+            }
+            else
+            {
+                XButton.enabled = false;
+            }
+        }
+    }
+
 
     /// <summary>
     //  
@@ -216,7 +453,7 @@ public class XboxGamepadInput : MonoBehaviour {
                 CreateCenterPoint();
             }
 
-            if (/*OnLeftThumbstickDown()*/false) {
+            if (_Gamepad.GetButton("L3")) {
 
                 // 'Sprint' movement speed
                 Settings.MovementSpeed = Settings.CameraSprintSpeed;
@@ -260,39 +497,288 @@ public class XboxGamepadInput : MonoBehaviour {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
- 
+    private void MoveSelectedUnits(string buttonPress)
+    {
+        if (_Gamepad.GetButtonDown(buttonPress))
+        {
+            // Get lists of AIs that are selected
+            List<Squad> SquadsSelected = new List<Squad>();
+            List<Unit> UnitsSelected = new List<Unit>();
+
+            GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
+
+            // Not currently controlling a unit manually
+            if (GameManager.Instance.GetIsUnitControlling() == false)
+            {
+
+                // There are AI currently selected and therefore we can command them
+                if (SquadsSelected.Count > 0 || UnitsSelected.Count > 0) { AiControllerInput(SquadsSelected, UnitsSelected); }
+            }
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    // Takes centre screen point and gets all selected units to move towards it.
+    /// </summary>
+    private void AiControllerInput(List<Squad> squads, List<Unit> units)
+    {
+
+        // Get point in world that is used to command the AI currently selected (go position, attack target, etc)
+        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+        RaycastHit hit;
+        GameObject hitObject = null;
+        // Return object from raycast
+        if (Physics.Raycast(ray, out hit, 1000, MaskBlock))
+        {
+            hitObject = hit.collider.gameObject;
+        }
+
+        Vector3 hitPoint = Settings.InvalidPosition;
+        // Return object from raycast
+        if (Physics.Raycast(ray, out hit, 1000, MaskBlock))
+        {
+            hitPoint = hit.point;
+        }
+
+        //GameObject hitObject = _PlayerAttached._HUD.FindHitObject();
+     //   Vector3 hitPoint = _PlayerAttached._HUD.FindHitPoint();
+        if (hitObject && hitPoint != Settings.InvalidPosition)
+        {
+
+            // AI seek to hitpoint vector
+            if (hitObject.tag == "Ground")
+            {
+
+                // If there are selected squads
+                if (squads.Count > 0)
+                {
+
+                    // Loop through all selected squads & perform SEEK command
+                    foreach (var squad in squads) { squad.SquadSeek(hitPoint, true); }
+                }
+
+                // If there are individually selected units
+                if (units.Count > 0)
+                {
+
+                    // Loop through all selected units & perform SEEK command
+                    foreach (var unit in units) { unit.AgentSeekPosition(hitPoint, true); }
+                }
+            }
+
+            /// (hitObject.tag != "Ground")
+            else
+            {
+
+                // Cast hit object to selectable objects
+                Base baseObj = hitObject.transform.root.GetComponent<Base>();
+                Building buildingObj = hitObject.GetComponentInParent<Building>();
+
+                // Hit an AI object?
+                Squad squadObj = hitObject.GetComponent<Squad>();
+                Unit unitObj = hitObject.GetComponentInParent<Unit>();
+
+                // Right clicking on a squad
+                if (squadObj)
+                {
+
+                    // Enemy squad
+                    if (squadObj.Team != GameManager.Team.Defending)
+                    {
+
+                        // If there are selected squads
+                        if (squads.Count > 0)
+                        {
+
+                            // Loop through all selected squads & perform ATTACK command on the squad
+                            foreach (var squad in squads) { squad.SquadAttackObject(squadObj); }
+                        }
+
+                        // If there are individually selected units
+                        if (units.Count > 0)
+                        {
+
+                            // Loop through all selected units & perform ATTACK command on the squad
+                            foreach (var unit in units) { unit.AgentAttackObject(squadObj, unit.GetAttackingPositionAtObject(squadObj)); }
+                        }
+                    }
+                }
+
+                // Right clicking on a unit
+                else if (unitObj)
+                {
+
+                    // Is the unit part of a squad?
+                    if (unitObj.IsInASquad())
+                    {
+
+                        squadObj = unitObj.GetSquadAttached();
+
+                        // Enemy squad
+                        if (squadObj.Team != GameManager.Team.Defending)
+                        {
+
+                            // If there are selected squads
+                            if (squads.Count > 0)
+                            {
+
+                                // Loop through all selected squads & perform ATTACK command on the squad
+                                foreach (var squad in squads) { squad.SquadAttackObject(squadObj, true); }
+                            }
+
+                            // If there are individually selected units
+                            if (units.Count > 0)
+                            {
+
+                                // Loop through all selected units & perform ATTACK command on the squad
+                                foreach (var unit in units) { unit.AgentAttackObject(squadObj, unit.GetAttackingPositionAtObject(squadObj), true); }
+                            }
+                        }
+                    }
+
+                    // Unit is NOT in a squad
+                    else
+                    {
+
+                        // Enemy unit
+                        if (unitObj.Team != GameManager.Team.Defending)
+                        {
+
+                            // If there are selected squads
+                            if (squads.Count > 0)
+                            {
+
+                                // Loop through all selected squads & perform ATTACK command on the unit
+                                foreach (var squad in squads) { squad.SquadAttackObject(unitObj, true); }
+                            }
+
+                            // If there are individually selected units
+                            if (units.Count > 0)
+                            {
+
+                                // Loop through all selected units & perform ATTACK command on the unit
+                                foreach (var unit in units) { unit.AgentAttackObject(unitObj, unit.GetAttackingPositionAtObject(unitObj), true); }
+                            }
+                        }
+                    }
+                }
+
+                // Right clicking on a building
+                else if (buildingObj)
+                {
+
+                    // Enemy building
+                    if (buildingObj.Team != GameManager.Team.Defending)
+                    {
+
+                        // If there are selected squads
+                        if (squads.Count > 0)
+                        {
+
+                            // Loop through all selected squads & perform ATTACK command on the building
+                            foreach (var squad in squads) { squad.SquadAttackObject(buildingObj, true); }
+                        }
+
+                        // If there are individually selected units
+                        if (units.Count > 0)
+                        {
+
+                            // Loop through all selected units & perform ATTACK command on the building
+                            foreach (var unit in units) { unit.AgentAttackObject(buildingObj, unit.GetAttackingPositionAtObject(buildingObj), true); }
+                        }
+                    }
+
+                    // Ally building
+                    else
+                    {
+
+                        // The building is garrisonable
+                        if (buildingObj.Garrisonable)
+                        {
+
+                            // And there is enough space for it
+                            ///if (buildingObj.MaxGarrisonPopulation - buildingObj.GetCurrentGarrisonCount() >= )
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    // Get ai instances from all selected units.
+    /// </summary>
+    /// <param name="squadsSelected"></param>
+    /// <param name="unitsSelected"></param>
+    private void GetAISelectedFromAllSelected(ref List<Squad> squadsSelected, ref List<Unit> unitsSelected)
+    {
+
+        // Cast selected objects to AI objects
+        foreach (var obj in _PlayerAttached.SelectedWorldObjects)
+        {
+
+            // Checking for squads
+            Squad squad = obj.GetComponent<Squad>();
+            if (squad != null)
+            {
+
+                // Same team check
+                if (squad.Team == _PlayerAttached.Team) { squadsSelected.Add(squad); }
+            }
+
+            // Checking for individual units
+            Unit unit = obj.GetComponent<Unit>();
+            if (unit != null)
+            {
+
+                // Same team check
+                if (unit.Team == _PlayerAttached.Team) { unitsSelected.Add(unit); }
+            }
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     /// Creates sphere collider on raycast point.
     /// </summary>
     private void CreateSelection()
     {
+        //If the selection window is not currently active.
         if (!_PlayerAttached._HUD.WheelActive())
         {
-
+            //If A is pressed.
             if (_Gamepad.GetButtonDown("A"))
             {
                 Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
                 RaycastHit hit;
-
+                //Fire raycast from middle of the screen.
                 if(Physics.Raycast(ray,out hit, 1000,_PlayerAttached._HUD.MaskBlock))
                 {
                     _SphereReference = Instantiate(SphereSelectorObject, hit.point, new Quaternion());
+                    _SphereReference.transform.localScale = new Vector3(SphereStartRadius, SphereStartRadius, SphereStartRadius);
                 }
             }
-
+            //Increase size of sphere while button is held down.
             if (_Gamepad.GetButton("A"))
             {
-                if (_SphereReference.transform.localScale.x < 40 && _SphereReference.transform.localScale.y < 40)
-                _SphereReference.transform.localScale += _SphereReference.transform.localScale * Time.deltaTime * SphereGrowRate;
-            }
-
-            if (_Gamepad.GetButtonUp("A"))
-            {
-                Destroy(_SphereReference);
+                if(_SphereReference != null)
+                {
+                    if (_SphereReference.transform.localScale.x < MaxSphereRadius && _SphereReference.transform.localScale.y < MaxSphereRadius)
+                        _SphereReference.transform.localScale += _SphereReference.transform.localScale * Time.deltaTime * SphereGrowRate;
+                }
             }
         }
+        //Destroy the sphere when the button is brought up.
+        if (_Gamepad.GetButtonUp("A"))
+        {
+            Destroy(_SphereReference);
+        }
     }
-
 
     /// <summary>
     //  Rotates camera.
@@ -443,6 +929,23 @@ public class XboxGamepadInput : MonoBehaviour {
         if (OnRightThumbstickUp()) { result = true; }
 
         return result;
+    }
+
+    /// <summary>
+    /// Keeps the cheeky angle between 0 and 360.
+    /// </summary>
+    /// <param name="angle"></param>
+    /// <returns></returns>
+    private float NormalizeAngle(float angle)
+    {
+        angle = angle % 360f;
+
+        if(angle < 0)
+        {
+            angle += 360;
+        }
+
+        return angle;
     }
 
     /// <summary>

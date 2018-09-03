@@ -28,6 +28,11 @@ public class UI_PauseWidget : MonoBehaviour {
     public Text DifficultyTrackerText = null;
     public Text ScoreTrackerText = null;
     public Text CurrentWaveTrackerText = null;
+    public Button StartButton;
+
+    public GameObject SettingsMenu;
+    public GameObject PauseMenu;
+    public GameObject GamepadUI;
 
     //******************************************************************************************************************************
     //
@@ -67,6 +72,7 @@ public class UI_PauseWidget : MonoBehaviour {
             // Update inputs
             UpdateKeyboardInput();
             UpdateGamepadInput();
+            GoBack();
         }
     }
 
@@ -130,25 +136,34 @@ public class UI_PauseWidget : MonoBehaviour {
             // Get input reference
             XboxGamepadInput xboxInput = player._XboxGamepadInputManager;
 
-            // Navigate UP
-            if (xboxInput.GetLeftThumbstickYaxis() > 0 || xboxInput.GetDpadUpClicked() || xboxInput.OnLeftTrigger()) {
+            //if(xboxInput.GetStartButtonClicked())
+            //{
+            //   StartCoroutine(DelayedSelect(StartButton));
+            //}
+            //if (GameManager.Instance.IsGamePause())
+            //{
+            //    StartCoroutine(DelayedSelect(StartButton));
+            //}
 
-                // Lower the index >> further up
-                if (_ButtonFocused > 0) { _ButtonFocused--; }
+            //// Navigate UP
+            //    if (xboxInput.GetLeftThumbstickYaxis() > 0 || xboxInput.GetDpadUpClicked() || xboxInput.OnLeftTrigger()) {
 
-                // Clamp to bottom
-                else { _ButtonFocused = EButtonFocused.ENUM_COUNT - 1; }
-            }
+            //    // Lower the index >> further up
+            //    if (_ButtonFocused > 0) { _ButtonFocused--; }
 
-            // Navigate DOWN
-            if (xboxInput.GetLeftThumbstickYaxis() < 0 || xboxInput.GetDpadDownClicked() || xboxInput.OnRightTrigger()) {
+            //    // Clamp to bottom
+            //    else { _ButtonFocused = EButtonFocused.ENUM_COUNT - 1; }
+            //}
 
-                // Higher the index >> further down
-                if (_ButtonFocused < EButtonFocused.ENUM_COUNT) { _ButtonFocused++; }
+            //// Navigate DOWN
+            //if (xboxInput.GetLeftThumbstickYaxis() < 0 || xboxInput.GetDpadDownClicked() || xboxInput.OnRightTrigger()) {
 
-                // Clamp to top
-                else { _ButtonFocused = 0; }
-            }
+            //    // Higher the index >> further down
+            //    if (_ButtonFocused < EButtonFocused.ENUM_COUNT) { _ButtonFocused++; }
+
+            //    // Clamp to top
+            //    else { _ButtonFocused = 0; }
+            //}
 
             // Select input
             if (xboxInput.GetButtonAClicked()) {
@@ -166,6 +181,11 @@ public class UI_PauseWidget : MonoBehaviour {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    IEnumerator DelayedSelect(Button a_button)
+    {
+        yield return new WaitForSeconds(0.05f);
+        a_button.Select();
+    }
 
     /// <summary>
     //  
@@ -201,7 +221,30 @@ public class UI_PauseWidget : MonoBehaviour {
     //  
     /// </summary>
     public void OnSettings() {
+        SettingsMenu.SetActive(true);
+        PauseMenu.SetActive(false);
+    }
 
+    private void GoBack()
+    {
+        if(GamepadManager.Instance.GetGamepad(1).IsConnected)
+        {
+            GamepadUI.SetActive(true);
+            if(GamepadManager.Instance.GetGamepad(1).GetButtonDown("B"))
+            {
+                SettingsToMenu();
+            }
+        }
+        else
+        {
+            GamepadUI.SetActive(false);
+        }
+    }
+
+    public void SettingsToMenu()
+    {
+        SettingsMenu.SetActive(false);
+        PauseMenu.SetActive(true);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
