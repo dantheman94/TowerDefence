@@ -36,7 +36,7 @@ public struct xRumble
     }
 }
 
-public class xb_gamepad : MonoBehaviour {
+public class xb_gamepad {
 
     private GamePadState prevState; //previous gamepad state.
     private GamePadState state; //current gamepad state.
@@ -70,11 +70,6 @@ public class xb_gamepad : MonoBehaviour {
         rumbleEvents = new List<xRumble>();
         inputMap = new Dictionary<string, xButton>();
     }
-
-	// Use this for initialization
-	void Start () {
-		
-	}
 	
 	// Update is called once per frame
 	public void Update () {
@@ -141,22 +136,27 @@ public class xb_gamepad : MonoBehaviour {
             //read trigger values into the states.
             LT.prevValue = prevState.Triggers.Left;
             RT.prevValue = prevState.Triggers.Right;
+
+            UpdateInputMap();
         }
     }
 
     void UpdateInputMap()
     {
-        inputMap["X"] = X;
+      
         inputMap["A"] = A;
         inputMap["B"] = B;
+        inputMap["X"] = X;
         inputMap["Y"] = Y;
-
-        inputMap["start"] = start;
 
         inputMap["dPadUp"] = dPadUP;
         inputMap["dPadDown"] = dPadDown;
         inputMap["dPadLeft"] = dPadLeft;
         inputMap["dPadRight"] = dPadRight;
+
+        inputMap["start"] = start;
+        inputMap["back"] = back;
+        inputMap["guide"] = guide;
 
         //thumbstick buttons
         inputMap["L3"] = L3;
@@ -281,44 +281,73 @@ public class xb_gamepad : MonoBehaviour {
 
     public bool GetTriggerDown_R()
     {
-        return (RT.currValue >= 0.1) ? true : false;
+        if (IsConnected)
+            return (RT.currValue >= 0.1) ? true : false;
+        else
+            return false;
     }
 
     public bool GetTriggerDown_L()
     {
-        return (LT.currValue >= 0.1) ? true : false;
+        if (IsConnected)
+            return (LT.currValue >= 0.1) ? true : false;
+        else
+            return false;
     }
 
 
     //Returns true if trigger went from released to pressed.
     public bool GetTriggerTap_L()
     {
-        return (LT.prevValue == 0f && LT.currValue >= 0.1f) ? true : false;
+        if (IsConnected)
+            return (LT.prevValue == 0f && LT.currValue >= 0.1f) ? true : false;
+        else
+            return false;
     }
 
     public bool GetTriggerTap_R()
     {
-        return (RT.prevValue == 0f && RT.currValue >= 0.1f) ? true : false;
+        if (IsConnected)
+            return (RT.prevValue == 0f && RT.currValue >= 0.1f) ? true : false;
+        else
+            return false;
     }
 
     //Returns true if button is pressed.
     public bool GetButton(string button)
     {
-        return inputMap[button].state == ButtonState.Pressed ? true : false;
+        if (IsConnected)
+        {
+
+            return inputMap[button].state == ButtonState.Pressed ? true : false;
+        }
+        else
+        return false;
     }
 
     //Returns true if button goes from released to pressed.
     public bool GetButtonDown(string button)
     {
-        return (inputMap[button].previousState == ButtonState.Released &&
-               inputMap[button].state == ButtonState.Pressed) ? true : false;
+        if(IsConnected)
+        {
+            return (inputMap[button].previousState == ButtonState.Released &&
+            inputMap[button].state == ButtonState.Pressed) ? true : false;
+        }
+        else
+        return false;
     }
 
 
     //Returns true if button goes from pressed to released.
     public bool GetButtonUp(string button)
     {
-        return (inputMap[button].previousState == ButtonState.Pressed &&
-                inputMap[button].state == ButtonState.Released) ? true : false;
+        if(IsConnected)
+        {
+            return (inputMap[button].previousState == ButtonState.Pressed &&
+              inputMap[button].state == ButtonState.Released) ? true : false;
+        }
+        else
+        return false;
+      
     }
 }
