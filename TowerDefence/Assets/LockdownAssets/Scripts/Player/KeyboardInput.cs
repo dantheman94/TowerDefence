@@ -604,6 +604,8 @@ public class KeyboardInput : MonoBehaviour {
         _HighlightBuilding = null;
         _HighlightAiObject = null;
         _HighlightWorldObject = null;
+
+        for (int i = 0; i < _PlayerAttached.GetArmy().Count; i++) { _PlayerAttached.GetArmy()[i].SetIsHighlighted(false); }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

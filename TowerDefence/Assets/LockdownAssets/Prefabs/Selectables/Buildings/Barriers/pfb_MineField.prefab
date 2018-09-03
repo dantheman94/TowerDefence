@@ -290,7 +290,7 @@ Transform:
   m_GameObject: {fileID: 1447009921086224}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 10, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 1}
+  m_LocalScale: {x: 30, y: 30, z: 1}
   m_Children: []
   m_Father: {fileID: 4784768230120464}
   m_RootOrder: 1
@@ -471,6 +471,8 @@ MonoBehaviour:
   _Player: {fileID: 0}
   FogOfWarRadius: 400
   ShowSelectionGUI: 1
+  ShowQuadHighlighter: 1
+  ShowQuadSelector: 1
   InQueueState: {fileID: 1114594755359282}
   BuildingState: {fileID: 1114594755359282}
   ActiveState: {fileID: 1708082212870266}
@@ -487,7 +489,9 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
+  ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.2
+  QuadMinimap: {fileID: 1447009921086224}
   AttachedBuildingSlot: {fileID: 0}
   ObjectHeight: 15
   HasABuildingQueue: 1
@@ -502,7 +506,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  QuadMinimap: {fileID: 1447009921086224}
   BarricadeType: 0
   MineStencil: {fileID: 1533624903940244, guid: 0edea548c129e9443b1e7adb32df97b1,
     type: 2}

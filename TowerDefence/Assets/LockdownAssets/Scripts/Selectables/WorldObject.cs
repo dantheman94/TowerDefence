@@ -70,7 +70,7 @@ public class WorldObject : Selectable {
             "before being sent back to the object pool.")]
     public float ShrinkSpeed = 0.2f;
     [Space]
-    public GameObject MinimapQuad = null;
+    public GameObject QuadMinimap = null;
 
     //******************************************************************************************************************************
     //
@@ -125,7 +125,7 @@ public class WorldObject : Selectable {
         _RecyclePower = CostPower / 2;
 
         // Get component references
-        if (MinimapQuad != null) { _MinimapQuadRenderer = MinimapQuad.GetComponent<Renderer>(); }
+        if (QuadMinimap != null) { _MinimapQuadRenderer = QuadMinimap.GetComponent<Renderer>(); }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
