@@ -66,7 +66,7 @@ public class KeyboardInput : MonoBehaviour {
     /// </summary>
     private void Update() {
         CreateSelectionBox();
-        Debug.Log(Cursor.visible);
+
         if (_PlayerAttached) {
 
             // Update primary controller
