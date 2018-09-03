@@ -8,7 +8,7 @@ using UnityEngine.UI;
 //  Created by: Angus Secomb
 //
 //  Last edited by: Angus Secomb
-//  Last edited on: 27/08/2018
+//  Last edited on: 03/09/2018
 //
 //******************************
 
@@ -159,7 +159,6 @@ public class SettingsMenuNavigator : MonoBehaviour {
         SwitchSettings();
         UpdateTextAndApplySettings();
         ApplySettings();
-        Debug.Log(CurrentSelection);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -384,6 +383,9 @@ public class SettingsMenuNavigator : MonoBehaviour {
         
     }
 
+    /// <summary>
+    /// Loads all settins from player prefs.
+    /// </summary>
     private void LoadSettings()
     {
         PlayerPrefs.GetFloat("MasterVolume", MasterVolume);

@@ -7,8 +7,8 @@ using UnityEngine.UI;
 //
 //  Created by: Daniel Marton
 //
-//  Last edited by: Daniel Marton
-//  Last edited on: 29/7/2018
+//  Last edited by: Angus Secomb
+//  Last edited on: 03/09/2018
 //
 //******************************
 
@@ -30,6 +30,7 @@ public class PreLockdownMatchSettings : MonoBehaviour {
     public Text TempLevelText = null;
     public Image DifficultyThumbnail = null;
     public Text TempDiffText = null;
+    public Button StartMatchButton;
 
     //******************************************************************************************************************************
     //
@@ -53,7 +54,7 @@ public class PreLockdownMatchSettings : MonoBehaviour {
     //  Called each frame.
     /// </summary>
     private void Update() {
-        
+        DisableButton();
         // Update faction text
         if (FactionText != null) { FactionText.text = _Faction.ToString(); }
 
@@ -65,6 +66,18 @@ public class PreLockdownMatchSettings : MonoBehaviour {
 
         // Update temp diff text
         if (TempDiffText != null && _Difficulty != null) { TempDiffText.text = _Difficulty.Difficulty.ToString(); }
+    }
+
+    private void DisableButton()
+    {
+        if(_Level == null || _Difficulty == null)
+        {
+            StartMatchButton.enabled = false;
+        }
+        else if(_Level != null || _Difficulty != null)
+        {
+            StartMatchButton.enabled = true;
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

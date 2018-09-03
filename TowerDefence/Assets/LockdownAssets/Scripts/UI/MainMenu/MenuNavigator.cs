@@ -10,7 +10,7 @@ using UnityEngine.Serialization;
 //  Created by: Angus Secomb
 //
 //  Last edited by: Angus Secomb
-//  Last edited on: 27/08/2018
+//  Last edited on: 3/09/2018
 //
 //******************************
 
@@ -67,12 +67,17 @@ public class MenuNavigator : MonoBehaviour {
 
     public GameObject DifficultyUIObject;
 
+    public GameObject FactionUIObject;
+
+    public GameObject OverviewObject;
+
 
     [Header("----------------------")]
     [Space]
     [Header("PLAYGAME SUB MENU BUTTON REFERENCES")]
     public Button LevelStartButton;
     public Button DifficultyStartButton;
+    public Button FactionStartButton;
 
     public List<Image> ButtonImage;
 
@@ -113,6 +118,11 @@ public class MenuNavigator : MonoBehaviour {
         DisableButtonUI();
 	}
 
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    /// Disables button UI.
+    /// </summary>
     void DisableButtonUI()
     {
         if(gamepad.IsConnected)
@@ -196,6 +206,10 @@ public class MenuNavigator : MonoBehaviour {
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /// <summary>
+    /// Enters player menus sub-menus
+    /// </summary>
+    /// <param name="DesiredSubMenu"></param>
     public void EnterPlayArea(string DesiredSubMenu)
     {
         switch (DesiredSubMenu)
@@ -203,12 +217,21 @@ public class MenuNavigator : MonoBehaviour {
             case "Level":
                 LevelUIObject.SetActive(true);
                 DifficultyUIObject.SetActive(false);
+                OverviewObject.SetActive(false);
                 StartCoroutine(DelayedSelectButton(LevelStartButton));
                 break;
             case "Difficulty":
                 LevelUIObject.SetActive(false);
                 DifficultyUIObject.SetActive(true);
+                OverviewObject.SetActive(false);
                 StartCoroutine(DelayedSelectButton(DifficultyStartButton));
+                break;
+            case "Faction":
+                FactionUIObject.SetActive(true);
+                DifficultyUIObject.SetActive(false);
+                OverviewObject.SetActive(false);
+                LevelUIObject.SetActive(false);
+                StartCoroutine(DelayedSelectButton(FactionStartButton));
                 break;
             case "Start Match":
 
@@ -272,12 +295,33 @@ public class MenuNavigator : MonoBehaviour {
         if(PlayMenu.AreaState == SceneAreaState.ACTIVE)
         {
             PlayMenu.WholeAreaObject.SetActive(true);
-            if(gamepad.GetButtonDown("B"))
+            if (gamepad.GetButtonDown("B"))
             {
-                PlayMenu.AreaState = SceneAreaState.INACTIVE;
-                MainMenu.AreaState = SceneAreaState.ACTIVE;
-                if (MainMenu.StartButton != null)
-                    StartCoroutine(DelayedSelectButton(MainMenu.StartButton));
+                if (LevelUIObject.activeInHierarchy)
+                {
+                    LevelUIObject.SetActive(false);
+                    StartCoroutine(DelayedSelectButton(PlayMenu.StartButton));
+                    OverviewObject.SetActive(true);
+                }
+                else if (DifficultyUIObject.activeInHierarchy)
+                {
+                    DifficultyUIObject.SetActive(false);
+                    StartCoroutine(DelayedSelectButton(PlayMenu.StartButton));
+                    OverviewObject.SetActive(true);
+                }
+                else if(FactionUIObject.activeInHierarchy)
+                {
+                    FactionUIObject.SetActive(false);
+                    StartCoroutine(DelayedSelectButton(PlayMenu.StartButton));
+                    OverviewObject.SetActive(true);
+                }
+                else
+                {
+                    PlayMenu.AreaState = SceneAreaState.INACTIVE;
+                    MainMenu.AreaState = SceneAreaState.ACTIVE;
+                    if (MainMenu.StartButton != null)
+                        StartCoroutine(DelayedSelectButton(MainMenu.StartButton));
+                }
             }
 
         }
@@ -327,18 +371,8 @@ public class MenuNavigator : MonoBehaviour {
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    /// Presses "B" to return to the previous screen.
+    /// Greys out buttons if they are down.
     /// </summary>
-    private void GoBack()
-    {
-        if(gamepad.GetButtonDown("B"))
-        {
-
-        }
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     private void ChangeButtonColor()
     {
         if(gamepad.GetButton("B"))
@@ -358,13 +392,4 @@ public class MenuNavigator : MonoBehaviour {
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    public void Test()
-    {
-        Debug.Log("test!!!");
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
-    
 }
