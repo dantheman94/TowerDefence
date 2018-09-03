@@ -31,6 +31,8 @@ public class SoundManager : MonoBehaviour {
     //
     //******************************************************************************************************************************
 
+    public AudioSource _MusicSource;
+
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
@@ -93,6 +95,14 @@ public class SoundManager : MonoBehaviour {
 
         // Add the sound object to the List
         _Sounds.Add(soundSource);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public void PlayMusic(string musicLocation, float volume) {
+
+        // Create source for the music to play from
+        AudioSource musicSource = _MusicSource.GetComponent<AudioSource>();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
