@@ -201,17 +201,6 @@ public class GameManager : MonoBehaviour {
         foreach (var pProj in PreloadProjectiles)   { ObjectPooling.PreLoad(pProj.projectile.gameObject, pProj.size); }
         foreach (var pParticle in PreloadParticles) { ObjectPooling.PreLoad(pParticle.particle.gameObject, pParticle.size); }
 
-        if (StartingBase != null) {
-
-            // Set camera starting position behind the starting base's position
-            Players[0].PlayerCamera.transform.position = new Vector3(StartingBase.transform.position.x, Settings.MaxCameraHeight, StartingBase.transform.position.z - 100);
-
-            // Initialize starting base
-            StartingBase.SetPlayer(Players[0]);
-            StartingBase.CreateHealthBar(StartingBase, StartingBase._Player.PlayerCamera);
-            StartingBase.CreateQueueWidget();
-            StartingBase.CreateRallyPoint();
-        }        
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

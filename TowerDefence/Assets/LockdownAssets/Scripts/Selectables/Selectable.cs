@@ -34,8 +34,11 @@ public class Selectable : Abstraction {
     [Tooltip("The radius of the Fog Of War sphere attached to this object.")]
     public float FogOfWarRadius = 400f;
     [Space]
-    [Tooltip("When the player clicks/highlights this object, does the selection wheel (Radial or box) display?")]
+    [Tooltip("When the player clicks on this object, does the selection wheel (Radial or box) display?")]
     public bool ShowSelectionGUI = true;
+    [Space]
+    public bool ShowQuadHighlighter = true;
+    public bool ShowQuadSelector = true;
 
     //******************************************************************************************************************************
     //
@@ -143,7 +146,7 @@ public class Selectable : Abstraction {
             if (_SelectionObj != null) {
 
                 // Display prefab
-                _SelectionObj.SetActive(true);
+                if (ShowQuadSelector) { _SelectionObj.SetActive(true); }
 
                 // Update selection prefab position
                 Vector3 pos = new Vector3();
@@ -186,7 +189,7 @@ public class Selectable : Abstraction {
             if (_HighlightObj != null) {
 
                 // Display prefab
-                _HighlightObj.SetActive(true);
+                if (ShowQuadHighlighter) { _HighlightObj.SetActive(true); }
 
                 // Update highlight prefab position
                 Vector3 pos = new Vector3();

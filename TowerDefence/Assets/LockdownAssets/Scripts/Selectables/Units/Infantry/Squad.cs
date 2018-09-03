@@ -9,7 +9,7 @@ using UnityEngine.AI;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 8/8/2018
+//  Last edited on: 3/9/2018
 //
 //******************************
 
@@ -40,9 +40,6 @@ public class Squad : Ai {
     private GameObject _SeekWaypoint = null;
     private List<Vector3> _PathCorners;
     private List<Unit> _Squad;
-
-    private bool _UpdateBoids = false;
-    private bool _HasPath = false;
 
     public LayerMask layerMask;
 
@@ -184,20 +181,17 @@ public class Squad : Ai {
     //  The building slot that instigated the selection wheel.
     //  (EG: If you're making a building, this is the building slot thats being used.)
     /// </param>
-    public override void OnWheelSelect(BuildingSlot buildingSlot)
-    {
+    public override void OnWheelSelect(BuildingSlot buildingSlot) {
         base.OnWheelSelect(buildingSlot);
 
         // Get reference to the newly cloned unit
-        if (_ClonedWorldObject != null)
-        {
+        if (_ClonedWorldObject != null) {
 
             // Despawn build counter widget
             if (_BuildingProgressCounter != null) { ObjectPooling.Despawn(_BuildingProgressCounter.gameObject); }
 
             // Let the building attached know that it is "building" something
-            if (buildingSlot.GetBuildingOnSlot() != null)
-            {
+            if (buildingSlot.GetBuildingOnSlot() != null) {
 
                 buildingSlot.GetBuildingOnSlot().SetIsBuildingSomething(true);
                 buildingSlot.GetBuildingOnSlot().SetObjectBeingBuilt(_ClonedWorldObject);
@@ -205,16 +199,14 @@ public class Squad : Ai {
 
             // Set position to be at the bases spawn vector while it is building
             // (the gameobject should be hidden completely until its deployed)
-            if (buildingSlot.AttachedBase != null)
-            {
+            if (buildingSlot.AttachedBase != null) {
 
                 _ClonedWorldObject.gameObject.transform.position = buildingSlot.AttachedBase.GroundUnitSpawnTransform.transform.position;
                 _ClonedWorldObject.gameObject.transform.rotation = buildingSlot.AttachedBase.GroundUnitSpawnTransform.transform.rotation;
             }
 
             // No base attached
-            else
-            {
+            else {
 
                 // Set position to be at the buildings spawn vector while it is building
                 // (the gameobject should be hidden completely until its deployed)
@@ -319,12 +311,10 @@ public class Squad : Ai {
     //  
     /// </summary>
     /// <param name="thisSquad"></param>
-    protected void CreateUnits(Squad squad)
-    {
+    protected void CreateUnits(Squad squad) {
 
         // Loop for each unit
-        for (int i = 0; i < SquadMaxSize; i++)
-        {
+        for (int i = 0; i < SquadMaxSize; i++) {
 
             // Create unit
             Unit unit = ObjectPooling.Spawn(SquadUnit.gameObject, squad.transform.position, squad.transform.rotation).GetComponent<Unit>();
@@ -340,8 +330,7 @@ public class Squad : Ai {
 
             // Creating the first unit at the center
             if (i == 0) { unit.transform.position = squad.transform.position; ; }
-            else
-            {
+            else {
 
                 // Creating the units in a circle around the flocking radius
                 float angle = i * Mathf.PI * 2 / squad.SquadMaxSize;
@@ -361,12 +350,10 @@ public class Squad : Ai {
     /// <summary>
     //  
     /// </summary>
-    public void SpawnUnits(Squad squad)
-    {
+    public void SpawnUnits(Squad squad) {
 
         // Loop for each unit
-        for (int i = 0; i < SquadMaxSize; i++)
-        {
+        for (int i = 0; i < SquadMaxSize; i++) {
 
             // Create unit
             Unit unit = ObjectPooling.Spawn(SquadUnit.gameObject, squad.transform.position, squad.transform.rotation).GetComponent<Unit>();
@@ -382,8 +369,7 @@ public class Squad : Ai {
 
             // Creating the first unit at the center
             if (i == 0) { unit.transform.position = squad.transform.position; ; }
-            else
-            {
+            else {
 
                 // Creating the units in a circle around the flocking radius
                 float angle = i * Mathf.PI * 2 / squad.SquadMaxSize;
@@ -405,7 +391,6 @@ public class Squad : Ai {
     /// <summary>
     //  
     /// </summary>
-<<<<<<< HEAD
     protected override void OnBuilt() {
         base.OnBuilt();
 
@@ -421,11 +406,8 @@ public class Squad : Ai {
     /// <summary>
     //  
     /// </summary>
-=======
->>>>>>> origin/BoidsBehaviours
     /// <returns></returns>
-    public Vector3 FindCenterOfAllUnits()
-    {
+    public Vector3 FindCenterOfAllUnits() {
 
         // No units in squad, so gameObject's position is technically its current position anyway
         if (_Squad.Count == 0) { return gameObject.transform.position; }
@@ -434,8 +416,7 @@ public class Squad : Ai {
         else if (_Squad.Count == 1) { return _Squad[0].gameObject.transform.position; }
 
         // Squad size is greater than 1
-        else
-        {
+        else {
 
             // Get average position for all units in squad
             Bounds centerBounds = new Bounds(_Squad[0].gameObject.transform.position, Vector3.zero);
@@ -452,13 +433,11 @@ public class Squad : Ai {
     /// </summary>
     /// <param name="size"></param>
     /// <returns></returns>
-    private List<Vector3> GetPositionsWithinFlockingBoundsOfPoint(Vector3 point, int size)
-    {
+    private List<Vector3> GetPositionsWithinFlockingBoundsOfPoint(Vector3 point, int size) {
 
         // Loop for each unit
         List<Vector3> positions = new List<Vector3>();
-        for (int i = 0; i < size; i++)
-        {
+        for (int i = 0; i < size; i++) {
 
             // Create individual position
             Vector2 rand = Random.insideUnitCircle * FlockingRadius;
@@ -479,14 +458,12 @@ public class Squad : Ai {
     /// <returns>
     //  List<Vector3>
     /// </returns>
-    private List<Vector3> GetAttackingPositionsAtObject(WorldObject worldObject, int size)
-    {
+    private List<Vector3> GetAttackingPositionsAtObject(WorldObject worldObject, int size) {
 
         float facingAngle = Vector3.Angle(worldObject.transform.forward, worldObject.transform.position - transform.position);
         List<Vector3> positions = new List<Vector3>();
 
-        for (int i = 0; i < size; i++)
-        {
+        for (int i = 0; i < size; i++) {
 
             float angle = i * (Mathf.PI * 10.0f / size + (facingAngle / 10));
             Vector3 pos = new Vector3(Mathf.Cos((angle / size) / size),
@@ -507,22 +484,13 @@ public class Squad : Ai {
     /// </summary>
     /// <param name="seekTarget"></param>
     /// <param name="overwrite"></param>
-    public void SquadSeek(Vector3 seekTarget, bool overwrite = false)
-    {
+    public void SquadSeek(Vector3 seekTarget, bool overwrite = false) {
 
         SquadCalculatePath(seekTarget);
-
-        // Get all alive units to seek to the squad seek target
-        //_UpdateBoids = true;
-        //for (int i = 0; i < _Squad.Count; i++)
-        //{
-        //    _Squad[i].HasReachedTarget = true;
-        //}
-
+        
         // Create waypoint
         if (_SeekWaypoint == null) { _SeekWaypoint = ObjectPooling.Spawn(GameManager.Instance.AgentSeekObject, Vector3.zero, Quaternion.identity); }
-        if (_SeekWaypoint != null)
-        {
+        if (_SeekWaypoint != null) {
 
             // Display waypoint if not already being displayed
             if (_SeekWaypoint.activeInHierarchy != true && Team == GameManager.Team.Defending) { _SeekWaypoint.SetActive(true); }
@@ -545,22 +513,28 @@ public class Squad : Ai {
         // Set seek target and calculate a path to it
         SquadSeek(attackTarget.transform.position, overwrite);
 
-        //StartCoroutine(AttackPathComplete(attackTarget));
+        StartCoroutine(AttackPathComplete(attackTarget));
     }
 
-    IEnumerator AttackPathComplete(WorldObject attackTarget)
-    {
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Waits until the current seek path has reached the last node in the path & starts attacking the target.
+    /// </summary>
+    /// <param name="attackTarget"></param>
+    /// <returns>
+    //  IEnumerator
+    /// </returns>
+    IEnumerator AttackPathComplete(WorldObject attackTarget) {
 
         yield return new WaitUntil(() => _SeekPathComplete);
 
         // Get positions with an offset for each unit to seek towards
         List<Vector3> positions = GetAttackingPositionsAtObject(attackTarget, _Squad.Count);
-        for (int i = 0; i < _Squad.Count; i++)
-        {
+        for (int i = 0; i < _Squad.Count; i++) {
 
             // Get all alive units to attack the object (while positioning ourselves)
-            foreach (var unit in _Squad)
-            {
+            foreach (var unit in _Squad) {
 
                 unit.AgentAttackObject(attackTarget, positions[i], false);
                 i++;
@@ -574,14 +548,12 @@ public class Squad : Ai {
     //  
     /// </summary>
     /// <param name="unit"></param>
-    public void RemoveUnitFromSquad(Unit unit)
-    {
+    public void RemoveUnitFromSquad(Unit unit) {
 
         GameObject g = this.gameObject;
 
         // Loop through current squad
-        for (int i = 0; i < unit.GetSquadAttached().GetSquadMembers().Count; i++)
-        {
+        for (int i = 0; i < unit.GetSquadAttached().GetSquadMembers().Count; i++) {
 
             // Match found so remove it
             if (unit.GetSquadAttached().GetSquadMembers()[i] == unit) { unit.GetSquadAttached().GetSquadMembers().RemoveAt(i); }

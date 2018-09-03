@@ -25,8 +25,8 @@ public class Tower : Building {
     [Space]
     public ETowerType TowerType;
     [Space]
+    public GameObject Head = null;
     public Weapon TowerWeapon = null;
-    public GameObject WeaponObject = null;
     public float WeaponAimingSpeed = 5f;
     public List<GameObject> MuzzleLaunchPoints;
 
@@ -287,16 +287,16 @@ public class Tower : Building {
     protected void LookAtLerp(Vector3 position) {
 
         // Rotate the vehicle's weapon to face the target
-        if (WeaponObject) {
+        if (Head) {
 
             // Find the vector pointing from our position to the target
-            _DirectionToTarget = (position - WeaponObject.transform.position).normalized;
+            _DirectionToTarget = (position - Head.transform.position).normalized;
 
             // Create the rotation we need to be in to look at the target
             _WeaponLookRotation = Quaternion.LookRotation(_DirectionToTarget);
 
             // Rotate us over time according to speed until we are in the required rotation
-            WeaponObject.transform.rotation = Quaternion.LerpUnclamped(WeaponObject.transform.rotation, _WeaponLookRotation, Time.deltaTime * 2);
+            Head.transform.rotation = Quaternion.LerpUnclamped(Head.transform.rotation, _WeaponLookRotation, Time.deltaTime * 2);
         }
     }
 

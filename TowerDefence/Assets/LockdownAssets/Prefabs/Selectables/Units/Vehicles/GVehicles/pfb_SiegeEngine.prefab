@@ -3046,7 +3046,9 @@ MonoBehaviour:
   Team: 0
   _Player: {fileID: 0}
   FogOfWarRadius: 400
-  ShowSelectionGUI: 1
+  ShowSelectionGUI: 0
+  ShowQuadHighlighter: 1
+  ShowQuadSelector: 1
   InQueueState: {fileID: 0}
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 1558502054660298}
@@ -3063,8 +3065,9 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 55
   _WidgetShieldbarScaleY: 10
   _WidgetShieldbarOffset: 10
+  ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.3
-  MinimapQuad: {fileID: 0}
+  MinimapQuad: {fileID: 1857399623730000}
   _ChasingDistance: 300
   TargetWeights:
   - UnitType: 0
@@ -3098,11 +3101,12 @@ MonoBehaviour:
   PrimaryWeapon: {fileID: 114255812415927018, guid: e9d3da69bc6ad464cb1b0403e9101ae3,
     type: 2}
   SecondaryWeapon: {fileID: 0}
-  MuzzleLaunchPoint: {fileID: 1722231185648704}
+  MuzzleLaunchPoints: []
   MaxAttackingRange: 100
   IdealAttackRangeMax: 80
   IdealAttackRangeMin: 40
   CanBeStunned: 0
+  HasReachedTarget: 1
   WeaponObject: {fileID: 1818383497240308}
   Acceleration: 5
   Deceleration: 2

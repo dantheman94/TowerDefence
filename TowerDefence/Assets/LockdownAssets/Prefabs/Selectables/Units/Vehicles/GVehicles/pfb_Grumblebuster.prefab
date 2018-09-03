@@ -446,7 +446,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1500859508108806}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 75.4, y: 0, z: -239.1}
+  m_LocalPosition: {x: -986.7899, y: 0, z: -521.39}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4992527257772270}
@@ -804,7 +804,9 @@ MonoBehaviour:
   Team: 2
   _Player: {fileID: 0}
   FogOfWarRadius: 400
-  ShowSelectionGUI: 1
+  ShowSelectionGUI: 0
+  ShowQuadHighlighter: 1
+  ShowQuadSelector: 1
   InQueueState: {fileID: 0}
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 1890893284182978}
@@ -821,6 +823,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 50
   _WidgetShieldbarScaleY: 10
   _WidgetShieldbarOffset: 10
+  ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.3
   MinimapQuad: {fileID: 0}
   _ChasingDistance: 300
@@ -865,6 +868,7 @@ MonoBehaviour:
   IdealAttackRangeMax: 80
   IdealAttackRangeMin: 40
   CanBeStunned: 0
+  HasReachedTarget: 1
   WeaponObject: {fileID: 1105998942925646}
   Acceleration: 10
   Deceleration: 8
