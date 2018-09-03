@@ -20,7 +20,10 @@ public class SoundManager : MonoBehaviour {
     //******************************************************************************************************************************
     
     List<AudioSource> _Sounds;
+    private List<AudioSource> _VoxelWaitingList;
     public static SoundManager Instance;
+    private bool _IsPlayingVoxel = false;
+    private float _TimeSinceLastVoxel = 0f;
 
     //******************************************************************************************************************************
     //
@@ -68,6 +71,8 @@ public class SoundManager : MonoBehaviour {
                 _Sounds.RemoveAt(i);
             }
         }
+
+        UpdateVoxel();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -92,4 +97,63 @@ public class SoundManager : MonoBehaviour {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    private void UpdateVoxel()
+    {
+
+        // If there are voxel sounds waiting to be played
+        if (_VoxelWaitingList.Count > 0)
+        {
+
+            if (_IsPlayingVoxel == true)
+            {
+
+                // Find the voxel sound that is current playing
+                AudioSource vox = null;
+                foreach (var sound in _VoxelWaitingList)
+                {
+                    
+                    // If a sound from the voxel list is playing
+                    if (sound.isPlaying == true)
+                    {
+
+                        // Then a voxel is playing
+                        vox = sound;
+
+                    }
+                    break;
+                }
+
+                _IsPlayingVoxel = vox != null;
+            }
+
+            // A vox has finished playing
+            else
+            { /// _IsPlayingVoxel == false
+
+                // Get the last voxel that was playing (should be at the front of the list) & remove it from the queue
+                _VoxelWaitingList.RemoveAt(0);
+
+                // If there are still voxels in the queue
+                if (_VoxelWaitingList.Count > 0)
+                {
+
+                    // Play the next vox sound in the queue
+                    _VoxelWaitingList[0].Play();
+
+                    _IsPlayingVoxel = true;
+                    _TimeSinceLastVoxel = 0f;
+                }
+            }
+        }
+
+        // No more voxels are left in the playing queue
+        else if (_VoxelWaitingList.Count == 0)
+        {
+
+            // Add to timer
+            _TimeSinceLastVoxel += Time.deltaTime;
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
