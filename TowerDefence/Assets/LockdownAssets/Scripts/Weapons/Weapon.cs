@@ -30,6 +30,7 @@ public class Weapon : MonoBehaviour {
     [Space]
     public ParticleSystem MuzzleEffect = null;
     public EMuzzleFiringPatternType MuzzlePatternType = EMuzzleFiringPatternType.Consective;
+    public bool ReusableMuzzlePoints = true;
     [Space]
     public float FiringDelay = 0.5f;
     [Space]
@@ -162,8 +163,9 @@ public class Weapon : MonoBehaviour {
                                             
                     // Use the first point in the list
                     _MuzzleIterator = _UnusedLaunchPoints[0];
-                    _UnusedLaunchPoints.RemoveAt(0);
-                    ///_MuzzleIterator++;
+
+                    // Remove launch point from availibility
+                    if (!ReusableMuzzlePoints) { _UnusedLaunchPoints.RemoveAt(0); }
                     break;
                 }
 
@@ -175,7 +177,7 @@ public class Weapon : MonoBehaviour {
                     _MuzzleIterator = _UnusedLaunchPoints[i];
 
                     // Remove launch point from availibility
-                    _UnusedLaunchPoints.RemoveAt(i);
+                    if (!ReusableMuzzlePoints) { _UnusedLaunchPoints.RemoveAt(i); }
                     break;
                 }
 
@@ -309,8 +311,8 @@ public class Weapon : MonoBehaviour {
                     // Use the first point in the list
                     _MuzzleIterator = _UnusedLaunchPoints[0];
 
-                    // Pop front of the unused list
-                    _UnusedLaunchPoints.RemoveAt(0);
+                    // Remove launch point from availibility
+                    if (!ReusableMuzzlePoints) { _UnusedLaunchPoints.RemoveAt(0); }
                     break;
                 }
 
@@ -322,7 +324,7 @@ public class Weapon : MonoBehaviour {
                     _MuzzleIterator = _UnusedLaunchPoints[i];
 
                     // Remove launch point from availibility
-                    _UnusedLaunchPoints.RemoveAt(i);
+                    if (!ReusableMuzzlePoints) { _UnusedLaunchPoints.RemoveAt(i); }
                     break;
                 }
 

@@ -412,7 +412,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1476746386672702}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 27, y: 1, z: -144.05}
+  m_LocalPosition: {x: -995.99, y: 0, z: -565.16}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4233618101980460}
@@ -737,7 +737,7 @@ MonoBehaviour:
   ObjectDescriptionLong: Standard defence tower. Can be upgraded to prioritize & damage
     specific unit types.
   Logo: {fileID: 0}
-  BuildingTime: 15
+  BuildingTime: 0
   CostSupplies: 300
   CostPower: 0
   CostTechLevel: 1
@@ -763,6 +763,7 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 50
   _WidgetShieldbarScaleY: 10
   _WidgetShieldbarOffset: 10
+  ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.3
   MinimapQuad: {fileID: 0}
   AttachedBuildingSlot: {fileID: 0}
@@ -784,7 +785,8 @@ MonoBehaviour:
     type: 2}
   WeaponObject: {fileID: 1617074766613468}
   WeaponAimingSpeed: 2
-  MuzzleLaunchPoint: {fileID: 1635522435770094}
+  MuzzleLaunchPoints:
+  - {fileID: 1635522435770094}
   TargetWeights:
   - UnitType: 0
     Weight: 0
