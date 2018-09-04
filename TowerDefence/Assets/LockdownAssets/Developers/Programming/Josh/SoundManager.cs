@@ -169,13 +169,15 @@ public class SoundManager : MonoBehaviour {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public void CallFadeIn(AudioSource musicSource, float timeToFade, float maxVolume)
-    {
+    public void CallFadeIn(AudioSource musicSource, float timeToFade, float maxVolume) {
+
         StartCoroutine(FadeIn(musicSource, timeToFade, maxVolume));
     }
 
-    public void CallFadeOut(AudioSource musicSource, float timeToFade)
-    {
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public void CallFadeOut(AudioSource musicSource, float timeToFade) {
+
         StartCoroutine(FadeOut(musicSource, timeToFade));
     }
 
