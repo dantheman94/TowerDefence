@@ -67,6 +67,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4530130613021846}
   - component: {fileID: 114703488509881482}
+  - component: {fileID: 136931872748845746}
   - component: {fileID: 114587061300654704}
   m_Layer: 0
   m_Name: pfb_WatchTower
@@ -517,6 +518,8 @@ MonoBehaviour:
   _Player: {fileID: 0}
   FogOfWarRadius: 400
   ShowSelectionGUI: 1
+  ShowQuadHighlighter: 1
+  ShowQuadSelector: 1
   InQueueState: {fileID: 1853791158513370}
   BuildingState: {fileID: 1853791158513370}
   ActiveState: {fileID: 1126988834088362}
@@ -533,8 +536,9 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 50
   _WidgetShieldbarScaleY: 10
   _WidgetShieldbarOffset: 10
+  ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.3
-  MinimapQuad: {fileID: 0}
+  QuadMinimap: {fileID: 0}
   AttachedBuildingSlot: {fileID: 0}
   ObjectHeight: 20
   HasABuildingQueue: 1
@@ -550,10 +554,10 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   TowerType: 0
+  Head: {fileID: 0}
   TowerWeapon: {fileID: 0}
-  WeaponObject: {fileID: 0}
   WeaponAimingSpeed: 5
-  MuzzleLaunchPoint: {fileID: 0}
+  MuzzleLaunchPoints: []
   TargetWeights:
   - UnitType: 0
     Weight: 0
@@ -597,3 +601,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TagArray: []
+--- !u!136 &136931872748845746
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1468916063055670}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 2
+  m_Height: 18
+  m_Direction: 1
+  m_Center: {x: 0, y: 9, z: 0}

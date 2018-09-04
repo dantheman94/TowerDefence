@@ -19,6 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4048499386308750}
+  - component: {fileID: 208834594612908764}
   m_Layer: 0
   m_Name: HeavyBarricade_Active
   m_TagString: Untagged
@@ -35,7 +36,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4189347698131452}
   - component: {fileID: 114812055924973280}
-  - component: {fileID: 208185335511706520}
+  - component: {fileID: 65094773516620220}
   - component: {fileID: 114799580935464800}
   m_Layer: 0
   m_Name: pfb_HeavyBarricade
@@ -230,6 +231,18 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &65094773516620220
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1474427594815508}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 23.5, y: 5, z: 4}
+  m_Center: {x: 0, y: 2.5, z: 0}
 --- !u!114 &114799580935464800
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -303,12 +316,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TagArray: []
---- !u!208 &208185335511706520
+--- !u!208 &208834594612908764
 NavMeshObstacle:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1474427594815508}
+  m_GameObject: {fileID: 1347355967974238}
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1

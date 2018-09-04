@@ -34,6 +34,8 @@ public class Weapon : MonoBehaviour {
     [Space]
     public float FiringDelay = 0.5f;
     [Space]
+    public float ChargeUpTime = 0f;
+    [Space]
     public EOffsetType AngularOffsetType = EOffsetType.Alternate;
     public Vector3 AngularOffset = Vector3.zero;
     [Space]
@@ -80,9 +82,10 @@ public class Weapon : MonoBehaviour {
     private float _ReloadTimer = 0f;
     private Unit _UnitAttached = null;
     private Tower _TowerAttached = null;
+    private bool _IsChargingUp = false;
 
     private float _CurrentOffsetMultiplier = 1f;
-
+    
     private int _MuzzleIterator = 0;
     private List<Transform> _MuzzleLaunchPoints = null;
     private List<int> _UnusedLaunchPoints = null;
@@ -356,41 +359,75 @@ public class Weapon : MonoBehaviour {
             _IsFiring = true;
             _FireDelayTimer = FiringDelay;
 
-            // Deduct ammo (if not bottomless clip)
-            if (!BottomlessClip) { _CurrentMagazineCount--; }
+            // Does the weapon need to be charged before firing?
+            if (ChargeUpTime > 0) { StartCoroutine(ChargedFire()); }
 
-            // Fire trace (or projectile)
-            // Determine damage type
-            switch (_ProjectileType) {
-
-                case EProjectileType.Object:    { ProjectileObject(); break; }
-                case EProjectileType.Raycast:   { ProjectileRaycast(); break; }
-                case EProjectileType.Particle:  { ProjectileParticle(); break; }
-                default: { break; }
-            }
-
-            // Play muzzle firing effect
-            if (MuzzleEffect != null) {
-
-                // Spawn
-                ParticleSystem effect = ObjectPooling.Spawn(MuzzleEffect.gameObject).GetComponent<ParticleSystem>();
-                
-                // Muzzle iterator should be set already coz the firing weapon mechanism has already been set this frame
-                // (in the switch statement just above)
-                effect.transform.position = _MuzzleLaunchPoints[_MuzzleIterator].position;
-                effect.transform.rotation = _MuzzleLaunchPoints[_MuzzleIterator].rotation;
-
-                // Play
-                effect.Play();
-
-                // Despawn particle system once it has finished its cycle
-                float effectDuration = effect.duration + effect.startLifetime;
-                StartCoroutine(ParticleDespawn(effect, effectDuration));
-            }
+            // Weapon does not need a chargeup, fire immediately
+            else { ShootWeapon(); }
         }
 
         // Reloading if theres no ammo in the mag left
         else if (_CurrentMagazineCount <= 0) { Reload(); }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Waits the charge up time specified then fires the weapon.
+    /// </summary>
+    /// <returns>
+    //  IEnumerator
+    /// </returns>
+    private IEnumerator ChargedFire() {
+
+        _IsChargingUp = true;
+
+        yield return new WaitForSeconds(ChargeUpTime);
+
+        ShootWeapon();
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Determines the projectile type required for the weapon and fires its projectile.
+    /// </summary>
+    private void ShootWeapon() {
+
+        _IsChargingUp = false;
+        _FireDelayTimer = FiringDelay;
+        
+        // Deduct ammo (if not bottomless clip)
+        if (!BottomlessClip) { _CurrentMagazineCount--; }
+
+        // Fire trace (or projectile)
+        // Determine damage type
+        switch (_ProjectileType) {
+
+            case EProjectileType.Object: { ProjectileObject(); break; }
+            case EProjectileType.Raycast: { ProjectileRaycast(); break; }
+            case EProjectileType.Particle: { ProjectileParticle(); break; }
+            default: { break; }
+        }
+
+        // Play muzzle firing effect
+        if (MuzzleEffect != null) {
+
+            // Spawn
+            ParticleSystem effect = ObjectPooling.Spawn(MuzzleEffect.gameObject).GetComponent<ParticleSystem>();
+
+            // Muzzle iterator should be set already coz the firing weapon mechanism has already been set this frame
+            // (in the switch statement just above)
+            effect.transform.position = _MuzzleLaunchPoints[_MuzzleIterator].position;
+            effect.transform.rotation = _MuzzleLaunchPoints[_MuzzleIterator].rotation;
+
+            // Play
+            effect.Play();
+
+            // Despawn particle system once it has finished its cycle
+            float effectDuration = effect.duration + effect.startLifetime;
+            StartCoroutine(ParticleDespawn(effect, effectDuration));
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

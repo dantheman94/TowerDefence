@@ -213,6 +213,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4099690757911654}
   - component: {fileID: 114598963257494084}
+  - component: {fileID: 136911027784741296}
   - component: {fileID: 114736078254217442}
   m_Layer: 0
   m_Name: pfb_SiegeTurret
@@ -770,6 +771,8 @@ MonoBehaviour:
   _Player: {fileID: 0}
   FogOfWarRadius: 400
   ShowSelectionGUI: 1
+  ShowQuadHighlighter: 1
+  ShowQuadSelector: 1
   InQueueState: {fileID: 1038872463134010}
   BuildingState: {fileID: 1038872463134010}
   ActiveState: {fileID: 1908354191995910}
@@ -786,7 +789,9 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 50
   _WidgetShieldbarScaleY: 10
   _WidgetShieldbarOffset: 10
+  ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.3
+  QuadMinimap: {fileID: 1220362078379402}
   AttachedBuildingSlot: {fileID: 0}
   ObjectHeight: 20
   HasABuildingQueue: 1
@@ -801,12 +806,11 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  QuadMinimap: {fileID: 1220362078379402}
   TowerType: 1
+  Head: {fileID: 0}
   TowerWeapon: {fileID: 0}
-  WeaponObject: {fileID: 1364139522750586}
   WeaponAimingSpeed: 2
-  MuzzleLaunchPoint: {fileID: 1820116665584592}
+  MuzzleLaunchPoints: []
   TargetWeights:
   - UnitType: 0
     Weight: 0
@@ -861,3 +865,16 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 100
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!136 &136911027784741296
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1829446891362650}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 2.5
+  m_Height: 16
+  m_Direction: 1
+  m_Center: {x: 0, y: 7, z: 0}

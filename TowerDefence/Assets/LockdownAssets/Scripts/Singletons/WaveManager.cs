@@ -31,6 +31,7 @@ public class WaveManager : MonoBehaviour {
     [Space]
     public float StartingDamageModifier = 0.75f;
     public float StartingHealthModifier = 0.7f;
+    public List<Ai> StartingFriendlyUnits = null;
 
     [Space]
     [Header("-----------------------------------")]
@@ -201,6 +202,17 @@ public class WaveManager : MonoBehaviour {
         // Get reference to all the pad slots
         for (int i = 0; i < LockdownPads.Count; i++) { _PadSlots.Add(LockdownPads[i].BuildingSlotAttached); }
         _EnemyPadSlots = _PadSlots;
+
+        // Initialize starting friendly units
+        for (int i = 0; i < StartingFriendlyUnits.Count; i++) {
+
+            StartingFriendlyUnits[i].SetObjectState(Abstraction.WorldObjectStates.Active);
+            StartingFriendlyUnits[i].SetPlayer(GameManager.Instance.Players[0]);
+            StartingFriendlyUnits[i].Team = GameManager.Team.Defending;
+
+            if (StartingFriendlyUnits[i] is Unit) { StartingFriendlyUnits[i]._Player.AddToPopulation(StartingFriendlyUnits[i] as Unit); }
+            if (StartingFriendlyUnits[i] is Squad) { StartingFriendlyUnits[i]._Player.AddToPopulation(StartingFriendlyUnits[i] as Squad); }
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

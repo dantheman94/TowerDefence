@@ -37,6 +37,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4019816766912374}
+  - component: {fileID: 208363058514420816}
   m_Layer: 0
   m_Name: WarRoom_Building
   m_TagString: Untagged
@@ -70,7 +71,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4422346014345510}
   - component: {fileID: 114413970695192054}
-  - component: {fileID: 208093993316089644}
   - component: {fileID: 65895427530105632}
   - component: {fileID: 114306093193310104}
   m_Layer: 0
@@ -88,6 +88,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4694914161214542}
+  - component: {fileID: 208413451989144030}
   m_Layer: 0
   m_Name: WarRoom_Active
   m_TagString: Untagged
@@ -390,7 +391,7 @@ MonoBehaviour:
   _WidgetShieldbarOffset: 10
   ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.3
-  MinimapQuad: {fileID: 0}
+  QuadMinimap: {fileID: 0}
   AttachedBuildingSlot: {fileID: 0}
   ObjectHeight: 10
   HasABuildingQueue: 1
@@ -417,12 +418,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TagArray: []
---- !u!208 &208093993316089644
+--- !u!208 &208363058514420816
 NavMeshObstacle:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1303974991265018}
+  m_GameObject: {fileID: 1261157101852674}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 7.5, y: 2.5, z: 5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 2, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208413451989144030
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1622675479265872}
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1

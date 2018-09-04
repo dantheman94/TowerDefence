@@ -37,6 +37,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4421918969909056}
   - component: {fileID: 114226071876446190}
+  - component: {fileID: 136724759243394310}
   - component: {fileID: 114109408995356522}
   m_Layer: 0
   m_Name: pfb_AntiInfantryTurret
@@ -44,7 +45,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1176916529079386
 GameObject:
   m_ObjectHideFlags: 1
@@ -148,7 +149,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4871579213163610}
-  - component: {fileID: 136743722818010286}
   - component: {fileID: 54021640850025846}
   m_Layer: 0
   m_Name: AntiInfantryTurret_Active
@@ -313,7 +313,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1143940247324936}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 26.99, y: 0.5, z: -143.92}
+  m_LocalPosition: {x: -1003.9, y: 0, z: -576.67}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4239174943124638}
@@ -694,6 +694,8 @@ MonoBehaviour:
   _Player: {fileID: 0}
   FogOfWarRadius: 400
   ShowSelectionGUI: 1
+  ShowQuadHighlighter: 1
+  ShowQuadSelector: 1
   InQueueState: {fileID: 1565629153404228}
   BuildingState: {fileID: 1565629153404228}
   ActiveState: {fileID: 1741878480969680}
@@ -710,8 +712,9 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 50
   _WidgetShieldbarScaleY: 10
   _WidgetShieldbarOffset: 10
+  ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.3
-  MinimapQuad: {fileID: 0}
+  QuadMinimap: {fileID: 0}
   AttachedBuildingSlot: {fileID: 0}
   ObjectHeight: 20
   HasABuildingQueue: 1
@@ -727,9 +730,9 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   TowerType: 3
+  Head: {fileID: 0}
   TowerWeapon: {fileID: 114741025978715078, guid: 7ba6c7e404e870540b58f6205c380067,
     type: 2}
-  WeaponObject: {fileID: 1254083253826290}
   WeaponAimingSpeed: 0.5
   MuzzleLaunchPoints:
   - {fileID: 1862029153128952}
@@ -759,6 +762,7 @@ MonoBehaviour:
     Weight: 0
   - UnitType: 0
     Weight: 0
+  Barrel: {fileID: 0}
 --- !u!114 &114226071876446190
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -834,16 +838,16 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 100
   m_Center: {x: 0, y: 0, z: 0}
---- !u!136 &136743722818010286
+--- !u!136 &136724759243394310
 CapsuleCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1741878480969680}
+  m_GameObject: {fileID: 1143940247324936}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 1.75
-  m_Height: 15
+  m_Height: 12
   m_Direction: 1
   m_Center: {x: 0, y: 5, z: 0}

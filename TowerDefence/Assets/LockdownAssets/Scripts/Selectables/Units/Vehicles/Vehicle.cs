@@ -24,6 +24,11 @@ public class Vehicle : Unit {
     [Header(" BASE VEHICLE PROPERTIES")]
     [Space]
     public GameObject WeaponObject = null;
+    public float RotationClampMinY = -180f;
+    public float RotationClampMaxY = 180f;
+    [Space]
+    public float RotationClampMinZ = -180f;
+    public float RotationClampMaxZ = 180f;
 
     [Space]
     [Header("-----------------------------------")]
@@ -193,6 +198,11 @@ public class Vehicle : Unit {
 
             // Create the rotation we need to be in to look at the target
             _WeaponLookRotation = Quaternion.LookRotation(_DirectionToTarget);
+
+            // Clamp the rotation
+            _WeaponLookRotation.eulerAngles = new Vector3(_WeaponLookRotation.eulerAngles.x,
+                                                          Mathf.Clamp(_WeaponLookRotation.y, RotationClampMinY, RotationClampMaxY),
+                                                          Mathf.Clamp(_WeaponLookRotation.z, RotationClampMinZ, RotationClampMaxZ));
 
             // Rotate us over time according to speed until we are in the required rotation
             WeaponObject.transform.rotation = Quaternion.LerpUnclamped(WeaponObject.transform.rotation, _WeaponLookRotation, Time.deltaTime * 2);

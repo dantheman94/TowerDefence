@@ -234,6 +234,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4797431993666726}
   - component: {fileID: 114656914700537908}
+  - component: {fileID: 136053092563895590}
   - component: {fileID: 114109675360212542}
   m_Layer: 0
   m_Name: pfb_AntiVehicleTurret
@@ -865,6 +866,8 @@ MonoBehaviour:
   _Player: {fileID: 0}
   FogOfWarRadius: 400
   ShowSelectionGUI: 1
+  ShowQuadHighlighter: 1
+  ShowQuadSelector: 1
   InQueueState: {fileID: 1298039860773290}
   BuildingState: {fileID: 1298039860773290}
   ActiveState: {fileID: 1591669627041524}
@@ -881,7 +884,9 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 50
   _WidgetShieldbarScaleY: 10
   _WidgetShieldbarOffset: 10
+  ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.3
+  QuadMinimap: {fileID: 1161698184628408}
   AttachedBuildingSlot: {fileID: 0}
   ObjectHeight: 20
   HasABuildingQueue: 1
@@ -896,12 +901,11 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  QuadMinimap: {fileID: 1161698184628408}
   TowerType: 4
+  Head: {fileID: 0}
   TowerWeapon: {fileID: 0}
-  WeaponObject: {fileID: 1412224068711008}
   WeaponAimingSpeed: 2
-  MuzzleLaunchPoint: {fileID: 1506843952243342}
+  MuzzleLaunchPoints: []
   TargetWeights:
   - UnitType: 0
     Weight: 0
@@ -927,6 +931,7 @@ MonoBehaviour:
     Weight: 0
   - UnitType: 0
     Weight: 0
+  Barrel: {fileID: 0}
 --- !u!114 &114555125213517518
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1017,3 +1022,16 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 100
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!136 &136053092563895590
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1742480362871714}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 1.75
+  m_Height: 12
+  m_Direction: 1
+  m_Center: {x: 0, y: 5, z: 0}

@@ -118,6 +118,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4962471436290332}
   - component: {fileID: 114452461510054222}
+  - component: {fileID: 136462397526566904}
   - component: {fileID: 114067246028920440}
   m_Layer: 0
   m_Name: pfb_BaseTurret
@@ -767,7 +768,7 @@ MonoBehaviour:
   _WidgetShieldbarOffset: 10
   ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.3
-  MinimapQuad: {fileID: 0}
+  QuadMinimap: {fileID: 0}
   AttachedBuildingSlot: {fileID: 0}
   ObjectHeight: 20
   HasABuildingQueue: 1
@@ -784,8 +785,7 @@ MonoBehaviour:
   - {fileID: 0}
   TowerType: 2
   Head: {fileID: 1977224231732748}
-  TowerWeapon: {fileID: 114248795644060262, guid: 3ff7cd3d7a347fc4eaef6fd98e14146a,
-    type: 2}
+  TowerWeapon: {fileID: 0}
   WeaponAimingSpeed: 2
   MuzzleLaunchPoints:
   - {fileID: 1635522435770094}
@@ -875,3 +875,16 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 100
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!136 &136462397526566904
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1476746386672702}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 1.75
+  m_Height: 12
+  m_Direction: 1
+  m_Center: {x: 0, y: 5, z: 0}

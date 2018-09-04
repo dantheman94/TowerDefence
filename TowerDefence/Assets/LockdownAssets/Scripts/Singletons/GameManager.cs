@@ -201,6 +201,8 @@ public class GameManager : MonoBehaviour {
         foreach (var pProj in PreloadProjectiles)   { ObjectPooling.PreLoad(pProj.projectile.gameObject, pProj.size); }
         foreach (var pParticle in PreloadParticles) { ObjectPooling.PreLoad(pParticle.particle.gameObject, pParticle.size); }
 
+        // Starting cinematic
+        WaveManager.Instance.CinematicOpening.StartCinematic();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

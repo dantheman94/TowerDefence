@@ -19,7 +19,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4071067982752452}
-  - component: {fileID: 136877655227114820}
   - component: {fileID: 54874593261437952}
   m_Layer: 0
   m_Name: AntiAirTurret_Active
@@ -230,6 +229,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4904643683662644}
   - component: {fileID: 114256048351862968}
+  - component: {fileID: 136665295814540572}
   - component: {fileID: 114463144270141626}
   m_Layer: 0
   m_Name: pfb_AntiAirTurret
@@ -741,6 +741,8 @@ MonoBehaviour:
   _Player: {fileID: 0}
   FogOfWarRadius: 400
   ShowSelectionGUI: 1
+  ShowQuadHighlighter: 1
+  ShowQuadSelector: 1
   InQueueState: {fileID: 1686846711742006}
   BuildingState: {fileID: 1686846711742006}
   ActiveState: {fileID: 1070671043334662}
@@ -759,7 +761,7 @@ MonoBehaviour:
   _WidgetShieldbarOffset: 10
   ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.3
-  MinimapQuad: {fileID: 0}
+  QuadMinimap: {fileID: 0}
   AttachedBuildingSlot: {fileID: 0}
   ObjectHeight: 20
   HasABuildingQueue: 1
@@ -775,9 +777,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   TowerType: 5
-  TowerWeapon: {fileID: 114140838467278286, guid: 260cbf917e54d494e927858fcbe334c3,
-    type: 2}
-  WeaponObject: {fileID: 1180741171440670}
+  Head: {fileID: 0}
+  TowerWeapon: {fileID: 0}
   WeaponAimingSpeed: 2
   MuzzleLaunchPoints:
   - {fileID: 1162323037437192}
@@ -807,6 +808,7 @@ MonoBehaviour:
     Weight: 0
   - UnitType: 0
     Weight: 0
+  Barrel: {fileID: 0}
 --- !u!135 &135702388281297108
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -819,16 +821,16 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 100
   m_Center: {x: 0, y: 0, z: 0}
---- !u!136 &136877655227114820
+--- !u!136 &136665295814540572
 CapsuleCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1070671043334662}
+  m_GameObject: {fileID: 1983221454230246}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 1.75
-  m_Height: 15
+  m_Height: 12
   m_Direction: 1
   m_Center: {x: 0, y: 5, z: 0}

@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4173166064015894}
   - component: {fileID: 114704496988962668}
-  - component: {fileID: 208851529297545456}
+  - component: {fileID: 65171219383111548}
   - component: {fileID: 114528292699939548}
   m_Layer: 0
   m_Name: pfb_HealingBarricade
@@ -37,6 +37,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4706024914708274}
+  - component: {fileID: 208831553032729182}
   m_Layer: 0
   m_Name: HealingBarricade_Active
   m_TagString: Untagged
@@ -230,6 +231,18 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &65171219383111548
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1072325868059624}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 24, y: 3, z: 6}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &114528292699939548
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -303,12 +316,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TagArray: []
---- !u!208 &208851529297545456
+--- !u!208 &208831553032729182
 NavMeshObstacle:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1072325868059624}
+  m_GameObject: {fileID: 1379714728584166}
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1

@@ -55,7 +55,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4654909039343220}
   - component: {fileID: 114812175156389684}
-  - component: {fileID: 208275383230980014}
   - component: {fileID: 65073554909765800}
   - component: {fileID: 114657766055865356}
   m_Layer: 0
@@ -73,6 +72,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4552941573994652}
+  - component: {fileID: 208168036227890332}
   m_Layer: 0
   m_Name: Garage_Building
   m_TagString: Untagged
@@ -88,6 +88,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4973147390904716}
+  - component: {fileID: 208183426937595812}
   m_Layer: 0
   m_Name: Garage_Active
   m_TagString: Untagged
@@ -396,7 +397,7 @@ MonoBehaviour:
   _WidgetShieldbarOffset: 10
   ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.3
-  MinimapQuad: {fileID: 0}
+  QuadMinimap: {fileID: 0}
   AttachedBuildingSlot: {fileID: 0}
   ObjectHeight: 15
   HasABuildingQueue: 1
@@ -423,12 +424,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TagArray: []
---- !u!208 &208275383230980014
+--- !u!208 &208168036227890332
 NavMeshObstacle:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1094081219682788}
+  m_GameObject: {fileID: 1094313661839204}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 7.5, y: 2.5, z: 5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 2, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208183426937595812
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1309905080253418}
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1

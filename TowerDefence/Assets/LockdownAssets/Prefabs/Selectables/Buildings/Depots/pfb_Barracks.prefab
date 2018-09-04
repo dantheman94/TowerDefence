@@ -37,6 +37,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4300135074452888}
+  - component: {fileID: 208293180450469710}
   m_Layer: 0
   m_Name: Barracks_Active
   m_TagString: Untagged
@@ -89,7 +90,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4638625436571334}
   - component: {fileID: 114839581737877950}
-  - component: {fileID: 208637094224511074}
   - component: {fileID: 65451070734554682}
   - component: {fileID: 114832618223206602}
   m_Layer: 0
@@ -107,6 +107,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4435558085440814}
+  - component: {fileID: 208020345878574892}
   m_Layer: 0
   m_Name: Barracks_Building
   m_TagString: Untagged
@@ -427,7 +428,7 @@ MonoBehaviour:
   _WidgetShieldbarOffset: 10
   ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.3
-  MinimapQuad: {fileID: 0}
+  QuadMinimap: {fileID: 0}
   AttachedBuildingSlot: {fileID: 0}
   ObjectHeight: 15
   HasABuildingQueue: 1
@@ -454,12 +455,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TagArray: []
---- !u!208 &208637094224511074
+--- !u!208 &208020345878574892
 NavMeshObstacle:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1870176042156110}
+  m_GameObject: {fileID: 1974443520701994}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 7.5, y: 2.5, z: 5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 2, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208293180450469710
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1348181821997930}
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
