@@ -10,7 +10,7 @@ public class RefreshGamepads : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void LateUpdate () {
         GamepadManager.Instance.Refresh();	
 	}
 }

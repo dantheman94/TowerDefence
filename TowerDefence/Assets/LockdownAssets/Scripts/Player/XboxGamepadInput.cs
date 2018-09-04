@@ -124,8 +124,8 @@ public class XboxGamepadInput : MonoBehaviour {
                 _ReticleObject.SetActive(true);
                 //Gamepad function presses.
                 DisplayButtonUI();
-                MoveSelectedUnits("X");
-                ExitUI("B");
+                MoveSelectedUnits(GamepadSchemeManager.Instance.GetActiveScheme().AttackandMove);
+                ExitUI(GamepadSchemeManager.Instance.GetActiveScheme().ExitMenuandUnselect);
                 ChangeSelectionWheel();
                 StartCoroutine(Select());
                 CreateSelection();
@@ -752,7 +752,7 @@ public class XboxGamepadInput : MonoBehaviour {
         if (!_PlayerAttached._HUD.WheelActive())
         {
             //If A is pressed.
-            if (_Gamepad.GetButtonDown("A"))
+            if (_Gamepad.GetButtonDown(GamepadSchemeManager.Instance.GetActiveScheme().Selection))
             {
                 Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
                 RaycastHit hit;
@@ -764,7 +764,7 @@ public class XboxGamepadInput : MonoBehaviour {
                 }
             }
             //Increase size of sphere while button is held down.
-            if (_Gamepad.GetButton("A"))
+            if (_Gamepad.GetButton(GamepadSchemeManager.Instance.GetActiveScheme().Selection))
             {
                 if(_SphereReference != null)
                 {
@@ -774,7 +774,7 @@ public class XboxGamepadInput : MonoBehaviour {
             }
         }
         //Destroy the sphere when the button is brought up.
-        if (_Gamepad.GetButtonUp("A"))
+        if (_Gamepad.GetButtonUp(GamepadSchemeManager.Instance.GetActiveScheme().Selection))
         {
             Destroy(_SphereReference);
         }
