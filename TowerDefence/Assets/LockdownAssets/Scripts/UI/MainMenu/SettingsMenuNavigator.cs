@@ -8,7 +8,7 @@ using UnityEngine.UI;
 //  Created by: Angus Secomb
 //
 //  Last edited by: Angus Secomb
-//  Last edited on: 03/09/2018
+//  Last edited on: 04/09/2018
 //
 //******************************
 
@@ -20,7 +20,6 @@ public class SettingsMenuNavigator : MonoBehaviour {
     //      DEFINITION
     //
     //******************************************************************************************************************************
-
 
     [System.Serializable]
     public struct SettingsInfo
@@ -90,6 +89,8 @@ public class SettingsMenuNavigator : MonoBehaviour {
     private WindowMode _WindowMode;
     private TextureQuality _TextureQuality;
     private MenuType _MenuType;
+    private int _SchemeIndex = 0;
+    private bool _IsController = false;
 
     [Header("----------------------")]
     [Space]
@@ -127,60 +128,96 @@ public class SettingsMenuNavigator : MonoBehaviour {
     [Header("SETTINGS INFO")]
     public SettingsInfo SettingInfo;
 
+    [Header("----------------------")]
+    [Space]
+    [Header("GAMEPAD SCHEME OBJECTS")]
+    public GameObject SchemeWrapper;
+    public GameObject SettingsBase;
+    public GameObject SchemeOne;
+    public GameObject SchemeTwo;
+    public GameObject SchemeThree;
+    public GameObject SchemeFour;
+    public Button StartButton;
+
     //******************************************************************************************************************************
     //
     //      VARIABLES
     //
     //******************************************************************************************************************************
 
-
     private MenuNavigator _MenuNavigator;
 
     private xb_gamepad gamepad;
 
-    private MenuNavigator.MenuArea SettingsMenu;
-
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    private void Awake()
+    /// <summary>
+    /// 
+    /// </summary>
+    private void Start()
     {
         LoadSettings();
+        SwitchGamepadSchemes(_SchemeIndex);
         gamepad = GamepadManager.Instance.GetGamepad(1);
         _MenuNavigator = GetComponent<MenuNavigator>();
         UpdateTextAndApplySettings();
     }
 
-
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // Update is called once per frame
     void Update () {
-        NavigateSettingsMenu();
-        SwitchSettings();
-        UpdateTextAndApplySettings();
-        ApplySettings();
+         NavigateSettingsMenu();
+         SwitchSettings();
+         ChangeControllerText();
+     if(SchemeWrapper.activeInHierarchy)
+     {
+         if(gamepad.GetButton("B"))
+         {
+             SchemeWrapper.SetActive(false);
+             SettingsBase.SetActive(true);
+             StartCoroutine(DelayedSelect(SettingInfo.GamePadSchemes));
+         }
+     }
     }
+
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    /// Saves player settings to player prefs.
+    /// Switch gamepad schemes
     /// </summary>
-    public void SavePlayerSettings()
+    /// <param name="a_int"></param>
+    public void SwitchGamepadSchemes(int a_int)
     {
-        PlayerPrefs.SetFloat("MasterVolume", MasterVolume);
-        PlayerPrefs.SetFloat("MusicVolume", MusicVolume);
-        PlayerPrefs.SetFloat("SFXVolume", EffectsVolume);
-        PlayerPrefs.SetInt("Resolution", (int)_Resolution);
-        PlayerPrefs.SetInt("AspectRatio", (int)_AspectRatio);
-        PlayerPrefs.SetInt("VSync", VSync);
-        PlayerPrefs.SetInt("WindowMode", (int)_WindowMode);
-        PlayerPrefs.SetInt("TextureQuality", (int)_TextureQuality);
-        PlayerPrefs.Save();
-        Debug.Log("Player Settings Saved!");
+        _SchemeIndex = a_int;
+        switch (a_int)
+        {
+            case 1:
+                SchemeOne.SetActive(true);
+                SchemeTwo.SetActive(false);
+                PlayerPrefs.SetInt("GamepadScheme", _SchemeIndex);
+                PlayerPrefs.Save();
+                break;
+            case 2:
+                SchemeOne.SetActive(false);
+                SchemeTwo.SetActive(true);
+                PlayerPrefs.SetInt("GamepadScheme", _SchemeIndex);
+                PlayerPrefs.Save();
+                break;
+            case 3:
+                PlayerPrefs.SetInt("GamepadScheme", _SchemeIndex);
+                PlayerPrefs.Save();
+                break;
+            case 4:
+                PlayerPrefs.SetInt("GamepadScheme", _SchemeIndex);
+                PlayerPrefs.Save();
+                break;
+            default:
+                break;
+        }
+        
     }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     ///  Do actions based on current active scene.
@@ -189,11 +226,6 @@ public class SettingsMenuNavigator : MonoBehaviour {
     {
          switch(CurrentSelection)
         {
-            case "Gamepad":
-                
-                break;
-            case "KeyboardBindings":
-                break;
             case "MenuType":
                 if(gamepad.GetButtonDown("RB"))
                 {
@@ -203,6 +235,9 @@ public class SettingsMenuNavigator : MonoBehaviour {
                     {
                         _MenuType = 0;
                     }
+                    PlayerPrefs.SetInt("MenuType", (int)_MenuType);
+                    UpdateTextAndApplySettings();
+                    PlayerPrefs.Save();
                 }
                 else if(gamepad.GetButtonDown("LB"))
                 {
@@ -212,6 +247,9 @@ public class SettingsMenuNavigator : MonoBehaviour {
                     {
                         _MenuType = MenuType.WINDOW; ;
                     }
+                    UpdateTextAndApplySettings();
+                    PlayerPrefs.SetInt("MenuType", (int)_MenuType);
+                    PlayerPrefs.Save();
                 }
                 break;
             case "WindowMode":
@@ -223,6 +261,9 @@ public class SettingsMenuNavigator : MonoBehaviour {
                     {
                         _WindowMode = 0;
                     }
+                    PlayerPrefs.SetInt("WindowMode", (int)_WindowMode);
+                    UpdateTextAndApplySettings();
+                    PlayerPrefs.Save();
                 }
                 else if (gamepad.GetButtonDown("LB"))
                 {
@@ -232,9 +273,22 @@ public class SettingsMenuNavigator : MonoBehaviour {
                     {
                         _WindowMode = WindowMode.WINDOWED;
                     }
+                    PlayerPrefs.SetInt("WindowMode", (int)_WindowMode);
+                    UpdateTextAndApplySettings();
+                    PlayerPrefs.Save();
                 }
                 break;
             case "Resolution":
+                if(gamepad.GetButtonDown("RB"))
+                {
+                    PlayerPrefs.SetInt("Resolution", (int)_Resolution);
+                    PlayerPrefs.Save();
+                }
+                else if(gamepad.GetButtonDown("LB"))
+                {
+                    PlayerPrefs.SetInt("Resolution", (int)_Resolution);
+                    PlayerPrefs.Save();
+                }
                 break;
             case "AspectRatio":
                 if (gamepad.GetButtonDown("RB"))
@@ -247,6 +301,9 @@ public class SettingsMenuNavigator : MonoBehaviour {
                     {
                         _AspectRatio = AspectRatio.SIXTEEN_NINE;
                     }
+                    PlayerPrefs.SetInt("AspectRatio", (int)_AspectRatio);
+                    UpdateTextAndApplySettings();
+                    PlayerPrefs.Save();
                 }
                 else if(gamepad.GetButtonDown("LB"))
                 {
@@ -258,6 +315,9 @@ public class SettingsMenuNavigator : MonoBehaviour {
                     {
                         _AspectRatio = AspectRatio.FIVE_FOUR;
                     }
+                    PlayerPrefs.SetInt("AspectRatio", (int)_AspectRatio);
+                    UpdateTextAndApplySettings();
+                    PlayerPrefs.Save();
                 }
                 break;
             case "VSync":
@@ -271,6 +331,9 @@ public class SettingsMenuNavigator : MonoBehaviour {
                     {
                         VSync = 0;
                     }
+                    PlayerPrefs.SetInt("VSync", VSync);
+                       UpdateTextAndApplySettings();
+                    PlayerPrefs.Save();
                 }
                 else if (gamepad.GetButtonDown("LB"))
                 {
@@ -282,6 +345,9 @@ public class SettingsMenuNavigator : MonoBehaviour {
                     {
                         VSync = 0;
                     }
+                    PlayerPrefs.SetInt("VSync", VSync);
+                    UpdateTextAndApplySettings();
+                    PlayerPrefs.Save();
                 }
                 break;
             case "TextureQuality":
@@ -293,6 +359,9 @@ public class SettingsMenuNavigator : MonoBehaviour {
                     {
                         _TextureQuality = 0;
                     }
+                    PlayerPrefs.SetInt("TextureQuality", (int)_TextureQuality);
+                    UpdateTextAndApplySettings();
+                    PlayerPrefs.Save();
                 }
                 else if (gamepad.GetButtonDown("LB"))
                 {
@@ -302,6 +371,9 @@ public class SettingsMenuNavigator : MonoBehaviour {
                     {
                         _TextureQuality = TextureQuality.ULTRA ;
                     }
+                    PlayerPrefs.SetInt("TextureQuality", (int)_TextureQuality);
+                    UpdateTextAndApplySettings();
+                    PlayerPrefs.Save();
                 }
                 break;
             case "MasterVolume":
@@ -311,6 +383,9 @@ public class SettingsMenuNavigator : MonoBehaviour {
                     {
                         MasterVolume--;
                     }
+                    PlayerPrefs.SetFloat("MasterVolume", MasterVolume);
+                       UpdateTextAndApplySettings();
+                    PlayerPrefs.Save();
                 }
                 else if(gamepad.GetButton("RB"))
                 {
@@ -318,6 +393,9 @@ public class SettingsMenuNavigator : MonoBehaviour {
                     {
                         MasterVolume++;
                     }
+                    PlayerPrefs.SetFloat("MasterVolume", MasterVolume);
+                    UpdateTextAndApplySettings();
+                    PlayerPrefs.Save();
                 }
                 break;
             case "MusicVolume":
@@ -327,6 +405,9 @@ public class SettingsMenuNavigator : MonoBehaviour {
                     {
                         MusicVolume--;
                     }
+                    PlayerPrefs.SetFloat("MusicVolume", MusicVolume);
+                    UpdateTextAndApplySettings();
+                    PlayerPrefs.Save();
                 }
                 else if (gamepad.GetButton("RB"))
                 {
@@ -334,6 +415,9 @@ public class SettingsMenuNavigator : MonoBehaviour {
                     {
                         MusicVolume++;
                     }
+                    PlayerPrefs.SetFloat("MusicVolume", MusicVolume);
+                    UpdateTextAndApplySettings();
+                    PlayerPrefs.Save();
                 }
                 break;
             case "SFXVolume":
@@ -343,6 +427,10 @@ public class SettingsMenuNavigator : MonoBehaviour {
                     {
                         EffectsVolume--;
                     }
+
+                    PlayerPrefs.SetFloat("SFXVolume", EffectsVolume);
+                    UpdateTextAndApplySettings();
+                    PlayerPrefs.Save();
                 }
                 else if (gamepad.GetButton("RB"))
                 {
@@ -350,6 +438,10 @@ public class SettingsMenuNavigator : MonoBehaviour {
                     {
                         EffectsVolume++;
                     }
+
+                    PlayerPrefs.SetFloat("SFXVolume", EffectsVolume);
+                    UpdateTextAndApplySettings();
+                     PlayerPrefs.Save();
                 }
                 break;
             default:
@@ -359,28 +451,35 @@ public class SettingsMenuNavigator : MonoBehaviour {
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    private void ApplySettings()
+    /// <summary>
+    /// Delayed Select.
+    /// </summary>
+    /// <param name="button"></param>
+    /// <returns></returns>
+    IEnumerator DelayedSelect(Button button)
     {
-        switch (_AspectRatio)
-        {
-            case AspectRatio.SIXTEEN_NINE:
-                break;
-            default:
-                break;
-        }
+        yield return new WaitForSeconds(0.05f);
+        button.Select();
+    }
 
-        switch (_WindowMode)
+    /// <summary>
+    /// Toggle Scheme menus.
+    /// </summary>
+    public void ToggleSchemeMenu()
+    {
+        if(SettingsBase.activeInHierarchy)
         {
-            case WindowMode.FULLSCREEN:
-           
-                break;
-            case WindowMode.WINDOWED:
+            SchemeWrapper.SetActive(true);
+            SettingsBase.SetActive(false);
+            StartCoroutine(DelayedSelect(StartButton));
             
-                break;
-            default:
-                break;
         }
-        
+        else if(SchemeWrapper.activeInHierarchy)
+        {
+            SchemeWrapper.SetActive(false);
+            SettingsBase.SetActive(true);
+            StartCoroutine(DelayedSelect(SettingInfo.GamePadSchemes));
+        }
     }
 
     /// <summary>
@@ -395,7 +494,9 @@ public class SettingsMenuNavigator : MonoBehaviour {
         _AspectRatio = (AspectRatio)PlayerPrefs.GetInt("AspectRatio");
         VSync = PlayerPrefs.GetInt("VSync");
         _WindowMode = (WindowMode)PlayerPrefs.GetInt("WindowMode");
+        _MenuType = (MenuType)PlayerPrefs.GetInt("MenuType");
         _TextureQuality = (TextureQuality)PlayerPrefs.GetInt("TextureQuality");
+        _SchemeIndex = PlayerPrefs.GetInt("GamepadScheme");
         Debug.Log("Player Settings Loaded!");
     }
 
@@ -510,11 +611,18 @@ public class SettingsMenuNavigator : MonoBehaviour {
             default:
                 break;
         }
+    }
 
+    /// <summary>
+    /// Changes text based on controller.
+    /// </summary>
+    private void ChangeControllerText()
+    {
         if (_MenuNavigator.SettingsMenu.AreaState == MenuNavigator.SceneAreaState.ACTIVE)
         {
-            if (gamepad.IsConnected)
+            if (gamepad.IsConnected && !_IsController)
             {
+                _IsController = true;
                 SettingInfo.SelectionMenuLeft.GetComponentInChildren<Text>().text = "LT";
                 SettingInfo.SelectionMenuRight.GetComponentInChildren<Text>().text = "RT";
                 SettingInfo.TextureQualityLeft.GetComponentInChildren<Text>().text = "LT";
@@ -528,8 +636,9 @@ public class SettingsMenuNavigator : MonoBehaviour {
                 SettingInfo.AspectRatioLeft.GetComponentInChildren<Text>().text = "LT";
                 SettingInfo.AspectRatioRight.GetComponentInChildren<Text>().text = "RT";
             }
-            else
+            else if(!gamepad.IsConnected)
             {
+                _IsController = false;
                 SettingInfo.SelectionMenuLeft.GetComponentInChildren<Text>().text = "<";
                 SettingInfo.SelectionMenuRight.GetComponentInChildren<Text>().text = ">";
                 SettingInfo.TextureQualityLeft.GetComponentInChildren<Text>().text = "<";
@@ -545,7 +654,6 @@ public class SettingsMenuNavigator : MonoBehaviour {
             }
         }
     }
-
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         /// <summary>

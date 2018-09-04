@@ -261,13 +261,14 @@ public class MenuNavigator : MonoBehaviour {
         if(SettingsMenu.AreaState == SceneAreaState.ACTIVE)
         {
             SettingsMenu.WholeAreaObject.SetActive(true);
-            if(gamepad.GetButtonDown("B"))
+            if(gamepad.GetButtonDown("B") && !gameObject.GetComponent<SettingsMenuNavigator>().SchemeWrapper.activeInHierarchy)
             {
                 SettingsMenu.AreaState = SceneAreaState.INACTIVE;
                 MainMenu.AreaState = SceneAreaState.ACTIVE;
                 if (MainMenu.StartButton != null)
                     StartCoroutine(DelayedSelectButton(MainMenu.StartButton));
             }
+            
 
         }
         else
