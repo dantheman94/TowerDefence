@@ -405,6 +405,8 @@ MonoBehaviour:
   _Player: {fileID: 0}
   FogOfWarRadius: 400
   ShowSelectionGUI: 1
+  ShowQuadHighlighter: 1
+  ShowQuadSelector: 1
   InQueueState: {fileID: 1848823533347048}
   BuildingState: {fileID: 1848823533347048}
   ActiveState: {fileID: 1421741109620186}
@@ -414,14 +416,16 @@ MonoBehaviour:
   Garrisonable: 0
   MaxGarrisonPopulation: 0
   MultiSelectable: 0
-  _OffsetY: 0
+  _OffsetY: 4
   _WidgetHealthbarScaleX: 60
   _WidgetHealthbarScaleY: 10
   _WidgetHealthbarOffset: 0
   _WidgetShieldbarScaleX: 60
   _WidgetShieldbarScaleY: 10
   _WidgetShieldbarOffset: 10
+  ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.3
+  QuadMinimap: {fileID: 1411182301665750}
   AttachedBuildingSlot: {fileID: 0}
   ObjectHeight: 10
   HasABuildingQueue: 1
@@ -436,7 +440,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  QuadMinimap: {fileID: 1411182301665750}
   ResourceType: 0
   UpgradedGenerator: 0
   ResourcesGivenWhenBuilt: 0
