@@ -25,6 +25,12 @@ public class SoundManager : MonoBehaviour {
     private bool _IsPlayingVoxel = false;
     private float _TimeSinceLastVoxel = 0f;
 
+    private bool _FadingIn;
+    private bool _FadingOut;
+
+    public float _CurrentFadeInLerp = 0f;
+    public float _CurrentFadeOutLerp = 0f;
+
     //******************************************************************************************************************************
     //
     //      INSPECTOR
@@ -74,6 +80,10 @@ public class SoundManager : MonoBehaviour {
             }
         }
 
+        if (_FadingIn) { _CurrentFadeInLerp += Time.deltaTime; }
+
+        if (_FadingOut) { _CurrentFadeOutLerp += Time.deltaTime; }
+
         UpdateVoxel();
     }
 
@@ -95,14 +105,6 @@ public class SoundManager : MonoBehaviour {
 
         // Add the sound object to the List
         _Sounds.Add(soundSource);
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    public void PlayMusic(string musicLocation, float volume) {
-
-        // Create source for the music to play from
-        AudioSource musicSource = _MusicSource.GetComponent<AudioSource>();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -162,6 +164,70 @@ public class SoundManager : MonoBehaviour {
 
             // Add to timer
             _TimeSinceLastVoxel += Time.deltaTime;
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public void CallFadeIn(AudioSource musicSource, float timeToFade, float maxVolume)
+    {
+        StartCoroutine(FadeIn(musicSource, timeToFade, maxVolume));
+    }
+
+    public void CallFadeOut(AudioSource musicSource, float timeToFade)
+    {
+        StartCoroutine(FadeOut(musicSource, timeToFade));
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    IEnumerator FadeIn(AudioSource musicSource, float timeToFade, float maxVolume) {
+
+        // Set fading in to be true
+        _FadingIn = true;
+        // Store the current volume
+        float startingVolume = 0f;
+
+        // While the music volume is less than the max volume
+        while (musicSource.volume < maxVolume) {
+
+            // Set the music volume to this variable
+            float percent = _CurrentFadeOutLerp / timeToFade;
+            // Clamp the volume
+            if (_CurrentFadeInLerp > timeToFade) { _CurrentFadeInLerp = timeToFade; }
+            // Lerp volume
+            musicSource.volume = Mathf.Lerp(startingVolume, maxVolume, percent);
+
+            // Set fading out to false when the volume reaches the max
+            if (musicSource.volume >= maxVolume) { _FadingIn = false; }
+
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    IEnumerator FadeOut (AudioSource musicSource, float timeToFade) {
+        
+        // Set fading out to true
+        _FadingOut = true;
+        // Store the current volume
+        float startingVolume = musicSource.volume;
+
+        // While the music volume is more than 0
+        while (musicSource.volume > 0f) {
+            
+            // Set the music volume to this variable
+            float percent = _CurrentFadeOutLerp / timeToFade;
+            // Clamp the volume
+            if (_CurrentFadeOutLerp > timeToFade) { _CurrentFadeOutLerp = timeToFade; }
+            // Lerp volume
+            musicSource.volume = Mathf.Lerp(startingVolume, 0f, percent);
+
+            // Set fading out to false when the volume reaches 0
+            if (musicSource.volume <= 0) { _FadingOut = false; }
+
+            yield return new WaitForSeconds(0.1f);
         }
     }
 
