@@ -37,7 +37,6 @@ public class UI_BuildingQueueWrapper : MonoBehaviour {
     public static UI_BuildingQueueWrapper Instance;
 
     private List<UI_BuildingQueue> _Queues = null;
-    private float _ItemOffset = 5;
 
     //******************************************************************************************************************************
     //
@@ -66,21 +65,7 @@ public class UI_BuildingQueueWrapper : MonoBehaviour {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  Called when this gameObject is created.
-    /// </summary>
-    private void Start() {
-        
-        if (BuildingQueueStencil != null) {
-
-            // Update item offset
-            _ItemOffset = BuildingQueueStencil.GetComponent<RectTransform>().rect.height + QueueSpacing;
-        }
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    
     /// <summary>
     //  
     /// </summary>
@@ -131,16 +116,14 @@ public class UI_BuildingQueueWrapper : MonoBehaviour {
             if (i == 0) {
 
                 x = rect.rect.width / 2 + QueueSpacing;
-                y = (rect.rect.height / 1 /*+ QueueSpacing*/) * -1;
-                ///y = _ItemOffset * -1;
+                y = (rect.rect.height / 1) * -1;
             }
 
             // Remaining queues are placed as rows in descending order
             else {
 
                 x = rect.rect.width / 2 + QueueSpacing;
-                y = ((rect.rect.height / 1) * (i + 1) + QueueSpacing /** (i + 1)*/) * -1;
-                ///y = (_ItemOffset * (i + 1)) * -1;
+                y = ((rect.rect.height / 1) * (i + 1) + QueueSpacing) * -1;
             }
             rect.anchoredPosition = new Vector2(x, y);
             rect.gameObject.transform.SetParent(QueueListTransform);

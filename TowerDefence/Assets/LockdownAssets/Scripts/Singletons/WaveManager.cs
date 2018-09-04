@@ -48,8 +48,9 @@ public class WaveManager : MonoBehaviour {
 
     [Space]
     [Header("-----------------------------------")]
-    [Header(" CORE PROPERTIES")]
+    [Header(" CINEMATICS")]
     [Space]
+    public Cinematic CinematicOpening = null;
     public Cinematic CinematicDefeat = null;
 
     [Space]

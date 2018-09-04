@@ -139,6 +139,7 @@ GameObject:
   - component: {fileID: 95730348214968714}
   - component: {fileID: 136731275455481914}
   - component: {fileID: 136140529791699072}
+  - component: {fileID: 136641151220209660}
   m_Layer: 0
   m_Name: BlockoutMesh_Core
   m_TagString: Untagged
@@ -432,7 +433,7 @@ Transform:
   m_GameObject: {fileID: 1060024032126352}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -0, y: 100, z: -0}
-  m_LocalScale: {x: 200, y: 200, z: 1}
+  m_LocalScale: {x: 250, y: 250, z: 1}
   m_Children: []
   m_Father: {fileID: 4033482514550848}
   m_RootOrder: 0
@@ -1110,11 +1111,13 @@ MonoBehaviour:
   _Player: {fileID: 0}
   FogOfWarRadius: 400
   ShowSelectionGUI: 0
+  ShowQuadHighlighter: 1
+  ShowQuadSelector: 1
   InQueueState: {fileID: 0}
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 1467879039329400}
   DestroyedState: {fileID: 1359670134448342}
-  MaxHitPoints: 50
+  MaxHitPoints: 600
   MaxShieldPoints: 0
   Garrisonable: 0
   MaxGarrisonPopulation: 0
@@ -1168,11 +1171,13 @@ MonoBehaviour:
   _Player: {fileID: 0}
   FogOfWarRadius: 400
   ShowSelectionGUI: 0
+  ShowQuadHighlighter: 1
+  ShowQuadSelector: 1
   InQueueState: {fileID: 0}
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 1354704867999630}
   DestroyedState: {fileID: 0}
-  MaxHitPoints: 80
+  MaxHitPoints: 1000
   MaxShieldPoints: 0
   Garrisonable: 0
   MaxGarrisonPopulation: 0
@@ -1231,11 +1236,13 @@ MonoBehaviour:
   _Player: {fileID: 0}
   FogOfWarRadius: 400
   ShowSelectionGUI: 0
+  ShowQuadHighlighter: 1
+  ShowQuadSelector: 1
   InQueueState: {fileID: 0}
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 1044684962285098}
   DestroyedState: {fileID: 1748980421778926}
-  MaxHitPoints: 50
+  MaxHitPoints: 600
   MaxShieldPoints: 0
   Garrisonable: 0
   MaxGarrisonPopulation: 0
@@ -1289,11 +1296,13 @@ MonoBehaviour:
   _Player: {fileID: 0}
   FogOfWarRadius: 400
   ShowSelectionGUI: 0
+  ShowQuadHighlighter: 1
+  ShowQuadSelector: 1
   InQueueState: {fileID: 0}
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 1628312961591628}
   DestroyedState: {fileID: 1009008998051214}
-  MaxHitPoints: 50
+  MaxHitPoints: 600
   MaxShieldPoints: 0
   Garrisonable: 0
   MaxGarrisonPopulation: 0
@@ -1374,6 +1383,19 @@ CapsuleCollider:
   m_Height: 45
   m_Direction: 1
   m_Center: {x: 0, y: 10, z: 0}
+--- !u!136 &136641151220209660
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1354704867999630}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 35
+  m_Height: 20
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!136 &136731275455481914
 CapsuleCollider:
   m_ObjectHideFlags: 1

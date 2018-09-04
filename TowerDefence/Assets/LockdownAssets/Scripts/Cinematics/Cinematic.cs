@@ -47,7 +47,7 @@ public class Cinematic : MonoBehaviour {
         GameManager.Instance.WorldSpaceCanvas.gameObject.SetActive(false);
         GameManager.Instance.HUDWrapper.gameObject.SetActive(false);
 
-        // Show mouse cursor
+        // Hide mouse cursor
         Cursor.visible = false;
     }
 

@@ -59,7 +59,7 @@ public class Base : Building {
         base.Start();
 
         // Get component references
-        if (MinimapQuad != null) { _MinimapRenderer = MinimapQuad.GetComponent<Renderer>(); }
+        if (QuadMinimap != null) { _MinimapRenderer = QuadMinimap.GetComponent<Renderer>(); }
         _BuildingList = new List<Building>();
     }
 

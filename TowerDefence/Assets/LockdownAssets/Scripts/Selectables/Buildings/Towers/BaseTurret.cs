@@ -18,13 +18,19 @@ public class BaseTurret : Tower {
     //      INSPECTOR
     //
     //******************************************************************************************************************************
-    
+
+    [Space]
+    [Header("-----------------------------------")]
+    [Header(" TURRET PROPERTIES")]
+    [Space]
+    public GameObject Barrel = null;
+
     //******************************************************************************************************************************
     //
     //      VARIABLES
     //
     //******************************************************************************************************************************
-    
+
     private Quaternion _DefaultRotation = Quaternion.identity;
 
     //******************************************************************************************************************************
@@ -54,17 +60,24 @@ public class BaseTurret : Tower {
         base.Update();
 
         // Rotating turret weapon
-        if (WeaponObject != null) {
+        if (Head != null && Barrel != null) {
 
             // A valid target is known
             if (_AttackTarget != null) {
 
                 if (_AttackTarget.IsAlive()) {
 
-                    // Aim the turret's weapon at the target
-                    Vector3 direction = (_AttackTarget.transform.position - transform.position).normalized;
-                    Quaternion lookAtRot = Quaternion.LookRotation(direction);
-                    WeaponObject.transform.rotation = Quaternion.Lerp(WeaponObject.transform.rotation, lookAtRot, WeaponAimingSpeed * Time.deltaTime);
+                    // Aim the turret's head at the target (Z AXIS ONLY)
+                    Vector3 hDirection = (_AttackTarget.transform.position - transform.position).normalized;
+                    hDirection.y = 0;
+                    Quaternion hLookAtRot = Quaternion.LookRotation(hDirection);
+                    Head.transform.rotation = Quaternion.Lerp(Head.transform.rotation, hLookAtRot, WeaponAimingSpeed * Time.deltaTime);
+
+                    // Aim the turret's barrel at the target (Y AXIS ONLY)
+                    Vector3 bDirection = (_AttackTarget.transform.position - transform.position).normalized;
+                    bDirection.z = 0;
+                    Quaternion bLookAtRot = Quaternion.LookRotation(Barrel.transform.forward, bDirection);
+                    Barrel.transform.rotation = Quaternion.Lerp(Barrel.transform.rotation, bLookAtRot, WeaponAimingSpeed * Time.deltaTime);
 
                     if (TowerWeapon != null) {
                         
@@ -78,7 +91,7 @@ public class BaseTurret : Tower {
             }
 
             // Return to the default rotation
-            else { WeaponObject.transform.rotation = Quaternion.Lerp(WeaponObject.transform.rotation, _DefaultRotation, WeaponAimingSpeed * Time.deltaTime); }
+            else { Head.transform.rotation = Quaternion.Lerp(Head.transform.rotation, _DefaultRotation, WeaponAimingSpeed * Time.deltaTime); }
         }
     }
 

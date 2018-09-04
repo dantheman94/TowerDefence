@@ -189,7 +189,7 @@ Transform:
   m_GameObject: {fileID: 1534476585248272}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 10, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 1}
+  m_LocalScale: {x: 30, y: 30, z: 1}
   m_Children: []
   m_Father: {fileID: 4181846604302396}
   m_RootOrder: 0
@@ -356,6 +356,8 @@ MonoBehaviour:
   _Player: {fileID: 0}
   FogOfWarRadius: 400
   ShowSelectionGUI: 1
+  ShowQuadHighlighter: 1
+  ShowQuadSelector: 1
   InQueueState: {fileID: 1372325392249030}
   BuildingState: {fileID: 1372325392249030}
   ActiveState: {fileID: 1050043004154138}
@@ -372,7 +374,9 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 10
   _WidgetShieldbarOffset: 10
+  ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.3
+  QuadMinimap: {fileID: 1534476585248272}
   AttachedBuildingSlot: {fileID: 0}
   ObjectHeight: 15
   HasABuildingQueue: 1
@@ -387,7 +391,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  QuadMinimap: {fileID: 1534476585248272}
   BarricadeType: 1
 --- !u!114 &114545485044121834
 MonoBehaviour:

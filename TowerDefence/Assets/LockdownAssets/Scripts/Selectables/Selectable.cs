@@ -34,8 +34,11 @@ public class Selectable : Abstraction {
     [Tooltip("The radius of the Fog Of War sphere attached to this object.")]
     public float FogOfWarRadius = 400f;
     [Space]
-    [Tooltip("When the player clicks/highlights this object, does the selection wheel (Radial or box) display?")]
+    [Tooltip("When the player clicks on this object, does the selection wheel (Radial or box) display?")]
     public bool ShowSelectionGUI = true;
+    [Space]
+    public bool ShowQuadHighlighter = true;
+    public bool ShowQuadSelector = true;
 
     //******************************************************************************************************************************
     //
@@ -130,7 +133,7 @@ public class Selectable : Abstraction {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    /// 
+    //  
     /// </summary>
     /// <param name="draw"></param>
     protected virtual void DrawSelection(bool draw) {
@@ -143,7 +146,7 @@ public class Selectable : Abstraction {
             if (_SelectionObj != null) {
 
                 // Display prefab
-                _SelectionObj.SetActive(true);
+                if (ShowQuadSelector) { _SelectionObj.SetActive(true); }
 
                 // Update selection prefab position
                 Vector3 pos = new Vector3();
@@ -157,7 +160,7 @@ public class Selectable : Abstraction {
                 if (_SelectionObjRenderer != null) {
 
                     switch (Team) {
-                        case GameManager.Team.Undefined: { _SelectionObjRenderer.material.color = Color.black; break; }
+                        case GameManager.Team.Undefined: { _SelectionObjRenderer.material.color = Color.grey; break; }
                         case GameManager.Team.Defending: { _SelectionObjRenderer.material.color = _Player.TeamColor; break; }
                         case GameManager.Team.Attacking: { _SelectionObjRenderer.material.color = WaveManager.Instance.AttackingTeamColour; break; }
                         default: break;
@@ -173,7 +176,7 @@ public class Selectable : Abstraction {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    /// 
+    //  
     /// </summary>
     /// <param name="highlight"></param>
     protected virtual void DrawHighlight(bool highlight) {
@@ -186,7 +189,7 @@ public class Selectable : Abstraction {
             if (_HighlightObj != null) {
 
                 // Display prefab
-                _HighlightObj.SetActive(true);
+                if (ShowQuadHighlighter) { _HighlightObj.SetActive(true); }
 
                 // Update highlight prefab position
                 Vector3 pos = new Vector3();
@@ -200,7 +203,7 @@ public class Selectable : Abstraction {
                 if (_HighlightObjRenderer != null) {
 
                     switch (Team) {
-                        case GameManager.Team.Undefined: { _HighlightObjRenderer.material.color = Color.grey; break; } /// Temporary colour - just so it isnt white (will need to be white later but it clashes with the environment atm)
+                        case GameManager.Team.Undefined: { _HighlightObjRenderer.material.color = Color.white; break; }
                         case GameManager.Team.Defending: { _HighlightObjRenderer.material.color = Color.cyan; break; } /// Temporary colour - just to show a different colour to selected (ideally it should be a shade lighter than the player's colour!)
                         case GameManager.Team.Attacking: { _HighlightObjRenderer.material.color = WaveManager.Instance.AttackingTeamColour; break; }
                         default: break;
@@ -216,7 +219,7 @@ public class Selectable : Abstraction {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    /// 
+    //  
     /// </summary>
     /// <param name="selectBox"></param>
     protected virtual void DrawSelectionBox(Rect selectBox) { GUI.Box(selectBox, ""); }
@@ -224,7 +227,7 @@ public class Selectable : Abstraction {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    /// 
+    //  
     /// </summary>
     /// <param name="hitObject"></param>
     /// <param name="hitPoint"></param>
@@ -244,7 +247,7 @@ public class Selectable : Abstraction {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    /// 
+    //  
     /// </summary>
     /// <param name="player"></param>
     public void SetPlayer(Player player) {
@@ -256,15 +259,19 @@ public class Selectable : Abstraction {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    /// 
+    //  
     /// </summary>
     /// <param name="selected"></param>
-    public void SetIsSelected(bool selected) { _IsCurrentlySelected = selected; }
+    public void SetIsSelected(bool selected) {
+
+        _IsCurrentlySelected = selected;
+        if (_IsCurrentlySelected) { SetIsHighlighted(false); }
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    /// 
+    //  
     /// </summary>
     /// <returns>
     //  bool
@@ -274,7 +281,7 @@ public class Selectable : Abstraction {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    /// 
+    //  
     /// </summary>
     /// <param name="highlighted"></param>
     public void SetIsHighlighted(bool highlighted) { _IsCurrentlyHighlighted = highlighted; }
@@ -282,7 +289,7 @@ public class Selectable : Abstraction {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    /// 
+    //  
     /// </summary>
     /// <returns>
     //  bool

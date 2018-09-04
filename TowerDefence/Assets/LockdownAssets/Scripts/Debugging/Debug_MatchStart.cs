@@ -18,10 +18,7 @@ public class Debug_MatchStart : MonoBehaviour {
 
             if (Input.GetKeyDown(KeyCode.Space)) {
 
-                GameManager.Instance.CinematicBars.gameObject.SetActive(true);
-                GameManager.Instance.HUDWrapper.gameObject.SetActive(false);
-
-                WaveManager.Instance.StartNewMatch();
+                WaveManager.Instance.CinematicOpening.StartCinematic();
             }
         }
 	}

@@ -81,6 +81,9 @@ public class UI_ScreenFade : MonoBehaviour {
                 // Lerp image colour to the target colour
                 float percent = _CurrentLerpTime / _FadeTime;
                 ImageComponent.color = Color.Lerp(_StartColour, _TargetColour, percent);
+
+                // Check for fade out (we need to hide the image component if so)
+                if (ImageComponent.color.a <= 0f) { ImageComponent.enabled = false; }
             }
 
             // Reset the current lerp time since the image component is disabled

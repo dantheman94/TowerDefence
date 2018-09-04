@@ -360,7 +360,7 @@ MonoBehaviour:
   ObjectDescriptionLong: The laboratory houses economy & general unit upgrades so
     that base & army efficiency is increased.
   Logo: {fileID: 0}
-  BuildingTime: 20
+  BuildingTime: 0
   CostSupplies: 100
   CostPower: 50
   CostTechLevel: 2
@@ -370,6 +370,8 @@ MonoBehaviour:
   _Player: {fileID: 0}
   FogOfWarRadius: 400
   ShowSelectionGUI: 1
+  ShowQuadHighlighter: 1
+  ShowQuadSelector: 1
   InQueueState: {fileID: 1261157101852674}
   BuildingState: {fileID: 1261157101852674}
   ActiveState: {fileID: 1622675479265872}
@@ -386,22 +388,23 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 60
   _WidgetShieldbarScaleY: 10
   _WidgetShieldbarOffset: 10
+  ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.3
+  MinimapQuad: {fileID: 0}
   AttachedBuildingSlot: {fileID: 0}
   ObjectHeight: 10
   HasABuildingQueue: 1
   Selectables:
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 114808354717532260, guid: 1de21035f8a28194cb04bfd00d710af4, type: 2}
+  - {fileID: 114520428206191618, guid: ced554d997c39bc4390176b677718d9a, type: 2}
+  - {fileID: 114122295972051122, guid: 36a1a7dcfbd7a9441923ae6734c67bda, type: 2}
+  - {fileID: 114321492504333980, guid: ff2e544a035e3134aa61515841e03126, type: 2}
   - {fileID: 114086916006409686, guid: 79277ac9396fb6649b8e74d19bdac0b4, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  QuadMinimap: {fileID: 1174138916967696}
+  - {fileID: 114637479626047606, guid: b0b553943343fae4e89f6bffadf50807, type: 2}
+  - {fileID: 114036110279440992, guid: ddc75dcadc85db640b601008ffb388bd, type: 2}
+  - {fileID: 114481798048649180, guid: c4a0f18ee5b21b74fbcb5adc9b905af4, type: 2}
+  - {fileID: 114909369810655446, guid: af5b11a941f2b054891c736f4b77e2a2, type: 2}
 --- !u!114 &114413970695192054
 MonoBehaviour:
   m_ObjectHideFlags: 1

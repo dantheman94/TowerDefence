@@ -525,8 +525,8 @@ public class KeyboardInput : MonoBehaviour {
                                 if (_HighlightBuilding == null) { _HighlightBuilding = _HighlightFocus.GetComponent<Building>(); }
                                 if (_HighlightBuilding != null) {
 
-                                    if (_HighlightBuilding.GetObjectState() == WorldObject.WorldObjectStates.Active ||
-                                        _HighlightBuilding.GetObjectState() == WorldObject.WorldObjectStates.Building) {
+                                    if (_HighlightBuilding.GetObjectState() == Abstraction.WorldObjectStates.Active ||
+                                        _HighlightBuilding.GetObjectState() == Abstraction.WorldObjectStates.Building) {
 
                                         // Highlight building
                                         _HighlightFocus.SetIsHighlighted(true);
@@ -537,10 +537,28 @@ public class KeyboardInput : MonoBehaviour {
                                 if (_HighlightAiObject == null) { _HighlightAiObject = _HighlightFocus.GetComponent<Ai>(); }
                                 if (_HighlightAiObject != null) {
 
-                                    if (_HighlightAiObject.GetObjectState() == WorldObject.WorldObjectStates.Active) {
+                                    if (_HighlightAiObject.GetObjectState() == Abstraction.WorldObjectStates.Active) {
 
-                                        // Highlight AI
-                                        _HighlightFocus.SetIsHighlighted(true);
+                                        Unit unit = _HighlightAiObject.GetComponent<Unit>();
+                                        if (unit != null) {
+
+                                            // Unit is part of a squad
+                                            if (unit.IsInASquad()) {
+
+                                                // Highlight AI
+                                                unit.GetSquadAttached().SetIsHighlighted(true);
+                                            }
+                                            
+                                            // Highlight singular unit
+                                            else { _HighlightAiObject.SetIsHighlighted(true); }
+                                        }
+
+                                        // Squad
+                                        else {
+
+                                            Squad squad = _HighlightAiObject.GetComponent<Squad>();
+                                            if (squad != null) { squad.SetIsHighlighted(true); }
+                                        }
                                     }
                                 }
 
@@ -586,6 +604,8 @@ public class KeyboardInput : MonoBehaviour {
         _HighlightBuilding = null;
         _HighlightAiObject = null;
         _HighlightWorldObject = null;
+
+        for (int i = 0; i < _PlayerAttached.GetArmy().Count; i++) { _PlayerAttached.GetArmy()[i].SetIsHighlighted(false); }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

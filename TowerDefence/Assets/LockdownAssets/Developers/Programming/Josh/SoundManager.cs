@@ -7,7 +7,7 @@ using UnityEngine;
 //  Created by: Joshua Peake
 //
 //  Last edited by: Joshua Peake
-//  Last edited on: 23/07/2018
+//  Last edited on: 3/09/2018
 //
 //******************************
 
@@ -18,22 +18,18 @@ public class SoundManager : MonoBehaviour {
     //      VARIABLES
     //
     //******************************************************************************************************************************
-
-    public static AudioSource _AudioSource;
-
-    // SFX
-    private static AudioClip _SFX_ExampleA,
-                             _SFX_ExampleB,
-                             _SFX_ExampleC;
-
-    // Music
-    private static AudioClip _MUSIC_ExampleA,
-                             _MUSIC_ExampleB;
-
-    // Voxel
-    private bool  _IsPlayingVoxel = false;
-    private float _TimeSinceLastVoxel = 0f;
+    
+    List<AudioSource> _Sounds;
     private List<AudioSource> _VoxelWaitingList;
+    public static SoundManager Instance;
+    private bool _IsPlayingVoxel = false;
+    private float _TimeSinceLastVoxel = 0f;
+
+    private bool _FadingIn;
+    private bool _FadingOut;
+
+    public float _CurrentFadeInLerp = 0f;
+    public float _CurrentFadeOutLerp = 0f;
 
     //******************************************************************************************************************************
     //
@@ -41,18 +37,7 @@ public class SoundManager : MonoBehaviour {
     //
     //******************************************************************************************************************************
 
-    // SFX
-    [SerializeField]
-    [Tooltip("The audio clip used for....")]
-    public AudioClip _SFX_ExampleA_Clip;
-    [SerializeField]
-    [Tooltip("The audio clip used for....")]
-    public AudioClip _SFX_ExampleB_Clip;
-    [SerializeField]
-    [Tooltip("The audio clip used for....")]
-    public AudioClip _SFX_ExampleC_Clip;
-
-    // Music
+    public AudioSource _MusicSource;
 
     //******************************************************************************************************************************
     //
@@ -65,37 +50,67 @@ public class SoundManager : MonoBehaviour {
     /// <summary>
     /// Called when the gameObject is created.
     /// </summary>
-    private void Start () {
+    public void Awake () {
 
-        // Initialize audio source
-        _AudioSource = GetComponent<AudioSource>();
+        // Initialize singleton
+        if (Instance != null && Instance != this) {
 
-        // Initialize SFX
-        _SFX_ExampleA = _SFX_ExampleA_Clip;
-        _SFX_ExampleB = _SFX_ExampleB_Clip;
-        _SFX_ExampleC = _SFX_ExampleC_Clip;
+            Destroy(this.gameObject);
+            return;
+        }
 
-        // Initialize Music
+        Instance = this;
 
-        // Initialize voxel player
-        _VoxelWaitingList = new List<AudioSource>();
+        // Initialize lists
+        _Sounds = new List<AudioSource>();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    /// <summary>
-    ///  Called each frame. 
-    /// </summary>
-    private void Update () {
+    public void Update() {
 
-        // Voxel player update
-        if (_VoxelWaitingList != null)
-            UpdateVoxelPlayer();
+        // Iterate through the sounds list
+        for (int i = 0; i < _Sounds.Count; ++i) {
+
+            // If there's a sound in the list that isn't playing
+            if (!(_Sounds[i].isPlaying)) {
+
+                // Remove the sound
+                _Sounds.RemoveAt(i);
+            }
+        }
+
+        if (_FadingIn) { _CurrentFadeInLerp += Time.deltaTime; }
+
+        if (_FadingOut) { _CurrentFadeOutLerp += Time.deltaTime; }
+
+        UpdateVoxel();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    private void UpdateVoxelPlayer() {
+    public void PlaySound(string soundLocation, float pitchMin, float pitchMax) {
+
+        // Create pooled game object for the sound
+        GameObject soundObj = ObjectPooling.Spawn(Resources.Load(soundLocation) as GameObject);
+
+        // Grab the source for the sound to play from
+        AudioSource soundSource = soundObj.GetComponent<AudioSource>();
+
+        // Randomize the sound's pitch based on the min and max specified
+        soundSource.pitch = Random.Range(pitchMin, pitchMax);
+
+        // Play the sound
+        soundSource.Play();
+
+        // Add the sound object to the List
+        _Sounds.Add(soundSource);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    private void UpdateVoxel()
+    {
 
         // If there are voxel sounds waiting to be played
         if (_VoxelWaitingList.Count > 0)
@@ -108,13 +123,14 @@ public class SoundManager : MonoBehaviour {
                 AudioSource vox = null;
                 foreach (var sound in _VoxelWaitingList)
                 {
-
+                    
                     // If a sound from the voxel list is playing
                     if (sound.isPlaying == true)
                     {
 
                         // Then a voxel is playing
                         vox = sound;
+
                     }
                     break;
                 }
@@ -153,39 +169,69 @@ public class SoundManager : MonoBehaviour {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public void PlaySFX(string clip) {
+    public void CallFadeIn(AudioSource musicSource, float timeToFade, float maxVolume) {
 
-        switch (clip)
-        {
+        StartCoroutine(FadeIn(musicSource, timeToFade, maxVolume));
+    }
 
-            // Example A
-            case "_SFX_ExampleA":
-                _AudioSource.PlayOneShot(_SFX_ExampleA, 1f);
-                break;
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-            // Example B
-            case "_SFX_ExampleB":
-                _AudioSource.PlayOneShot(_SFX_ExampleA, 1f);
-                break;
+    public void CallFadeOut(AudioSource musicSource, float timeToFade) {
 
-            // Example C
-            case "_SFX_ExampleC":
-                _AudioSource.PlayOneShot(_SFX_ExampleA, 1f);
-                break;
+        StartCoroutine(FadeOut(musicSource, timeToFade));
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    IEnumerator FadeIn(AudioSource musicSource, float timeToFade, float maxVolume) {
+
+        // Set fading in to be true
+        _FadingIn = true;
+        // Store the current volume
+        float startingVolume = 0f;
+
+        // While the music volume is less than the max volume
+        while (musicSource.volume < maxVolume) {
+
+            // Set the music volume to this variable
+            float percent = _CurrentFadeOutLerp / timeToFade;
+            // Clamp the volume
+            if (_CurrentFadeInLerp > timeToFade) { _CurrentFadeInLerp = timeToFade; }
+            // Lerp volume
+            musicSource.volume = Mathf.Lerp(startingVolume, maxVolume, percent);
+
+            // Set fading out to false when the volume reaches the max
+            if (musicSource.volume >= maxVolume) { _FadingIn = false; }
+
+            yield return new WaitForSeconds(0.1f);
         }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public void PlayMusic() {
+    IEnumerator FadeOut (AudioSource musicSource, float timeToFade) {
+        
+        // Set fading out to true
+        _FadingOut = true;
+        // Store the current volume
+        float startingVolume = musicSource.volume;
 
+        // While the music volume is more than 0
+        while (musicSource.volume > 0f) {
+            
+            // Set the music volume to this variable
+            float percent = _CurrentFadeOutLerp / timeToFade;
+            // Clamp the volume
+            if (_CurrentFadeOutLerp > timeToFade) { _CurrentFadeOutLerp = timeToFade; }
+            // Lerp volume
+            musicSource.volume = Mathf.Lerp(startingVolume, 0f, percent);
+
+            // Set fading out to false when the volume reaches 0
+            if (musicSource.volume <= 0) { _FadingOut = false; }
+
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    public List<AudioSource> GetVoxelWaitingList() { return _VoxelWaitingList; }
-
-    public void PlayVoxel()      { _IsPlayingVoxel = true; }
-
-    public bool GetIsPlayingVoxel() { return _IsPlayingVoxel; }
 }
