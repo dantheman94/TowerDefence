@@ -54,10 +54,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bc95350308c6884eb893838e84c13a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CanSelect: 0
   SphereSelectorObject: {fileID: 1272076427265570, guid: 585b5b89f62a3be4ba0d271c64ecc9f1,
     type: 2}
+  ReticleImage: {fileID: 0}
   MaxSphereRadius: 250
   SphereGrowRate: 10
+  SphereStartRadius: 5
+  MaskBlock:
+    serializedVersion: 2
+    m_Bits: 44545
+  AButton: {fileID: 0}
+  XButton: {fileID: 0}
+  BButton: {fileID: 0}
+  YButton: {fileID: 0}
 --- !u!114 &114537414513584320
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -97,7 +107,7 @@ MonoBehaviour:
   PlayerLevelText: {fileID: 0}
   MaskBlock:
     serializedVersion: 2
-    m_Bits: 11777
+    m_Bits: 44545
 --- !u!114 &114717441679538020
 MonoBehaviour:
   m_ObjectHideFlags: 1

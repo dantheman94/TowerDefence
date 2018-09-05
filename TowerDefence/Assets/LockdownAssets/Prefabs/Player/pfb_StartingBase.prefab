@@ -20,10 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4645143392498796}
   - component: {fileID: 33347675357168864}
-  - component: {fileID: 65126211984527802}
   - component: {fileID: 23235273044591794}
   - component: {fileID: 114903100215193964}
-  - component: {fileID: 208441705100115740}
   m_Layer: 11
   m_Name: TownHall_Slot_Depot (3)
   m_TagString: Untagged
@@ -73,7 +71,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4318405551858036}
   - component: {fileID: 33944838300362314}
-  - component: {fileID: 65275316204033740}
   - component: {fileID: 23924174972755496}
   - component: {fileID: 114299551235542998}
   - component: {fileID: 208226079915993580}
@@ -110,7 +107,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4763523807776604}
   - component: {fileID: 33427233056469676}
-  - component: {fileID: 65877144937907436}
   - component: {fileID: 23001042028163034}
   - component: {fileID: 114708240959743940}
   - component: {fileID: 208756096572667074}
@@ -130,10 +126,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4836204547832966}
   - component: {fileID: 33981979445303338}
-  - component: {fileID: 65808884482646652}
   - component: {fileID: 23442118274303702}
   - component: {fileID: 114875830938068608}
-  - component: {fileID: 208255574714778044}
   m_Layer: 11
   m_Name: TownHall_Slot_Depot (2)
   m_TagString: Untagged
@@ -150,10 +144,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4305753273589802}
   - component: {fileID: 33056592302494492}
-  - component: {fileID: 65262207593489400}
   - component: {fileID: 23911204530442616}
   - component: {fileID: 114866497472106838}
-  - component: {fileID: 208625822703183532}
   m_Layer: 11
   m_Name: TownHall_Slot_Depot (4)
   m_TagString: Untagged
@@ -185,10 +177,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4263061656589104}
   - component: {fileID: 33172077659785564}
-  - component: {fileID: 65613204414845348}
   - component: {fileID: 23948944838956950}
   - component: {fileID: 114087493330667832}
-  - component: {fileID: 208901589594044718}
   m_Layer: 11
   m_Name: TownHall_Slot_Depot (1)
   m_TagString: Untagged
@@ -283,7 +273,7 @@ Transform:
   m_GameObject: {fileID: 1652920718445646}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0.00000058114523}
   m_LocalPosition: {x: 22, y: 0, z: 6}
-  m_LocalScale: {x: 15, y: 1, z: 10}
+  m_LocalScale: {x: 15, y: 0.1, z: 10}
   m_Children: []
   m_Father: {fileID: 4548071757700486}
   m_RootOrder: 0
@@ -296,7 +286,7 @@ Transform:
   m_GameObject: {fileID: 1578760367672634}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -22, y: 0, z: -6}
-  m_LocalScale: {x: 15, y: 1, z: 10}
+  m_LocalScale: {x: 15, y: 0.1, z: 10}
   m_Children: []
   m_Father: {fileID: 4548071757700486}
   m_RootOrder: 3
@@ -309,7 +299,7 @@ Transform:
   m_GameObject: {fileID: 1191920442666312}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 27, y: 0, z: 16}
-  m_LocalScale: {x: 5, y: 1, z: 5}
+  m_LocalScale: {x: 5, y: 0.1, z: 5}
   m_Children: []
   m_Father: {fileID: 4548071757700486}
   m_RootOrder: 5
@@ -400,7 +390,7 @@ Transform:
   m_GameObject: {fileID: 1076113435595382}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 22, y: 0, z: -6}
-  m_LocalScale: {x: 15, y: 1, z: 10}
+  m_LocalScale: {x: 15, y: 0.1, z: 10}
   m_Children: []
   m_Father: {fileID: 4548071757700486}
   m_RootOrder: 2
@@ -413,7 +403,7 @@ Transform:
   m_GameObject: {fileID: 1253209268444656}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -27, y: 0, z: 16}
-  m_LocalScale: {x: 5, y: 1, z: 5}
+  m_LocalScale: {x: 5, y: 0.1, z: 5}
   m_Children: []
   m_Father: {fileID: 4548071757700486}
   m_RootOrder: 4
@@ -452,7 +442,7 @@ Transform:
   m_GameObject: {fileID: 1291198577529304}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -22, y: 0, z: 6}
-  m_LocalScale: {x: 15, y: 1, z: 10}
+  m_LocalScale: {x: 15, y: 0.1, z: 10}
   m_Children: []
   m_Father: {fileID: 4548071757700486}
   m_RootOrder: 1
@@ -797,54 +787,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 8, y: 25, z: 8}
   m_Center: {x: 0, y: 10, z: -8}
---- !u!65 &65126211984527802
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1076113435595382}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65262207593489400
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1578760367672634}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65275316204033740
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1191920442666312}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65613204414845348
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1652920718445646}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65789446159907858
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -857,30 +799,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 9, y: 9, z: 30}
   m_Center: {x: 0, y: 5, z: 0}
---- !u!65 &65808884482646652
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1291198577529304}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65877144937907436
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1253209268444656}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65954885373718880
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -967,7 +885,7 @@ MonoBehaviour:
   _WidgetShieldbarOffset: 22
   ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.2
-  MinimapQuad: {fileID: 0}
+  QuadMinimap: {fileID: 0}
   OnlyAppearWhenAttachedToBase: 0
   AttachedBase: {fileID: 114127789020942554}
   AttachedBuilding: {fileID: 0}
@@ -1031,7 +949,7 @@ MonoBehaviour:
   _WidgetShieldbarOffset: 10
   ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.3
-  MinimapQuad: {fileID: 1218796125758884}
+  QuadMinimap: {fileID: 0}
   AttachedBuildingSlot: {fileID: 0}
   ObjectHeight: 30
   HasABuildingQueue: 1
@@ -1104,7 +1022,7 @@ MonoBehaviour:
   _WidgetShieldbarOffset: 22
   ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.2
-  MinimapQuad: {fileID: 0}
+  QuadMinimap: {fileID: 0}
   OnlyAppearWhenAttachedToBase: 0
   AttachedBase: {fileID: 114127789020942554}
   AttachedBuilding: {fileID: 0}
@@ -1166,7 +1084,7 @@ MonoBehaviour:
   _WidgetShieldbarOffset: 22
   ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.2
-  MinimapQuad: {fileID: 0}
+  QuadMinimap: {fileID: 0}
   OnlyAppearWhenAttachedToBase: 0
   AttachedBase: {fileID: 114127789020942554}
   AttachedBuilding: {fileID: 0}
@@ -1228,7 +1146,7 @@ MonoBehaviour:
   _WidgetShieldbarOffset: 22
   ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.2
-  MinimapQuad: {fileID: 0}
+  QuadMinimap: {fileID: 0}
   OnlyAppearWhenAttachedToBase: 0
   AttachedBase: {fileID: 114127789020942554}
   AttachedBuilding: {fileID: 0}
@@ -1290,7 +1208,7 @@ MonoBehaviour:
   _WidgetShieldbarOffset: 22
   ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.2
-  MinimapQuad: {fileID: 0}
+  QuadMinimap: {fileID: 0}
   OnlyAppearWhenAttachedToBase: 0
   AttachedBase: {fileID: 114127789020942554}
   AttachedBuilding: {fileID: 0}
@@ -1352,7 +1270,7 @@ MonoBehaviour:
   _WidgetShieldbarOffset: 22
   ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.2
-  MinimapQuad: {fileID: 0}
+  QuadMinimap: {fileID: 0}
   OnlyAppearWhenAttachedToBase: 0
   AttachedBase: {fileID: 114127789020942554}
   AttachedBuilding: {fileID: 0}
@@ -1384,36 +1302,6 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
---- !u!208 &208255574714778044
-NavMeshObstacle:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1291198577529304}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
-  m_MoveThreshold: 0.1
-  m_Carve: 0
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0, z: 0}
-  m_TimeToStationary: 0.5
---- !u!208 &208441705100115740
-NavMeshObstacle:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1076113435595382}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
-  m_MoveThreshold: 0.1
-  m_Carve: 0
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0, z: 0}
-  m_TimeToStationary: 0.5
 --- !u!208 &208585342997635000
 NavMeshObstacle:
   m_ObjectHideFlags: 1
@@ -1429,42 +1317,12 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 0
   m_Center: {x: 0, y: 4, z: 0}
   m_TimeToStationary: 0.5
---- !u!208 &208625822703183532
-NavMeshObstacle:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1578760367672634}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
-  m_MoveThreshold: 0.1
-  m_Carve: 0
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0, z: 0}
-  m_TimeToStationary: 0.5
 --- !u!208 &208756096572667074
 NavMeshObstacle:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1253209268444656}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
-  m_MoveThreshold: 0.1
-  m_Carve: 0
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0, z: 0}
-  m_TimeToStationary: 0.5
---- !u!208 &208901589594044718
-NavMeshObstacle:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1652920718445646}
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1

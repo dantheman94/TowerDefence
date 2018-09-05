@@ -119,6 +119,8 @@ public class GameManager : MonoBehaviour {
     [HideInInspector]
     public List<Selectable> Selectables { get; set; }
 
+    public bool _CinematicInProgress { get; set; }
+
     [System.Serializable]
     public struct GameObjectPreloading {
 
@@ -178,6 +180,8 @@ public class GameManager : MonoBehaviour {
 
         // Initialize lists
         Selectables = new List<Selectable>();
+
+        _CinematicInProgress = false;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

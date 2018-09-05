@@ -65,7 +65,7 @@ public class Squad : Ai {
         base.Awake();
 
         // Update sphere collider radius to match the flocking radius
-        GetComponent<SphereCollider>().radius = FlockingRadius;
+        GetComponentInChildren<SphereCollider>().radius = FlockingRadius;
 
         // Create lists
         _Squad = new List<Unit>();
@@ -510,9 +510,16 @@ public class Squad : Ai {
     /// <param name="overwrite"></param>
     public void SquadAttackObject(WorldObject attackTarget, bool overwrite = false) {
 
-        // Set seek target and calculate a path to it
-        SquadSeek(attackTarget.transform.position, overwrite);
+        // Get position at an ideal attacking range of the target
+        Transform trans = new GameObject().transform;
+        trans.position = attackTarget.transform.position;
+        trans.LookAt(transform.position);
+        trans.position += trans.forward * ((SquadUnit.IdealAttackRangeMin + SquadUnit.IdealAttackRangeMax) / 2);
 
+        // Set seek target and calculate a path to it
+        SquadSeek(trans.position, overwrite);
+
+        Destroy(trans.gameObject);
         StartCoroutine(AttackPathComplete(attackTarget));
     }
 
@@ -529,16 +536,11 @@ public class Squad : Ai {
 
         yield return new WaitUntil(() => _SeekPathComplete);
 
-        // Get positions with an offset for each unit to seek towards
-        List<Vector3> positions = GetAttackingPositionsAtObject(attackTarget, _Squad.Count);
+        // Get all alive units to attack the object at their preferred position
         for (int i = 0; i < _Squad.Count; i++) {
 
-            // Get all alive units to attack the object (while positioning ourselves)
-            foreach (var unit in _Squad) {
-
-                unit.AgentAttackObject(attackTarget, positions[i], false);
-                i++;
-            }
+            Vector3 pos = _Squad[i].GetAttackingPositionAtObject(attackTarget);
+            _Squad[i].AgentAttackObject(attackTarget, pos);
         }
     }
 

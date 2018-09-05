@@ -67,10 +67,10 @@ public class Core : Building {
         if (_ObjectState == WorldObjectStates.Active && IsAlive()) {
 
             // Show the healthbar
-            if (_HealthBar != null) { _HealthBar.gameObject.SetActive(true); }
+            ///if (_HealthBar != null) { _HealthBar.gameObject.SetActive(true); }
 
             // Create a healthbar if the unit doesn't have one linked to it
-            else { CreateHealthBar(this, _Player.PlayerCamera); }
+            ///else { CreateHealthBar(this, _Player.PlayerCamera); }
 
             // Update current shield hitpoints based on the spire hitpoints
             float points = 0;

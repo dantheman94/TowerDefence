@@ -168,7 +168,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1855981135212812}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1022.11, y: 0, z: -519.61346}
+  m_LocalPosition: {x: -1022.11, y: 31.5, z: -519.61346}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4695208112276192}
@@ -584,12 +584,16 @@ MonoBehaviour:
     type: 2}
   SecondaryWeapon: {fileID: 0}
   MuzzleLaunchPoints: []
-  MaxAttackingRange: 100
-  IdealAttackRangeMax: 80
-  IdealAttackRangeMin: 40
+  MaxAttackingRange: 80
+  IdealAttackRangeMax: 60
+  IdealAttackRangeMin: 30
   CanBeStunned: 0
   HasReachedTarget: 1
   WeaponObject: {fileID: 1809263736075102}
+  RotationClampMinY: -180
+  RotationClampMaxY: 180
+  RotationClampMinZ: -180
+  RotationClampMaxZ: 180
   Acceleration: 10
   Deceleration: 8
   MaxSpeed: 20

@@ -144,61 +144,106 @@ public class UnitHealthBar : MonoBehaviour {
             else { ObjectPooling.Despawn(gameObject); }
 
             // Update team colour
-            switch (_WorldObject.Team) {
+            UpdateTeamColourFill();
+        } 
+    }
 
-                // White outline for undefined team
-                case GameManager.Team.Undefined: {
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Displays the health bar(s) fill colour with the team's associated colour.
+    /// </summary>
+    private void UpdateTeamColourFill() {
+
+        switch (_WorldObject.Team) {
+
+            // White fill for undefined team
+            case GameManager.Team.Undefined:
+
+                if (ShieldFill != null) { ShieldFill.color = Color.white; }
+                if (HealthFill != null) { HealthFill.color = Color.white; }
+                break;
+
+            // Player owner's colour for defending team
+            case GameManager.Team.Defending:
+
+                if (ShieldFill != null) { ShieldFill.color = _WorldObject._Player.TeamColor; }
+                if (HealthFill != null) { HealthFill.color = _WorldObject._Player.TeamColor; }
+                break;
+
+            // Red fill for attacking/AI team
+            case GameManager.Team.Attacking:
+
+                if (ShieldFill != null) { ShieldFill.color = WaveManager.Instance.AttackingTeamColour; }
+                if (HealthFill != null) { HealthFill.color = WaveManager.Instance.AttackingTeamColour; }
+                break;
+
+            default: break;
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Displays the health bar(s) outline colour with the team's associated colour.
+    //  (The fill colour changes based on the health percentage).
+    /// </summary>
+    private void UpdateTeamColourOutline() {
+
+        switch (_WorldObject.Team) {
+
+            // White outline for undefined team
+            case GameManager.Team.Undefined: {
 
                     if (ShieldbarTeamColourOutline != null) { ShieldbarTeamColourOutline.color = Color.white; }
                     if (HealthbarTeamColourOutline != null) { HealthbarTeamColourOutline.color = Color.white; }
                     break;
                 }
-                
-                // Player owner's colour for defending team
-                case GameManager.Team.Defending: { 
+
+            // Player owner's colour for defending team
+            case GameManager.Team.Defending: {
 
                     if (ShieldbarTeamColourOutline != null) { ShieldbarTeamColourOutline.color = _WorldObject._Player.TeamColor; }
                     if (HealthbarTeamColourOutline != null) { HealthbarTeamColourOutline.color = _WorldObject._Player.TeamColor; }
                     break;
                 }
 
-                // Red outline for attacking/AI team
-                case GameManager.Team.Attacking: {
+            // Red outline for attacking/AI team
+            case GameManager.Team.Attacking: {
 
                     if (ShieldbarTeamColourOutline != null) { ShieldbarTeamColourOutline.color = WaveManager.Instance.AttackingTeamColour; }
                     if (HealthbarTeamColourOutline != null) { HealthbarTeamColourOutline.color = WaveManager.Instance.AttackingTeamColour; }
                     break;
                 }
 
-                default: break;
-            }
+            default: break;
+        }
 
-            // Update shieldbar colour thresholds
-            if (ShieldFill != null && ShieldSlider != null) {
+        // Update shieldbar colour thresholds
+        if (ShieldFill != null && ShieldSlider != null) {
 
-                // Shield okay
-                if (ShieldSlider.value >= ShieldPercentageThresholdDamaged) { ShieldFill.color = ShieldOkayColour; }
+            // Shield okay
+            if (ShieldSlider.value >= ShieldPercentageThresholdDamaged) { ShieldFill.color = ShieldOkayColour; }
 
-                // Shield damaged
-                else if (ShieldSlider.value >= ShieldPercentageThresholdVeryDamaged) { ShieldFill.color = ShieldDamagedColour; }
+            // Shield damaged
+            else if (ShieldSlider.value >= ShieldPercentageThresholdVeryDamaged) { ShieldFill.color = ShieldDamagedColour; }
 
-                // Shield very damaged
-                else { ShieldFill.color = ShieldVeryDamagedColour; }
-            }
+            // Shield very damaged
+            else { ShieldFill.color = ShieldVeryDamagedColour; }
+        }
 
-            // Update healthbar colour thresholds
-            if (HealthFill != null && HealthSlider != null) {
+        // Update healthbar colour thresholds
+        if (HealthFill != null && HealthSlider != null) {
 
-                // Health okay
-                if  (HealthSlider.value >= HealthPercentageThresholdDamaged) { HealthFill.color = HealthOkayColour; }
+            // Health okay
+            if (HealthSlider.value >= HealthPercentageThresholdDamaged) { HealthFill.color = HealthOkayColour; }
 
-                // Health damaged
-                else if (HealthSlider.value >= HealthPercentageThresholdVeryDamaged) { HealthFill.color = HealthDamagedColour; }
+            // Health damaged
+            else if (HealthSlider.value >= HealthPercentageThresholdVeryDamaged) { HealthFill.color = HealthDamagedColour; }
 
-                // Health very damaged
-                else { HealthFill.color = HealthVeryDamagedColour; }
-            }
-        } 
+            // Health very damaged
+            else { HealthFill.color = HealthVeryDamagedColour; }
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

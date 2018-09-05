@@ -82,7 +82,7 @@ public class Cine_Opening : Cinematic {
 
             // Smoothly lerp the view camera's FOV to the target FOV
             float percent = _CurrentLerpTime / _FovLerpTime;
-            ViewCamera.fieldOfView = Mathf.Lerp(Settings.MaxFov, _TargetFov, percent);
+            ///ViewCamera.fieldOfView = Mathf.Lerp(Settings.MaxFov, _TargetFov, percent);
 
             // View camera has reached target
             float dist = Vector3.Distance(ViewCamera.transform.position, _TargetTransform.position);
@@ -97,7 +97,7 @@ public class Cine_Opening : Cinematic {
                     startingBase.CreateRallyPoint();
 
                     _CinematicComplete = true;
-                    _CinematicInProgress = false;
+                    GameManager.Instance._CinematicInProgress = _CinematicInProgress = false;
                 }
             }
         }
@@ -110,7 +110,7 @@ public class Cine_Opening : Cinematic {
     /// </summary>
     public override void StartCinematic() {
         base.StartCinematic();
-
+        
         // Set starting position
         ViewCamera.transform.position = new Vector3(WaveManager.Instance.CentralCore.transform.position.x,
                                      Settings.MaxCameraHeight,
@@ -125,7 +125,7 @@ public class Cine_Opening : Cinematic {
         UI_ScreenFade.Instance.StartAnimation(new Color(0, 0, 0, 1), new Color(0, 0, 0, 0), 4f);
 
         // Start coroutine
-        _CinematicInProgress = true;
+        GameManager.Instance._CinematicInProgress = _CinematicInProgress = true;
         StartCoroutine(DelayedCameraMove());
         StartCoroutine(CinematicFinish());
     }
