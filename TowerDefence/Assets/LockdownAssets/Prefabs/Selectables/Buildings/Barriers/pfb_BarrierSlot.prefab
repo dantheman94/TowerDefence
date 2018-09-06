@@ -35,13 +35,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1016279759970900}
-  m_LocalRotation: {x: -0, y: 0.6087608, z: -0, w: 0.7933539}
-  m_LocalPosition: {x: -99.00409, y: -2.509133e-17, z: -90.798546}
-  m_LocalScale: {x: 60, y: 1, z: 10}
+  m_LocalRotation: {x: -0, y: 0.3965924, z: -0, w: 0.9179948}
+  m_LocalPosition: {x: -116.61, y: 0.67, z: -231.64}
+  m_LocalScale: {x: 25, y: 1, z: 5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 75, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 46.731003, z: 0}
 --- !u!23 &23341947310170516
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -108,6 +108,8 @@ MonoBehaviour:
   _Player: {fileID: 0}
   FogOfWarRadius: 400
   ShowSelectionGUI: 1
+  ShowQuadHighlighter: 1
+  ShowQuadSelector: 1
   InQueueState: {fileID: 0}
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
@@ -124,7 +126,9 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
+  ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.2
+  QuadMinimap: {fileID: 0}
   OnlyAppearWhenAttachedToBase: 0
   AttachedBase: {fileID: 0}
   AttachedBuilding: {fileID: 0}

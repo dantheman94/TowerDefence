@@ -151,7 +151,7 @@ public class Selectable : Abstraction {
                 // Update selection prefab position
                 Vector3 pos = new Vector3();
                 pos.x = transform.position.x;
-                pos.y = 1.1f;
+                pos.y = transform.position.y + 1f;
                 pos.z = transform.position.z;
                 _SelectionObj.transform.position = pos;
 
@@ -194,7 +194,7 @@ public class Selectable : Abstraction {
                 // Update highlight prefab position
                 Vector3 pos = new Vector3();
                 pos.x = transform.position.x;
-                pos.y = 1.1f;
+                pos.y = transform.position.y + 1.2f; ;
                 pos.z = transform.position.z;
                 _HighlightObj.transform.position = pos;
 

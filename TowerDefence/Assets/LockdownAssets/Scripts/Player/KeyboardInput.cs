@@ -7,7 +7,7 @@ using TowerDefence;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Angus Secomb
-//  Last edited on: 27/8/2018
+//  Last edited on: 5/9/2018
 //
 //******************************
 
@@ -20,6 +20,7 @@ public class KeyboardInput : MonoBehaviour {
     //******************************************************************************************************************************
 
     private Player _PlayerAttached;
+    private CameraPlayer _PlayerCamera;
     private XboxGamepadInput _XboxGamepadInputManager = null;
     public bool IsPrimaryController { get; set; }
     public static Rect Selection = new Rect(0, 0, 0, 0);
@@ -52,6 +53,7 @@ public class KeyboardInput : MonoBehaviour {
         // Get component references
         _PlayerAttached = GetComponent<Player>();
         _XboxGamepadInputManager = GetComponent<XboxGamepadInput>();
+        _PlayerCamera = _PlayerAttached.PlayerCamera.GetComponent<CameraPlayer>();
 
         // Initialize center point for LookAt() function
         CreateCenterPoint();
@@ -356,7 +358,7 @@ public class KeyboardInput : MonoBehaviour {
                 Settings.MovementSpeed = Settings.CameraWalkSpeed;
             }
         }
-        
+
         // Horizontal camera movement via mouse
         if (xPos >= 0 && xPos < Settings.ScreenOffset)
             movement.x -= Settings.MovementSpeed;
@@ -373,7 +375,7 @@ public class KeyboardInput : MonoBehaviour {
         // but ignore the vertical tilt of the camera to get sensible scrolling
         movement = _PlayerAttached.PlayerCamera.transform.TransformDirection(movement);
         movement.y = 0;
-        
+
         // Calculate desired camera position based on received input
         Vector3 posOrigin = _PlayerAttached.PlayerCamera.transform.position;
         Vector3 posDestination = posOrigin;
@@ -382,11 +384,8 @@ public class KeyboardInput : MonoBehaviour {
         posDestination.z += movement.z;
 
         // Limit away from ground movement to be between a minimum and maximum distance
-        if (posDestination.y > Settings.MaxCameraHeight)
-            posDestination.y = Settings.MaxCameraHeight;
-
-        else if (posDestination.y < Settings.MinCameraHeight)
-            posDestination.y = Settings.MinCameraHeight;
+        if      (posDestination.y > _PlayerCamera._MaxCameraHeight) { posDestination.y = _PlayerCamera._MaxCameraHeight; }
+        else if (posDestination.y < _PlayerCamera._MinCameraHeight) { posDestination.y = _PlayerCamera._MinCameraHeight; }
 
         // If a change in position is detected perform the necessary update
         if (posDestination != posOrigin) {

@@ -489,7 +489,7 @@ public class WorldObject : Selectable {
         transform.SetPositionAndRotation(buildingSlot.transform.position, buildingSlot.transform.rotation);
 
         // Add offset
-        transform.position = new Vector3(transform.position.x, _OffsetY, transform.position.z);
+        transform.position = new Vector3(transform.position.x, transform.position.y + _OffsetY, transform.position.z);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
