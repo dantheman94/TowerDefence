@@ -247,6 +247,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4299930655064412}
+  - component: {fileID: 208092136309459622}
   m_Layer: 0
   m_Name: SiegeTurret_Active
   m_TagString: Untagged
@@ -761,7 +762,7 @@ MonoBehaviour:
   ObjectDescriptionLong: Long ranged & high damage artillery turret. Cannot fire at
     units that are too close to it. Firing mortar projectiles cost resources.
   Logo: {fileID: 0}
-  BuildingTime: 20
+  BuildingTime: 15
   CostSupplies: 950
   CostPower: 100
   CostTechLevel: 2
@@ -879,3 +880,18 @@ CapsuleCollider:
   m_Height: 16
   m_Direction: 1
   m_Center: {x: 0, y: 7, z: 0}
+--- !u!208 &208092136309459622
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1908354191995910}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 4, y: 10, z: 4}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 4, z: 0}
+  m_TimeToStationary: 0.5

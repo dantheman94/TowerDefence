@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4526429216962806}
   - component: {fileID: 33277053966590976}
   - component: {fileID: 23882741015571352}
-  - component: {fileID: 208827606067205368}
+  - component: {fileID: 65930020355615692}
   - component: {fileID: 114111713111011338}
   m_Layer: 11
   m_Name: pfb_TowerSlot
@@ -36,13 +36,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1148801069332518}
-  m_LocalRotation: {x: -0, y: -0.8870109, z: -0, w: -0.46174863}
-  m_LocalPosition: {x: 43.799995, y: 0.5, z: -47.3}
-  m_LocalScale: {x: 10, y: 1, z: 10}
+  m_LocalRotation: {x: -0, y: -0.7169275, z: -0, w: -0.69714767}
+  m_LocalPosition: {x: -155.54, y: 12.88, z: 55}
+  m_LocalScale: {x: 5.000001, y: 1, z: 5.000001}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -235, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 451.603, z: 0}
 --- !u!23 &23882741015571352
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -84,6 +84,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1148801069332518}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &65930020355615692
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1148801069332518}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114111713111011338
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -104,11 +116,13 @@ MonoBehaviour:
   CostPower: 0
   CostTechLevel: 1
   CostPopulation: 0
-  _ObjectState: 3
+  _ObjectState: 4
   Team: 0
   _Player: {fileID: 0}
   FogOfWarRadius: 400
   ShowSelectionGUI: 1
+  ShowQuadHighlighter: 1
+  ShowQuadSelector: 1
   InQueueState: {fileID: 0}
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
@@ -125,7 +139,9 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
+  ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.2
+  QuadMinimap: {fileID: 0}
   OnlyAppearWhenAttachedToBase: 0
   AttachedBase: {fileID: 0}
   AttachedBuilding: {fileID: 0}
@@ -142,18 +158,3 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
---- !u!208 &208827606067205368
-NavMeshObstacle:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1148801069332518}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
-  m_MoveThreshold: 0.1
-  m_Carve: 1
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0, z: 0}
-  m_TimeToStationary: 0.5

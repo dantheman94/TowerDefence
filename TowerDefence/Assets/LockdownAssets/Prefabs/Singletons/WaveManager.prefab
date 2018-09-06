@@ -60,6 +60,10 @@ MonoBehaviour:
   LockdownPads:
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   WaveNotificationWidget: {fileID: 0}
   CoreDamagedWidget: {fileID: 0}
   CinematicOpening: {fileID: 0}
@@ -97,7 +101,7 @@ MonoBehaviour:
         type: 2}
       StartAtSubwave: 1
       PerSpawnInterval: 1
-      WaveMax: 2
+      WaveMax: 1
       CurrentLives: 0
   - Name: Very Light Ground Vehicles
     Severity: 0
@@ -115,8 +119,8 @@ MonoBehaviour:
       EnemyReference: {fileID: 114321492504333980, guid: ff2e544a035e3134aa61515841e03126,
         type: 2}
       StartAtSubwave: 1
-      PerSpawnInterval: 2
-      WaveMax: 4
+      PerSpawnInterval: 1
+      WaveMax: 2
       CurrentLives: 0
     - Name: Core Vehicle
       EnemyReference: {fileID: 114585045816634058, guid: 71a43feeb36f7ac4faaaad78429ccc75,
@@ -129,66 +133,59 @@ MonoBehaviour:
     Severity: 0
     Type: 2
     WaveIntervals:
-      MinimumWaveInterval: 1
+      MinimumWaveInterval: 4
       MaximumWaveInterval: 9
     BossWaveIntervals:
       MinimumBossWaveInterval: 0
       UnlimitedBossWaveIntervals: 0
       MaximumBossWaveInterval: 0
-    Subwaves: 2
+    Subwaves: 3
     Enemies:
     - Name: Core Marine Squad
       EnemyReference: {fileID: 114321492504333980, guid: ff2e544a035e3134aa61515841e03126,
         type: 2}
       StartAtSubwave: 1
-      PerSpawnInterval: 2
-      WaveMax: 4
+      PerSpawnInterval: 1
+      WaveMax: 3
       CurrentLives: 0
     - Name: Core Vehicle
       EnemyReference: {fileID: 114585045816634058, guid: 71a43feeb36f7ac4faaaad78429ccc75,
         type: 2}
       StartAtSubwave: 1
       PerSpawnInterval: 1
-      WaveMax: 2
+      WaveMax: 1
       CurrentLives: 0
     - Name: Anti Infantry Squad
       EnemyReference: {fileID: 114637479626047606, guid: b0b553943343fae4e89f6bffadf50807,
         type: 2}
       StartAtSubwave: 1
       PerSpawnInterval: 1
-      WaveMax: 2
+      WaveMax: 1
       CurrentLives: 0
   - Name: Very Light Air
     Severity: 0
     Type: 3
     WaveIntervals:
       MinimumWaveInterval: 1
-      MaximumWaveInterval: 5
+      MaximumWaveInterval: 6
     BossWaveIntervals:
       MinimumBossWaveInterval: 0
       UnlimitedBossWaveIntervals: 0
       MaximumBossWaveInterval: 0
-    Subwaves: 2
+    Subwaves: 3
     Enemies:
     - Name: Core Airship
       EnemyReference: {fileID: 114909369810655446, guid: af5b11a941f2b054891c736f4b77e2a2,
         type: 2}
       StartAtSubwave: 1
-      PerSpawnInterval: 2
-      WaveMax: 4
-      CurrentLives: 0
-    - Name: Support Airship
-      EnemyReference: {fileID: 114481798048649180, guid: c4a0f18ee5b21b74fbcb5adc9b905af4,
-        type: 2}
-      StartAtSubwave: 1
       PerSpawnInterval: 1
-      WaveMax: 2
+      WaveMax: 3
       CurrentLives: 0
   - Name: Very Light Mixed
     Severity: 0
     Type: 5
     WaveIntervals:
-      MinimumWaveInterval: 5
+      MinimumWaveInterval: 6
       MaximumWaveInterval: 9
     BossWaveIntervals:
       MinimumBossWaveInterval: 0
@@ -200,14 +197,14 @@ MonoBehaviour:
       EnemyReference: {fileID: 0}
       StartAtSubwave: 1
       PerSpawnInterval: 1
-      WaveMax: 3
+      WaveMax: 2
       CurrentLives: 0
     - Name: Support Airship
       EnemyReference: {fileID: 114481798048649180, guid: c4a0f18ee5b21b74fbcb5adc9b905af4,
         type: 2}
       StartAtSubwave: 1
       PerSpawnInterval: 1
-      WaveMax: 2
+      WaveMax: 1
       CurrentLives: 0
     - Name: Core Marine
       EnemyReference: {fileID: 114321492504333980, guid: ff2e544a035e3134aa61515841e03126,
@@ -223,8 +220,27 @@ MonoBehaviour:
       PerSpawnInterval: 2
       WaveMax: 4
       CurrentLives: 0
-    - Name: Hero
-      EnemyReference: {fileID: 114963470945021714, guid: b428dfdc6baddce46b81aed55d5c7396,
+  - Name: Very Light Boss
+    Severity: 0
+    Type: 6
+    WaveIntervals:
+      MinimumWaveInterval: 6
+      MaximumWaveInterval: 9
+    BossWaveIntervals:
+      MinimumBossWaveInterval: 0
+      UnlimitedBossWaveIntervals: 0
+      MaximumBossWaveInterval: 0
+    Subwaves: 2
+    Enemies:
+    - Name: Core Marine
+      EnemyReference: {fileID: 114321492504333980, guid: ff2e544a035e3134aa61515841e03126,
+        type: 2}
+      StartAtSubwave: 1
+      PerSpawnInterval: 2
+      WaveMax: 4
+      CurrentLives: 0
+    - Name: Heavy Airship
+      EnemyReference: {fileID: 114036110279440992, guid: ddc75dcadc85db640b601008ffb388bd,
         type: 2}
       StartAtSubwave: 1
       PerSpawnInterval: 1

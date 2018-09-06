@@ -699,6 +699,8 @@ MonoBehaviour:
   _Player: {fileID: 0}
   FogOfWarRadius: 400
   ShowSelectionGUI: 1
+  ShowQuadHighlighter: 1
+  ShowQuadSelector: 1
   InQueueState: {fileID: 0}
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
@@ -715,7 +717,9 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
+  ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.2
+  QuadMinimap: {fileID: 0}
   OnlyAppearWhenAttachedToBase: 0
   AttachedBase: {fileID: 114947448389047210}
   AttachedBuilding: {fileID: 0}
@@ -723,15 +727,15 @@ MonoBehaviour:
   LinkedSlots: []
   Buildings:
   - {fileID: 0}
-  - {fileID: 114346840076971176, guid: 318af2593dae43f49b3ad5386de9d721, type: 2}
-  - {fileID: 114017345909741574, guid: 04c64a5c69b88bd4baabd0d85f77b558, type: 2}
-  - {fileID: 114306093193310104, guid: 6465691795d88d5428c690933f8fa003, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 114951768522124020, guid: 7a49f022dbc88594ca3d350493ad7107, type: 2}
-  - {fileID: 114962387785300862, guid: e3c54a520ddcdc440aa7794768b47d71, type: 2}
-  - {fileID: 114556115896821994, guid: a924b60d8e0df404ca14707de2f3e32e, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &114947448389047210
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -757,6 +761,8 @@ MonoBehaviour:
   _Player: {fileID: 0}
   FogOfWarRadius: 400
   ShowSelectionGUI: 1
+  ShowQuadHighlighter: 1
+  ShowQuadSelector: 1
   InQueueState: {fileID: 1959811010249452}
   BuildingState: {fileID: 1959811010249452}
   ActiveState: {fileID: 1781239863202218}
@@ -773,12 +779,14 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 220
   _WidgetShieldbarScaleY: 20
   _WidgetShieldbarOffset: 30
+  ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.2
+  QuadMinimap: {fileID: 0}
   AttachedBuildingSlot: {fileID: 0}
   ObjectHeight: 30
   HasABuildingQueue: 1
   Selectables:
-  - {fileID: 114878690511021116, guid: 9502e9a3761bb2247b59cc9694566488, type: 2}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -788,8 +796,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  QuadMinimap: {fileID: 0}
-  MinimapQuad: {fileID: 1255405721817460}
   BaseType: 4
   TechLevelWhenBuilt: 1
   GroundUnitSpawnTransform: {fileID: 1601843890124790}

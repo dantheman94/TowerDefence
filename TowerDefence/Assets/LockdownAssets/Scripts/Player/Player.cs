@@ -197,6 +197,23 @@ public class Player : MonoBehaviour {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
+    //  Removes an army from the player's population
+    /// </summary>
+    /// <param name="ai"></param>
+    public void RemoveFromArmy(Ai ai) {
+
+        if (ai != null) {
+
+            _Army.Remove(ai);
+
+            // Remove it from any assigned groups
+            for (int i = 0; i < _Platoons.Count; i++) { _Platoons[i].GetAi().Remove(ai); }
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
     //  
     /// </summary>
     /// <returns></returns>

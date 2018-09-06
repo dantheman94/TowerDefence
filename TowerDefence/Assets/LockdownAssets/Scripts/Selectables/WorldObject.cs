@@ -438,6 +438,11 @@ public class WorldObject : Selectable {
             ObjectPooling.Despawn(_HealthBar.gameObject);
         }
 
+        if (_Player != null && Team == GameManager.Team.Defending) {
+
+            _Player.RemoveFromArmy(this as Ai);
+        }
+
         // Clamping health
         _HitPoints = 0;
         _Health = 0f;

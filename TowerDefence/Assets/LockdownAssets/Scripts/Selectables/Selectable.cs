@@ -194,7 +194,7 @@ public class Selectable : Abstraction {
                 // Update highlight prefab position
                 Vector3 pos = new Vector3();
                 pos.x = transform.position.x;
-                pos.y = transform.position.y + 1.2f; ;
+                pos.y = transform.position.y + 1f; ;
                 pos.z = transform.position.z;
                 _HighlightObj.transform.position = pos;
 
@@ -204,7 +204,7 @@ public class Selectable : Abstraction {
 
                     switch (Team) {
                         case GameManager.Team.Undefined: { _HighlightObjRenderer.material.color = Color.white; break; }
-                        case GameManager.Team.Defending: { _HighlightObjRenderer.material.color = Color.cyan; break; } /// Temporary colour - just to show a different colour to selected (ideally it should be a shade lighter than the player's colour!)
+                        case GameManager.Team.Defending: { _HighlightObjRenderer.material.color = Color.blue; break; } /// Temporary colour - just to show a different colour to selected (ideally it should be a shade lighter than the player's colour!)
                         case GameManager.Team.Attacking: { _HighlightObjRenderer.material.color = WaveManager.Instance.AttackingTeamColour; break; }
                         default: break;
                     }

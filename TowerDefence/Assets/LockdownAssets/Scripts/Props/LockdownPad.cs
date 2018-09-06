@@ -32,6 +32,8 @@ public class LockdownPad : MonoBehaviour {
     public BuildingSlot BuildingSlotAttached = null;
     public float SpawnRadius = 85f;
     public float VerticalSpawnOffset = 4.1f;
+    [Space]
+    public UI_LockdownPadHUD LockdownPadHud = null;
 
     //******************************************************************************************************************************
     //

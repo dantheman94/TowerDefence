@@ -153,7 +153,7 @@ public class Ai : WorldObject {
     //  Adds a WorldObject to the weighted target list
     /// </summary>
     /// <param name="target"></param>
-    public void AddPotentialTarget(WorldObject target) {
+    public virtual void AddPotentialTarget(WorldObject target) {
 
         // Not a friendly unit...
         if (target.Team != Team) {
@@ -201,7 +201,7 @@ public class Ai : WorldObject {
     /// <summary>
     //  
     /// </summary>
-    public void DetermineWeightedTargetFromList(TargetWeight[] weightList) {
+    public virtual void DetermineWeightedTargetFromList(TargetWeight[] weightList) {
 
         // Multiple targets to select from
         if (_PotentialTargets.Count > 0) {
@@ -311,11 +311,22 @@ public class Ai : WorldObject {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    
     /// <summary>
     //  
     /// </summary>
-    /// <returns></returns>
+    /// <param name="target"></param>
+    public void SetAttackTarget(WorldObject target) { _AttackTarget = target; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+    /// <summary>
+    //  Get refernence of the current attack target.
+    /// </summary>
+    /// <returns>
+    // WorldObject
+    /// </returns>
     public WorldObject GetAttackTarget() { return _AttackTarget; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

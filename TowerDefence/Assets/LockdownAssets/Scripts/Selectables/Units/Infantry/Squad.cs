@@ -170,6 +170,12 @@ public class Squad : Ai {
                 _SeekPathComplete = true;
             }
         }
+
+        // Constantly set the squad's units to have a matching attack target as the squad object they are attached to
+        for (int i = 0; i < _Squad.Count; i++) {
+
+            
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -519,8 +525,36 @@ public class Squad : Ai {
         // Set seek target and calculate a path to it
         SquadSeek(trans.position, overwrite);
 
+        AddPotentialTarget(attackTarget);
+        DetermineWeightedTargetFromList(TargetWeights);
+
         Destroy(trans.gameObject);
         StartCoroutine(AttackPathComplete(attackTarget));
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Adds a WorldObject to the weighted target list
+    /// </summary>
+    /// <param name="target"></param>
+    public override void AddPotentialTarget(WorldObject target) {
+        base.AddPotentialTarget(target);
+
+        // Update squad units
+        for (int i = 0; i < _Squad.Count; i++) { _Squad[i].AddPotentialTarget(target); }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public override void DetermineWeightedTargetFromList(TargetWeight[] weightList) {
+        base.DetermineWeightedTargetFromList(weightList);
+        
+        // Update squad units
+        for (int i = 0; i < _Squad.Count; i++) { _Squad[i].SetAttackTarget(_AttackTarget); }
+
+        // Try to chase the target
+        if (_AttackTarget != null) { TryToChaseTarget(_AttackTarget); }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
