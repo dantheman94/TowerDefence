@@ -29,6 +29,7 @@ public class DayNightCycle : MonoBehaviour {
     public float _CurrentTime = 0.0f;
     public float _CurrentDay;
     float _SunInitialIntensity;
+    bool _IsNightTime;
 
     //******************************************************************************************************************************
     //
@@ -64,6 +65,10 @@ public class DayNightCycle : MonoBehaviour {
 
         // If the current time of day >= 1 then it needs to be set to 0 to start the next one
         if (_CurrentTime >= 1) { _CurrentTime = 0; }
+
+        if (_CurrentTime >= 0.75 && _CurrentTime <= 0.25) { _IsNightTime = true; }
+
+        else { _IsNightTime = false; }
 	}
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
