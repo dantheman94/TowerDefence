@@ -22,10 +22,12 @@ public class DayNightCycle : MonoBehaviour {
     //
     //******************************************************************************************************************************
 
-    public float _DayDuration = 240.0f; // 24 x 10 (In seconds)
-    public float _CurrentTimeOfDay = 0.0f;
+    [Tooltip("Length of each day in seconds.")]
+    public float _DayLength = 24.0f;
+    [Tooltip("The speed of each day.")]
+    public float _DaySpeed = 1.0f;
+    public float _CurrentTime = 0.0f;
     public float _CurrentDay;
-    public float _TimeMultiplier = 1.0f;
     float _SunInitialIntensity;
 
     //******************************************************************************************************************************
@@ -58,36 +60,36 @@ public class DayNightCycle : MonoBehaviour {
         UpdateSun();
 
         // Update the time
-        _CurrentTimeOfDay += (Time.deltaTime / _DayDuration) * _TimeMultiplier;
+        _CurrentTime += (Time.deltaTime / _DayLength) * _DaySpeed;
 
         // If the current time of day >= 1 then it needs to be set to 0 to start the next one
-        if (_CurrentTimeOfDay >= 1) { _CurrentTimeOfDay = 0; }
+        if (_CurrentTime >= 1) { _CurrentTime = 0; }
 	}
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     void UpdateSun() {
 
-        Sun.transform.localRotation = Quaternion.Euler((_CurrentTimeOfDay * 360.0f) - 90, 170, 0);
+        // Set the sun's transform
+        Sun.transform.localRotation = Quaternion.Euler((_CurrentTime * 360.0f) - 90, 170, 0);
 
+        // Intensity multiplier
         float intensityMultiplier = 1.0f;
 
-        if (_CurrentTimeOfDay <= 0.23f || _CurrentTimeOfDay >= 0.75f) { intensityMultiplier = 0.0f; }
+        if (_CurrentTime <= 0.23f || _CurrentTime >= 0.75f) { intensityMultiplier = 0.0f; }
 
-        else if (_CurrentTimeOfDay <= 0.23f) {
+        else if (_CurrentTime <= 0.23f) {
 
-            intensityMultiplier = Mathf.Clamp01((_CurrentTimeOfDay - 0.23f) * (1 / 0.02f));
+            intensityMultiplier = Mathf.Clamp01((_CurrentTime - 0.23f) * (1 / 0.02f));
         }
 
-        else if (_CurrentTimeOfDay >= 0.73f) {
+        else if (_CurrentTime >= 0.73f) {
 
-            intensityMultiplier = Mathf.Clamp01(1 - ((_CurrentTimeOfDay - 0.73f) * (1 / 0.02f)));
+            intensityMultiplier = Mathf.Clamp01(1 - ((_CurrentTime - 0.73f) * (1 / 0.02f)));
         }
 
+        // Set the sun's intensity
         Sun.intensity = _SunInitialIntensity * intensityMultiplier;
-
-        // Log the current time of day
-        Debug.Log("Current time of day is: " + _CurrentTimeOfDay);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
