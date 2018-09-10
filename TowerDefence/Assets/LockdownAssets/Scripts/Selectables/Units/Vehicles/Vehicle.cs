@@ -7,7 +7,7 @@ using UnityEngine;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 12/8/2018
+//  Last edited on: 10/9/2018
 //
 //******************************
 
@@ -24,9 +24,10 @@ public class Vehicle : Unit {
     [Header(" BASE VEHICLE PROPERTIES")]
     [Space]
     public GameObject WeaponObject = null;
+    [Space]
+    public bool ClampRotation = false;
     public float RotationClampMinY = -180f;
     public float RotationClampMaxY = 180f;
-    [Space]
     public float RotationClampMinZ = -180f;
     public float RotationClampMaxZ = 180f;
 
@@ -200,9 +201,10 @@ public class Vehicle : Unit {
             _WeaponLookRotation = Quaternion.LookRotation(_DirectionToTarget);
 
             // Clamp the rotation
-            _WeaponLookRotation.eulerAngles = new Vector3(_WeaponLookRotation.eulerAngles.x,
-                                                          Mathf.Clamp(_WeaponLookRotation.y, RotationClampMinY, RotationClampMaxY),
-                                                          Mathf.Clamp(_WeaponLookRotation.z, RotationClampMinZ, RotationClampMaxZ));
+            if (ClampRotation) {  _WeaponLookRotation.eulerAngles = new Vector3(_WeaponLookRotation.eulerAngles.x,
+                                                                                Mathf.Clamp(_WeaponLookRotation.y, RotationClampMinY, RotationClampMaxY),
+                                                                                Mathf.Clamp(_WeaponLookRotation.z, RotationClampMinZ, RotationClampMaxZ));
+            }
 
             // Rotate us over time according to speed until we are in the required rotation
             WeaponObject.transform.rotation = Quaternion.LerpUnclamped(WeaponObject.transform.rotation, _WeaponLookRotation, Time.deltaTime * 2);

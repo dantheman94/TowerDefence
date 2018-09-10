@@ -7,7 +7,7 @@ using UnityEngine;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 23/8/2018
+//  Last edited on: 10/9/2018
 //
 //******************************
 
@@ -34,6 +34,8 @@ public class LockdownPad : MonoBehaviour {
     public float VerticalSpawnOffset = 4.1f;
     [Space]
     public UI_LockdownPadHUD LockdownPadHud = null;
+    [Space]
+    public List<AttackPath> AttackPaths;
 
     //******************************************************************************************************************************
     //
@@ -101,8 +103,7 @@ public class LockdownPad : MonoBehaviour {
         // Random position somewhere within the sphere
         float randX = Random.Range(sphere.center.x - sphere.radius, sphere.center.x + sphere.radius);
         float randZ = Random.Range(sphere.center.z - sphere.radius, sphere.center.z + sphere.radius);
-        Vector3 pos = new Vector3(randX, gameObject.transform.position.y + VerticalSpawnOffset, randZ);
-        
+        Vector3 pos = new Vector3(randX, /*gameObject.transform.position.y +*/ VerticalSpawnOffset, randZ);        
         return pos;
     }
 
@@ -125,8 +126,21 @@ public class LockdownPad : MonoBehaviour {
 
         // Loop for each location and add it to the list
         for (int i = 0; i < amount; i++) { locations.Add(GetSpawnLocationWithinPad(locations, _SpawnSphere)); }
-
         return locations;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <returns>
+    //  AttackPath
+    /// </returns>
+    public AttackPath GetRandomAttackPath() {
+
+        int i = Random.Range(0, AttackPaths.Count);
+        return AttackPaths[i];
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

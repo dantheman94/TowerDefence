@@ -44,6 +44,7 @@ public class Squad : Ai {
     public LayerMask layerMask;
 
     private bool _PathCalculated = false;
+    private bool _PathSemiCalculated = false;
     private bool _SeekPathComplete = false;
     private NavMeshPath _CurrentPath;
     private Vector3 _CurrentCornerTarget;
@@ -135,6 +136,7 @@ public class Squad : Ai {
         if (_CurrentPath != null) {
 
             _PathCalculated = _CurrentPath.status == NavMeshPathStatus.PathComplete;
+            _PathSemiCalculated = _CurrentPath.status == NavMeshPathStatus.PathPartial;
 
             // Draw debug lines of the calculated path
             for (int i = 0; i < _CurrentPath.corners.Length - 1; i++) {
@@ -170,12 +172,6 @@ public class Squad : Ai {
                 _SeekPathComplete = true;
             }
         }
-
-        // Constantly set the squad's units to have a matching attack target as the squad object they are attached to
-        for (int i = 0; i < _Squad.Count; i++) {
-
-            
-        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -201,6 +197,7 @@ public class Squad : Ai {
 
                 buildingSlot.GetBuildingOnSlot().SetIsBuildingSomething(true);
                 buildingSlot.GetBuildingOnSlot().SetObjectBeingBuilt(_ClonedWorldObject);
+                _ClonedWorldObject.GetComponent<Squad>()._AttachedBuilding = buildingSlot.GetBuildingOnSlot();
             }
 
             // Set position to be at the bases spawn vector while it is building
@@ -209,6 +206,7 @@ public class Squad : Ai {
 
                 _ClonedWorldObject.gameObject.transform.position = buildingSlot.AttachedBase.GroundUnitSpawnTransform.transform.position;
                 _ClonedWorldObject.gameObject.transform.rotation = buildingSlot.AttachedBase.GroundUnitSpawnTransform.transform.rotation;
+                _ClonedWorldObject.GetComponent<Squad>()._AttachedBuilding = buildingSlot.AttachedBase;
             }
 
             // No base attached
@@ -229,10 +227,9 @@ public class Squad : Ai {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
+    
     /// <summary>
-    ///
+    //  Creates a new navmesh path for the squad to use.
     /// </summary>
     public void SquadCalculatePath(Vector3 targetPos) {
 
@@ -240,6 +237,7 @@ public class Squad : Ai {
 
         // Create new path
         _CurrentPath = new NavMeshPath();
+        _NodeIterator = 0;
 
         // Calculate the path
         NavMesh.CalculatePath(transform.position, targetPos, NavMesh.AllAreas, _CurrentPath);
@@ -248,15 +246,20 @@ public class Squad : Ai {
         StartCoroutine(SeekPathCalculated());
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <returns>
+    //  IEnumerator
+    /// </returns>
     IEnumerator SeekPathCalculated() {
 
-        yield return new WaitUntil(() => _PathCalculated);
+        yield return new WaitUntil(() => _PathCalculated || _PathSemiCalculated);
 
         // Set the path corners into a list
-        if (_PathCorners != null) {
-
-            _PathCorners.Clear();
-        }
+        if (_PathCorners != null) { _PathCorners.Clear(); }
 
         // Draw debug lines of the calculated path
         for (int i = 0; i < _CurrentPath.corners.Length - 1; i++) {
@@ -264,10 +267,7 @@ public class Squad : Ai {
             Debug.DrawLine(_CurrentPath.corners[i], _CurrentPath.corners[i + 1], Color.red);
            
             // Add to path node list
-
-            if (_PathCorners != null) {
-                _PathCorners.Add(_CurrentPath.corners[i]);
-            }
+            if (_PathCorners != null) { _PathCorners.Add(_CurrentPath.corners[i]); }
         }
 
         // Set starting point
@@ -281,7 +281,8 @@ public class Squad : Ai {
             List<Vector3> positions = GetPositionsWithinFlockingBoundsOfPoint(_CurrentCornerTarget, _Squad.Count);
             for (int i = 0; i < _Squad.Count; i++) {
 
-                _Squad[i].AgentSeekPosition(positions[i], false, true);
+                // Squad hasnt been interupted so keep following through the nodes
+                if (!_PathInterupted) { _Squad[i].AgentSeekPosition(positions[i], false, false); }
             }
         }
     }
@@ -292,10 +293,9 @@ public class Squad : Ai {
     //  Called each frame. 
     /// </summary>
     protected override void UpdateChasingEnemy() {
-
         base.UpdateChasingEnemy();
 
-        if (_AttackTarget != null) { SquadAttackObject(_AttackTarget); }
+        ///if (_AttackTarget != null) { SquadAttackObject(_AttackTarget); }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -304,7 +304,6 @@ public class Squad : Ai {
     //  
     /// </summary>
     protected override void ResetToOriginPosition() {
-
         base.ResetToOriginPosition();
 
         for (int i = 0; i < _Squad.Count; i++) { _Squad[i].ResetToOrigin(); }
@@ -403,7 +402,10 @@ public class Squad : Ai {
         // Go to rally point
         if (_AttachedBuilding != null) {
 
-            if (_AttachedBuilding.GetRallyPoint() != null) { SquadSeek(_AttachedBuilding.GetRallyPoint().transform.position); }
+            if (_AttachedBuilding.GetRallyPoint() != null) {
+
+                SquadSeek(_AttachedBuilding.GetRallyPoint().transform.position);
+            }
         }
     }
 
@@ -498,12 +500,12 @@ public class Squad : Ai {
         if (_SeekWaypoint == null) { _SeekWaypoint = ObjectPooling.Spawn(GameManager.Instance.AgentSeekObject, Vector3.zero, Quaternion.identity); }
         if (_SeekWaypoint != null) {
 
-            // Display waypoint if not already being displayed
-            if (_SeekWaypoint.activeInHierarchy != true && Team == GameManager.Team.Defending) { _SeekWaypoint.SetActive(true); }
-
             // Update waypoint position
             _SeekWaypoint.transform.position = seekTarget;
             _SeekWaypoint.transform.position += Vector3.up;
+
+            // Display waypoint if not already being displayed
+            if (_SeekWaypoint.activeInHierarchy != true && Team == GameManager.Team.Defending) { _SeekWaypoint.SetActive(true); }
         }
     }
 
@@ -523,13 +525,15 @@ public class Squad : Ai {
         trans.position += trans.forward * ((SquadUnit.IdealAttackRangeMin + SquadUnit.IdealAttackRangeMax) / 2);
 
         // Set seek target and calculate a path to it
-        SquadSeek(trans.position, overwrite);
-
         AddPotentialTarget(attackTarget);
         DetermineWeightedTargetFromList(TargetWeights);
+        SquadSeek(trans.position, overwrite);
 
-        Destroy(trans.gameObject);
+        // Force a new attack target if were overwriting the current one
+        if (overwrite) { _AttackTarget = attackTarget; }
+
         StartCoroutine(AttackPathComplete(attackTarget));
+        Destroy(trans.gameObject);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -547,6 +551,9 @@ public class Squad : Ai {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /// <summary>
+    //  
+    /// </summary>
     public override void DetermineWeightedTargetFromList(TargetWeight[] weightList) {
         base.DetermineWeightedTargetFromList(weightList);
         
@@ -585,9 +592,7 @@ public class Squad : Ai {
     /// </summary>
     /// <param name="unit"></param>
     public void RemoveUnitFromSquad(Unit unit) {
-
-        GameObject g = this.gameObject;
-
+        
         // Loop through current squad
         for (int i = 0; i < unit.GetSquadAttached().GetSquadMembers().Count; i++) {
 

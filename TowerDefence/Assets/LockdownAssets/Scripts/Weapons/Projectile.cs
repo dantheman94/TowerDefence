@@ -126,15 +126,18 @@ public class Projectile : MonoBehaviour {
 
         // Track target if possible
         if (HomingProjectile && HomingTarget != null) {
-            
-            // Find the vector pointing from our position to the target
-            _DirectionToTarget = (HomingTarget.transform.position - transform.position).normalized;
 
-            // Create the rotation we need to be in to look at the target
-            _WeaponLookRotation = Quaternion.LookRotation(_DirectionToTarget);
+            if (HomingTarget.IsAlive()) {
 
-            // Rotate us over time according to speed until we are in the required rotation
-            transform.rotation = Quaternion.Lerp(transform.rotation, _WeaponLookRotation, TrackingStrength * Time.deltaTime);
+                // Find the vector pointing from our position to the target
+                _DirectionToTarget = (HomingTarget.transform.position - transform.position).normalized;
+
+                // Create the rotation we need to be in to look at the target
+                _WeaponLookRotation = Quaternion.LookRotation(_DirectionToTarget);
+
+                // Rotate us over time according to speed until we are in the required rotation
+                transform.rotation = Quaternion.Lerp(transform.rotation, _WeaponLookRotation, TrackingStrength * Time.deltaTime);
+            }
         }
     }
 

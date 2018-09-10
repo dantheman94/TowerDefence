@@ -212,6 +212,8 @@ public class WaveManager : MonoBehaviour {
 
             if (StartingFriendlyUnits[i] is Unit) { StartingFriendlyUnits[i]._Player.AddToPopulation(StartingFriendlyUnits[i] as Unit); }
             if (StartingFriendlyUnits[i] is Squad) { StartingFriendlyUnits[i]._Player.AddToPopulation(StartingFriendlyUnits[i] as Squad); }
+
+            StartingFriendlyUnits[i].GetComponent<Unit>().OnSpawn();
         }
     }
 
@@ -389,8 +391,6 @@ public class WaveManager : MonoBehaviour {
         int subwaves = _CurrentWaveInfo.Subwaves;
         if (subwaves == 0)  { _TimeTillNextSubwave = _TimeTillNextWave; }
         else                { _TimeTillNextSubwave = _TimeTillNextWave / subwaves; }
-        ///Debug.Log("Amount of subwaves: " + subwaves);
-        ///Debug.Log("Time till next subwave: " + _TimeTillNextSubwave);
 
         // Set the waves lives to max
         for (int i = 0; i < _CurrentWaveInfo.Enemies.Count; i++) {
@@ -478,8 +478,11 @@ public class WaveManager : MonoBehaviour {
 
                 unit.Team = GameManager.Team.Attacking;
                 unit.OnSpawn();
-                unit.AgentAttackObject(CentralCore.GetAttackObject());
+                ///unit.AgentAttackObject(CentralCore.GetAttackObject());
                 unit.CreateHealthBar(unit, player.PlayerCamera);
+
+                unit.SetAttackPath(_CurrentLockdownPad.GetRandomAttackPath());
+                unit.AgentSeekPosition(unit.GetAttackPath().GetFirstNodeWithOffset(), false, false);
 
                 _CurrentWaveEnemies.Add(unit);
             }

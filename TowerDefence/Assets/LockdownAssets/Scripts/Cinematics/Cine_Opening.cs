@@ -178,6 +178,8 @@ public class Cine_Opening : Cinematic {
 
         // Start match
         WaveManager.Instance.StartNewMatch();
+
+        Destroy(_TargetTransform.gameObject);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

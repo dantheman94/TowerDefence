@@ -68,7 +68,7 @@ public class Unit : Ai
     private float SnapLookAtRange = 0f;
     private BuildingSlot _BuildingSlotInstigator = null;
 
-    public NavMeshPath _NavMeshPath;
+    protected NavMeshPath _NavMeshPath;
 
     //******************************************************************************************************************************
     //
@@ -359,7 +359,7 @@ public class Unit : Ai
                 _IsChasing = false;
                 _IsSeeking = false;
                 _IsReturningToOrigin = false;
-                _IsFollowingPlayerCommand = false;
+                ///_IsFollowingPlayerCommand = false;
             }
 
             // Update seeking waypoint visibility (only for player controlled units)
@@ -418,16 +418,16 @@ public class Unit : Ai
                 // Get new attack target if possible
                 DetermineWeightedTargetFromList(TargetWeights);
 
-                // Always attack the core if we dont have a target (ATTACKING TEAM ONLY)
-                if (Team == GameManager.Team.Attacking && !IsInASquad()) {
+                //// Always attack the core if we dont have a target (ATTACKING TEAM ONLY)
+                //if (Team == GameManager.Team.Attacking && !IsInASquad()) {
 
-                    if (_AttackTarget == null) {
+                    //if (_AttackTarget == null) {
 
-                        AddPotentialTarget(WaveManager.Instance.CentralCore.GetAttackObject());
-                        DetermineWeightedTargetFromList(TargetWeights);
-                        TryToChaseTarget(_AttackTarget);
-                    }
-                }
+                        //AddPotentialTarget(WaveManager.Instance.CentralCore.GetAttackObject());
+                        //DetermineWeightedTargetFromList(TargetWeights);
+                        //TryToChaseTarget(_AttackTarget);
+                    //}
+                //}
             }
         }
     }
@@ -454,6 +454,21 @@ public class Unit : Ai
     protected virtual void LookAtSnap(Vector3 position) {
 
         _Agent.transform.LookAt(position);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="pos"></param>
+    /// <returns>
+    //  IEnumerator
+    /// </returns>
+    protected override IEnumerator AgentGoTo(Vector3 pos) {
+
+        AgentSeekPosition(pos, false, false);
+        return base.AgentGoTo(pos);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

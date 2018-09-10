@@ -795,7 +795,7 @@ MonoBehaviour:
     the Grumbleblaster is equipped with a top mounted, revolving cannon. Effective
     against light infantry units.
   Logo: {fileID: 0}
-  BuildingTime: 15
+  BuildingTime: 0
   CostSupplies: 280
   CostPower: 0
   CostTechLevel: 2
@@ -870,6 +870,11 @@ MonoBehaviour:
   CanBeStunned: 0
   HasReachedTarget: 1
   WeaponObject: {fileID: 1105998942925646}
+  ClampRotation: 0
+  RotationClampMinY: -360
+  RotationClampMaxY: 360
+  RotationClampMinZ: -360
+  RotationClampMaxZ: 360
   Acceleration: 10
   Deceleration: 8
   MaxSpeed: 30
@@ -950,7 +955,7 @@ NavMeshAgent:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1500859508108806}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 4
   m_Speed: 3.5

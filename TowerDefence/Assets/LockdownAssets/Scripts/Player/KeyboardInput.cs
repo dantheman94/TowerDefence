@@ -6,8 +6,8 @@ using TowerDefence;
 //
 //  Created by: Daniel Marton
 //
-//  Last edited by: Angus Secomb
-//  Last edited on: 5/9/2018
+//  Last edited by: Daniel Marton
+//  Last edited on: 10/9/2018
 //
 //******************************
 
@@ -960,7 +960,7 @@ public class KeyboardInput : MonoBehaviour {
                         if (squads.Count > 0) {
 
                             // Loop through all selected squads & perform ATTACK command on the squad
-                            foreach (var squad in squads) { squad.SquadAttackObject(squadObj); }
+                            foreach (var squad in squads) { squad.SquadAttackObject(squadObj, true); }
                         }
 
                         // If there are individually selected units
@@ -995,6 +995,7 @@ public class KeyboardInput : MonoBehaviour {
 
                                 // Loop through all selected units & perform ATTACK command on the squad
                                 foreach (var unit in units) { unit.AgentAttackObject(squadObj, unit.GetAttackingPositionAtObject(squadObj), true); }
+                            foreach (var unit in units) { unit.TryToChaseTarget(squadObj); }
                             }
                         }
                     }
@@ -1016,7 +1017,8 @@ public class KeyboardInput : MonoBehaviour {
                             if (units.Count > 0) {
 
                                 // Loop through all selected units & perform ATTACK command on the unit
-                                foreach (var unit in units) { unit.AgentAttackObject(unitObj, unit.GetAttackingPositionAtObject(unitObj), true); }
+                                ///foreach (var unit in units) { unit.AgentAttackObject(unitObj, unit.GetAttackingPositionAtObject(unitObj), true); }
+                                foreach (var unit in units) { unit.ForceChaseTarget(unitObj); }
                             }
                         }
                     }

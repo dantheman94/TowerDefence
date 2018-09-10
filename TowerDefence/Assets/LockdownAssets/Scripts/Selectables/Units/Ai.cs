@@ -58,6 +58,12 @@ public class Ai : WorldObject {
     protected Vector3 _ChaseOriginPosition = Vector3.zero;
     protected Vector3 _SeekTarget = Vector3.zero;
 
+    protected bool _PathInterupted = false;
+    protected WorldObject _InteruptionInstigator = null;
+
+    protected AttackPath _AttackPath = null;
+    protected int _AttackPathIterator = 0;
+
     protected Building _AttachedBuilding;
 
     //******************************************************************************************************************************
@@ -87,8 +93,13 @@ public class Ai : WorldObject {
     public override void Damage(float damage, WorldObject instigator) {
         base.Damage(damage);
 
+        // Interupt the current path (if valid)
+        _PathInterupted = true;
+        _InteruptionInstigator = instigator;
+
         // Add intigator to the potential list
         if (instigator != null) { AddPotentialTarget(instigator); }
+
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -105,8 +116,58 @@ public class Ai : WorldObject {
 
         if (_IsFollowingPlayerCommand) { UpdatePlayerOverrideCheck(); }
         if (_IsReturningToOrigin) { ResetToOriginPosition(); }
+
+        // Update attack path
+        UpdateAttackPath();
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Called each frame. 
+    /// </summary>
+    private void UpdateAttackPath() {
+
+        if (_AttackPath != null && _AttackTarget == null) {
+
+            // Calculate distance from path node
+            float dist = Vector3.Distance(transform.position, _AttackPath.GetNodePositions()[_AttackPathIterator]);
+            if (dist < _AttackPath.NodeAccuracyRadius) {
+
+                // Update node iterator
+                if (_AttackPathIterator + 1 <= _AttackPath.GetNodePositions().Count) {
+
+                    _AttackPathIterator++;
+
+                    // Go to point with random offset
+                    Vector2 rand = Random.insideUnitCircle * 20f;
+                    Vector3 pos = _AttackPath.GetNodePositions()[_AttackPathIterator] + new Vector3(rand.x, _AttackPath.GetNodePositions()[_AttackPathIterator].y, rand.y);
+
+                    Instantiate(GameManager.Instance.AgentSeekObject, _AttackPath.GetNodePositions()[_AttackPathIterator], Quaternion.identity);
+
+                    StartCoroutine(AgentGoTo(pos));
+                }
+            }
+            else {
+
+                if (!_IsSeeking) { StartCoroutine(AgentGoTo(_AttackPath.GetNodePositions()[_AttackPathIterator])); }                
+            }
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="pos"></param>
+    /// <returns>
+    //  IEnumerator
+    /// </returns>
+    protected virtual IEnumerator AgentGoTo(Vector3 pos) {
+        yield return new WaitForEndOfFrame();
+
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -365,6 +426,22 @@ public class Ai : WorldObject {
     /// <summary>
     //  
     /// </summary>
+    /// <param name="worldObject"></param>
+    public bool ForceChaseTarget(WorldObject objTarget) {
+
+        if (objTarget != null) {
+
+            _AttackTarget = objTarget;
+            _IsChasing = true;
+            return true;            
+        }
+        return false;
+    }
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
     protected virtual void ResetToOriginPosition() {
         
         _IsChasing = false;
@@ -422,4 +499,22 @@ public class Ai : WorldObject {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /// <summary>
+    //  Set's the attack path to the core for this individual unit.
+    /// </summary>
+    /// <param name="path"></param>
+    public void SetAttackPath(AttackPath path) { _AttackPath = path; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <returns>
+    //  AttackPath
+    /// </returns>
+    public AttackPath GetAttackPath() { return _AttackPath; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
 }

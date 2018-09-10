@@ -590,6 +590,11 @@ MonoBehaviour:
   CanBeStunned: 0
   HasReachedTarget: 0
   WeaponObject: {fileID: 0}
+  ClampRotation: 0
+  RotationClampMinY: -180
+  RotationClampMaxY: 180
+  RotationClampMinZ: -180
+  RotationClampMaxZ: 180
   Acceleration: 4
   Deceleration: 2
   MaxSpeed: 15
@@ -670,7 +675,7 @@ NavMeshAgent:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1830067331789510}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 4
   m_Speed: 3.5
