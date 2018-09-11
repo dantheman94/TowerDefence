@@ -139,7 +139,25 @@ public class Player : MonoBehaviour {
         for (int i = 0; i < _PlatoonCount; i++) { _Platoons.Add(GameManager.Instance.PlatoonUnitsHUD.UnitInfoPanels[i].GetComponent<Platoon>()); }
 
         // Setup camera
-        if(PlayerCamera != null) { PlayerCamera.GetComponent<CameraPlayer>().SetPlayerAttached(this); }
+        if (PlayerCamera != null) { PlayerCamera.GetComponent<CameraPlayer>().SetPlayerAttached(this); }
+
+        // Initialize starting base
+        _Bases.Add(GameManager.Instance.StartingBase);
+        GameManager.Instance.StartingBase.AttachedBuildingSlot.SetBuildingOnSlot(GameManager.Instance.StartingBase);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Called each frame.
+    /// </summary>
+    private void Update() {
+
+        if (!GameManager.Instance._CinematicInProgress) {
+
+            // If there are no bases in the player's list >> Lose the match
+            if (_Bases.Count == 0) { GameManager.Instance.OnGameover(false); }
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -242,6 +260,32 @@ public class Player : MonoBehaviour {
     /// </summary>
     /// <returns></returns>
     public int GetScore() { return Score; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="newBase"></param>
+    public void AddBase(Base newBase) { _Bases.Add(newBase); }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <returns>
+    //  List<Base>
+    /// returns>
+    public List<Base> GetBaseList() { return _Bases; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="list"></param>
+    public void SetBaseList(List<Base> list) { _Bases = list; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

@@ -35,6 +35,9 @@ public class Weapon : MonoBehaviour {
     public float FiringDelay = 0.5f;
     [Space]
     public float ChargeUpTime = 0f;
+    public float ChargeLightRadius = 5f;
+    public float ChargeLightIntensity = 1f;
+    public Color ChargeUpColor = Color.white;
     [Space]
     public EOffsetType AngularOffsetType = EOffsetType.Alternate;
     public Vector3 AngularOffset = Vector3.zero;
@@ -106,6 +109,10 @@ public class Weapon : MonoBehaviour {
         // Create lists
         _MuzzleLaunchPoints = new List<Transform>();
         _UnusedLaunchPoints = new List<int>();
+
+        if (ChargeUpTime > 0) {
+
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 //******************************
@@ -179,10 +180,13 @@ public class Base : Building {
     protected override void OnBuilt() {
         base.OnBuilt();
         
-        // Add tech level if required
         if (_Player != null) {
 
+            // Add tech level if required
             if (_Player.Level < TechLevelWhenBuilt) { _Player.Level = TechLevelWhenBuilt; }
+
+            // Add to player's base list
+            _Player.AddBase(_ClonedWorldObject as Base);
         }
 
         // Show any hidden base slots that are linked to the building slot
@@ -224,6 +228,7 @@ public class Base : Building {
         
         // This is an enemy base >> remove its building slot from the enemy slot array in the wave manager
         if (Team == GameManager.Team.Attacking) { WaveManager.Instance.EnemyBaseDestroyed(AttachedBuildingSlot.AttachedBase); }
+        else if (Team == GameManager.Team.Defending) { _Player.GetBaseList().Remove(this); }
 
         // Destroy all the attached buildings (towers, depots, etc...)
         for (int i = 0; i < _BuildingList.Count; i++) {

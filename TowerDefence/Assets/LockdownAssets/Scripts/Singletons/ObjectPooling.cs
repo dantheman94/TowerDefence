@@ -341,7 +341,7 @@ public static class ObjectPooling {
         if (poolMember != null) { poolMember.LinkedPool.Despawn(obj); }
 
         // The object wasn't spawned via an object pool, so just destroy it normally
-        else { GameObject.Destroy(obj); }
+        else { GameObject.Destroy(obj, 1f); }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

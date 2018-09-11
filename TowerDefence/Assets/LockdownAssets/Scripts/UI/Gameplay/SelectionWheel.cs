@@ -62,7 +62,7 @@ public class SelectionWheel : MonoBehaviour {
     
     [HideInInspector]
     public List<Abstraction> _BuildingList;
-
+    
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
@@ -195,8 +195,15 @@ public class SelectionWheel : MonoBehaviour {
                     SelectionWheelUnitRef unitRef = button.GetComponent<SelectionWheelUnitRef>();
                     if (unitRef.AbstractRef != null) {
 
-                        bool unlock = GameManager.Instance.Players[0].Level >= unitRef.AbstractRef.CostTechLevel;
-                        button.interactable = unlock;
+                        Player player = GameManager.Instance.Players[0];
+                        Abstraction item = unitRef.AbstractRef;
+
+                        bool unlock = player.Level >= item.CostTechLevel;
+                        bool purchasable = player.SuppliesCount >= item.CostSupplies &&
+                                           player.PowerCount >= item.CostPower &&
+                                           (player.MaxPopulation - player.PopulationCount) >= item.CostPopulation;
+
+                        button.interactable = unlock && purchasable;
                     }
 
                     // If theres no unit reference in the button, just disable it by default

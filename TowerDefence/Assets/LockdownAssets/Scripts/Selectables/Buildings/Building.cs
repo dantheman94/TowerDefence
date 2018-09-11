@@ -346,7 +346,7 @@ public class Building : WorldObject {
 
             // Destroy Building
             if (_BuildingQueueUI != null) { UI_BuildingQueueWrapper.Instance.RemoveFromQueue(_BuildingQueueUI); }
-            ObjectPooling.Despawn(AttachedBuildingSlot.GetBuildingOnSlot().gameObject);
+            OnDeath();
 
             // Send message to match feed
             MatchFeed.Instance.AddMessage(string.Concat(ObjectName, " recycled."));
