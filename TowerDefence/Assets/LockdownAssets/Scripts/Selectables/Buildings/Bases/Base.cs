@@ -41,7 +41,6 @@ public class Base : Building {
 
     public enum eBaseType { Outpost, Station, CommandCenter, Headquarters, Minibase }
     protected List<Building> _BuildingList;
-    protected Renderer _MinimapRenderer;
     protected Base _PreviousBase = null;
 
     //******************************************************************************************************************************
@@ -59,7 +58,6 @@ public class Base : Building {
         base.Start();
 
         // Get component references
-        if (QuadMinimap != null) { _MinimapRenderer = QuadMinimap.GetComponent<Renderer>(); }
         _BuildingList = new List<Building>();
     }
 
