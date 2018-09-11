@@ -124,7 +124,8 @@ public class Unit : Ai {
     /// </summary>
     protected override void Update() {
         base.Update();
-        
+
+        UpdateSquadSelection();
         // Selecting the unit via drag selection
         UpdateBoxSelection();
 
@@ -661,6 +662,28 @@ public class Unit : Ai {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    private void UpdateSquadSelection()
+    {
+        if (_Player != null)
+        {
+            if (_Player._KeyboardInputManager.CreateScreenSelection())
+            {
+                Vector3 CamPos = _Player.PlayerCamera.WorldToScreenPoint(transform.position);
+                if (KeyboardInput.SelectionScreen.Contains(CamPos))
+                {
+                    if (this.GetObjectState() == WorldObject.WorldObjectStates.Active && !_IsCurrentlySelected)
+                    {
+                        _Player.SelectedWorldObjects.Add(this);
+                        _Player.SelectedUnits.Add(this);
+                        this.SetPlayer(_Player);
+                        this.SetIsSelected(true);
+                    }
+                }
+            }
+        }
+    }
+
 
     /// <summary>
     // Checks if unit is selected by click & drag box

@@ -24,6 +24,7 @@ public class KeyboardInput : MonoBehaviour {
     private XboxGamepadInput _XboxGamepadInputManager = null;
     public bool IsPrimaryController { get; set; }
     public static Rect Selection = new Rect(0, 0, 0, 0);
+    public static Rect SelectionScreen = new Rect(0, 0, Screen.width, Screen.height);
     public static bool MouseIsDown = false;
     public Texture SelectionHighlight;
     public Minimap MiniMap;
@@ -1648,10 +1649,21 @@ public class KeyboardInput : MonoBehaviour {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    /// <summary>
-    // Creates the selection boxes parameters.
-    /// </summary>
-    private void CreateSelectionBox()
+    public bool CreateScreenSelection()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+        /// <summary>
+        // Creates the selection boxes parameters.
+        /// </summary>
+        private void CreateSelectionBox()
     {
         
         if (!MiniMap.MapArea.Contains(new Vector2(Input.mousePosition.x, Screen.height - Input.mousePosition.y)))
@@ -1699,6 +1711,7 @@ public class KeyboardInput : MonoBehaviour {
             GUI.color = new Color(1, 1, 1, 0.5f);
             GUI.DrawTexture(Selection, SelectionHighlight);
         }
+        //GUI.DrawTexture(SelectionScreen, SelectionHighlight);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
