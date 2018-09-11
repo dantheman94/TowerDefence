@@ -9,30 +9,30 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1943007919261042}
+  m_RootGameObject: {fileID: 1028517755072394}
   m_IsPrefabParent: 1
---- !u!1 &1943007919261042
+--- !u!1 &1028517755072394
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4290806682503604}
-  - component: {fileID: 114186958178133812}
+  - component: {fileID: 4248193702675198}
+  - component: {fileID: 114268630985064268}
   m_Layer: 0
-  m_Name: pfb_AntiInfantryRifle
+  m_Name: pfb_DwarfCoreRifle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4290806682503604
+--- !u!4 &4248193702675198
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1943007919261042}
+  m_GameObject: {fileID: 1028517755072394}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -40,40 +40,40 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114186958178133812
+--- !u!114 &114268630985064268
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1943007919261042}
+  m_GameObject: {fileID: 1028517755072394}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f24bbf81aea765549a797e3e95ee482d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ProjectileType: 0
-  ProjectileClass: {fileID: 114429450592400748, guid: a78c558a35b7c404facd00f0d0c8eae2,
+  _ProjectileType: 2
+  ProjectileClass: {fileID: 0}
+  FiringEffect: {fileID: 198718711815295068, guid: 85890053984b40445ac3d1b2f38e3314,
     type: 2}
-  FiringEffect: {fileID: 0}
   MuzzleEffect: {fileID: 0}
   MuzzlePatternType: 0
   ReusableMuzzlePoints: 1
-  FiringDelay: 1
+  FiringDelay: 0.2
   ChargeUpTime: 0
   AngularOffsetType: 0
   AngularOffset: {x: 0, y: 0, z: 0}
   Damages:
-    DamageDefault: 2
-    DamageCoreInfantry: 6
-    DamageAntiInfantryMarine: 6
-    DamageHero: 6
+    DamageDefault: 3
+    DamageCoreInfantry: 3
+    DamageAntiInfantryMarine: 3
+    DamageHero: 3
     DamageCoreVehicle: 2
     DamageAntiAirVehicle: 2
     DamageMobileArtillery: 2
     DamageBattleTank: 2
-    DamageCoreAirship: 0
-    DamageSupportShip: 0
-    DamageHeavyAirship: 0
-  BottomlessClip: 1
+    DamageCoreAirship: 4
+    DamageSupportShip: 4
+    DamageHeavyAirship: 4
+  BottomlessClip: 0
   MagazineSize: 24
-  ReloadTime: 2
+  ReloadTime: 3.5
