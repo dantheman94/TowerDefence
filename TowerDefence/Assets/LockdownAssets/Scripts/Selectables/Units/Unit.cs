@@ -230,6 +230,12 @@ public class Unit : Ai {
 
         // Update Ai controller movement
         else if (IsAlive()) { UpdateAIControllerMovement(); }
+
+        // Destroying the unit manually
+        if (_IsCurrentlySelected && Input.GetKeyDown(KeyCode.Delete)) {
+
+            OnDeath();
+        }
     }
     
 
@@ -284,7 +290,7 @@ public class Unit : Ai {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    
     /// <summary>
     //  Called each frame. 
     /// </summary>
