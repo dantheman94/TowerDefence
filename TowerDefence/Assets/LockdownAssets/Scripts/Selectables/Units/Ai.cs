@@ -135,7 +135,7 @@ public class Ai : WorldObject {
             if (dist < _AttackPath.NodeAccuracyRadius) {
 
                 // Update node iterator
-                if (_AttackPathIterator + 1 <= _AttackPath.GetNodePositions().Count) {
+                if (_AttackPathIterator + 2 <= _AttackPath.GetNodePositions().Count) {
 
                     _AttackPathIterator++;
 
@@ -143,7 +143,7 @@ public class Ai : WorldObject {
                     Vector2 rand = Random.insideUnitCircle * 20f;
                     Vector3 pos = _AttackPath.GetNodePositions()[_AttackPathIterator] + new Vector3(rand.x, _AttackPath.GetNodePositions()[_AttackPathIterator].y, rand.y);
 
-                    Instantiate(GameManager.Instance.AgentSeekObject, _AttackPath.GetNodePositions()[_AttackPathIterator], Quaternion.identity);
+                    ///Instantiate(GameManager.Instance.AgentSeekObject, _AttackPath.GetNodePositions()[_AttackPathIterator], Quaternion.identity);
 
                     StartCoroutine(AgentGoTo(pos));
                 }

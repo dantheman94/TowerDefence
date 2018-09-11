@@ -614,7 +614,7 @@ public class KeyboardInput : MonoBehaviour {
     /// </summary>
     private void LeftMouseClick() {
 
-        if (_PlayerAttached._HUD.MouseInBounds() && !_PlayerAttached._HUD.WheelActive()) {
+        if (_PlayerAttached._HUD.MouseInBounds() && !_PlayerAttached._HUD.WheelActive() && !GameManager.Instance.ConfirmRecycleScreen.activeInHierarchy) {
 
             // Hit tracing from camera to point mouse
             GameObject hitObject = _PlayerAttached._HUD.FindHitObject();

@@ -11,7 +11,7 @@ using UnityEngine;
 //
 //******************************
 
-public class RecycleBuilding : Abstraction {
+public class UI_RecycleScreenConfirmation : MonoBehaviour {
 
     //******************************************************************************************************************************
     //
@@ -20,7 +20,8 @@ public class RecycleBuilding : Abstraction {
     //******************************************************************************************************************************
 
     private Building _BuildingToRecycle = null;
-    private bool _ToBeDestroyed = false;
+    private BuildingSlot _BuildingSlotInFocus = null;
+    private RecycleBuilding _RecycleBuildingClass = null;
 
     //******************************************************************************************************************************
     //
@@ -30,43 +31,41 @@ public class RecycleBuilding : Abstraction {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    /// <summary>
-    //  Called when the player presses a button on the selection wheel with this world object
-    //  linked to the button.
-    /// </summary>
-    /// <param name="buildingSlot">
-    //  The building slot that instigated the selection wheel.
-    //  (EG: If you're making a building, this is the building slot thats being used.)
-    /// </param>
-    public override void OnWheelSelect(BuildingSlot buildingSlot) {
+    public void ConfirmRecycle() {
 
-        // Update building reference
-        _BuildingToRecycle = buildingSlot.GetBuildingOnSlot();
+        if (_BuildingToRecycle != null && _BuildingSlotInFocus != null) {
+            
+            _BuildingToRecycle.SetIsSelected(false);
 
-        // Valid building check
-        if (_BuildingToRecycle != null) {
+            // Remove the building from any queues it is currently in
+            if (_BuildingSlotInFocus.AttachedBase != null)          { _BuildingSlotInFocus.AttachedBase.RemoveFromQueue(_BuildingToRecycle); }
+            if (_BuildingSlotInFocus.GetBuildingOnSlot() != null)   { _BuildingSlotInFocus.GetBuildingOnSlot().RemoveFromQueue(_BuildingToRecycle); }
 
-            // Show the confirm screen popup
-            GameObject confirmScreen = GameManager.Instance.ConfirmRecycleScreen;
-            if (confirmScreen != null) {
-
-                UI_RecycleScreenConfirmation recycleScreen = confirmScreen.GetComponent<UI_RecycleScreenConfirmation>();
-                if (recycleScreen != null) {
-
-                    recycleScreen.SetBuildingSlotInFocus(buildingSlot);
-                    recycleScreen.SetBuildingToRecycle(_BuildingToRecycle);
-                    recycleScreen.SetRecycleClass(this);
-                    recycleScreen.gameObject.SetActive(true);
-                }
-            }
+            // Recycle building
+            _BuildingToRecycle.RecycleBuilding();
+            
+            // Free resources by destroying this instance (if needed)
+            if (_RecycleBuildingClass.GetToBeDestroyed()) { Destroy(_RecycleBuildingClass.gameObject); }
         }
-        else { Debug.Log("_BuildingToRecycle == null"); }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    /// 
+    //  
+    /// </summary>
+    public void HideWidget() {
+
+        _BuildingToRecycle = null;
+        _BuildingSlotInFocus = null;
+        _RecycleBuildingClass = null;
+        gameObject.SetActive(false);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
     /// </summary>
     /// <param name="building"></param>
     public void SetBuildingToRecycle(Building building) { _BuildingToRecycle = building; }
@@ -74,20 +73,18 @@ public class RecycleBuilding : Abstraction {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    /// 
+    //  
     /// </summary>
-    /// <param name="value"></param>
-    public void SetToBeDestroyed(bool value) { _ToBeDestroyed = value; }
+    /// <param name="slot"></param>
+    public void SetBuildingSlotInFocus(BuildingSlot slot) { _BuildingSlotInFocus = slot; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
+
     /// <summary>
     //  
     /// </summary>
-    /// <returns>
-    //  bool
-    /// </returns>
-    public bool GetToBeDestroyed() { return _ToBeDestroyed; }
+    /// <param name="cls"></param>
+    public void SetRecycleClass(RecycleBuilding cls) { _RecycleBuildingClass = cls; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

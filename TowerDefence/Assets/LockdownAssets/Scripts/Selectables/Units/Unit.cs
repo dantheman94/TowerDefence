@@ -12,8 +12,7 @@ using UnityEngine.AI;
 //
 //******************************
 
-public class Unit : Ai
-{
+public class Unit : Ai {
 
     //******************************************************************************************************************************
     //
@@ -47,8 +46,8 @@ public class Unit : Ai
     public float IdealAttackRangeMin = 40f;
     [Space]
     public bool CanBeStunned = false;
-
-    public bool HasReachedTarget = true;
+    [Space]
+    public float BarrierDetectionDistance = 20f;
 
     //******************************************************************************************************************************
     //
@@ -347,7 +346,7 @@ public class Unit : Ai
 
             // Update agent seeking status
             _IsSeeking = _Agent.remainingDistance > 2f;
-            HasReachedTarget = _Agent.remainingDistance < 2f;
+            ///HasReachedTarget = _Agent.remainingDistance < 2f;
 
             if (_IsSeeking) {
 
@@ -417,17 +416,17 @@ public class Unit : Ai
 
                 // Get new attack target if possible
                 DetermineWeightedTargetFromList(TargetWeights);
+                /*
+                // Always attack the core if we dont have a target (ATTACKING TEAM ONLY)
+                if (Team == GameManager.Team.Attacking && !IsInASquad()) {
 
-                //// Always attack the core if we dont have a target (ATTACKING TEAM ONLY)
-                //if (Team == GameManager.Team.Attacking && !IsInASquad()) {
-
-                    //if (_AttackTarget == null) {
+                    if (_AttackTarget == null) {
 
                         //AddPotentialTarget(WaveManager.Instance.CentralCore.GetAttackObject());
                         //DetermineWeightedTargetFromList(TargetWeights);
                         //TryToChaseTarget(_AttackTarget);
-                    //}
-                //}
+                    }
+                }*/
             }
         }
     }
@@ -438,6 +437,30 @@ public class Unit : Ai
     //  
     /// </summary>
     protected virtual void UpdatePlayerControlledMovement() { }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    private void UpdateBarrierDetection() {
+
+        // Origin position starts from the "chest"
+        Vector3 origin = transform.position;
+        origin.y = origin.y + _ObjectHeight / 2;
+
+        // Constantly fire a raycast forward
+        RaycastHit hit;
+        if (Physics.Raycast(origin, transform.forward * BarrierDetectionDistance, out hit, LayerMask.NameToLayer("Building"))) {
+
+            // Only detect against barrier worldObjects
+            Barrier barrier = hit.transform.GetComponent<Barrier>();
+            if (barrier != null) {
+
+                // Interrupt the unit's pathfinding (just stop moving it)
+                _PathInterupted = true;
+                AddPotentialTarget(barrier);
+                DetermineWeightedTargetFromList(TargetWeights);                
+            }
+        }
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -467,7 +490,7 @@ public class Unit : Ai
     /// </returns>
     protected override IEnumerator AgentGoTo(Vector3 pos) {
 
-        AgentSeekPosition(pos, false, false);
+        if (!_PathInterupted) { AgentSeekPosition(pos, false, false); }
         return base.AgentGoTo(pos);
     }
 

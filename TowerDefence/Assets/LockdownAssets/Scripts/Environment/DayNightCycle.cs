@@ -22,14 +22,17 @@ public class DayNightCycle : MonoBehaviour {
     //
     //******************************************************************************************************************************
 
+    [Space]
+    [Header("-----------------------------------")]
+    [Header(" DAY/NIGHT CYCLE PROPERTIES")]
+    [Space]
     [Tooltip("Length of each day in seconds.")]
-    public float _DayLength = 24.0f;
+    public float _DayDuration = 24.0f;
     [Tooltip("The speed of each day.")]
     public float _DaySpeed = 1.0f;
     public float _CurrentTime = 0.0f;
-    public float _CurrentDay;
-    float _SunInitialIntensity;
-    bool _IsNightTime;
+    [Space]
+    public Light Sun;
 
     //******************************************************************************************************************************
     //
@@ -37,7 +40,9 @@ public class DayNightCycle : MonoBehaviour {
     //
     //******************************************************************************************************************************
 
-    public Light Sun;
+    public float _CurrentDay;
+    float _SunInitialIntensity;
+    bool _IsNightTime;
 
     //******************************************************************************************************************************
     //
@@ -61,7 +66,7 @@ public class DayNightCycle : MonoBehaviour {
         UpdateSun();
 
         // Update the time
-        _CurrentTime += (Time.deltaTime / _DayLength) * _DaySpeed;
+        _CurrentTime += (Time.deltaTime / _DayDuration) * _DaySpeed;
 
         // If the current time of day >= 1 then it needs to be set to 0 to start the next one
         if (_CurrentTime >= 1) { _CurrentTime = 0; }
