@@ -96,14 +96,25 @@ public class Minimap : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
             Vector2 MousePOS = new Vector2(Input.mousePosition.x, Screen.height - Input.mousePosition.y);
-            Vector2 ActualBounds = new Vector2(MousePOS.x - MapArea.x, MapArea.y - MousePOS.y);
+
 
             Debug.Log("Mouse position: " + MousePOS);
-            Debug.Log("Mini Map Bounds: " + ActualBounds);
+
             if (MapArea.Contains(MousePOS, true))
             {
-                Camera.main.transform.position = new Vector3((ActualBounds.x * (_XSize / MapArea.width)) - TopLeft.transform.position.x,
-                Camera.main.transform.position.y, ActualBounds.y * (_YSize / MapArea.height) - TopRight.transform.position.z);
+                if (TopLeft.transform.position.x < 0)
+                {
+                    Vector2 ActualBounds = new Vector2(MousePOS.x - MapArea.x, MapArea.y - MousePOS.y);
+                    Debug.Log("Mini Map Bounds: " + ActualBounds);
+                    Camera.main.transform.position = new Vector3((ActualBounds.x * (_XSize / MapArea.width)) + TopLeft.transform.position.x,
+                    Camera.main.transform.position.y, ActualBounds.y * (_YSize / MapArea.height) + TopRight.transform.position.z);
+                }
+                else
+                {
+                    Vector2 ActualBounds = new Vector2(MousePOS.x - MapArea.x, MapArea.y - MousePOS.y - 30);
+                    Camera.main.transform.position = new Vector3((ActualBounds.x * (_XSize / MapArea.width)) - TopLeft.transform.position.x,
+                  Camera.main.transform.position.y, ActualBounds.y * (_YSize / MapArea.height) - TopRight.transform.position.z);
+                }
             }
         }
     }
