@@ -37,9 +37,10 @@ public class GameManager : MonoBehaviour {
     [Space]
     public int StartingSupplyCount;
     public int StartingPowerCount;
+    public int StartingTechLevel = 1;
+    [Space]
     public int StartingMaxSupplyCount;
     public int StartingMaxPowerCount;
-    public int StartingTechLevel = 1;
     public int StartingMaxPopulation;
     [Space]
     public int StartingWave = 0;
