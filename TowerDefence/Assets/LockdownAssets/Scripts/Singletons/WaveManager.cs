@@ -466,7 +466,6 @@ public class WaveManager : MonoBehaviour {
                 squad.Team = GameManager.Team.Attacking;
                 squad.SetPlayer(player);
                 squad.SpawnUnits(squad);
-                squad.SquadAttackObject(CentralCore.GetAttackObject());
                 squad.CreateHealthBar(squad, player.PlayerCamera);
 
                 _CurrentWaveEnemies.Add(squad);
@@ -478,10 +477,10 @@ public class WaveManager : MonoBehaviour {
 
                 unit.Team = GameManager.Team.Attacking;
                 unit.OnSpawn();
-                ///unit.AgentAttackObject(CentralCore.GetAttackObject());
                 unit.CreateHealthBar(unit, player.PlayerCamera);
 
-                unit.SetAttackPath(_CurrentLockdownPad.GetRandomAttackPath());
+                AttackPath path = _CurrentLockdownPad.GetRandomAttackPath();
+                unit.SetAttackPath(path);
                 unit.AgentSeekPosition(unit.GetAttackPath().GetFirstNodeWithOffset(), false, false);
 
                 _CurrentWaveEnemies.Add(unit);
