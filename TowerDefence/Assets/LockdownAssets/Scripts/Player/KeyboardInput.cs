@@ -26,6 +26,7 @@ public class KeyboardInput : MonoBehaviour {
     public static Rect Selection = new Rect(0, 0, 0, 0);
     public static bool MouseIsDown = false;
     public Texture SelectionHighlight;
+    public Minimap MiniMap;
 
     private Vector3 _LookPoint;
     private Vector3 _CurrentVelocity = Vector3.zero;
@@ -1652,33 +1653,37 @@ public class KeyboardInput : MonoBehaviour {
     /// </summary>
     private void CreateSelectionBox()
     {
-        if (Input.GetMouseButtonDown(0))
+        
+        if (!MiniMap.MapArea.Contains(new Vector2(Input.mousePosition.x, Screen.height - Input.mousePosition.y)))
         {
-            _BoxStartPoint = Input.mousePosition;
-        }
-        else if (Input.GetMouseButtonUp(0))
-        {
-            if (Selection.width < 0)
+            if (Input.GetMouseButtonDown(0))
             {
-                Selection.x += Selection.width;
-                Selection.width = -Selection.width;
+                _BoxStartPoint = Input.mousePosition;
             }
-            if (Selection.height < 0)
+            else if (Input.GetMouseButtonUp(0))
             {
-                Selection.y += Selection.height;
-                Selection.height = -Selection.height;
+                if (Selection.width < 0)
+                {
+                    Selection.x += Selection.width;
+                    Selection.width = -Selection.width;
+                }
+                if (Selection.height < 0)
+                {
+                    Selection.y += Selection.height;
+                    Selection.height = -Selection.height;
+                }
+
+                MouseIsDown = false;
+
+                _BoxStartPoint = -Vector3.one;
             }
 
-            MouseIsDown = false;
-           
-            _BoxStartPoint = -Vector3.one;
-        }
-
-        if (Input.GetMouseButton(0))
-        {
-            MouseIsDown = true;
-            Selection = new Rect(_BoxStartPoint.x, InvertMouseY(_BoxStartPoint.y), Input.mousePosition.x - _BoxStartPoint.x,
-                                 InvertMouseY(Input.mousePosition.y) - InvertMouseY(_BoxStartPoint.y));
+            if (Input.GetMouseButton(0))
+            {
+                MouseIsDown = true;
+                Selection = new Rect(_BoxStartPoint.x, InvertMouseY(_BoxStartPoint.y), Input.mousePosition.x - _BoxStartPoint.x,
+                                     InvertMouseY(Input.mousePosition.y) - InvertMouseY(_BoxStartPoint.y));
+            }
         }
     }
 
