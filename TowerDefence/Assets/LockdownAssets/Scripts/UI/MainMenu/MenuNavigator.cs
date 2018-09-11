@@ -218,12 +218,14 @@ public class MenuNavigator : MonoBehaviour {
                 LevelUIObject.SetActive(true);
                 DifficultyUIObject.SetActive(false);
                 OverviewObject.SetActive(false);
+                FactionUIObject.SetActive(false);
                 StartCoroutine(DelayedSelectButton(LevelStartButton));
                 break;
             case "Difficulty":
                 LevelUIObject.SetActive(false);
                 DifficultyUIObject.SetActive(true);
                 OverviewObject.SetActive(false);
+                FactionUIObject.SetActive(false);
                 StartCoroutine(DelayedSelectButton(DifficultyStartButton));
                 break;
             case "Faction":
