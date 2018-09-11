@@ -34,6 +34,8 @@ public class Minimap : MonoBehaviour
     private Vector2 _RectOrigin;
     private Ray ray;
     private RaycastHit hit;
+    private bool IsMouse = false;
+    private bool IsMouse2 = false;
 
     //                            FUNCTIONS
     /////////////////////////////////////////////////////////////////////////////////////
@@ -93,29 +95,44 @@ public class Minimap : MonoBehaviour
     /// </summary>
     private void ClickedMinimap()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
         {
-            Vector2 MousePOS = new Vector2(Input.mousePosition.x, Screen.height - Input.mousePosition.y);
+            IsMouse = true;
+        }
 
-
-            Debug.Log("Mouse position: " + MousePOS);
-
-            if (MapArea.Contains(MousePOS, true))
+        if (Input.GetMouseButtonUp(0) && IsMouse)
+        {
+            IsMouse = false;
+            IsMouse2 = true;
+        }
+        if (IsMouse2)
+        { 
+            if (Input.GetMouseButton(0))
             {
-                if (TopLeft.transform.position.x < 0)
+                Vector2 MousePOS = new Vector2(Input.mousePosition.x, Screen.height - Input.mousePosition.y);
+
+                if (MapArea.Contains(MousePOS, true))
                 {
-                    Vector2 ActualBounds = new Vector2(MousePOS.x - MapArea.x, MapArea.y - MousePOS.y);
-                    Debug.Log("Mini Map Bounds: " + ActualBounds);
-                    Camera.main.transform.position = new Vector3((ActualBounds.x * (_XSize / MapArea.width)) + TopLeft.transform.position.x,
-                    Camera.main.transform.position.y, ActualBounds.y * (_YSize / MapArea.height) + TopRight.transform.position.z);
-                }
-                else
-                {
-                    Vector2 ActualBounds = new Vector2(MousePOS.x - MapArea.x, MapArea.y - MousePOS.y - 30);
-                    Camera.main.transform.position = new Vector3((ActualBounds.x * (_XSize / MapArea.width)) - TopLeft.transform.position.x,
-                  Camera.main.transform.position.y, ActualBounds.y * (_YSize / MapArea.height) - TopRight.transform.position.z);
+                    if (TopLeft.transform.position.x < 0)
+                    {
+                        Vector2 ActualBounds = new Vector2(MousePOS.x - MapArea.x, MapArea.y - MousePOS.y);
+                        Camera.main.transform.position = new Vector3((ActualBounds.x * (_XSize / MapArea.width)) + TopLeft.transform.position.x,
+                        Camera.main.transform.position.y, ActualBounds.y * (_YSize / MapArea.height) + TopRight.transform.position.z);
+                    }
+                    else
+                    {
+                        Vector2 ActualBounds = new Vector2(MousePOS.x - MapArea.x, MapArea.y - MousePOS.y - 30);
+                        Camera.main.transform.position = new Vector3((ActualBounds.x * (_XSize / MapArea.width)) - TopLeft.transform.position.x,
+                      Camera.main.transform.position.y, ActualBounds.y * (_YSize / MapArea.height) - TopRight.transform.position.z);
+                    }
                 }
             }
+            if (Input.GetMouseButtonUp(0))
+            {
+              
+                IsMouse2 = false;
+            }
+
         }
     }
 
