@@ -55,6 +55,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4715337542821934}
   - component: {fileID: 114590585686304586}
+  - component: {fileID: 114254215835407830}
   m_Layer: 9
   m_Name: SightCone
   m_TagString: Untagged
@@ -172,8 +173,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1615040517092228}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children: []
   m_Father: {fileID: 4778447074791084}
   m_RootOrder: 1
@@ -250,7 +251,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1922081337666764}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -9.36731, y: -1.6637421, z: -97.54358}
+  m_LocalPosition: {x: -961.29, y: 18, z: -491.23}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4884508651950702}
@@ -265,8 +266,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1095528684348328}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 4976713803495824}
   - {fileID: 4060543609838682}
@@ -372,7 +373,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 7abba96c59898954489b7d0b274a4181, type: 2}
+  - {fileID: 2100000, guid: deb32ad00a013fe4e9b172429896719d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -475,6 +476,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37273583e38a8bf448f2051cedc394af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114254215835407830
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1342408392653566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 206db76a377c0d04f8fbaa2f01e31960, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _AIAttached: {fileID: 114963470945021714}
 --- !u!114 &114590585686304586
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -612,7 +625,7 @@ MonoBehaviour:
     Weight: 0
   UnitType: 3
   NavmeshType: 0
-  InfantryMovementSpeed: 12
+  InfantryMovementSpeed: 13.5
   CanBePlayerControlled: 0
   PrimaryWeapon: {fileID: 114367971041064904, guid: bb990bb2e301df0419cd908979dc9b81,
     type: 2}
@@ -623,7 +636,7 @@ MonoBehaviour:
   IdealAttackRangeMax: 40
   IdealAttackRangeMin: 10
   CanBeStunned: 0
-  HasReachedTarget: 1
+  BarrierDetectionDistance: 20
   RotatingSpeed: 100
 --- !u!135 &135437172593693300
 SphereCollider:
@@ -698,7 +711,7 @@ NavMeshAgent:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1922081337666764}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.6
   m_Speed: 3.5

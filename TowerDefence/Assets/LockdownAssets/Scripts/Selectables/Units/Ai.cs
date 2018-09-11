@@ -135,7 +135,7 @@ public class Ai : WorldObject {
             if (dist < _AttackPath.NodeAccuracyRadius) {
 
                 // Update node iterator
-                if (_AttackPathIterator + 2 <= _AttackPath.GetNodePositions().Count) {
+                if (_AttackPathIterator + 1 < _AttackPath.GetNodePositions().Count) {
 
                     _AttackPathIterator++;
 
