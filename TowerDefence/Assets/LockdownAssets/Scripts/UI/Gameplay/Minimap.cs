@@ -9,7 +9,7 @@ using UnityEngine;
 //=-=-=-=-=-=-=-=-=-=-=-=-
 public class Minimap : MonoBehaviour
 {
-
+   
     //                            INSPECTOR
     /////////////////////////////////////////////////////////////////////////////////////
     [Header(" MINIMAP CAMERA ")]
@@ -110,7 +110,6 @@ public class Minimap : MonoBehaviour
             if (Input.GetMouseButton(0))
             {
                 Vector2 MousePOS = new Vector2(Input.mousePosition.x, Screen.height - Input.mousePosition.y);
-
                 if (MapArea.Contains(MousePOS, true))
                 {
                     if (TopLeft.transform.position.x < 0)
@@ -128,11 +127,9 @@ public class Minimap : MonoBehaviour
                 }
             }
             if (Input.GetMouseButtonUp(0))
-            {
-              
+            {              
                 IsMouse2 = false;
             }
-
         }
     }
 
