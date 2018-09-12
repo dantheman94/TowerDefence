@@ -30,7 +30,7 @@ public class VehicleGunner : Selectable {
     public List<GameObject> MuzzleLaunchPoints;
     [Space]
     public Vehicle _VehicleAttached = null;
-
+    
     [Space]
     [Header("-----------------------------------")]
     [Header(" TARGETTING OBJECT WEIGHTS")]
@@ -44,9 +44,7 @@ public class VehicleGunner : Selectable {
     //******************************************************************************************************************************
 
     private enum EGunnerState { Idle, Attacking }
-
-    private WorldObject _CurrentTarget = null;
-    
+        
     private EGunnerState _CombatState = EGunnerState.Idle;
     private WorldObject _AttackTarget = null;
     private List<WorldObject> _PotentialTargets;
@@ -85,7 +83,7 @@ public class VehicleGunner : Selectable {
         if (GunnerWeapon != null) {
 
             GunnerWeapon = ObjectPooling.Spawn(GunnerWeapon.gameObject, Vector3.zero, Quaternion.identity).GetComponent<Weapon>();
-            ///GunnerWeapon.SetTowerAttached(this);
+            GunnerWeapon.SetGunnerAttached(this);
         }
     }
 
@@ -104,6 +102,12 @@ public class VehicleGunner : Selectable {
 
                 _CombatState = EGunnerState.Attacking;
                 BaseLookAtLerp(_AttackTarget.transform.position);
+
+                if (GunnerWeapon != null) {
+
+                    // Fire weapon at the target
+                    if (GunnerWeapon.CanFire()) { GunnerWeapon.FireWeapon(); }
+                }
             }
 
             // Target is dead so try to get a new attack target

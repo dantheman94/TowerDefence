@@ -24,13 +24,7 @@ public class HeavyAirShip : AirVehicle {
     [Header(" HEAVY AIRSHIP PROPERTIES")]
     [Space]
     public List<VehicleGunner> IndependentGunners = null;
-
-    //******************************************************************************************************************************
-    //
-    //      VARIABLES
-    //
-    //******************************************************************************************************************************
-
+    
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
@@ -39,6 +33,30 @@ public class HeavyAirShip : AirVehicle {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /// <summary>
+    // Called when the gameObject is created.
+    /// </summary>
+    protected override void Start() {
+
+        for (int i = 0; i < IndependentGunners.Count; i++) {
+
+            IndependentGunners[i].Team = Team;
+            IndependentGunners[i]._ObjectState = _ObjectState;
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Sets the new current object state (Ie: Building, Deployable, Active).
+    /// </summary>
+    /// <param name="newState"></param>
+    public override void SetObjectState(WorldObjectStates newState) {
+        base.SetObjectState(newState);
+
+        // Update gunner(s) object states
+        for (int i = 0; i < IndependentGunners.Count; i++) { IndependentGunners[i]._ObjectState = _ObjectState; }
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

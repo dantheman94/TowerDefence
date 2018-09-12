@@ -35,7 +35,7 @@ public class Weapon : MonoBehaviour {
     public float FiringDelay = 0.5f;
     [Space]
     public float ChargeUpTime = 0f;
-    public float ChargeLightRadius = 5f;
+    public float ChargeLightRange = 50f;
     public float ChargeLightIntensity = 1f;
     public Color ChargeUpColor = Color.white;
     [Space]
@@ -83,9 +83,10 @@ public class Weapon : MonoBehaviour {
     private float _FireDelayTimer = 0f;
     private bool _IsReloading = false;
     private float _ReloadTimer = 0f;
+    private bool _IsChargingUp = false;
     private Unit _UnitAttached = null;
     private Tower _TowerAttached = null;
-    private bool _IsChargingUp = false;
+    private VehicleGunner _GunnerAttached = null;
 
     private float _CurrentOffsetMultiplier = 1f;
     
@@ -93,6 +94,9 @@ public class Weapon : MonoBehaviour {
     private List<Transform> _MuzzleLaunchPoints = null;
     private List<int> _UnusedLaunchPoints = null;
 
+    private Light _ChargeLight = null;
+    private float _ChargeLerptime = 0f;
+    
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
@@ -110,8 +114,15 @@ public class Weapon : MonoBehaviour {
         _MuzzleLaunchPoints = new List<Transform>();
         _UnusedLaunchPoints = new List<int>();
 
+        // Initialize charge up light
         if (ChargeUpTime > 0) {
 
+            _ChargeLight = gameObject.AddComponent<Light>();
+            _ChargeLight.type = LightType.Point;
+            _ChargeLight.range = ChargeLightRange;
+            _ChargeLight.intensity = ChargeLightIntensity;
+            _ChargeLight.color = ChargeUpColor;
+            _ChargeLight.enabled = false;
         }
     }
 
@@ -388,10 +399,36 @@ public class Weapon : MonoBehaviour {
     private IEnumerator ChargedFire() {
 
         _IsChargingUp = true;
+        StartCoroutine(ChargeUpLight());
 
         yield return new WaitForSeconds(ChargeUpTime);
 
         ShootWeapon();
+
+        // Reset light
+        _ChargeLight.enabled = false;
+        _ChargeLerptime = 0f;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Increases the light range over time (charge up time)
+    /// </summary>
+    /// <returns>
+    //  IEnumerator
+    /// </returns>
+    private IEnumerator ChargeUpLight() {
+
+        // Make sure the light component is enabled
+        _ChargeLight.enabled = true;
+
+        // Increase the light range (light/charge up)
+        float percent = ChargeUpTime / _ChargeLerptime;
+        _ChargeLight.range = Mathf.Lerp(0f, ChargeLightRange, percent);
+        _ChargeLerptime += Time.deltaTime;
+
+        yield return new WaitForEndOfFrame();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -411,9 +448,9 @@ public class Weapon : MonoBehaviour {
         // Determine damage type
         switch (_ProjectileType) {
 
-            case EProjectileType.Object: { ProjectileObject(); break; }
-            case EProjectileType.Raycast: { ProjectileRaycast(); break; }
-            case EProjectileType.Particle: { ProjectileParticle(); break; }
+            case EProjectileType.Object:    { ProjectileObject(); break; }
+            case EProjectileType.Raycast:   { ProjectileRaycast(); break; }
+            case EProjectileType.Particle:  { ProjectileParticle(); break; }
             default: { break; }
         }
 
@@ -517,6 +554,26 @@ public class Weapon : MonoBehaviour {
         // Get muzzle launch point transforms for the weapon
         _MuzzleLaunchPoints.Clear();
         for (int i = 0; i < tower.MuzzleLaunchPoints.Count; i++) { _MuzzleLaunchPoints.Add(tower.MuzzleLaunchPoints[i].transform); }
+
+        // Make all muzzle points again
+        _UnusedLaunchPoints.Clear();
+        for (int i = 0; i < _MuzzleLaunchPoints.Count; i++) { _UnusedLaunchPoints.Add(i); }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Sets references to the vehicle gunner that this weapon is associated with &
+    //  updates references to the muzzle launch point transforms for the weapon's firing mechanism.
+    /// </summary>
+    /// <param name="unit"></param>
+    public void SetGunnerAttached(VehicleGunner gunner) {
+
+        _GunnerAttached = gunner;
+
+        // Get muzzle launch point transforms for the weapon
+        _MuzzleLaunchPoints.Clear();
+        for (int i = 0; i < gunner.MuzzleLaunchPoints.Count; i++) { _MuzzleLaunchPoints.Add(gunner.MuzzleLaunchPoints[i].transform); }
 
         // Make all muzzle points again
         _UnusedLaunchPoints.Clear();

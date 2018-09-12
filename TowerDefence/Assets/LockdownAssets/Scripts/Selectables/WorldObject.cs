@@ -629,7 +629,7 @@ public class WorldObject : Selectable {
     //  Sets the new current object state (Ie: Building, Deployable, Active).
     /// </summary>
     /// <param name="newState"></param>
-    public void SetObjectState(WorldObjectStates newState) { _ObjectState = newState; }
+    public virtual void SetObjectState(WorldObjectStates newState) { _ObjectState = newState; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
