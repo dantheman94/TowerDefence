@@ -90,6 +90,7 @@ public class ParticleBasedDamage : MonoBehaviour {
                 }
                 i++;
             }
+            _ParticleSystem.Stop();
         }
     }
 

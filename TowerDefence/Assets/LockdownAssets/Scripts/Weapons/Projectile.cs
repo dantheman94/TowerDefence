@@ -214,11 +214,12 @@ public class Projectile : MonoBehaviour {
     /// <param name="collision"></param>
     protected void OnCollisionEnter(Collision collision) {
 
+        // Check for terrain collision
+        if (collision.gameObject.CompareTag("Ground")) { OnDestroy(); }
+
         // Get object type
         GameObject gameObj = collision.gameObject;
         WorldObject worldObj = gameObj.GetComponentInParent<WorldObject>();
-
-        ///if (gameObj.layer == LayerMask.NameToLayer("Ignore Raycast")) { return; }
 
         // Successful WorldObject cast
         if (worldObj != null) {
@@ -270,7 +271,14 @@ public class Projectile : MonoBehaviour {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /// <summary>
+    //  When the trigger overlaps another collider (entry only)
+    /// </summary>
+    /// <param name="other"></param>
     protected void OnTriggerEnter(Collider other) {
+
+        // Check for terrain collision
+        if (other.gameObject.CompareTag("Ground")) { OnDestroy(); }
 
         // Get object type
         GameObject gameObj = other.gameObject;
