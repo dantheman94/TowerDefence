@@ -5210,7 +5210,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &389454805
 Transform:
   m_ObjectHideFlags: 0
@@ -8756,7 +8756,7 @@ Terrain:
   m_Enabled: 1
   serializedVersion: 3
   m_TerrainData: {fileID: 15600000, guid: a4eea7ff38257f347becd53bd9a6600e, type: 2}
-  m_TreeDistance: 5000
+  m_TreeDistance: 2000
   m_TreeBillboardDistance: 50
   m_TreeCrossFadeLength: 5
   m_TreeMaximumFullLODCount: 50
@@ -16399,7 +16399,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 3
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1220492140
 Transform:
   m_ObjectHideFlags: 0
@@ -20107,6 +20107,10 @@ Prefab:
       propertyPath: m_Name
       value: '--- Attack Paths ---'
       objectReference: {fileID: 0}
+    - target: {fileID: 1895547706069644, guid: f6ffafd9e70e09447bfb8ea67818b935, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f6ffafd9e70e09447bfb8ea67818b935, type: 2}
   m_IsPrefabParent: 0
@@ -21597,7 +21601,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1639950801}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 21, y: 2069, z: 0}
+  m_LocalPosition: {x: 0, y: 1500, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 379826994}
@@ -22258,7 +22262,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4549799531477632, guid: 97371d9815069d847860ef387529bbf3, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 88
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4549799531477632, guid: 97371d9815069d847860ef387529bbf3, type: 2}
       propertyPath: m_LocalPosition.z
@@ -22284,15 +22288,15 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1094551135196284, guid: 97371d9815069d847860ef387529bbf3, type: 2}
-      propertyPath: m_Name
-      value: Camera_Player
-      objectReference: {fileID: 0}
     - target: {fileID: 114605684987641306, guid: 97371d9815069d847860ef387529bbf3,
         type: 2}
       propertyPath: Sun
       value: 
       objectReference: {fileID: 445906310}
+    - target: {fileID: 1094551135196284, guid: 97371d9815069d847860ef387529bbf3, type: 2}
+      propertyPath: m_Name
+      value: Camera_Player
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 97371d9815069d847860ef387529bbf3, type: 2}
   m_IsPrefabParent: 0
