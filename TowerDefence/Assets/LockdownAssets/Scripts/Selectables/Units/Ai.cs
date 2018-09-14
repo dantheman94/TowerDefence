@@ -63,6 +63,7 @@ public class Ai : WorldObject {
 
     protected AttackPath _AttackPath = null;
     protected int _AttackPathIterator = 0;
+    protected bool _AttackPathComplete = false;
 
     protected Building _AttachedBuilding;
 
@@ -138,6 +139,7 @@ public class Ai : WorldObject {
                 if (_AttackPathIterator + 1 < _AttackPath.GetNodePositions().Count) {
 
                     _AttackPathIterator++;
+                    _AttackPathComplete = false;
 
                     // Go to point with random offset
                     Vector2 rand = Random.insideUnitCircle * 20f;
@@ -147,6 +149,7 @@ public class Ai : WorldObject {
 
                     StartCoroutine(AgentGoTo(pos));
                 }
+                else { _AttackPathComplete = true; }
             }
             else {
 

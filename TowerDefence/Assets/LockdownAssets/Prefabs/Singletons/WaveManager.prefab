@@ -75,7 +75,7 @@ MonoBehaviour:
   PerBossWaveIncrementDamage: 0.15
   PerBossWaveIncrementHealth: 0.2
   WavesPerInterval: 10
-  StartingWaveTimer: 120
+  StartingWaveTimer: 90
   TimeAddedPerWave: 10
   TimeTillNextWaveAfterClear: 10
   Waves:
@@ -117,18 +117,11 @@ MonoBehaviour:
       MaximumBossWaveInterval: 0
     Subwaves: 2
     Enemies:
-    - Name: Core Marine
-      EnemyReference: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
-        type: 2}
-      StartAtSubwave: 1
-      PerSpawnInterval: 1
-      WaveMax: 2
-      CurrentLives: 0
-    - Name: Core Vehicle
+    - Name: Grumblebusters
       EnemyReference: {fileID: 114585045816634058, guid: 71a43feeb36f7ac4faaaad78429ccc75,
         type: 2}
       StartAtSubwave: 1
-      PerSpawnInterval: 1
+      PerSpawnInterval: 2
       WaveMax: 2
       CurrentLives: 0
   - Name: Very Light Ground Mixed
@@ -147,18 +140,11 @@ MonoBehaviour:
       EnemyReference: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
         type: 2}
       StartAtSubwave: 1
-      PerSpawnInterval: 1
-      WaveMax: 3
+      PerSpawnInterval: 2
+      WaveMax: 2
       CurrentLives: 0
     - Name: Core Vehicle
       EnemyReference: {fileID: 114585045816634058, guid: 71a43feeb36f7ac4faaaad78429ccc75,
-        type: 2}
-      StartAtSubwave: 1
-      PerSpawnInterval: 1
-      WaveMax: 1
-      CurrentLives: 0
-    - Name: Anti Infantry Squad
-      EnemyReference: {fileID: 114908419093975514, guid: f9386fdae783087469d75d32e64a58ed,
         type: 2}
       StartAtSubwave: 1
       PerSpawnInterval: 1
@@ -181,7 +167,7 @@ MonoBehaviour:
         type: 2}
       StartAtSubwave: 1
       PerSpawnInterval: 1
-      WaveMax: 3
+      WaveMax: 2
       CurrentLives: 0
   - Name: Very Light Mixed
     Severity: 0
@@ -199,7 +185,7 @@ MonoBehaviour:
       EnemyReference: {fileID: 0}
       StartAtSubwave: 1
       PerSpawnInterval: 1
-      WaveMax: 2
+      WaveMax: 1
       CurrentLives: 0
     - Name: Support Airship
       EnemyReference: {fileID: 114481798048649180, guid: c4a0f18ee5b21b74fbcb5adc9b905af4,
@@ -213,14 +199,14 @@ MonoBehaviour:
         type: 2}
       StartAtSubwave: 1
       PerSpawnInterval: 2
-      WaveMax: 6
+      WaveMax: 4
       CurrentLives: 0
     - Name: Anti-Infantry Marine
       EnemyReference: {fileID: 114908419093975514, guid: f9386fdae783087469d75d32e64a58ed,
         type: 2}
-      StartAtSubwave: 1
+      StartAtSubwave: 2
       PerSpawnInterval: 2
-      WaveMax: 4
+      WaveMax: 2
       CurrentLives: 0
   - Name: Very Light Boss
     Severity: 0
