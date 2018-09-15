@@ -37,6 +37,7 @@ public class WorldObject : Selectable {
     [Header("-----------------------------------")]
     [Header(" WORLD OBJECT PROPERTIES")]
     [Space]
+    public bool Damagable = true;
     public int MaxHitPoints = 100;
     public int MaxShieldPoints = 0;
     [Space]
@@ -408,12 +409,16 @@ public class WorldObject : Selectable {
     /// <param name="damage"></param>
     public virtual void Damage(float damage, WorldObject instigator = null) {
 
-        // Cant damage if were already destroyed
-        if (_ObjectState != WorldObjectStates.Destroyed) {
+        // Only proceed if were meant to be killable
+        if (Damagable) {
 
-            // Damage object & kill it if theres no health left
-            _HitPoints -= damage;
-            if (_HitPoints <= 0 && _ObjectState != WorldObjectStates.Destroyed) { OnDeath(); }
+            // Cant damage if were already destroyed
+            if (_ObjectState != WorldObjectStates.Destroyed) {
+
+                // Damage object & kill it if theres no health left
+                _HitPoints -= damage;
+                if (_HitPoints <= 0 && _ObjectState != WorldObjectStates.Destroyed) { OnDeath(); }
+            }
         }
     }
 

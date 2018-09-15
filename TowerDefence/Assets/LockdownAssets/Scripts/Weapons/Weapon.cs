@@ -119,7 +119,7 @@ public class Weapon : MonoBehaviour {
 
             _ChargeLight = gameObject.AddComponent<Light>();
             _ChargeLight.type = LightType.Point;
-            _ChargeLight.range = ChargeLightRange;
+            _ChargeLight.range = 0f;
             _ChargeLight.intensity = ChargeLightIntensity;
             _ChargeLight.color = ChargeUpColor;
             _ChargeLight.enabled = false;
@@ -143,7 +143,7 @@ public class Weapon : MonoBehaviour {
     //  Called each frame. 
     /// </summary>
     private void Update() {
-
+        
         // Firing delay timer
         if (_FireDelayTimer > 0f) {
 
@@ -161,6 +161,32 @@ public class Weapon : MonoBehaviour {
         // Reloading timer
         if (_ReloadTimer > 0f) { _ReloadTimer -= Time.deltaTime; }
         else { _IsReloading = false; }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    private void UpdateChargeLightPosition() {
+
+        // Attached to a unit
+        if (_UnitAttached != null) {
+
+            // position should be at the unit's muzzle launch vector
+            transform.position = _UnitAttached.MuzzleLaunchPoints[0].transform.position;
+        }
+
+        // Attached to a tower
+        if (_TowerAttached != null) {
+
+            // position should be at the tower's muzzle launch vector
+            transform.position = _TowerAttached.MuzzleLaunchPoints[0].transform.position;
+        }
+
+        // Attached to a gunner seat
+        if (_GunnerAttached != null) {
+
+            // position should be at the gunner's muzzle launch vector
+            transform.position = _GunnerAttached.MuzzleLaunchPoints[0].transform.position;
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -419,16 +445,22 @@ public class Weapon : MonoBehaviour {
     //  IEnumerator
     /// </returns>
     private IEnumerator ChargeUpLight() {
+        
+        while (_ChargeLerptime < ChargeUpTime) {
 
-        // Make sure the light component is enabled
-        _ChargeLight.enabled = true;
+            // Position the charge light at the correct position
+            UpdateChargeLightPosition();
 
-        // Increase the light range (light/charge up)
-        float percent = ChargeUpTime / _ChargeLerptime;
-        _ChargeLight.range = Mathf.Lerp(0f, ChargeLightRange, percent);
-        _ChargeLerptime += Time.deltaTime;
+            // Make sure the light component is enabled
+            _ChargeLight.enabled = true;
 
-        yield return new WaitForEndOfFrame();
+            // Increase light properties over multiple frames
+            float percent = _ChargeLerptime / ChargeUpTime;
+            _ChargeLight.range = Mathf.Lerp(0f, ChargeLightRange, percent);
+            _ChargeLerptime += Time.deltaTime;
+            
+            yield return null;
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

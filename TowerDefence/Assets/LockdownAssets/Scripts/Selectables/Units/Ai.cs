@@ -142,7 +142,7 @@ public class Ai : WorldObject {
                     _AttackPathComplete = false;
 
                     // Go to point with random offset
-                    Vector2 rand = Random.insideUnitCircle * 20f;
+                    Vector2 rand = Random.insideUnitCircle * 30f;
                     Vector3 pos = _AttackPath.GetNodePositions()[_AttackPathIterator] + new Vector3(rand.x, _AttackPath.GetNodePositions()[_AttackPathIterator].y, rand.y);
 
                     ///Instantiate(GameManager.Instance.AgentSeekObject, _AttackPath.GetNodePositions()[_AttackPathIterator], Quaternion.identity);
