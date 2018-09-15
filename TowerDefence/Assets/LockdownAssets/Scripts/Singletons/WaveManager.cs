@@ -633,4 +633,18 @@ public class WaveManager : MonoBehaviour {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="friendlyUnit"></param>
+    /// <returns></returns>
+    public float GetWaveDamageModifier(WorldObject obj) {
+
+        // Return the _CurrentDamageModifier if its a defending unit, otherwise return 1f if its an attacking unit
+        if (obj.Team == GameManager.Team.Defending) { return _CurrentDamageModifier; }
+        else { return 1f; }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 }

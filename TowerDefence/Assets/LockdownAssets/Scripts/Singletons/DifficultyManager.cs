@@ -219,7 +219,7 @@ public class DifficultyManager : MonoBehaviour {
     public float GetDifficultyModifier(Unit unit, EDifficultyModifiers modifier) {
 
         Unit.EUnitType unitType = unit.UnitType;
-        bool friendly = unit.Team == unit._Player.Team;
+        bool friendly = unit.Team == GameManager.Team.Defending;
 
         float fMod = 1f;
         switch (_Difficulty.Difficulty) {
