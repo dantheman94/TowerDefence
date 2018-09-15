@@ -183,6 +183,9 @@ public class Ai : WorldObject {
         // If were in the wave manager's enemies array - remove it
         if (WaveManager.Instance.GetCurrentWaveEnemies().Contains(this)) { WaveManager.Instance.GetCurrentWaveEnemies().Remove(this); }
         if (Team == GameManager.Team.Attacking) { GameManager.Instance.WaveStatsHUD.DeductLifeFromCurrentPopulation(); }
+
+        // Remove from player's population counter
+        else if (Team == GameManager.Team.Defending) { _Player.RemoveFromArmy(this); }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

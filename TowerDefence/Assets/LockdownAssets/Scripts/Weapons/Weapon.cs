@@ -164,7 +164,11 @@ public class Weapon : MonoBehaviour {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    
+    /// <summary>
+    //  Sets the position of the charge up light (which is attached to this gameobject) to the first iterator
+    //  in the attached object's muzzle launch vector list.
+    /// </summary>
     private void UpdateChargeLightPosition() {
 
         // Attached to a unit

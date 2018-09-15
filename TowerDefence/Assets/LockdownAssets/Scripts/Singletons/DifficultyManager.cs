@@ -238,6 +238,30 @@ public class DifficultyManager : MonoBehaviour {
     /// <summary>
     //  
     /// </summary>
+    /// <param name="unitType"></param>
+    /// <param name="modifier"></param>
+    /// <returns>
+    //  float
+    /// </returns>
+    public float GetDifficultyModifier(Unit.EUnitType unitType, bool playerFriendly, EDifficultyModifiers modifier) {
+        
+        float fMod = 1f;
+        switch (_Difficulty.Difficulty) {
+
+            case Difficulties.Easy:         { fMod = GetEasyModifier(unitType, modifier, playerFriendly); break; }
+            case Difficulties.Normal:       { fMod = GetNormalModifier(unitType, modifier, playerFriendly); break; }
+            case Difficulties.Hard:         { fMod = GetHardModifier(unitType, modifier, playerFriendly); break; }
+            case Difficulties.Impossible:   { fMod = GetImpossibleModifier(unitType, modifier, playerFriendly); break; }
+            default: break;
+        }
+        return fMod;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
     /// <param name="modifier"></param>
     /// <returns>
     //  float
