@@ -2,26 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DummyGameObject : WorldObject {
+public class DummyGameObject : MonoBehaviour {
 
-    public GameObject other;
+    private GameObject other;
+    
+    public int speed = 50;
 
-    public Rigidbody rb;
-
-    public WorldObject wo;
-
-    public int speed = 500;
-
-	protected override void Start () {
-
-        rb = GetComponent<Rigidbody>();
-
-        wo.SetHitPoints(100);
-
+	protected void Start () {
     }
 	
-	protected override void Update () {
-        base.Update();
+	protected void Update () {
 
         // Move upwards
         if (Input.GetKey(KeyCode.W) == true)
@@ -40,5 +30,11 @@ public class DummyGameObject : WorldObject {
         {
             transform.position += transform.right * speed * Time.deltaTime;
         }
+
+        if (Input.GetKeyDown(KeyCode.P) == true)
+        {
+            SoundManager.Instance.PlaySound("Audio/pfb_Battle", 0.9f, 1.1f);
+        }
+
     }
 }

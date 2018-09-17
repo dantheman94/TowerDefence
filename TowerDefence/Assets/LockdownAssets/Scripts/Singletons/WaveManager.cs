@@ -458,19 +458,7 @@ public class WaveManager : MonoBehaviour {
 
             GameObject obj = ObjectPooling.Spawn(subwaveEnemies[i].gameObject, spawnPositions[i]);
             Player player = GameManager.Instance.Players[0];
-
-            // Initialize the object as a squad
-            Squad squad = obj.GetComponent<Squad>();
-            if (squad != null) {
-
-                squad.Team = GameManager.Team.Attacking;
-                squad.SetPlayer(player);
-                squad.SpawnUnits(squad);
-                squad.CreateHealthBar(squad, player.PlayerCamera);
-
-                _CurrentWaveEnemies.Add(squad);
-            }
-
+            
             // Initialize the object as a unit
             Unit unit = obj.GetComponent<Unit>();
             if (unit != null) {

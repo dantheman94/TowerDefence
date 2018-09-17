@@ -20,6 +20,7 @@ public class Minimap : MonoBehaviour
     public GameObject BottomLeft;
     public GameObject BottomRight;
     [Header(" MINI MAP BOUNDS ")]
+    public Rectangle RectangleArea;
     public Rect MapArea;
     [Header(" DEBUG ")]
     [Tooltip("Determines whether map draws debug stuff.")]
@@ -43,6 +44,8 @@ public class Minimap : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        MapArea.x = Screen.width / 1.16f;
+        MapArea.y = Screen.height / 1.31f;
         //On start get map information.
         GetBounds();
     }
@@ -52,6 +55,20 @@ public class Minimap : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetMouseButtonDown(0))
+        {
+            //if (RectangleArea.Contains(RectangleArea.GetTopLeft().x, RectangleArea.GetTopLeft().y, RectangleArea.GetTopRight().x, RectangleArea.GetTopRight().y,
+            //                          RectangleArea.GetBottomLeft().x, RectangleArea.GetBottomLeft().y, RectangleArea.GetBottomRight().x, RectangleArea.GetBottomRight().y,
+            //                          Input.mousePosition.x,  Input.mousePosition.y))
+            if(RectangleArea.PointInside(Input.mousePosition.x,Input.mousePosition.y))
+            {
+                Debug.Log("Inside Rectangle!");
+            }
+            else
+            {
+                Debug.Log("You done fucked it!");
+            }
+        }
         //Check for minimap click event.
         ClickedMinimap();
 
@@ -95,42 +112,49 @@ public class Minimap : MonoBehaviour
     /// </summary>
     private void ClickedMinimap()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            IsMouse = true;
-        }
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    IsMouse = true;
+        //}
 
-        if (Input.GetMouseButtonUp(0) && IsMouse)
-        {
-            IsMouse = false;
-            IsMouse2 = true;
-        }
-        if (IsMouse2)
-        { 
+        //if (Input.GetMouseButtonUp(0) && IsMouse)
+        //{
+        //    IsMouse = false;
+        //    IsMouse2 = true;
+        //}
+        //if (IsMouse2) caddilac
+        //{  && KeyboardInput.Selection.height == 0
+        Debug.Log(KeyboardInput.Selection.height);
             if (Input.GetMouseButton(0))
             {
                 Vector2 MousePOS = new Vector2(Input.mousePosition.x, Screen.height - Input.mousePosition.y);
-                if (MapArea.Contains(MousePOS, true))
+   //         Debug.Log("Mouse Pos: " + MousePOS);
+   //         Debug.Log("Screen Dimensions: " + Screen.width + ", " + Screen.height);
+           
+                //if (MapArea.Contains(MousePOS, true))
+                if(RectangleArea.PointInside(Input.mousePosition.x,Input.mousePosition.y))
                 {
                     if (TopLeft.transform.position.x < 0)
                     {
-                        Vector2 ActualBounds = new Vector2(MousePOS.x - MapArea.x, MapArea.y - MousePOS.y);
-                        Camera.main.transform.position = new Vector3((ActualBounds.x * (_XSize / MapArea.width)) + TopLeft.transform.position.x,
-                        Camera.main.transform.position.y, ActualBounds.y * (_YSize / MapArea.height) + TopRight.transform.position.z);
+                        Vector2 ActualBounds = new Vector2(MousePOS.x - RectangleArea.transform.position.x, (Screen.height - RectangleArea.GetTopLeft().y)- MousePOS.y);
+                        Camera.main.transform.position = new Vector3((ActualBounds.x * (_XSize / RectangleArea.width)) + TopLeft.transform.position.x,
+                        Camera.main.transform.position.y, ActualBounds.y * (_YSize / RectangleArea.height) + TopRight.transform.position.z);
+   //                 Debug.Log("Actual Bounds: " + ActualBounds);
                     }
                     else
                     {
                         Vector2 ActualBounds = new Vector2(MousePOS.x - MapArea.x, MapArea.y - MousePOS.y - 30);
                         Camera.main.transform.position = new Vector3((ActualBounds.x * (_XSize / MapArea.width)) - TopLeft.transform.position.x,
                       Camera.main.transform.position.y, ActualBounds.y * (_YSize / MapArea.height) - TopRight.transform.position.z);
-                    }
+    //                Debug.Log("Actual Bounds: " + ActualBounds);
+                }
                 }
             }
             if (Input.GetMouseButtonUp(0))
             {              
                 IsMouse2 = false;
             }
-        }
+    //    }
     }
 
     /////////////////////////////////////////////////////////////////////////////////////
