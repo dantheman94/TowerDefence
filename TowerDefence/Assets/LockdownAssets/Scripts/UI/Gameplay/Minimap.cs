@@ -111,7 +111,7 @@ public class Minimap : MonoBehaviour
     private void ClickedMinimap()
     {
      
-            if (Input.GetMouseButton(0) && KeyboardInput.Selection.height == 0)
+            if (Input.GetMouseButton(1))
             {
                 Vector2 MousePOS = new Vector2(Input.mousePosition.x, Screen.height - Input.mousePosition.y);
                 //         Debug.Log("Mouse Pos: " + MousePOS);

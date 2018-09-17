@@ -1678,10 +1678,9 @@ public class KeyboardInput : MonoBehaviour {
         private void CreateSelectionBox()
     {
 
-      
-
             if (Input.GetMouseButtonDown(0))
             {
+            if (!MiniMap.RectangleArea.PointInside(Input.mousePosition))
                 _BoxStartPoint = Input.mousePosition;
             }
             else if (Input.GetMouseButtonUp(0))
@@ -1702,10 +1701,7 @@ public class KeyboardInput : MonoBehaviour {
                 _BoxStartPoint = -Vector3.one;
           
             }
-        //    
 
-        //    }
-       
             if (Input.GetMouseButton(0))
             {
                 MouseIsDown = true;
