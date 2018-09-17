@@ -4,7 +4,7 @@ using UnityEngine;
 
 //=-=-=-=-==-=-=-=-=-=-=-
 // Created by Angus Secomb
-// Last Edited: 11/09/2018
+// Last Edited: 17/09/2018
 // Editor: Angus Secomb
 //=-=-=-=-=-=-=-=-=-=-=-=-
 public class Minimap : MonoBehaviour
@@ -27,6 +27,8 @@ public class Minimap : MonoBehaviour
     public bool debug = false;
     public Color BoundsColor = Color.yellow;
     public Texture BoundsTexture = new Texture();
+    public float XOffset;
+    public float YOffset;
     //                            VARIABLES
     /////////////////////////////////////////////////////////////////////////////////////
 
@@ -57,9 +59,7 @@ public class Minimap : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(0))
         {
-            //if (RectangleArea.Contains(RectangleArea.GetTopLeft().x, RectangleArea.GetTopLeft().y, RectangleArea.GetTopRight().x, RectangleArea.GetTopRight().y,
-            //                          RectangleArea.GetBottomLeft().x, RectangleArea.GetBottomLeft().y, RectangleArea.GetBottomRight().x, RectangleArea.GetBottomRight().y,
-            //                          Input.mousePosition.x,  Input.mousePosition.y))
+
             if(RectangleArea.PointInside(Input.mousePosition.x,Input.mousePosition.y))
             {
                 Debug.Log("Inside Rectangle!");
@@ -137,8 +137,8 @@ public class Minimap : MonoBehaviour
                     if (TopLeft.transform.position.x < 0)
                     {
                         Vector2 ActualBounds = new Vector2(MousePOS.x - RectangleArea.transform.position.x, (Screen.height - RectangleArea.GetTopLeft().y)- MousePOS.y);
-                        Camera.main.transform.position = new Vector3((ActualBounds.x * (_XSize / RectangleArea.width)) + TopLeft.transform.position.x,
-                        Camera.main.transform.position.y, ActualBounds.y * (_YSize / RectangleArea.height) + TopRight.transform.position.z);
+                        Camera.main.transform.position = new Vector3((ActualBounds.x * (_XSize / RectangleArea.width)) + TopLeft.transform.position.x + XOffset,
+                        Camera.main.transform.position.y, ActualBounds.y * (_YSize / RectangleArea.height) + TopRight.transform.position.z + YOffset);
    //                 Debug.Log("Actual Bounds: " + ActualBounds);
                     }
                     else

@@ -2,12 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//=-=-=-=-==-=-=-=-=-=-=-
+// Created by Angus Secomb
+// Last Edited: 17/09/2018
+// Editor: Angus Secomb
+//=-=-=-=-=-=-=-=-=-=-=-=-
 public class Rectangle : MonoBehaviour {
+
+    //                            INSPECTOR
+    /////////////////////////////////////////////////////////////////////////////////////
 
     public float height;
     public float width;
 
     public Color LineColor = Color.yellow;
+
+    //                            VARIABLES
+    /////////////////////////////////////////////////////////////////////////////////////
 
     private Vector2 MousePosition;
 
@@ -15,30 +26,25 @@ public class Rectangle : MonoBehaviour {
     private Vector3 TopRight;
     private Vector3 BottomLeft;
     private Vector3 BottomRight;
-   
-    //public float YMax { get; set; }
 
-    //public float XMax { get; set; }
-
-    //public float YMin { get; set; }
-    //public float XMin { get; set; }
-
-    //public float X { get; set; }
-
-    //public float Height { get; set; }
-    //public float Width { get; set; }
-    //public Vector2 Max { get; set; }
-    //public Vector2 Min { get; set; }
-    //public Vector2 Center { get; set; }
-    //public Vector2 Position { get; set; }
-    //public float Y { get; set; }
+    //                            FUNCTIONS
+    /////////////////////////////////////////////////////////////////////////////////////
 
     public Vector3 GetTopLeft() { return TopLeft; }
+
+    /////////////////////////////////////////////////////////////////////////////////////
+
     public Vector3 GetTopRight() { return TopRight; }
+
+    /////////////////////////////////////////////////////////////////////////////////////
 
     public Vector3 GetBottomLeft() { return BottomLeft; }
 
+    /////////////////////////////////////////////////////////////////////////////////////
+
     public Vector3 GetBottomRight() { return BottomRight; }
+
+    /////////////////////////////////////////////////////////////////////////////////////
 
     // Use this for initialization
     void Start () {
@@ -48,50 +54,33 @@ public class Rectangle : MonoBehaviour {
         BottomLeft = new Vector3(0, -GetMapHeightInPixelsScaled()) + transform.position;
      
 	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    /////////////////////////////////////////////////////////////////////////////////////
+
+    // Update is called once per frame
+    void Update () {
         TopLeft = transform.position;
         TopRight = new Vector3(GetMapWidthInPixelsScaled(), 0) + transform.position;
         BottomRight = new Vector3(GetMapWidthInPixelsScaled(), -GetMapHeightInPixelsScaled()) + transform.position;
         BottomLeft = new Vector3(0, -GetMapHeightInPixelsScaled()) + transform.position;
-        //if (Input.GetKeyDown(KeyCode.E))
-        //{
-
-        //    MousePosition.y = Screen.height - Input.mousePosition.y;
-        //    MousePosition.x = Input.mousePosition.x;
-        //    Debug.Log("Mouse: " + MousePosition);
-        //    Debug.Log("Unfiltered Position: " + Input.mousePosition);
-        //    Debug.Log("Rectangle wPosition: " + transform.position);
-        //    Debug.Log("Rectangle lPosition: " + transform.localPosition);
-        //    Vector3 topRight = new Vector3(GetMapWidthInPixelsScaled(), 0) + transform.position;
-        //    Vector3 bottomRight = new Vector3(GetMapWidthInPixelsScaled(), -GetMapHeightInPixelsScaled()) + transform.position;
-        //    Vector3 bottomLeft = new Vector3(0, -GetMapHeightInPixelsScaled()) + transform.position;
-
-        //    Debug.Log("Top Right: " + topRight);
-        //    Debug.Log("Top Left: " + transform.position);
-
-        //    Debug.Log("Bottom Left: " + bottomLeft);
-        //    Debug.Log("Bottom Right: " + bottomRight);
-
-        //}
     }
 
+    /////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    /// Sets parameters of rectangles.
+    /// </summary>
+    /// <param name="a_x"></param>
+    /// <param name="a_y"></param>
+    /// <param name="a_width"></param>
+    /// <param name="a_height"></param>
     public void Set(float a_x, float a_y, float a_width, float a_height)
     {
         width = a_width;
         height = a_height;
     }
 
-    public bool Contains(Vector3 point, bool allowInverse)
-    {
-        return true;
-    }
-
-    public bool Contains(Vector3 point)
-    {
-        return true;
-    }
+    /////////////////////////////////////////////////////////////////////////////////////
 
     public bool Contains(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, float x, float y)
     {
@@ -104,7 +93,15 @@ public class Rectangle : MonoBehaviour {
 
         return (A == A1 + A2 + A3 + A4);
     }
-    
+
+    /////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    /// Checks if point is inside rectanagle.
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <returns></returns>
     public bool PointInside(float x,float y)
     {
   
@@ -119,16 +116,48 @@ public class Rectangle : MonoBehaviour {
 
     }
 
+    /////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    ///  Checks if point is inside rectanagle.
+    /// </summary>
+    /// <param name="a_pos"></param>
+    /// <returns></returns>
+    public bool PointInside(Vector2 a_pos)
+    {
+        if(a_pos.x >= transform.position.x && a_pos.x <= transform.position.x + width)
+        {
+            if (a_pos.y > BottomLeft.y && a_pos.y <= BottomLeft.y + height)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    /// Get width
+    /// </summary>
+    /// <returns></returns>
     public float GetMapWidthInPixelsScaled()
     {
         return this.width * this.transform.lossyScale.x * 1;
     }
 
+    /////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    /// Gets map height in pixels scaled by the transform scale of the object.
+    /// </summary>
+    /// <returns></returns>
     public float GetMapHeightInPixelsScaled()
     {
         return this.height * this.transform.lossyScale.y * 1;
     }
 
+    /////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     /// Calculates the area of a triangle formed by 3 points.
@@ -147,7 +176,7 @@ public class Rectangle : MonoBehaviour {
                                  x3 * (y1 - y2)) / 2);
     }
 
-    
+    /////////////////////////////////////////////////////////////////////////////////////
 
     private void OnDrawGizmosSelected()
     {
@@ -172,4 +201,6 @@ public class Rectangle : MonoBehaviour {
         Gizmos.DrawLine(bottomLeft, topLeft);
 
     }
+
+    /////////////////////////////////////////////////////////////////////////////////////
 }
