@@ -25,6 +25,7 @@ public class Widget_PlayLockdown : MonoBehaviour {
     [Header("-----------------------------------")]
     [Header(" SUB-WIDGETS")]
     [Space]
+    public GameObject WidgetHome = null;
     public GameObject WidgetOverview = null;
     public GameObject WidgetLevels = null;
     public GameObject WidgetDifficulties = null;
@@ -77,9 +78,9 @@ public class Widget_PlayLockdown : MonoBehaviour {
         if (StartButton != null && _PreLockdownMatchSettings != null) {
 
             // Has the player selected a Map / Difficulty / Faction ?
-            if (_PreLockdownMatchSettings.GetMapDefined()           && 
-                _PreLockdownMatchSettings.GetDifficultyDefined()    && 
-                _PreLockdownMatchSettings.GetFactionDefined()) {
+            if (_PreLockdownMatchSettings.GetMapDefined()        && 
+                _PreLockdownMatchSettings.GetDifficultyDefined() && 
+                _PreLockdownMatchSettings.GetFactionDefined())   {
 
                 StartButton.interactable = true;
             }
@@ -153,6 +154,7 @@ public class Widget_PlayLockdown : MonoBehaviour {
     /// </summary>
     private void HideAllSubWidgets() {
 
+        if (WidgetHome != null) { WidgetOverview.gameObject.SetActive(false); }
         if (WidgetOverview != null)     { WidgetOverview.gameObject.SetActive(false); }
         if (WidgetLevels != null)       { WidgetLevels.gameObject.SetActive(false); }
         if (WidgetDifficulties != null) { WidgetDifficulties.gameObject.SetActive(false); }

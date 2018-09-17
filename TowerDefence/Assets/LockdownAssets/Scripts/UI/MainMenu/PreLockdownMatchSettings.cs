@@ -7,8 +7,8 @@ using UnityEngine.UI;
 //
 //  Created by: Daniel Marton
 //
-//  Last edited by: Angus Secomb
-//  Last edited on: 03/09/2018
+//  Last edited by: Daniel Marton
+//  Last edited on: 17/09/2018
 //
 //******************************
 
@@ -24,11 +24,12 @@ public class PreLockdownMatchSettings : MonoBehaviour {
     [Header("-----------------------------------")]
     [Header(" COMPONENTS")]
     [Space]
+    public Text LevelText = null;
+    public Text DifficultyText = null;
     public Text FactionText = null;
     [Space]
     public Image LevelThumbnail = null;
     public Text TempLevelText = null;
-    public Image DifficultyThumbnail = null;
     public Text TempDiffText = null;
     public Button StartMatchButton;
 
@@ -55,6 +56,13 @@ public class PreLockdownMatchSettings : MonoBehaviour {
     /// </summary>
     private void Update() {
         DisableButton();
+
+        // Update level text
+        if (LevelText != null && _Level != null) { LevelText.text = _Level.LevelName.ToString(); }
+
+        // Update level text
+        if (DifficultyText != null && _Difficulty != null) { DifficultyText.text = _Difficulty.Difficulty.ToString(); }
+
         // Update faction text
         if (FactionText != null) { FactionText.text = _Faction.ToString(); }
 
@@ -68,15 +76,20 @@ public class PreLockdownMatchSettings : MonoBehaviour {
         if (TempDiffText != null && _Difficulty != null) { TempDiffText.text = _Difficulty.Difficulty.ToString(); }
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
     private void DisableButton()
     {
         if(_Level == null || _Difficulty == null)
         {
-            StartMatchButton.enabled = false;
+            StartMatchButton.interactable = false;
         }
         else if(_Level != null || _Difficulty != null)
         {
-            StartMatchButton.enabled = true;
+            StartMatchButton.interactable = true;
         }
     }
 
@@ -159,7 +172,7 @@ public class PreLockdownMatchSettings : MonoBehaviour {
     /// <returns>
     //  bool
     /// </returns>
-    public bool GetFactionDefined() { return _Faction != null; }
+    public bool GetFactionDefined() { return _Faction == InstanceManager.EFaction.Ethereal; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

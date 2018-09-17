@@ -9,11 +9,11 @@ using UnityEngine.EventSystems;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 29/7/2018
+//  Last edited on: 17/9/2018
 //
 //******************************
 
-public class ButtonHover_MainMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler { 
+public class ButtonHover_MainMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler, IPointerDownHandler, IPointerUpHandler, ISelectHandler, IDeselectHandler { 
 
     //******************************************************************************************************************************
     //
@@ -25,10 +25,25 @@ public class ButtonHover_MainMenu : MonoBehaviour, IPointerEnterHandler, IPointe
     [Header("-----------------------------------")]
     [Header(" BUTTON HOVER PROPERTIES")]
     [Space]
-    public Text TextAttached = null;
     public Color Default_TextColour = Color.white;
+    public Color Default_OutlineColour = Color.black;
+    public bool Default_OutlineEnabled = true;
+    [Space]
     public Color Hover_TextColour = Color.black;
-    public Button EnterButton = null;
+    public Color Hover_OutlineColour = Color.white;
+    public bool Hover_OutlineEnabled = false;
+    [Space]
+    public Color Clicked_TextColour = Color.white;
+    public Color Clicked_OutlineColour = Color.black;
+    public bool Clicked_OutlineEnabled = true;
+    [Space]
+    public Color Down_TextColour = Color.white;
+    public Color Down_OutlineColour = Color.black;
+    public bool Down_OutlineEnabled = true;
+    [Space]
+    public Color Up_TextColour = Color.white;
+    public Color Up_OutlineColour = Color.black;
+    public bool Up_OutlineEnabled = true;
 
     //******************************************************************************************************************************
     //
@@ -36,7 +51,8 @@ public class ButtonHover_MainMenu : MonoBehaviour, IPointerEnterHandler, IPointe
     //
     //******************************************************************************************************************************
 
-    private Button _ButtonComponent;
+    private Text TextAttached = null;
+    private Button ButtonAttached = null;
 
     //******************************************************************************************************************************
     //
@@ -47,56 +63,193 @@ public class ButtonHover_MainMenu : MonoBehaviour, IPointerEnterHandler, IPointe
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    /// 
+    //  Called when the object is created.
     /// </summary>
-    private void Start() {
-
-        // Get component references
-        _ButtonComponent = GetComponent<Button>();
+    void Start() {
+        
+        ButtonAttached = GetComponent<Button>();
+        TextAttached = GetComponentInChildren<Text>();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    /// 
+    //  Called when the button this script is attached to, is hovered.
     /// </summary>
     /// <param name="eventdata"></param>
     public void OnPointerEnter(PointerEventData eventdata) {
-        
-        if (TextAttached != null) {
 
-            // Update text colour
-            TextAttached.color = Hover_TextColour;
+        if (TextAttached != null && ButtonAttached != null) {
+
+            if (ButtonAttached.interactable) {
+
+                // Update text colour
+                TextAttached.color = Hover_TextColour;
+
+                // Update outline colour
+                Outline o = TextAttached.GetComponent<Outline>();
+                if (o != null) {
+
+                    o.enabled = Hover_OutlineEnabled;
+                    o.effectColor = Hover_OutlineColour;
+                }
+            }
         }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    /// 
+    //  Called when the button this script is attached to, is unhovered.
     /// </summary>
     /// <param name="eventdata"></param>
     public void OnPointerExit(PointerEventData eventdata) {
         
-        if (TextAttached != null) {
+        if (TextAttached != null && ButtonAttached != null) {
 
-            // Update text colour
-            TextAttached.color = Default_TextColour;
+            if (ButtonAttached.interactable) {
+
+                // Update text colour
+                TextAttached.color = Default_TextColour;
+
+                // Update outline colour
+                Outline o = TextAttached.GetComponent<Outline>();
+                if (o != null) {
+
+                    o.enabled = Default_OutlineEnabled;
+                    o.effectColor = Default_OutlineColour;
+                }
+            }
         }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    /// 
+    //  Called when the button this script is attached to, is clicked.
     /// </summary>
     /// <param name="eventdata"></param>
     public void OnPointerClick(PointerEventData eventdata) {
 
-        if (TextAttached != null) {
+        if (TextAttached != null && ButtonAttached != null) {
 
-            // Update text colour
-            TextAttached.color = Hover_TextColour;
+            if (ButtonAttached.interactable) {
+
+                // Update text colour
+                TextAttached.color = Clicked_TextColour;
+
+                // Update outline
+                Outline o = TextAttached.GetComponent<Outline>();
+                if (o != null) {
+
+                    o.enabled = Clicked_OutlineEnabled;
+                    o.effectColor = Clicked_OutlineColour;
+                }
+            }
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Called when the button this script is attached to, is pressed down.
+    /// </summary>
+    /// <param name="eventdata"></param>
+    public void OnPointerDown(PointerEventData eventdata) {
+
+        if (TextAttached != null && ButtonAttached != null) {
+
+            if (ButtonAttached.interactable) {
+
+                // Update text colour
+                TextAttached.color = Down_TextColour;
+
+                // Update outline
+                Outline o = TextAttached.GetComponent<Outline>();
+                if (o != null) {
+
+                    o.enabled = Down_OutlineEnabled;
+                    o.effectColor = Down_OutlineColour;
+                }
+            }
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Called when the button this script is attached to, is no longer pressed.
+    /// </summary>
+    /// <param name="eventdata"></param>
+    public void OnPointerUp(PointerEventData eventdata) {
+
+        if (TextAttached != null && ButtonAttached != null) {
+
+            if (ButtonAttached.interactable) {
+
+                // Update text colour
+                TextAttached.color = Up_TextColour;
+
+                // Update outline
+                Outline o = TextAttached.GetComponent<Outline>();
+                if (o != null) {
+
+                    o.enabled = Up_OutlineEnabled;
+                    o.effectColor = Up_OutlineColour;
+                }
+            }
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="eventData"></param>
+    public void OnSelect(BaseEventData eventData) {
+
+        if (TextAttached != null && ButtonAttached != null) {
+
+            if (ButtonAttached.interactable) {
+
+                // Update text colour
+                TextAttached.color = Down_TextColour;
+
+                // Update outline
+                Outline o = TextAttached.GetComponent<Outline>();
+                if (o != null) {
+
+                    o.enabled = Down_OutlineEnabled;
+                    o.effectColor = Down_OutlineColour;
+                }
+            }
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="eventData"></param>
+    public void OnDeselect(BaseEventData eventData) {
+
+        if (TextAttached != null && ButtonAttached != null) {
+
+            if (ButtonAttached.interactable) {
+
+                // Update text colour
+                TextAttached.color = Up_TextColour;
+
+                // Update outline
+                Outline o = TextAttached.GetComponent<Outline>();
+                if (o != null) {
+
+                    o.enabled = Up_OutlineEnabled;
+                    o.effectColor = Up_OutlineColour;
+                }
+            }
         }
     }
 
