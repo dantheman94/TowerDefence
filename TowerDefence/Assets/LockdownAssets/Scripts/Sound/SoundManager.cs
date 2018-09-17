@@ -84,15 +84,15 @@ public class SoundManager : MonoBehaviour {
 
         if (_FadingOut) { _CurrentFadeOutLerp += Time.deltaTime; }
 
-        UpdateVoxel();
+      //  UpdateVoxel();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public void PlaySound(string soundLocation, float pitchMin, float pitchMax) {
-
+        
         // Create pooled game object for the sound
-        GameObject soundObj = ObjectPooling.Spawn(Resources.Load(soundLocation) as GameObject);
+        GameObject soundObj = ObjectPooling.Spawn(Resources.Load<GameObject>(soundLocation));
 
         // Grab the source for the sound to play from
         AudioSource soundSource = soundObj.GetComponent<AudioSource>();
@@ -104,7 +104,7 @@ public class SoundManager : MonoBehaviour {
         soundSource.Play();
 
         // Add the sound object to the List
-        _Sounds.Add(soundSource);
+        ///_Sounds.Add(soundSource);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
