@@ -457,7 +457,7 @@ Transform:
   m_GameObject: {fileID: 1760803257945720}
   m_LocalRotation: {x: 0.7071068, y: -0.0000000037252903, z: 0.0000000037252903, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 80, z: 0}
-  m_LocalScale: {x: 150, y: 150, z: 1}
+  m_LocalScale: {x: 100, y: 100, z: 1}
   m_Children: []
   m_Father: {fileID: 4787349855401586}
   m_RootOrder: 0
@@ -605,7 +605,7 @@ MeshRenderer:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1984095445488134}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
@@ -639,7 +639,7 @@ MeshRenderer:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1163330874946670}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
@@ -707,7 +707,7 @@ MeshRenderer:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1918199021341828}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
@@ -741,7 +741,7 @@ MeshRenderer:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1612082822380504}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
@@ -775,7 +775,7 @@ MeshRenderer:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1436244129292564}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
@@ -809,7 +809,7 @@ MeshRenderer:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1533070530025942}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
@@ -843,7 +843,7 @@ MeshRenderer:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1151205185058780}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
@@ -877,7 +877,7 @@ MeshRenderer:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1096793552675810}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
@@ -911,7 +911,7 @@ MeshRenderer:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1759813377912534}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
@@ -945,7 +945,7 @@ MeshRenderer:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1910691356897898}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
@@ -979,7 +979,7 @@ MeshRenderer:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1452893183743884}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
@@ -1347,6 +1347,7 @@ MonoBehaviour:
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   DestroyedState: {fileID: 0}
+  Damagable: 0
   MaxHitPoints: 100
   MaxShieldPoints: 0
   Garrisonable: 0
@@ -1369,15 +1370,15 @@ MonoBehaviour:
   LinkedSlots: []
   Buildings:
   - {fileID: 0}
+  - {fileID: 114346840076971176, guid: 2e80e0b2e2878d64f977e45f83140270, type: 2}
+  - {fileID: 114017345909741574, guid: 4abdea2431528c348aa122f9e1986986, type: 2}
+  - {fileID: 114306093193310104, guid: e19cd37b71faf30409c42e6ec98fd291, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 114951768522124020, guid: 682540ba7261ee34798723b0036b70ba, type: 2}
+  - {fileID: 114657766055865356, guid: 4932ac3918bfd53498a73203e1774e92, type: 2}
+  - {fileID: 114832618223206602, guid: a2bd16e2f76a1734da01e648fbbeb20c, type: 2}
 --- !u!114 &114143540703222754
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1409,6 +1410,7 @@ MonoBehaviour:
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   DestroyedState: {fileID: 0}
+  Damagable: 0
   MaxHitPoints: 100
   MaxShieldPoints: 0
   Garrisonable: 0
@@ -1431,9 +1433,9 @@ MonoBehaviour:
   LinkedSlots: []
   Buildings:
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 114067246028920440, guid: 88f5727b0312e6b4380c689cf7200378, type: 2}
+  - {fileID: 114587061300654704, guid: fd10a7812cce501468cc50d13ff264b8, type: 2}
+  - {fileID: 114736078254217442, guid: 390346eefb0a2ae43bb0237eb827239e, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -1471,6 +1473,7 @@ MonoBehaviour:
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   DestroyedState: {fileID: 0}
+  Damagable: 0
   MaxHitPoints: 100
   MaxShieldPoints: 0
   Garrisonable: 0
@@ -1493,15 +1496,15 @@ MonoBehaviour:
   LinkedSlots: []
   Buildings:
   - {fileID: 0}
+  - {fileID: 114346840076971176, guid: 2e80e0b2e2878d64f977e45f83140270, type: 2}
+  - {fileID: 114017345909741574, guid: 4abdea2431528c348aa122f9e1986986, type: 2}
+  - {fileID: 114306093193310104, guid: e19cd37b71faf30409c42e6ec98fd291, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 114951768522124020, guid: 682540ba7261ee34798723b0036b70ba, type: 2}
+  - {fileID: 114657766055865356, guid: 4932ac3918bfd53498a73203e1774e92, type: 2}
+  - {fileID: 114832618223206602, guid: a2bd16e2f76a1734da01e648fbbeb20c, type: 2}
 --- !u!114 &114286593509319122
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1535,6 +1538,7 @@ MonoBehaviour:
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 1985043330116958}
   DestroyedState: {fileID: 0}
+  Damagable: 1
   MaxHitPoints: 2000
   MaxShieldPoints: 0
   Garrisonable: 0
@@ -1613,6 +1617,7 @@ MonoBehaviour:
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   DestroyedState: {fileID: 0}
+  Damagable: 0
   MaxHitPoints: 100
   MaxShieldPoints: 0
   Garrisonable: 0
@@ -1635,9 +1640,9 @@ MonoBehaviour:
   LinkedSlots: []
   Buildings:
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 114067246028920440, guid: 88f5727b0312e6b4380c689cf7200378, type: 2}
+  - {fileID: 114587061300654704, guid: fd10a7812cce501468cc50d13ff264b8, type: 2}
+  - {fileID: 114736078254217442, guid: 390346eefb0a2ae43bb0237eb827239e, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -1675,6 +1680,7 @@ MonoBehaviour:
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   DestroyedState: {fileID: 0}
+  Damagable: 0
   MaxHitPoints: 100
   MaxShieldPoints: 0
   Garrisonable: 0
@@ -1697,15 +1703,15 @@ MonoBehaviour:
   LinkedSlots: []
   Buildings:
   - {fileID: 0}
+  - {fileID: 114346840076971176, guid: 2e80e0b2e2878d64f977e45f83140270, type: 2}
+  - {fileID: 114017345909741574, guid: 4abdea2431528c348aa122f9e1986986, type: 2}
+  - {fileID: 114306093193310104, guid: e19cd37b71faf30409c42e6ec98fd291, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 114951768522124020, guid: 682540ba7261ee34798723b0036b70ba, type: 2}
+  - {fileID: 114657766055865356, guid: 4932ac3918bfd53498a73203e1774e92, type: 2}
+  - {fileID: 114832618223206602, guid: a2bd16e2f76a1734da01e648fbbeb20c, type: 2}
 --- !u!114 &114435465587901164
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1737,6 +1743,7 @@ MonoBehaviour:
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   DestroyedState: {fileID: 0}
+  Damagable: 0
   MaxHitPoints: 100
   MaxShieldPoints: 0
   Garrisonable: 0
@@ -1759,15 +1766,15 @@ MonoBehaviour:
   LinkedSlots: []
   Buildings:
   - {fileID: 0}
+  - {fileID: 114346840076971176, guid: 2e80e0b2e2878d64f977e45f83140270, type: 2}
+  - {fileID: 114017345909741574, guid: 4abdea2431528c348aa122f9e1986986, type: 2}
+  - {fileID: 114306093193310104, guid: e19cd37b71faf30409c42e6ec98fd291, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 114951768522124020, guid: 682540ba7261ee34798723b0036b70ba, type: 2}
+  - {fileID: 114657766055865356, guid: 4932ac3918bfd53498a73203e1774e92, type: 2}
+  - {fileID: 114832618223206602, guid: a2bd16e2f76a1734da01e648fbbeb20c, type: 2}
 --- !u!114 &114515084202992190
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1799,6 +1806,7 @@ MonoBehaviour:
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   DestroyedState: {fileID: 0}
+  Damagable: 0
   MaxHitPoints: 100
   MaxShieldPoints: 0
   Garrisonable: 0
@@ -1821,15 +1829,15 @@ MonoBehaviour:
   LinkedSlots: []
   Buildings:
   - {fileID: 0}
+  - {fileID: 114346840076971176, guid: 2e80e0b2e2878d64f977e45f83140270, type: 2}
+  - {fileID: 114017345909741574, guid: 4abdea2431528c348aa122f9e1986986, type: 2}
+  - {fileID: 114306093193310104, guid: e19cd37b71faf30409c42e6ec98fd291, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 114951768522124020, guid: 682540ba7261ee34798723b0036b70ba, type: 2}
+  - {fileID: 114657766055865356, guid: 4932ac3918bfd53498a73203e1774e92, type: 2}
+  - {fileID: 114832618223206602, guid: a2bd16e2f76a1734da01e648fbbeb20c, type: 2}
 --- !u!114 &114523920183695624
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1861,6 +1869,7 @@ MonoBehaviour:
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   DestroyedState: {fileID: 0}
+  Damagable: 0
   MaxHitPoints: 100
   MaxShieldPoints: 0
   Garrisonable: 0
@@ -1883,15 +1892,15 @@ MonoBehaviour:
   LinkedSlots: []
   Buildings:
   - {fileID: 0}
+  - {fileID: 114346840076971176, guid: 2e80e0b2e2878d64f977e45f83140270, type: 2}
+  - {fileID: 114017345909741574, guid: 4abdea2431528c348aa122f9e1986986, type: 2}
+  - {fileID: 114306093193310104, guid: e19cd37b71faf30409c42e6ec98fd291, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 114951768522124020, guid: 682540ba7261ee34798723b0036b70ba, type: 2}
+  - {fileID: 114657766055865356, guid: 4932ac3918bfd53498a73203e1774e92, type: 2}
+  - {fileID: 114832618223206602, guid: a2bd16e2f76a1734da01e648fbbeb20c, type: 2}
 --- !u!114 &114627665013960674
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1923,6 +1932,7 @@ MonoBehaviour:
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   DestroyedState: {fileID: 0}
+  Damagable: 0
   MaxHitPoints: 100
   MaxShieldPoints: 0
   Garrisonable: 0
@@ -1945,15 +1955,15 @@ MonoBehaviour:
   LinkedSlots: []
   Buildings:
   - {fileID: 0}
+  - {fileID: 114346840076971176, guid: 2e80e0b2e2878d64f977e45f83140270, type: 2}
+  - {fileID: 114017345909741574, guid: 4abdea2431528c348aa122f9e1986986, type: 2}
+  - {fileID: 114306093193310104, guid: e19cd37b71faf30409c42e6ec98fd291, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 114951768522124020, guid: 682540ba7261ee34798723b0036b70ba, type: 2}
+  - {fileID: 114657766055865356, guid: 4932ac3918bfd53498a73203e1774e92, type: 2}
+  - {fileID: 114832618223206602, guid: a2bd16e2f76a1734da01e648fbbeb20c, type: 2}
 --- !u!114 &114657606246537628
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1985,6 +1995,7 @@ MonoBehaviour:
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   DestroyedState: {fileID: 0}
+  Damagable: 0
   MaxHitPoints: 100
   MaxShieldPoints: 0
   Garrisonable: 0
@@ -2007,9 +2018,9 @@ MonoBehaviour:
   LinkedSlots: []
   Buildings:
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 114067246028920440, guid: 88f5727b0312e6b4380c689cf7200378, type: 2}
+  - {fileID: 114587061300654704, guid: fd10a7812cce501468cc50d13ff264b8, type: 2}
+  - {fileID: 114736078254217442, guid: 390346eefb0a2ae43bb0237eb827239e, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -2059,6 +2070,7 @@ MonoBehaviour:
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   DestroyedState: {fileID: 0}
+  Damagable: 0
   MaxHitPoints: 100
   MaxShieldPoints: 0
   Garrisonable: 0
@@ -2081,9 +2093,9 @@ MonoBehaviour:
   LinkedSlots: []
   Buildings:
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 114067246028920440, guid: 88f5727b0312e6b4380c689cf7200378, type: 2}
+  - {fileID: 114587061300654704, guid: fd10a7812cce501468cc50d13ff264b8, type: 2}
+  - {fileID: 114736078254217442, guid: 390346eefb0a2ae43bb0237eb827239e, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

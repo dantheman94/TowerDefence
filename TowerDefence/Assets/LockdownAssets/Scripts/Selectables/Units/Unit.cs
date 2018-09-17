@@ -330,6 +330,9 @@ public class Unit : Ai {
     /// </summary>
     public virtual void OnSpawn() {
 
+        if (_PotentialTargets != null) { _PotentialTargets.Clear(); }
+        _AttackTarget = null;
+        _AttackPathIterator = 0;
         ResetHealth();
 
         // Enable components
@@ -423,17 +426,18 @@ public class Unit : Ai {
 
                 // Get new attack target if possible
                 DetermineWeightedTargetFromList(TargetWeights);
-                /*
+                
                 // Always attack the core if we dont have a target (ATTACKING TEAM ONLY)
                 if (Team == GameManager.Team.Attacking && !IsInASquad()) {
 
-                    if (_AttackTarget == null) {
+                    // Make sure we have completed the attack path allocated to us
+                    if (_AttackTarget == null && _AttackPathComplete) {
 
-                        //AddPotentialTarget(WaveManager.Instance.CentralCore.GetAttackObject());
-                        //DetermineWeightedTargetFromList(TargetWeights);
-                        //TryToChaseTarget(_AttackTarget);
+                        AddPotentialTarget(WaveManager.Instance.CentralCore.GetAttackObject());
+                        DetermineWeightedTargetFromList(TargetWeights);
+                        TryToChaseTarget(_AttackTarget);
                     }
-                }*/
+                }
             }
         }
     }

@@ -222,10 +222,14 @@ public class Player : MonoBehaviour {
 
         if (ai != null) {
 
+            // Remove if from army array
             _Army.Remove(ai);
 
             // Remove it from any assigned groups
             for (int i = 0; i < _Platoons.Count; i++) { _Platoons[i].GetAi().Remove(ai); }
+
+            // Deduct population cost
+            PopulationCount -= ai.CostPopulation;
         }
     }
 

@@ -38,6 +38,7 @@ GameObject:
   - component: {fileID: 33847237268472238}
   - component: {fileID: 23020554936066032}
   - component: {fileID: 65353500849356226}
+  - component: {fileID: 65799570026708278}
   - component: {fileID: 54283575856961468}
   - component: {fileID: 114429450592400748}
   m_Layer: 14
@@ -142,6 +143,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65799570026708278
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1715103076877874}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!108 &108428560783310650
 Light:
   m_ObjectHideFlags: 1
@@ -197,5 +210,5 @@ MonoBehaviour:
   TrackingStrength: 0
   ExplodeOnImpact: 1
   ExplosionRadius: 10
-  DamageFalloff: 0.5
+  DamageFalloff: 0.2
   ExplosionEffect: {fileID: 0}

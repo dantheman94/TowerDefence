@@ -63,6 +63,7 @@ public class Ai : WorldObject {
 
     protected AttackPath _AttackPath = null;
     protected int _AttackPathIterator = 0;
+    protected bool _AttackPathComplete = false;
 
     protected Building _AttachedBuilding;
 
@@ -138,15 +139,17 @@ public class Ai : WorldObject {
                 if (_AttackPathIterator + 1 < _AttackPath.GetNodePositions().Count) {
 
                     _AttackPathIterator++;
+                    _AttackPathComplete = false;
 
                     // Go to point with random offset
-                    Vector2 rand = Random.insideUnitCircle * 20f;
+                    Vector2 rand = Random.insideUnitCircle * 30f;
                     Vector3 pos = _AttackPath.GetNodePositions()[_AttackPathIterator] + new Vector3(rand.x, _AttackPath.GetNodePositions()[_AttackPathIterator].y, rand.y);
 
                     ///Instantiate(GameManager.Instance.AgentSeekObject, _AttackPath.GetNodePositions()[_AttackPathIterator], Quaternion.identity);
 
                     StartCoroutine(AgentGoTo(pos));
                 }
+                else { _AttackPathComplete = true; }
             }
             else {
 
@@ -180,6 +183,9 @@ public class Ai : WorldObject {
         // If were in the wave manager's enemies array - remove it
         if (WaveManager.Instance.GetCurrentWaveEnemies().Contains(this)) { WaveManager.Instance.GetCurrentWaveEnemies().Remove(this); }
         if (Team == GameManager.Team.Attacking) { GameManager.Instance.WaveStatsHUD.DeductLifeFromCurrentPopulation(); }
+
+        // Remove from player's population counter
+        else if (Team == GameManager.Team.Defending) { _Player.RemoveFromArmy(this); }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

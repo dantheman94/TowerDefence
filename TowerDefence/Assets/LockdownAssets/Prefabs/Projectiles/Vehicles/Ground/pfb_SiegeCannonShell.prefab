@@ -21,9 +21,10 @@ GameObject:
   - component: {fileID: 4852318408167548}
   - component: {fileID: 33868639269637194}
   - component: {fileID: 23001791824135362}
+  - component: {fileID: 135434628857774918}
+  - component: {fileID: 65422337215714778}
   - component: {fileID: 54891423821162884}
   - component: {fileID: 114419692928983864}
-  - component: {fileID: 135434628857774918}
   m_Layer: 14
   m_Name: pfb_SiegeCannonShell
   m_TagString: Untagged
@@ -100,6 +101,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &65422337215714778
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1814774403537224}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114419692928983864
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -118,8 +131,8 @@ MonoBehaviour:
   HomingProjectile: 0
   TrackingStrength: 0
   ExplodeOnImpact: 1
-  ExplosionRadius: 20
-  DamageFalloff: 0.5
+  ExplosionRadius: 10
+  DamageFalloff: 0.4
   ExplosionEffect: {fileID: 0}
 --- !u!135 &135434628857774918
 SphereCollider:

@@ -458,19 +458,7 @@ public class WaveManager : MonoBehaviour {
 
             GameObject obj = ObjectPooling.Spawn(subwaveEnemies[i].gameObject, spawnPositions[i]);
             Player player = GameManager.Instance.Players[0];
-
-            // Initialize the object as a squad
-            Squad squad = obj.GetComponent<Squad>();
-            if (squad != null) {
-
-                squad.Team = GameManager.Team.Attacking;
-                squad.SetPlayer(player);
-                squad.SpawnUnits(squad);
-                squad.CreateHealthBar(squad, player.PlayerCamera);
-
-                _CurrentWaveEnemies.Add(squad);
-            }
-
+            
             // Initialize the object as a unit
             Unit unit = obj.GetComponent<Unit>();
             if (unit != null) {
@@ -630,6 +618,20 @@ public class WaveManager : MonoBehaviour {
     //  List<WorldObject>
     /// </returns>
     public List<WorldObject> GetCurrentWaveEnemies() { return _CurrentWaveEnemies; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="friendlyUnit"></param>
+    /// <returns></returns>
+    public float GetWaveDamageModifier(WorldObject obj) {
+
+        // Return the _CurrentDamageModifier if its a defending unit, otherwise return 1f if its an attacking unit
+        if (obj.Team == GameManager.Team.Defending) { return _CurrentDamageModifier; }
+        else { return 1f; }
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

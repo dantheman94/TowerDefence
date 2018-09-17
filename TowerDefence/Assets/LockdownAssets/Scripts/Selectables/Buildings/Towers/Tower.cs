@@ -26,8 +26,9 @@ public class Tower : Building {
     public ETowerType TowerType;
     [Space]
     public GameObject Head = null;
-    public Weapon TowerWeapon = null;
     public float WeaponAimingSpeed = 5f;
+    [Space]
+    public Weapon TowerWeapon = null;
     public List<GameObject> MuzzleLaunchPoints;
 
     [Space]
@@ -249,34 +250,22 @@ public class Tower : Building {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  
+    //  Checks to see if the specified WorldObject is contained within the list.
     /// </summary>
     /// <param name="target"></param>
     /// <returns>
     //  bool
     /// </returns>
-    public bool IsTargetInPotentialList(WorldObject target) {
-
-        // Look for match
-        bool match = false;
-        for (int i = 0; i < _PotentialTargets.Count; i++) {
-
-            // Match found
-            if (_PotentialTargets[i] == target) {
-
-                match = true;
-                break;
-            }
-        }
-        return match;
-    }
+    public bool IsTargetInPotentialList(WorldObject target) { return _PotentialTargets.Contains(target); }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  
+    //  Returns reference to the current attack target for this object.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>
+    //  WorldObject
+    /// </returns>
     public WorldObject GetAttackTarget() { return _AttackTarget; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

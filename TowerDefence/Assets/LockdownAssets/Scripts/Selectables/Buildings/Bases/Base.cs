@@ -194,21 +194,25 @@ public class Base : Building {
 
         // Pass the building queue to the new building   
         Base newBase = _ClonedWorldObject.GetComponent<Base>();
-        for (int i = 0; i < newBase._PreviousBase.GetBuildingQueue().Count; i++) {
+        if (newBase._PreviousBase != null) {
 
-            // BUT DONT ADD OURSELF TO THE QUEUE
-            if (newBase._PreviousBase.GetBuildingQueue()[i] != _ClonedWorldObject) {
+            for (int i = 0; i < newBase._PreviousBase.GetBuildingQueue().Count; i++) {
 
-                // Add to queue
-                newBase.AddToQueue(newBase._PreviousBase.GetBuildingQueue()[i]);
+                // BUT DONT ADD OURSELF TO THE QUEUE
+                if (newBase._PreviousBase.GetBuildingQueue()[i] != _ClonedWorldObject) {
+
+                    // Add to queue
+                    newBase.AddToQueue(newBase._PreviousBase.GetBuildingQueue()[i]);
+                }
             }
-        }
-        // Clear/destroy the previous building's queue
-        newBase._PreviousBase.GetBuildingQueue().Clear();
-        if (UI_BuildingQueueWrapper.Instance.ContainsQueue(newBase._PreviousBase._BuildingQueueUI)) {
 
-            UI_BuildingQueueWrapper.Instance.RemoveFromQueue(newBase._PreviousBase._BuildingQueueUI);
-            Destroy(newBase._PreviousBase._BuildingQueueUI);
+            // Clear/destroy the previous building's queue
+            newBase._PreviousBase.GetBuildingQueue().Clear();
+            if (UI_BuildingQueueWrapper.Instance.ContainsQueue(newBase._PreviousBase._BuildingQueueUI)) {
+
+                UI_BuildingQueueWrapper.Instance.RemoveFromQueue(newBase._PreviousBase._BuildingQueueUI);
+                Destroy(newBase._PreviousBase._BuildingQueueUI);
+            }
         }
 
         // Create a rally point

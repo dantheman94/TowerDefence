@@ -36,13 +36,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1016279759970900}
-  m_LocalRotation: {x: -0, y: 0.3965924, z: -0, w: 0.9179948}
-  m_LocalPosition: {x: -162.9, y: 0.2, z: -182.4}
-  m_LocalScale: {x: 25, y: 1, z: 5}
+  m_LocalRotation: {x: -0.0038914604, y: 0.867719, z: -0.008352173, w: -0.49696976}
+  m_LocalPosition: {x: -429.33, y: -0.39, z: -34.57}
+  m_LocalScale: {x: 25.00003, y: 1, z: 5.000001}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 46.731003, z: 0}
+  m_LocalEulerAnglesHint: {x: 1.052, y: 239.603, z: 0.089}
 --- !u!23 &23341947310170516
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -50,7 +50,7 @@ MeshRenderer:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1016279759970900}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
@@ -94,7 +94,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.99999994, y: 1, z: 0.9999999}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114366939821830164
 MonoBehaviour:
@@ -116,7 +116,7 @@ MonoBehaviour:
   CostPower: 0
   CostTechLevel: 1
   CostPopulation: 0
-  _ObjectState: 3
+  _ObjectState: 4
   Team: 0
   _Player: {fileID: 0}
   FogOfWarRadius: 400
@@ -127,6 +127,7 @@ MonoBehaviour:
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   DestroyedState: {fileID: 0}
+  Damagable: 0
   MaxHitPoints: 100
   MaxShieldPoints: 0
   Garrisonable: 0
