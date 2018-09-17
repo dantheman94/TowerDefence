@@ -330,6 +330,9 @@ public class Unit : Ai {
     /// </summary>
     public virtual void OnSpawn() {
 
+        if (_PotentialTargets != null) { _PotentialTargets.Clear(); }
+        _AttackTarget = null;
+        _AttackPathIterator = 0;
         ResetHealth();
 
         // Enable components
