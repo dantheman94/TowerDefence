@@ -6,8 +6,8 @@ using UnityEngine;
 //
 //  Created by: Joshua Peake
 //
-//  Last edited by: Joshua Peake
-//  Last edited on: 3/09/2018
+//  Last edited by: Daniel Marton
+//  Last edited on: 18/09/2018
 //
 //******************************
 
@@ -19,9 +19,11 @@ public class SoundManager : MonoBehaviour {
     //
     //******************************************************************************************************************************
     
-    List<AudioSource> _Sounds;
-    private List<AudioSource> _VoxelWaitingList;
     public static SoundManager Instance;
+
+    List<AudioSource> _Sounds;
+
+    private List<AudioSource> _VoxelWaitingList;
     private bool _IsPlayingVoxel = false;
     private float _TimeSinceLastVoxel = 0f;
 
@@ -48,7 +50,7 @@ public class SoundManager : MonoBehaviour {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    /// Called when the gameObject is created.
+    //  Called when the gameObject is created.
     /// </summary>
     public void Awake () {
 
@@ -84,7 +86,7 @@ public class SoundManager : MonoBehaviour {
 
         if (_FadingOut) { _CurrentFadeOutLerp += Time.deltaTime; }
 
-      //  UpdateVoxel();
+        UpdateVoxel();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -97,6 +99,12 @@ public class SoundManager : MonoBehaviour {
         // Grab the source for the sound to play from
         AudioSource soundSource = soundObj.GetComponent<AudioSource>();
 
+        // Clammp min/max pitch (0, 3)
+        if (pitchMin < 0) { pitchMin = 0f; }
+        if (pitchMax > 3) { pitchMax = 3f; }
+        if (pitchMin > pitchMax) { pitchMin = pitchMax; }
+        if (pitchMax < pitchMin) { pitchMax = pitchMin; }
+
         // Randomize the sound's pitch based on the min and max specified
         soundSource.pitch = Random.Range(pitchMin, pitchMax);
 
@@ -104,29 +112,24 @@ public class SoundManager : MonoBehaviour {
         soundSource.Play();
 
         // Add the sound object to the List
-        ///_Sounds.Add(soundSource);
+        _Sounds.Add(soundSource);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    private void UpdateVoxel()
-    {
+    private void UpdateVoxel() {
 
         // If there are voxel sounds waiting to be played
-        if (_VoxelWaitingList.Count > 0)
-        {
+        if (_VoxelWaitingList.Count > 0) {
 
-            if (_IsPlayingVoxel == true)
-            {
+            if (_IsPlayingVoxel == true) {
 
                 // Find the voxel sound that is current playing
                 AudioSource vox = null;
-                foreach (var sound in _VoxelWaitingList)
-                {
+                foreach (var sound in _VoxelWaitingList) {
                     
                     // If a sound from the voxel list is playing
-                    if (sound.isPlaying == true)
-                    {
+                    if (sound.isPlaying == true) {
 
                         // Then a voxel is playing
                         vox = sound;
@@ -139,15 +142,13 @@ public class SoundManager : MonoBehaviour {
             }
 
             // A vox has finished playing
-            else
-            { /// _IsPlayingVoxel == false
+            else { /// _IsPlayingVoxel == false
 
                 // Get the last voxel that was playing (should be at the front of the list) & remove it from the queue
                 _VoxelWaitingList.RemoveAt(0);
 
                 // If there are still voxels in the queue
-                if (_VoxelWaitingList.Count > 0)
-                {
+                if (_VoxelWaitingList.Count > 0) {
 
                     // Play the next vox sound in the queue
                     _VoxelWaitingList[0].Play();
@@ -159,8 +160,7 @@ public class SoundManager : MonoBehaviour {
         }
 
         // No more voxels are left in the playing queue
-        else if (_VoxelWaitingList.Count == 0)
-        {
+        else if (_VoxelWaitingList.Count == 0) {
 
             // Add to timer
             _TimeSinceLastVoxel += Time.deltaTime;
