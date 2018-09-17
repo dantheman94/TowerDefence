@@ -38,6 +38,7 @@ public class KeyboardInput : MonoBehaviour {
     private Ai _HighlightAiObject = null;
     private Building _HighlightBuilding = null;
     private WorldObject _HighlightWorldObject = null;
+    private bool SelectedTrue = false;
 
     //******************************************************************************************************************************
     //
@@ -65,12 +66,15 @@ public class KeyboardInput : MonoBehaviour {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    public bool GetSet() { return SelectedTrue; }
+
+    public void SetSelected(bool abool) { SelectedTrue = abool; }
     /// <summary>
     //  Called each frame. 
     /// </summary>
+    /// 
     private void Update() {
         CreateSelectionBox();
-
         if (_PlayerAttached) {
 
             // Update primary controller
@@ -120,9 +124,17 @@ public class KeyboardInput : MonoBehaviour {
             }
         }
     }
-    
+
+    private void LateUpdate()
+    {
+        if (Input.GetMouseButtonUp(0))
+        {
+            Selection.Set(0, 0, 0, 0);
+        }
+    }
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
+
     /// <summary>
     //  Updates the center screen world point used the camera rotating
     /// </summary>
@@ -1665,15 +1677,16 @@ public class KeyboardInput : MonoBehaviour {
         /// </summary>
         private void CreateSelectionBox()
     {
-        
-        if (!MiniMap.MapArea.Contains(new Vector2(Input.mousePosition.x, Screen.height - Input.mousePosition.y)))
-        {
+
+      
+
             if (Input.GetMouseButtonDown(0))
             {
                 _BoxStartPoint = Input.mousePosition;
             }
             else if (Input.GetMouseButtonUp(0))
             {
+      
                 if (Selection.width < 0)
                 {
                     Selection.x += Selection.width;
@@ -1686,17 +1699,20 @@ public class KeyboardInput : MonoBehaviour {
                 }
 
                 MouseIsDown = false;
-
                 _BoxStartPoint = -Vector3.one;
+          
             }
+        //    
 
+        //    }
+       
             if (Input.GetMouseButton(0))
             {
                 MouseIsDown = true;
                 Selection = new Rect(_BoxStartPoint.x, InvertMouseY(_BoxStartPoint.y), Input.mousePosition.x - _BoxStartPoint.x,
                                      InvertMouseY(Input.mousePosition.y) - InvertMouseY(_BoxStartPoint.y));
             }
-        }
+        
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
