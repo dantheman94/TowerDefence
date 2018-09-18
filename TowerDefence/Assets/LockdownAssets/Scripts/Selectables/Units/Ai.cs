@@ -421,6 +421,7 @@ public class Ai : WorldObject {
 
                 _AttackTarget = objTarget;
                 _IsChasing = true;
+                ///if (!(this as Unit).GetChasingCoroutineIsRunning()) { StartCoroutine((this as Unit).ChasingTarget()); }
                 return true;
             }
         }
@@ -439,10 +440,12 @@ public class Ai : WorldObject {
 
             _AttackTarget = objTarget;
             _IsChasing = true;
+            ///if (!(this as Unit).GetChasingCoroutineIsRunning()) { StartCoroutine((this as Unit).ChasingTarget()); }
             return true;            
         }
         return false;
     }
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>

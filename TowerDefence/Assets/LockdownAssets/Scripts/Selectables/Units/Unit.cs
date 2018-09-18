@@ -64,10 +64,12 @@ public class Unit : Ai {
     protected GameObject _SeekWaypoint = null;
     protected float _DistanceToTarget = 0f;
     protected bool _IsBeingPlayerControlled = false;
+
     private float SnapLookAtRange = 0f;
     private BuildingSlot _BuildingSlotInstigator = null;
 
     protected NavMeshPath _NavMeshPath;
+    protected bool _ChaseCoroutineIsRunning = false;
 
     //******************************************************************************************************************************
     //
@@ -298,11 +300,30 @@ public class Unit : Ai {
     protected override void UpdateChasingEnemy() {
         base.UpdateChasingEnemy();
 
-        // Not in a squad? (squad handles their own chasing mechanics for the units!)
-        if (!IsInASquad()) {
+        if (_AttackTarget != null) { AgentAttackObject(_AttackTarget); }
+    }
 
-            if (_AttackTarget != null) { AgentAttackObject(_AttackTarget); }
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    /// <summary>
+    //  
+    /// </summary>
+    /// <returns>
+    //  IEnumerator
+    /// </returns>
+    public IEnumerator ChasingTarget() {
+
+        while (!_IsReturningToOrigin) {
+
+            if (_AttackTarget != null) {
+
+                _ChaseCoroutineIsRunning = true;
+
+                AgentAttackObject(_AttackTarget);
+                yield return new WaitForSeconds(3);
+            }
         }
+        _ChaseCoroutineIsRunning = false;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -664,7 +685,7 @@ public class Unit : Ai {
             AgentSeekPosition(_ChaseOriginPosition);
         }
     }
-
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     private void UpdateSquadSelection()
@@ -687,7 +708,6 @@ public class Unit : Ai {
             }
         }
     }
-
 
     /// <summary>
     // Checks if unit is selected by click & drag box
@@ -798,6 +818,16 @@ public class Unit : Ai {
         _HitPoints = MaxHitPoints;
         _ShieldPoints = MaxShieldPoints;
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <returns>
+    //  bool
+    /// </returns>
+    public bool GetChasingCoroutineIsRunning() { return _ChaseCoroutineIsRunning; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
