@@ -408,12 +408,8 @@ public class Unit : Ai {
                     _DistanceToTarget = Vector3.Distance(transform.position, _AttackTarget.transform.position);
                     if (_DistanceToTarget <= MaxAttackingRange && PrimaryWeapon != null) {
 
-                        // Look at attack target
-                        _IsAttacking = true;
-                        ///if (_IsAttacking) { LookAt(_AttackTargetObject.transform.position); }
-
-                        // If possible, fire weapon
-                        if (PrimaryWeapon.CanFire()) { PrimaryWeapon.FireWeapon(); }
+                        // Check for valid sight line and attack if possible
+                        SightLineCheck();
                     }
 
                     // Target is too far away or we have no primary weapon
@@ -501,6 +497,32 @@ public class Unit : Ai {
                 DetermineWeightedTargetFromList(TargetWeights);                
             }
         }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    protected virtual void SightLineCheck() {
+
+        // Look at attack target
+        _IsAttacking = true;
+        ///if (_IsAttacking) { LookAt(_AttackTargetObject.transform.position); }
+
+        // Fire raycast to confirm valid line of sight to target
+        int def = 1 << LayerMask.NameToLayer("Default");
+        int units = 1 << LayerMask.NameToLayer("Units");
+        LayerMask mask = def | units;
+        RaycastHit hit;
+        if (Physics.Raycast(MuzzleLaunchPoints[0].transform.position, _AttackTarget.TargetPoint.transform.position, out hit, MaxAttackingRange, mask)) {
+
+            // There is a line of sight to the target, fire the weapon (if possible)
+            if (PrimaryWeapon.CanFire()) { PrimaryWeapon.FireWeapon(); }
+
+            Debug.DrawLine(MuzzleLaunchPoints[0].transform.position, _AttackTarget.TargetPoint.transform.position, Color.green);
+        }
+        else { Debug.DrawLine(MuzzleLaunchPoints[0].transform.position, _AttackTarget.TargetPoint.transform.position, Color.red); }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -130,7 +130,11 @@ public class Projectile : MonoBehaviour {
             if (HomingTarget.IsAlive()) {
 
                 // Find the vector pointing from our position to the target
-                _DirectionToTarget = (HomingTarget.transform.position - transform.position).normalized;
+                Vector3 target = HomingTarget.transform.position;
+                target.y += HomingTarget.GetObjectHeight() * 0.75f;
+                if (HomingTarget.TargetPoint != null) { target = HomingTarget.TargetPoint.transform.position; }
+
+                _DirectionToTarget = (target - transform.position).normalized;
 
                 // Create the rotation we need to be in to look at the target
                 _WeaponLookRotation = Quaternion.LookRotation(_DirectionToTarget);
@@ -216,61 +220,6 @@ public class Projectile : MonoBehaviour {
 
         // Check for terrain collision
         if (collision.gameObject.CompareTag("Ground")) { OnDestroy(); }
-
-        // Get object type
-        GameObject gameObj = collision.gameObject;
-        WorldObject worldObj = gameObj.GetComponentInParent<WorldObject>();
-
-        // Successful WorldObject cast
-        if (worldObj != null) {
-
-            DifficultyManager dm = DifficultyManager.Instance;
-            DifficultyManager.EDifficultyModifiers mod = DifficultyManager.EDifficultyModifiers.Damage;
-            WaveManager wm = WaveManager.Instance;
-
-            // Check if object is of type unit
-            Unit unitObj = worldObj.GetComponent<Unit>();
-            if (unitObj != null) {
-
-                if (_WeaponAttached != null) {
-
-                    // Cant damage self
-                    if (worldObj == _WeaponAttached.GetUnitAttached()) { return; }
-
-                    // Friendly fire is OFF
-                    if (unitObj.Team != _WeaponAttached.GetUnitAttached().Team) {
-
-                        // Damage based on unit type
-                        switch (unitObj.UnitType) {
-
-                            case Unit.EUnitType.Undefined:          { unitObj.Damage(_Damages.DamageDefault * dm.GetDifficultyModifier(unitObj, mod) * wm.GetWaveDamageModifier(unitObj), _WeaponAttached.GetUnitAttached()); break; }
-                            case Unit.EUnitType.CoreMarine:         { unitObj.Damage(_Damages.DamageCoreInfantry * dm.GetDifficultyModifier(unitObj, mod) * wm.GetWaveDamageModifier(unitObj), _WeaponAttached.GetUnitAttached()); break; }
-                            case Unit.EUnitType.AntiInfantryMarine: { unitObj.Damage(_Damages.DamageAntiInfantryMarine * dm.GetDifficultyModifier(unitObj, mod) * wm.GetWaveDamageModifier(unitObj), _WeaponAttached.GetUnitAttached()); break; }
-                            case Unit.EUnitType.Hero:               { unitObj.Damage(_Damages.DamageHero * dm.GetDifficultyModifier(unitObj, mod) * wm.GetWaveDamageModifier(unitObj), _WeaponAttached.GetUnitAttached()); break; }
-                            case Unit.EUnitType.CoreVehicle:        { unitObj.Damage(_Damages.DamageCoreVehicle * dm.GetDifficultyModifier(unitObj, mod) * wm.GetWaveDamageModifier(unitObj), _WeaponAttached.GetUnitAttached()); break; }
-                            case Unit.EUnitType.AntiAirVehicle:     { unitObj.Damage(_Damages.DamageAntiAirVehicle * dm.GetDifficultyModifier(unitObj, mod) * wm.GetWaveDamageModifier(unitObj), _WeaponAttached.GetUnitAttached()); break; }
-                            case Unit.EUnitType.MobileArtillery:    { unitObj.Damage(_Damages.DamageMobileArtillery * dm.GetDifficultyModifier(unitObj, mod) * wm.GetWaveDamageModifier(unitObj), _WeaponAttached.GetUnitAttached()); break; }
-                            case Unit.EUnitType.BattleTank:         { unitObj.Damage(_Damages.DamageBattleTank * dm.GetDifficultyModifier(unitObj, mod) * wm.GetWaveDamageModifier(unitObj), _WeaponAttached.GetUnitAttached()); break; }
-                            case Unit.EUnitType.CoreAirship:        { unitObj.Damage(_Damages.DamageCoreAirship * dm.GetDifficultyModifier(unitObj, mod) * wm.GetWaveDamageModifier(unitObj), _WeaponAttached.GetUnitAttached()); break; }
-                            case Unit.EUnitType.SupportShip:        { unitObj.Damage(_Damages.DamageSupportShip * dm.GetDifficultyModifier(unitObj, mod) * wm.GetWaveDamageModifier(unitObj), _WeaponAttached.GetUnitAttached()); break; }
-                            case Unit.EUnitType.HeavyAirship:       { unitObj.Damage(_Damages.DamageHeavyAirship * dm.GetDifficultyModifier(unitObj, mod) * wm.GetWaveDamageModifier(unitObj), _WeaponAttached.GetUnitAttached()); break; }
-                            default: break;
-                        }
-                    }
-                }
-
-                // Destroy projectile
-                OnDestroy();
-            }
-
-            // Damage the world object
-            else {
-
-                // Destroy projectile
-                worldObj.Damage(_Damages.DamageDefault * dm.GetDifficultyModifier(Unit.EUnitType.Undefined, worldObj.Team == GameManager.Team.Defending, mod) * wm.GetWaveDamageModifier(worldObj));
-                OnDestroy();
-            }
-        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -282,7 +231,7 @@ public class Projectile : MonoBehaviour {
     protected void OnTriggerEnter(Collider other) {
 
         // Check for terrain collision
-        ///if (other.gameObject.CompareTag("Ground")) { OnDestroy(); }
+        if (other.gameObject.CompareTag("Ground")) { OnDestroy(); }
 
         // Get object type
         GameObject gameObj = other.gameObject;

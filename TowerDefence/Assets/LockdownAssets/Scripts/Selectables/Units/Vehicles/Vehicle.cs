@@ -189,6 +189,32 @@ public class Vehicle : Unit {
     /// <summary>
     //  
     /// </summary>
+    protected override void SightLineCheck() {
+
+        // Look at attack target
+        _IsAttacking = true;
+        ///if (_IsAttacking) { LookAt(_AttackTargetObject.transform.position); }
+
+        // Fire raycast to confirm valid line of sight to target
+        int def = 1 << LayerMask.NameToLayer("Default");
+        int units = 1 << LayerMask.NameToLayer("Units");
+        LayerMask mask = def | units;
+        RaycastHit hit;
+        if (Physics.Raycast(MuzzleLaunchPoints[0].transform.position, WeaponObject.transform.forward, out hit, MaxAttackingRange, mask)) {
+
+            // There is a line of sight to the target, fire the weapon (if possible)
+            if (PrimaryWeapon.CanFire()) { PrimaryWeapon.FireWeapon(); }
+
+            Debug.DrawRay(MuzzleLaunchPoints[0].transform.position, WeaponObject.transform.forward * MaxAttackingRange, Color.green);
+        }
+        else { Debug.DrawRay(MuzzleLaunchPoints[0].transform.position, WeaponObject.transform.forward * MaxAttackingRange, Color.red); }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
     protected override void LookAtLerp(Vector3 position) {
 
         // Rotate the vehicle's weapon to face the target

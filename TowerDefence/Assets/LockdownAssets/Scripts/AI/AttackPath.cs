@@ -56,7 +56,7 @@ public class AttackPath : MonoBehaviour {
         _PathNodes = new List<Vector3>();
         for (int i = 0; i < transform.childCount; i++) { _PathNodes.Add(transform.GetChild(i).position); }
     }
-
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>

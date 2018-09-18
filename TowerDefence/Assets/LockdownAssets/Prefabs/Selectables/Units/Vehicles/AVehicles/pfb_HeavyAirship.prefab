@@ -110,6 +110,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1193572716779888
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4069062128084682}
+  m_Layer: 9
+  m_Name: TargetPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1208068540667492
 GameObject:
   m_ObjectHideFlags: 1
@@ -628,8 +643,22 @@ Transform:
   - {fileID: 4984046356241278}
   - {fileID: 4771000763623890}
   - {fileID: 4931168193057880}
+  - {fileID: 4069062128084682}
   m_Father: {fileID: 4575314155230008}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4069062128084682
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1193572716779888}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4022856670970490}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4077637126054960
 Transform:
@@ -2069,6 +2098,7 @@ MonoBehaviour:
   ShowSelectionGUI: 0
   ShowQuadHighlighter: 1
   ShowQuadSelector: 1
+  TargetPoint: {fileID: 1193572716779888}
   InQueueState: {fileID: 0}
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 1397092352571976}
@@ -2178,6 +2208,7 @@ MonoBehaviour:
   ShowSelectionGUI: 0
   ShowQuadHighlighter: 0
   ShowQuadSelector: 0
+  TargetPoint: {fileID: 0}
   Head: {fileID: 1754600022197738}
   HeadAimingSpeed: 5
   GunnerWeapon: {fileID: 114890569164590910, guid: b0999596a484fc74d8adf0b5e6db2e60,
@@ -2325,6 +2356,7 @@ MonoBehaviour:
   ShowSelectionGUI: 0
   ShowQuadHighlighter: 0
   ShowQuadSelector: 0
+  TargetPoint: {fileID: 0}
   Head: {fileID: 1937187020650802}
   HeadAimingSpeed: 5
   GunnerWeapon: {fileID: 114890569164590910, guid: b0999596a484fc74d8adf0b5e6db2e60,
@@ -2384,6 +2416,7 @@ MonoBehaviour:
   ShowSelectionGUI: 0
   ShowQuadHighlighter: 0
   ShowQuadSelector: 0
+  TargetPoint: {fileID: 0}
   Head: {fileID: 1656343503019626}
   HeadAimingSpeed: 5
   GunnerWeapon: {fileID: 114890569164590910, guid: b0999596a484fc74d8adf0b5e6db2e60,

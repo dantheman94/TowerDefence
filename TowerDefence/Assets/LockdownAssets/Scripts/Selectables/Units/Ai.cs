@@ -128,8 +128,11 @@ public class Ai : WorldObject {
     //  Called each frame. 
     /// </summary>
     private void UpdateAttackPath() {
-
+        
         if (_AttackPath != null && _AttackTarget == null) {
+
+            if (_AttackPathIterator + 1 < _AttackPath.GetNodePositions().Count) { _AttackPathComplete = false; }
+            else { _AttackPathComplete = true; }
 
             // Calculate distance from path node
             float dist = Vector3.Distance(transform.position, _AttackPath.GetNodePositions()[_AttackPathIterator]);
