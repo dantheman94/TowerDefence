@@ -467,10 +467,16 @@ public class WaveManager : MonoBehaviour {
                 unit.OnSpawn();
                 unit.CreateHealthBar(unit, player.PlayerCamera);
 
-                AttackPath path = _CurrentLockdownPad.GetRandomAttackPath();
-                unit.SetAttackPath(path);
-                unit.AgentSeekPosition(unit.GetAttackPath().GetFirstNodeWithOffset(), false, false);
+                if (unit is AirVehicle) {
 
+                    unit.AgentAttackObject(CentralCore.GetAttackObject());
+                }
+                else {
+
+                    AttackPath path = _CurrentLockdownPad.GetRandomAttackPath();
+                    unit.SetAttackPath(path);
+                    unit.AgentSeekPosition(unit.GetAttackPath().GetFirstNodeWithOffset(), false, false);
+                }
                 _CurrentWaveEnemies.Add(unit);
             }
         }
