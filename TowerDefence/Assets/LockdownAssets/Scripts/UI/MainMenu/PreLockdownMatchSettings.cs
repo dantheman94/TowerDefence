@@ -136,6 +136,9 @@ public class PreLockdownMatchSettings : MonoBehaviour {
     /// </summary>
     public void StartMatch() {
 
+        // Setup
+        InstanceManager.Instance.SetLoadingType(true);
+
         // Load the "loading" scene
         ASyncLoading.Instance.LoadLevel(1);
         ASyncLoading.Instance.ActivateLevel();

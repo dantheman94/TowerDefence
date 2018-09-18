@@ -8,7 +8,7 @@ using UnityEngine.UI;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 29/7/2018
+//  Last edited on: 18/9/2018
 //
 //******************************
 
@@ -23,7 +23,10 @@ public class UI_LoadingScreen : MonoBehaviour
 
     [Space]
     [Header("-----------------------------------")]
-    [Header(" PLAYERS")]
+    [Header(" USER INTERFACE")]
+    [Space]
+    public GameObject LoadingGameplayScreen = null;
+    public GameObject LoadingMainmenuScreen = null;
     [Space]
     public Text LevelName = null;
     public Text LevelDescription = null;
@@ -32,8 +35,9 @@ public class UI_LoadingScreen : MonoBehaviour
     [Space]
     public Slider LoadingProgressSlider = null;
     public Text LoadingText = null;
+    [Space]
     public Image XboxButton;
-
+    
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
@@ -45,8 +49,22 @@ public class UI_LoadingScreen : MonoBehaviour
     /// <summary>
     //  Called each frame. 
     /// </summary>
-    private void Update()
-    {
+    private void Update() {
+
+        // Update loading screen panel widgets
+        if (InstanceManager.Instance._LoadingGameplay) {
+
+            // Show gameplay loading screen
+            if (LoadingGameplayScreen != null) { LoadingGameplayScreen.SetActive(true); }
+            if (LoadingMainmenuScreen != null) { LoadingMainmenuScreen.SetActive(false); }
+        }
+        else {
+
+            // Show mainmenu loading screen
+            if (LoadingGameplayScreen != null) { LoadingGameplayScreen.SetActive(false); }
+            if (LoadingMainmenuScreen != null) { LoadingMainmenuScreen.SetActive(true); }
+        }
+
         // Update level name text
         if (LevelName != null) { LevelName.text = InstanceManager.Instance._Level.LevelName.ToUpper(); }
 
@@ -54,14 +72,13 @@ public class UI_LoadingScreen : MonoBehaviour
         if (LevelDescription != null) { LevelDescription.text = InstanceManager.Instance._Level.LevelDescription; }
 
         // Update gamemode text
-        if (Gamemode != null)
-        {
+        if (Gamemode != null) {
+
             string text = string.Concat(InstanceManager.Instance._Difficulty.GetUIEnumerator().ToUpper() + " | CORE DEFENCE");
             Gamemode.text = text;
         }
 
         UpdateProgressSlider();
-        ChangeButtonUI();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -69,64 +86,37 @@ public class UI_LoadingScreen : MonoBehaviour
     /// <summary>
     //  Called each frame. 
     /// </summary>
-    private void UpdateProgressSlider()
-    {
-        if (LoadingProgressSlider != null)
-        {
+    private void UpdateProgressSlider() {
+
+        if (LoadingProgressSlider != null) {
 
             // Update progress slider value
             float progress = ASyncLoading.Instance.GetSceneLoadProgress();
             LoadingProgressSlider.value = progress;
 
             // Load is complete and waiting for activation
-            if (progress >= 0.9f)
-            {
-                LoadingText.text = "PRESS [SPACE] TO CONTINUE";
+            if (progress >= 0.9f) {
 
-                // Activate level
-                if (Input.GetKeyDown(KeyCode.Space)) { ASyncLoading.Instance.ActivateLevel(); }
+                // Gamepad connected
+                if (GamepadManager.Instance.GetGamepad(1).IsConnected) {
+
+                    LoadingText.text = "PRESS        TO CONTINUE";
+                }
+
+                // Keyboard input
+                else {
+
+                    LoadingText.text = "PRESS [SPACE] TO CONTINUE";
+                }
+
+                // Activate level once valid input is recieved
+                if (Input.GetKeyDown(KeyCode.Space) || GamepadManager.Instance.GetGamepad(1).GetButtonDown("A")) { ASyncLoading.Instance.ActivateLevel(); }
             }
             else { LoadingText.text = "LOADING"; }
         }
 
     }
 
-    /// <summary>
-    /// Switches between keyboard and buttons.
-    /// </summary>
-    private void ChangeButtonUI()
-    {
-        if (GamepadManager.Instance.GetGamepad(1).IsConnected)
-        {
-            XboxButton.enabled = true;
-            if (LoadingProgressSlider.value >= 0.9f)
-            {
-                LoadingText.text = "PRESS        TO CONTINUE";
-
-                if (GamepadManager.Instance.GetGamepad(1).GetButtonDown("A"))
-                {
-                    ASyncLoading.Instance.ActivateLevel();
-                }
-            }
-            else
-            {
-                LoadingText.text = "LOADING";
-            }
-        }
-        else
-        {
-            XboxButton.enabled = false;
-            if (LoadingProgressSlider.value >= 0.9f)
-            {
-                LoadingText.text = "PRESS [SPACE] TO CONTINUE";
-            }
-            else
-            {
-                LoadingText.text = "LOADING";
-            }
-        }
-    }
-
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    
 }

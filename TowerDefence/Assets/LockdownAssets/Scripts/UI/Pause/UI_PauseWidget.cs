@@ -9,7 +9,7 @@ using UnityEngine.UI;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 23/8/2018
+//  Last edited on: 18/9/2018
 //
 //******************************
 
@@ -28,8 +28,9 @@ public class UI_PauseWidget : MonoBehaviour {
     public Text DifficultyTrackerText = null;
     public Text ScoreTrackerText = null;
     public Text CurrentWaveTrackerText = null;
+    [Space]
     public Button StartButton;
-
+    [Space]
     public GameObject SettingsMenu;
     public GameObject PauseMenu;
     public GameObject GamepadUI;
@@ -206,6 +207,7 @@ public class UI_PauseWidget : MonoBehaviour {
         // Setup
         InstanceManager.Instance._Level = GameManager.Instance._Level;
         InstanceManager.Instance._Difficulty = DifficultyManager.Instance._Difficulty;
+        InstanceManager.Instance.SetLoadingType(true);
 
         // Load the "loading" scene
         ASyncLoading.Instance.LoadLevel(1);
@@ -253,6 +255,9 @@ public class UI_PauseWidget : MonoBehaviour {
     //  
     /// </summary>
     public void OnSaveAndQuit() {
+
+        // Setup
+        InstanceManager.Instance.SetLoadingType(false);
 
         // Load the "loading" scene
         ASyncLoading.Instance.LoadLevel(1);

@@ -37,6 +37,8 @@ public class InstanceManager : MonoBehaviour {
     
     public Info_Level _Level { get; set; }
     public Info_Difficulty _Difficulty { get; set; }
+
+    public bool _LoadingGameplay { get; private set; }
     
     //******************************************************************************************************************************
     //
@@ -61,6 +63,14 @@ public class InstanceManager : MonoBehaviour {
         Instance = this;
 
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="gameplay"></param>
+    public void SetLoadingType(bool gameplay) { _LoadingGameplay = gameplay; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
