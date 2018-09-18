@@ -13,7 +13,7 @@ using UnityEngine.EventSystems;
 //
 //******************************
 
-public class ButtonHover_MainMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler, IPointerDownHandler, IPointerUpHandler, ISelectHandler, IDeselectHandler { 
+public class ButtonHover_MainMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler, IPointerDownHandler, IPointerUpHandler, ISelectHandler, IDeselectHandler {
 
     //******************************************************************************************************************************
     //
@@ -24,6 +24,10 @@ public class ButtonHover_MainMenu : MonoBehaviour, IPointerEnterHandler, IPointe
     [Space]
     [Header("-----------------------------------")]
     [Header(" BUTTON HOVER PROPERTIES")]
+    [Space]
+    public bool UpdateTextOnHover = false;
+    public Text TextToUpdate;
+    public string TextString = " ";
     [Space]
     public Color Default_TextColour = Color.white;
     public Color Default_OutlineColour = Color.black;
@@ -65,10 +69,19 @@ public class ButtonHover_MainMenu : MonoBehaviour, IPointerEnterHandler, IPointe
     /// <summary>
     //  Called when the object is created.
     /// </summary>
-    void Start() {
+    private void Start() {
         
         ButtonAttached = GetComponent<Button>();
         TextAttached = GetComponentInChildren<Text>();
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    /// <summary>
+    //  Called each frame.
+    /// </summary>
+    private void Update() {
+
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -93,6 +106,9 @@ public class ButtonHover_MainMenu : MonoBehaviour, IPointerEnterHandler, IPointe
                     o.enabled = Hover_OutlineEnabled;
                     o.effectColor = Hover_OutlineColour;
                 }
+
+                // Update hover text
+                if (UpdateTextOnHover && TextToUpdate != null) { TextToUpdate.text = TextString; }
             }
         }
     }
