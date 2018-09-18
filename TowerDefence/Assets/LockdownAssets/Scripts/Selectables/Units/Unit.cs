@@ -419,14 +419,23 @@ public class Unit : Ai {
                     // Target is too far away or we have no primary weapon
                     else { _IsAttacking = false; }
 
-                    // Constantly face the attacking target
-                    Vector3 FireAtPos = _AttackTarget.transform.position;
-                    FireAtPos.y = FireAtPos.y + _AttackTarget.GetObjectHeight() * 0.1f;
+                    // If a target point has been set
+                    if (_AttackTarget.TargetPoint != null) {
 
-                    // Determine if we should snap to target or lerp rotation
-                    if (_DistanceToTarget <= SnapLookAtRange) { LookAtSnap(FireAtPos); }
-                    else { LookAtLerp(FireAtPos); }
+                        // Determine if we should snap to target or lerp rotation
+                        if (_DistanceToTarget <= SnapLookAtRange) { LookAtSnap(_AttackTarget.TargetPoint.transform.position); }
+                        else { LookAtLerp(_AttackTarget.TargetPoint.transform.position); }
+                    }
+                    else {
 
+                        // Constantly face the attacking target
+                        Vector3 FireAtPos = _AttackTarget.transform.position;
+                        FireAtPos.y = FireAtPos.y + _AttackTarget.GetObjectHeight() * 0.75f;
+
+                        // Determine if we should snap to target or lerp rotation
+                        if (_DistanceToTarget <= SnapLookAtRange) { LookAtSnap(FireAtPos); }
+                        else { LookAtLerp(FireAtPos); }
+                    }
                 }
 
                 // Attack target is now dead

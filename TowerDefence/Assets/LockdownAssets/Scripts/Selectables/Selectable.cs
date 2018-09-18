@@ -10,7 +10,7 @@ using XInputDotNetPure;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 19/7/2018
+//  Last edited on: 18/9/2018
 //
 //******************************
 
@@ -39,6 +39,8 @@ public class Selectable : Abstraction {
     [Space]
     public bool ShowQuadHighlighter = true;
     public bool ShowQuadSelector = true;
+    [Space]
+    public GameObject TargetPoint = null;
 
     //******************************************************************************************************************************
     //

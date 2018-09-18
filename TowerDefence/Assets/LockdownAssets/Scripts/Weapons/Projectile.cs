@@ -282,7 +282,7 @@ public class Projectile : MonoBehaviour {
     protected void OnTriggerEnter(Collider other) {
 
         // Check for terrain collision
-        if (other.gameObject.CompareTag("Ground")) { OnDestroy(); }
+        ///if (other.gameObject.CompareTag("Ground")) { OnDestroy(); }
 
         // Get object type
         GameObject gameObj = other.gameObject;

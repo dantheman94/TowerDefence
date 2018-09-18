@@ -469,7 +469,7 @@ public class WaveManager : MonoBehaviour {
 
                 AttackPath path = _CurrentLockdownPad.GetRandomAttackPath();
                 unit.SetAttackPath(path);
-                unit.AgentSeekPosition(unit.GetAttackPath().GetFirstNodeWithOffset(), true, false);
+                unit.AgentSeekPosition(unit.GetAttackPath().GetFirstNodeWithOffset(), false, false);
 
                 _CurrentWaveEnemies.Add(unit);
             }
