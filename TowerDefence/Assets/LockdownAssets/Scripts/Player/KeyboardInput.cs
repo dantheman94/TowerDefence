@@ -332,6 +332,23 @@ public class KeyboardInput : MonoBehaviour {
         // Move camera via input if the player ISNT currently controlling a unit
         if (GameManager.Instance.GetIsUnitControlling() == false) {
 
+
+            //if (Input.GetMouseButton(2))
+            //{
+            //    if (Input.GetAxis("Mouse X") < 0 || Input.GetAxis("Mouse X") > 0)
+            //    {
+            //        movement.x += Settings.CameraSprintSpeed * Input.GetAxis("Mouse X") * 500;
+            //     //   _PlayerAttached.PlayerCamera.transform.Translate(_PlayerCamera.transform.right * Settings.MovementSpeed * Input.GetAxis("Mouse X")/2);
+            //        CreateCenterPoint();
+            //    }
+            //    else if (Input.GetAxis("Mouse Y") < 0 || Input.GetAxis("Mouse Y") > 0)
+            //    {
+            //        movement.y += Settings.CameraSprintSpeed * Input.GetAxis("Mouse Y") * 500;
+            //        CreateCenterPoint();
+            //    }
+            //}
+            
+
             // Keyboard movement WASD
             if (Input.GetKey(KeyCode.W) && (!Input.GetKey(KeyCode.LeftAlt))) {
 
@@ -894,6 +911,17 @@ public class KeyboardInput : MonoBehaviour {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    private void MiddleClick()
+    {
+        if(Input.GetMouseButton(2))
+        {
+            if(Input.GetAxis("Mouse X") == -1)
+            {
+
+            }
+        }
+    }
 
     /// <summary>
     //
