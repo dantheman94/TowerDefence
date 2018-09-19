@@ -58,6 +58,8 @@ public class MenuNavigator : MonoBehaviour {
     public MenuArea LeaderboardMenu;
     [Tooltip("Credit Menu Area")]
     public MenuArea CreditsMenu;
+    [Tooltip("Showcase Menu Area")]
+    public MenuArea ShowcaseMenu;
 
 
     [Header("----------------------")]
@@ -106,6 +108,7 @@ public class MenuNavigator : MonoBehaviour {
         LeaderboardMenu.AreaState = SceneAreaState.INACTIVE;
         SettingsMenu.AreaState = SceneAreaState.INACTIVE;
         CreditsMenu.AreaState = SceneAreaState.INACTIVE;
+        ShowcaseMenu.AreaState = SceneAreaState.INACTIVE;
         MainMenu.StartButton.Select();
 	}
 
@@ -158,6 +161,7 @@ public class MenuNavigator : MonoBehaviour {
                 LeaderboardMenu.AreaState = SceneAreaState.INACTIVE;
                 PlayMenu.AreaState = SceneAreaState.INACTIVE;
                 CreditsMenu.AreaState = SceneAreaState.INACTIVE;
+                ShowcaseMenu.AreaState = SceneAreaState.INACTIVE;
                 if (MainMenu.StartButton != null)
                     StartCoroutine(DelayedSelectButton(MainMenu.StartButton));
                 
@@ -168,6 +172,7 @@ public class MenuNavigator : MonoBehaviour {
                 LeaderboardMenu.AreaState = SceneAreaState.INACTIVE;
                 PlayMenu.AreaState = SceneAreaState.INACTIVE;
                 CreditsMenu.AreaState = SceneAreaState.INACTIVE;
+                ShowcaseMenu.AreaState = SceneAreaState.INACTIVE;
                 if (SettingsMenu.StartButton != null)
                     StartCoroutine(DelayedSelectButton(SettingsMenu.StartButton));
         
@@ -178,29 +183,45 @@ public class MenuNavigator : MonoBehaviour {
                 PlayMenu.AreaState = SceneAreaState.INACTIVE;
                 MainMenu.AreaState = SceneAreaState.INACTIVE;
                 CreditsMenu.AreaState = SceneAreaState.INACTIVE;
+                ShowcaseMenu.AreaState = SceneAreaState.INACTIVE;
                 if (LeaderboardMenu.StartButton != null)
                     StartCoroutine(DelayedSelectButton(LeaderboardMenu.StartButton));
                 break;
+
             case "Play":
                 PlayMenu.AreaState = SceneAreaState.ACTIVE;
                 MainMenu.AreaState = SceneAreaState.INACTIVE;
                 SettingsMenu.AreaState = SceneAreaState.INACTIVE;
                 LeaderboardMenu.AreaState = SceneAreaState.INACTIVE;
                 CreditsMenu.AreaState = SceneAreaState.INACTIVE;
+                ShowcaseMenu.AreaState = SceneAreaState.INACTIVE;
                 if (PlayMenu.StartButton != null)
                     StartCoroutine(DelayedSelectButton(PlayMenu.StartButton));
                 break;
+
             case "Credits":
                 CreditsMenu.AreaState = SceneAreaState.ACTIVE;
                 MainMenu.AreaState = SceneAreaState.INACTIVE;
                 SettingsMenu.AreaState = SceneAreaState.INACTIVE;
                 LeaderboardMenu.AreaState = SceneAreaState.INACTIVE;
                 PlayMenu.AreaState = SceneAreaState.INACTIVE;
+                ShowcaseMenu.AreaState = SceneAreaState.INACTIVE;
                 if (CreditsMenu.StartButton != null)
                     StartCoroutine(DelayedSelectButton(CreditsMenu.StartButton));
                 break;
-            default:
+
+            case "Showcase":
+                ShowcaseMenu.AreaState = SceneAreaState.ACTIVE; 
+                CreditsMenu.AreaState = SceneAreaState.INACTIVE;
+                MainMenu.AreaState = SceneAreaState.INACTIVE;
+                SettingsMenu.AreaState = SceneAreaState.INACTIVE;
+                LeaderboardMenu.AreaState = SceneAreaState.INACTIVE;
+                PlayMenu.AreaState = SceneAreaState.INACTIVE;
+                if (ShowcaseMenu.StartButton != null)
+                    StartCoroutine(DelayedSelectButton(ShowcaseMenu.StartButton));
                 break;
+
+            default: break;
         }
     }
 
@@ -252,8 +273,6 @@ public class MenuNavigator : MonoBehaviour {
         if(MainMenu.AreaState == SceneAreaState.ACTIVE)
         {
             MainMenu.WholeAreaObject.SetActive(true);
-            
-        
         }
         else
         {
@@ -270,8 +289,6 @@ public class MenuNavigator : MonoBehaviour {
                 if (MainMenu.StartButton != null)
                     StartCoroutine(DelayedSelectButton(MainMenu.StartButton));
             }
-            
-
         }
         else
         {
@@ -348,7 +365,21 @@ public class MenuNavigator : MonoBehaviour {
         else
         {
             CreditsMenu.WholeAreaObject.SetActive(false);
-        }   
+        }
+
+        if (ShowcaseMenu.AreaState == SceneAreaState.ACTIVE) {
+            ShowcaseMenu.WholeAreaObject.SetActive(true);
+            if (gamepad.GetButtonDown("B")) {
+                MainMenu.AreaState = SceneAreaState.ACTIVE;
+                ShowcaseMenu.AreaState = SceneAreaState.INACTIVE;
+                if (MainMenu.StartButton != null)
+                    StartCoroutine(DelayedSelectButton(MainMenu.StartButton));
+            }
+
+        }
+        else {
+            ShowcaseMenu.WholeAreaObject.SetActive(false);
+        }
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
