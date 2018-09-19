@@ -202,8 +202,6 @@ GameObject:
   - component: {fileID: 4338651909374610}
   - component: {fileID: 114032183260345940}
   - component: {fileID: 65789446159907858}
-  - component: {fileID: 65120168650328174}
-  - component: {fileID: 65954885373718880}
   - component: {fileID: 114127789020942554}
   m_Layer: 0
   m_Name: pfb_StartingBase
@@ -823,18 +821,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0.0000009536743}
---- !u!65 &65120168650328174
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1659740949358226}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 8, y: 25, z: 8}
-  m_Center: {x: 0, y: 10, z: -8}
 --- !u!65 &65143651992113170
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -893,8 +879,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 9, y: 9, z: 30}
-  m_Center: {x: 0, y: 5, z: 0}
+  m_Size: {x: 20, y: 12, z: 22}
+  m_Center: {x: 0, y: 6, z: 1.5}
 --- !u!65 &65871770659086564
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -907,18 +893,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0.0000009536743}
---- !u!65 &65954885373718880
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1659740949358226}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 20, y: 9, z: 9}
-  m_Center: {x: 0, y: 5, z: 6.25}
 --- !u!95 &95778199686849346
 Animator:
   serializedVersion: 3
@@ -976,6 +950,8 @@ MonoBehaviour:
   ShowQuadHighlighter: 1
   ShowQuadSelector: 1
   TargetPoint: {fileID: 0}
+  ShowcaseOffsetY: 0
+  ShowcaseFOV: 40
   InQueueState: {fileID: 0}
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
@@ -1042,6 +1018,8 @@ MonoBehaviour:
   ShowQuadHighlighter: 1
   ShowQuadSelector: 1
   TargetPoint: {fileID: 0}
+  ShowcaseOffsetY: 0
+  ShowcaseFOV: 40
   InQueueState: {fileID: 0}
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 1740879576136948}
@@ -1117,6 +1095,8 @@ MonoBehaviour:
   ShowQuadHighlighter: 1
   ShowQuadSelector: 1
   TargetPoint: {fileID: 0}
+  ShowcaseOffsetY: 0
+  ShowcaseFOV: 40
   InQueueState: {fileID: 0}
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
@@ -1181,6 +1161,8 @@ MonoBehaviour:
   ShowQuadHighlighter: 1
   ShowQuadSelector: 1
   TargetPoint: {fileID: 0}
+  ShowcaseOffsetY: 0
+  ShowcaseFOV: 40
   InQueueState: {fileID: 0}
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
@@ -1245,6 +1227,8 @@ MonoBehaviour:
   ShowQuadHighlighter: 1
   ShowQuadSelector: 1
   TargetPoint: {fileID: 0}
+  ShowcaseOffsetY: 0
+  ShowcaseFOV: 40
   InQueueState: {fileID: 0}
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
@@ -1309,6 +1293,8 @@ MonoBehaviour:
   ShowQuadHighlighter: 1
   ShowQuadSelector: 1
   TargetPoint: {fileID: 0}
+  ShowcaseOffsetY: 0
+  ShowcaseFOV: 40
   InQueueState: {fileID: 0}
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
@@ -1373,6 +1359,8 @@ MonoBehaviour:
   ShowQuadHighlighter: 1
   ShowQuadSelector: 1
   TargetPoint: {fileID: 0}
+  ShowcaseOffsetY: 0
+  ShowcaseFOV: 40
   InQueueState: {fileID: 0}
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}

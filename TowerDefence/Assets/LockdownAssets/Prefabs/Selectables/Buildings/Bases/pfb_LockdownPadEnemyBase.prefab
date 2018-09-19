@@ -192,8 +192,6 @@ GameObject:
   - component: {fileID: 4429476993037206}
   - component: {fileID: 114937670156284810}
   - component: {fileID: 65514530257056234}
-  - component: {fileID: 65974296833833340}
-  - component: {fileID: 65035227613316226}
   - component: {fileID: 114236939846890934}
   m_Layer: 0
   m_Name: pfb_LockdownPadEnemyBase
@@ -827,18 +825,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65035227613316226
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1691478176180524}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 20, y: 9, z: 9}
-  m_Center: {x: 0, y: 5, z: 6.25}
 --- !u!65 &65157727923114750
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -861,8 +847,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 25, y: 10, z: 30}
-  m_Center: {x: 0, y: 5, z: 0}
+  m_Size: {x: 20, y: 12, z: 22}
+  m_Center: {x: 0, y: 6, z: 1.5}
 --- !u!65 &65594659332103102
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -911,18 +897,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65974296833833340
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1691478176180524}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 8, y: 25, z: 8}
-  m_Center: {x: 0, y: 10, z: -8}
 --- !u!95 &95177309648119238
 Animator:
   serializedVersion: 3
@@ -967,6 +941,9 @@ MonoBehaviour:
   ShowSelectionGUI: 1
   ShowQuadHighlighter: 1
   ShowQuadSelector: 1
+  TargetPoint: {fileID: 0}
+  ShowcaseOffsetY: 0
+  ShowcaseFOV: 40
   InQueueState: {fileID: 0}
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
@@ -1030,6 +1007,9 @@ MonoBehaviour:
   ShowSelectionGUI: 1
   ShowQuadHighlighter: 1
   ShowQuadSelector: 1
+  TargetPoint: {fileID: 0}
+  ShowcaseOffsetY: 0
+  ShowcaseFOV: 40
   InQueueState: {fileID: 0}
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
@@ -1095,6 +1075,9 @@ MonoBehaviour:
   ShowSelectionGUI: 1
   ShowQuadHighlighter: 1
   ShowQuadSelector: 1
+  TargetPoint: {fileID: 0}
+  ShowcaseOffsetY: 0
+  ShowcaseFOV: 40
   InQueueState: {fileID: 0}
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 1745018861594998}
@@ -1120,7 +1103,7 @@ MonoBehaviour:
   HasABuildingQueue: 1
   Selectables:
   - {fileID: 114437307112323898, guid: 2a690fafd781f3f459ccd35f47baac5d, type: 2}
-  - {fileID: 114321492504333980, guid: ff2e544a035e3134aa61515841e03126, type: 2}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 114901375285143712, guid: a7d32a21e4b6e424192795bd2963fe16, type: 2}
@@ -1169,6 +1152,9 @@ MonoBehaviour:
   ShowSelectionGUI: 1
   ShowQuadHighlighter: 1
   ShowQuadSelector: 1
+  TargetPoint: {fileID: 0}
+  ShowcaseOffsetY: 0
+  ShowcaseFOV: 40
   InQueueState: {fileID: 0}
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
@@ -1232,6 +1218,9 @@ MonoBehaviour:
   ShowSelectionGUI: 1
   ShowQuadHighlighter: 1
   ShowQuadSelector: 1
+  TargetPoint: {fileID: 0}
+  ShowcaseOffsetY: 0
+  ShowcaseFOV: 40
   InQueueState: {fileID: 0}
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
@@ -1295,6 +1284,9 @@ MonoBehaviour:
   ShowSelectionGUI: 1
   ShowQuadHighlighter: 1
   ShowQuadSelector: 1
+  TargetPoint: {fileID: 0}
+  ShowcaseOffsetY: 0
+  ShowcaseFOV: 40
   InQueueState: {fileID: 0}
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
@@ -1358,6 +1350,9 @@ MonoBehaviour:
   ShowSelectionGUI: 1
   ShowQuadHighlighter: 1
   ShowQuadSelector: 1
+  TargetPoint: {fileID: 0}
+  ShowcaseOffsetY: 0
+  ShowcaseFOV: 40
   InQueueState: {fileID: 0}
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
