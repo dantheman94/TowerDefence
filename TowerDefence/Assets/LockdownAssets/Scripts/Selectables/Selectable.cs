@@ -36,11 +36,17 @@ public class Selectable : Abstraction {
     [Space]
     [Tooltip("When the player clicks on this object, does the selection wheel (Radial or box) display?")]
     public bool ShowSelectionGUI = true;
-    [Space]
     public bool ShowQuadHighlighter = true;
     public bool ShowQuadSelector = true;
     [Space]
     public GameObject TargetPoint = null;
+
+    [Space]
+    [Header("-----------------------------------")]
+    [Header(" SHOWCASE PROPERTIES")]
+    [Space]
+    public float ShowcaseOffsetY = 0f;
+    public float ShowcaseFOV = 40f;
 
     //******************************************************************************************************************************
     //
@@ -81,7 +87,7 @@ public class Selectable : Abstraction {
     /// </summary>
     protected virtual void Start() {
 
-        GameManager.Instance.Selectables.Add(this);
+        if (GameManager.Instance != null) { GameManager.Instance.Selectables.Add(this); }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

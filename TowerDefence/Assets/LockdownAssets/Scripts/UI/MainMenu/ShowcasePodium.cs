@@ -24,10 +24,11 @@ public class ShowcasePodium : MonoBehaviour {
     [Header("-----------------------------------")]
     [Header(" PODIUM PROPERTIES")]
     [Space]
-    public GameObject ShowcaseObjectRef = null;
-    [Space]
+    public Transform StartingShowcaseTransform = null;
     public Selectable DefaultDisplayObject = null;
-    
+    [Space]
+    public Camera ShowcaseRenderCamera = null;
+
     //******************************************************************************************************************************
     //
     //      VARIABLES
@@ -38,6 +39,7 @@ public class ShowcasePodium : MonoBehaviour {
     private Quaternion _ShowcaseRotation = Quaternion.identity;
 
     private Selectable _CurrentShowcaseObject = null;
+    private Renderer _CurrentShowcaseRendererer = null;
 
     //******************************************************************************************************************************
     //
@@ -52,8 +54,15 @@ public class ShowcasePodium : MonoBehaviour {
     /// </summary>
     private void Start() {
         
-        if (ShowcaseObjectRef != null) { _ShowcasePosition = ShowcaseObjectRef.transform.position; }
-        _CurrentShowcaseObject = DefaultDisplayObject;
+        // Update showcase transform
+        if (StartingShowcaseTransform != null) { _ShowcasePosition = StartingShowcaseTransform.position; }
+        if (StartingShowcaseTransform != null) { _ShowcaseRotation = StartingShowcaseTransform.rotation; }
+
+        // Create default showcase object
+        GameObject gObj = ObjectPooling.Spawn(DefaultDisplayObject.gameObject, _ShowcasePosition, _ShowcaseRotation);
+        _CurrentShowcaseObject = gObj.GetComponent<Selectable>();
+        _CurrentShowcaseObject._ObjectState = Abstraction.WorldObjectStates.Active;
+        (_CurrentShowcaseObject as WorldObject).SetShowHealthBar(false);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -99,16 +108,31 @@ public class ShowcasePodium : MonoBehaviour {
         ShowcaseButtonRef btnref = button.gameObject.GetComponent<ShowcaseButtonRef>();
 
         // Update showcase object reference
-        if (btnref != null) {
+        if (btnref != null && _CurrentShowcaseObject != null) {
 
+            // Destroy old showcase object
+            ObjectPooling.Despawn(_CurrentShowcaseObject.gameObject);
+
+            // Reset showcase transform
+            if (StartingShowcaseTransform != null) { _ShowcasePosition = StartingShowcaseTransform.position; }
+            if (StartingShowcaseTransform != null) { _ShowcaseRotation = StartingShowcaseTransform.rotation; }
+
+            // Create new showcase object
             Selectable select = btnref.ObjectReference;
-            GameObject g = ObjectPooling.Spawn(select.gameObject, _ShowcasePosition, _ShowcaseRotation);
-            g.gameObject.layer = LayerMask.NameToLayer("Showcase");
-            _CurrentShowcaseObject = g.GetComponent<Selectable>();
+            GameObject gObj = ObjectPooling.Spawn(select.gameObject, _ShowcasePosition, _ShowcaseRotation);
+            _CurrentShowcaseObject = gObj.GetComponent<Selectable>();
             _CurrentShowcaseObject._ObjectState = Abstraction.WorldObjectStates.Active;
-        }
+            (_CurrentShowcaseObject as WorldObject).SetShowHealthBar(false);
 
-        
+            // Add offset to the showcase position
+            _ShowcasePosition.y += _CurrentShowcaseObject.ShowcaseOffsetY;
+            
+            // Update camera properties
+            if (ShowcaseRenderCamera != null) {
+
+                ShowcaseRenderCamera.fieldOfView = _CurrentShowcaseObject.ShowcaseFOV;
+            }
+        }        
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

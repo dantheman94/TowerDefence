@@ -183,8 +183,8 @@ public class Unit : Ai {
                 // Create a healthbar if the unit doesn't have one linked to it
                 else {
 
-                    if (_Player == null) { _Player = GameManager.Instance.Players[0]; }
-                    if (_Player != null) { CreateHealthBar(this, _Player.PlayerCamera); }
+                    if (_Player == null && GameManager.Instance != null) { _Player = GameManager.Instance.Players[0]; }
+                    if (_Player != null && _ShowHealthbar) { CreateHealthBar(this, _Player.PlayerCamera); }
                 }
             }
         }

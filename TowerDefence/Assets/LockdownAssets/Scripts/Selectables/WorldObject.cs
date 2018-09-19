@@ -100,6 +100,8 @@ public class WorldObject : Selectable {
     protected WorldObject _ClonedWorldObject = null;
     private Renderer _MinimapQuadRenderer;
 
+    protected bool _ShowHealthbar = true;
+
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
@@ -683,6 +685,15 @@ public class WorldObject : Selectable {
     /// </summary>
     /// <param name="clone"></param>
     public void SetClonedObject(WorldObject clone) { _ClonedWorldObject = clone; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Sets whether the object attached should have a healthbar allocated to it.
+    //  (This is used in the unit showcase)
+    /// </summary>
+    /// <param name="value"></param>
+    public void SetShowHealthBar(bool value) { _ShowHealthbar = value; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
