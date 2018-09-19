@@ -30,7 +30,9 @@ public class TutorialScript : MonoBehaviour {
 
         TutorialEvents       _TutorialEvents;
         List<TutorialEvents> _TutorialEventsList;
-        
+        public Text          TutorialText;
+        public Panel         TutorialTextBox;
+
         void EventInitialise(string tutorialEvent) {
 
             // Iterate through the events list
@@ -40,7 +42,7 @@ public class TutorialScript : MonoBehaviour {
                 if (tutorialEvent == _TutorialEventsList[i]._TutorialEvent) {
 
                     // Start tutorial
-                    _TutorialEvents.StartTutorial();
+                    _TutorialEvents.StartTutorial(tutorialEvent);
                 }
             }
         }
@@ -48,12 +50,15 @@ public class TutorialScript : MonoBehaviour {
 
     public class TutorialEvents {
 
+        TutorialEventsManager _TutorialEventsManager;
+
         bool _ObjectiveIsComplete;
         public string _TutorialEvent { get; set; }
 
-        public void StartTutorial() {
+        public void StartTutorial(string text) {
 
-
+            // Set tutorial text
+            _TutorialEventsManager.TutorialText.text = text;
         }
 
         void EventCompleted() {
@@ -61,9 +66,6 @@ public class TutorialScript : MonoBehaviour {
 
         }
     }
-
-    Text  TutorialText;
-    Panel TutorialTextBox;
 
     //******************************************************************************************************************************
     //
