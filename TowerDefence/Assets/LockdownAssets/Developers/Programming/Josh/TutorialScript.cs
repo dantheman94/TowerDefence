@@ -33,7 +33,7 @@ public class TutorialScript : MonoBehaviour {
         public Text          TutorialText;
         public Panel         TutorialTextBox;
 
-        void EventInitialise(string tutorialEvent) {
+        public void EventInitialise(string tutorialEvent) {
 
             // Iterate through the events list
             for (int i = 0; i < _TutorialEventsList.Count; ++i) {
@@ -63,7 +63,7 @@ public class TutorialScript : MonoBehaviour {
 
         void EventCompleted() {
 
-
+            _TutorialEventsManager.EventInitialise(_TutorialEvent);
         }
     }
 
