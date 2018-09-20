@@ -113,8 +113,8 @@ public class Cine_Opening : Cinematic {
         
         // Set starting position
         ViewCamera.transform.position = new Vector3(WaveManager.Instance.CentralCore.transform.position.x,
-                                     Settings.MaxCameraHeight,
-                                     WaveManager.Instance.CentralCore.transform.position.z);
+                                                    Settings.MaxCameraHeight,
+                                                    WaveManager.Instance.CentralCore.transform.position.z);
         ViewCamera.transform.position -= ViewCamera.transform.up * CoreOffset;
         ViewCamera.transform.position = new Vector3(ViewCamera.transform.position.x, Settings.MaxCameraHeight, ViewCamera.transform.position.z);
 
