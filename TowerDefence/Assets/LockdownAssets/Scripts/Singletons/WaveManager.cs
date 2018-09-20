@@ -82,7 +82,7 @@ public class WaveManager : MonoBehaviour {
     //      VARIABLES
     //
     //******************************************************************************************************************************
-    
+        
     public enum WaveSeverity { SuperLight, Light, Small, Medium, Heavy, ENUM_COUNT }
     public enum WaveType { GroundTroops, GroundVehicles, MixedGround, AirVehicles, MixedVehicles, Mixed, Boss, ENUM_COUNT }
 
