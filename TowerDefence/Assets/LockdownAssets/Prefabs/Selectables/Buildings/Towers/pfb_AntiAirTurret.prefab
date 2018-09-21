@@ -673,6 +673,7 @@ GameObject:
   - component: {fileID: 136665295814540572}
   - component: {fileID: 114463144270141626}
   - component: {fileID: 95513278309359152}
+  - component: {fileID: 114085118434459972}
   m_Layer: 0
   m_Name: pfb_AntiAirTurret
   m_TagString: Building
@@ -2271,6 +2272,18 @@ MonoBehaviour:
     Weight: 0
   - UnitType: 0
     Weight: 0
+--- !u!114 &114085118434459972
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1983221454230246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f78c029625bb5e94f9e006af8db215a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scaleSize: 0
 --- !u!114 &114256048351862968
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2312,6 +2325,8 @@ MonoBehaviour:
   ShowQuadHighlighter: 1
   ShowQuadSelector: 1
   TargetPoint: {fileID: 0}
+  ShowcaseOffsetY: 0
+  ShowcaseFOV: 40
   InQueueState: {fileID: 1686846711742006}
   BuildingState: {fileID: 1686846711742006}
   ActiveState: {fileID: 1070671043334662}

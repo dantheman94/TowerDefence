@@ -237,6 +237,7 @@ GameObject:
   - component: {fileID: 114656914700537908}
   - component: {fileID: 136053092563895590}
   - component: {fileID: 114109675360212542}
+  - component: {fileID: 114701772684918374}
   m_Layer: 0
   m_Name: pfb_AntiVehicleTurret
   m_TagString: Building
@@ -869,6 +870,9 @@ MonoBehaviour:
   ShowSelectionGUI: 1
   ShowQuadHighlighter: 1
   ShowQuadSelector: 1
+  TargetPoint: {fileID: 0}
+  ShowcaseOffsetY: 0
+  ShowcaseFOV: 40
   InQueueState: {fileID: 1298039860773290}
   BuildingState: {fileID: 1298039860773290}
   ActiveState: {fileID: 1591669627041524}
@@ -997,6 +1001,18 @@ MonoBehaviour:
   m_distance: 100
   m_isTrigger: 1
   m_isFixScale: 1
+--- !u!114 &114701772684918374
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1742480362871714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f78c029625bb5e94f9e006af8db215a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scaleSize: 0
 --- !u!114 &114735459042688926
 MonoBehaviour:
   m_ObjectHideFlags: 1
