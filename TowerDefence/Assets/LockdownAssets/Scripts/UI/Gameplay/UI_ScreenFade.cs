@@ -72,7 +72,7 @@ public class UI_ScreenFade : MonoBehaviour {
 
         if (ImageComponent != null) {
 
-            if (_IsFading = ImageComponent.enabled) {
+            if (_IsFading = ImageComponent.enabled && _FadeTime > 0f) {
 
                 // Increment lerp timer once per frame
                 _CurrentLerpTime += Time.deltaTime;
@@ -110,6 +110,20 @@ public class UI_ScreenFade : MonoBehaviour {
             // Begin animation
             ImageComponent.enabled = true;
         }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="colour"></param>
+    public void SetScreenColour(Color colour) {
+
+        if (ImageComponent != null) { ImageComponent.color = colour; }
+        ImageComponent.enabled = true;
+
+        _FadeTime = 0f;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -25,6 +25,7 @@ public class Cine_Opening : Cinematic {
     [Header(" OPENING CINEMATIC PROPERTIES")]
     [Space]
     public float CoreOffset = 100f;
+    public float InitialDelayTillFadeIn = 3f;
     public float TimeTillInitialCameraMove = 3f;
     public float StartingBaseOffset = 100f;
     public float MatchStartDelay = 3f;
@@ -122,7 +123,7 @@ public class Cine_Opening : Cinematic {
         ViewCamera.fieldOfView = Settings.MaxFov;
 
         // Fade screen from black
-        UI_ScreenFade.Instance.StartAnimation(new Color(0, 0, 0, 1), new Color(0, 0, 0, 0), 4f);
+        StartCoroutine(DelayedFadeIn());
 
         // Start coroutine
         GameManager.Instance._CinematicInProgress = _CinematicInProgress = true;
@@ -138,9 +139,27 @@ public class Cine_Opening : Cinematic {
     /// <returns>
     //  IEnumerator
     /// </returns>
+    IEnumerator DelayedFadeIn() {
+
+        // Initialize the screen to full black
+        UI_ScreenFade.Instance.SetScreenColour(Color.black);
+
+        yield return new WaitForSeconds(InitialDelayTillFadeIn);
+
+        // Start camera fade in
+        UI_ScreenFade.Instance.StartAnimation(new Color(0, 0, 0, 1), new Color(0, 0, 0, 0), 4f);
+    }
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Coroutine that waits a few seconds, then sets the target transform for the view camera to lerp to.
+    /// </summary>
+    /// <returns>
+    //  IEnumerator
+    /// </returns>
     IEnumerator DelayedCameraMove() {
 
-        yield return new WaitForSeconds(TimeTillInitialCameraMove);
+        yield return new WaitForSeconds(TimeTillInitialCameraMove + InitialDelayTillFadeIn);
 
         // Set target tranform properties
         _TargetTransform = new GameObject().transform;
