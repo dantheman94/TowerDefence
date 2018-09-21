@@ -58,7 +58,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
   CentralCore: {fileID: 0}
   LockdownPads:
   - {fileID: 0}
@@ -92,14 +91,14 @@ MonoBehaviour:
       MaximumBossWaveInterval: 0
     Subwaves: 2
     Enemies:
-    - Name: Core Marine
+    - Name: Dwarf Soldier
       EnemyReference: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
         type: 2}
       StartAtSubwave: 1
       PerSpawnInterval: 2
       WaveMax: 2
       CurrentLives: 0
-    - Name: Anti Infantry
+    - Name: Anti Infantry Specialist
       EnemyReference: {fileID: 114908419093975514, guid: f9386fdae783087469d75d32e64a58ed,
         type: 2}
       StartAtSubwave: 1
@@ -241,4 +240,37 @@ MonoBehaviour:
       StartAtSubwave: 1
       PerSpawnInterval: 1
       WaveMax: 2
+      CurrentLives: 0
+  - Name: Light Ground Infantry
+    Severity: 1
+    Type: 0
+    WaveIntervals:
+      MinimumWaveInterval: 4
+      MaximumWaveInterval: 9
+    BossWaveIntervals:
+      MinimumBossWaveInterval: 1
+      UnlimitedBossWaveIntervals: 0
+      MaximumBossWaveInterval: 2
+    Subwaves: 2
+    Enemies:
+    - Name: Dwarf Soldier
+      EnemyReference: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
+        type: 2}
+      StartAtSubwave: 1
+      PerSpawnInterval: 2
+      WaveMax: 4
+      CurrentLives: 0
+    - Name: Anti Infantry Specialist
+      EnemyReference: {fileID: 114908419093975514, guid: f9386fdae783087469d75d32e64a58ed,
+        type: 2}
+      StartAtSubwave: 1
+      PerSpawnInterval: 1
+      WaveMax: 2
+      CurrentLives: 0
+    - Name: Anti Vehicle Specialist
+      EnemyReference: {fileID: 114963470945021714, guid: b428dfdc6baddce46b81aed55d5c7396,
+        type: 2}
+      StartAtSubwave: 2
+      PerSpawnInterval: 1
+      WaveMax: 1
       CurrentLives: 0
