@@ -8,7 +8,7 @@ using UnityEngine.AI;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 31/8/2018
+//  Last edited on: 23/9/2018
 //
 //******************************
 
@@ -49,6 +49,18 @@ public class Unit : Ai {
     [Space]
     public float BarrierDetectionDistance = 20f;
 
+    [Space]
+    [Header("-----------------------------------")]
+    [Header(" VETERANCY PROPERTIES")]
+    [Space]
+    [Range(0, 3)]
+    public int StartingVeterancyLevel = 0;
+    public int XPGrantedOnDeath = 1;
+    [Space]
+    public int[] VetTargetXPs = new int[VeterancyLength] { 5, 8, 12 };
+    [Space]
+    public float[] VetDamages = new float[VeterancyLength + 1] { 1f, 1.15f, 1.3f, 1.45f };
+
     //******************************************************************************************************************************
     //
     //      VARIABLES
@@ -71,11 +83,32 @@ public class Unit : Ai {
     protected NavMeshPath _NavMeshPath;
     protected bool _ChaseCoroutineIsRunning = false;
 
+    protected int _VeterancyLevel = 0;
+    protected int _CurrentVetXP = 0;
+    protected int _TargetVetXP = 3;
+
+    private const int VeterancyLength = 3;
+    private UnitVeterancyCounter _UnitVeterancyWidget = null;
+
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
     //
     //******************************************************************************************************************************
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Called when the script is loaded or a value is changed in the inspector.
+    /// </summary>
+    private void OnValidate() {
+        
+        if (VetTargetXPs.Length != VeterancyLength) {
+
+            Debug.LogWarning("Don't change the 'VetLevelTargetXP' field's array size!");
+            System.Array.Resize(ref VetTargetXPs, VeterancyLength);
+        }
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -89,7 +122,6 @@ public class Unit : Ai {
         if (IdealAttackRangeMax < IdealAttackRangeMin) { IdealAttackRangeMax = IdealAttackRangeMin * 1.5f; }
         if (MaxAttackingRange < IdealAttackRangeMax)   { MaxAttackingRange = IdealAttackRangeMax; }
         if (MaxAttackingRange < IdealAttackRangeMax) { MaxAttackingRange = IdealAttackRangeMax; }
-        ///SnapLookAtRange = MaxAttackingRange / 2;
         SnapLookAtRange = IdealAttackRangeMin;
     }
 
@@ -117,6 +149,36 @@ public class Unit : Ai {
         _CharacterController = GetComponent<CharacterController>();
         _Agent = GetComponent<NavMeshAgent>();
         _ObjectHeight = _Agent.height;
+
+        // Initialize veterancy
+        _VeterancyLevel = StartingVeterancyLevel;
+        _CurrentVetXP = 0;
+        _TargetVetXP = VetTargetXPs[0];
+        if (_VeterancyLevel > 0) {
+
+            // Create a veterancy widget and allocate it to the unit
+            if (_UnitVeterancyWidget == null) { _UnitVeterancyWidget = ObjectPooling.Spawn(GameManager.Instance.UnitVeterancyPanel.gameObject).GetComponent<UnitVeterancyCounter>(); }
+            if (_UnitVeterancyWidget != null) {
+
+                _UnitVeterancyWidget.SetCameraAttached(_Player.PlayerCamera);
+                _UnitVeterancyWidget.SetUnitAttached(this);
+                _UnitVeterancyWidget.transform.SetParent(GameManager.Instance.WorldSpaceCanvas.gameObject.transform, false);
+                _UnitVeterancyWidget.gameObject.SetActive(true);
+            }
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Called when a unit is being re-pooled/respawned. Use this to reset all the stats from its previous life
+    /// </summary>
+    protected void Reinit() {
+
+        // Reset veterancy
+        _VeterancyLevel = 0;
+        _CurrentVetXP = 0;
+        _TargetVetXP = VetTargetXPs[0];
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -324,6 +386,24 @@ public class Unit : Ai {
             }
         }
         _ChaseCoroutineIsRunning = false;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Damages the object by a set amount.
+    /// </summary>
+    /// <param name="damage"></param>
+    public override void Damage(float damage, WorldObject instigator) {
+        base.Damage(damage, instigator);
+
+        // Add xp to the instigator (if valid)
+        if (instigator != null) {
+
+            // Only units can gain XP from kills
+            Unit unit = instigator.GetComponent<Unit>();
+            if (unit != null) { unit.AddVeterancyXP(XPGrantedOnDeath); }
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -859,6 +939,51 @@ public class Unit : Ai {
     //  bool
     /// </returns>
     public bool GetChasingCoroutineIsRunning() { return _ChaseCoroutineIsRunning; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Adds XP to the veterancy level of the unit & levels up if neccessary.
+    /// </summary>
+    /// <param name="xp"></param>
+    public void AddVeterancyXP(int xp) {
+
+        // Level 3 veterancy is the highest level a unit can achieve
+        if (_VeterancyLevel < 3) {
+
+            // Reached enough XP to level up?
+            _CurrentVetXP += xp;
+            if (_CurrentVetXP >= _TargetVetXP) {
+
+                // Create a veterancy widget and allocate it to the unit
+                if (_UnitVeterancyWidget == null) { _UnitVeterancyWidget = ObjectPooling.Spawn(GameManager.Instance.UnitVeterancyPanel).GetComponent<UnitVeterancyCounter>(); }
+                if (_UnitVeterancyWidget != null) {
+
+                    _UnitVeterancyWidget.SetCameraAttached(_Player.PlayerCamera);
+                    _UnitVeterancyWidget.SetUnitAttached(this);
+                    _UnitVeterancyWidget.transform.SetParent(GameManager.Instance.WorldSpaceCanvas.gameObject.transform, false);
+                    _UnitVeterancyWidget.gameObject.SetActive(true);
+                }
+                
+                // Increase veterancy level 
+                _VeterancyLevel++;
+
+                // Reset XP stats
+                _CurrentVetXP = 0;
+                _TargetVetXP = VetTargetXPs[_VeterancyLevel];
+            }
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Returns the value of the unit's _VeterancyLevel.
+    /// </summary>
+    /// <returns>
+    //  int
+    /// </returns>
+    public int GetVeterancyLevel() { return _VeterancyLevel; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

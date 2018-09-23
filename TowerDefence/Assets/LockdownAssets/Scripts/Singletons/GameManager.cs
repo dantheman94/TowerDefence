@@ -78,6 +78,7 @@ public class GameManager : MonoBehaviour {
     public GameObject UnitHealthBar;
     public GameObject BuildingInProgressPanel;
     public GameObject CaptureProgressPanel;
+    public GameObject UnitVeterancyPanel;
 
     [Space]
     [Header("-----------------------------------")]

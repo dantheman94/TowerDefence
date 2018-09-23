@@ -337,24 +337,24 @@ public class Weapon : MonoBehaviour {
                             // Damage based on unit type
                             switch (unitObj.UnitType) {
 
-                                case Unit.EUnitType.Undefined:          { unitObj.Damage(Damages.DamageDefault * dm.GetDifficultyModifier(unitObj, mod) * wm.GetWaveDamageModifier(unitObj), _UnitAttached); break; }
-                                case Unit.EUnitType.CoreMarine:         { unitObj.Damage(Damages.DamageCoreInfantry * dm.GetDifficultyModifier(unitObj, mod) * wm.GetWaveDamageModifier(unitObj), _UnitAttached); break; }
-                                case Unit.EUnitType.AntiInfantryMarine: { unitObj.Damage(Damages.DamageAntiInfantryMarine * dm.GetDifficultyModifier(unitObj, mod) * wm.GetWaveDamageModifier(unitObj), _UnitAttached); break; }
-                                case Unit.EUnitType.Hero:               { unitObj.Damage(Damages.DamageHero * dm.GetDifficultyModifier(unitObj, mod) * wm.GetWaveDamageModifier(unitObj), _UnitAttached); break; }
-                                case Unit.EUnitType.CoreVehicle:        { unitObj.Damage(Damages.DamageCoreVehicle * dm.GetDifficultyModifier(unitObj, mod) * wm.GetWaveDamageModifier(unitObj), _UnitAttached); break; }
-                                case Unit.EUnitType.AntiAirVehicle:     { unitObj.Damage(Damages.DamageAntiAirVehicle * dm.GetDifficultyModifier(unitObj, mod) * wm.GetWaveDamageModifier(unitObj), _UnitAttached); break; }
-                                case Unit.EUnitType.MobileArtillery:    { unitObj.Damage(Damages.DamageMobileArtillery * dm.GetDifficultyModifier(unitObj, mod) * wm.GetWaveDamageModifier(unitObj), _UnitAttached); break; }
-                                case Unit.EUnitType.BattleTank:         { unitObj.Damage(Damages.DamageBattleTank * dm.GetDifficultyModifier(unitObj, mod) * wm.GetWaveDamageModifier(unitObj), _UnitAttached); break; }
-                                case Unit.EUnitType.CoreAirship:        { unitObj.Damage(Damages.DamageCoreAirship * dm.GetDifficultyModifier(unitObj, mod) * wm.GetWaveDamageModifier(unitObj), _UnitAttached); break; }
-                                case Unit.EUnitType.SupportShip:        { unitObj.Damage(Damages.DamageSupportShip * dm.GetDifficultyModifier(unitObj, mod) * wm.GetWaveDamageModifier(unitObj), _UnitAttached); break; }
-                                case Unit.EUnitType.HeavyAirship:       { unitObj.Damage(Damages.DamageHeavyAirship * dm.GetDifficultyModifier(unitObj, mod) * wm.GetWaveDamageModifier(unitObj), _UnitAttached); break; }
+                                case Unit.EUnitType.Undefined:          { unitObj.Damage(((Damages.DamageDefault * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
+                                case Unit.EUnitType.CoreMarine:         { unitObj.Damage(((Damages.DamageCoreInfantry * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
+                                case Unit.EUnitType.AntiInfantryMarine: { unitObj.Damage(((Damages.DamageAntiInfantryMarine * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
+                                case Unit.EUnitType.Hero:               { unitObj.Damage(((Damages.DamageHero * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
+                                case Unit.EUnitType.CoreVehicle:        { unitObj.Damage(((Damages.DamageCoreVehicle * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
+                                case Unit.EUnitType.AntiAirVehicle:     { unitObj.Damage(((Damages.DamageAntiAirVehicle * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
+                                case Unit.EUnitType.MobileArtillery:    { unitObj.Damage(((Damages.DamageMobileArtillery * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
+                                case Unit.EUnitType.BattleTank:         { unitObj.Damage(((Damages.DamageBattleTank * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
+                                case Unit.EUnitType.CoreAirship:        { unitObj.Damage(((Damages.DamageCoreAirship * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
+                                case Unit.EUnitType.SupportShip:        { unitObj.Damage(((Damages.DamageSupportShip * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
+                                case Unit.EUnitType.HeavyAirship:       { unitObj.Damage(((Damages.DamageHeavyAirship * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
                                 default: break;
                             }
                         }
                     }
 
                     // Damage the object (its not a unit so use the default damage value)
-                    else { worldObj.Damage(Damages.DamageDefault * dm.GetDifficultyModifier(Unit.EUnitType.Undefined, worldObj.Team == GameManager.Team.Defending, mod) * wm.GetWaveDamageModifier(worldObj), _UnitAttached); }
+                    else { worldObj.Damage((Damages.DamageDefault * wm.GetWaveDamageModifier(worldObj)) * dm.GetDifficultyModifier(Unit.EUnitType.Undefined, worldObj.Team == GameManager.Team.Defending, mod), _UnitAttached); }
                 }
             }
         }
@@ -393,24 +393,24 @@ public class Weapon : MonoBehaviour {
                             // Damage based on unit type
                             switch (unitObj.UnitType) {
 
-                                case Unit.EUnitType.Undefined:          { unitObj.Damage(Damages.DamageDefault * dm.GetDifficultyModifier(unitObj, mod) * wm.GetWaveDamageModifier(unitObj), _TowerAttached); break; }
-                                case Unit.EUnitType.CoreMarine:         { unitObj.Damage(Damages.DamageCoreInfantry * dm.GetDifficultyModifier(unitObj, mod) * wm.GetWaveDamageModifier(unitObj), _TowerAttached); break; }
-                                case Unit.EUnitType.AntiInfantryMarine: { unitObj.Damage(Damages.DamageAntiInfantryMarine * dm.GetDifficultyModifier(unitObj, mod) * wm.GetWaveDamageModifier(unitObj), _TowerAttached); break; }
-                                case Unit.EUnitType.Hero:               { unitObj.Damage(Damages.DamageHero * dm.GetDifficultyModifier(unitObj, mod) * wm.GetWaveDamageModifier(unitObj), _TowerAttached); break; }
-                                case Unit.EUnitType.CoreVehicle:        { unitObj.Damage(Damages.DamageCoreVehicle * dm.GetDifficultyModifier(unitObj, mod) * wm.GetWaveDamageModifier(unitObj), _TowerAttached); break; }
-                                case Unit.EUnitType.AntiAirVehicle:     { unitObj.Damage(Damages.DamageAntiAirVehicle * dm.GetDifficultyModifier(unitObj, mod) * wm.GetWaveDamageModifier(unitObj), _TowerAttached); break; }
-                                case Unit.EUnitType.MobileArtillery:    { unitObj.Damage(Damages.DamageMobileArtillery * dm.GetDifficultyModifier(unitObj, mod) * wm.GetWaveDamageModifier(unitObj), _TowerAttached); break; }
-                                case Unit.EUnitType.BattleTank:         { unitObj.Damage(Damages.DamageBattleTank * dm.GetDifficultyModifier(unitObj, mod) * wm.GetWaveDamageModifier(unitObj), _TowerAttached); break; }
-                                case Unit.EUnitType.CoreAirship:        { unitObj.Damage(Damages.DamageCoreAirship * dm.GetDifficultyModifier(unitObj, mod) * wm.GetWaveDamageModifier(unitObj), _TowerAttached); break; }
-                                case Unit.EUnitType.SupportShip:        { unitObj.Damage(Damages.DamageSupportShip * dm.GetDifficultyModifier(unitObj, mod) * wm.GetWaveDamageModifier(unitObj), _TowerAttached); break; }
-                                case Unit.EUnitType.HeavyAirship:       { unitObj.Damage(Damages.DamageHeavyAirship * dm.GetDifficultyModifier(unitObj, mod) * wm.GetWaveDamageModifier(unitObj), _TowerAttached); break; }
+                                case Unit.EUnitType.Undefined:          { unitObj.Damage((Damages.DamageDefault * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _TowerAttached); break; }
+                                case Unit.EUnitType.CoreMarine:         { unitObj.Damage((Damages.DamageCoreInfantry * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _TowerAttached); break; }
+                                case Unit.EUnitType.AntiInfantryMarine: { unitObj.Damage((Damages.DamageAntiInfantryMarine * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _TowerAttached); break; }
+                                case Unit.EUnitType.Hero:               { unitObj.Damage((Damages.DamageHero * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _TowerAttached); break; }
+                                case Unit.EUnitType.CoreVehicle:        { unitObj.Damage((Damages.DamageCoreVehicle * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _TowerAttached); break; }
+                                case Unit.EUnitType.AntiAirVehicle:     { unitObj.Damage((Damages.DamageAntiAirVehicle * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _TowerAttached); break; }
+                                case Unit.EUnitType.MobileArtillery:    { unitObj.Damage((Damages.DamageMobileArtillery * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _TowerAttached); break; }
+                                case Unit.EUnitType.BattleTank:         { unitObj.Damage((Damages.DamageBattleTank * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _TowerAttached); break; }
+                                case Unit.EUnitType.CoreAirship:        { unitObj.Damage((Damages.DamageCoreAirship * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _TowerAttached); break; }
+                                case Unit.EUnitType.SupportShip:        { unitObj.Damage((Damages.DamageSupportShip * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _TowerAttached); break; }
+                                case Unit.EUnitType.HeavyAirship:       { unitObj.Damage((Damages.DamageHeavyAirship * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _TowerAttached); break; }
                                 default: break;
                             }
                         }
                     }
 
                     // Damage the object (its not a unit so use the default damage value)
-                    else { worldObj.Damage(Damages.DamageDefault * dm.GetDifficultyModifier(Unit.EUnitType.Undefined, worldObj.Team == GameManager.Team.Defending, mod) * wm.GetWaveDamageModifier(worldObj), _TowerAttached); }
+                    else { worldObj.Damage((Damages.DamageDefault * wm.GetWaveDamageModifier(worldObj)) * dm.GetDifficultyModifier(Unit.EUnitType.Undefined, worldObj.Team == GameManager.Team.Defending, mod), _TowerAttached); }
                 }
             }
         }
@@ -445,28 +445,29 @@ public class Weapon : MonoBehaviour {
 
                         // Cannot damage self
                         if (unitObj.Team != _GunnerAttached._VehicleAttached.Team) {
+                            Vehicle vehicleA = _GunnerAttached._VehicleAttached;
 
                             // Damage based on unit type
                             switch (unitObj.UnitType) {
 
-                                case Unit.EUnitType.Undefined: { unitObj.Damage(Damages.DamageDefault * dm.GetDifficultyModifier(unitObj, mod) * wm.GetWaveDamageModifier(unitObj), _GunnerAttached._VehicleAttached); break; }
-                                case Unit.EUnitType.CoreMarine: { unitObj.Damage(Damages.DamageCoreInfantry * dm.GetDifficultyModifier(unitObj, mod) * wm.GetWaveDamageModifier(unitObj), _GunnerAttached._VehicleAttached); break; }
-                                case Unit.EUnitType.AntiInfantryMarine: { unitObj.Damage(Damages.DamageAntiInfantryMarine * dm.GetDifficultyModifier(unitObj, mod) * wm.GetWaveDamageModifier(unitObj), _GunnerAttached._VehicleAttached); break; }
-                                case Unit.EUnitType.Hero: { unitObj.Damage(Damages.DamageHero * dm.GetDifficultyModifier(unitObj, mod) * wm.GetWaveDamageModifier(unitObj), _GunnerAttached._VehicleAttached); break; }
-                                case Unit.EUnitType.CoreVehicle: { unitObj.Damage(Damages.DamageCoreVehicle * dm.GetDifficultyModifier(unitObj, mod) * wm.GetWaveDamageModifier(unitObj), _GunnerAttached._VehicleAttached); break; }
-                                case Unit.EUnitType.AntiAirVehicle: { unitObj.Damage(Damages.DamageAntiAirVehicle * dm.GetDifficultyModifier(unitObj, mod) * wm.GetWaveDamageModifier(unitObj), _GunnerAttached._VehicleAttached); break; }
-                                case Unit.EUnitType.MobileArtillery: { unitObj.Damage(Damages.DamageMobileArtillery * dm.GetDifficultyModifier(unitObj, mod) * wm.GetWaveDamageModifier(unitObj), _GunnerAttached._VehicleAttached); break; }
-                                case Unit.EUnitType.BattleTank: { unitObj.Damage(Damages.DamageBattleTank * dm.GetDifficultyModifier(unitObj, mod) * wm.GetWaveDamageModifier(unitObj), _GunnerAttached._VehicleAttached); break; }
-                                case Unit.EUnitType.CoreAirship: { unitObj.Damage(Damages.DamageCoreAirship * dm.GetDifficultyModifier(unitObj, mod) * wm.GetWaveDamageModifier(unitObj), _GunnerAttached._VehicleAttached); break; }
-                                case Unit.EUnitType.SupportShip: { unitObj.Damage(Damages.DamageSupportShip * dm.GetDifficultyModifier(unitObj, mod) * wm.GetWaveDamageModifier(unitObj), _GunnerAttached._VehicleAttached); break; }
-                                case Unit.EUnitType.HeavyAirship: { unitObj.Damage(Damages.DamageHeavyAirship * dm.GetDifficultyModifier(unitObj, mod) * wm.GetWaveDamageModifier(unitObj), _GunnerAttached._VehicleAttached); break; }
+                                case Unit.EUnitType.Undefined:          { unitObj.Damage(((Damages.DamageDefault * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
+                                case Unit.EUnitType.CoreMarine:         { unitObj.Damage(((Damages.DamageCoreInfantry * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
+                                case Unit.EUnitType.AntiInfantryMarine: { unitObj.Damage(((Damages.DamageAntiInfantryMarine * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
+                                case Unit.EUnitType.Hero:               { unitObj.Damage(((Damages.DamageHero * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA; break; }
+                                case Unit.EUnitType.CoreVehicle:        { unitObj.Damage(((Damages.DamageCoreVehicle * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
+                                case Unit.EUnitType.AntiAirVehicle:     { unitObj.Damage(((Damages.DamageAntiAirVehicle * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
+                                case Unit.EUnitType.MobileArtillery:    { unitObj.Damage(((Damages.DamageMobileArtillery * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
+                                case Unit.EUnitType.BattleTank:         { unitObj.Damage(((Damages.DamageBattleTank * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
+                                case Unit.EUnitType.CoreAirship:        { unitObj.Damage(((Damages.DamageCoreAirship * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
+                                case Unit.EUnitType.SupportShip:        { unitObj.Damage(((Damages.DamageSupportShip * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
+                                case Unit.EUnitType.HeavyAirship:       { unitObj.Damage(((Damages.DamageHeavyAirship * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
                                 default: break;
                             }
                         }
                     }
 
                     // Damage the object (its not a unit so use the default damage value)
-                    else { worldObj.Damage(Damages.DamageDefault * dm.GetDifficultyModifier(Unit.EUnitType.Undefined, worldObj.Team == GameManager.Team.Defending, mod) * wm.GetWaveDamageModifier(worldObj), _GunnerAttached._VehicleAttached); }
+                    else { worldObj.Damage((Damages.DamageDefault * wm.GetWaveDamageModifier(worldObj)) * dm.GetDifficultyModifier(Unit.EUnitType.Undefined, worldObj.Team == GameManager.Team.Defending, mod), _GunnerAttached._VehicleAttached); }
                 }
             }
         }

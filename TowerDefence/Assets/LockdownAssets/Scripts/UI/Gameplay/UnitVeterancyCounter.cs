@@ -8,11 +8,11 @@ using UnityEngine.UI;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 11/6/2018
+//  Last edited on: 23/9/2018
 //
 //******************************
 
-public class UnitBuildingCounter : MonoBehaviour {
+public class UnitVeterancyCounter : MonoBehaviour {
 
     //******************************************************************************************************************************
     //
@@ -33,7 +33,7 @@ public class UnitBuildingCounter : MonoBehaviour {
     //******************************************************************************************************************************
 
     private Camera _CameraAttached = null;
-    private WorldObject _WorldObject = null;
+    private Unit _UnitAttached = null;
     private Text _TextComponent;
 
     //******************************************************************************************************************************
@@ -60,28 +60,25 @@ public class UnitBuildingCounter : MonoBehaviour {
     /// </summary>
     private void Update() {
 
-        if (_WorldObject != null && _CameraAttached != null) {
+        if (_UnitAttached != null && _CameraAttached != null) {
+            
+            // Unit is alive - display the widget
+            if (_UnitAttached.IsInWorld() && _UnitAttached.GetVeterancyLevel() > 0) {
 
-            // Only show widget if the object is currently being built (or in queue)
-            if (_WorldObject.GetObjectState() == Abstraction.WorldObjectStates.Building ||
-                _WorldObject.GetObjectState() == Abstraction.WorldObjectStates.InQueue) {
-                
-                // Update text to show how much time is remaining in the build
-                int time = (int)_WorldObject.GetCurrentBuildTimeRemaining();
-                string healthString = time.ToString();
-                _TextComponent.text = healthString;
+                // Update text
+                _TextComponent.text = _UnitAttached.GetVeterancyLevel().ToString();
 
                 // Set world space position
-                Vector3 pos = _WorldObject.transform.position + Offsetting;
-                pos.y = pos.y + _WorldObject.GetObjectHeight();
+                Vector3 pos = _UnitAttached.transform.position + Offsetting;
+                pos.y = pos.y + _UnitAttached.GetObjectHeight();
                 transform.position = pos;
 
                 // Constantly face the widget towards the camera
                 transform.LookAt(2 * transform.position - _CameraAttached.transform.position);
             }
 
-            // Destroy prefab instance as we no longer need it anymore
-            else { ObjectPooling.Despawn(this.gameObject); }
+            // Object is dead/destroyed
+            else { ObjectPooling.Despawn(gameObject); }
         }
     }
 
@@ -90,8 +87,8 @@ public class UnitBuildingCounter : MonoBehaviour {
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="obj"></param>
-    public void SetObjectAttached(WorldObject obj) { _WorldObject = obj; }
+    /// <param name="unit"></param>
+    public void SetUnitAttached(Unit unit) { _UnitAttached = unit; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

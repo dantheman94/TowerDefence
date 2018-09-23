@@ -100,7 +100,6 @@ public class Ai : WorldObject {
 
         // Add intigator to the potential list
         if (instigator != null) { AddPotentialTarget(instigator); }
-
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

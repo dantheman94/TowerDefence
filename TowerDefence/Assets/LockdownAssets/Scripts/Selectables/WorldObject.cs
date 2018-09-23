@@ -356,8 +356,8 @@ public class WorldObject : Selectable {
             // Create building progress panel & allocate it to the unit
             GameObject buildProgressObj = ObjectPooling.Spawn(GameManager.Instance.BuildingInProgressPanel.gameObject);
             _BuildingProgressCounter = buildProgressObj.GetComponent<UnitBuildingCounter>();
-            _BuildingProgressCounter.setObjectAttached(_ClonedWorldObject);
-            _BuildingProgressCounter.setCameraAttached(plyr.PlayerCamera);
+            _BuildingProgressCounter.SetObjectAttached(_ClonedWorldObject);
+            _BuildingProgressCounter.SetCameraAttached(plyr.PlayerCamera);
             buildProgressObj.gameObject.SetActive(true);
             buildProgressObj.transform.SetParent(GameManager.Instance.WorldSpaceCanvas.gameObject.transform, false);
 
