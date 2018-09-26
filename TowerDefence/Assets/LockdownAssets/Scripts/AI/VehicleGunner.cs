@@ -27,6 +27,7 @@ public class VehicleGunner : Selectable {
     public float HeadAimingSpeed = 5f;
     [Space]
     public Weapon GunnerWeapon = null;
+    public float MaxAttackRange = 200f;
     public List<GameObject> MuzzleLaunchPoints;
     [Space]
     public Vehicle _VehicleAttached = null;

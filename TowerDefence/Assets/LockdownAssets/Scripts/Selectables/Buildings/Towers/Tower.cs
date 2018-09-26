@@ -26,6 +26,7 @@ public class Tower : Building {
     public ETowerType TowerType;
     [Space]
     public GameObject Head = null;
+    public float MaxAttackRange = 200f;
     public float WeaponAimingSpeed = 5f;
     [Space]
     public Weapon TowerWeapon = null;

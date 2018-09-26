@@ -238,6 +238,7 @@ GameObject:
   - component: {fileID: 136053092563895590}
   - component: {fileID: 114109675360212542}
   - component: {fileID: 114701772684918374}
+  - component: {fileID: 114653681016910078}
   m_Layer: 0
   m_Name: pfb_AntiVehicleTurret
   m_TagString: Building
@@ -866,7 +867,6 @@ MonoBehaviour:
   _ObjectState: 0
   Team: 0
   _Player: {fileID: 0}
-  FogOfWarRadius: 400
   ShowSelectionGUI: 1
   ShowQuadHighlighter: 1
   ShowQuadSelector: 1
@@ -909,6 +909,7 @@ MonoBehaviour:
   - {fileID: 0}
   TowerType: 4
   Head: {fileID: 0}
+  MaxAttackRange: 200
   WeaponAimingSpeed: 2
   TowerWeapon: {fileID: 0}
   MuzzleLaunchPoints: []
@@ -974,6 +975,29 @@ MonoBehaviour:
     Weight: 0
   - UnitType: 0
     Weight: 0
+--- !u!114 &114653681016910078
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1742480362871714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fef8ad8a83ba874eaa952e0960d4788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShapeType: 0
+  Offset: {x: 0, y: 0}
+  Radius: 30
+  InnerRadius: 0.694
+  Angle: 180
+  Texture: {fileID: 0}
+  RotateToForward: 0
+  LineOfSightMask:
+    serializedVersion: 2
+    m_Bits: 0
+  LineOfSightPenetration: 0
+  AntiFlicker: 0
 --- !u!114 &114656914700537908
 MonoBehaviour:
   m_ObjectHideFlags: 1

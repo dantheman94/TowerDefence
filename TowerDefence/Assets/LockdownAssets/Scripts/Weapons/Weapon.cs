@@ -368,7 +368,7 @@ public class Weapon : MonoBehaviour {
             Vector3 attackDir = attackPos - _TowerAttached.MuzzleLaunchPoints[0].transform.position;
             attackDir.Normalize();
 
-            if (Physics.Raycast(_TowerAttached.MuzzleLaunchPoints[0].transform.position, attackDir, out hit, _TowerAttached.FogOfWarRadius)) {
+            if (Physics.Raycast(_TowerAttached.MuzzleLaunchPoints[0].transform.position, attackDir, out hit, _TowerAttached.MaxAttackRange)) {
 
                 Debug.DrawLine(_TowerAttached.MuzzleLaunchPoints[0].transform.position, hit.point, Color.red);
 
@@ -424,7 +424,7 @@ public class Weapon : MonoBehaviour {
             Vector3 attackDir = attackPos - _GunnerAttached.MuzzleLaunchPoints[0].transform.position;
             attackDir.Normalize();
 
-            if (Physics.Raycast(_GunnerAttached.MuzzleLaunchPoints[0].transform.position, attackDir, out hit, _GunnerAttached.FogOfWarRadius)) {
+            if (Physics.Raycast(_GunnerAttached.MuzzleLaunchPoints[0].transform.position, attackDir, out hit, _GunnerAttached.MaxAttackRange)) {
 
                 Debug.DrawLine(_GunnerAttached.MuzzleLaunchPoints[0].transform.position, hit.point, Color.red);
 

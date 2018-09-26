@@ -68,6 +68,7 @@ GameObject:
   - component: {fileID: 4846438538994776}
   - component: {fileID: 114096006036646180}
   - component: {fileID: 114878690511021116}
+  - component: {fileID: 114969180352276622}
   m_Layer: 0
   m_Name: pfb_3Slot_Minibase
   m_TagString: Base
@@ -329,7 +330,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1400589094716484}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -289.45486, y: -1, z: 647.4523}
+  m_LocalPosition: {x: -289.45486, y: 1.1168515e-17, z: 637.4523}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4937922744339160}
@@ -733,10 +734,12 @@ MonoBehaviour:
   _ObjectState: 4
   Team: 0
   _Player: {fileID: 0}
-  FogOfWarRadius: 400
   ShowSelectionGUI: 1
   ShowQuadHighlighter: 1
   ShowQuadSelector: 1
+  TargetPoint: {fileID: 0}
+  ShowcaseOffsetY: 0
+  ShowcaseFOV: 40
   InQueueState: {fileID: 0}
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
@@ -796,10 +799,12 @@ MonoBehaviour:
   _ObjectState: 4
   Team: 0
   _Player: {fileID: 0}
-  FogOfWarRadius: 400
   ShowSelectionGUI: 1
   ShowQuadHighlighter: 1
   ShowQuadSelector: 1
+  TargetPoint: {fileID: 0}
+  ShowcaseOffsetY: 0
+  ShowcaseFOV: 40
   InQueueState: {fileID: 0}
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
@@ -859,10 +864,12 @@ MonoBehaviour:
   _ObjectState: 4
   Team: 0
   _Player: {fileID: 0}
-  FogOfWarRadius: 400
   ShowSelectionGUI: 1
   ShowQuadHighlighter: 1
   ShowQuadSelector: 1
+  TargetPoint: {fileID: 0}
+  ShowcaseOffsetY: 0
+  ShowcaseFOV: 40
   InQueueState: {fileID: 0}
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
@@ -922,10 +929,12 @@ MonoBehaviour:
   _ObjectState: 0
   Team: 0
   _Player: {fileID: 0}
-  FogOfWarRadius: 400
   ShowSelectionGUI: 1
   ShowQuadHighlighter: 1
   ShowQuadSelector: 1
+  TargetPoint: {fileID: 0}
+  ShowcaseOffsetY: 0
+  ShowcaseFOV: 40
   InQueueState: {fileID: 1284094502427370}
   BuildingState: {fileID: 1284094502427370}
   ActiveState: {fileID: 1120137460897496}
@@ -970,6 +979,29 @@ MonoBehaviour:
   - {fileID: 114288331761770698}
   - {fileID: 114374134728510218}
   TowerSlots: []
+--- !u!114 &114969180352276622
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1400589094716484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fef8ad8a83ba874eaa952e0960d4788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShapeType: 0
+  Offset: {x: 0, y: 0}
+  Radius: 80
+  InnerRadius: 0.694
+  Angle: 180
+  Texture: {fileID: 0}
+  RotateToForward: 0
+  LineOfSightMask:
+    serializedVersion: 2
+    m_Bits: 0
+  LineOfSightPenetration: 0
+  AntiFlicker: 0
 --- !u!208 &208076563756389132
 NavMeshObstacle:
   m_ObjectHideFlags: 1

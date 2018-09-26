@@ -378,6 +378,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4033482514550848}
   - component: {fileID: 114285511007533186}
+  - component: {fileID: 114191352172799954}
   m_Layer: 0
   m_Name: Core
   m_TagString: Building
@@ -1173,6 +1174,29 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114191352172799954
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1812625572558694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fef8ad8a83ba874eaa952e0960d4788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShapeType: 0
+  Offset: {x: 0, y: 0}
+  Radius: 180
+  InnerRadius: 0.694
+  Angle: 180
+  Texture: {fileID: 0}
+  RotateToForward: 0
+  LineOfSightMask:
+    serializedVersion: 2
+    m_Bits: 0
+  LineOfSightPenetration: 0
+  AntiFlicker: 0
 --- !u!114 &114193063300861138
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1201,6 +1225,8 @@ MonoBehaviour:
   ShowQuadHighlighter: 1
   ShowQuadSelector: 1
   TargetPoint: {fileID: 1838699598934120}
+  ShowcaseOffsetY: 0
+  ShowcaseFOV: 40
   InQueueState: {fileID: 0}
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 1467879039329400}
@@ -1263,6 +1289,8 @@ MonoBehaviour:
   ShowQuadHighlighter: 1
   ShowQuadSelector: 1
   TargetPoint: {fileID: 0}
+  ShowcaseOffsetY: 0
+  ShowcaseFOV: 40
   InQueueState: {fileID: 0}
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 1354704867999630}
@@ -1330,6 +1358,8 @@ MonoBehaviour:
   ShowQuadHighlighter: 1
   ShowQuadSelector: 1
   TargetPoint: {fileID: 1034478319477760}
+  ShowcaseOffsetY: 0
+  ShowcaseFOV: 40
   InQueueState: {fileID: 0}
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 1044684962285098}
@@ -1392,6 +1422,8 @@ MonoBehaviour:
   ShowQuadHighlighter: 1
   ShowQuadSelector: 1
   TargetPoint: {fileID: 1170819853088906}
+  ShowcaseOffsetY: 0
+  ShowcaseFOV: 40
   InQueueState: {fileID: 0}
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 1628312961591628}

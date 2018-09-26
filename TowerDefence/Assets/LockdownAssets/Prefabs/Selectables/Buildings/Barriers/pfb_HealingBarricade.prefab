@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 114704496988962668}
   - component: {fileID: 65171219383111548}
   - component: {fileID: 114528292699939548}
+  - component: {fileID: 114132796864847700}
   m_Layer: 0
   m_Name: pfb_HealingBarricade
   m_TagString: Building
@@ -243,6 +244,29 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 24, y: 3, z: 6}
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &114132796864847700
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1072325868059624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fef8ad8a83ba874eaa952e0960d4788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShapeType: 0
+  Offset: {x: 0, y: 0}
+  Radius: 20
+  InnerRadius: 0.694
+  Angle: 180
+  Texture: {fileID: 0}
+  RotateToForward: 0
+  LineOfSightMask:
+    serializedVersion: 2
+    m_Bits: 0
+  LineOfSightPenetration: 0
+  AntiFlicker: 0
 --- !u!114 &114528292699939548
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -266,10 +290,12 @@ MonoBehaviour:
   _ObjectState: 0
   Team: 0
   _Player: {fileID: 0}
-  FogOfWarRadius: 400
   ShowSelectionGUI: 1
   ShowQuadHighlighter: 1
   ShowQuadSelector: 1
+  TargetPoint: {fileID: 0}
+  ShowcaseOffsetY: 0
+  ShowcaseFOV: 40
   InQueueState: {fileID: 0}
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 1379714728584166}

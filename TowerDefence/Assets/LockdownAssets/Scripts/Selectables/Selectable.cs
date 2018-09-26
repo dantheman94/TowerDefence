@@ -28,11 +28,8 @@ public class Selectable : Abstraction {
     [Space]
     [Tooltip("The team associated with this object.")]
     public GameManager.Team Team;
-    [Tooltip("The controller/player reference attached to this object.")]
+    [Tooltip("The local player reference attached to this object.")]
     public Player _Player = null;
-    [Space]
-    [Tooltip("The radius of the Fog Of War sphere attached to this object.")]
-    public float FogOfWarRadius = 400f;
     [Space]
     [Tooltip("When the player clicks on this object, does the selection wheel (Radial or box) display?")]
     public bool ShowSelectionGUI = true;
@@ -63,6 +60,8 @@ public class Selectable : Abstraction {
     private Renderer _SelectionObjRenderer = null;
     private Renderer _HighlightObjRenderer = null;
 
+    protected FogUnit _FogVision = null;
+
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
@@ -78,6 +77,9 @@ public class Selectable : Abstraction {
 
         selectionBounds = Settings.InvalidBounds;
         CalculateBounds();
+
+        // Get components
+        _FogVision = GetComponent<FogUnit>();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -95,7 +97,11 @@ public class Selectable : Abstraction {
     /// <summary>
     //  Called each frame. 
     /// </summary>
-    protected virtual void Update() { }
+    protected virtual void Update() {
+
+        // Only enable fog vision if this unit is a defending unit (player team friendly)
+        if (_FogVision != null) { _FogVision.enabled = Team == GameManager.Team.Defending; }
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

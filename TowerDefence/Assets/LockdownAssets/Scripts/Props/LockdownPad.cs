@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 //******************************
@@ -31,7 +30,6 @@ public class LockdownPad : MonoBehaviour {
     [Space]
     public BuildingSlot BuildingSlotAttached = null;
     public float SpawnRadius = 85f;
-    public float VerticalSpawnOffset = 4.1f;
     [Space]
     public UI_LockdownPadHUD LockdownPadHud = null;
     [Space]
@@ -45,6 +43,8 @@ public class LockdownPad : MonoBehaviour {
 
     private Renderer _MinimapRenderer;
     private SphereCollider _SpawnSphere = null;
+
+    private float _VerticalSpawnOffset = 4.1f;
 
     //******************************************************************************************************************************
     //
@@ -64,6 +64,9 @@ public class LockdownPad : MonoBehaviour {
 
         // Set minimap icon colour to red
         if (_MinimapRenderer != null) { _MinimapRenderer.material.color = WaveManager.Instance.AttackingTeamColour; }
+
+        // Initialize
+        _VerticalSpawnOffset = transform.position.y;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -103,7 +106,7 @@ public class LockdownPad : MonoBehaviour {
         // Random position somewhere within the sphere
         float randX = Random.Range(sphere.center.x - sphere.radius, sphere.center.x + sphere.radius);
         float randZ = Random.Range(sphere.center.z - sphere.radius, sphere.center.z + sphere.radius);
-        Vector3 pos = new Vector3(randX, /*gameObject.transform.position.y +*/ VerticalSpawnOffset, randZ);        
+        Vector3 pos = new Vector3(randX, /*gameObject.transform.position.y +*/ _VerticalSpawnOffset, randZ);        
         return pos;
     }
 

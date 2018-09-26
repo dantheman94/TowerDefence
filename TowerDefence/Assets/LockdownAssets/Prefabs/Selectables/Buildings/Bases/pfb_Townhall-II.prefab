@@ -229,6 +229,7 @@ GameObject:
   - component: {fileID: 114371661533296626}
   - component: {fileID: 65650807828043458}
   - component: {fileID: 114868436975677980}
+  - component: {fileID: 114133493856029814}
   m_Layer: 0
   m_Name: pfb_Townhall-II
   m_TagString: Base
@@ -937,7 +938,6 @@ MonoBehaviour:
   _ObjectState: 4
   Team: 0
   _Player: {fileID: 0}
-  FogOfWarRadius: 400
   ShowSelectionGUI: 1
   ShowQuadHighlighter: 1
   ShowQuadSelector: 1
@@ -980,6 +980,29 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+--- !u!114 &114133493856029814
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1903063004008702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fef8ad8a83ba874eaa952e0960d4788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShapeType: 0
+  Offset: {x: 0, y: 0}
+  Radius: 100
+  InnerRadius: 0.694
+  Angle: 180
+  Texture: {fileID: 0}
+  RotateToForward: 0
+  LineOfSightMask:
+    serializedVersion: 2
+    m_Bits: 0
+  LineOfSightPenetration: 0
+  AntiFlicker: 0
 --- !u!114 &114197505862476702
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1003,7 +1026,6 @@ MonoBehaviour:
   _ObjectState: 4
   Team: 0
   _Player: {fileID: 0}
-  FogOfWarRadius: 400
   ShowSelectionGUI: 1
   ShowQuadHighlighter: 1
   ShowQuadSelector: 1
@@ -1069,7 +1091,6 @@ MonoBehaviour:
   _ObjectState: 4
   Team: 0
   _Player: {fileID: 0}
-  FogOfWarRadius: 400
   ShowSelectionGUI: 1
   ShowQuadHighlighter: 1
   ShowQuadSelector: 1
@@ -1147,7 +1168,6 @@ MonoBehaviour:
   _ObjectState: 4
   Team: 0
   _Player: {fileID: 0}
-  FogOfWarRadius: 400
   ShowSelectionGUI: 1
   ShowQuadHighlighter: 1
   ShowQuadSelector: 1
@@ -1213,7 +1233,6 @@ MonoBehaviour:
   _ObjectState: 4
   Team: 0
   _Player: {fileID: 0}
-  FogOfWarRadius: 400
   ShowSelectionGUI: 1
   ShowQuadHighlighter: 1
   ShowQuadSelector: 1
@@ -1279,7 +1298,6 @@ MonoBehaviour:
   _ObjectState: 4
   Team: 0
   _Player: {fileID: 0}
-  FogOfWarRadius: 400
   ShowSelectionGUI: 1
   ShowQuadHighlighter: 1
   ShowQuadSelector: 1
@@ -1347,7 +1365,6 @@ MonoBehaviour:
   _ObjectState: 4
   Team: 2
   _Player: {fileID: 0}
-  FogOfWarRadius: 400
   ShowSelectionGUI: 1
   ShowQuadHighlighter: 1
   ShowQuadSelector: 1

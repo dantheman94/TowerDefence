@@ -171,6 +171,7 @@ GameObject:
   - component: {fileID: 114413970695192054}
   - component: {fileID: 65895427530105632}
   - component: {fileID: 114306093193310104}
+  - component: {fileID: 114807560261788064}
   m_Layer: 0
   m_Name: pfb_WarRoom
   m_TagString: Building
@@ -1579,10 +1580,12 @@ MonoBehaviour:
   _ObjectState: 0
   Team: 0
   _Player: {fileID: 0}
-  FogOfWarRadius: 400
   ShowSelectionGUI: 1
   ShowQuadHighlighter: 1
   ShowQuadSelector: 1
+  TargetPoint: {fileID: 0}
+  ShowcaseOffsetY: 0
+  ShowcaseFOV: 40
   InQueueState: {fileID: 1261157101852674}
   BuildingState: {fileID: 1261157101852674}
   ActiveState: {fileID: 1622675479265872}
@@ -1611,9 +1614,9 @@ MonoBehaviour:
   - {fileID: 114808354717532260, guid: 1de21035f8a28194cb04bfd00d710af4, type: 2}
   - {fileID: 114520428206191618, guid: ced554d997c39bc4390176b677718d9a, type: 2}
   - {fileID: 114122295972051122, guid: 36a1a7dcfbd7a9441923ae6734c67bda, type: 2}
-  - {fileID: 114321492504333980, guid: ff2e544a035e3134aa61515841e03126, type: 2}
+  - {fileID: 0}
   - {fileID: 114086916006409686, guid: 79277ac9396fb6649b8e74d19bdac0b4, type: 2}
-  - {fileID: 114637479626047606, guid: b0b553943343fae4e89f6bffadf50807, type: 2}
+  - {fileID: 0}
   - {fileID: 114036110279440992, guid: ddc75dcadc85db640b601008ffb388bd, type: 2}
   - {fileID: 114481798048649180, guid: c4a0f18ee5b21b74fbcb5adc9b905af4, type: 2}
   - {fileID: 114909369810655446, guid: af5b11a941f2b054891c736f4b77e2a2, type: 2}
@@ -1629,6 +1632,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TagArray: []
+--- !u!114 &114807560261788064
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1303974991265018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fef8ad8a83ba874eaa952e0960d4788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShapeType: 0
+  Offset: {x: 0, y: 0}
+  Radius: 40
+  InnerRadius: 0.694
+  Angle: 180
+  Texture: {fileID: 0}
+  RotateToForward: 0
+  LineOfSightMask:
+    serializedVersion: 2
+    m_Bits: 0
+  LineOfSightPenetration: 0
+  AntiFlicker: 0
 --- !u!208 &208363058514420816
 NavMeshObstacle:
   m_ObjectHideFlags: 1

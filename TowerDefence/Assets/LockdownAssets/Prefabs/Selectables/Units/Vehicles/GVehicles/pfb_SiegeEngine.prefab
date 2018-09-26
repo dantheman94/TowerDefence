@@ -56,6 +56,7 @@ GameObject:
   - component: {fileID: 143472615448622620}
   - component: {fileID: 195921720677001416}
   - component: {fileID: 114122295972051122}
+  - component: {fileID: 114994806145624926}
   m_Layer: 9
   m_Name: pfb_SiegeEngine
   m_TagString: Unit
@@ -286,8 +287,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1364828568622108}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1000, y: 250, z: 1500}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -23.8, y: 0, z: -105.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4868349429360610}
@@ -664,7 +665,6 @@ MonoBehaviour:
   _ObjectState: 4
   Team: 1
   _Player: {fileID: 0}
-  FogOfWarRadius: 400
   ShowSelectionGUI: 0
   ShowQuadHighlighter: 1
   ShowQuadSelector: 1
@@ -731,6 +731,14 @@ MonoBehaviour:
   IdealAttackRangeMin: 50
   CanBeStunned: 0
   BarrierDetectionDistance: 20
+  StartingVeterancyLevel: 0
+  XPGrantedOnDeath: 1
+  VetTargetXPs: 05000000080000000c000000
+  VetDamages:
+  - 1
+  - 1.15
+  - 1.3
+  - 1.45
   WeaponObject: {fileID: 1909661708711568}
   ClampRotation: 0
   RotationClampMinY: -180
@@ -817,6 +825,29 @@ MonoBehaviour:
   m_distance: 100
   m_isTrigger: 1
   m_isFixScale: 1
+--- !u!114 &114994806145624926
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1364828568622108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fef8ad8a83ba874eaa952e0960d4788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShapeType: 0
+  Offset: {x: 0, y: 0}
+  Radius: 130
+  InnerRadius: 0.694
+  Angle: 180
+  Texture: {fileID: 0}
+  RotateToForward: 0
+  LineOfSightMask:
+    serializedVersion: 2
+    m_Bits: 0
+  LineOfSightPenetration: 0
+  AntiFlicker: 0
 --- !u!135 &135205076053460304
 SphereCollider:
   m_ObjectHideFlags: 1

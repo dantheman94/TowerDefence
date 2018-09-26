@@ -71,6 +71,7 @@ GameObject:
   - component: {fileID: 136931872748845746}
   - component: {fileID: 114587061300654704}
   - component: {fileID: 114364700270044970}
+  - component: {fileID: 114046088448603990}
   m_Layer: 0
   m_Name: pfb_WatchTower
   m_TagString: Building
@@ -180,8 +181,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1468916063055670}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1000, y: 250, z: 1500}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1025.75, y: 0, z: -575.38}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4633645374944500}
@@ -494,6 +495,29 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114046088448603990
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1468916063055670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fef8ad8a83ba874eaa952e0960d4788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShapeType: 0
+  Offset: {x: 0, y: 0}
+  Radius: 50
+  InnerRadius: 0.694
+  Angle: 180
+  Texture: {fileID: 0}
+  RotateToForward: 0
+  LineOfSightMask:
+    serializedVersion: 2
+    m_Bits: 0
+  LineOfSightPenetration: 0
+  AntiFlicker: 0
 --- !u!114 &114364700270044970
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -530,7 +554,6 @@ MonoBehaviour:
   _ObjectState: 4
   Team: 0
   _Player: {fileID: 0}
-  FogOfWarRadius: 400
   ShowSelectionGUI: 1
   ShowQuadHighlighter: 1
   ShowQuadSelector: 1
@@ -573,6 +596,7 @@ MonoBehaviour:
   - {fileID: 0}
   TowerType: 0
   Head: {fileID: 1156674751946904}
+  MaxAttackRange: 200
   WeaponAimingSpeed: 5
   TowerWeapon: {fileID: 0}
   MuzzleLaunchPoints: []

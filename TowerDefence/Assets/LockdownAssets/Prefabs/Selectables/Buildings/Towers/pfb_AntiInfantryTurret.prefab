@@ -40,6 +40,7 @@ GameObject:
   - component: {fileID: 136724759243394310}
   - component: {fileID: 114109408995356522}
   - component: {fileID: 114003340117132740}
+  - component: {fileID: 114845932321370730}
   m_Layer: 0
   m_Name: pfb_AntiInfantryTurret
   m_TagString: Building
@@ -690,7 +691,6 @@ MonoBehaviour:
   _ObjectState: 0
   Team: 1
   _Player: {fileID: 0}
-  FogOfWarRadius: 400
   ShowSelectionGUI: 1
   ShowQuadHighlighter: 1
   ShowQuadSelector: 1
@@ -733,6 +733,7 @@ MonoBehaviour:
   - {fileID: 0}
   TowerType: 3
   Head: {fileID: 0}
+  MaxAttackRange: 200
   WeaponAimingSpeed: 0.5
   TowerWeapon: {fileID: 114741025978715078, guid: 7ba6c7e404e870540b58f6205c380067,
     type: 2}
@@ -828,6 +829,29 @@ MonoBehaviour:
     Weight: 0
   - UnitType: 0
     Weight: 0
+--- !u!114 &114845932321370730
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1143940247324936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fef8ad8a83ba874eaa952e0960d4788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShapeType: 0
+  Offset: {x: 0, y: 0}
+  Radius: 30
+  InnerRadius: 0.694
+  Angle: 180
+  Texture: {fileID: 0}
+  RotateToForward: 0
+  LineOfSightMask:
+    serializedVersion: 2
+    m_Bits: 0
+  LineOfSightPenetration: 0
+  AntiFlicker: 0
 --- !u!135 &135682895284824328
 SphereCollider:
   m_ObjectHideFlags: 1

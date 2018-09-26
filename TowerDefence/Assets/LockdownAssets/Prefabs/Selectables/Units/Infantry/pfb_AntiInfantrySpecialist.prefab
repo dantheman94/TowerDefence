@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 195629123267418622}
   - component: {fileID: 114908419093975514}
   - component: {fileID: 114810577948875104}
+  - component: {fileID: 114468287431597552}
   m_Layer: 9
   m_Name: pfb_AntiInfantrySpecialist
   m_TagString: Untagged
@@ -273,8 +274,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1069939583836596}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1000, y: 250, z: 1500}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -969.27, y: 15.32, z: -493.24}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4420390123666926}
@@ -520,6 +521,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _AIAttached: {fileID: 114908419093975514}
   _GunnerAttached: {fileID: 0}
+--- !u!114 &114468287431597552
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1069939583836596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fef8ad8a83ba874eaa952e0960d4788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShapeType: 0
+  Offset: {x: 0, y: 0}
+  Radius: 80
+  InnerRadius: 0.694
+  Angle: 180
+  Texture: {fileID: 0}
+  RotateToForward: 0
+  LineOfSightMask:
+    serializedVersion: 2
+    m_Bits: 0
+  LineOfSightPenetration: 0
+  AntiFlicker: 0
 --- !u!114 &114664230143111646
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -581,7 +605,6 @@ MonoBehaviour:
   _ObjectState: 0
   Team: 0
   _Player: {fileID: 0}
-  FogOfWarRadius: 400
   ShowSelectionGUI: 0
   ShowQuadHighlighter: 1
   ShowQuadSelector: 1
@@ -648,6 +671,14 @@ MonoBehaviour:
   IdealAttackRangeMin: 10
   CanBeStunned: 1
   BarrierDetectionDistance: 20
+  StartingVeterancyLevel: 0
+  XPGrantedOnDeath: 1
+  VetTargetXPs: 05000000080000000c000000
+  VetDamages:
+  - 1
+  - 1.15
+  - 1.3
+  - 1.45
   RotatingSpeed: 100
 --- !u!114 &114965493410278220
 MonoBehaviour:
