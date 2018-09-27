@@ -24,6 +24,8 @@ GameObject:
   - component: {fileID: 114605684987641306}
   - component: {fileID: 124571818385262438}
   - component: {fileID: 81227643152958334}
+  - component: {fileID: 114367870358857756}
+  - component: {fileID: 114602790597419212}
   m_Layer: 0
   m_Name: pfb_PlayerCamera
   m_TagString: MainCamera
@@ -159,6 +161,18 @@ AudioListener:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1094551135196284}
   m_Enabled: 1
+--- !u!114 &114367870358857756
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1094551135196284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec8a4d7cbb4a28a4baf4cf18549ebfb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RawImage: {fileID: 0}
 --- !u!114 &114496022415881838
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -175,6 +189,44 @@ MonoBehaviour:
   _RaycastLayerMask:
     serializedVersion: 2
     m_Bits: 9216
+--- !u!114 &114602790597419212
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1094551135196284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a996b5665d71e7e42b1324de4f959f69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MapResolution:
+    x: 128
+    y: 128
+  MapSize: 1550
+  MapOffset: {x: 0, y: 0}
+  Plane: 2
+  FilterMode: 1
+  FogColor: {r: 0, g: 0, b: 0, a: 1}
+  FogColorTexture: {fileID: 0}
+  FogColorTextureScale: 1
+  FogColorTextureHeight: 0
+  FogFarPlane: 1
+  OutsideFogStrength: 1
+  ClearFog: 0
+  ClearFogMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  BlurAmount: 0
+  BlurIterations: 0
+  BlurType: 0
+  Team: 0
+  UpdateAutomatically: 1
+  PartialFogAmount: 0.5
+  FadeSpeed: 10
+  MultiThreaded: 1
+  Threads: 2
+  MaxMillisecondsPerFrame: 5
 --- !u!114 &114605684987641306
 MonoBehaviour:
   m_ObjectHideFlags: 1
