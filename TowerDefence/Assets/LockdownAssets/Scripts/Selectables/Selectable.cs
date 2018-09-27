@@ -23,8 +23,8 @@ public class Selectable : Abstraction {
     //******************************************************************************************************************************
 
     [Space]
-    [Header("-----------------------------------")]
     [Header(" SELECTABLE PROPERTIES")]
+    [Header("-----------------------------------")]
     [Space]
     [Tooltip("The team associated with this object.")]
     public GameManager.Team Team;
@@ -39,11 +39,12 @@ public class Selectable : Abstraction {
     public GameObject TargetPoint = null;
 
     [Space]
-    [Header("-----------------------------------")]
     [Header(" SHOWCASE PROPERTIES")]
+    [Header("-----------------------------------")]
     [Space]
     public float ShowcaseOffsetY = 0f;
     public float ShowcaseFOV = 40f;
+    public float ShoecaseScale = 1f;
 
     //******************************************************************************************************************************
     //

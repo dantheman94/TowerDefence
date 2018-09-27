@@ -7,7 +7,7 @@ using UnityEngine;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 27/5/2018
+//  Last edited on: 28/9/2018
 //
 //******************************
 
@@ -21,8 +21,8 @@ public class Abstraction : MonoBehaviour {
     //******************************************************************************************************************************
 
     [Space]
-    [Header("-----------------------------------")]
     [Header(" ABSTRACTION PROPERTIES")]
+    [Header("-----------------------------------")]
     [Space]
     [Tooltip("The name that shows in the selection wheel/menu for this object.")]
     public string ObjectName;

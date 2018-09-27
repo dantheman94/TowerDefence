@@ -21,8 +21,8 @@ public class WorldObject : Selectable {
     //******************************************************************************************************************************
 
     [Space]
-    [Header("-----------------------------------")]
     [Header(" WORLD OBJECT STATES")]
+    [Header("-----------------------------------")]
     [Space]
     [Tooltip("Reference to the gameobject that represents this object when its in its 'queuing' state.")]
     public GameObject InQueueState;
@@ -33,9 +33,10 @@ public class WorldObject : Selectable {
     public GameObject ActiveState;
     [Tooltip("Reference to the gameobject that represents this object when its in its 'destroyed' state.")]
     public GameObject DestroyedState;
+
     [Space]
-    [Header("-----------------------------------")]
     [Header(" WORLD OBJECT PROPERTIES")]
+    [Header("-----------------------------------")]
     [Space]
     public bool Damagable = true;
     public int MaxHitPoints = 100;
@@ -51,6 +52,12 @@ public class WorldObject : Selectable {
     public bool MultiSelectable = true;
     [Tooltip("Uh just leave this variable empty for now. May be obsolete, but not yet... (IDK, Dan's fault :/)")]
     public float _OffsetY;
+
+    [Space]
+    [Header(" USER INTERFACE")]
+    [Header("-----------------------------------")]
+    [Space]
+    public GameObject QuadMinimap = null;
     [Space]
     [Tooltip("The 'width' of the RectTransform that represents the healthbar tied to this object.")]
     public float _WidgetHealthbarScaleX = 100f;
@@ -65,13 +72,16 @@ public class WorldObject : Selectable {
     public float _WidgetShieldbarScaleY = 15f;
     [Tooltip("The 'Pos Y' of the RectTransform that represents the shieldbar tied to this object.")]
     public float _WidgetShieldbarOffset = 22f;
+
     [Space]
+    [Header(" ON DEATH/DESTROYED")]
+    [Header("-----------------------------------")]
+    [Space]
+    public ParticleSystem OnDeathEffect = null;
     public bool ShrinkWhenDestroyed = true;
     [Tooltip("When this unit is killed, the speed in which it shrinks down until it is no longer visible " +
             "before being sent back to the object pool.")]
     public float ShrinkSpeed = 0.2f;
-    [Space]
-    public GameObject QuadMinimap = null;
 
     //******************************************************************************************************************************
     //
@@ -448,7 +458,19 @@ public class WorldObject : Selectable {
         // Clamping health
         _HitPoints = 0;
         _Health = 0f;
-        
+
+        // Play OnDeath effect
+        if (OnDeathEffect != null) {
+
+            // Play
+            ParticleSystem effect = ObjectPooling.Spawn(OnDeathEffect.gameObject, transform.position, transform.rotation).GetComponent<ParticleSystem>();
+            effect.Play();
+
+            // Despawn particle system once it has finished its cycle
+            float effectDuration = effect.duration + effect.startLifetime;
+            StartCoroutine(ParticleDespawn(effect, effectDuration));
+        }
+
         // Send message to match feed
         MatchFeed.Instance.AddMessage(string.Concat(ObjectName, " destroyed."));
 
@@ -694,6 +716,24 @@ public class WorldObject : Selectable {
     /// </summary>
     /// <param name="value"></param>
     public void SetShowHealthBar(bool value) { _ShowHealthbar = value; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  A coroutine that waits for the seconds specified then attempts to re-pool
+    //  the particle effect (or destroyed entirely if re-pooling isn't possible)
+    /// </summary>
+    /// <param name="particleEffect"></param>
+    /// <param name="delay"></param>
+    /// <returns></returns>
+    IEnumerator ParticleDespawn(ParticleSystem particleEffect, float delay) {
+
+        // Delay
+        yield return new WaitForSeconds(delay);
+
+        // Despawn the system
+        ObjectPooling.Despawn(particleEffect.gameObject);
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
