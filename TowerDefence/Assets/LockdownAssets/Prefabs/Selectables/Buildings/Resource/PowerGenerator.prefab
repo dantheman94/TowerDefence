@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 65768615444399434}
   - component: {fileID: 114017345909741574}
   - component: {fileID: 114902035043267820}
+  - component: {fileID: 114082857751882672}
   m_Layer: 0
   m_Name: PowerGenerator
   m_TagString: Building
@@ -384,11 +385,12 @@ MonoBehaviour:
   Team: 0
   _Player: {fileID: 0}
   ShowSelectionGUI: 1
-  ShowQuadHighlighter: 1
-  ShowQuadSelector: 1
+  OutlineHighlightedWidth: 2
+  OutlineSelectedWidth: 3
   TargetPoint: {fileID: 0}
   ShowcaseOffsetY: 0
   ShowcaseFOV: 40
+  ShoecaseScale: 1
   InQueueState: {fileID: 1132488562566498}
   BuildingState: {fileID: 1132488562566498}
   ActiveState: {fileID: 1687747633772260}
@@ -400,15 +402,16 @@ MonoBehaviour:
   MaxGarrisonPopulation: 0
   MultiSelectable: 0
   _OffsetY: 0
+  QuadMinimap: {fileID: 1430483934314032}
   _WidgetHealthbarScaleX: 60
   _WidgetHealthbarScaleY: 10
   _WidgetHealthbarOffset: 0
   _WidgetShieldbarScaleX: 60
   _WidgetShieldbarScaleY: 10
   _WidgetShieldbarOffset: 10
+  OnDeathEffect: {fileID: 0}
   ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.3
-  QuadMinimap: {fileID: 1430483934314032}
   AttachedBuildingSlot: {fileID: 0}
   ObjectHeight: 15
   HasABuildingQueue: 1
@@ -432,6 +435,23 @@ MonoBehaviour:
   PylonVerticalOffset: 2
   RotateSpeed: 8
   OrbitSpeed: 100
+--- !u!114 &114082857751882672
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1079679644633822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!114 &114613206427024824
 MonoBehaviour:
   m_ObjectHideFlags: 1

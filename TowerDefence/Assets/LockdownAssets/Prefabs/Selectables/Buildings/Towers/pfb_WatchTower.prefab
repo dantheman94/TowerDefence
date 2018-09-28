@@ -72,6 +72,7 @@ GameObject:
   - component: {fileID: 114587061300654704}
   - component: {fileID: 114364700270044970}
   - component: {fileID: 114046088448603990}
+  - component: {fileID: 114930984414354394}
   m_Layer: 0
   m_Name: pfb_WatchTower
   m_TagString: Building
@@ -555,11 +556,12 @@ MonoBehaviour:
   Team: 0
   _Player: {fileID: 0}
   ShowSelectionGUI: 1
-  ShowQuadHighlighter: 1
-  ShowQuadSelector: 1
+  OutlineHighlightedWidth: 2
+  OutlineSelectedWidth: 3
   TargetPoint: {fileID: 0}
   ShowcaseOffsetY: 0
   ShowcaseFOV: 60
+  ShoecaseScale: 1
   InQueueState: {fileID: 1853791158513370}
   BuildingState: {fileID: 1853791158513370}
   ActiveState: {fileID: 1126988834088362}
@@ -571,15 +573,16 @@ MonoBehaviour:
   MaxGarrisonPopulation: 0
   MultiSelectable: 0
   _OffsetY: 0
+  QuadMinimap: {fileID: 1928718487550088}
   _WidgetHealthbarScaleX: 180
   _WidgetHealthbarScaleY: 10
   _WidgetHealthbarOffset: 0
   _WidgetShieldbarScaleX: 50
   _WidgetShieldbarScaleY: 10
   _WidgetShieldbarOffset: 10
+  OnDeathEffect: {fileID: 0}
   ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.3
-  QuadMinimap: {fileID: 1928718487550088}
   AttachedBuildingSlot: {fileID: 0}
   ObjectHeight: 22
   HasABuildingQueue: 1
@@ -643,6 +646,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TagArray: []
+--- !u!114 &114930984414354394
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1468916063055670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!136 &136931872748845746
 CapsuleCollider:
   m_ObjectHideFlags: 1

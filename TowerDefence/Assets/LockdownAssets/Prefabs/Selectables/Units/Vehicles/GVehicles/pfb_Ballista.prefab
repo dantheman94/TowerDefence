@@ -158,6 +158,7 @@ GameObject:
   - component: {fileID: 195181909551336146}
   - component: {fileID: 114520428206191618}
   - component: {fileID: 114057464707080310}
+  - component: {fileID: 114302952203123236}
   m_Layer: 9
   m_Name: pfb_Ballista
   m_TagString: Unit
@@ -516,6 +517,23 @@ MonoBehaviour:
     Weight: 0
   - UnitType: 0
     Weight: 0
+--- !u!114 &114302952203123236
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1830067331789510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!114 &114449543389230654
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -556,6 +574,7 @@ MonoBehaviour:
   TargetPoint: {fileID: 0}
   ShowcaseOffsetY: 0
   ShowcaseFOV: 60
+  ShoecaseScale: 1
   InQueueState: {fileID: 0}
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 1222785192572726}
@@ -567,15 +586,16 @@ MonoBehaviour:
   MaxGarrisonPopulation: 0
   MultiSelectable: 1
   _OffsetY: 0
+  QuadMinimap: {fileID: 1828822801147290}
   _WidgetHealthbarScaleX: 50
   _WidgetHealthbarScaleY: 10
   _WidgetHealthbarOffset: 0
   _WidgetShieldbarScaleX: 50
   _WidgetShieldbarScaleY: 10
   _WidgetShieldbarOffset: 10
+  OnDeathEffect: {fileID: 0}
   ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.3
-  QuadMinimap: {fileID: 1828822801147290}
   _ChasingDistance: 300
   TargetWeights:
   - UnitType: 0

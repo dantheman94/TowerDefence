@@ -33,8 +33,8 @@ public class Selectable : Abstraction {
     [Space]
     [Tooltip("When the player clicks on this object, does the selection wheel (Radial or box) display?")]
     public bool ShowSelectionGUI = true;
-    public bool ShowQuadHighlighter = true;
-    public bool ShowQuadSelector = true;
+    public float OutlineHighlightedWidth = 2f;
+    public float OutlineSelectedWidth = 3f;
     [Space]
     public GameObject TargetPoint = null;
 
@@ -63,6 +63,8 @@ public class Selectable : Abstraction {
 
     protected FogUnit _FogVision = null;
 
+    private Outline _OutlineComponent = null;
+
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
@@ -81,6 +83,7 @@ public class Selectable : Abstraction {
 
         // Get components
         _FogVision = GetComponent<FogUnit>();
+        _OutlineComponent = GetComponent<Outline>();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -151,41 +154,26 @@ public class Selectable : Abstraction {
     //  
     /// </summary>
     /// <param name="draw"></param>
-    protected virtual void DrawSelection(bool draw) {
+    public virtual void DrawSelection(bool draw) {
 
         // Show selection
-        if (draw) {
+        if (draw && _OutlineComponent != null) {
 
-            // Show selection prefab at the bottom of the object
-            if (_SelectionObj == null) { _SelectionObj = Instantiate(Settings.SelectBoxObjects); }
-            if (_SelectionObj != null) {
+            // Set outline properties
+            switch (Team) {
 
-                // Display prefab
-                if (ShowQuadSelector) { _SelectionObj.SetActive(true); }
-
-                // Update selection prefab position
-                Vector3 pos = new Vector3();
-                pos.x = transform.position.x;
-                pos.y = transform.position.y + 1f;
-                pos.z = transform.position.z;
-                _SelectionObj.transform.position = pos;
-
-                // Update selection prefab colour
-                if (_SelectionObjRenderer == null) { _SelectionObjRenderer = _SelectionObj.GetComponent<Renderer>(); }
-                if (_SelectionObjRenderer != null) {
-
-                    switch (Team) {
-                        case GameManager.Team.Undefined: { _SelectionObjRenderer.material.color = Color.grey; break; }
-                        case GameManager.Team.Defending: { _SelectionObjRenderer.material.color = _Player.TeamColor; break; }
-                        case GameManager.Team.Attacking: { _SelectionObjRenderer.material.color = WaveManager.Instance.AttackingTeamColour; break; }
-                        default: break;
-                    }
-                }
+                case GameManager.Team.Undefined: { _OutlineComponent.OutlineColor = Color.white; break; }
+                case GameManager.Team.Defending: { _OutlineComponent.OutlineColor = _Player.TeamColor; break; }                    
+                case GameManager.Team.Attacking: { _OutlineComponent.OutlineColor = WaveManager.Instance.AttackingTeamColour; break; }
+                default: break;
             }
+            _OutlineComponent.OutlineMode = Outline.Mode.OutlineVisible;
+            _OutlineComponent.OutlineWidth = OutlineSelectedWidth;
+            _OutlineComponent.enabled = true;
         }
 
         // Hide selection
-        else { if (_SelectionObj != null) { Destroy(_SelectionObj.gameObject); } }
+        else { if (_OutlineComponent != null && !_IsCurrentlyHighlighted) { _OutlineComponent.enabled = false; } }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -194,41 +182,26 @@ public class Selectable : Abstraction {
     //  
     /// </summary>
     /// <param name="highlight"></param>
-    protected virtual void DrawHighlight(bool highlight) {
+    public virtual void DrawHighlight(bool highlight) {
 
-        // Show highlight
-        if (highlight) {
+        // Show selection
+        if (highlight && _OutlineComponent != null) {
 
-            // Show highlight prefab at the bottom of the object
-            if (_HighlightObj == null) { _HighlightObj = Instantiate(Settings.HighlightBoxObjects); }
-            if (_HighlightObj != null) {
+            // Set outline properties
+            switch (Team) {
 
-                // Display prefab
-                if (ShowQuadHighlighter) { _HighlightObj.SetActive(true); }
-
-                // Update highlight prefab position
-                Vector3 pos = new Vector3();
-                pos.x = transform.position.x;
-                pos.y = transform.position.y + 1f; ;
-                pos.z = transform.position.z;
-                _HighlightObj.transform.position = pos;
-
-                // Update highlight prefab colour
-                if (_HighlightObjRenderer == null) { _HighlightObjRenderer = _HighlightObj.GetComponent<Renderer>(); }
-                if (_HighlightObjRenderer != null) {
-
-                    switch (Team) {
-                        case GameManager.Team.Undefined: { _HighlightObjRenderer.material.color = Color.white; break; }
-                        case GameManager.Team.Defending: { _HighlightObjRenderer.material.color = Color.blue; break; } /// Temporary colour - just to show a different colour to selected (ideally it should be a shade lighter than the player's colour!)
-                        case GameManager.Team.Attacking: { _HighlightObjRenderer.material.color = WaveManager.Instance.AttackingTeamColour; break; }
-                        default: break;
-                    }
-                }
+                case GameManager.Team.Undefined: { _OutlineComponent.OutlineColor = Color.white; break; }
+                case GameManager.Team.Defending: { _OutlineComponent.OutlineColor = _Player.TeamColor; break; }
+                case GameManager.Team.Attacking: { _OutlineComponent.OutlineColor = WaveManager.Instance.AttackingTeamColour; break; }
+                default: break;
             }
+            _OutlineComponent.OutlineMode = Outline.Mode.OutlineVisible;
+            _OutlineComponent.OutlineWidth = OutlineHighlightedWidth;
+            _OutlineComponent.enabled = true;
         }
 
-        // Hide highlight
-        else { if (_HighlightObj != null) { Destroy(_HighlightObj.gameObject); } }
+        // Hide selection
+        else { if (_OutlineComponent != null && !_IsCurrentlySelected) { _OutlineComponent.enabled = false; } }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

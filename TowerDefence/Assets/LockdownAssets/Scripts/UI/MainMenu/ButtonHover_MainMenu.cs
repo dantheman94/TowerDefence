@@ -104,7 +104,7 @@ public class ButtonHover_MainMenu : MonoBehaviour, IPointerEnterHandler, IPointe
                 if (o != null) {
 
                     o.enabled = Hover_OutlineEnabled;
-                    o.effectColor = Hover_OutlineColour;
+                    o.OutlineColor = Hover_OutlineColour;
                 }
 
                 // Update hover text
@@ -133,7 +133,7 @@ public class ButtonHover_MainMenu : MonoBehaviour, IPointerEnterHandler, IPointe
                 if (o != null) {
 
                     o.enabled = Default_OutlineEnabled;
-                    o.effectColor = Default_OutlineColour;
+                    o.OutlineColor = Default_OutlineColour;
                 }
             }
         }
@@ -159,7 +159,7 @@ public class ButtonHover_MainMenu : MonoBehaviour, IPointerEnterHandler, IPointe
                 if (o != null) {
 
                     o.enabled = Clicked_OutlineEnabled;
-                    o.effectColor = Clicked_OutlineColour;
+                    o.OutlineColor = Clicked_OutlineColour;
                 }
             }
         }
@@ -185,7 +185,7 @@ public class ButtonHover_MainMenu : MonoBehaviour, IPointerEnterHandler, IPointe
                 if (o != null) {
 
                     o.enabled = Down_OutlineEnabled;
-                    o.effectColor = Down_OutlineColour;
+                    o.OutlineColor = Down_OutlineColour;
                 }
             }
         }
@@ -211,7 +211,7 @@ public class ButtonHover_MainMenu : MonoBehaviour, IPointerEnterHandler, IPointe
                 if (o != null) {
 
                     o.enabled = Up_OutlineEnabled;
-                    o.effectColor = Up_OutlineColour;
+                    o.OutlineColor = Up_OutlineColour;
                 }
             }
         }
@@ -237,7 +237,7 @@ public class ButtonHover_MainMenu : MonoBehaviour, IPointerEnterHandler, IPointe
                 if (o != null) {
 
                     o.enabled = Down_OutlineEnabled;
-                    o.effectColor = Down_OutlineColour;
+                    o.OutlineColor = Down_OutlineColour;
                 }
             }
         }
@@ -263,7 +263,7 @@ public class ButtonHover_MainMenu : MonoBehaviour, IPointerEnterHandler, IPointe
                 if (o != null) {
 
                     o.enabled = Up_OutlineEnabled;
-                    o.effectColor = Up_OutlineColour;
+                    o.OutlineColor = Up_OutlineColour;
                 }
             }
         }

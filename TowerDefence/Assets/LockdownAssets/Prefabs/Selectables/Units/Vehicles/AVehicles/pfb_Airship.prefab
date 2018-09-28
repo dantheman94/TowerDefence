@@ -172,6 +172,7 @@ GameObject:
   - component: {fileID: 195345531679988408}
   - component: {fileID: 114909369810655446}
   - component: {fileID: 114404806787516872}
+  - component: {fileID: 114159814536020118}
   m_Layer: 9
   m_Name: pfb_Airship
   m_TagString: Unit
@@ -502,6 +503,23 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114159814536020118
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1855981135212812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!114 &114209126415710984
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -615,6 +633,7 @@ MonoBehaviour:
   TargetPoint: {fileID: 1517973403909754}
   ShowcaseOffsetY: 1
   ShowcaseFOV: 60
+  ShoecaseScale: 1
   InQueueState: {fileID: 0}
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 1149650769780974}
@@ -626,15 +645,16 @@ MonoBehaviour:
   MaxGarrisonPopulation: 0
   MultiSelectable: 1
   _OffsetY: 0
+  QuadMinimap: {fileID: 1066059873784790}
   _WidgetHealthbarScaleX: 35
   _WidgetHealthbarScaleY: 10
   _WidgetHealthbarOffset: 0
   _WidgetShieldbarScaleX: 35
   _WidgetShieldbarScaleY: 10
   _WidgetShieldbarOffset: 10
+  OnDeathEffect: {fileID: 0}
   ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.3
-  QuadMinimap: {fileID: 1066059873784790}
   _ChasingDistance: 30
   TargetWeights:
   - UnitType: 0

@@ -190,6 +190,7 @@ GameObject:
   - component: {fileID: 114036110279440992}
   - component: {fileID: 114310500213514308}
   - component: {fileID: 114317453787052962}
+  - component: {fileID: 114616624484732044}
   m_Layer: 9
   m_Name: pfb_HeavyAirship
   m_TagString: Unit
@@ -2102,6 +2103,7 @@ MonoBehaviour:
   TargetPoint: {fileID: 1193572716779888}
   ShowcaseOffsetY: 1
   ShowcaseFOV: 60
+  ShoecaseScale: 1
   InQueueState: {fileID: 0}
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 1397092352571976}
@@ -2113,15 +2115,16 @@ MonoBehaviour:
   MaxGarrisonPopulation: 0
   MultiSelectable: 1
   _OffsetY: 0
+  QuadMinimap: {fileID: 1211059165154882}
   _WidgetHealthbarScaleX: 150
   _WidgetHealthbarScaleY: 15
   _WidgetHealthbarOffset: 15
   _WidgetShieldbarScaleX: 150
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
+  OnDeathEffect: {fileID: 0}
   ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.3
-  QuadMinimap: {fileID: 1211059165154882}
   _ChasingDistance: 30
   TargetWeights:
   - UnitType: 0
@@ -2221,6 +2224,7 @@ MonoBehaviour:
   TargetPoint: {fileID: 0}
   ShowcaseOffsetY: 0
   ShowcaseFOV: 40
+  ShoecaseScale: 1
   Head: {fileID: 1754600022197738}
   HeadAimingSpeed: 5
   GunnerWeapon: {fileID: 114890569164590910, guid: b0999596a484fc74d8adf0b5e6db2e60,
@@ -2406,6 +2410,7 @@ MonoBehaviour:
   TargetPoint: {fileID: 0}
   ShowcaseOffsetY: 0
   ShowcaseFOV: 40
+  ShoecaseScale: 1
   Head: {fileID: 1937187020650802}
   HeadAimingSpeed: 5
   GunnerWeapon: {fileID: 114890569164590910, guid: b0999596a484fc74d8adf0b5e6db2e60,
@@ -2468,6 +2473,7 @@ MonoBehaviour:
   TargetPoint: {fileID: 0}
   ShowcaseOffsetY: 0
   ShowcaseFOV: 40
+  ShoecaseScale: 1
   Head: {fileID: 1656343503019626}
   HeadAimingSpeed: 5
   GunnerWeapon: {fileID: 114890569164590910, guid: b0999596a484fc74d8adf0b5e6db2e60,
@@ -2501,6 +2507,23 @@ MonoBehaviour:
     Weight: 0
   - UnitType: 0
     Weight: 0
+--- !u!114 &114616624484732044
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1227051746626024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!114 &114716274696979752
 MonoBehaviour:
   m_ObjectHideFlags: 1
