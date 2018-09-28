@@ -106,8 +106,11 @@ public class BuildingSlot : WorldObject {
     //  
     /// </summary>
     /// <param name="draw"></param>
-    protected override void DrawSelection(bool draw) {
-        base.DrawSelection(draw);
+    public override void DrawSelection(bool draw) {
+        
+        // Select the building slot if its empty - otherwise select the building on it instead
+        if (_BuildingOnSlot == null) { base.DrawSelection(draw); }
+        else { _BuildingOnSlot.DrawSelection(draw); }
 
         // Show selection
         if (draw) {
@@ -117,6 +120,19 @@ public class BuildingSlot : WorldObject {
                 DrawSelectionWheel();
             }
         }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="highlight"></param>
+    public override void DrawHighlight(bool highlight) {
+
+        // Highlight the building slot if its empty - otherwise select the building on it instead
+        if (_BuildingOnSlot == null) { base.DrawHighlight(highlight); }
+        else { _BuildingOnSlot.DrawHighlight(highlight); }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

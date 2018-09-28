@@ -172,6 +172,7 @@ GameObject:
   - component: {fileID: 65895427530105632}
   - component: {fileID: 114306093193310104}
   - component: {fileID: 114807560261788064}
+  - component: {fileID: 114859814247611672}
   m_Layer: 0
   m_Name: pfb_WarRoom
   m_TagString: Building
@@ -1581,11 +1582,12 @@ MonoBehaviour:
   Team: 0
   _Player: {fileID: 0}
   ShowSelectionGUI: 1
-  ShowQuadHighlighter: 1
-  ShowQuadSelector: 1
+  OutlineHighlightedWidth: 2
+  OutlineSelectedWidth: 3
   TargetPoint: {fileID: 0}
   ShowcaseOffsetY: 0
   ShowcaseFOV: 40
+  ShoecaseScale: 1
   InQueueState: {fileID: 1261157101852674}
   BuildingState: {fileID: 1261157101852674}
   ActiveState: {fileID: 1622675479265872}
@@ -1597,15 +1599,16 @@ MonoBehaviour:
   MaxGarrisonPopulation: 0
   MultiSelectable: 0
   _OffsetY: 0
+  QuadMinimap: {fileID: 0}
   _WidgetHealthbarScaleX: 60
   _WidgetHealthbarScaleY: 10
   _WidgetHealthbarOffset: 0
   _WidgetShieldbarScaleX: 60
   _WidgetShieldbarScaleY: 10
   _WidgetShieldbarOffset: 10
+  OnDeathEffect: {fileID: 0}
   ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.3
-  QuadMinimap: {fileID: 0}
   AttachedBuildingSlot: {fileID: 0}
   ObjectHeight: 15
   HasABuildingQueue: 1
@@ -1655,6 +1658,23 @@ MonoBehaviour:
     m_Bits: 0
   LineOfSightPenetration: 0
   AntiFlicker: 0
+--- !u!114 &114859814247611672
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1303974991265018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!208 &208363058514420816
 NavMeshObstacle:
   m_ObjectHideFlags: 1

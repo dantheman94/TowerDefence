@@ -7,7 +7,7 @@ using UnityEngine;
 //  Created by: Joshua Peake
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 18/09/2018
+//  Last edited on: 28/09/2018
 //
 //******************************
 
@@ -30,8 +30,8 @@ public class SoundManager : MonoBehaviour {
     private bool _FadingIn;
     private bool _FadingOut;
 
-    public float _CurrentFadeInLerp = 0f;
-    public float _CurrentFadeOutLerp = 0f;
+    private float _CurrentFadeInLerp = 0f;
+    private float _CurrentFadeOutLerp = 0f;
 
     //******************************************************************************************************************************
     //

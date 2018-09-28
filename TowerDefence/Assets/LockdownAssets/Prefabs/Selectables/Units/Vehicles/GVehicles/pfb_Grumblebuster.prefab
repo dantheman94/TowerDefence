@@ -298,6 +298,7 @@ GameObject:
   - component: {fileID: 195372331882664434}
   - component: {fileID: 114585045816634058}
   - component: {fileID: 114763191749809942}
+  - component: {fileID: 114951963509039178}
   m_Layer: 9
   m_Name: pfb_Grumblebuster
   m_TagString: Unit
@@ -1372,6 +1373,7 @@ MonoBehaviour:
   TargetPoint: {fileID: 1171789371464908}
   ShowcaseOffsetY: 0
   ShowcaseFOV: 60
+  ShoecaseScale: 1
   InQueueState: {fileID: 0}
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 1890893284182978}
@@ -1383,15 +1385,16 @@ MonoBehaviour:
   MaxGarrisonPopulation: 0
   MultiSelectable: 1
   _OffsetY: 0
+  QuadMinimap: {fileID: 1031830310247156}
   _WidgetHealthbarScaleX: 50
   _WidgetHealthbarScaleY: 10
   _WidgetHealthbarOffset: 0
   _WidgetShieldbarScaleX: 50
   _WidgetShieldbarScaleY: 10
   _WidgetShieldbarOffset: 10
+  OnDeathEffect: {fileID: 0}
   ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.3
-  QuadMinimap: {fileID: 1031830310247156}
   _ChasingDistance: 300
   TargetWeights:
   - UnitType: 0
@@ -1505,6 +1508,23 @@ MonoBehaviour:
     m_Bits: 0
   LineOfSightPenetration: 0
   AntiFlicker: 0
+--- !u!114 &114951963509039178
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1500859508108806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!135 &135048033472023858
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -158,7 +158,7 @@ public class Unit : Ai {
 
             // Create a veterancy widget and allocate it to the unit
             if (_UnitVeterancyWidget == null) { _UnitVeterancyWidget = ObjectPooling.Spawn(GameManager.Instance.UnitVeterancyPanel.gameObject).GetComponent<UnitVeterancyCounter>(); }
-            if (_UnitVeterancyWidget != null) {
+            if (_UnitVeterancyWidget != null && _Player != null) {
 
                 _UnitVeterancyWidget.SetCameraAttached(_Player.PlayerCamera);
                 _UnitVeterancyWidget.SetUnitAttached(this);
@@ -351,6 +351,16 @@ public class Unit : Ai {
 
             // Add to list of AI(army)
             _ClonedWorldObject._Player.AddToPopulation(_ClonedWorldObject as Unit);
+
+            // Create a veterancy widget and allocate it to the unit
+            if (unit._UnitVeterancyWidget == null) { _UnitVeterancyWidget = ObjectPooling.Spawn(GameManager.Instance.UnitVeterancyPanel.gameObject).GetComponent<UnitVeterancyCounter>(); }
+            if (unit._UnitVeterancyWidget != null && _Player != null) {
+
+                unit._UnitVeterancyWidget.SetCameraAttached(unit._Player.PlayerCamera);
+                unit._UnitVeterancyWidget.SetUnitAttached(unit);
+                unit._UnitVeterancyWidget.transform.SetParent(GameManager.Instance.WorldSpaceCanvas.gameObject.transform, false);
+                unit._UnitVeterancyWidget.gameObject.SetActive(true);
+            }
         }
     }
 
