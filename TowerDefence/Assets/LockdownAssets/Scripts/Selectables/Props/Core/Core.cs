@@ -97,8 +97,8 @@ public class Core : Building {
     /// <summary>
     //  
     /// </summary>
-    public override void OnDeath() {
-        base.OnDeath();
+    public override void OnDeath(WorldObject instigator) {
+        base.OnDeath(instigator);
 
         // Game is over
         GameManager.Instance.OnGameover(false);

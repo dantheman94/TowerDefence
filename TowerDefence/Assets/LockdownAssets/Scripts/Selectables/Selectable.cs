@@ -33,6 +33,7 @@ public class Selectable : Abstraction {
     [Space]
     [Tooltip("When the player clicks on this object, does the selection wheel (Radial or box) display?")]
     public bool ShowSelectionGUI = true;
+    public bool ShowOutline = true;
     public float OutlineHighlightedWidth = 2f;
     public float OutlineSelectedWidth = 3f;
     [Space]
@@ -51,19 +52,15 @@ public class Selectable : Abstraction {
     //      VARIABLES
     //
     //******************************************************************************************************************************
-
+    
+    protected Bounds selectionBounds;
     protected bool _IsCurrentlyHighlighted;
     protected bool _IsCurrentlySelected;
-    protected Bounds selectionBounds;
-    protected bool _PlayerOwned = false;
-    protected GameObject _SelectionObj = null;
-    protected GameObject _HighlightObj = null;
-    private Renderer _SelectionObjRenderer = null;
-    private Renderer _HighlightObjRenderer = null;
-
-    protected FogUnit _FogVision = null;
-
     private Outline _OutlineComponent = null;
+    private Color _HighlightingOutlineColour = Color.black;
+    private Color _SelectedOutlineColour = Color.black;
+
+    private FogUnit _FogVision = null;
 
     //******************************************************************************************************************************
     //
@@ -84,6 +81,7 @@ public class Selectable : Abstraction {
         // Get components
         _FogVision = GetComponent<FogUnit>();
         _OutlineComponent = GetComponent<Outline>();
+        if (_OutlineComponent == null) { _OutlineComponent = GetComponentInChildren<Outline>(); }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -157,16 +155,25 @@ public class Selectable : Abstraction {
     public virtual void DrawSelection(bool draw) {
 
         // Show selection
-        if (draw && _OutlineComponent != null) {
+        if (draw && _OutlineComponent != null && ShowOutline) {
+
+            // Black is used as an undefined colour
+            if (_SelectedOutlineColour == Color.black) {
+
+                // Get the selected colour based on the object's team
+                Color col = new Color();
+                switch (Team) {
+
+                    case GameManager.Team.Undefined: { col = Color.white; break; }
+                    case GameManager.Team.Defending: { col = _Player.TeamColor; break; }
+                    case GameManager.Team.Attacking: { col = WaveManager.Instance.AttackingTeamColour; break; }
+                    default: break;
+                }
+                _SelectedOutlineColour = col;
+            }
 
             // Set outline properties
-            switch (Team) {
-
-                case GameManager.Team.Undefined: { _OutlineComponent.OutlineColor = Color.white; break; }
-                case GameManager.Team.Defending: { _OutlineComponent.OutlineColor = _Player.TeamColor; break; }                    
-                case GameManager.Team.Attacking: { _OutlineComponent.OutlineColor = WaveManager.Instance.AttackingTeamColour; break; }
-                default: break;
-            }
+            _OutlineComponent.OutlineColor = _SelectedOutlineColour;
             _OutlineComponent.OutlineMode = Outline.Mode.OutlineVisible;
             _OutlineComponent.OutlineWidth = OutlineSelectedWidth;
             _OutlineComponent.enabled = true;
@@ -185,16 +192,31 @@ public class Selectable : Abstraction {
     public virtual void DrawHighlight(bool highlight) {
 
         // Show selection
-        if (highlight && _OutlineComponent != null) {
+        if (highlight && _OutlineComponent != null && ShowOutline) {
+
+            // Black is used as an undefined colour
+            if (_HighlightingOutlineColour == Color.black) {
+                
+                Color col = new Color();
+                switch (Team) {
+
+                    case GameManager.Team.Undefined: { col = Color.white; break; }
+                    case GameManager.Team.Defending: { col = _Player.TeamColor; break; }
+                    case GameManager.Team.Attacking: { col = WaveManager.Instance.AttackingTeamColour; break; }
+                    default: break;
+                }
+
+                // Slightly darker shade for the highlighting colour
+                col.r -= 0.1f;
+                col.g -= 0.1f;
+                col.b -= 0.1f;
+                col.a /= 2f;
+
+                _HighlightingOutlineColour = col;
+            }
 
             // Set outline properties
-            switch (Team) {
-
-                case GameManager.Team.Undefined: { _OutlineComponent.OutlineColor = Color.white; break; }
-                case GameManager.Team.Defending: { _OutlineComponent.OutlineColor = _Player.TeamColor; break; }
-                case GameManager.Team.Attacking: { _OutlineComponent.OutlineColor = WaveManager.Instance.AttackingTeamColour; break; }
-                default: break;
-            }
+            _OutlineComponent.OutlineColor = _HighlightingOutlineColour;
             _OutlineComponent.OutlineMode = Outline.Mode.OutlineVisible;
             _OutlineComponent.OutlineWidth = OutlineHighlightedWidth;
             _OutlineComponent.enabled = true;
@@ -239,8 +261,7 @@ public class Selectable : Abstraction {
     /// </summary>
     /// <param name="player"></param>
     public void SetPlayer(Player player) {
-
-        _PlayerOwned = true;
+        
         _Player = player;
     }
 
@@ -285,5 +306,13 @@ public class Selectable : Abstraction {
     public bool GetIsHighlighted() { return _IsCurrentlyHighlighted; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
+
+    /// <summary>
+    //
+    /// </summary>
+    /// <param name="visible"></param>
+    public void SetOutlineVisibility(bool visible) { _OutlineComponent.enabled = visible; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 }

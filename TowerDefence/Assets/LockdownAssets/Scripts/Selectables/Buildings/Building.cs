@@ -198,14 +198,15 @@ public class Building : WorldObject {
         // Get reference to the newly cloned building
         if (_ClonedWorldObject != null) {
 
+            // Update building slot team for the outline colouring
             Building building = _ClonedWorldObject.GetComponent<Building>();
             building.AttachedBuildingSlot = buildingSlot;
+            building.AttachedBuildingSlot.Team = _ClonedWorldObject.Team;
 
             // Update building slot ref with building
             buildingSlot.SetBuildingOnSlot(building);
-
-            // Disable building slot (is re-enabled when the building is recycled)
             buildingSlot.SetIsSelected(false);
+            buildingSlot.SetOutlineVisibility(false);
 
             Base attachedBase = buildingSlot.AttachedBase;
             Building attachedBuilding = buildingSlot.AttachedBuilding;
@@ -346,7 +347,7 @@ public class Building : WorldObject {
 
             // Destroy Building
             if (_BuildingQueueUI != null) { UI_BuildingQueueWrapper.Instance.RemoveFromQueue(_BuildingQueueUI); }
-            OnDeath();
+            OnDeath(null);
 
             // Send message to match feed
             MatchFeed.Instance.AddMessage(string.Concat(ObjectName, " recycled."));
@@ -365,8 +366,8 @@ public class Building : WorldObject {
     /// <summary>
     //  Called when the object is killed/destroyed
     /// </summary>
-    public override void OnDeath() {
-        base.OnDeath();
+    public override void OnDeath(WorldObject instigator) {
+        base.OnDeath(instigator);
         
         // Detach from any bases & buildings
         if (AttachedBuildingSlot != null) {

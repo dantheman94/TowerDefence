@@ -37,13 +37,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1148801069332518}
-  m_LocalRotation: {x: -0, y: -0.7169275, z: -0, w: -0.69714767}
-  m_LocalPosition: {x: -155.54, y: 12.88, z: 55}
-  m_LocalScale: {x: 5.000001, y: 1, z: 5.000001}
+  m_LocalRotation: {x: -0, y: -0.2862495, z: -0, w: 0.9581551}
+  m_LocalPosition: {x: -316.8, y: -7.7, z: 343.2}
+  m_LocalScale: {x: 5, y: 1, z: 5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 451.603, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -33.267002, z: 0}
 --- !u!23 &23882741015571352
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -121,8 +121,9 @@ MonoBehaviour:
   Team: 0
   _Player: {fileID: 0}
   ShowSelectionGUI: 1
-  OutlineHighlightedWidth: 2
-  OutlineSelectedWidth: 3
+  ShowOutline: 1
+  OutlineHighlightedWidth: 4
+  OutlineSelectedWidth: 5
   TargetPoint: {fileID: 0}
   ShowcaseOffsetY: 0
   ShowcaseFOV: 40
@@ -151,7 +152,7 @@ MonoBehaviour:
   OnlyAppearWhenAttachedToBase: 0
   AttachedBase: {fileID: 0}
   AttachedBuilding: {fileID: 0}
-  ObjectsCreatedAreQueued: 1
+  ObjectsCreatedAreQueued: 0
   LinkedSlots: []
   Buildings:
   - {fileID: 0}
@@ -178,6 +179,32 @@ MonoBehaviour:
   outlineMode: 1
   outlineColor: {r: 1, g: 1, b: 1, a: 1}
   outlineWidth: 2
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
+  precomputeOutline: 1
+  bakeKeys:
+  - {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  bakeValues:
+  - data:
+    - {x: 0.57735026, y: -0.57735026, z: 0.57735026}
+    - {x: -0.57735026, y: -0.57735026, z: 0.57735026}
+    - {x: 0.57735026, y: 0.57735026, z: 0.57735026}
+    - {x: -0.57735026, y: 0.57735026, z: 0.57735026}
+    - {x: 0.57735026, y: 0.57735026, z: -0.57735026}
+    - {x: -0.57735026, y: 0.57735026, z: -0.57735026}
+    - {x: 0.57735026, y: -0.57735026, z: -0.57735026}
+    - {x: -0.57735026, y: -0.57735026, z: -0.57735026}
+    - {x: 0.57735026, y: 0.57735026, z: 0.57735026}
+    - {x: -0.57735026, y: 0.57735026, z: 0.57735026}
+    - {x: 0.57735026, y: 0.57735026, z: -0.57735026}
+    - {x: -0.57735026, y: 0.57735026, z: -0.57735026}
+    - {x: 0.57735026, y: -0.57735026, z: -0.57735026}
+    - {x: 0.57735026, y: -0.57735026, z: 0.57735026}
+    - {x: -0.57735026, y: -0.57735026, z: 0.57735026}
+    - {x: -0.57735026, y: -0.57735026, z: -0.57735026}
+    - {x: -0.57735026, y: -0.57735026, z: 0.57735026}
+    - {x: -0.57735026, y: 0.57735026, z: 0.57735026}
+    - {x: -0.57735026, y: 0.57735026, z: -0.57735026}
+    - {x: -0.57735026, y: -0.57735026, z: -0.57735026}
+    - {x: 0.57735026, y: -0.57735026, z: -0.57735026}
+    - {x: 0.57735026, y: 0.57735026, z: -0.57735026}
+    - {x: 0.57735026, y: 0.57735026, z: 0.57735026}
+    - {x: 0.57735026, y: -0.57735026, z: 0.57735026}

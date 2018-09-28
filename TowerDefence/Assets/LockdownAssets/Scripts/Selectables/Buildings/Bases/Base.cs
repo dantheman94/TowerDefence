@@ -60,6 +60,18 @@ public class Base : Building {
 
         // Get component references
         _BuildingList = new List<Building>();
+
+        // Set matching team for all the building slots
+        for (int i = 0; i < DepotSlots.Count; i++) {
+
+            DepotSlots[i].Team = Team;
+            DepotSlots[i]._Player = _Player;
+        }
+        for (int i = 0; i < TowerSlots.Count; i++) {
+
+            TowerSlots[i].Team = Team;
+            TowerSlots[i]._Player = _Player;
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -95,6 +107,18 @@ public class Base : Building {
                 // Start building it
                 StartBuildingObject(buildingSlot);
             }
+        }
+
+        // Set matching team for all the building slots
+        for (int i = 0; i < DepotSlots.Count; i++) {
+
+            DepotSlots[i].Team = Team;
+            DepotSlots[i]._Player = _Player;
+        }
+        for (int i = 0; i < TowerSlots.Count; i++) {
+
+            TowerSlots[i].Team = Team;
+            TowerSlots[i]._Player = _Player;
         }
     }
 
@@ -228,7 +252,7 @@ public class Base : Building {
     /// <summary>
     //  d
     /// </summary>
-    public override void OnDeath() {
+    public override void OnDeath(WorldObject instigator) {
         
         // This is an enemy base >> remove its building slot from the enemy slot array in the wave manager
         if (Team == GameManager.Team.Attacking) { WaveManager.Instance.EnemyBaseDestroyed(AttachedBuildingSlot.AttachedBase); }
@@ -244,7 +268,7 @@ public class Base : Building {
         _BuildingList.Clear();
 
         // Now we can safely be destroyed
-        base.OnDeath();
+        base.OnDeath(instigator);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -49,6 +49,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4122746455406968}
+  - component: {fileID: 114729252684140498}
   m_Layer: 0
   m_Name: SpireB_Active
   m_TagString: Untagged
@@ -218,6 +219,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4110854706232510}
   - component: {fileID: 136564878862422660}
+  - component: {fileID: 114673621649133542}
   m_Layer: 0
   m_Name: SpireC_Active
   m_TagString: Untagged
@@ -298,6 +300,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4098125376770970}
+  - component: {fileID: 114218569926958100}
   m_Layer: 0
   m_Name: SpireA_Active
   m_TagString: Untagged
@@ -379,7 +382,6 @@ GameObject:
   - component: {fileID: 4033482514550848}
   - component: {fileID: 114285511007533186}
   - component: {fileID: 114191352172799954}
-  - component: {fileID: 114230604452191944}
   m_Layer: 0
   m_Name: Core
   m_TagString: Building
@@ -1219,9 +1221,10 @@ MonoBehaviour:
   CostTechLevel: 1
   CostPopulation: 0
   _ObjectState: 4
-  Team: 0
+  Team: 1
   _Player: {fileID: 0}
   ShowSelectionGUI: 0
+  ShowOutline: 1
   OutlineHighlightedWidth: 2
   OutlineSelectedWidth: 3
   TargetPoint: {fileID: 1838699598934120}
@@ -1263,12 +1266,12 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
---- !u!114 &114230604452191944
+--- !u!114 &114218569926958100
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1812625572558694}
+  m_GameObject: {fileID: 1628312961591628}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
@@ -1304,6 +1307,7 @@ MonoBehaviour:
   Team: 1
   _Player: {fileID: 0}
   ShowSelectionGUI: 0
+  ShowOutline: 0
   OutlineHighlightedWidth: 2
   OutlineSelectedWidth: 3
   TargetPoint: {fileID: 0}
@@ -1371,9 +1375,10 @@ MonoBehaviour:
   CostTechLevel: 1
   CostPopulation: 0
   _ObjectState: 4
-  Team: 0
+  Team: 1
   _Player: {fileID: 0}
   ShowSelectionGUI: 0
+  ShowOutline: 1
   OutlineHighlightedWidth: 2
   OutlineSelectedWidth: 3
   TargetPoint: {fileID: 1034478319477760}
@@ -1436,9 +1441,10 @@ MonoBehaviour:
   CostTechLevel: 1
   CostPopulation: 0
   _ObjectState: 4
-  Team: 0
+  Team: 1
   _Player: {fileID: 0}
   ShowSelectionGUI: 0
+  ShowOutline: 1
   OutlineHighlightedWidth: 2
   OutlineSelectedWidth: 3
   TargetPoint: {fileID: 1170819853088906}
@@ -1480,6 +1486,40 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+--- !u!114 &114673621649133542
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1467879039329400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
+--- !u!114 &114729252684140498
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1044684962285098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!136 &136140529791699072
 CapsuleCollider:
   m_ObjectHideFlags: 1

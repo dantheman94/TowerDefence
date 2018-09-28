@@ -297,10 +297,7 @@ public class Unit : Ai {
         else if (IsAlive()) { UpdateAIControllerMovement(); }
 
         // Destroying the unit manually
-        if (_IsCurrentlySelected && Input.GetKeyDown(KeyCode.Delete)) {
-
-            OnDeath();
-        }
+        if (_IsCurrentlySelected && Input.GetKeyDown(KeyCode.Delete)) { OnDeath(null); }
     }
     
 
@@ -397,15 +394,17 @@ public class Unit : Ai {
         }
         _ChaseCoroutineIsRunning = false;
     }
-
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  Damages the object by a set amount.
+    //  
     /// </summary>
-    /// <param name="damage"></param>
-    public override void Damage(float damage, WorldObject instigator) {
-        base.Damage(damage, instigator);
+    public override void OnDeath(WorldObject instigator) {
+        base.OnDeath(instigator);
+
+        // Destroy waypoint
+        if (_SeekWaypoint != null) { ObjectPooling.Despawn(_SeekWaypoint.gameObject); }
 
         // Add xp to the instigator (if valid)
         if (instigator != null) {
@@ -414,18 +413,6 @@ public class Unit : Ai {
             Unit unit = instigator.GetComponent<Unit>();
             if (unit != null) { unit.AddVeterancyXP(XPGrantedOnDeath); }
         }
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  
-    /// </summary>
-    public override void OnDeath() {
-        base.OnDeath();
-
-        // Destroy waypoint
-        if (_SeekWaypoint != null) { ObjectPooling.Despawn(_SeekWaypoint.gameObject); }
 
         // Remove from squad
         if (IsInASquad()) { _SquadAttached.RemoveUnitFromSquad(this); }

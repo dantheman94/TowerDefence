@@ -429,7 +429,7 @@ public class WorldObject : Selectable {
 
                 // Damage object & kill it if theres no health left
                 _HitPoints -= damage;
-                if (_HitPoints <= 0 && _ObjectState != WorldObjectStates.Destroyed) { OnDeath(); }
+                if (_HitPoints <= 0) { OnDeath(instigator); }
             }
         }
     }
@@ -439,7 +439,7 @@ public class WorldObject : Selectable {
     /// <summary>
     //  Called when the object is killed/destroyed
     /// </summary>
-    public virtual void OnDeath() {
+    public virtual void OnDeath(WorldObject instigator) {
 
         // Force deselect
         SetIsSelected(false);

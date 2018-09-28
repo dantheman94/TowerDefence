@@ -79,12 +79,6 @@ public class AirVehicle : Vehicle {
 
         // Clamp max movement speed
         if (_Agent.speed > MaxSpeed) { _Agent.speed = MaxSpeed; }
-
-        // Set the highlight & selected prefab heights to be at a matching height as the unit
-        Vector3 pos = transform.position;
-        pos.y = pos.y - _Agent.height / 2; /// THIS IS TEMPORARY, JUST SO THE PREFAB DOESNT INTERSECT THE ACTUAL UNIT AND LOOK FUNKY
-        if (_SelectionObj != null) { _SelectionObj.transform.position = pos; }
-        if (_HighlightObj != null) { _HighlightObj.transform.position = pos; }
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

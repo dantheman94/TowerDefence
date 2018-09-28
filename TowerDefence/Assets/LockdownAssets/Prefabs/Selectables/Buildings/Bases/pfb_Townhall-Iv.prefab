@@ -86,7 +86,6 @@ GameObject:
   - component: {fileID: 65421668453796990}
   - component: {fileID: 114286593509319122}
   - component: {fileID: 114691490229807366}
-  - component: {fileID: 114608506560539454}
   m_Layer: 0
   m_Name: pfb_Townhall-Iv
   m_TagString: Base
@@ -288,6 +287,7 @@ GameObject:
   - component: {fileID: 33837720244127760}
   - component: {fileID: 23531454248668048}
   - component: {fileID: 95138125743956496}
+  - component: {fileID: 114664740366253530}
   m_Layer: 0
   m_Name: TownHall_Mesh
   m_TagString: Untagged
@@ -409,7 +409,7 @@ Transform:
   - {fileID: 4549641170723200}
   - {fileID: 4899600067665484}
   m_Father: {fileID: 4534511183435856}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4113367289012798
 Transform:
@@ -539,8 +539,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4045718865410436}
   - {fileID: 4553560960727194}
+  - {fileID: 4045718865410436}
   - {fileID: 4470640686292104}
   - {fileID: 4169446535771996}
   m_Father: {fileID: 4787349855401586}
@@ -570,7 +570,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4534511183435856}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4656714954889484
 Transform:
@@ -2090,23 +2090,6 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
---- !u!114 &114608506560539454
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1194806562900834}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outlineMode: 1
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  outlineWidth: 2
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!114 &114627665013960674
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2241,6 +2224,23 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+--- !u!114 &114664740366253530
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1882225045499378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!114 &114691490229807366
 MonoBehaviour:
   m_ObjectHideFlags: 1

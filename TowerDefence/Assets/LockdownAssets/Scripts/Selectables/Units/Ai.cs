@@ -179,8 +179,8 @@ public class Ai : WorldObject {
     /// <summary>
     //  Called when the object is killed/destroyed
     /// </summary>
-    public override void OnDeath() {
-        base.OnDeath();
+    public override void OnDeath(WorldObject instigator) {
+        base.OnDeath(instigator);
 
         // If were in the wave manager's enemies array - remove it
         if (WaveManager.Instance.GetCurrentWaveEnemies().Contains(this)) { WaveManager.Instance.GetCurrentWaveEnemies().Remove(this); }

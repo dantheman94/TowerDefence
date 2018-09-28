@@ -127,11 +127,6 @@ public class Squad : Ai {
             _SquadCurrentSize = _Squad.Count;
         }
 
-        // Update squad's position to match the average position of all the units
-        Vector3 position = FindCenterOfAllUnits();
-        gameObject.transform.position = position;
-        if (_SelectionObj) { _SelectionObj.gameObject.transform.position = position; }
-
         // Set if the path has been calculated
         if (_CurrentPath != null) {
 
