@@ -82,7 +82,7 @@ public class Abstraction : MonoBehaviour {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  
+    //  Starts the construction process of this abstraction.
     /// </summary>
     public virtual void StartBuildingObject(BuildingSlot buildingSlot = null) {
 

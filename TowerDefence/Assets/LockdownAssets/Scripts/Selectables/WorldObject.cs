@@ -125,6 +125,19 @@ public class WorldObject : Selectable {
     /// </summary>
     protected override void Start() {
         base.Start();
+        
+        // Get component references
+        if (QuadMinimap != null) { _MinimapQuadRenderer = QuadMinimap.GetComponent<Renderer>(); }
+
+        Init();
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Initializes the object.
+    /// </summary>
+    protected virtual void Init() {
 
         // Initialize health
         _HitPoints = MaxHitPoints;
@@ -136,9 +149,6 @@ public class WorldObject : Selectable {
         // Set recycle values
         _RecycleSupplies = CostSupplies / 2;
         _RecyclePower = CostPower / 2;
-
-        // Get component references
-        if (QuadMinimap != null) { _MinimapQuadRenderer = QuadMinimap.GetComponent<Renderer>(); }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -358,7 +368,7 @@ public class WorldObject : Selectable {
             _ClonedWorldObject = ObjectPooling.Spawn(gameObject, Vector3.zero, Quaternion.identity).GetComponent<WorldObject>();
             _ClonedWorldObject.SetBuildingPosition(buildingSlot);
             _ClonedWorldObject.gameObject.SetActive(true);
-            _ClonedWorldObject.Start();
+            _ClonedWorldObject.Init();
             
             // Create healthbar
             CreateHealthBar(_ClonedWorldObject, plyr.PlayerCamera);

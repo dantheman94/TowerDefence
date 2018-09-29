@@ -71,7 +71,8 @@ public class UpgradeTree : Abstraction {
     /// </summary>
     protected void Update() {
 
-        if (UpgradeProperties.Count > 0 && UpgradeEvents.Count > 0) {
+        int arrayCount = Mathf.Min(UpgradeProperties.Count, UpgradeEvents.Count);
+        if (arrayCount > 0 && _CurrentUpgradeLevel + 1 <= arrayCount) {
 
             // Update name to include current upgrade level
             ObjectName = UpgradeProperties[_CurrentUpgradeLevel].ObjectName;
@@ -130,7 +131,7 @@ public class UpgradeTree : Abstraction {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  Called when the player presses a button on the selection wheel with this world object linked to the button.
+    //  Called when the player presses a button on the selection wheel with this object linked to the button.
     /// </summary>
     /// <param name="buildingSlot">
     //  The building slot that instigated the selection wheel.
@@ -167,7 +168,7 @@ public class UpgradeTree : Abstraction {
             // Start upgrading (or add to the queue)
             _UpgradeTimer = 0f;
             _UpgradeBuildTime = upgrade.BuildingTime;
-            _BuildingAttached.GetBuildingQueue().Add(upgrade);
+            ///_BuildingAttached.GetBuildingQueue().Add(upgrade);
 
             // Create worldspace UI
             ///GameObject progressWidget = ObjectPooling.Spawn(GameManager.Instance.BuildingInProgressPanel.gameObject);
@@ -179,7 +180,7 @@ public class UpgradeTree : Abstraction {
             progressWidget.gameObject.SetActive(true);
 
             // Add to building queue UI
-            _BuildingAttached.AddToQueue(this);
+            _BuildingAttached.AddToQueue(UpgradeProperties[_CurrentUpgradeLevel]);
         }
     }
 
@@ -224,5 +225,5 @@ public class UpgradeTree : Abstraction {
     public Building GetBuildingAttached() { return _BuildingAttached; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    
 }

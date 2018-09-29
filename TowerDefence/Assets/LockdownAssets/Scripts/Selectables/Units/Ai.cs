@@ -124,6 +124,20 @@ public class Ai : WorldObject {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
+    //  Starts the construction process of this AI object.
+    /// </summary>
+    /// <param name="buildingSlot"></param>
+    public override void StartBuildingObject(BuildingSlot buildingSlot = null) {
+        base.StartBuildingObject(buildingSlot);
+
+        // Determine build time
+        UpgradeManager upgradeManager = _Player.GetUpgradeManager();
+        BuildingTime *= (int)upgradeManager._UnitBuildingSpeedMultiplier;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
     //  Called each frame. 
     /// </summary>
     private void UpdateAttackPath() {

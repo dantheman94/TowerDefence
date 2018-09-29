@@ -78,13 +78,13 @@ public class Building : WorldObject {
                 if (tree != null) {
 
                     // Replace reference with the runtime version
-                    UpgradeTree newTree = Instantiate(tree.gameObject).GetComponent<UpgradeTree>();
+                    UpgradeTree newTree = ObjectPooling.Spawn(tree.gameObject).GetComponent<UpgradeTree>();
                     Selectables[i] = newTree;
                 }
             }
         }
     }
-
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
@@ -270,6 +270,20 @@ public class Building : WorldObject {
             // Set rally point
             if (buildingSlot.AttachedBase != null) { _Rallypoint = buildingSlot.AttachedBase.GetRallyPoint(); }
         }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Starts the construction process of this building.
+    /// </summary>
+    /// <param name="buildingSlot"></param>
+    public override void StartBuildingObject(BuildingSlot buildingSlot = null) {
+        base.StartBuildingObject(buildingSlot);
+
+        // Determine build time
+        UpgradeManager upgradeManager = _Player.GetUpgradeManager();
+        BuildingTime *= (int)upgradeManager._BuildingSpeedMultiplier;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

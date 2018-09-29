@@ -72,8 +72,9 @@ public class Player : MonoBehaviour {
     public float PowerCount { get; set; }
     public float MaxPowerCount { get; set; }
     public int Level { get; set; }
-    private int Score = 0;
-    private int WavesSurvived = 0;
+    private int _Score = 0;
+    private int _WavesSurvived = 0;
+    private UpgradeManager _UpgradeManager;
 
     // Army
     private List<Base> _Bases;
@@ -104,8 +105,8 @@ public class Player : MonoBehaviour {
         _CameraFollow = GetComponent<CameraFollow>();
 
         // Initialize new player entity
-        Score = 0;
-        WavesSurvived = 0;
+        _Score = 0;
+        _WavesSurvived = 0;
 
         SuppliesCount = GameManager.Instance.StartingSupplyCount;
         PowerCount = GameManager.Instance.StartingPowerCount;
@@ -115,6 +116,8 @@ public class Player : MonoBehaviour {
 
         PopulationCount = 0;
         MaxPopulation = GameManager.Instance.StartingMaxPopulation;
+
+        _UpgradeManager = GetComponent<UpgradeManager>();
 
         // Initialize controller
         switch (_CurrentController) {
@@ -255,7 +258,7 @@ public class Player : MonoBehaviour {
     /// Gets waves survived
     /// </summary>
     /// <returns></returns>
-    public int GetWavesSurvived() { return WavesSurvived; }
+    public int GetWavesSurvived() { return _WavesSurvived; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -263,7 +266,7 @@ public class Player : MonoBehaviour {
     /// Gets score
     /// </summary>
     /// <returns></returns>
-    public int GetScore() { return Score; }
+    public int GetScore() { return _Score; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -290,6 +293,16 @@ public class Player : MonoBehaviour {
     /// </summary>
     /// <param name="list"></param>
     public void SetBaseList(List<Base> list) { _Bases = list; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    /// <summary>
+    //  Returns reference to the Upgrade Manager attached to this player.
+    /// </summary>
+    /// <returns>
+    //  UpgradeManager
+    /// </returns>
+    public UpgradeManager GetUpgradeManager() { return _UpgradeManager; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
