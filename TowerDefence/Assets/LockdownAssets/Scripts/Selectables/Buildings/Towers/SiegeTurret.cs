@@ -46,7 +46,7 @@ public class SiegeTurret : Tower {
         base.Update();
 
         // A valid target is known
-        if (_AttackTarget != null) {
+        if (_AttackTarget != null && _ObjectState == WorldObjectStates.Active) {
 
             if (_AttackTarget.IsAlive()) {
 

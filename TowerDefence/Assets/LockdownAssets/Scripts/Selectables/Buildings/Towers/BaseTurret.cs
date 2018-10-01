@@ -63,7 +63,7 @@ public class BaseTurret : Tower {
         if (Head != null && Barrel != null) {
 
             // A valid target is known
-            if (_AttackTarget != null) {
+            if (_AttackTarget != null && _ObjectState == WorldObjectStates.Active) {
 
                 if (_AttackTarget.IsAlive()) {
 

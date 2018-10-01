@@ -71,7 +71,7 @@ public class WatchTower : Tower {
         base.Update();
 
         // When not in a combatative state >> do random light searching behaviours
-        if (SearchLightObject != null && _CombatState == ETowerState.Idle) {
+        if (SearchLightObject != null && _CombatState == ETowerState.Idle && _ObjectState == WorldObjectStates.Active) {
 
             // Lerp search light to target position
             Vector3 direction = (_SearchLightTarget - SearchLightObject.transform.position).normalized;

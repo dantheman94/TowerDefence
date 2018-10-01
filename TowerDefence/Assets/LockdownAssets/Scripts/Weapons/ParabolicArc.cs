@@ -19,7 +19,7 @@ public class ParabolicArc : MonoBehaviour {
     //
     //******************************************************************************************************************************
 
-    private float _FiringAngle = 45f;
+    private float _FiringAngle = 10f;
     private float _Gravity = -9.8f;
     
     private Transform _ProjectileTransform;
@@ -31,22 +31,16 @@ public class ParabolicArc : MonoBehaviour {
     //******************************************************************************************************************************
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  Called when the component is created.
-    /// </summary>
-    private void Start() {
-
-        _ProjectileTransform = gameObject.transform;
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    
     /// <summary>
     //  Initializes the projectile arc.
     /// </summary>
     /// <param name="target"></param>
-    public void Init(Transform target) { StartCoroutine(SimulateProjectile(target)); }
+    public void Init(Transform target) {
+
+        _ProjectileTransform = gameObject.transform;
+        StartCoroutine(SimulateProjectile(target));
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
