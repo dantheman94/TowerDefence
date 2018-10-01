@@ -325,6 +325,22 @@ public class xb_gamepad {
         return false;
     }
 
+    public bool GetAnyButton()
+    {
+        if(IsConnected)
+        {
+           foreach(KeyValuePair<string, xButton> button in inputMap)
+            {
+                if(button.Value.state == ButtonState.Pressed)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        return false;
+    }
+
     //Returns true if button goes from released to pressed.
     public bool GetButtonDown(string button)
     {

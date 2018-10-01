@@ -82,6 +82,7 @@ public class MenuNavigator : MonoBehaviour {
     public Button FactionStartButton;
 
     public List<Image> ButtonImage;
+    public List<GameObject> KeyboardPrompts;
 
     //******************************************************************************************************************************
     //
@@ -128,11 +129,15 @@ public class MenuNavigator : MonoBehaviour {
     /// </summary>
     void DisableButtonUI()
     {
-        if(gamepad.IsConnected)
+        if(InputChecker.CurrentController == "Controller")
         {
             for (int i = 0; i < ButtonImage.Count; ++i)
             {
                 ButtonImage[i].enabled = true;
+            }
+            for (int i = 0; i < KeyboardPrompts.Count; ++i)
+            {
+                KeyboardPrompts[i].SetActive(false);
             }
         }
         else
@@ -140,6 +145,10 @@ public class MenuNavigator : MonoBehaviour {
             for (int i = 0; i < ButtonImage.Count; ++i)
             {
                 ButtonImage[i].enabled = false;
+            }
+            for(int i = 0; i < KeyboardPrompts.Count; ++i)
+            {
+                KeyboardPrompts[i].SetActive(true);
             }
         }
        
@@ -282,7 +291,7 @@ public class MenuNavigator : MonoBehaviour {
         if(SettingsMenu.AreaState == SceneAreaState.ACTIVE)
         {
             SettingsMenu.WholeAreaObject.SetActive(true);
-            if(gamepad.GetButtonDown("B") && !gameObject.GetComponent<SettingsMenuNavigator>().SchemeWrapper.activeInHierarchy)
+            if((gamepad.GetButtonDown("B") || Input.GetKeyDown(KeyCode.Escape)) && !gameObject.GetComponent<SettingsMenuNavigator>().SchemeWrapper.activeInHierarchy)
             {
                 SettingsMenu.AreaState = SceneAreaState.INACTIVE;
                 MainMenu.AreaState = SceneAreaState.ACTIVE;
@@ -298,7 +307,7 @@ public class MenuNavigator : MonoBehaviour {
         if(LeaderboardMenu.AreaState == SceneAreaState.ACTIVE)
         {
             LeaderboardMenu.WholeAreaObject.SetActive(true);
-            if(gamepad.GetButtonDown("B"))
+            if((gamepad.GetButtonDown("B") || Input.GetKeyDown(KeyCode.Escape)))
             {
                 LeaderboardMenu.AreaState = SceneAreaState.INACTIVE;
                 MainMenu.AreaState = SceneAreaState.ACTIVE;
@@ -315,7 +324,7 @@ public class MenuNavigator : MonoBehaviour {
         if(PlayMenu.AreaState == SceneAreaState.ACTIVE)
         {
             PlayMenu.WholeAreaObject.SetActive(true);
-            if (gamepad.GetButtonDown("B"))
+            if ((gamepad.GetButtonDown("B") || Input.GetKeyDown(KeyCode.Escape)))
             {
                 if (LevelUIObject.activeInHierarchy)
                 {
@@ -353,7 +362,7 @@ public class MenuNavigator : MonoBehaviour {
         if(CreditsMenu.AreaState == SceneAreaState.ACTIVE)
         {
             CreditsMenu.WholeAreaObject.SetActive(true);
-            if(gamepad.GetButtonDown("B"))
+            if((gamepad.GetButtonDown("B") || Input.GetKeyDown(KeyCode.Escape)))
             {
                 MainMenu.AreaState = SceneAreaState.ACTIVE;
                 CreditsMenu.AreaState = SceneAreaState.INACTIVE;
@@ -369,7 +378,7 @@ public class MenuNavigator : MonoBehaviour {
 
         if (ShowcaseMenu.AreaState == SceneAreaState.ACTIVE) {
             ShowcaseMenu.WholeAreaObject.SetActive(true);
-            if (gamepad.GetButtonDown("B")) {
+            if ((gamepad.GetButtonDown("B") || Input.GetKeyDown(KeyCode.Escape))) {
                 MainMenu.AreaState = SceneAreaState.ACTIVE;
                 ShowcaseMenu.AreaState = SceneAreaState.INACTIVE;
                 if (MainMenu.StartButton != null)
