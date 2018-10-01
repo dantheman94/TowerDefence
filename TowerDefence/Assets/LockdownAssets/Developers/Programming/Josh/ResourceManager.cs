@@ -19,6 +19,17 @@ public class ResourceManager : MonoBehaviour {
     //
     //******************************************************************************************************************************
 
+    public Player _Player;
+    public Resources _Resources;
+    public ResourceNode _ResourceNode;
+
+    public int _ResourceGenerators;
+    public int _ResourceType;
+
+    public float _ResourceGenerationAmount;
+    public float _ResourceGenerationRate;
+    public float _ResourceGenerationMultiplier;
+
     //******************************************************************************************************************************
     //
     //      INSPECTOR
