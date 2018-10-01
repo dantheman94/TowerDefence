@@ -140,7 +140,6 @@ GameObject:
   m_Component:
   - component: {fileID: 224776498709266660}
   - component: {fileID: 222321736298076002}
-  - component: {fileID: 114667066599089644}
   - component: {fileID: 114268844481672362}
   m_Layer: 5
   m_Name: pfb_CreditsScreen
@@ -148,7 +147,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1995862113134982
 GameObject:
   m_ObjectHideFlags: 0
@@ -213,7 +212,7 @@ MonoBehaviour:
   Hover_TextColour: {r: 1, g: 0.94726163, b: 0.2352941, a: 1}
   Hover_OutlineColour: {r: 1, g: 1, b: 1, a: 1}
   Hover_OutlineEnabled: 0
-  Clicked_TextColour: {r: 1, g: 1, b: 1, a: 1}
+  Clicked_TextColour: {r: 0, g: 0, b: 0, a: 1}
   Clicked_OutlineColour: {r: 0, g: 0, b: 0, a: 1}
   Clicked_OutlineEnabled: 1
   Down_TextColour: {r: 1, g: 1, b: 1, a: 1}
@@ -234,7 +233,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   creditsImage: {fileID: 1749876394548734}
-  speed: 5
+  speed: 50
 --- !u!114 &114327866164612776
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -295,19 +294,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114667066599089644
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1893166413929876}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83c7fc31717f608489fba48c0a991f84, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  creditsImage: {fileID: 0}
-  speed: 5
 --- !u!114 &114679969686868474
 MonoBehaviour:
   m_ObjectHideFlags: 1

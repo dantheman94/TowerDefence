@@ -28,6 +28,6 @@ public class CreditsReel : MonoBehaviour {
         /// <summary>
         //  Move Credits object up in world space by (Deltatime x speed) that is set in inspector
         /// </summary> 
-        creditsImage.transform.Translate(0, Time.deltaTime*10*speed, 0, Space.World);
+        creditsImage.transform.Translate(0, Time.deltaTime*speed, 0, Space.World);
     }
 }
