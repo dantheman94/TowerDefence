@@ -62,7 +62,7 @@ public class Player : MonoBehaviour {
     public CameraFollow _CameraFollow { get; private set; }
     public BuildingSlot SelectedBuildingSlot { get; set; }
     public List<Selectable> SelectedWorldObjects { get; set; }
-    public List<Ai> SelectedUnits { get; set; }
+    public List<Unit> SelectedUnits { get; set; }
 
     // Economy
     public int MaxPopulation { get; set; }
@@ -75,10 +75,11 @@ public class Player : MonoBehaviour {
     private int _Score = 0;
     private int _WavesSurvived = 0;
     private UpgradeManager _UpgradeManager;
+    private ResourceManager _ResourceManager;
 
     // Army
     private List<Base> _Bases;
-    private List<Ai> _Army;
+    private List<Unit> _Army;
     private List<Platoon> _Platoons;
     const int _PlatoonCount = 10;
     
@@ -118,6 +119,7 @@ public class Player : MonoBehaviour {
         MaxPopulation = GameManager.Instance.StartingMaxPopulation;
 
         _UpgradeManager = GetComponent<UpgradeManager>();
+        _ResourceManager = GetComponent<ResourceManager>();
 
         // Initialize controller
         switch (_CurrentController) {
@@ -133,8 +135,8 @@ public class Player : MonoBehaviour {
 
         // Create army
         SelectedWorldObjects = new List<Selectable>();
-        SelectedUnits = new List<Ai>();
-        _Army = new List<Ai>();
+        SelectedUnits = new List<Unit>();
+        _Army = new List<Unit>();
         _Bases = new List<Base>();
 
         // Create platoons
@@ -189,19 +191,7 @@ public class Player : MonoBehaviour {
 
         SelectedWorldObjects.Remove(selectable);
     }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  
-    /// </summary>
-    public void AddToPopulation(Squad squad) {
-
-        // Add to population
-        PopulationCount += squad.CostPopulation;
-        _Army.Add(squad);
-    }
-
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
@@ -221,18 +211,18 @@ public class Player : MonoBehaviour {
     //  Removes an army from the player's population
     /// </summary>
     /// <param name="ai"></param>
-    public void RemoveFromArmy(Ai ai) {
+    public void RemoveFromArmy(Unit unit) {
 
-        if (ai != null) {
+        if (unit != null) {
 
             // Remove if from army array
-            _Army.Remove(ai);
+            _Army.Remove(unit);
 
             // Remove it from any assigned groups
-            for (int i = 0; i < _Platoons.Count; i++) { _Platoons[i].GetAi().Remove(ai); }
+            for (int i = 0; i < _Platoons.Count; i++) { _Platoons[i].GetAi().Remove(unit); }
 
             // Deduct population cost
-            PopulationCount -= ai.CostPopulation;
+            PopulationCount -= unit.CostPopulation;
         }
     }
 
@@ -242,7 +232,7 @@ public class Player : MonoBehaviour {
     //  
     /// </summary>
     /// <returns></returns>
-    public List<Ai> GetArmy() { return _Army; }
+    public List<Unit> GetArmy() { return _Army; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -303,6 +293,16 @@ public class Player : MonoBehaviour {
     //  UpgradeManager
     /// </returns>
     public UpgradeManager GetUpgradeManager() { return _UpgradeManager; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Returns reference to the Resource Manager attached to this player.
+    /// </summary>
+    /// <returns>
+    //  ResourceManager
+    /// </returns>
+    public ResourceManager GetResourceManager() { return _ResourceManager; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
