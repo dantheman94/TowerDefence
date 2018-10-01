@@ -36,7 +36,7 @@ public class VehicleGunner : Selectable {
     [Header("-----------------------------------")]
     [Header(" TARGETTING OBJECT WEIGHTS")]
     [Space]
-    public Ai.TargetWeight[] TargetWeights = new Ai.TargetWeight[Ai._WeightLength];
+    public Unit.TargetWeight[] TargetWeights = new Unit.TargetWeight[Unit._WeightLength];
 
     //******************************************************************************************************************************
     //
@@ -207,7 +207,7 @@ public class VehicleGunner : Selectable {
     /// <summary>
     //  
     /// </summary>
-    public void DetermineWeightedTargetFromList(Ai.TargetWeight[] weightList) {
+    public void DetermineWeightedTargetFromList(Unit.TargetWeight[] weightList) {
 
         // Multiple targets to select from
         if (_PotentialTargets.Count > 0) {

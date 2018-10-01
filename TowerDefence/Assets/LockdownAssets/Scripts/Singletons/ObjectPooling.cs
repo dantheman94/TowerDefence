@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 //******************************
@@ -342,6 +343,28 @@ public static class ObjectPooling {
 
         // The object wasn't spawned via an object pool, so just destroy it normally
         else { GameObject.Destroy(obj, 1f); }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Destroys all active GameObjects in the world.
+    /// </summary>
+    public static void DestroyAll() {
+
+        // Find all gameObjects
+        List<GameObject> objectsInScene = new List<GameObject>();
+        foreach (GameObject obj in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[]) {
+
+            if (obj.hideFlags == HideFlags.NotEditable || obj.hideFlags == HideFlags.HideAndDontSave) { continue; }
+
+            if (!EditorUtility.IsPersistent(obj.transform.root.gameObject)) { continue; }
+
+            objectsInScene.Add(obj);
+        }
+        
+        // Destroy all gameObjects
+        for (int i = 0; i < objectsInScene.Count; i++) { Despawn(objectsInScene[i]); }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

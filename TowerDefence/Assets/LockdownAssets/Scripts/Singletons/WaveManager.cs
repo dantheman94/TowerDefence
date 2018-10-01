@@ -31,7 +31,7 @@ public class WaveManager : MonoBehaviour {
     [Space]
     public float StartingDamageModifier = 0.75f;
     public float StartingHealthModifier = 0.7f;
-    public List<Ai> StartingFriendlyUnits = null;
+    public List<Unit> StartingFriendlyUnits = null;
 
     [Space]
     [Header("-----------------------------------")]
@@ -210,8 +210,7 @@ public class WaveManager : MonoBehaviour {
             StartingFriendlyUnits[i].SetPlayer(GameManager.Instance.Players[0]);
             StartingFriendlyUnits[i].Team = GameManager.Team.Defending;
 
-            if (StartingFriendlyUnits[i] is Unit) { StartingFriendlyUnits[i]._Player.AddToPopulation(StartingFriendlyUnits[i] as Unit); }
-            if (StartingFriendlyUnits[i] is Squad) { StartingFriendlyUnits[i]._Player.AddToPopulation(StartingFriendlyUnits[i] as Squad); }
+            if (StartingFriendlyUnits[i] is Unit) { StartingFriendlyUnits[i]._Player.AddToPopulation(StartingFriendlyUnits[i]); }
 
             StartingFriendlyUnits[i].GetComponent<Unit>().OnSpawn();
         }

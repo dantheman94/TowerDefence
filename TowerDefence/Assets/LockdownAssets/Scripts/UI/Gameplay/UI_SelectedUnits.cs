@@ -188,11 +188,7 @@ public class UI_SelectedUnits : MonoBehaviour {
         // If the object is a unit
         Unit unit = worldObject.GetComponent<Unit>();
         if (unit != null) { return unit.UnitType; }
-
-        // If the object is a squad
-        Squad squad = worldObject.GetComponent<Squad>();
-        if (squad != null) { return squad.SquadUnit.UnitType; }
-
+        
         // The object isn't a valid AI type
         return Unit.EUnitType.Undefined;
     }

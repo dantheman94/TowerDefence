@@ -19,7 +19,7 @@ public class HearingSphere : MonoBehaviour {
     //
     //******************************************************************************************************************************
 
-    private Ai _AIAttached = null;
+    private Unit _UnitAttached = null;
     private WorldObject _WorldObjectInFocus = null;
 
     //******************************************************************************************************************************
@@ -35,7 +35,7 @@ public class HearingSphere : MonoBehaviour {
     /// </summary>
     private void Start() {
 
-        _AIAttached = GetComponentInParent<Ai>();
+        _UnitAttached = GetComponentInParent<Unit>();
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -48,17 +48,18 @@ public class HearingSphere : MonoBehaviour {
 
         // Valid Unit
         if (other.CompareTag("Unit")) {
+
             _WorldObjectInFocus = other.gameObject.GetComponent<WorldObject>();
             if (_WorldObjectInFocus != null) {
 
                 // Enemy team?
-                if (_WorldObjectInFocus.Team != _AIAttached.Team) {
+                if (_WorldObjectInFocus.Team != _UnitAttached.Team) {
 
                     // Remove from weighted list
-                    _AIAttached.RemovePotentialTarget(_WorldObjectInFocus);
+                    _UnitAttached.RemovePotentialTarget(_WorldObjectInFocus);
 
                     // Update new attack target (if the target that just left was the current target)
-                    if (_WorldObjectInFocus == _AIAttached.GetAttackTarget()) { _AIAttached.DetermineWeightedTargetFromList(null); }
+                    if (_WorldObjectInFocus == _UnitAttached.GetAttackTarget()) { _UnitAttached.DetermineWeightedTargetFromList(null); }
                 }
             }
         }
@@ -78,39 +79,36 @@ public class HearingSphere : MonoBehaviour {
             if (_WorldObjectInFocus != null) {
 
                 // Enemy team?
-                if (_WorldObjectInFocus.Team != _AIAttached.Team && _WorldObjectInFocus.Team != GameManager.Team.Undefined) {
+                if (_WorldObjectInFocus.Team != _UnitAttached.Team && _WorldObjectInFocus.Team != GameManager.Team.Undefined) {
 
-                    // Not a squad object?
-                    Squad squad = _WorldObjectInFocus.GetComponent<Squad>();
-                    if (squad == null) {
+                    // Active in the world?
+                    if (_WorldObjectInFocus._ObjectState == WorldObject.WorldObjectStates.Active) {
 
-                        // Active in the world?
-                        if (_WorldObjectInFocus._ObjectState == WorldObject.WorldObjectStates.Active) {
+                        // Is it currently shooting right now?
+                        Unit unit = _WorldObjectInFocus.GetComponent<Unit>();
 
-                            // Is it currently shooting right now?
-                            Unit unit = _WorldObjectInFocus.GetComponent<Unit>();
-                            if (unit.PrimaryWeapon != null) {
+                        if (unit.PrimaryWeapon != null) {
 
-                                if (unit.PrimaryWeapon.IsFiring()) {
+                            if (unit.PrimaryWeapon.IsFiring()) {
 
-                                    // Add to weighted list
-                                    _AIAttached.AddPotentialTarget(unit);
-                                }
+                                // Add to weighted list
+                                _UnitAttached.AddPotentialTarget(unit);
                             }
                         }
+
                     }
                 }
             }
         }
 
-        if (_AIAttached.GetAttackTarget() != null) {
+        if (_UnitAttached.GetAttackTarget() != null) {
             
             // Currently the same target that is the AI's attack target
-            if (_AIAttached.GetAttackTarget().gameObject == other.gameObject) {
+            if (_UnitAttached.GetAttackTarget().gameObject == other.gameObject) {
 
                 // Try to chase the target
-                _AIAttached.AddPotentialTarget(_AIAttached.GetAttackTarget());
-                _AIAttached.TryToChaseTarget(_AIAttached.GetAttackTarget());
+                _UnitAttached.AddPotentialTarget(_UnitAttached.GetAttackTarget());
+                _UnitAttached.TryToChaseTarget(_UnitAttached.GetAttackTarget());
             }
         }
     }

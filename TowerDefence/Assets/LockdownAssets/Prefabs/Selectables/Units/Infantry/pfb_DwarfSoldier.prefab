@@ -607,6 +607,7 @@ MonoBehaviour:
   Team: 1
   _Player: {fileID: 0}
   ShowSelectionGUI: 0
+  ShowOutline: 1
   OutlineHighlightedWidth: 2
   OutlineSelectedWidth: 3
   TargetPoint: {fileID: 1331171888157038}
@@ -634,36 +635,35 @@ MonoBehaviour:
   OnDeathEffect: {fileID: 0}
   ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.3
-  _ChasingDistance: 20
-  TargetWeights:
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
   UnitType: 1
   NavmeshType: 0
   InfantryMovementSpeed: 13.5
   CanBePlayerControlled: 0
+  TargetWeights:
+  - UnitType: 0
+    Weight: 0
+  - UnitType: 1
+    Weight: 0
+  - UnitType: 2
+    Weight: 0
+  - UnitType: 3
+    Weight: 0
+  - UnitType: 4
+    Weight: 0
+  - UnitType: 5
+    Weight: 0
+  - UnitType: 6
+    Weight: 0
+  - UnitType: 7
+    Weight: 0
+  - UnitType: 8
+    Weight: 0
+  - UnitType: 9
+    Weight: 0
+  - UnitType: 10
+    Weight: 0
+  - UnitType: 11
+    Weight: 0
   PrimaryWeapon: {fileID: 114268630985064268, guid: f80aaa3f8c2b3be4bb1dfe02625d8ce8,
     type: 2}
   SecondaryWeapon: {fileID: 0}
@@ -672,6 +672,7 @@ MonoBehaviour:
   MaxAttackingRange: 60
   IdealAttackRangeMax: 40
   IdealAttackRangeMin: 10
+  ChasingDistance: 30
   CanBeStunned: 1
   BarrierDetectionDistance: 20
   StartingVeterancyLevel: 1
@@ -694,7 +695,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 206db76a377c0d04f8fbaa2f01e31960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _AIAttached: {fileID: 114590780585830690}
+  _UnitAttached: {fileID: 0}
   _GunnerAttached: {fileID: 0}
 --- !u!114 &114886356031144536
 MonoBehaviour:

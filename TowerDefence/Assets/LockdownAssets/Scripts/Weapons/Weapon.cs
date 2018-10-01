@@ -368,7 +368,7 @@ public class Weapon : MonoBehaviour {
             Vector3 attackDir = attackPos - _TowerAttached.MuzzleLaunchPoints[0].transform.position;
             attackDir.Normalize();
 
-            if (Physics.Raycast(_TowerAttached.MuzzleLaunchPoints[0].transform.position, attackDir, out hit, _TowerAttached.MaxAttackRange)) {
+            if (Physics.Raycast(_TowerAttached.MuzzleLaunchPoints[0].transform.position, attackDir, out hit, _TowerAttached.MaxAttackingRange)) {
 
                 Debug.DrawLine(_TowerAttached.MuzzleLaunchPoints[0].transform.position, hit.point, Color.red);
 

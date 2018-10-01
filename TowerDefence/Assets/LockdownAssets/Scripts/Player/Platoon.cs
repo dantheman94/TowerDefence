@@ -19,8 +19,7 @@ public class Platoon : MonoBehaviour {
     //
     //******************************************************************************************************************************
 
-    private List<Ai> _PlatoonAi;
-    public int _Size { get; set; }
+    private List<Unit> _PlatoonAi;
 
     //******************************************************************************************************************************
     //
@@ -35,53 +34,12 @@ public class Platoon : MonoBehaviour {
     /// </summary>
     private void Start() {
 
-        _PlatoonAi = new List<Ai>();
-        _Size = 0;
+        _PlatoonAi = new List<Unit>();
     }
-
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-    /// <summary>
-    //  Called each frame. 
-    /// </summary>
-    private void Update() {
-
-        // Update platoon size
-        _Size = _PlatoonAi.Count;
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  
-    /// </summary>
-    /// <param name="squadsToAdd"></param>
-    public void AddToPlatooon(List<Squad> squadsToAdd) {
-
-        // Loop through the list and add it to the platoon
-        foreach (var squad in squadsToAdd) { _PlatoonAi.Add(squad); }
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  
-    /// </summary>
-    /// <param name="replacementSquads"></param>
-    public void ReplacePlatoon(List<Squad> replacementSquads) {
-
-        // Clear the current platoon
-        _PlatoonAi.Clear();
-        _Size = 0;
-
-        // Loop through the list and add it to the platoon
-        foreach (var squad in replacementSquads) { _PlatoonAi.Add(squad); }
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    public List<Ai> GetAi() { return _PlatoonAi; }
+    public List<Unit> GetAi() { return _PlatoonAi; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

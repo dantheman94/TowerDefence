@@ -502,17 +502,16 @@ public class XboxGamepadInput : MonoBehaviour {
         if (_Gamepad.GetButtonDown(buttonPress))
         {
             // Get lists of AIs that are selected
-            List<Squad> SquadsSelected = new List<Squad>();
             List<Unit> UnitsSelected = new List<Unit>();
 
-            GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
+            GetAISelectedFromAllSelected(ref UnitsSelected);
 
             // Not currently controlling a unit manually
             if (GameManager.Instance.GetIsUnitControlling() == false)
             {
 
                 // There are AI currently selected and therefore we can command them
-                if (SquadsSelected.Count > 0 || UnitsSelected.Count > 0) { AiControllerInput(SquadsSelected, UnitsSelected); }
+                if (UnitsSelected.Count > 0) { AiControllerInput(UnitsSelected); }
             }
         }
     }
@@ -522,7 +521,7 @@ public class XboxGamepadInput : MonoBehaviour {
     /// <summary>
     // Takes centre screen point and gets all selected units to move towards it.
     /// </summary>
-    private void AiControllerInput(List<Squad> squads, List<Unit> units)
+    private void AiControllerInput(List<Unit> units)
     {
 
         // Get point in world that is used to command the AI currently selected (go position, attack target, etc)
@@ -550,15 +549,6 @@ public class XboxGamepadInput : MonoBehaviour {
             // AI seek to hitpoint vector
             if (hitObject.tag == "Ground")
             {
-
-                // If there are selected squads
-                if (squads.Count > 0)
-                {
-
-                    // Loop through all selected squads & perform SEEK command
-                    foreach (var squad in squads) { squad.SquadSeek(hitPoint, true); }
-                }
-
                 // If there are individually selected units
                 if (units.Count > 0)
                 {
@@ -577,113 +567,30 @@ public class XboxGamepadInput : MonoBehaviour {
                 Building buildingObj = hitObject.GetComponentInParent<Building>();
 
                 // Hit an AI object?
-                Squad squadObj = hitObject.GetComponent<Squad>();
                 Unit unitObj = hitObject.GetComponentInParent<Unit>();
+                
+                // Right clicking on a unit
+                if (unitObj) {
 
-                // Right clicking on a squad
-                if (squadObj)
-                {
-
-                    // Enemy squad
-                    if (squadObj.Team != GameManager.Team.Defending)
-                    {
-
-                        // If there are selected squads
-                        if (squads.Count > 0)
-                        {
-
-                            // Loop through all selected squads & perform ATTACK command on the squad
-                            foreach (var squad in squads) { squad.SquadAttackObject(squadObj); }
-                        }
+                    // Enemy unit
+                    if (unitObj.Team != GameManager.Team.Defending) {
 
                         // If there are individually selected units
-                        if (units.Count > 0)
-                        {
+                        if (units.Count > 0) {
 
-                            // Loop through all selected units & perform ATTACK command on the squad
-                            foreach (var unit in units) { unit.AgentAttackObject(squadObj, unit.GetAttackingPositionAtObject(squadObj)); }
-                        }
-                    }
-                }
-
-                // Right clicking on a unit
-                else if (unitObj)
-                {
-
-                    // Is the unit part of a squad?
-                    if (unitObj.IsInASquad())
-                    {
-
-                        squadObj = unitObj.GetSquadAttached();
-
-                        // Enemy squad
-                        if (squadObj.Team != GameManager.Team.Defending)
-                        {
-
-                            // If there are selected squads
-                            if (squads.Count > 0)
-                            {
-
-                                // Loop through all selected squads & perform ATTACK command on the squad
-                                foreach (var squad in squads) { squad.SquadAttackObject(squadObj, true); }
-                            }
-
-                            // If there are individually selected units
-                            if (units.Count > 0)
-                            {
-
-                                // Loop through all selected units & perform ATTACK command on the squad
-                                foreach (var unit in units) { unit.AgentAttackObject(squadObj, unit.GetAttackingPositionAtObject(squadObj), true); }
-                            }
-                        }
-                    }
-
-                    // Unit is NOT in a squad
-                    else
-                    {
-
-                        // Enemy unit
-                        if (unitObj.Team != GameManager.Team.Defending)
-                        {
-
-                            // If there are selected squads
-                            if (squads.Count > 0)
-                            {
-
-                                // Loop through all selected squads & perform ATTACK command on the unit
-                                foreach (var squad in squads) { squad.SquadAttackObject(unitObj, true); }
-                            }
-
-                            // If there are individually selected units
-                            if (units.Count > 0)
-                            {
-
-                                // Loop through all selected units & perform ATTACK command on the unit
-                                foreach (var unit in units) { unit.AgentAttackObject(unitObj, unit.GetAttackingPositionAtObject(unitObj), true); }
-                            }
+                            // Loop through all selected units & perform ATTACK command on the unit
+                            foreach (var unit in units) { unit.AgentAttackObject(unitObj, unit.GetAttackingPositionAtObject(unitObj), true); }
                         }
                     }
                 }
 
                 // Right clicking on a building
-                else if (buildingObj)
-                {
+                else if (buildingObj) {
 
                     // Enemy building
-                    if (buildingObj.Team != GameManager.Team.Defending)
-                    {
-
-                        // If there are selected squads
-                        if (squads.Count > 0)
-                        {
-
-                            // Loop through all selected squads & perform ATTACK command on the building
-                            foreach (var squad in squads) { squad.SquadAttackObject(buildingObj, true); }
-                        }
-
+                    if (buildingObj.Team != GameManager.Team.Defending) {
                         // If there are individually selected units
-                        if (units.Count > 0)
-                        {
+                        if (units.Count > 0) {
 
                             // Loop through all selected units & perform ATTACK command on the building
                             foreach (var unit in units) { unit.AgentAttackObject(buildingObj, unit.GetAttackingPositionAtObject(buildingObj), true); }
@@ -691,12 +598,10 @@ public class XboxGamepadInput : MonoBehaviour {
                     }
 
                     // Ally building
-                    else
-                    {
+                    else {
 
                         // The building is garrisonable
-                        if (buildingObj.Garrisonable)
-                        {
+                        if (buildingObj.Garrisonable) {
 
                             // And there is enough space for it
                             ///if (buildingObj.MaxGarrisonPopulation - buildingObj.GetCurrentGarrisonCount() >= )
@@ -714,27 +619,15 @@ public class XboxGamepadInput : MonoBehaviour {
     /// </summary>
     /// <param name="squadsSelected"></param>
     /// <param name="unitsSelected"></param>
-    private void GetAISelectedFromAllSelected(ref List<Squad> squadsSelected, ref List<Unit> unitsSelected)
+    private void GetAISelectedFromAllSelected(ref List<Unit> unitsSelected)
     {
-
         // Cast selected objects to AI objects
         foreach (var obj in _PlayerAttached.SelectedWorldObjects)
-        {
-
-            // Checking for squads
-            Squad squad = obj.GetComponent<Squad>();
-            if (squad != null)
-            {
-
-                // Same team check
-                if (squad.Team == _PlayerAttached.Team) { squadsSelected.Add(squad); }
-            }
-
+        {            
             // Checking for individual units
             Unit unit = obj.GetComponent<Unit>();
             if (unit != null)
             {
-
                 // Same team check
                 if (unit.Team == _PlayerAttached.Team) { unitsSelected.Add(unit); }
             }
@@ -780,13 +673,14 @@ public class XboxGamepadInput : MonoBehaviour {
         }
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     //  Rotates camera.
     /// </summary>
     private void RotateCamera() {
 
         Vector3 rotOrigin = _PlayerAttached.PlayerCamera.transform.eulerAngles;
-        Vector3 rotDestination = rotOrigin;
 
         bool pressed = false;
 

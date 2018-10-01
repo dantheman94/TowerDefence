@@ -36,9 +36,7 @@ public class AiPatrol : MonoBehaviour {
     private List<Vector3> _PatrolPositions;
     private int _PositionIterator = 0;
     private Vector3 _CurrentDestination = Vector3.zero;
-
-    private Ai _Ai = null;
-    private Squad _Squad = null;
+    
     private Unit _Unit = null;
 
     //******************************************************************************************************************************
@@ -63,8 +61,6 @@ public class AiPatrol : MonoBehaviour {
         }
 
         // Get component references
-        _Ai = GetComponent<Ai>();
-        _Squad = GetComponent<Squad>();
         _Unit = GetComponent<Unit>();
     }
 
@@ -75,60 +71,29 @@ public class AiPatrol : MonoBehaviour {
     /// </summary>
     protected virtual void Update() {
 
-        if (!_Ai.IsAttacking()) {
+        if (_Unit != null) {
 
-            Debug.Log("Patrolling");
+            // Distance check to destination epicenter
+            if (Vector3.Distance(_Unit.transform.position, _CurrentDestination) <= MinimumDistanceToEpicenter) {
 
-            // For squad
-            if (_Squad != null) {
+                // Move to next patrol position
+                _PositionIterator++;
+                if (_PositionIterator >= _PatrolPositions.Count) { _PositionIterator = 0; }
 
-                // Distance check to destination epicenter
-                if (Vector3.Distance(_Squad.transform.position, _CurrentDestination) <= MinimumDistanceToEpicenter) {
-
-                    // Move to next patrol position
-                    _PositionIterator++;
-                    if (_PositionIterator >= _PatrolPositions.Count) { _PositionIterator = 0; }
-
-                    // Update current destination
-                    _Squad.SquadSeek(_PatrolPositions[_PositionIterator]);
-                    _CurrentDestination = _PatrolPositions[_PositionIterator];
-                }
-                else {
-
-                    // Force seek to the current destination
-                    if (_PatrolPositions.Count > 0) {
-
-                        _Squad.SquadSeek(_PatrolPositions[_PositionIterator]);
-                        _CurrentDestination = _PatrolPositions[_PositionIterator];
-                    }
-                }
+                // Update current destination
+                _Unit.AgentSeekPosition(_PatrolPositions[_PositionIterator]);
+                _CurrentDestination = _PatrolPositions[_PositionIterator];
             }
+            else {
 
-            // For unit
-            if (_Unit != null) {
+                // Force seek to the current destination
+                if (_PatrolPositions.Count > 0) {
 
-                // Distance check to destination epicenter
-                if (Vector3.Distance(_Unit.transform.position, _CurrentDestination) <= MinimumDistanceToEpicenter) {
-
-                    // Move to next patrol position
-                    _PositionIterator++;
-                    if (_PositionIterator >= _PatrolPositions.Count) { _PositionIterator = 0; }
-
-                    // Update current destination
                     _Unit.AgentSeekPosition(_PatrolPositions[_PositionIterator]);
                     _CurrentDestination = _PatrolPositions[_PositionIterator];
                 }
-                else {
-
-                    // Force seek to the current destination
-                    if (_PatrolPositions.Count > 0) {
-
-                        _Unit.AgentSeekPosition(_PatrolPositions[_PositionIterator]);
-                        _CurrentDestination = _PatrolPositions[_PositionIterator];
-                    }
-                }
             }
-        }
+        }        
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -137,15 +102,7 @@ public class AiPatrol : MonoBehaviour {
     //  
     /// </summary>
     public virtual void InitializePatrol() {
-
-        // For squad
-        if (_Squad != null) {
-
-            // Set destination
-            _PositionIterator = Random.Range(0, _PatrolPositions.Count - 1);
-            _Squad.SquadSeek(_PatrolPositions[_PositionIterator]);
-        }
-
+        
         // For unit
         if (_Unit != null) {
 

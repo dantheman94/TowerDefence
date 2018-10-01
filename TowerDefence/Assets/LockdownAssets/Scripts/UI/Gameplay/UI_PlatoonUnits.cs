@@ -63,7 +63,7 @@ public class UI_PlatoonUnits : MonoBehaviour {
             for (int i = 0; i < UnitInfoPanels.Count; i++) {
 
                 // Update platoon size
-                UnitInfoPanels[i].AmountCounter.text = _PlayerAttached.GetPlatoon(i)._Size.ToString();
+                UnitInfoPanels[i].AmountCounter.text = _PlayerAttached.GetPlatoon(i).GetAi().Count.ToString();
             }
         }
     }

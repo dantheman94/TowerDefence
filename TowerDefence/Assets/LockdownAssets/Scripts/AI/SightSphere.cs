@@ -23,7 +23,7 @@ public class SightSphere : MonoBehaviour {
     [Header("-----------------------------------")]
     [Header(" TARGETTING OBJECT WEIGHTS")]
     [Space]
-    public Ai.TargetWeight[] TargetWeights = new Ai.TargetWeight[Ai._WeightLength];
+    public Unit.TargetWeight[] TargetWeights = new Unit.TargetWeight[Unit._WeightLength];
 
     //******************************************************************************************************************************
     //
@@ -31,9 +31,11 @@ public class SightSphere : MonoBehaviour {
     //
     //******************************************************************************************************************************
 
-    private Ai _AIAttached = null;
+    private Unit _UnitAttached = null;
     private Tower _TowerAttached = null;
     private WorldObject _WorldObjectInFocus = null;
+
+    private SphereCollider _SphereComponent = null;
 
     //******************************************************************************************************************************
     //
@@ -48,9 +50,15 @@ public class SightSphere : MonoBehaviour {
     /// </summary>
     private void Start() {
 
+        // Get component references
+        _SphereComponent = GetComponent<SphereCollider>();
+
         // Determine which type of AI this is (unit or tower)?
-        _AIAttached = GetComponentInParent<Ai>();
+        _UnitAttached = GetComponentInParent<Unit>();
         _TowerAttached = GetComponentInParent<Tower>();
+
+        if (_UnitAttached != null && _SphereComponent != null) { _SphereComponent.radius = _UnitAttached.MaxAttackingRange * 1.3f; }
+        if (_TowerAttached != null && _SphereComponent != null) { _SphereComponent.radius = _TowerAttached.MaxAttackingRange * 1.3f; }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -66,27 +74,23 @@ public class SightSphere : MonoBehaviour {
         if (_WorldObjectInFocus != null) {
 
             // This component is attached to a unit/AI object
-            if (_AIAttached != null) {
+            if (_UnitAttached != null) {
 
                 // Enemy team?
-                if (_WorldObjectInFocus.Team != _AIAttached.Team && _WorldObjectInFocus.Team != GameManager.Team.Undefined) {
+                if (_WorldObjectInFocus.Team != _UnitAttached.Team && _WorldObjectInFocus.Team != GameManager.Team.Undefined) {
 
-                    // Not a squad object?
-                    Squad squad = _WorldObjectInFocus.GetComponent<Squad>();
-                    if (squad == null) {
+                    // Not a building slot?
+                    BuildingSlot slot = _WorldObjectInFocus.GetComponent<BuildingSlot>();
+                    if (slot == null) {
 
-                        // Not a building slot?
-                        BuildingSlot slot = _WorldObjectInFocus.GetComponent<BuildingSlot>();
-                        if (slot == null) {
+                        // Active in the world?
+                        if (_WorldObjectInFocus._ObjectState == WorldObject.WorldObjectStates.Active) {
 
-                            // Active in the world?
-                            if (_WorldObjectInFocus._ObjectState == WorldObject.WorldObjectStates.Active) {
-
-                                // Try to add to weighted list
-                                _AIAttached.AddPotentialTarget(_WorldObjectInFocus);
-                            }
+                            // Try to add to weighted list
+                            _UnitAttached.AddPotentialTarget(_WorldObjectInFocus);
                         }
                     }
+
                 }
             }
 
@@ -96,20 +100,15 @@ public class SightSphere : MonoBehaviour {
                 // Enemy team?
                 if (_WorldObjectInFocus.Team != _TowerAttached.Team && _WorldObjectInFocus.Team != GameManager.Team.Undefined) {
 
-                    // Not a squad object?
-                    Squad squad = _WorldObjectInFocus.GetComponent<Squad>();
-                    if (squad == null) {
+                    // Not a building slot?
+                    BuildingSlot slot = _WorldObjectInFocus.GetComponent<BuildingSlot>();
+                    if (slot == null) {
 
-                        // Not a building slot?
-                        BuildingSlot slot = _WorldObjectInFocus.GetComponent<BuildingSlot>();
-                        if (slot == null) {
-                            
-                            // Active in the world?
-                            if (_WorldObjectInFocus._ObjectState == WorldObject.WorldObjectStates.Active) {
+                        // Active in the world?
+                        if (_WorldObjectInFocus._ObjectState == WorldObject.WorldObjectStates.Active) {
 
-                                // Try to add to weighted list
-                                _TowerAttached.AddPotentialTarget(_WorldObjectInFocus);
-                            }
+                            // Try to add to weighted list
+                            _TowerAttached.AddPotentialTarget(_WorldObjectInFocus);
                         }
                     }
                 }
@@ -130,16 +129,16 @@ public class SightSphere : MonoBehaviour {
         if (_WorldObjectInFocus != null) {
 
             // This component is attached to a unit/AI object
-            if (_AIAttached != null) {
+            if (_UnitAttached != null) {
 
                 // Enemy team?
-                if (_WorldObjectInFocus.Team != _AIAttached.Team) {
+                if (_WorldObjectInFocus.Team != _UnitAttached.Team) {
 
                     // Remove from weighted list
-                    _AIAttached.RemovePotentialTarget(_WorldObjectInFocus);
+                    _UnitAttached.RemovePotentialTarget(_WorldObjectInFocus);
 
                     // Update new attack target (if the target that just left was the current target)
-                    if (_WorldObjectInFocus == _AIAttached.GetAttackTarget()) { _AIAttached.DetermineWeightedTargetFromList(TargetWeights); }
+                    if (_WorldObjectInFocus == _UnitAttached.GetAttackTarget()) { _UnitAttached.DetermineWeightedTargetFromList(TargetWeights); }
                 }
             }
 
@@ -168,16 +167,16 @@ public class SightSphere : MonoBehaviour {
     private void OnTriggerStay(Collider other) {
 
         // This component is attached to a unit/AI object
-        if (_AIAttached != null) {
+        if (_UnitAttached != null) {
 
-            if (_AIAttached.GetAttackTarget() != null) {
+            if (_UnitAttached.GetAttackTarget() != null) {
 
                 // Currently the same target that is the AI's attack target
-                if (_AIAttached.GetAttackTarget().gameObject == other.gameObject) {
+                if (_UnitAttached.GetAttackTarget().gameObject == other.gameObject) {
 
                     // Try to chase the target
-                    _AIAttached.AddPotentialTarget(_AIAttached.GetAttackTarget());
-                    _AIAttached.TryToChaseTarget(_AIAttached.GetAttackTarget());
+                    _UnitAttached.AddPotentialTarget(_UnitAttached.GetAttackTarget());
+                    _UnitAttached.TryToChaseTarget(_UnitAttached.GetAttackTarget());
                 }
             }
         }

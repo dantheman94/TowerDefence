@@ -7,7 +7,7 @@ using UnityEngine;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 8/8/2018
+//  Last edited on: 1/10/2018
 //
 //******************************
 
@@ -23,7 +23,7 @@ public class MineField : Barrier {
     [Header("-----------------------------------")]
     [Header(" MINE-FIELD PROPERTIES")]
     [Space]
-    public GameObject MineStencil;
+    public Mine MineStencil;
     public List<GameObject> MineVectorObjects;
     public bool LargeMineField = false;
 
@@ -33,7 +33,7 @@ public class MineField : Barrier {
     //
     //******************************************************************************************************************************
 
-    List<GameObject> _UndetonatedMineList;
+    private List<Mine> _UndetonatedMineList;
 
     //******************************************************************************************************************************
     //
@@ -49,9 +49,9 @@ public class MineField : Barrier {
     protected override void Start() {
         base.Start();
 
-        _UndetonatedMineList = new List<GameObject>();
+        _UndetonatedMineList = new List<Mine>();
     }
-
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
@@ -65,9 +65,12 @@ public class MineField : Barrier {
 
             // Initialize
             Vector3 spawnPosition = MineVectorObjects[i].transform.position;
-            GameObject mine = ObjectPooling.Spawn(MineStencil.gameObject, spawnPosition);
-            Mine m = mine.GetComponent<Mine>();
-            if (m != null) { m.SetTeam(Team); }
+            Mine mine = ObjectPooling.Spawn(MineStencil.gameObject, spawnPosition).GetComponent<Mine>();
+            if (mine != null) {
+
+                mine.SetTeam(Team);
+                mine.SetAttachedMineField(this);
+            }
 
             _UndetonatedMineList.Add(mine);
         }
@@ -81,6 +84,16 @@ public class MineField : Barrier {
             }
         }
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Returns reference to the undetonated mines array.
+    /// </summary>
+    /// <returns>
+    //  List<Mine>
+    /// </returns>
+    public List<Mine> GetUndetonatedMines() { return _UndetonatedMineList; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

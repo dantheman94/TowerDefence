@@ -41,6 +41,8 @@ public class Mine : MonoBehaviour {
 
     private GameManager.Team _Team = GameManager.Team.Undefined;
 
+    private MineField _MineFieldAttached = null;
+
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
@@ -117,6 +119,18 @@ public class Mine : MonoBehaviour {
             float effectDuration = effect.duration + effect.startLifetime;
             StartCoroutine(ParticleDespawn(effect, effectDuration));
         }
+
+        // Remove mine from its attached minefield
+        if (_MineFieldAttached != null) {
+
+            _MineFieldAttached.GetUndetonatedMines().Remove(this);
+
+            // Check if the minefield object should be despawned aswell
+            if (_MineFieldAttached.GetUndetonatedMines().Count == 0) { _MineFieldAttached.OnDeath(null); }
+
+            // Despawn mine
+            ObjectPooling.Despawn(gameObject);
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -144,6 +158,14 @@ public class Mine : MonoBehaviour {
     /// </summary>
     /// <param name="team"></param>
     public void SetTeam(GameManager.Team team) { _Team = team; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Sets reference to the attached minefield for this individual mine.
+    /// </summary>
+    /// <param name="field"></param>
+    public void SetAttachedMineField(MineField field) { _MineFieldAttached = field; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

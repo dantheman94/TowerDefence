@@ -26,7 +26,7 @@ public class Tower : Building {
     public ETowerType TowerType;
     [Space]
     public GameObject Head = null;
-    public float MaxAttackRange = 200f;
+    public float MaxAttackingRange = 200f;
     public float WeaponAimingSpeed = 5f;
     [Space]
     public Weapon TowerWeapon = null;
@@ -36,7 +36,7 @@ public class Tower : Building {
     [Header("-----------------------------------")]
     [Header(" TARGETTING OBJECT WEIGHTS")]
     [Space]
-    public Ai.TargetWeight[] TargetWeights = new Ai.TargetWeight[Ai._WeightLength];
+    public Unit.TargetWeight[] TargetWeights = new Unit.TargetWeight[Unit._WeightLength];
 
     //******************************************************************************************************************************
     //
@@ -70,6 +70,10 @@ public class Tower : Building {
 
         // Initialize lists
         _PotentialTargets = new List<WorldObject>();
+
+        // Set fog vision radius
+        FogUnit _FogOfWarSight = GetComponent<FogUnit>();
+        _FogOfWarSight.Radius = MaxAttackingRange * 1.5f;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -194,7 +198,7 @@ public class Tower : Building {
     /// <summary>
     //  
     /// </summary>
-    public void DetermineWeightedTargetFromList(Ai.TargetWeight[] weightList) {
+    public void DetermineWeightedTargetFromList(Unit.TargetWeight[] weightList) {
 
         // Multiple targets to select from
         if (_PotentialTargets.Count > 0) {

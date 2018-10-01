@@ -460,7 +460,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShapeType: 0
   Offset: {x: 0, y: 0}
-  Radius: 20
+  Radius: 40
   InnerRadius: 0.694
   Angle: 180
   Texture: {fileID: 0}
@@ -494,11 +494,13 @@ MonoBehaviour:
   Team: 0
   _Player: {fileID: 0}
   ShowSelectionGUI: 1
-  ShowQuadHighlighter: 1
-  ShowQuadSelector: 1
+  ShowOutline: 1
+  OutlineHighlightedWidth: 2
+  OutlineSelectedWidth: 3
   TargetPoint: {fileID: 0}
   ShowcaseOffsetY: 0
   ShowcaseFOV: 40
+  ShoecaseScale: 1
   InQueueState: {fileID: 1114594755359282}
   BuildingState: {fileID: 1114594755359282}
   ActiveState: {fileID: 1708082212870266}
@@ -510,15 +512,16 @@ MonoBehaviour:
   MaxGarrisonPopulation: 0
   MultiSelectable: 0
   _OffsetY: 0
+  QuadMinimap: {fileID: 1447009921086224}
   _WidgetHealthbarScaleX: 100
   _WidgetHealthbarScaleY: 15
   _WidgetHealthbarOffset: 15
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
+  OnDeathEffect: {fileID: 0}
   ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.2
-  QuadMinimap: {fileID: 1447009921086224}
   AttachedBuildingSlot: {fileID: 0}
   ObjectHeight: 15
   HasABuildingQueue: 1

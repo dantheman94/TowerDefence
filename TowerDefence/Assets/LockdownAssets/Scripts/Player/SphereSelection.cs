@@ -7,13 +7,13 @@ using UnityEngine;
 //  Created by: Angus Secomb
 //
 //  Last edited by: Angus Secomb
-//  Last edited on: 27/08/2018
+//  Last edited on: 1/10/2018
 //
 //******************************
 
 
-public class SphereSelection : MonoBehaviour
-{
+public class SphereSelection : MonoBehaviour {
+
     //******************************************************************************************************************************
     //
     //      VARIABLES
@@ -22,55 +22,64 @@ public class SphereSelection : MonoBehaviour
 
     private Player _Player;
 
-    // Use this for initialization
-    void Start()
-    {
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        
+    
+    void Start() {
+
         _Player = GameManager.Instance.Players[0];
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag != "Ground" && other.gameObject.layer != LayerMask.NameToLayer("Ignore Raycast"))
-        {
-            // Deselect any objects that are currently selected
-            foreach (var obj in _Player.SelectedWorldObjects) { obj.SetIsSelected(false); }
-            _Player.SelectedWorldObjects.Clear();
-            foreach (var obj in _Player.SelectedUnits) { obj.SetIsSelected(false); }
-            _Player.SelectedUnits.Clear();
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-            if (_Player.SelectedBuildingSlot != null)
-            {
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="other"></param>
+    private void OnTriggerEnter(Collider other) {
 
-                _Player.SelectedBuildingSlot.SetIsSelected(false);
-                _Player.SelectedBuildingSlot = null;
+        if (other.gameObject.tag != "Ground" && other.gameObject.layer != LayerMask.NameToLayer("Ignore Raycast")) {
+
+            // Not holding LEFT CONTROL and LEFT SHIFT
+            if (!Input.GetKey(KeyCode.LeftControl)) {
+
+                if (!Input.GetKey(KeyCode.LeftShift)) {
+
+                    // Deselect any objects that are currently selected
+                    foreach (var obj in _Player.SelectedWorldObjects) { obj.SetIsSelected(false); }
+                    _Player.SelectedWorldObjects.Clear();
+                    foreach (var obj in _Player.SelectedUnits) { obj.SetIsSelected(false); }
+                    _Player.SelectedUnits.Clear();
+
+                    if (_Player.SelectedBuildingSlot != null) {
+
+                        _Player.SelectedBuildingSlot.SetIsSelected(false);
+                        _Player.SelectedBuildingSlot = null;
+                    }
+                }
             }
-
 
             // Cast hit object to selectable objects
             Base baseObj = null;
             Building buildingObj = null;
             BuildingSlot buildingSlot = null;
-
+            Unit unit = null;
             WorldObject worldObj = null;
-            Squad squadObj = null;
-            Unit unitObj = null;
 
             baseObj = other.gameObject.GetComponentInParent<Base>();
             buildingSlot = other.gameObject.GetComponent<BuildingSlot>();
             worldObj = other.gameObject.GetComponentInParent<WorldObject>();
+
             // Left clicking on something attached to a base
-            if (baseObj != null)
-            {
+            if (baseObj != null) {
 
                 buildingObj = other.gameObject.GetComponent<Building>();
 
                 // Left clicking on a base
-                if (buildingObj == null && buildingSlot == null)
-                {
+                if (buildingObj == null && buildingSlot == null) {
 
                     // Matching team
-                    if (baseObj.Team == _Player.Team)
-                    {
+                    if (baseObj.Team == _Player.Team) {
 
                         // Add selection to list
                         _Player.SelectedWorldObjects.Add(baseObj);
@@ -81,15 +90,12 @@ public class SphereSelection : MonoBehaviour
                 }
 
                 // Left clicking on a building
-                if (buildingObj != null)
-                {
+                if (buildingObj != null) {
 
-                    if (buildingSlot == null)
-                    {
+                    if (buildingSlot == null) {
 
                         // Matching team
-                        if (buildingSlot.Team == _Player.Team)
-                        {
+                        if (buildingObj.Team == _Player.Team) {
 
                             // Add selection to list
                             _Player.SelectedWorldObjects.Add(buildingObj);
@@ -101,16 +107,13 @@ public class SphereSelection : MonoBehaviour
                 }
 
                 // Left clicking on a building slot
-                if (buildingSlot != null)
-                {
+                if (buildingSlot != null) {
 
                     // Empty building slot
-                    if (buildingSlot.GetBuildingOnSlot() == null)
-                    {
+                    if (buildingSlot.GetBuildingOnSlot() == null) {
 
                         // Matching team
-                        if (buildingSlot.AttachedBase.Team == _Player.Team)
-                        {
+                        if (buildingSlot.AttachedBase.Team == _Player.Team) {
 
                             _Player.SelectedBuildingSlot = buildingSlot;
                             buildingSlot.SetPlayer(_Player);
@@ -119,12 +122,10 @@ public class SphereSelection : MonoBehaviour
                     }
 
                     // Builded slot
-                    else
-                    {
+                    else {
 
                         // Matching team
-                        if (buildingSlot.GetBuildingOnSlot().Team == _Player.Team)
-                        {
+                        if (buildingSlot.GetBuildingOnSlot().Team == _Player.Team) {
 
                             // Add selection to list
                             _Player.SelectedWorldObjects.Add(buildingSlot.GetBuildingOnSlot());
@@ -137,21 +138,17 @@ public class SphereSelection : MonoBehaviour
             }
 
             // Left clicking on something NOT attached to a base
-            else
-            {
+            else {
 
                 buildingObj = other.gameObject.GetComponentInParent<Building>();
 
                 // Left clicking on a building
-                if (buildingObj != null)
-                {
+                if (buildingObj != null) {
 
-                    if (baseObj == null && buildingSlot == null)
-                    {
+                    if (baseObj == null && buildingSlot == null) {
 
                         // Matching team
-                        if (buildingObj.Team == _Player.Team)
-                        {
+                        if (buildingObj.Team == _Player.Team) {
 
                             // Add selection to list
                             _Player.SelectedWorldObjects.Add(buildingObj);
@@ -163,85 +160,30 @@ public class SphereSelection : MonoBehaviour
                 }
 
                 // Hit an AI object?
-                squadObj = other.gameObject.GetComponent<Squad>();
-                unitObj = other.gameObject.GetComponentInParent<Unit>();
-
-                // Left clicking on a squad
-                if (squadObj != null)
-                {
-
-                    // Squad is active in the world
-                    if (squadObj.GetObjectState() == WorldObject.WorldObjectStates.Active)
-                    {
-
-                        // Matching team
-                        if (squadObj.Team == _Player.Team)
-                        {
-
-                            // Add selection to list
-                            _Player.SelectedWorldObjects.Add(squadObj);
-                            _Player.SelectedUnits.Add(squadObj);
-                            squadObj.SetPlayer(_Player);
-                            squadObj.SetIsSelected(true);
-                        }
-                    }
-                }
+                unit = other.gameObject.GetComponentInParent<Unit>();
 
                 // Left clicking on a unit
-                if (unitObj != null)
-                {
+                if (unit != null) {
 
-                    // Is the unit part of a squad?
-                    if (unitObj.IsInASquad())
-                    {
+                    // Unit is active in the world
+                    if (unit.GetObjectState() == Abstraction.WorldObjectStates.Active) {
 
-                        squadObj = unitObj.GetSquadAttached();
+                        // Matching team
+                        if (unit.Team == _Player.Team) {
 
-                        // Squad is active in the world
-                        if (squadObj.GetObjectState() == WorldObject.WorldObjectStates.Active)
-                        {
-
-                            // Matching team
-                            if (squadObj.Team == _Player.Team)
-                            {
-
-                                // Add selection to list
-                                _Player.SelectedWorldObjects.Add(squadObj);
-                                _Player.SelectedUnits.Add(squadObj);
-                                squadObj.SetPlayer(_Player);
-                                squadObj.SetIsSelected(true);
-                            }
-                        }
-                    }
-
-                    // Unit is NOT in a squad
-                    else
-                    {
-
-                        // Unit is active in the world
-                        if (unitObj.GetObjectState() == WorldObject.WorldObjectStates.Active)
-                        {
-
-                            // Matching team
-                            if (unitObj.Team == _Player.Team)
-                            {
-
-                                // Add selection to list
-                                _Player.SelectedWorldObjects.Add(unitObj);
-                                _Player.SelectedUnits.Add(unitObj);
-                                unitObj.SetPlayer(_Player);
-                                unitObj.SetIsSelected(true);
-                            }
+                            // Add selection to list
+                            _Player.SelectedWorldObjects.Add(unit);
+                            _Player.SelectedUnits.Add(unit);
+                            unit.SetPlayer(_Player);
+                            unit.SetIsSelected(true);
                         }
                     }
                 }
 
                 // Left clicking on a world object
-                if (worldObj != null)
-                {
+                if (worldObj != null) {
 
-                    if (buildingSlot == null && buildingObj == null && baseObj == null && unitObj == null && squadObj == null)
-                    {
+                    if (buildingSlot == null && buildingObj == null && baseObj == null && unit == null) {
 
                         // Add selection to list
                         _Player.SelectedWorldObjects.Add(worldObj);
@@ -251,12 +193,10 @@ public class SphereSelection : MonoBehaviour
                 }
 
                 // Left clicking on a building slot
-                if (buildingSlot != null)
-                {
+                if (buildingSlot != null) {
 
                     // Empty building slot
-                    if (buildingSlot.GetBuildingOnSlot() == null)
-                    {
+                    if (buildingSlot.GetBuildingOnSlot() == null) {
 
                         _Player.SelectedBuildingSlot = buildingSlot;
                         buildingSlot.SetPlayer(_Player);
@@ -264,12 +204,10 @@ public class SphereSelection : MonoBehaviour
                     }
 
                     // Builded slot
-                    else
-                    {
+                    else {
 
                         // Matching team
-                        if (buildingSlot.GetBuildingOnSlot().Team == _Player.Team)
-                        {
+                        if (buildingSlot.GetBuildingOnSlot().Team == _Player.Team) {
 
                             // Add selection to list
                             _Player.SelectedWorldObjects.Add(buildingSlot.GetBuildingOnSlot());
@@ -282,54 +220,61 @@ public class SphereSelection : MonoBehaviour
             }
 
         }
-
+        
         // Just clicked on the ground so deselect all objects
         else { _Player.DeselectAllObjects(); }
     }
 
-    private void OnCollisionEnter(Collision other)
-    {
-        if (other.gameObject.tag != "Ground")
-        {
-            // Deselect any objects that are currently selected
-            foreach (var obj in _Player.SelectedWorldObjects) { obj.SetIsSelected(false); }
-            _Player.SelectedWorldObjects.Clear();
-            foreach (var obj in _Player.SelectedUnits) { obj.SetIsSelected(false); }
-            _Player.SelectedUnits.Clear();
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-            if (_Player.SelectedBuildingSlot != null)
-            {
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="other"></param>
+    private void OnCollisionEnter(Collision other) {
 
-                _Player.SelectedBuildingSlot.SetIsSelected(false);
-                _Player.SelectedBuildingSlot = null;
+        if (other.gameObject.tag != "Ground") {
+
+            // Not holding LEFT CONTROL and LEFT SHIFT
+            if (!Input.GetKey(KeyCode.LeftControl)) {
+
+                if (!Input.GetKey(KeyCode.LeftShift)) {
+
+                    // Deselect any objects that are currently selected
+                    foreach (var obj in _Player.SelectedWorldObjects) { obj.SetIsSelected(false); }
+                    _Player.SelectedWorldObjects.Clear();
+                    foreach (var obj in _Player.SelectedUnits) { obj.SetIsSelected(false); }
+                    _Player.SelectedUnits.Clear();
+
+                    if (_Player.SelectedBuildingSlot != null) {
+
+                        _Player.SelectedBuildingSlot.SetIsSelected(false);
+                        _Player.SelectedBuildingSlot = null;
+                    }
+                }
             }
-
 
             // Cast hit object to selectable objects
             Base baseObj = null;
             Building buildingObj = null;
             BuildingSlot buildingSlot = null;
-
+            Unit unit = null;
             WorldObject worldObj = null;
-            Squad squadObj = null;
-            Unit unitObj = null;
 
             baseObj = other.gameObject.GetComponentInParent<Base>();
             buildingSlot = other.gameObject.GetComponent<BuildingSlot>();
             worldObj = other.gameObject.GetComponentInParent<WorldObject>();
+
             // Left clicking on something attached to a base
-            if (baseObj != null)
-            {
+            if (baseObj != null) {
 
                 buildingObj = other.gameObject.GetComponent<Building>();
 
                 // Left clicking on a base
-                if (buildingObj == null && buildingSlot == null)
-                {
+                if (buildingObj == null && buildingSlot == null) {
 
                     // Matching team
-                    if (baseObj.Team == _Player.Team)
-                    {
+                    if (baseObj.Team == _Player.Team) {
 
                         // Add selection to list
                         _Player.SelectedWorldObjects.Add(baseObj);
@@ -340,15 +285,12 @@ public class SphereSelection : MonoBehaviour
                 }
 
                 // Left clicking on a building
-                if (buildingObj != null)
-                {
+                if (buildingObj != null) {
 
-                    if (buildingSlot == null)
-                    {
+                    if (buildingSlot == null) {
 
                         // Matching team
-                        if (buildingSlot.Team == _Player.Team)
-                        {
+                        if (buildingObj.Team == _Player.Team) {
 
                             // Add selection to list
                             _Player.SelectedWorldObjects.Add(buildingObj);
@@ -360,16 +302,13 @@ public class SphereSelection : MonoBehaviour
                 }
 
                 // Left clicking on a building slot
-                if (buildingSlot != null)
-                {
+                if (buildingSlot != null) {
 
                     // Empty building slot
-                    if (buildingSlot.GetBuildingOnSlot() == null)
-                    {
+                    if (buildingSlot.GetBuildingOnSlot() == null) {
 
                         // Matching team
-                        if (buildingSlot.AttachedBase.Team == _Player.Team)
-                        {
+                        if (buildingSlot.AttachedBase.Team == _Player.Team) {
 
                             _Player.SelectedBuildingSlot = buildingSlot;
                             buildingSlot.SetPlayer(_Player);
@@ -378,12 +317,10 @@ public class SphereSelection : MonoBehaviour
                     }
 
                     // Builded slot
-                    else
-                    {
+                    else {
 
                         // Matching team
-                        if (buildingSlot.GetBuildingOnSlot().Team == _Player.Team)
-                        {
+                        if (buildingSlot.GetBuildingOnSlot().Team == _Player.Team) {
 
                             // Add selection to list
                             _Player.SelectedWorldObjects.Add(buildingSlot.GetBuildingOnSlot());
@@ -396,21 +333,17 @@ public class SphereSelection : MonoBehaviour
             }
 
             // Left clicking on something NOT attached to a base
-            else
-            {
+            else {
 
                 buildingObj = other.gameObject.GetComponentInParent<Building>();
 
                 // Left clicking on a building
-                if (buildingObj != null)
-                {
+                if (buildingObj != null) {
 
-                    if (baseObj == null && buildingSlot == null)
-                    {
+                    if (baseObj == null && buildingSlot == null) {
 
                         // Matching team
-                        if (buildingObj.Team == _Player.Team)
-                        {
+                        if (buildingObj.Team == _Player.Team) {
 
                             // Add selection to list
                             _Player.SelectedWorldObjects.Add(buildingObj);
@@ -422,85 +355,30 @@ public class SphereSelection : MonoBehaviour
                 }
 
                 // Hit an AI object?
-                squadObj = other.gameObject.GetComponent<Squad>();
-                unitObj = other.gameObject.GetComponentInParent<Unit>();
-
-                // Left clicking on a squad
-                if (squadObj != null)
-                {
-
-                    // Squad is active in the world
-                    if (squadObj.GetObjectState() == WorldObject.WorldObjectStates.Active)
-                    {
-
-                        // Matching team
-                        if (squadObj.Team == _Player.Team)
-                        {
-
-                            // Add selection to list
-                            _Player.SelectedWorldObjects.Add(squadObj);
-                            _Player.SelectedUnits.Add(squadObj);
-                            squadObj.SetPlayer(_Player);
-                            squadObj.SetIsSelected(true);
-                        }
-                    }
-                }
+                unit = other.gameObject.GetComponentInParent<Unit>();
 
                 // Left clicking on a unit
-                if (unitObj != null)
-                {
+                if (unit != null) {
 
-                    // Is the unit part of a squad?
-                    if (unitObj.IsInASquad())
-                    {
+                    // Unit is active in the world
+                    if (unit.GetObjectState() == Abstraction.WorldObjectStates.Active) {
 
-                        squadObj = unitObj.GetSquadAttached();
+                        // Matching team
+                        if (unit.Team == _Player.Team) {
 
-                        // Squad is active in the world
-                        if (squadObj.GetObjectState() == WorldObject.WorldObjectStates.Active)
-                        {
-
-                            // Matching team
-                            if (squadObj.Team == _Player.Team)
-                            {
-
-                                // Add selection to list
-                                _Player.SelectedWorldObjects.Add(squadObj);
-                                _Player.SelectedUnits.Add(squadObj);
-                                squadObj.SetPlayer(_Player);
-                                squadObj.SetIsSelected(true);
-                            }
-                        }
-                    }
-
-                    // Unit is NOT in a squad
-                    else
-                    {
-
-                        // Unit is active in the world
-                        if (unitObj.GetObjectState() == WorldObject.WorldObjectStates.Active)
-                        {
-
-                            // Matching team
-                            if (unitObj.Team == _Player.Team)
-                            {
-
-                                // Add selection to list
-                                _Player.SelectedWorldObjects.Add(unitObj);
-                                _Player.SelectedUnits.Add(unitObj);
-                                unitObj.SetPlayer(_Player);
-                                unitObj.SetIsSelected(true);
-                            }
+                            // Add selection to list
+                            _Player.SelectedWorldObjects.Add(unit);
+                            _Player.SelectedUnits.Add(unit);
+                            unit.SetPlayer(_Player);
+                            unit.SetIsSelected(true);
                         }
                     }
                 }
 
                 // Left clicking on a world object
-                if (worldObj != null)
-                {
+                if (worldObj != null) {
 
-                    if (buildingSlot == null && buildingObj == null && baseObj == null && unitObj == null && squadObj == null)
-                    {
+                    if (buildingSlot == null && buildingObj == null && baseObj == null && unit == null) {
 
                         // Add selection to list
                         _Player.SelectedWorldObjects.Add(worldObj);
@@ -510,12 +388,10 @@ public class SphereSelection : MonoBehaviour
                 }
 
                 // Left clicking on a building slot
-                if (buildingSlot != null)
-                {
+                if (buildingSlot != null) {
 
                     // Empty building slot
-                    if (buildingSlot.GetBuildingOnSlot() == null)
-                    {
+                    if (buildingSlot.GetBuildingOnSlot() == null) {
 
                         _Player.SelectedBuildingSlot = buildingSlot;
                         buildingSlot.SetPlayer(_Player);
@@ -523,12 +399,10 @@ public class SphereSelection : MonoBehaviour
                     }
 
                     // Builded slot
-                    else
-                    {
+                    else {
 
                         // Matching team
-                        if (buildingSlot.GetBuildingOnSlot().Team == _Player.Team)
-                        {
+                        if (buildingSlot.GetBuildingOnSlot().Team == _Player.Team) {
 
                             // Add selection to list
                             _Player.SelectedWorldObjects.Add(buildingSlot.GetBuildingOnSlot());
@@ -539,10 +413,12 @@ public class SphereSelection : MonoBehaviour
                     }
                 }
             }
-
         }
 
         // Just clicked on the ground so deselect all objects
         else { _Player.DeselectAllObjects(); }
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 }

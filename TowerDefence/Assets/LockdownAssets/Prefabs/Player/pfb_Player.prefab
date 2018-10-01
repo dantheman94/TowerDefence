@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 114717441679538020}
   - component: {fileID: 114437051024531562}
   - component: {fileID: 114753507623115826}
+  - component: {fileID: 114209851572405186}
   m_Layer: 0
   m_Name: pfb_Player
   m_TagString: Player
@@ -44,6 +45,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114209851572405186
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000091221177592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c82b3befeb619ba4bb2f72cf312f85e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SupplyGenerator: {fileID: 114346840076971176, guid: 2e80e0b2e2878d64f977e45f83140270,
+    type: 2}
+  PowerStation: {fileID: 114017345909741574, guid: 4abdea2431528c348aa122f9e1986986,
+    type: 2}
 --- !u!114 &114437051024531562
 MonoBehaviour:
   m_ObjectHideFlags: 1

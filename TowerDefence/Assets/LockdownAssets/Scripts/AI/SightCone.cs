@@ -23,7 +23,7 @@ public class SightCone : MonoBehaviour {
     [Header("-----------------------------------")]
     [Header(" PROPERTIES")]
     [Space]
-    public Ai _AIAttached = null;
+    public Unit _UnitAttached = null;
     public VehicleGunner _GunnerAttached = null;
 
     //******************************************************************************************************************************
@@ -64,16 +64,16 @@ public class SightCone : MonoBehaviour {
         if (worldObject == null) { worldObject = other.gameObject.GetComponentInParent<WorldObject>(); }
 
         // Unit attached
-        if (worldObject != null && _AIAttached != null) {
+        if (worldObject != null && _UnitAttached != null) {
 
             // Enemy team?
-            if (worldObject.Team != _AIAttached.Team && worldObject.Team != GameManager.Team.Undefined) {
+            if (worldObject.Team != _UnitAttached.Team && worldObject.Team != GameManager.Team.Undefined) {
 
                 // Active in the world?
                 if (worldObject._ObjectState == Abstraction.WorldObjectStates.Active) {
 
                     // Try to add to target list
-                    _AIAttached.AddPotentialTarget(worldObject);
+                    _UnitAttached.AddPotentialTarget(worldObject);
                 }
             }
         }

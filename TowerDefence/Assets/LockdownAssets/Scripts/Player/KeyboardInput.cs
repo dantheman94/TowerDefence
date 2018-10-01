@@ -36,7 +36,7 @@ public class KeyboardInput : MonoBehaviour {
     private Vector3 _BoxStartPoint = -Vector3.one;
 
     private Selectable _HighlightFocus = null;
-    private Ai _HighlightAiObject = null;
+    private Unit _HighlightUnit = null;
     private Building _HighlightBuilding = null;
     private WorldObject _HighlightWorldObject = null;
     private bool SelectedTrue = false;
@@ -444,7 +444,7 @@ public class KeyboardInput : MonoBehaviour {
         bool pressed = false;
 
         // Rotate camera state if ALT is being held down
-        if ((Input.GetKey(KeyCode.LeftAlt))) {
+        if (_RotatingCamera = (Input.GetKey(KeyCode.LeftAlt))) {
 
             // Hide mouse cursor
             Cursor.visible = false;
@@ -461,7 +461,6 @@ public class KeyboardInput : MonoBehaviour {
 
             // Used for resetting the mouse position
             pressed = true;
-            _RotatingCamera = true;
         }
 
         // Not rotating the camera
@@ -474,7 +473,6 @@ public class KeyboardInput : MonoBehaviour {
                 Cursor.lockState = CursorLockMode.Locked;
             }
             else { Cursor.visible = true; }
-            _RotatingCamera = false;
         }
 
         if (pressed) {
@@ -566,37 +564,19 @@ public class KeyboardInput : MonoBehaviour {
                                 }
 
                                 // Check if its an AI
-                                if (_HighlightAiObject == null) { _HighlightAiObject = _HighlightFocus.GetComponent<Ai>(); }
-                                if (_HighlightAiObject != null) {
+                                if (_HighlightUnit == null) { _HighlightUnit = _HighlightFocus.GetComponent<Unit>(); }
+                                if (_HighlightUnit != null) {
 
-                                    if (_HighlightAiObject.GetObjectState() == Abstraction.WorldObjectStates.Active) {
+                                    if (_HighlightUnit.GetObjectState() == Abstraction.WorldObjectStates.Active) {
 
-                                        Unit unit = _HighlightAiObject.GetComponent<Unit>();
-                                        if (unit != null) {
-
-                                            // Unit is part of a squad
-                                            if (unit.IsInASquad()) {
-
-                                                // Highlight AI
-                                                unit.GetSquadAttached().SetIsHighlighted(true);
-                                            }
-                                            
-                                            // Highlight singular unit
-                                            else { _HighlightAiObject.SetIsHighlighted(true); }
-                                        }
-
-                                        // Squad
-                                        else {
-
-                                            Squad squad = _HighlightAiObject.GetComponent<Squad>();
-                                            if (squad != null) { squad.SetIsHighlighted(true); }
-                                        }
+                                        Unit unit = _HighlightUnit.GetComponent<Unit>();
+                                        if (unit != null) { _HighlightUnit.SetIsHighlighted(true); }                                        
                                     }
                                 }
 
                                 // Check if its a world object
                                 if (_HighlightWorldObject == null) { _HighlightWorldObject = _HighlightFocus.GetComponent<WorldObject>(); }
-                                if (_HighlightWorldObject != null && _HighlightAiObject == null) {
+                                if (_HighlightWorldObject != null && _HighlightUnit == null) {
 
                                     if (_HighlightWorldObject.GetObjectState() == WorldObject.WorldObjectStates.Active) {
 
@@ -634,7 +614,7 @@ public class KeyboardInput : MonoBehaviour {
         if (_HighlightFocus != null) _HighlightFocus.SetIsHighlighted(false);
         _HighlightFocus = null;
         _HighlightBuilding = null;
-        _HighlightAiObject = null;
+        _HighlightUnit = null;
         _HighlightWorldObject = null;
 
         for (int i = 0; i < _PlayerAttached.GetArmy().Count; i++) { _PlayerAttached.GetArmy()[i].SetIsHighlighted(false); }
@@ -679,10 +659,8 @@ public class KeyboardInput : MonoBehaviour {
                     Base baseObj = null;
                     Building buildingObj = null;
                     BuildingSlot buildingSlot = null;
-
+                    Unit unit = null;
                     WorldObject worldObj = null;
-                    Squad squadObj = null;
-                    Unit unitObj = null;
 
                     baseObj = hitObject.GetComponentInParent<Base>();
                     buildingSlot = hitObject.GetComponent<BuildingSlot>();
@@ -778,73 +756,30 @@ public class KeyboardInput : MonoBehaviour {
                         }
 
                         // Hit an AI object?
-                        squadObj = hitObject.GetComponent<Squad>();
-                        unitObj = hitObject.GetComponentInParent<Unit>();
+                        unit = hitObject.GetComponentInParent<Unit>();
+                        
+                        // Left clicking on a unit
+                        if (unit != null) {
 
-                        // Left clicking on a squad
-                        if (squadObj != null) {
-
-                            // Squad is active in the world
-                            if (squadObj.GetObjectState() == WorldObject.WorldObjectStates.Active) {
+                            // Unit is active in the world
+                            if (unit.GetObjectState() == Abstraction.WorldObjectStates.Active) {
 
                                 // Matching team
-                                if (squadObj.Team == _PlayerAttached.Team) {
+                                if (unit.Team == _PlayerAttached.Team) {
 
                                     // Add selection to list
-                                    _PlayerAttached.SelectedWorldObjects.Add(squadObj);
-                                    _PlayerAttached.SelectedUnits.Add(squadObj);
-                                    squadObj.SetPlayer(_PlayerAttached);
-                                    squadObj.SetIsSelected(true);
+                                    _PlayerAttached.SelectedWorldObjects.Add(unit);
+                                    _PlayerAttached.SelectedUnits.Add(unit);
+                                    unit.SetPlayer(_PlayerAttached);
+                                    unit.SetIsSelected(true);
                                 }
-                            }
-                        }
-
-                        // Left clicking on a unit
-                        if (unitObj != null) {
-
-                            // Is the unit part of a squad?
-                            if (unitObj.IsInASquad()) {
-
-                                squadObj = unitObj.GetSquadAttached();
-
-                                // Squad is active in the world
-                                if (squadObj.GetObjectState() == Abstraction.WorldObjectStates.Active) {
-
-                                    // Matching team
-                                    if (squadObj.Team == _PlayerAttached.Team) {
-
-                                        // Add selection to list
-                                        _PlayerAttached.SelectedWorldObjects.Add(squadObj);
-                                        _PlayerAttached.SelectedUnits.Add(squadObj);
-                                        squadObj.SetPlayer(_PlayerAttached);
-                                        squadObj.SetIsSelected(true);
-                                    }
-                                }
-                            }
-
-                            // Unit is NOT in a squad
-                            else {
-
-                                // Unit is active in the world
-                                if (unitObj.GetObjectState() == Abstraction.WorldObjectStates.Active) {
-
-                                    // Matching team
-                                    if (unitObj.Team == _PlayerAttached.Team) {
-
-                                        // Add selection to list
-                                        _PlayerAttached.SelectedWorldObjects.Add(unitObj);
-                                        _PlayerAttached.SelectedUnits.Add(unitObj);
-                                        unitObj.SetPlayer(_PlayerAttached);
-                                        unitObj.SetIsSelected(true);
-                                    }
-                                }
-                            }
+                            }                            
                         }
 
                         // Left clicking on a world object
                         if (worldObj != null) {
 
-                            if (buildingSlot == null && buildingObj == null && baseObj == null && unitObj == null && squadObj == null) {
+                            if (buildingSlot == null && buildingObj == null && baseObj == null && unit == null) {
 
                                 // Add selection to list
                                 _PlayerAttached.SelectedWorldObjects.Add(worldObj);
@@ -899,16 +834,15 @@ public class KeyboardInput : MonoBehaviour {
     private void RightMouseClick() {
 
         // Get lists of AIs that are selected
-        List<Squad> SquadsSelected = new List<Squad>();
         List<Unit> UnitsSelected = new List<Unit>();
 
-        GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
+        GetAISelectedFromAllSelected(ref UnitsSelected);
 
         // Not currently controlling a unit manually
         if (GameManager.Instance.GetIsUnitControlling() == false) {
 
             // There are AI currently selected and therefore we can command them
-            if (SquadsSelected.Count > 0 || UnitsSelected.Count > 0) { AiMouseCommandsInput(SquadsSelected, UnitsSelected); }
+            if (UnitsSelected.Count > 0) { AiMouseCommandsInput(UnitsSelected); }
         }
     }
 
@@ -925,24 +859,18 @@ public class KeyboardInput : MonoBehaviour {
         }
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     //
     /// </summary>
     /// <param name="squadsSelected"></param>
     /// <param name="unitsSelected"></param>
-    private void GetAISelectedFromAllSelected(ref List<Squad> squadsSelected, ref List<Unit> unitsSelected) {
+    private void GetAISelectedFromAllSelected(ref List<Unit> unitsSelected) {
         
         // Cast selected objects to AI objects
         foreach (var obj in _PlayerAttached.SelectedWorldObjects) {
-
-            // Checking for squads
-            Squad squad = obj.GetComponent<Squad>();
-            if (squad != null) {
-
-                // Same team check
-                if (squad.Team == _PlayerAttached.Team) { squadsSelected.Add(squad); }
-            }
-
+            
             // Checking for individual units
             Unit unit = obj.GetComponent<Unit>();
             if (unit != null) {
@@ -958,7 +886,7 @@ public class KeyboardInput : MonoBehaviour {
     /// <summary>
     //
     /// </summary>
-    private void AiMouseCommandsInput(List<Squad> squads, List<Unit> units) {
+    private void AiMouseCommandsInput(List<Unit> units) {
 
         // Get point in world that is used to command the AI currently selected (go position, attack target, etc)
         GameObject hitObject = _PlayerAttached._HUD.FindHitObject();
@@ -967,14 +895,7 @@ public class KeyboardInput : MonoBehaviour {
 
             // AI seek to hitpoint vector
             if (hitObject.tag == "Ground") {
-
-                // If there are selected squads
-                if (squads.Count > 0) {
-
-                    // Loop through all selected squads & perform SEEK command
-                    foreach (var squad in squads) { squad.SquadSeek(hitPoint, true); }
-                }
-
+                
                 // If there are individually selected units
                 if (units.Count > 0) {
 
@@ -991,81 +912,22 @@ public class KeyboardInput : MonoBehaviour {
                 Building buildingObj = hitObject.GetComponentInParent<Building>();
 
                 // Hit an AI object?
-                Squad squadObj = hitObject.GetComponent<Squad>();
                 Unit unitObj = hitObject.GetComponentInParent<Unit>();
+                
+                // Right clicking on a unit
+                if (unitObj) {
 
-                // Right clicking on a squad
-                if (squadObj) {
-                    
-                    // Enemy squad
-                    if (squadObj.Team !=  GameManager.Team.Defending) {
+                    // Enemy unit
+                    if (unitObj.Team != GameManager.Team.Defending) {
                         
-                        // If there are selected squads
-                        if (squads.Count > 0) {
-
-                            // Loop through all selected squads & perform ATTACK command on the squad
-                            foreach (var squad in squads) { squad.SquadAttackObject(squadObj, true); }
-                        }
-
                         // If there are individually selected units
                         if (units.Count > 0) {
 
-                            // Loop through all selected units & perform ATTACK command on the squad
-                            foreach (var unit in units) { unit.AgentAttackObject(squadObj, unit.GetAttackingPositionAtObject(squadObj)); }
+                            // Loop through all selected units & perform ATTACK command on the unit
+                            ///foreach (var unit in units) { unit.AgentAttackObject(unitObj, unit.GetAttackingPositionAtObject(unitObj), true); }
+                            foreach (var unit in units) { unit.ForceChaseTarget(unitObj); }
                         }
-                    }
-                }
-
-                // Right clicking on a unit
-                else if (unitObj) {
-
-                    // Is the unit part of a squad?
-                    if (unitObj.IsInASquad()) {
-
-                        squadObj = unitObj.GetSquadAttached();
-
-                        // Enemy squad
-                        if (squadObj.Team != GameManager.Team.Defending) {
-
-                            // If there are selected squads
-                            if (squads.Count > 0) {
-
-                                // Loop through all selected squads & perform ATTACK command on the squad
-                                foreach (var squad in squads) { squad.SquadAttackObject(squadObj, true); }
-                            }
-
-                            // If there are individually selected units
-                            if (units.Count > 0) {
-
-                                // Loop through all selected units & perform ATTACK command on the squad
-                                foreach (var unit in units) { unit.AgentAttackObject(squadObj, unit.GetAttackingPositionAtObject(squadObj), true); }
-                            foreach (var unit in units) { unit.TryToChaseTarget(squadObj); }
-                            }
-                        }
-                    }
-
-                    // Unit is NOT in a squad
-                    else {
-
-                        // Enemy unit
-                        if (unitObj.Team != GameManager.Team.Defending) {
-
-                            // If there are selected squads
-                            if (squads.Count > 0) {
-
-                                // Loop through all selected squads & perform ATTACK command on the unit
-                                foreach (var squad in squads) { squad.SquadAttackObject(unitObj, true); }
-                            }
-
-                            // If there are individually selected units
-                            if (units.Count > 0) {
-
-                                // Loop through all selected units & perform ATTACK command on the unit
-                                ///foreach (var unit in units) { unit.AgentAttackObject(unitObj, unit.GetAttackingPositionAtObject(unitObj), true); }
-                                foreach (var unit in units) { unit.ForceChaseTarget(unitObj); }
-                            }
-                        }
-                    }
+                    }                    
                 }
 
                 // Right clicking on a building
@@ -1073,14 +935,7 @@ public class KeyboardInput : MonoBehaviour {
 
                     // Enemy building
                     if (buildingObj.Team != GameManager.Team.Defending) {
-
-                        // If there are selected squads
-                        if (squads.Count > 0) {
-
-                            // Loop through all selected squads & perform ATTACK command on the building
-                            foreach (var squad in squads) { squad.SquadAttackObject(buildingObj, true); }
-                        }
-
+                        
                         // If there are individually selected units
                         if (units.Count > 0) {
 
@@ -1119,19 +974,9 @@ public class KeyboardInput : MonoBehaviour {
             if (hitObject && hitPoint != Settings.InvalidPosition) {
 
                 // Get lists of AIs that are selected
-                List<Squad> SquadsSelected = new List<Squad>();
                 List<Unit> UnitsSelected = new List<Unit>();
 
-                GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
-
-                // If there are selected squads
-                if (SquadsSelected.Count > 0) {
-
-                    // Loop through all selected squads & perform ABILITY command
-                    ///foreach (var squad in SquadsSelected) { squad.SquadSeek(hitPoint); }
-                }
-
-                // If there are individually selected units
+                GetAISelectedFromAllSelected(ref UnitsSelected);
                 if (UnitsSelected.Count > 0) {
 
                     // Loop through all selected units & perform ABILITY command
@@ -1140,38 +985,7 @@ public class KeyboardInput : MonoBehaviour {
             }
         }
     }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //
-    /// </summary>
-    private void FactionAbilitiesInput() {
-
-        // Only check if theres a laboratory building in the world
-        if (GameManager.Instance.GetIsLabratoryActive()) {
-
-            // On user input
-            if (Input.GetKeyDown(KeyCode.F)) {
-
-                // Deselect any objects that are currently selected
-                foreach (var obj in _PlayerAttached.SelectedWorldObjects) { obj.SetIsSelected(false); }
-                _PlayerAttached.SelectedWorldObjects.Clear();
-                foreach (var obj in _PlayerAttached.SelectedUnits) { obj.SetIsSelected(false); }
-                _PlayerAttached.SelectedUnits.Clear();
-
-                // hide selection wheel if on screen
-                if (GameManager.Instance.SelectionWheel.activeInHierarchy) { GameManager.Instance.SelectionWheel.SetActive(false); }
-                
-                // Show ability wheel
-                GameManager.Instance.AbilityWheel.SetActive(!GameManager.Instance.AbilityWheel.activeInHierarchy);
-            }
-        }
-
-        // Force hide the abilities wheel if there is no active laboratory in the world
-        else { GameManager.Instance.AbilityWheel.SetActive(false); }
-    }
-
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
@@ -1183,13 +997,9 @@ public class KeyboardInput : MonoBehaviour {
         if ((Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.Alpha1) && (Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.LeftControl)))) {
             
             // Get lists of AIs that are selected
-            List<Squad> SquadsSelected = new List<Squad>();
             List<Unit> UnitsSelected = new List<Unit>();
 
-            GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
-
-            // Add any squads selected to platoon 1
-            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon(0).GetAi().Add(squad); }
+            GetAISelectedFromAllSelected(ref UnitsSelected);
 
             // Add any units selected to platoon 1
             foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon(0).GetAi().Add(unit); }
@@ -1199,16 +1009,12 @@ public class KeyboardInput : MonoBehaviour {
         if ((Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.Alpha1) && (!Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.LeftControl)))) {
 
             // Get lists of AIs that are selected
-            List<Squad> SquadsSelected = new List<Squad>();
             List<Unit> UnitsSelected = new List<Unit>();
 
-            GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
+            GetAISelectedFromAllSelected(ref UnitsSelected);
 
             // Clear platoon 1
             _PlayerAttached.GetPlatoon(0).GetAi().Clear();
-
-            // Add any squads selected to platoon 1
-            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon(0).GetAi().Add(squad); }
 
             // Add any units selected to platoon 1
             foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon(0).GetAi().Add(unit); }
@@ -1234,14 +1040,10 @@ public class KeyboardInput : MonoBehaviour {
         if ((Input.GetKeyDown(KeyCode.Keypad2) || Input.GetKeyDown(KeyCode.Alpha2) && (Input.GetKey(KeyCode.LeftShift)) && !Input.GetKey(KeyCode.LeftControl))) {
 
             // Get lists of AIs that are selected
-            List<Squad> SquadsSelected = new List<Squad>();
             List<Unit> UnitsSelected = new List<Unit>();
 
-            GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
-
-            // Add any squads selected to platoon 2
-            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon(1).GetAi().Add(squad); }
-
+            GetAISelectedFromAllSelected(ref UnitsSelected);
+            
             // Add any units selected to platoon 2
             foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon(1).GetAi().Add(unit); }
         }
@@ -1250,17 +1052,13 @@ public class KeyboardInput : MonoBehaviour {
         if ((Input.GetKeyDown(KeyCode.Keypad2) || Input.GetKeyDown(KeyCode.Alpha2) && (!Input.GetKey(KeyCode.LeftShift)) && Input.GetKey(KeyCode.LeftControl))) {
 
             // Get lists of AIs that are selected
-            List<Squad> SquadsSelected = new List<Squad>();
             List<Unit> UnitsSelected = new List<Unit>();
 
-            GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
+            GetAISelectedFromAllSelected(ref UnitsSelected);
 
             // Clear platoon 2
             _PlayerAttached.GetPlatoon(1).GetAi().Clear();
-
-            // Add any squads selected to platoon 2
-            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon(1).GetAi().Add(squad); }
-
+            
             // Add any units selected to platoon 2
             foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon(1).GetAi().Add(unit); }
         }
@@ -1285,14 +1083,10 @@ public class KeyboardInput : MonoBehaviour {
         if ((Input.GetKeyDown(KeyCode.Keypad3) || Input.GetKeyDown(KeyCode.Alpha3) && (Input.GetKey(KeyCode.LeftShift)) && !Input.GetKey(KeyCode.LeftControl))) {
 
             // Get lists of AIs that are selected
-            List<Squad> SquadsSelected = new List<Squad>();
             List<Unit> UnitsSelected = new List<Unit>();
 
-            GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
-
-            // Add any squads selected to platoon 3
-            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon(2).GetAi().Add(squad); }
-
+            GetAISelectedFromAllSelected(ref UnitsSelected);
+            
             // Add any units selected to platoon 3
             foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon(2).GetAi().Add(unit); }
         }
@@ -1301,17 +1095,13 @@ public class KeyboardInput : MonoBehaviour {
         if ((Input.GetKeyDown(KeyCode.Keypad3) || Input.GetKeyDown(KeyCode.Alpha3) && (!Input.GetKey(KeyCode.LeftShift)) && Input.GetKey(KeyCode.LeftControl))) {
 
             // Get lists of AIs that are selected
-            List<Squad> SquadsSelected = new List<Squad>();
             List<Unit> UnitsSelected = new List<Unit>();
 
-            GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
+            GetAISelectedFromAllSelected(ref UnitsSelected);
 
             // Clear platoon 3
             _PlayerAttached.GetPlatoon(2).GetAi().Clear();
-
-            // Add any squads selected to platoon 3
-            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon(2).GetAi().Add(squad); }
-
+            
             // Add any units selected to platoon 3
             foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon(2).GetAi().Add(unit); }
         }
@@ -1336,14 +1126,10 @@ public class KeyboardInput : MonoBehaviour {
         if ((Input.GetKeyDown(KeyCode.Keypad4) || Input.GetKeyDown(KeyCode.Alpha4) && (Input.GetKey(KeyCode.LeftShift)) && !Input.GetKey(KeyCode.LeftControl))) {
 
             // Get lists of AIs that are selected
-            List<Squad> SquadsSelected = new List<Squad>();
             List<Unit> UnitsSelected = new List<Unit>();
 
-            GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
-
-            // Add any squads selected to platoon 4
-            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon(3).GetAi().Add(squad); }
-
+            GetAISelectedFromAllSelected(ref UnitsSelected);
+            
             // Add any units selected to platoon 4
             foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon(3).GetAi().Add(unit); }
         }
@@ -1352,17 +1138,13 @@ public class KeyboardInput : MonoBehaviour {
         if ((Input.GetKeyDown(KeyCode.Keypad4) || Input.GetKeyDown(KeyCode.Alpha4) && (!Input.GetKey(KeyCode.LeftShift)) && Input.GetKey(KeyCode.LeftControl))) {
 
             // Get lists of AIs that are selected
-            List<Squad> SquadsSelected = new List<Squad>();
             List<Unit> UnitsSelected = new List<Unit>();
 
-            GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
+            GetAISelectedFromAllSelected(ref UnitsSelected);
 
             // Clear platoon 4
             _PlayerAttached.GetPlatoon(3).GetAi().Clear();
-
-            // Add any squads selected to platoon 1
-            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon(3).GetAi().Add(squad); }
-
+            
             // Add any units selected to platoon 1
             foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon(3).GetAi().Add(unit); }
         }
@@ -1387,14 +1169,10 @@ public class KeyboardInput : MonoBehaviour {
         if ((Input.GetKeyDown(KeyCode.Keypad5) || Input.GetKeyDown(KeyCode.Alpha5) && (Input.GetKey(KeyCode.LeftShift)) && !Input.GetKey(KeyCode.LeftControl))) {
 
             // Get lists of AIs that are selected
-            List<Squad> SquadsSelected = new List<Squad>();
             List<Unit> UnitsSelected = new List<Unit>();
 
-            GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
-
-            // Add any squads selected to platoon 5
-            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon(4).GetAi().Add(squad); }
-
+            GetAISelectedFromAllSelected(ref UnitsSelected);
+            
             // Add any units selected to platoon 5
             foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon(4).GetAi().Add(unit); }
         }
@@ -1403,17 +1181,13 @@ public class KeyboardInput : MonoBehaviour {
         if ((Input.GetKeyDown(KeyCode.Keypad5) || Input.GetKeyDown(KeyCode.Alpha5) && (!Input.GetKey(KeyCode.LeftShift)) && Input.GetKey(KeyCode.LeftControl))) {
 
             // Get lists of AIs that are selected
-            List<Squad> SquadsSelected = new List<Squad>();
             List<Unit> UnitsSelected = new List<Unit>();
 
-            GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
+            GetAISelectedFromAllSelected(ref UnitsSelected);
 
             // Clear platoon 5
             _PlayerAttached.GetPlatoon(4).GetAi().Clear();
-
-            // Add any squads selected to platoon 5
-            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon(4).GetAi().Add(squad); }
-
+            
             // Add any units selected to platoon 5
             foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon(4).GetAi().Add(unit); }
         }
@@ -1438,14 +1212,10 @@ public class KeyboardInput : MonoBehaviour {
         if ((Input.GetKeyDown(KeyCode.Keypad6) || Input.GetKeyDown(KeyCode.Alpha6) && (Input.GetKey(KeyCode.LeftShift)) && !Input.GetKey(KeyCode.LeftControl))) {
 
             // Get lists of AIs that are selected
-            List<Squad> SquadsSelected = new List<Squad>();
             List<Unit> UnitsSelected = new List<Unit>();
 
-            GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
-
-            // Add any squads selected to platoon 6
-            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon(5).GetAi().Add(squad); }
-
+            GetAISelectedFromAllSelected(ref UnitsSelected);
+            
             // Add any units selected to platoon 6
             foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon(5).GetAi().Add(unit); }
         }
@@ -1454,17 +1224,13 @@ public class KeyboardInput : MonoBehaviour {
         if ((Input.GetKeyDown(KeyCode.Keypad6) || Input.GetKeyDown(KeyCode.Alpha6) && (!Input.GetKey(KeyCode.LeftShift)) && Input.GetKey(KeyCode.LeftControl))) {
 
             // Get lists of AIs that are selected
-            List<Squad> SquadsSelected = new List<Squad>();
             List<Unit> UnitsSelected = new List<Unit>();
 
-            GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
+            GetAISelectedFromAllSelected(ref UnitsSelected);
 
             // Clear platoon 6
             _PlayerAttached.GetPlatoon(5).GetAi().Clear();
-
-            // Add any squads selected to platoon 1
-            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon(5).GetAi().Add(squad); }
-
+            
             // Add any units selected to platoon 1
             foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon(5).GetAi().Add(unit); }
         }
@@ -1489,14 +1255,10 @@ public class KeyboardInput : MonoBehaviour {
         if ((Input.GetKeyDown(KeyCode.Keypad7) || Input.GetKeyDown(KeyCode.Alpha7) && (Input.GetKey(KeyCode.LeftShift)) && !Input.GetKey(KeyCode.LeftControl))) {
 
             // Get lists of AIs that are selected
-            List<Squad> SquadsSelected = new List<Squad>();
             List<Unit> UnitsSelected = new List<Unit>();
 
-            GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
-
-            // Add any squads selected to platoon 7
-            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon(6).GetAi().Add(squad); }
-
+            GetAISelectedFromAllSelected(ref UnitsSelected);
+            
             // Add any units selected to platoon 7
             foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon(6).GetAi().Add(unit); }
         }
@@ -1505,17 +1267,13 @@ public class KeyboardInput : MonoBehaviour {
         if ((Input.GetKeyDown(KeyCode.Keypad7) || Input.GetKeyDown(KeyCode.Alpha7) && (!Input.GetKey(KeyCode.LeftShift)) && Input.GetKey(KeyCode.LeftControl))) {
 
             // Get lists of AIs that are selected
-            List<Squad> SquadsSelected = new List<Squad>();
             List<Unit> UnitsSelected = new List<Unit>();
 
-            GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
+            GetAISelectedFromAllSelected(ref UnitsSelected);
 
             // Clear platoon 7
             _PlayerAttached.GetPlatoon(6).GetAi().Clear();
-
-            // Add any squads selected to platoon 7
-            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon(6).GetAi().Add(squad); }
-
+            
             // Add any units selected to platoon 7
             foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon(6).GetAi().Add(unit); }
         }
@@ -1539,14 +1297,10 @@ public class KeyboardInput : MonoBehaviour {
         if ((Input.GetKeyDown(KeyCode.Keypad8) || Input.GetKeyDown(KeyCode.Alpha8) && (Input.GetKey(KeyCode.LeftShift)) && !Input.GetKey(KeyCode.LeftControl))) {
 
             // Get lists of AIs that are selected
-            List<Squad> SquadsSelected = new List<Squad>();
             List<Unit> UnitsSelected = new List<Unit>();
 
-            GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
-
-            // Add any squads selected to platoon 8
-            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon(7).GetAi().Add(squad); }
-
+            GetAISelectedFromAllSelected(ref UnitsSelected);
+            
             // Add any units selected to platoon 8
             foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon(7).GetAi().Add(unit); }
         }
@@ -1555,17 +1309,13 @@ public class KeyboardInput : MonoBehaviour {
         if ((Input.GetKeyDown(KeyCode.Keypad8) || Input.GetKeyDown(KeyCode.Alpha8) && (!Input.GetKey(KeyCode.LeftShift)) && Input.GetKey(KeyCode.LeftControl))) {
 
             // Get lists of AIs that are selected
-            List<Squad> SquadsSelected = new List<Squad>();
             List<Unit> UnitsSelected = new List<Unit>();
 
-            GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
+            GetAISelectedFromAllSelected(ref UnitsSelected);
 
             // Clear platoon 8
             _PlayerAttached.GetPlatoon(7).GetAi().Clear();
-
-            // Add any squads selected to platoon 8
-            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon(7).GetAi().Add(squad); }
-
+            
             // Add any units selected to platoon 8
             foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon(7).GetAi().Add(unit); }
         }
@@ -1590,14 +1340,10 @@ public class KeyboardInput : MonoBehaviour {
         if ((Input.GetKeyDown(KeyCode.Keypad9) || Input.GetKeyDown(KeyCode.Alpha9) && (Input.GetKey(KeyCode.LeftShift)) && !Input.GetKey(KeyCode.LeftControl))) {
 
             // Get lists of AIs that are selected
-            List<Squad> SquadsSelected = new List<Squad>();
             List<Unit> UnitsSelected = new List<Unit>();
 
-            GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
-
-            // Add any squads selected to platoon 9
-            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon(8).GetAi().Add(squad); }
-
+            GetAISelectedFromAllSelected(ref UnitsSelected);
+            
             // Add any units selected to platoon 9
             foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon(8).GetAi().Add(unit); }
         }
@@ -1606,16 +1352,12 @@ public class KeyboardInput : MonoBehaviour {
         if ((Input.GetKeyDown(KeyCode.Keypad9) || Input.GetKeyDown(KeyCode.Alpha9) && (!Input.GetKey(KeyCode.LeftShift)) && Input.GetKey(KeyCode.LeftControl))) {
 
             // Get lists of AIs that are selected
-            List<Squad> SquadsSelected = new List<Squad>();
             List<Unit> UnitsSelected = new List<Unit>();
 
-            GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
+            GetAISelectedFromAllSelected(ref UnitsSelected);
 
             // Clear platoon 9
             _PlayerAttached.GetPlatoon(8).GetAi().Clear();
-
-            // Add any squads selected to platoon 9
-            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon(8).GetAi().Add(squad); }
 
             // Add any units selected to platoon 9
             foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon(8).GetAi().Add(unit); }
@@ -1641,14 +1383,10 @@ public class KeyboardInput : MonoBehaviour {
         if ((Input.GetKeyDown(KeyCode.Keypad0) || Input.GetKeyDown(KeyCode.Alpha0) && (Input.GetKey(KeyCode.LeftShift)) && !Input.GetKey(KeyCode.LeftControl))) {
 
             // Get lists of AIs that are selected
-            List<Squad> SquadsSelected = new List<Squad>();
             List<Unit> UnitsSelected = new List<Unit>();
 
-            GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
-
-            // Add any squads selected to platoon 10
-            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon(9).GetAi().Add(squad); }
-
+            GetAISelectedFromAllSelected(ref UnitsSelected);
+            
             // Add any units selected to platoon 10
             foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon(9).GetAi().Add(unit); }
         }
@@ -1657,17 +1395,13 @@ public class KeyboardInput : MonoBehaviour {
         if ((Input.GetKeyDown(KeyCode.Keypad0) || Input.GetKeyDown(KeyCode.Alpha0) && (!Input.GetKey(KeyCode.LeftShift)) && Input.GetKey(KeyCode.LeftControl))) {
 
             // Get lists of AIs that are selected
-            List<Squad> SquadsSelected = new List<Squad>();
             List<Unit> UnitsSelected = new List<Unit>();
 
-            GetAISelectedFromAllSelected(ref SquadsSelected, ref UnitsSelected);
+            GetAISelectedFromAllSelected(ref UnitsSelected);
 
             // Clear platoon 10
             _PlayerAttached.GetPlatoon(9).GetAi().Clear();
-
-            // Add any squads selected to platoon 10
-            foreach (var squad in SquadsSelected) { _PlayerAttached.GetPlatoon(9).GetAi().Add(squad); }
-
+            
             // Add any units selected to platoon 10
             foreach (var unit in UnitsSelected) { _PlayerAttached.GetPlatoon(9).GetAi().Add(unit); }
         }
@@ -1691,54 +1425,49 @@ public class KeyboardInput : MonoBehaviour {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public bool CreateScreenSelection()
-    {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
+    public bool CreateScreenSelection() {
+
+        if (Input.GetKeyDown(KeyCode.Q)) {
             return true;
         }
-        else
-        {
+        else {
             return false;
         }
     }
-        /// <summary>
-        // Creates the selection boxes parameters.
-        /// </summary>
-        private void CreateSelectionBox()
-    {
 
-            if (Input.GetMouseButtonDown(0))
-            {
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    // Creates the selection boxes parameters.
+    /// </summary>
+    private void CreateSelectionBox() {
+
+        if (Input.GetMouseButtonDown(0)) {
             if (!MiniMap.RectangleArea.PointInside(Input.mousePosition))
                 _BoxStartPoint = Input.mousePosition;
-            }
-            else if (Input.GetMouseButtonUp(0))
-            {
-      
-                if (Selection.width < 0)
-                {
-                    Selection.x += Selection.width;
-                    Selection.width = -Selection.width;
-                }
-                if (Selection.height < 0)
-                {
-                    Selection.y += Selection.height;
-                    Selection.height = -Selection.height;
-                }
+        }
+        else if (Input.GetMouseButtonUp(0)) {
 
-                MouseIsDown = false;
-                _BoxStartPoint = -Vector3.one;
-          
+            if (Selection.width < 0) {
+                Selection.x += Selection.width;
+                Selection.width = -Selection.width;
+            }
+            if (Selection.height < 0) {
+                Selection.y += Selection.height;
+                Selection.height = -Selection.height;
             }
 
-            if (Input.GetMouseButton(0))
-            {
-                MouseIsDown = true;
-                Selection = new Rect(_BoxStartPoint.x, InvertMouseY(_BoxStartPoint.y), Input.mousePosition.x - _BoxStartPoint.x,
-                                     InvertMouseY(Input.mousePosition.y) - InvertMouseY(_BoxStartPoint.y));
-            }
-        
+            MouseIsDown = false;
+            _BoxStartPoint = -Vector3.one;
+
+        }
+
+        if (Input.GetMouseButton(0)) {
+            MouseIsDown = true;
+            Selection = new Rect(_BoxStartPoint.x, InvertMouseY(_BoxStartPoint.y), Input.mousePosition.x - _BoxStartPoint.x,
+                                 InvertMouseY(Input.mousePosition.y) - InvertMouseY(_BoxStartPoint.y));
+        }
+
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1746,10 +1475,9 @@ public class KeyboardInput : MonoBehaviour {
     /// <summary>
     // Draws the selection box for selecting.
     /// </summary>
-    private void OnGUI()
-    {
-        if (_BoxStartPoint != -Vector3.one)
-        {
+    private void OnGUI() {
+
+        if (_BoxStartPoint != -Vector3.one) {
             GUI.color = new Color(1, 1, 1, 0.5f);
             GUI.DrawTexture(Selection, SelectionHighlight);
         }
@@ -1767,6 +1495,12 @@ public class KeyboardInput : MonoBehaviour {
     /// </returns>
     public static float InvertMouseY(float y) { return Screen.height - y; }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="a_vector"></param>
     public void SetStartPoint(Vector3 a_vector) { _BoxStartPoint = a_vector; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
