@@ -30,13 +30,48 @@ public class SiegeTurret : Tower {
     //      VARIABLES
     //
     //******************************************************************************************************************************
-
-
-
+    
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
     //
     //******************************************************************************************************************************
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Called each frame. 
+    /// </summary>
+    protected override void Update() {
+        base.Update();
+
+        // A valid target is known
+        if (_AttackTarget != null) {
+
+            if (_AttackTarget.IsAlive()) {
+
+                // Rotating the head of the siege turret
+                if (Head != null) {
+
+                    // Aim the turret's head at the target (Z AXIS ONLY)
+                    Vector3 hDirection = (_AttackTarget.transform.position - transform.position).normalized;
+                    hDirection.y = 0;
+                    Quaternion hLookAtRot = Quaternion.LookRotation(hDirection);
+                    Head.transform.rotation = Quaternion.Lerp(Head.transform.rotation, hLookAtRot, WeaponAimingSpeed * Time.deltaTime);
+                }
+
+                if (TowerWeapon != null) {
+
+                    // Fire the turret's weapon
+                    if (TowerWeapon.CanFire()) { TowerWeapon.FireWeapon(); }
+                }
+            }
+
+            // Target is dead so null it out (so that the turret returns to the default state)
+            else { _AttackTarget = null; }
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }

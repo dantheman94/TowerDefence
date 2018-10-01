@@ -255,44 +255,61 @@ public class Weapon : MonoBehaviour {
 
             proj.transform.position = _MuzzleLaunchPoints[_MuzzleIterator].position;
             rot = _MuzzleLaunchPoints[_MuzzleIterator].rotation;
-            
+
             // Apply offset pattern
-            switch (AngularOffsetType) {
+            if (!ProjectileClass.AffectedByGravity) {
 
-                // Apply alternating pattern
-                case EOffsetType.Alternate: {
-                        
-                    AngularOffset = AngularOffset * -1;
-                    break;
+                switch (AngularOffsetType) {
+
+                    // Apply alternating pattern
+                    case EOffsetType.Alternate: {
+
+                            AngularOffset = AngularOffset * -1;
+                            break;
+                        }
+
+                    // Apply consecutive pattern
+                    case EOffsetType.Consecutive: {
+
+                            _CurrentOffsetMultiplier *= -1;
+
+                            AngularOffset = AngularOffset * _CurrentOffsetMultiplier;
+                            break;
+                        }
+
+                    // Random offset
+                    case EOffsetType.Random: {
+
+                            int i = UnityEngine.Random.Range(-1, 1);
+                            if (i == 0) { i = 1; }
+                            AngularOffset = AngularOffset * i;
+                            break;
+                        }
+
+                    default: break;
                 }
 
-                // Apply consecutive pattern
-                case EOffsetType.Consecutive: {
+                // Set rotation by offset
+                rot.eulerAngles += AngularOffset;
+                proj.transform.rotation = rot;
 
-                    _CurrentOffsetMultiplier *= -1;
-
-                    AngularOffset = AngularOffset * _CurrentOffsetMultiplier;
-                    break;
-                }
-
-                // Random offset
-                case EOffsetType.Random: {
-
-                    int i = UnityEngine.Random.Range(-1, 1);
-                    if (i == 0) { i = 1; }
-                    AngularOffset = AngularOffset * i;
-                    break;
-                }
-
-                default: break;
+                // Start the projectile
+                proj.Init(this);
             }
-            
-            // Set rotation by offset
-            rot.eulerAngles += AngularOffset;
-            proj.transform.rotation = rot;
 
-            // Start the projectile
-            proj.Init(this);
+            // Projectile is affected by gravity (arc formation)
+            else {
+
+                if (_UnitAttached != null) {
+
+                    // Determine arc velocity
+                    Vector3 velocity = Projectile.DetermineArcVelocity(proj.transform.position, _UnitAttached.GetAttackTarget().transform.position, proj.MovementSpeed);
+
+                    // Start the projectile
+                    proj.Init(this);
+                    ///proj.SetVelocity(velocity);
+                }
+            }            
         }
     }
 

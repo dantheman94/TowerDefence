@@ -7,7 +7,7 @@ using UnityEngine;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 1/9/2018
+//  Last edited on: 1/10/2018
 //
 //******************************
 
@@ -27,7 +27,6 @@ public class Projectile : MonoBehaviour {
     public float MaxDistance = 1000f;
     [Space]
     public bool AffectedByGravity = false;
-    public float GravityStrength = 1f;
     [Space]
     public bool HomingProjectile = false;
     public float TrackingStrength = 0f;
@@ -56,6 +55,8 @@ public class Projectile : MonoBehaviour {
     private WorldObject HomingTarget = null;
     private Vector3 _DirectionToTarget = Vector3.zero;
     private Quaternion _WeaponLookRotation = Quaternion.identity;
+
+    private Vector3 _ArcTargetLocation = Vector3.zero;
 
     //******************************************************************************************************************************
     //
@@ -104,6 +105,11 @@ public class Projectile : MonoBehaviour {
             if (_WeaponAttached.GetUnitAttached() != null) { HomingTarget = _WeaponAttached.GetUnitAttached().GetAttackTarget(); }
             if (_WeaponAttached.GetTowerAttached() != null) { HomingTarget = _WeaponAttached.GetTowerAttached().GetAttackTarget(); }
         }
+
+        // Create parabolic arc component
+        ParabolicArc oldArc = GetComponent<ParabolicArc>();
+        if (oldArc != null) { Destroy(oldArc); }
+        if (AffectedByGravity) { gameObject.AddComponent<ParabolicArc>(); }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -114,12 +120,9 @@ public class Projectile : MonoBehaviour {
     private void Update () {
 
         // Constantly move forward
-        _Velocity = transform.forward;
+        ///_Velocity = transform.forward;
         transform.position += _Velocity * MovementSpeed * Time.deltaTime;
-
-        // Apply downward force if affected by gravity
-        if (AffectedByGravity) { transform.position -= _Downwards * GravityStrength * Time.deltaTime; }
-
+        
         // Re-pool projectile when it has reached max distance threshold
         if (_DistanceTravelled < MaxDistance) _DistanceTravelled = Vector3.Distance(_OriginPosition, transform.position);
         else { OnDestroy(); }
@@ -332,7 +335,9 @@ public class Projectile : MonoBehaviour {
     /// </summary>
     /// <param name="particleEffect"></param>
     /// <param name="delay"></param>
-    /// <returns></returns>
+    /// <returns>
+    //  IEnumerator
+    /// </returns>
     IEnumerator ParticleDespawn(ParticleSystem particleEffect, float delay) {
 
         // Delay
@@ -340,6 +345,45 @@ public class Projectile : MonoBehaviour {
 
         // Despawn the system
         ObjectPooling.Despawn(particleEffect.gameObject);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Forces the velocity of THIS projectile by the passed argument.
+    /// </summary>
+    // <param name="velocity"></param>
+    public void SetVelocity(Vector3 velocity) { _Velocity = velocity; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="origin"></param>
+    /// <param name="target"></param>
+    /// <param name="speed"></param>
+    /// <returns></returns>
+    public static Vector3 DetermineArcVelocity(Vector3 origin, Vector3 target, float speed) {
+
+        Vector3 direction = target - origin;
+        float heightDiff = direction.y;
+
+        // Retain the horizontal direction
+        direction.y = 0;
+        
+        // Get horizontal distance
+        float distance = direction.magnitude;
+
+        // Set elevation to 45 degrees
+        direction.y = distance;
+
+        // Correct for different heights
+        distance += heightDiff;
+
+        // Return Vector3 velocity
+        float vel = Mathf.Sqrt(distance * Physics.gravity.magnitude);
+        return vel * direction.normalized;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
