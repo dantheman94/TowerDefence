@@ -33,6 +33,25 @@ public class CameraPlayer : MonoBehaviour {
     [Space]
     public LayerMask _RaycastLayerMask;
 
+    [Space]
+    [Header("----------------------------------")]
+    [Header(" MAP BOUNDS")]
+    [Space]
+    public float EastBounds;
+    public float WestBounds;
+    public float NorthBounds;
+    public float SouthBounds;
+    public bool LockCameraToBounds = false;
+
+    [HideInInspector]
+    public bool PastBoundsEast = false;
+    [HideInInspector]
+    public bool PastBoundsWest = false;
+    [HideInInspector]
+    public bool PastBoundsNorth = false;
+    [HideInInspector]
+    public bool PastBoundsSouth = false;
+
     //******************************************************************************************************************************
     //
     //      VARIABLES
@@ -70,10 +89,53 @@ public class CameraPlayer : MonoBehaviour {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    private void CheckCameraBounds()
+    {
+        if (LockCameraToBounds)
+        {
+            if (transform.position.x <= WestBounds)
+            {
+                PastBoundsWest = true;
+            }
+            else
+            {
+                PastBoundsWest = false;
+            }
+
+            if (transform.position.x >= EastBounds)
+            {
+                PastBoundsEast = true;
+            }
+            else
+            {
+                PastBoundsEast = false;
+            }
+
+            if(transform.position.z <= SouthBounds)
+            {
+                PastBoundsSouth = true;
+            }
+            else
+            {
+                PastBoundsSouth = false;
+            }
+
+            if (transform.position.z >= NorthBounds)
+            {
+                PastBoundsNorth = true;
+            }
+            else
+            {
+                PastBoundsNorth = false;
+            }
+        }
+    }
+
     /// <summary>
     //  Called each frame.
     /// </summary>
     private void Update() {
+        CheckCameraBounds();
         /*
         // If the min raycasts hits, then the camera is too low
         RaycastHit minHit;

@@ -28,6 +28,7 @@ public class KeyboardInput : MonoBehaviour {
     public static bool MouseIsDown = false;
     public Texture SelectionHighlight;
     public Minimap MiniMap;
+    
 
     private Vector3 _LookPoint;
     private Vector3 _CurrentVelocity = Vector3.zero;
@@ -350,28 +351,29 @@ public class KeyboardInput : MonoBehaviour {
             
 
             // Keyboard movement WASD
-            if (Input.GetKey(KeyCode.W) && (!Input.GetKey(KeyCode.LeftAlt))) {
+            if (Input.GetKey(KeyCode.W) && (!Input.GetKey(KeyCode.LeftAlt)) && (!_PlayerCamera.PastBoundsNorth)) {
 
                 // Move forwards
                 movement.y += Settings.MovementSpeed;
                 CreateCenterPoint();
             }
 
-            if (Input.GetKey(KeyCode.S) && (!Input.GetKey(KeyCode.LeftAlt))) {
+            if (Input.GetKey(KeyCode.S) && (!Input.GetKey(KeyCode.LeftAlt)) && (!_PlayerCamera.PastBoundsSouth)) {
 
                 // Move backwards
                 movement.y -= Settings.MovementSpeed;
                 CreateCenterPoint();
             }
 
-            if (Input.GetKey(KeyCode.D) && (!Input.GetKey(KeyCode.LeftAlt))) {
+            if (Input.GetKey(KeyCode.D) && (!Input.GetKey(KeyCode.LeftAlt)) && (!_PlayerCamera.PastBoundsEast)) {
 
                 // Move right
                 movement.x += Settings.MovementSpeed;
                 CreateCenterPoint();
             }
 
-            if (Input.GetKey(KeyCode.A) && (!Input.GetKey(KeyCode.LeftAlt))) {
+            if (Input.GetKey(KeyCode.A) && (!Input.GetKey(KeyCode.LeftAlt)) && (!_PlayerCamera.PastBoundsWest))
+            {
 
                 // Move left
                 movement.x -= Settings.MovementSpeed;
