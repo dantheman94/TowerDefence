@@ -75,6 +75,7 @@ public class Player : MonoBehaviour {
     private int _Score = 0;
     private int _WavesSurvived = 0;
     private UpgradeManager _UpgradeManager;
+    private ResourceManager _ResourceManager;
 
     // Army
     private List<Base> _Bases;
@@ -118,6 +119,7 @@ public class Player : MonoBehaviour {
         MaxPopulation = GameManager.Instance.StartingMaxPopulation;
 
         _UpgradeManager = GetComponent<UpgradeManager>();
+        _ResourceManager = GetComponent<ResourceManager>();
 
         // Initialize controller
         switch (_CurrentController) {
@@ -291,6 +293,16 @@ public class Player : MonoBehaviour {
     //  UpgradeManager
     /// </returns>
     public UpgradeManager GetUpgradeManager() { return _UpgradeManager; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Returns reference to the Resource Manager attached to this player.
+    /// </summary>
+    /// <returns>
+    //  ResourceManager
+    /// </returns>
+    public ResourceManager GetResourceManager() { return _ResourceManager; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

@@ -27,7 +27,7 @@ public class Generator : Building {
     public bool UpgradedGenerator = false;
     public int ResourcesGivenWhenBuilt = 100;
     public int ResourcesGivenPerTickOver = 1;
-    public float GeneratorRate = 0.1f;
+    public float GeneratorRate = 1f;
 
     //******************************************************************************************************************************
     //
@@ -44,43 +44,6 @@ public class Generator : Building {
     //      FUNCTIONS
     //
     //******************************************************************************************************************************
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  Called each frame. 
-    /// </summary>
-    protected override void Update() {
-        base.Update();
-
-        if (_ObjectState == WorldObjectStates.Active && _Player) {
-
-            // Keep generating resources for the player
-            if (_SupplyTimer < GeneratorRate) { _SupplyTimer += Time.deltaTime; }
-            else {
-
-                _SupplyTimer = 0f;
-                switch (ResourceType) {
-
-                    // Supplies
-                    case eResourceType.Supplies: {
-
-                            _Player.SuppliesCount += ResourcesGivenPerTickOver;
-                            break;
-                        }
-
-                    // Power
-                    case eResourceType.Power: {
-
-                            _Player.PowerCount += ResourcesGivenPerTickOver;
-                            break;
-                        }
-
-                    default: break;
-                }
-            }
-        }
-    }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -132,4 +95,23 @@ public class Generator : Building {
         }
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    protected override void OnBuilt()
+    {
+        base.OnBuilt();
+
+        switch (ResourceType)
+        {
+            case eResourceType.Supplies:
+                _Player.GetResourceManager().AddSupplyGeneratorCount();
+                break;
+
+            case eResourceType.Power:
+                _Player.GetResourceManager().AddPowerGeneratorCount();
+                break;
+
+            default: break;
+        }
+    }
 }
