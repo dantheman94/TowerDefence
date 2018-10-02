@@ -22,11 +22,17 @@ public class TimescaleDevsetting : MonoBehaviour {
     public string Notes = "F12 to speed up game by Time Scale amount. " + " " +
         "F11 to return to normal speed";
 
+    //******************************************************************************************************************************
+    //
+    //      VARIABLES
+    //
+    //******************************************************************************************************************************
     public float timeScale = 1.0f;
-
     [Tooltip("Text obj is under Debugger > GameSpeedText")]
     public GameObject textObj;
     private Text textToSet;
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     void Start()
     {
