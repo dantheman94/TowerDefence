@@ -282,8 +282,11 @@ public class Building : WorldObject {
         base.StartBuildingObject(buildingSlot);
 
         // Determine build time
-        UpgradeManager upgradeManager = _Player.GetUpgradeManager();
-        BuildingTime *= (int)upgradeManager._BuildingSpeedMultiplier;
+        if (_Player != null) {
+
+            UpgradeManager upgradeManager = _Player.GetUpgradeManager();
+            BuildingTime *= (int)upgradeManager._BuildingSpeedMultiplier;
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
