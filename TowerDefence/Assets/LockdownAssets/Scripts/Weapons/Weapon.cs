@@ -309,15 +309,11 @@ public class Weapon : MonoBehaviour {
                 }
 
                 if (_TowerAttached != null) {
-
-                    // Determine arc velocity
-                    ///Vector3 velocity = Projectile.DetermineArcVelocity(proj.transform.position, _UnitAttached.GetAttackTarget().transform.position, proj.MovementSpeed);
-
+                    
                     // Start the projectile
                     proj.Init(this);
                     proj.transform.rotation = rot;
                     proj.GetComponent<ParabolicArc>().Init(_TowerAttached.GetAttackTarget().transform);
-                    ///proj.SetVelocity(velocity);
                 }
             }            
         }

@@ -253,6 +253,13 @@ public class WaveManager : MonoBehaviour {
                 SpawnSubwave(GetSubwave());
             }
 
+            // Wave has been cleared out?
+            if (_CurrentWaveEnemies.Count == 0) {
+
+                WaveComplete();
+                StartNewWave();
+            }
+
             // Only non boss waves will start before the current wave is complete
             if (_NextWaveTimer <= 0f || _CurrentWaveTime >= _TimeTillNextWave) {
 

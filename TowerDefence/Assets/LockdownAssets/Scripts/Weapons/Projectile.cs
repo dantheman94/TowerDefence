@@ -120,7 +120,7 @@ public class Projectile : MonoBehaviour {
     private void Update () {
 
         // Constantly move forward
-        ///_Velocity = transform.forward;
+        _Velocity = transform.forward;
         transform.position += _Velocity * MovementSpeed * Time.deltaTime;
         
         // Re-pool projectile when it has reached max distance threshold
@@ -348,44 +348,5 @@ public class Projectile : MonoBehaviour {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  Forces the velocity of THIS projectile by the passed argument.
-    /// </summary>
-    // <param name="velocity"></param>
-    public void SetVelocity(Vector3 velocity) { _Velocity = velocity; }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  
-    /// </summary>
-    /// <param name="origin"></param>
-    /// <param name="target"></param>
-    /// <param name="speed"></param>
-    /// <returns></returns>
-    public static Vector3 DetermineArcVelocity(Vector3 origin, Vector3 target, float speed) {
-
-        Vector3 direction = target - origin;
-        float heightDiff = direction.y;
-
-        // Retain the horizontal direction
-        direction.y = 0;
-        
-        // Get horizontal distance
-        float distance = direction.magnitude;
-
-        // Set elevation to 45 degrees
-        direction.y = distance;
-
-        // Correct for different heights
-        distance += heightDiff;
-
-        // Return Vector3 velocity
-        float vel = Mathf.Sqrt(distance * Physics.gravity.magnitude);
-        return vel * direction.normalized;
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    
 }

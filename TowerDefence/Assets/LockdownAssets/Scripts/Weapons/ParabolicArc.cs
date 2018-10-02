@@ -19,7 +19,7 @@ public class ParabolicArc : MonoBehaviour {
     //
     //******************************************************************************************************************************
 
-    private float _FiringAngle = 10f;
+    private float _FiringAngle = 45f;
     private float _Gravity = -9.8f;
     
     private Transform _ProjectileTransform;
