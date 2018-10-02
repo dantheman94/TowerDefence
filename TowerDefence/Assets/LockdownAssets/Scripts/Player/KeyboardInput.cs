@@ -848,14 +848,13 @@ public class KeyboardInput : MonoBehaviour {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    private void MiddleClick()
-    {
-        if(Input.GetMouseButton(2))
-        {
-            if(Input.GetAxis("Mouse X") == -1)
-            {
+    /// <summary>
+    //  Checks for 'tab' input and creates a global rally point at the users mouse position in world space.
+    /// </summary>
+    private void CheckForGlobalRallyPoint() {
 
-            }
+        if (Input.GetKeyDown(KeyCode.Tab)) {
+
         }
     }
 

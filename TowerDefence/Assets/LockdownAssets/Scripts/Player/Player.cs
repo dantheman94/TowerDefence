@@ -82,6 +82,11 @@ public class Player : MonoBehaviour {
     private List<Unit> _Army;
     private List<Platoon> _Platoons;
     const int _PlatoonCount = 10;
+
+    // Global rally point
+    private bool _GlobalRallyPointActive = false;
+    private Vector3 _GlobalRallyPointPosition = Vector3.zero;
+    private GameObject _GlobalRallyFlag = null;
     
     // HUD
     public HUD _HUD { get; private set; }
@@ -303,6 +308,18 @@ public class Player : MonoBehaviour {
     //  ResourceManager
     /// </returns>
     public ResourceManager GetResourceManager() { return _ResourceManager; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Re-enables the player's global rally point to overwrite all the base rally points.
+    /// </summary>
+    /// <param name="position"></param>
+    public void UpdateGlobalRallyPoint(Vector3 position) {
+
+        _GlobalRallyPointPosition = position;
+        if (_GlobalRallyFlag != null) { }
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
