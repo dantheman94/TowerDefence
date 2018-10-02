@@ -17,16 +17,18 @@ public class TimescaleDevsetting : MonoBehaviour {
     //      INSPECTOR
     //
     //******************************************************************************************************************************
+
     [TextArea]
     //[Tooltip("Doesn't do anything. Just comments shown in inspector")]
     public string Notes = "F12 to speed up game by Time Scale amount. " + " " +
-        "F11 to return to normal speed";
+        "F11 to return to normal speed"+ " "+ "Game is unstable if speed is over 10, So it's capped";
 
     //******************************************************************************************************************************
     //
     //      VARIABLES
     //
     //******************************************************************************************************************************
+    [Tooltip("Speed can't be over 10, will round down if over")]
     public float timeScale = 1.0f;
     [Tooltip("Text obj is under Debugger > GameSpeedText")]
     public GameObject textObj;
@@ -37,6 +39,11 @@ public class TimescaleDevsetting : MonoBehaviour {
     void Start()
     {
         textToSet = textObj.GetComponent<Text>();
+
+        if (timeScale >= 10)
+        {
+            timeScale = 10.0f;
+        }
     }
 
     void Update () {
@@ -46,6 +53,9 @@ public class TimescaleDevsetting : MonoBehaviour {
         /// </summary>
         /// 
         if (Input.GetKeyDown(KeyCode.F12)) {
+            if (timeScale >= 10) {
+                timeScale = 10.0f;
+            }
             Time.timeScale = timeScale;
             textToSet.text = "Game is "+ timeScale + "x speed" ;
         }
