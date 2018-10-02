@@ -899,8 +899,19 @@ public class KeyboardInput : MonoBehaviour {
                 // If there are individually selected units
                 if (units.Count > 0) {
 
-                    // Loop through all selected units & perform SEEK command
-                    foreach (var unit in units) { unit.AgentSeekPosition(hitPoint, true); }
+                    // Create offsets for each of the individual units so that they dont fight over the same destination point
+                    for (int i = 0; i < units.Count; i++) {
+
+                        // First unit goes for the center point
+                        if (i == 0) { units[0].AgentSeekPosition(hitPoint, true); }
+                        else {
+
+                            // Every other unit goes around in a circle along the ground
+                            Vector3 rand = (Random.insideUnitCircle * (i + 1)) * (units[i].GetAgent().radius * 3);
+                            Vector3 destination = hitPoint += new Vector3(rand.x, 0, rand.y);
+                            units[i].AgentSeekPosition(hitPoint, false);
+                        }
+                    }
                 }
             }
 
