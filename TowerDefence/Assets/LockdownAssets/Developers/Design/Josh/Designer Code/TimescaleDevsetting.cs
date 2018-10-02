@@ -23,12 +23,14 @@ public class TimescaleDevsetting : MonoBehaviour {
         "F11 to return to normal speed";
 
     public float timeScale = 1.0f;
-    public GameObject textobj;
-    private Text texttoset;
+
+    [Tooltip("Text obj is under Debugger > GameSpeedText")]
+    public GameObject textObj;
+    private Text textToSet;
 
     void Start()
     {
-        texttoset = textobj.GetComponent<Text>();
+        textToSet = textObj.GetComponent<Text>();
     }
 
     void Update () {
@@ -39,12 +41,12 @@ public class TimescaleDevsetting : MonoBehaviour {
         /// 
         if (Input.GetKeyDown(KeyCode.F12)) {
             Time.timeScale = timeScale;
-            texttoset.text = "Game is "+ timeScale + "x speed" ;
+            textToSet.text = "Game is "+ timeScale + "x speed" ;
         }
         if (Input.GetKeyDown(KeyCode.F11))
         {
             Time.timeScale = 1.0f;
-            texttoset.text = " ";
+            textToSet.text = " ";
         }
     }
 }
