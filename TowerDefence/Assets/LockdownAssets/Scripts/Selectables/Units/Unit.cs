@@ -111,6 +111,7 @@ public class Unit : WorldObject {
     protected CharacterController _CharacterController = null;
     protected NavMeshAgent _Agent = null;
     protected GameObject _SeekWaypoint = null;
+    private bool _DisplaySeekWaypoint = false;
     protected float _DistanceToTarget = 0f;
     protected bool _IsBeingPlayerControlled = false;
 
@@ -160,9 +161,7 @@ public class Unit : WorldObject {
         if (MaxAttackingRange < IdealAttackRangeMax)   { MaxAttackingRange = IdealAttackRangeMax; }
         if (MaxAttackingRange < IdealAttackRangeMax) { MaxAttackingRange = IdealAttackRangeMax; }
         SnapLookAtRange = IdealAttackRangeMin;
-
-        _PotentialTargets = new List<WorldObject>();
-
+        
         // Set fog vision radius
         FogUnit _FogOfWarSight = GetComponent<FogUnit>();
         _FogOfWarSight.Radius = MaxAttackingRange * 1.5f;
@@ -175,6 +174,8 @@ public class Unit : WorldObject {
     /// </summary>
     protected override void Start() {
         base.Start();
+
+        _PotentialTargets = new List<WorldObject>();
 
         // Create copy of weapons & re-assign them to replace the old ones
         if (PrimaryWeapon != null) {
@@ -655,7 +656,7 @@ public class Unit : WorldObject {
             // Update seeking waypoint visibility (only for player controlled units)
             if (_SeekWaypoint && Team == GameManager.Team.Defending) {
 
-                if (_IsSeeking && (_IsCurrentlySelected || _IsCurrentlyHighlighted)) { _SeekWaypoint.SetActive(true); }
+                if (_IsSeeking && _DisplaySeekWaypoint && (_IsCurrentlySelected || _IsCurrentlyHighlighted)) { _SeekWaypoint.SetActive(true); }
                 else { _SeekWaypoint.SetActive(false); }
             }
 
@@ -811,7 +812,7 @@ public class Unit : WorldObject {
     /// <returns>
     //  IEnumerator
     /// </returns>
-    protected  IEnumerator AgentGoTo(Vector3 pos) {
+    protected IEnumerator AgentGoTo(Vector3 pos) {
 
         if (!_PathInterupted) { AgentSeekPosition(pos, false, false); }
         yield return new WaitForEndOfFrame();
@@ -825,6 +826,8 @@ public class Unit : WorldObject {
     /// <param name="seekTarget"></param>
     public void AgentSeekPosition(Vector3 seekTarget, bool overwrite = false, bool displayWaypoint = true) {
 
+        _DisplaySeekWaypoint = displayWaypoint;
+
         if (overwrite) { CommandOverride(); }
         if (_Agent.isOnNavMesh) {
 
@@ -834,7 +837,7 @@ public class Unit : WorldObject {
             _Agent.speed = InfantryMovementSpeed;
 
             // Show seeking waypoint
-            if (displayWaypoint && Team == GameManager.Team.Defending) {
+            if (_DisplaySeekWaypoint && Team == GameManager.Team.Defending) {
 
                 // Create waypoint
                 if (_SeekWaypoint == null) { _SeekWaypoint = ObjectPooling.Spawn(GameManager.Instance.AgentSeekObject, Vector3.zero, Quaternion.identity); }
@@ -847,6 +850,13 @@ public class Unit : WorldObject {
                     _SeekWaypoint.transform.position = seekTarget;
                     _SeekWaypoint.transform.position += Vector3.up;
                 }
+            }
+
+            // Hide the waypoint if its not meant to be displayed
+            else {
+
+                // Validity check
+                if (_SeekWaypoint != null) { _SeekWaypoint.SetActive(false); }
             }
             _IsSeeking = true;
         }
@@ -861,14 +871,14 @@ public class Unit : WorldObject {
     /// <param name="attackTarget"></param>
     /// <param name="seekPosition"></param>
     /// <param name="overwrite"></param>
-    public void AgentAttackObject(WorldObject attackTarget, Vector3 seekPosition, bool overwrite = false) {
+    public void AgentAttackObject(WorldObject attackTarget, Vector3 seekPosition, bool overwrite = false, bool displayWaypoint = true) {
 
         // Set target
-        AddPotentialTarget(attackTarget);
-        _AttackTarget = attackTarget;
+        ///AddPotentialTarget(attackTarget);
+        ///_AttackTarget = attackTarget;
 
         // Seek
-        AgentSeekPosition(seekPosition, overwrite);
+        AgentSeekPosition(seekPosition, overwrite, displayWaypoint);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -958,6 +968,46 @@ public class Unit : WorldObject {
         Vector3 position = trans.position;
         Destroy(trans.gameObject);
         return position;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Returns a list of positions in a arc shape facing the building target.
+    /// </summary>
+    // <param name="building"></param>
+    // <param name="size"></param>
+    // <param name="distance"></param>
+    /// <returns>
+    //  List<Vector3>
+    /// </returns>
+    public List<Vector3> GetAttackArcPositions(Building building, int size) {
+
+        // Create transform and create a position in the direction of the target * distance specified
+        Transform trans = new GameObject().transform;
+        trans.position = building.transform.position;
+        trans.LookAt(transform.position);
+        trans.position += trans.forward * MaxAttackingRange / 2;
+
+        // Destroy obsolete transform and return the new attacking position
+        Vector3 direction = (-(trans.position - transform.position).normalized * (MaxAttackingRange / 2));
+        Quaternion rotation_offset = Quaternion.Euler(0.0f, 10.0f, 0.0f);
+        List<Vector3> positions = new List<Vector3>();
+
+        // Create positions in an arc around the target
+        for (int i = 0; i < size + 1; i++) {
+
+            // Skip the first iterator
+            if (i == 0) { continue; }
+            else {
+                
+                direction = rotation_offset * direction;
+                positions.Add(building.transform.position + direction);
+            }
+        }
+
+        Destroy(trans.gameObject);
+        return positions;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1322,5 +1372,5 @@ public class Unit : WorldObject {
     public AttackPath GetAttackPath() { return _AttackPath; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    
 }

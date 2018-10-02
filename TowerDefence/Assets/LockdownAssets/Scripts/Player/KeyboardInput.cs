@@ -895,22 +895,18 @@ public class KeyboardInput : MonoBehaviour {
 
             // AI seek to hitpoint vector
             if (hitObject.tag == "Ground") {
-                
-                // If there are individually selected units
-                if (units.Count > 0) {
 
-                    // Create offsets for each of the individual units so that they dont fight over the same destination point
-                    for (int i = 0; i < units.Count; i++) {
+                // Create offsets for each of the individual units so that they dont fight over the same destination point
+                for (int i = 0; i < units.Count; i++) {
 
-                        // First unit goes for the center point
-                        if (i == 0) { units[0].AgentSeekPosition(hitPoint, true); }
-                        else {
+                    // First unit goes for the center point
+                    if (i == 0) { units[0].AgentSeekPosition(hitPoint, true, true); }
+                    else {
 
-                            // Every other unit goes around in a circle along the ground
-                            Vector3 rand = (Random.insideUnitCircle * (i + 1)) * (units[i].GetAgent().radius * 3);
-                            Vector3 destination = hitPoint += new Vector3(rand.x, 0, rand.y);
-                            units[i].AgentSeekPosition(hitPoint, false);
-                        }
+                        // Every other unit goes around in a circle along the ground
+                        Vector3 rand = (Random.insideUnitCircle * (i + 1)) * (units[i].GetAgent().radius * 3);
+                        Vector3 destination = hitPoint += new Vector3(rand.x, 0, rand.y);
+                        units[i].AgentSeekPosition(hitPoint, true, false);
                     }
                 }
             }
@@ -946,13 +942,17 @@ public class KeyboardInput : MonoBehaviour {
 
                     // Enemy building
                     if (buildingObj.Team != GameManager.Team.Defending) {
-                        
-                        // If there are individually selected units
+
+                        // Get attacking positions
+                        List<Vector3> positions = new List<Vector3>();
                         if (units.Count > 0) {
 
-                            // Loop through all selected units & perform ATTACK command on the building
-                            foreach (var unit in units) { unit.AgentAttackObject(buildingObj, unit.GetAttackingPositionAtObject(buildingObj), true); }
+                            // Get positions in a arc facing the building
+                            positions = units[0].GetAttackArcPositions(buildingObj, units.Count);
                         }
+
+                        // Attack the building
+                        for (int i = 0; i < units.Count; i++) { units[i].AgentAttackObject(buildingObj, positions[i], true/*, i == 0 ? true : false*/); }                        
                     }
 
                     // Ally building
