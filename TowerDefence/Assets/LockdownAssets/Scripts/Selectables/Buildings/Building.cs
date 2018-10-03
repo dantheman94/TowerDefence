@@ -32,6 +32,10 @@ public class Building : WorldObject {
     public float ObjectHeight = 15f;
     public bool HasABuildingQueue = true;
     [Space]
+    public ParticleSystem EffectPlayedWhenBuildingSelectable = null;
+    public ParticleSystem EffectPlayedOnBuiltSelectable = null;
+    public Transform BuiltSelectableEffectPosition;
+    [Space]
     public List<Abstraction> Selectables;
 
 
@@ -49,6 +53,9 @@ public class Building : WorldObject {
     protected bool _IsInBuildingQueue = false;
     protected List<Abstraction> _BuildingQueue;
     protected UI_BuildingQueue _BuildingQueueUI = null;
+
+    private ParticleSystem _SelectableBuildingEffect = null;
+    private ParticleSystem _SelectableBuiltEffect = null;
     
     //******************************************************************************************************************************
     //
@@ -109,6 +116,18 @@ public class Building : WorldObject {
                 _BuildingQueue[0]._ObjectState = WorldObjectStates.Building;
                 if (_BuildingQueue[0].GetCurrentBuildTimeRemaining() <= 0f) {
 
+                    // Play "on selectable built" particle effect if neccessary
+                    if (EffectPlayedOnBuiltSelectable != null) {
+
+                        // Assign internal effect & play
+                        _SelectableBuiltEffect = ObjectPooling.Spawn(EffectPlayedOnBuiltSelectable.gameObject, BuiltSelectableEffectPosition.position, transform.rotation).GetComponent<ParticleSystem>();
+                        _SelectableBuiltEffect.Play();
+
+                        // Despawn particle effect when it has finished its cycle
+                        float duration = _SelectableBuiltEffect.duration + _SelectableBuiltEffect.startLifetime;
+                        StartCoroutine(ParticleDespawn(_SelectableBuiltEffect, duration));
+                    }
+
                     // Remove from queue
                     _BuildingQueue.RemoveAt(0);
 
@@ -117,6 +136,28 @@ public class Building : WorldObject {
 
                     // Update building queue UI
                     _BuildingQueueUI.UpdateQueueItemList();
+                }
+
+                // Currently building something
+                else {
+
+                    // Play "on building selectable" particle effect if neccessary
+                    if (EffectPlayedWhenBuildingSelectable != null && _SelectableBuildingEffect == null) {
+
+                        // Assign internal effect & play
+                        _SelectableBuildingEffect = ObjectPooling.Spawn(EffectPlayedWhenBuildingSelectable.gameObject, BuiltSelectableEffectPosition.position, transform.rotation).GetComponent<ParticleSystem>();
+                        _SelectableBuildingEffect.Play();
+
+                        // Despawn particle effect when it has finished its cycle
+                        float duration = _BuildingQueue[0].BuildingTime;
+                        StartCoroutine(ParticleDespawn(_SelectableBuildingEffect, duration));
+                    }
+
+                    if (_SelectableBuildingEffect != null) {
+
+                        // Building particle is complete so null the reference (so next time its used - it repools a new instance)
+                        if (!_SelectableBuildingEffect.isPlaying) { _SelectableBuildingEffect = null; }
+                    }
                 }
             }
         }
@@ -480,6 +521,26 @@ public class Building : WorldObject {
             }
         }
         return false;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  A coroutine that waits for the seconds specified then attempts to re-pool
+    //  the particle effect (or destroyed entirely if re-pooling isn't possible)
+    /// </summary>
+    /// <param name="particleEffect"></param>
+    /// <param name="delay"></param>
+    /// <returns>
+    //  IEnumerator
+    /// </returns>
+    IEnumerator ParticleDespawn(ParticleSystem particleEffect, float delay) {
+
+        // Delay
+        yield return new WaitForSeconds(delay);
+
+        // Despawn the system
+        ObjectPooling.Despawn(particleEffect.gameObject);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

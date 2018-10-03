@@ -667,8 +667,9 @@ MonoBehaviour:
   Team: 1
   _Player: {fileID: 0}
   ShowSelectionGUI: 0
-  ShowQuadHighlighter: 1
-  ShowQuadSelector: 1
+  ShowOutline: 1
+  OutlineHighlightedWidth: 2
+  OutlineSelectedWidth: 3
   TargetPoint: {fileID: 1703944624825938}
   ShowcaseOffsetY: 0
   ShowcaseFOV: 60
@@ -694,7 +695,10 @@ MonoBehaviour:
   OnDeathEffect: {fileID: 0}
   ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.3
-  _ChasingDistance: 300
+  UnitType: 8
+  NavmeshType: 0
+  InfantryMovementSpeed: 10
+  CanBePlayerControlled: 0
   TargetWeights:
   - UnitType: 0
     Weight: 0
@@ -720,10 +724,6 @@ MonoBehaviour:
     Weight: 0
   - UnitType: 0
     Weight: 0
-  UnitType: 8
-  NavmeshType: 0
-  InfantryMovementSpeed: 10
-  CanBePlayerControlled: 0
   PrimaryWeapon: {fileID: 114255812415927018, guid: e9d3da69bc6ad464cb1b0403e9101ae3,
     type: 2}
   SecondaryWeapon: {fileID: 0}
@@ -732,6 +732,7 @@ MonoBehaviour:
   MaxAttackingRange: 150
   IdealAttackRangeMax: 100
   IdealAttackRangeMin: 50
+  ChasingDistance: 30
   CanBeStunned: 0
   BarrierDetectionDistance: 20
   StartingVeterancyLevel: 0
@@ -765,7 +766,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineMode: 0
+  outlineMode: 1
   outlineColor: {r: 1, g: 1, b: 1, a: 1}
   outlineWidth: 2
   precomputeOutline: 0

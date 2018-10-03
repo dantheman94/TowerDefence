@@ -15,37 +15,30 @@ public class ResourceManager : MonoBehaviour {
 
     //******************************************************************************************************************************
     //
-    //      VARIABLES
-    //
-    //******************************************************************************************************************************
-
-    private Player _Player;
-
-    [Space]
-    [Header("-----------------------------------")]
-    [Header(" GENERATOR COUNT")]
-    [Space]
-    private int _SupplyGenerators;
-    private int _PowerGenerators;
-
-    [Space]
-    [Header("-----------------------------------")]
-    [Header(" TIMERS")]
-    [Space]
-    private float _SupplyTimer = 0f;
-    private float _PowerTimer = 0f;
-
-    //******************************************************************************************************************************
-    //
     //      INSPECTOR
     //
     //******************************************************************************************************************************
+
     [Space]
     [Header("-----------------------------------")]
     [Header(" GENERATOR OBJECTS")]
     [Space]
     public Generator SupplyGenerator;
     public Generator PowerStation;
+
+    //******************************************************************************************************************************
+    //
+    //      VARIABLES
+    //
+    //******************************************************************************************************************************
+
+    private Player _Player;
+    
+    private int _SupplyGenerators;
+    private int _PowerGenerators;
+    
+    private float _SupplyTimer = 0f;
+    private float _PowerTimer = 0f;
 
     //******************************************************************************************************************************
     //
@@ -59,6 +52,7 @@ public class ResourceManager : MonoBehaviour {
     ///  Called when the gameObject is created.
     /// </summary>
     void Start () {
+
         // Get Player component
         _Player = GetComponent<Player>();	
 	}
@@ -72,9 +66,8 @@ public class ResourceManager : MonoBehaviour {
     {
         if (_Player != null)
         {
-
             // Keep generating resources for the player
-            if (_SupplyTimer < SupplyGenerator.GeneratorRate / _SupplyGenerators) {
+            if (_SupplyTimer < SupplyGenerator.GeneratorTickDelay / _SupplyGenerators) {
 
                 _SupplyTimer += Time.deltaTime;
             }
@@ -82,14 +75,14 @@ public class ResourceManager : MonoBehaviour {
 
                 if ((_Player.SuppliesCount < _Player.MaxSupplyCount) && _SupplyGenerators >= 1) {
 
-                    _Player.SuppliesCount += SupplyGenerator.ResourcesGivenPerTickOver;
+                    _Player.SuppliesCount += 1;
                 }
                 // Reset timer
                 _SupplyTimer = 0f;
             }
 
             // Keep generating power for the player
-            if (_PowerTimer < PowerStation.GeneratorRate / _PowerGenerators) {
+            if (_PowerTimer < PowerStation.GeneratorTickDelay / _PowerGenerators) {
 
                 _PowerTimer += Time.deltaTime;
             }
@@ -97,7 +90,7 @@ public class ResourceManager : MonoBehaviour {
 
                 if ((_Player.PowerCount < _Player.MaxSupplyCount) && _PowerGenerators >= 1) {
 
-                    _Player.PowerCount += PowerStation.ResourcesGivenPerTickOver;
+                    _Player.PowerCount += 1;
                 }
                 // Reset timer
                 _PowerTimer = 0f;

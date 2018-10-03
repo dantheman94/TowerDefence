@@ -51,18 +51,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f24bbf81aea765549a797e3e95ee482d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ProjectileType: 0
-  ProjectileClass: {fileID: 114867449933553978, guid: b4c1745b948a8454689b546b97ed4452,
-    type: 2}
+  _ProjectileType: 1
+  ProjectileClass: {fileID: 0}
   FiringEffect: {fileID: 0}
+  FiringDelay: 2
   MuzzleEffect: {fileID: 0}
   MuzzlePatternType: 0
   ReusableMuzzlePoints: 1
-  FiringDelay: 2
+  ChargeUpTime: 2
+  ChargeLightRange: 50
+  ChargeLightIntensity: 1
+  ChargeUpColor: {r: 1, g: 1, b: 1, a: 1}
   AngularOffsetType: 0
   AngularOffset: {x: 0, y: 0, z: 0}
+  SpawnOnImpact: {fileID: 1398645600230270, guid: b4c1745b948a8454689b546b97ed4452,
+    type: 2}
   Damages:
-    DamageDefault: 15
+    DamageDefault: 20
     DamageCoreInfantry: 2
     DamageAntiInfantryMarine: 2
     DamageHero: 2
@@ -75,4 +80,4 @@ MonoBehaviour:
     DamageHeavyAirship: 2
   BottomlessClip: 1
   MagazineSize: 4
-  ReloadTime: 1
+  ReloadTime: 2

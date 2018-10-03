@@ -77,7 +77,7 @@ public class WorldObject : Selectable {
     [Header(" ON DEATH/DESTROYED")]
     [Header("-----------------------------------")]
     [Space]
-    public ParticleSystem OnDeathEffect = null;
+    public List<ParticleSystem> OnDeathEffects;
     public bool ShrinkWhenDestroyed = true;
     [Tooltip("When this unit is killed, the speed in which it shrinks down until it is no longer visible " +
             "before being sent back to the object pool.")]
@@ -469,11 +469,11 @@ public class WorldObject : Selectable {
         _HitPoints = 0;
         _Health = 0f;
 
-        // Play OnDeath effect
-        if (OnDeathEffect != null) {
-
+        // Play OnDeath(s) effect
+        for (int i = 0; i < OnDeathEffects.Count; i++) {
+                    
             // Play
-            ParticleSystem effect = ObjectPooling.Spawn(OnDeathEffect.gameObject, transform.position, transform.rotation).GetComponent<ParticleSystem>();
+            ParticleSystem effect = ObjectPooling.Spawn(OnDeathEffects[i].gameObject, transform.position, transform.rotation).GetComponent<ParticleSystem>();
             effect.Play();
 
             // Despawn particle system once it has finished its cycle

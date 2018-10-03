@@ -26,8 +26,7 @@ public class Generator : Building {
     public eResourceType ResourceType;
     public bool UpgradedGenerator = false;
     public int ResourcesGivenWhenBuilt = 100;
-    public int ResourcesGivenPerTickOver = 1;
-    public float GeneratorRate = 1f;
+    public float GeneratorTickDelay = 1f;
 
     //******************************************************************************************************************************
     //
