@@ -52,6 +52,17 @@ public class CameraPlayer : MonoBehaviour {
     [HideInInspector]
     public bool PastBoundsSouth = false;
 
+    [Space]
+    [Header("-----------------------------------")]
+    [Header(" CAMERA SHAKE")]
+    [Space]
+    public float ShakeTime;
+    public float ShakeTrauma;
+    private float ShakeOffsetX = 1f;
+    private float ShakeOffsetY = 1f;
+    private float ShakeOffsetZ = 1f;
+    public bool IsShaking = false;
+
     //******************************************************************************************************************************
     //
     //      VARIABLES
@@ -60,6 +71,7 @@ public class CameraPlayer : MonoBehaviour {
 
     private Renderer _MinimapRenderer;
     private Player _PlayerAttached = null;
+    private KeyboardInput _KeyBoardInput;
 
     public float _MinCameraHeight { get; set; }
     public float _MaxCameraHeight { get; set; }
@@ -140,66 +152,13 @@ public class CameraPlayer : MonoBehaviour {
     //  Called each frame.
     /// </summary>
     private void Update() {
+
         CheckCameraBounds();
-        /*
-        // If the min raycasts hits, then the camera is too low
-        RaycastHit minHit;
-        if (Physics.Raycast(transform.position, -Vector3.up, out minHit, Settings.MinCameraHeight, _RaycastLayerMask)) {
-            
-            float overlap = _MinCameraHeight - minHit.point.y;
 
-            // UPDATE RANGES ONLY ONCE PER RAYCAST HIT SESSION
-            if (!_RangesMinUpdated) {
-
-                _RangesMinUpdated = true;
-
-                // Set min camera height
-                _MinCameraHeight += overlap;
-
-                // Set max camera height
-                float range = Settings.MaxCameraHeight - Settings.MinCameraHeight;
-                _MaxCameraHeight = _MinCameraHeight + range;
-            }
-
-            Debug.DrawRay(transform.position, -Vector3.up * Settings.MinCameraHeight, Color.green);
+        if (Input.GetKeyDown(KeyCode.B) == true)
+        {
+            StartCoroutine(CameraShake(ShakeTrauma, ShakeTime));
         }
-        else {
-            
-            _RangesMinUpdated = false;
-
-            Debug.DrawRay(transform.position, -Vector3.up * Settings.MinCameraHeight, Color.red);
-
-            // If the max range raycast doesnt hit, then the camera is too high
-            if (!Physics.Raycast(transform.position, -Vector3.up, Settings.MaxCameraHeight, _RaycastLayerMask)) {
-
-                // UPDATE RANGES ONLY ONCE PER RAYCAST HIT SESSION
-                if (!_RangesMaxUpdated) {
-
-                    _RangesMaxUpdated = true;
-
-                    RaycastHit distHit;
-                    Physics.Raycast(transform.position, -transform.up, out distHit, _RaycastLayerMask);
-
-                    float diff = _MaxCameraHeight - (transform.position.y - distHit.point.y);
-
-                    // Set min camera height
-                    _MinCameraHeight -= diff;
-
-                    // Set max camera height
-                    float range = Settings.MaxCameraHeight - Settings.MinCameraHeight;
-                    _MaxCameraHeight = _MinCameraHeight + range;
-                }
-
-                Debug.DrawRay(transform.position, -Vector3.up * Settings.MaxCameraHeight, Color.blue);
-            }
-            else {
-
-                _RangesMaxUpdated = false;
-            }
-        }
-
-        Debug.Log("Min: " + _MinCameraHeight + " / Max: " + _MaxCameraHeight);
-        */
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -220,6 +179,49 @@ public class CameraPlayer : MonoBehaviour {
             col.a = TransparencyLevel;
             _MinimapRenderer.material.SetColor("Albedo", col);
         }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    /// Creates camera shake.
+    /// </summary>
+    public IEnumerator CameraShake(float strength, float time) {
+
+        // Store initial position
+        Quaternion _InitialCameraRotation = transform.rotation;
+        // Time elapsed since shake started
+        float _ElapsedTime = 0.0f;
+
+        float offsetX = 0f;
+        float offsetY = 0f;
+        float offsetZ = 0f;
+
+        // Begin shaking
+        while ((_ElapsedTime < time) /*&& IsShaking == false*/) {
+
+            IsShaking = true;
+
+            //offsetX = ShakeOffsetX * (Random.value * Mathf.PerlinNoise(Mathf.Ceil(Random.Range(10000, 99999)), time)) * strength;
+            //offsetY = ShakeOffsetY * (Random.value * Mathf.PerlinNoise(Mathf.Ceil(Random.Range(10000, 99999)), time)) * strength;
+            //offsetZ = ShakeOffsetZ * (Random.value * Mathf.PerlinNoise(Mathf.Ceil(Random.Range(10000, 99999)), time)) * strength;
+
+            // Add camera shake offset to a rotation that the camera's rotation is set to match
+            Quaternion newRot = Quaternion.Euler(transform.rotation.eulerAngles.x + offsetX,
+                                                 transform.rotation.eulerAngles.y + offsetY, 
+                                                 transform.rotation.eulerAngles.z + offsetZ);
+            transform.rotation = newRot;
+            Debug.Log(" Rotation X: " + newRot.eulerAngles.x + 
+                      " / Rotation Y: " + newRot.eulerAngles.y + 
+                      " / Rotation Z: " + newRot.eulerAngles.z);
+
+            // Add to camera shake timer
+            _ElapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.rotation = _InitialCameraRotation;
+        IsShaking = false;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
