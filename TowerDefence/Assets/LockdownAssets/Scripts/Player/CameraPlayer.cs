@@ -192,28 +192,28 @@ public class CameraPlayer : MonoBehaviour {
         Quaternion _InitialCameraRotation = transform.rotation;
         // Time elapsed since shake started
         float _ElapsedTime = 0.0f;
-
-        float offsetX = 0f;
-        float offsetY = 0f;
-        float offsetZ = 0f;
+        // Offsets
+        float offsetX = 0f; float offsetY = 0f; float offsetZ = 0f;
 
         // Begin shaking
         while ((_ElapsedTime < time) /*&& IsShaking == false*/) {
 
             IsShaking = true;
 
-            //offsetX = ShakeOffsetX * (Random.value * Mathf.PerlinNoise(Mathf.Ceil(Random.Range(10000, 99999)), time)) * strength;
-            //offsetY = ShakeOffsetY * (Random.value * Mathf.PerlinNoise(Mathf.Ceil(Random.Range(10000, 99999)), time)) * strength;
-            //offsetZ = ShakeOffsetZ * (Random.value * Mathf.PerlinNoise(Mathf.Ceil(Random.Range(10000, 99999)), time)) * strength;
+            // Set offset values
+            offsetX = ShakeOffsetX * (Random.value * Mathf.PerlinNoise(Mathf.Ceil(Random.Range(10000, 99999)), time)) * strength;
+            offsetY = ShakeOffsetY * (Random.value * Mathf.PerlinNoise(Mathf.Ceil(Random.Range(10000, 99999)), time)) * strength;
+            offsetZ = ShakeOffsetZ * (Random.value * Mathf.PerlinNoise(Mathf.Ceil(Random.Range(10000, 99999)), time)) * strength;
 
             // Add camera shake offset to a rotation that the camera's rotation is set to match
             Quaternion newRot = Quaternion.Euler(transform.rotation.eulerAngles.x + offsetX,
                                                  transform.rotation.eulerAngles.y + offsetY, 
                                                  transform.rotation.eulerAngles.z + offsetZ);
+            // Set the rotation
             transform.rotation = newRot;
             Debug.Log(" Rotation X: " + newRot.eulerAngles.x + 
-                      " / Rotation Y: " + newRot.eulerAngles.y + 
-                      " / Rotation Z: " + newRot.eulerAngles.z);
+                    " / Rotation Y: " + newRot.eulerAngles.y + 
+                    " / Rotation Z: " + newRot.eulerAngles.z);
 
             // Add to camera shake timer
             _ElapsedTime += Time.deltaTime;
