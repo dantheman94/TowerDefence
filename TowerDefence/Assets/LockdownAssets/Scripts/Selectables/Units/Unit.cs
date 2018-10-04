@@ -120,6 +120,7 @@ public class Unit : WorldObject {
 
     protected NavMeshPath _NavMeshPath;
     protected bool _ChaseCoroutineIsRunning = false;
+    protected bool _ResetOriginCoroutineIsRunning = false;
 
     protected int _VeterancyLevel = 0;
     protected int _CurrentVetXP = 0;
@@ -236,8 +237,9 @@ public class Unit : WorldObject {
         // Update chasing enemy
         if (_IsChasing) { UpdateChasingEnemy(); }
         else { _ChaseOriginPosition = transform.position; }
-        
-        if (_IsReturningToOrigin) { ResetToOriginPosition(); }
+
+        // Check for origin return 
+        ///if (_IsReturningToOrigin && !_ResetOriginCoroutineIsRunning) { StartCoroutine(ResetToOrigin()); }
 
         // Update attack path
         UpdateAttackPath();
@@ -347,6 +349,38 @@ public class Unit : WorldObject {
 
         // Destroying the unit manually
         if (_IsCurrentlySelected && Input.GetKeyDown(KeyCode.Delete)) { OnDeath(null); }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="highlight"></param>
+    public override void DrawSelection(bool draw) {
+        base.DrawHighlight(draw);
+
+        // Highlight our attack target
+        if (_AttackTarget != null) {
+
+            if (_AttackTarget.Team != GameManager.Team.Defending) { _AttackTarget.SetForceSelectOutline(draw); }
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="highlight"></param>
+    public override void DrawHighlight(bool highlight) {
+        base.DrawHighlight(highlight);
+
+        // highlight our attack target
+        if (_AttackTarget != null) {
+
+            if (_AttackTarget.Team != GameManager.Team.Defending) { _AttackTarget.SetForceHighlightOutline(highlight); }
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -466,9 +500,9 @@ public class Unit : WorldObject {
 
         // Check if we should continue chasing or not
         float dist = Vector3.Distance(_ChaseOriginPosition, transform.position);
-        if (_IsReturningToOrigin = dist >= ChasingDistance) {
+        if (dist >= ChasingDistance) {
 
-            // Stop chasing
+            // Stop chasing & return to origin
             RemovePotentialTarget(_AttackTarget);
             _IsReturningToOrigin = true;
         }
@@ -638,8 +672,11 @@ public class Unit : WorldObject {
 
             // Update agent seeking status
             _IsSeeking = _Agent.remainingDistance > 2f;
-            ///HasReachedTarget = _Agent.remainingDistance < 2f;
+            //HasReachedTarget = _Agent.remainingDistance < 2f;
 
+            // Temporary until the origin return bug is squashed
+            _IsReturningToOrigin = false;
+            
             if (_IsSeeking) {
 
                 // Look at seek point
@@ -701,6 +738,8 @@ public class Unit : WorldObject {
                 // Attack target is now dead
                 else {
 
+                    _IsFollowingPlayerCommand = false;
+
                     // Remove from target list
                     RemovePotentialTarget(_AttackTarget);
 
@@ -713,6 +752,7 @@ public class Unit : WorldObject {
             else { /// _AttackTarget == null
 
                 _IsAttacking = false;
+                _IsFollowingPlayerCommand = false;
 
                 // Get new attack target if possible
                 DetermineWeightedTargetFromList(TargetWeights);
@@ -1031,9 +1071,16 @@ public class Unit : WorldObject {
     //  
     /// </summary>
     /// <param name="delayTime"></param>
-    protected virtual IEnumerator ResetToOrigin(int delayTime) {
+    protected virtual IEnumerator ResetToOrigin(int delayTime = 3) {
+        
+        while (_IsReturningToOrigin) {
 
-        yield return new WaitForSeconds(delayTime);
+            _ResetOriginCoroutineIsRunning = true;
+
+            AgentSeekPosition(_ChaseOriginPosition, false, false);
+            yield return new WaitForSeconds(delayTime);
+        }
+        _ResetOriginCoroutineIsRunning = false;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1275,10 +1322,12 @@ public class Unit : WorldObject {
     //  
     /// </summary>
     /// <param name="worldObject"></param>
-    public bool ForceChaseTarget(WorldObject objTarget) {
+    public bool ForceChaseTarget(WorldObject objTarget, bool playerCommand = false) {
 
         // Validity check
         if (objTarget != null) {
+
+            if (playerCommand) { PlayerCommandOverride(); }
 
             // Force chase the target
             _AttackTarget = objTarget;

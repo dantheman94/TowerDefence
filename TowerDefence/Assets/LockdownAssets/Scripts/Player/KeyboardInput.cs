@@ -931,7 +931,7 @@ public class KeyboardInput : MonoBehaviour {
 
                             // Loop through all selected units & perform ATTACK command on the unit
                             ///foreach (var unit in units) { unit.AgentAttackObject(unitObj, unit.GetAttackingPositionAtObject(unitObj), true); }
-                            foreach (var unit in units) { unit.ForceChaseTarget(unitObj); }
+                            foreach (var unit in units) { unit.ForceChaseTarget(unitObj, true); }
                         }
                     }                    
                 }

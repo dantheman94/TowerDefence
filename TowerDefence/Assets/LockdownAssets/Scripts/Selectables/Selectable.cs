@@ -56,6 +56,8 @@ public class Selectable : Abstraction {
     protected Bounds selectionBounds;
     protected bool _IsCurrentlyHighlighted;
     protected bool _IsCurrentlySelected;
+    protected bool _ForceHighlightOutlineDraw = false;
+    protected bool _ForceSelectOutlineDraw = false;
     private Outline _OutlineComponent = null;
     private Color _HighlightingOutlineColour = Color.black;
     private Color _SelectedOutlineColour = Color.black;
@@ -155,7 +157,7 @@ public class Selectable : Abstraction {
     public virtual void DrawSelection(bool draw) {
 
         // Show selection
-        if (draw && _OutlineComponent != null && ShowOutline) {
+        if ((draw || _ForceSelectOutlineDraw) && ShowOutline && _OutlineComponent != null) {
 
             // Black is used as an undefined colour
             if (_SelectedOutlineColour == Color.black) {
@@ -192,7 +194,7 @@ public class Selectable : Abstraction {
     public virtual void DrawHighlight(bool highlight) {
 
         // Show selection
-        if (highlight && _OutlineComponent != null && ShowOutline) {
+        if ((highlight || _ForceHighlightOutlineDraw) && ShowOutline && _OutlineComponent != null) {
 
             // Black is used as an undefined colour
             if (_HighlightingOutlineColour == Color.black) {
@@ -312,6 +314,22 @@ public class Selectable : Abstraction {
     /// </summary>
     /// <param name="visible"></param>
     public void SetOutlineVisibility(bool visible) { _OutlineComponent.enabled = visible; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="value"></param>
+    public void SetForceHighlightOutline(bool value) { _ForceHighlightOutlineDraw = value; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="value"></param>
+    public void SetForceSelectOutline(bool value) { _ForceSelectOutlineDraw = value; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
