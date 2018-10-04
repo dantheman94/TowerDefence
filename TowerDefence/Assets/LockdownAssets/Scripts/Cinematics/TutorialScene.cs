@@ -19,14 +19,17 @@ public class TutorialScene : MonoBehaviour {
         BUILD_RESOURCE_GENERATORS,
         KILL_ENEMIES,
         BUILD_BARRICADE,
+        BUILD_POWER_GENERATOR,
+        BUILD_SUPPLY_GENERATOR,
         BUILD_TOWER,
         BUILD_BASIC_UNIT,
         BUILD_VEHICLE,
-        UPGRADE_TOWNHALL
+        UPGRADE_TOWNHALL,
+        NONE
     }
 
     [System.Serializable]
-    public struct MessageData
+    public class MessageData
     {
         [Header(" NEW LOCATIONS ")]
         [Tooltip("Desired transform of the UI tutorial prompt.")]
@@ -43,12 +46,14 @@ public class TutorialScene : MonoBehaviour {
         public bool EnableTextFlash;
         [Tooltip("Highlights player starting base.")]
         public bool HighlightBase;
+        public bool HighlightSlots;
         [Tooltip("Enables the outline of the 'Hightlight Object'")]
         public bool HighlightSelectable;
         [Tooltip("Locks Camera from player movement.")]
         public bool LockControls;
         [Tooltip("Freezes time.")]
         public bool FreezeTime;
+        public bool DisablePrompt;
         [Header(" PLAYER REQUIRED ACTION TO CONTINUE ")]
         public bool ActionRequired;
         public RequiredAction Action;
@@ -61,6 +66,9 @@ public class TutorialScene : MonoBehaviour {
     public List<UnityEngine.UI.Outline> ResourceTextOutlines;
     public List<MessageData> MessageList;
     public GameObject MessagePanel;
+    public Text ObjectiveText;
+    public Text ObjectiveTextTwo;
+    public Text PromptText;
     public  bool RunTutorial = false;
     [HideInInspector]
     public static MessageData CurrentMessageData;
@@ -77,14 +85,19 @@ public class TutorialScene : MonoBehaviour {
     private Color OutlineColor;
     private int EventIndex = 0;
     private float _FlashTimer = 0.5f;
+    private Player _Player;
+    private ResourceManager _ResourceManager;
+    private bool ActionBool = false;
   
     //////////////////////////////////////////////////////////////////////////////////////////
 
     // Use this for initialization
     void Start () {
+        _Player = GameManager.Instance.Players[0];
         _MainCamera = GameManager.Instance.Players[0].PlayerCamera;
         _MessagePanelText = MessagePanel.transform.GetComponentInChildren<Text>();
         OutlineColor = ResourceTextOutlines[0].effectColor;
+        _ResourceManager = _Player.GetResourceManager();
 	}
 
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -113,22 +126,57 @@ public class TutorialScene : MonoBehaviour {
 
         }
 
-        //Highlight allied base.
-        if (MessageList[EventIndex].HighlightBase)
+        if(PromptText != null)
         {
-            TownHall.SetIsHighlighted(true);
+            if (MessageList[EventIndex].DisablePrompt)
+            {
+                PromptText.enabled = false;
+            }
+            else
+            {
+                PromptText.enabled = true;
+            }
+        }
+    
+
+        if(MessageList[EventIndex].ActionRequired)
+        {
+            ActionRequired(MessageList[EventIndex]);
+            if(ActionBool)
+            {
+                MessageList[EventIndex].ActionRequired = false;
+                MessageList[EventIndex].DisablePrompt = false;
+            }
+        }
+        else
+        {
+            ObjectiveText.text = "";
+            ObjectiveTextTwo.text = "";
+        }
+
+        if(MessageList[EventIndex].HighlightSlots)
+        {
             for (int i = 0; i < BaseBuildingSlots.Count; ++i)
             {
                 BaseBuildingSlots[i].SetIsHighlighted(true);
             }
         }
-        else if (!MessageList[EventIndex].HighlightBase)
+        else if (!MessageList[EventIndex].HighlightSlots)
         {
-            TownHall.SetIsHighlighted(false);
             for (int i = 0; i < BaseBuildingSlots.Count; ++i)
             {
                 BaseBuildingSlots[i].SetIsHighlighted(false);
             }
+        }
+
+        //Highlight allied base.
+        if (MessageList[EventIndex].HighlightBase)
+        {
+            TownHall.SetIsHighlighted(true);  
+        }
+        else if (!MessageList[EventIndex].HighlightBase)
+        {
+            TownHall.SetIsHighlighted(false);
         }
 
         //Highlight selectable event object.
@@ -177,6 +225,7 @@ public class TutorialScene : MonoBehaviour {
                 {
                     if (!MessageList[EventIndex].ActionRequired)
                     {
+                        ActionBool = false;
                         MessagePanel.SetActive(false);
                         if (EventIndex + 1 < MessageList.Count)
                             EventIndex++;
@@ -189,10 +238,11 @@ public class TutorialScene : MonoBehaviour {
         {
             if(!GameManager.Instance._CinematicInProgress)
             {
-                if (Input.GetKeyDown(KeyCode.Return) || GamepadManager.Instance.GetGamepad(1).GetButtonDown("A"))
+                if (Input.GetKeyDown(KeyCode.Return) || GamepadManager.Instance.GetGamepad(1).GetButtonDown("A") )
                 {
                     if (!MessageList[EventIndex].ActionRequired)
                     {
+                        ActionBool = false;
                         MessagePanel.SetActive(false);
                         if (EventIndex + 1 < MessageList.Count)
                             EventIndex++;
@@ -268,6 +318,27 @@ public class TutorialScene : MonoBehaviour {
                 break;
             case RequiredAction.BUILD_RESOURCE_GENERATORS:
 
+                ObjectiveText.text = "Supply Generator: " + _ResourceManager.GetSupplyGeneratorCount() + "/1";
+                ObjectiveTextTwo.text = "Power Generator: " + _ResourceManager.GetPowerGeneratorCount() + "/1";
+                if (_ResourceManager.GetSupplyGeneratorCount() == 1 && _ResourceManager.GetPowerGeneratorCount() == 1)
+                {
+         //           ObjectiveText.text = "Supply Generator: 1/1 /n Power Generator 1/1"; ;
+                    ActionBool = true;
+                }
+                break;
+            case RequiredAction.BUILD_POWER_GENERATOR:
+                ObjectiveText.text = "Power Station: " + _ResourceManager.GetPowerGeneratorCount() + "/1";
+                if(_ResourceManager.GetPowerGeneratorCount() ==1)
+                {
+                    ActionBool = true;
+                }
+                break;
+            case RequiredAction.BUILD_SUPPLY_GENERATOR:
+                ObjectiveText.text = "Supply Generator: " + _ResourceManager.GetSupplyGeneratorCount() + "/1";
+                if(_ResourceManager.GetSupplyGeneratorCount() == 1)
+                {
+                    ActionBool = true;
+                }
                 break;
             case RequiredAction.BUILD_TOWER:
                 break;

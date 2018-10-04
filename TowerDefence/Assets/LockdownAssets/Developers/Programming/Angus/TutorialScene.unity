@@ -1831,12 +1831,12 @@ Prefab:
     - target: {fileID: 224305366087182720, guid: dcbd8f47ba6fc7f4e8f9b2199c58ffc5,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 1052
+      value: 1418
       objectReference: {fileID: 0}
     - target: {fileID: 224305366087182720, guid: dcbd8f47ba6fc7f4e8f9b2199c58ffc5,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -523
+      value: -598
       objectReference: {fileID: 0}
     - target: {fileID: 224305366087182720, guid: dcbd8f47ba6fc7f4e8f9b2199c58ffc5,
         type: 2}
@@ -1877,6 +1877,25 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224667891022323444, guid: dcbd8f47ba6fc7f4e8f9b2199c58ffc5,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 155.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1316999374957650, guid: dcbd8f47ba6fc7f4e8f9b2199c58ffc5, type: 2}
+      propertyPath: m_Name
+      value: ButtonPromptt
+      objectReference: {fileID: 0}
+    - target: {fileID: 1081333743799298, guid: dcbd8f47ba6fc7f4e8f9b2199c58ffc5, type: 2}
+      propertyPath: m_Name
+      value: Name
+      objectReference: {fileID: 0}
+    - target: {fileID: 114433879934669574, guid: dcbd8f47ba6fc7f4e8f9b2199c58ffc5,
+        type: 2}
+      propertyPath: m_Text
+      value: Population acts as your unit count but also as a resource for higher
+        tier units.
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: dcbd8f47ba6fc7f4e8f9b2199c58ffc5, type: 2}
@@ -3324,89 +3343,116 @@ MonoBehaviour:
     LerpSpeed: 3
     EnableTextFlash: 0
     HighlightBase: 0
+    HighlightSlots: 0
     HighlightSelectable: 0
     LockControls: 1
     FreezeTime: 0
+    DisablePrompt: 0
     ActionRequired: 0
     Action: 0
   - DesiredPosition: {fileID: 1994645918}
-    MessageContent: This is your starting base. Here you can build new buildings from
-      the free slots. Some buildings produce units while others produce resources.
+    MessageContent: This is your outpost. Your duty will be to raise its defense,
+      build an army and defend our drill from rival factions.
     TargetObject: {fileID: 0}
     HighlightObject: {fileID: 0}
     LerpSpeed: 0
     EnableTextFlash: 0
     HighlightBase: 1
+    HighlightSlots: 1
     HighlightSelectable: 0
     LockControls: 1
     FreezeTime: 0
+    DisablePrompt: 0
     ActionRequired: 0
     Action: 0
+  - DesiredPosition: {fileID: 998421025}
+    MessageContent: Go ahead and click on one of the empty slots and build a power
+      station we can't power our machinery without it.
+    TargetObject: {fileID: 0}
+    HighlightObject: {fileID: 0}
+    LerpSpeed: 0
+    EnableTextFlash: 0
+    HighlightBase: 0
+    HighlightSlots: 1
+    HighlightSelectable: 0
+    LockControls: 0
+    FreezeTime: 0
+    DisablePrompt: 1
+    ActionRequired: 1
+    Action: 3
+  - DesiredPosition: {fileID: 998421025}
+    MessageContent: Great! Now build a supply generator we will need to produce more
+      of it in order to build new structures and bolster our ranks.
+    TargetObject: {fileID: 0}
+    HighlightObject: {fileID: 0}
+    LerpSpeed: 0
+    EnableTextFlash: 0
+    HighlightBase: 0
+    HighlightSlots: 0
+    HighlightSelectable: 0
+    LockControls: 0
+    FreezeTime: 0
+    DisablePrompt: 1
+    ActionRequired: 1
+    Action: 4
   - DesiredPosition: {fileID: 363568933}
     MessageContent: Your resources and local suroundings are displayed bottom corner.
-      There's tech level, population, power and supply.
+      You'll notice your poewr and supply have started going up thanks to those buildings.
     TargetObject: {fileID: 0}
     HighlightObject: {fileID: 0}
     LerpSpeed: 0
     EnableTextFlash: 1
     HighlightBase: 0
-    HighlightSelectable: 0
-    LockControls: 1
-    FreezeTime: 0
-    ActionRequired: 0
-    Action: 0
-  - DesiredPosition: {fileID: 363568933}
-    MessageContent: Power is consumed when you build structures or units. To increase
-      the rate at which you gain power you must build power generators at your base.
-    TargetObject: {fileID: 0}
-    HighlightObject: {fileID: 0}
-    LerpSpeed: 0
-    EnableTextFlash: 1
-    HighlightBase: 0
-    HighlightSelectable: 0
-    LockControls: 1
-    FreezeTime: 0
-    ActionRequired: 0
-    Action: 0
-  - DesiredPosition: {fileID: 363568933}
-    MessageContent: Supply is very similiar to power it is required for building and
-      is generated from supply depots.
-    TargetObject: {fileID: 0}
-    HighlightObject: {fileID: 0}
-    LerpSpeed: 0
-    EnableTextFlash: 1
-    HighlightBase: 0
+    HighlightSlots: 0
     HighlightSelectable: 0
     LockControls: 0
     FreezeTime: 0
+    DisablePrompt: 0
     ActionRequired: 0
     Action: 0
   - DesiredPosition: {fileID: 363568933}
-    MessageContent: Population goes up when you build units. Higher tier units require
-      more population. Tech level is a reflection of your town hall level the higher
-      it is the more you can build.
+    MessageContent: Population acts as your unit count. Once you hit your population
+      threshold you can't build units thats where your tech level comes in.
     TargetObject: {fileID: 0}
     HighlightObject: {fileID: 0}
     LerpSpeed: 0
     EnableTextFlash: 1
     HighlightBase: 0
+    HighlightSlots: 0
     HighlightSelectable: 0
     LockControls: 0
     FreezeTime: 0
+    DisablePrompt: 0
     ActionRequired: 0
     Action: 0
   - DesiredPosition: {fileID: 363568933}
-    MessageContent: 'This is the core. The reason we are here. It''s pumping etherium
-      from the ground. If the enemy manages to destroy all 3 spires then the core
-      will be defenseless to attack. '
-    TargetObject: {fileID: 1959652824}
-    HighlightObject: {fileID: 1054475420}
+    MessageContent: Your tech level can be improved by researching etherium in the
+      town hall. The more we understand etherium the more applications we can find
+      for it like for buildings and units.
+    TargetObject: {fileID: 0}
+    HighlightObject: {fileID: 0}
     LerpSpeed: 0.1
     EnableTextFlash: 0
     HighlightBase: 0
+    HighlightSlots: 0
+    HighlightSelectable: 0
+    LockControls: 1
+    FreezeTime: 0
+    DisablePrompt: 0
+    ActionRequired: 0
+    Action: 0
+  - DesiredPosition: {fileID: 363568933}
+    MessageContent: Go ahead and make a few now!
+    TargetObject: {fileID: 0}
+    HighlightObject: {fileID: 1083547547}
+    LerpSpeed: 0.05
+    EnableTextFlash: 0
+    HighlightBase: 0
+    HighlightSlots: 0
     HighlightSelectable: 1
     LockControls: 1
     FreezeTime: 0
+    DisablePrompt: 0
     ActionRequired: 0
     Action: 0
   - DesiredPosition: {fileID: 363568933}
@@ -3417,9 +3463,11 @@ MonoBehaviour:
     LerpSpeed: 0.05
     EnableTextFlash: 0
     HighlightBase: 0
+    HighlightSlots: 0
     HighlightSelectable: 1
     LockControls: 1
     FreezeTime: 0
+    DisablePrompt: 0
     ActionRequired: 0
     Action: 0
   - DesiredPosition: {fileID: 363568933}
@@ -3430,12 +3478,17 @@ MonoBehaviour:
     LerpSpeed: 0.05
     EnableTextFlash: 0
     HighlightBase: 0
+    HighlightSlots: 0
     HighlightSelectable: 1
     LockControls: 1
     FreezeTime: 0
+    DisablePrompt: 0
     ActionRequired: 0
     Action: 0
   MessagePanel: {fileID: 196402403}
+  ObjectiveText: {fileID: 2134194018}
+  ObjectiveTextTwo: {fileID: 1589130699}
+  PromptText: {fileID: 1781978153}
   RunTutorial: 1
   TownHall: {fileID: 532253987}
   BaseBuildingSlots:
@@ -3769,13 +3822,16 @@ RectTransform:
   - {fileID: 842181579}
   - {fileID: 1994645918}
   - {fileID: 363568933}
+  - {fileID: 998421025}
+  - {fileID: 2134194017}
+  - {fileID: 1589130698}
   m_Father: {fileID: 1525521670}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &469526230 stripped
 RectTransform:
@@ -7069,6 +7125,39 @@ MonoBehaviour:
   m_VoxelSize: 1
   m_BuildHeightMesh: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &998421024
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 998421025}
+  m_Layer: 0
+  m_Name: ObjectiveMessageTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &998421025
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 998421024}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 462095531}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 461, y: -89}
+  m_SizeDelta: {x: 200, y: 200}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1005852341
 GameObject:
   m_ObjectHideFlags: 0
@@ -11054,6 +11143,82 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!1 &1589130697
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1589130698}
+  - component: {fileID: 1589130700}
+  - component: {fileID: 1589130699}
+  m_Layer: 0
+  m_Name: Objective text two
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1589130698
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1589130697}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.0000049, y: 1.0000049, z: 1.0000049}
+  m_Children: []
+  m_Father: {fileID: 462095531}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 750.3929, y: -217.6}
+  m_SizeDelta: {x: 350, y: 94.5}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1589130699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1589130697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 8b899e7c7e24f469a9cfac7f06b0c63d, type: 3}
+    m_FontSize: 28
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 2
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: '11
+
+'
+--- !u!222 &1589130700
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1589130697}
 --- !u!1 &1593484351
 GameObject:
   m_ObjectHideFlags: 0
@@ -12699,6 +12864,12 @@ Transform:
   m_Father: {fileID: 160775628}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1781978153 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114565130414758728, guid: dcbd8f47ba6fc7f4e8f9b2199c58ffc5,
+    type: 2}
+  m_PrefabInternal: {fileID: 196402401}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &1807689183
 GameObject:
   m_ObjectHideFlags: 0
@@ -15532,6 +15703,82 @@ RectTransform:
   m_AnchoredPosition: {x: -160, y: -30}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &2134194016
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 2134194017}
+  - component: {fileID: 2134194019}
+  - component: {fileID: 2134194018}
+  m_Layer: 0
+  m_Name: Objective text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2134194017
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2134194016}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 462095531}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 750.3928, y: -231}
+  m_SizeDelta: {x: 350, y: 94.5}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2134194018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2134194016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 8b899e7c7e24f469a9cfac7f06b0c63d, type: 3}
+    m_FontSize: 28
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 2
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: '11
+
+'
+--- !u!222 &2134194019
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2134194016}
 --- !u!1 &2135815676
 GameObject:
   m_ObjectHideFlags: 0
