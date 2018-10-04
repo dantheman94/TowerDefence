@@ -57,11 +57,7 @@ public class Humanoid : Unit {
     //  
     /// </summary>
     protected override void UpdatePlayerControlledMovement() {
-
-        // Directional movement with WASD
-        ///Vector3 inputDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        ///transform.SetPositionAndRotation(transform.position + inputDirection * (InfantryMovementSpeed * Time.deltaTime), transform.rotation);
-
+        
         // Forward input
         float forward = Input.GetAxis("Vertical");
         if (forward != 0f) { transform.position = transform.position + transform.forward * forward * InfantryMovementSpeed * Time.deltaTime; }

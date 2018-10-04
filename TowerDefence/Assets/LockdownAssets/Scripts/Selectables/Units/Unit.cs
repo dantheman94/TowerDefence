@@ -352,7 +352,7 @@ public class Unit : WorldObject {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  Called each frame. 
+    //  Called each frame. Moves through the attack paths nodes for the unit and seeks to them.
     /// </summary>
     private void UpdateAttackPath() {
 
@@ -377,13 +377,13 @@ public class Unit : WorldObject {
 
                     ///Instantiate(GameManager.Instance.AgentSeekObject, _AttackPath.GetNodePositions()[_AttackPathIterator], Quaternion.identity);
 
-                    StartCoroutine(AgentGoTo(pos));
+                    StartCoroutine(AgentAttackPathSeekPosition(pos));
                 }
                 else { _AttackPathComplete = true; }
             }
             else {
 
-                if (!_IsSeeking) { StartCoroutine(AgentGoTo(_AttackPath.GetNodePositions()[_AttackPathIterator])); }
+                if (!_IsSeeking) { StartCoroutine(AgentAttackPathSeekPosition(_AttackPath.GetNodePositions()[_AttackPathIterator])); }
             }
         }
     }
@@ -470,9 +470,12 @@ public class Unit : WorldObject {
 
             // Stop chasing
             RemovePotentialTarget(_AttackTarget);
+            _IsReturningToOrigin = true;
         }
 
-        if (_AttackTarget != null) { AgentAttackObject(_AttackTarget); }
+        if (!_ChaseCoroutineIsRunning) { StartCoroutine(ChaseTarget(_AttackTarget)); }
+
+        ///if (_AttackTarget != null) { AgentAttackObject(_AttackTarget); }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -543,17 +546,14 @@ public class Unit : WorldObject {
     /// <returns>
     //  IEnumerator
     /// </returns>
-    public IEnumerator ChasingTarget() {
+    public IEnumerator ChaseTarget(WorldObject target, int updateDelay = 3) {
 
-        while (!_IsReturningToOrigin) {
+        while (_AttackTarget != null && _IsChasing) {
 
-            if (_AttackTarget != null) {
+            _ChaseCoroutineIsRunning = true;
 
-                _ChaseCoroutineIsRunning = true;
-
-                AgentAttackObject(_AttackTarget);
-                yield return new WaitForSeconds(3);
-            }
+            AgentAttackObject(_AttackTarget);
+            yield return new WaitForSeconds(updateDelay);            
         }
         _ChaseCoroutineIsRunning = false;
     }
@@ -650,7 +650,10 @@ public class Unit : WorldObject {
                 _IsChasing = false;
                 _IsSeeking = false;
                 _IsReturningToOrigin = false;
-                ///_IsFollowingPlayerCommand = false;
+
+                // Have to check if the current target is dead otherwise the command variable
+                // will be overriden as soon as they position themselves at their target
+                if (_AttackTarget == null) { _IsFollowingPlayerCommand = false; }
             }
 
             // Update seeking waypoint visibility (only for player controlled units)
@@ -806,13 +809,13 @@ public class Unit : WorldObject {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  
+    //  Coroutine used to make the enemy units follow their attack paths to the core.
     /// </summary>
     /// <param name="pos"></param>
     /// <returns>
     //  IEnumerator
     /// </returns>
-    protected IEnumerator AgentGoTo(Vector3 pos) {
+    protected IEnumerator AgentAttackPathSeekPosition(Vector3 pos) {
 
         if (!_PathInterupted) { AgentSeekPosition(pos, false, false); }
         yield return new WaitForEndOfFrame();
@@ -828,7 +831,7 @@ public class Unit : WorldObject {
 
         _DisplaySeekWaypoint = displayWaypoint;
 
-        if (overwrite) { CommandOverride(); }
+        if (overwrite) { PlayerCommandOverride(); }
         if (_Agent.isOnNavMesh) {
 
             // Set agent's new goto target
@@ -874,8 +877,8 @@ public class Unit : WorldObject {
     public void AgentAttackObject(WorldObject attackTarget, Vector3 seekPosition, bool overwrite = false, bool displayWaypoint = true) {
 
         // Set target
-        ///AddPotentialTarget(attackTarget);
-        ///_AttackTarget = attackTarget;
+        AddPotentialTarget(attackTarget);
+        _AttackTarget = attackTarget;
 
         // Seek
         AgentSeekPosition(seekPosition, overwrite, displayWaypoint);
@@ -905,7 +908,7 @@ public class Unit : WorldObject {
         else if (dist > IdealAttackRangeMax) { seekPos = GetAttackingPositionAtObject(_AttackTarget, IdealAttackRangeMax); }
 
         // Move to attacking position (or stay if were within the ideal range)
-        AgentSeekPosition(seekPos);
+        AgentSeekPosition(seekPos, false, false);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -962,7 +965,7 @@ public class Unit : WorldObject {
         Transform trans = new GameObject().transform;
         trans.position = worldObject.transform.position;
         trans.LookAt(transform.position);
-        trans.position += trans.forward * MaxAttackingRange / 2;
+        trans.position += trans.forward * (IdealAttackRangeMax * 0.9f);
 
         // Destroy obsolete transform and return the new attacking position
         Vector3 position = trans.position;
@@ -987,7 +990,7 @@ public class Unit : WorldObject {
         Transform trans = new GameObject().transform;
         trans.position = building.transform.position;
         trans.LookAt(transform.position);
-        trans.position += trans.forward * MaxAttackingRange / 2;
+        trans.position += trans.forward * (IdealAttackRangeMax * 0.9f);
 
         // Destroy obsolete transform and return the new attacking position
         Vector3 direction = (-(trans.position - transform.position).normalized * (MaxAttackingRange / 2));
@@ -1014,12 +1017,23 @@ public class Unit : WorldObject {
 
     /// <summary>
     //  Makes the agent return back to its origin position.
-    //  (Usually the position is where the unit was before it was pursuing a target).
+    //  (Usually the position is where the unit was before it was pursuing/attacking a target).
     /// </summary>
     protected void ResetToOriginPosition() {
+        
+        // Seek to origin position (but dont override or show a waypoint)
+        AgentSeekPosition(_ChaseOriginPosition, false, false);
+    }
 
-        _IsReturningToOrigin = true;
-        AgentSeekPosition(_ChaseOriginPosition);
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="delayTime"></param>
+    protected virtual IEnumerator ResetToOrigin(int delayTime) {
+
+        yield return new WaitForSeconds(delayTime);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1081,16 +1095,19 @@ public class Unit : WorldObject {
     /// <param name="target"></param>
     public void RemovePotentialTarget(WorldObject target) {
 
-        // Look for match
-        for (int i = 0; i < _PotentialTargets.Count; i++) {
+        /*
+            // Look for match
+            for (int i = 0; i < _PotentialTargets.Count; i++) {
 
-            // Match found
-            if (_PotentialTargets[i] == target) {
+                // Match found
+                if (_PotentialTargets[i] == target) {
 
-                _PotentialTargets.Remove(target);
-                break;
+                    _PotentialTargets.RemoveAt(i);
+                    break;
+                }
             }
-        }
+        */
+        _PotentialTargets.Remove(target);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1185,7 +1202,8 @@ public class Unit : WorldObject {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  
+    //  Loops through the potential/known target list for the unit and checks to see if the target
+    //  is contained in the list
     /// </summary>
     /// <param name="target"></param>
     /// <returns>
@@ -1193,18 +1211,21 @@ public class Unit : WorldObject {
     /// </returns>
     public bool IsTargetInPotentialList(WorldObject target) {
 
-        // Look for match
-        bool match = false;
-        for (int i = 0; i < _PotentialTargets.Count; i++) {
+        /*
+            bool match = false;
+            for (int i = 0; i < _PotentialTargets.Count; i++) {
 
-            // Match found
-            if (_PotentialTargets[i] == target) {
+                // Match found
+                if (_PotentialTargets[i] == target) {
 
-                match = true;
-                break;
+                    match = true;
+                    break;
+                }
             }
-        }
-        return match;
+            return match;
+        */
+
+        return _PotentialTargets.Contains(target);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1234,13 +1255,14 @@ public class Unit : WorldObject {
     /// <param name="worldObject"></param>
     public bool TryToChaseTarget(WorldObject objTarget) {
 
+        // Validity check
         if (objTarget != null) {
 
+            // Only chase the target if were not following a player command or returning to our origin position
             if (!_IsFollowingPlayerCommand && !_IsReturningToOrigin) {
 
                 _AttackTarget = objTarget;
                 _IsChasing = true;
-                ///if (!(this as Unit).GetChasingCoroutineIsRunning()) { StartCoroutine((this as Unit).ChasingTarget()); }
                 return true;
             }
         }
@@ -1255,11 +1277,12 @@ public class Unit : WorldObject {
     /// <param name="worldObject"></param>
     public bool ForceChaseTarget(WorldObject objTarget) {
 
+        // Validity check
         if (objTarget != null) {
 
+            // Force chase the target
             _AttackTarget = objTarget;
             _IsChasing = true;
-            ///if (!(this as Unit).GetChasingCoroutineIsRunning()) { StartCoroutine((this as Unit).ChasingTarget()); }
             return true;
         }
         return false;
@@ -1315,7 +1338,7 @@ public class Unit : WorldObject {
     /// <summary>
     //  
     /// </summary>
-    protected void CommandOverride() {
+    protected void PlayerCommandOverride() {
 
         _IsFollowingPlayerCommand = true;
         _IsReturningToOrigin = false;
@@ -1344,17 +1367,7 @@ public class Unit : WorldObject {
     public bool IsBeingPlayerControlled() { return _IsBeingPlayerControlled; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  
-    /// </summary>
-    /// <returns>
-    //  bool
-    /// </returns>
-    public bool GetChasingCoroutineIsRunning() { return _ChaseCoroutineIsRunning; }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    
     /// <summary>
     //  Set's the attack path to the core for this individual unit.
     /// </summary>

@@ -12,19 +12,7 @@ using UnityEngine;
 //******************************
 
 public class SightSphere : MonoBehaviour {
-
-    //******************************************************************************************************************************
-    //
-    //      VARIABLES
-    //
-    //******************************************************************************************************************************
-
-    [Space]
-    [Header("-----------------------------------")]
-    [Header(" TARGETTING OBJECT WEIGHTS")]
-    [Space]
-    public Unit.TargetWeight[] TargetWeights = new Unit.TargetWeight[Unit._WeightLength];
-
+    
     //******************************************************************************************************************************
     //
     //      VARIABLES
@@ -69,46 +57,50 @@ public class SightSphere : MonoBehaviour {
     /// <param name="other"></param>
     private void OnTriggerEnter(Collider other) {
 
-        // Valid worldObject
-        _WorldObjectInFocus = other.gameObject.GetComponent<WorldObject>();
-        if (_WorldObjectInFocus != null) {
+        // Valid unit or building
+        if (other.CompareTag("Unit") || other.CompareTag("Building")) {
 
-            // This component is attached to a unit/AI object
-            if (_UnitAttached != null) {
+            // Valid worldObject check
+            _WorldObjectInFocus = other.gameObject.GetComponent<WorldObject>();
+            if (_WorldObjectInFocus != null) {
 
-                // Enemy team?
-                if (_WorldObjectInFocus.Team != _UnitAttached.Team && _WorldObjectInFocus.Team != GameManager.Team.Undefined) {
+                // This component is attached to a unit/AI object
+                if (_UnitAttached != null) {
 
-                    // Not a building slot?
-                    BuildingSlot slot = _WorldObjectInFocus.GetComponent<BuildingSlot>();
-                    if (slot == null) {
+                    // Enemy team?
+                    if (_WorldObjectInFocus.Team != _UnitAttached.Team && _WorldObjectInFocus.Team != GameManager.Team.Undefined) {
 
-                        // Active in the world?
-                        if (_WorldObjectInFocus._ObjectState == WorldObject.WorldObjectStates.Active) {
+                        // Not a building slot?
+                        BuildingSlot slot = _WorldObjectInFocus.GetComponent<BuildingSlot>();
+                        if (slot == null) {
 
-                            // Try to add to weighted list
-                            _UnitAttached.AddPotentialTarget(_WorldObjectInFocus);
+                            // Active in the world?
+                            if (_WorldObjectInFocus._ObjectState == WorldObject.WorldObjectStates.Active) {
+
+                                // Try to add to weighted list
+                                _UnitAttached.AddPotentialTarget(_WorldObjectInFocus);
+                            }
                         }
+
                     }
-
                 }
-            }
 
-            // This component is attached to a tower object
-            if (_TowerAttached != null) {
+                // This component is attached to a tower object
+                if (_TowerAttached != null) {
 
-                // Enemy team?
-                if (_WorldObjectInFocus.Team != _TowerAttached.Team && _WorldObjectInFocus.Team != GameManager.Team.Undefined) {
+                    // Enemy team?
+                    if (_WorldObjectInFocus.Team != _TowerAttached.Team && _WorldObjectInFocus.Team != GameManager.Team.Undefined) {
 
-                    // Not a building slot?
-                    BuildingSlot slot = _WorldObjectInFocus.GetComponent<BuildingSlot>();
-                    if (slot == null) {
+                        // Not a building slot?
+                        BuildingSlot slot = _WorldObjectInFocus.GetComponent<BuildingSlot>();
+                        if (slot == null) {
 
-                        // Active in the world?
-                        if (_WorldObjectInFocus._ObjectState == WorldObject.WorldObjectStates.Active) {
+                            // Active in the world?
+                            if (_WorldObjectInFocus._ObjectState == WorldObject.WorldObjectStates.Active) {
 
-                            // Try to add to weighted list
-                            _TowerAttached.AddPotentialTarget(_WorldObjectInFocus);
+                                // Try to add to weighted list
+                                _TowerAttached.AddPotentialTarget(_WorldObjectInFocus);
+                            }
                         }
                     }
                 }
@@ -123,39 +115,43 @@ public class SightSphere : MonoBehaviour {
     /// </summary>
     /// <param name="other"></param>
     private void OnTriggerExit(Collider other) {
-        
-        // Valid worldObject
-        _WorldObjectInFocus = other.gameObject.GetComponent<WorldObject>();
-        if (_WorldObjectInFocus != null) {
 
-            // This component is attached to a unit/AI object
-            if (_UnitAttached != null) {
+        // Valid unit or building
+        if (other.CompareTag("Unit") || other.CompareTag("Building")) {
 
-                // Enemy team?
-                if (_WorldObjectInFocus.Team != _UnitAttached.Team) {
+            // Valid worldObject
+            _WorldObjectInFocus = other.gameObject.GetComponent<WorldObject>();
+            if (_WorldObjectInFocus != null) {
 
-                    // Remove from weighted list
-                    _UnitAttached.RemovePotentialTarget(_WorldObjectInFocus);
+                // This component is attached to a unit/AI object
+                if (_UnitAttached != null) {
 
-                    // Update new attack target (if the target that just left was the current target)
-                    if (_WorldObjectInFocus == _UnitAttached.GetAttackTarget()) { _UnitAttached.DetermineWeightedTargetFromList(TargetWeights); }
+                    // Enemy team?
+                    if (_WorldObjectInFocus.Team != _UnitAttached.Team) {
+
+                        // Remove from weighted list
+                        _UnitAttached.RemovePotentialTarget(_WorldObjectInFocus);
+
+                        // Update new attack target (if the target that just left was the current target)
+                        if (_WorldObjectInFocus == _UnitAttached.GetAttackTarget()) { _UnitAttached.DetermineWeightedTargetFromList(_UnitAttached.TargetWeights); }
+                    }
+                }
+
+                // This component is attached to a tower object
+                if (_TowerAttached != null) {
+
+                    // Enemy team?
+                    if (_WorldObjectInFocus.Team != _TowerAttached.Team) {
+
+                        // Remove from weighted list
+                        _TowerAttached.RemovePotentialTarget(_WorldObjectInFocus);
+
+                        // Update new attack target (if the target that just left was the current target)
+                        if (_WorldObjectInFocus == _TowerAttached.GetAttackTarget()) { _TowerAttached.DetermineWeightedTargetFromList(_TowerAttached.TargetWeights); }
+                    }
                 }
             }
-
-            // This component is attached to a tower object
-            if (_TowerAttached != null) {
-
-                // Enemy team?
-                if (_WorldObjectInFocus.Team != _TowerAttached.Team) {
-
-                    // Remove from weighted list
-                    _TowerAttached.RemovePotentialTarget(_WorldObjectInFocus);
-
-                    // Update new attack target (if the target that just left was the current target)
-                    if (_WorldObjectInFocus == _TowerAttached.GetAttackTarget()) { _TowerAttached.DetermineWeightedTargetFromList(TargetWeights); }
-                }
-            }
-        }        
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -166,17 +162,20 @@ public class SightSphere : MonoBehaviour {
     /// <param name="other"></param>
     private void OnTriggerStay(Collider other) {
 
-        // This component is attached to a unit/AI object
-        if (_UnitAttached != null) {
+        if (other.CompareTag("Unit") || other.CompareTag("Building")) {
 
-            if (_UnitAttached.GetAttackTarget() != null) {
+            // This component is attached to a unit/AI object
+            if (_UnitAttached != null) {
 
-                // Currently the same target that is the AI's attack target
-                if (_UnitAttached.GetAttackTarget().gameObject == other.gameObject) {
+                if (_UnitAttached.GetAttackTarget() != null) {
 
-                    // Try to chase the target
-                    _UnitAttached.AddPotentialTarget(_UnitAttached.GetAttackTarget());
-                    _UnitAttached.TryToChaseTarget(_UnitAttached.GetAttackTarget());
+                    // Currently the same target that is the AI's attack target
+                    if (_UnitAttached.GetAttackTarget().gameObject == other.gameObject) {
+
+                        // Try to chase the target
+                        _UnitAttached.AddPotentialTarget(_UnitAttached.GetAttackTarget());
+                        _UnitAttached.TryToChaseTarget(_UnitAttached.GetAttackTarget());
+                    }
                 }
             }
         }

@@ -46,8 +46,8 @@ public class HearingSphere : MonoBehaviour {
     /// <param name="other"></param>
     private void OnTriggerExit(Collider other) {
 
-        // Valid Unit
-        if (other.CompareTag("Unit")) {
+        // Valid unit or building
+        if (other.CompareTag("Unit") || other.CompareTag("Building")) {
 
             _WorldObjectInFocus = other.gameObject.GetComponent<WorldObject>();
             if (_WorldObjectInFocus != null) {
@@ -59,7 +59,7 @@ public class HearingSphere : MonoBehaviour {
                     _UnitAttached.RemovePotentialTarget(_WorldObjectInFocus);
 
                     // Update new attack target (if the target that just left was the current target)
-                    if (_WorldObjectInFocus == _UnitAttached.GetAttackTarget()) { _UnitAttached.DetermineWeightedTargetFromList(null); }
+                    if (_WorldObjectInFocus == _UnitAttached.GetAttackTarget()) { _UnitAttached.DetermineWeightedTargetFromList(_UnitAttached.TargetWeights); }
                 }
             }
         }
@@ -73,8 +73,9 @@ public class HearingSphere : MonoBehaviour {
     /// <param name="other"></param>
     private void OnTriggerStay(Collider other) {
 
-        // Valid Unit
-        if (other.CompareTag("Unit")) {
+        // Valid unit or building
+        if (other.CompareTag("Unit") || other.CompareTag("Building")) {
+
             _WorldObjectInFocus = other.gameObject.GetComponent<WorldObject>();
             if (_WorldObjectInFocus != null) {
 
@@ -82,11 +83,10 @@ public class HearingSphere : MonoBehaviour {
                 if (_WorldObjectInFocus.Team != _UnitAttached.Team && _WorldObjectInFocus.Team != GameManager.Team.Undefined) {
 
                     // Active in the world?
-                    if (_WorldObjectInFocus._ObjectState == WorldObject.WorldObjectStates.Active) {
+                    if (_WorldObjectInFocus._ObjectState == Abstraction.WorldObjectStates.Active) {
 
                         // Is it currently shooting right now?
                         Unit unit = _WorldObjectInFocus.GetComponent<Unit>();
-
                         if (unit.PrimaryWeapon != null) {
 
                             if (unit.PrimaryWeapon.IsFiring()) {
@@ -95,20 +95,19 @@ public class HearingSphere : MonoBehaviour {
                                 _UnitAttached.AddPotentialTarget(unit);
                             }
                         }
-
                     }
                 }
             }
-        }
 
-        if (_UnitAttached.GetAttackTarget() != null) {
-            
-            // Currently the same target that is the AI's attack target
-            if (_UnitAttached.GetAttackTarget().gameObject == other.gameObject) {
+            if (_UnitAttached.GetAttackTarget() != null) {
 
-                // Try to chase the target
-                _UnitAttached.AddPotentialTarget(_UnitAttached.GetAttackTarget());
-                _UnitAttached.TryToChaseTarget(_UnitAttached.GetAttackTarget());
+                // Currently the same target that is the AI's attack target
+                if (_UnitAttached.GetAttackTarget().gameObject == other.gameObject) {
+
+                    // Try to chase the target
+                    _UnitAttached.AddPotentialTarget(_UnitAttached.GetAttackTarget());
+                    _UnitAttached.TryToChaseTarget(_UnitAttached.GetAttackTarget());
+                }
             }
         }
     }

@@ -951,7 +951,7 @@ public class KeyboardInput : MonoBehaviour {
                         }
 
                         // Attack the building
-                        for (int i = 0; i < units.Count; i++) { units[i].AgentAttackObject(buildingObj, positions[i], true/*, i == 0 ? true : false*/); }                        
+                        for (int i = 0; i < units.Count; i++) { units[i].AgentAttackObject(buildingObj, positions[i], true, i == 0 ? true : false); }                        
                     }
 
                     // Ally building
