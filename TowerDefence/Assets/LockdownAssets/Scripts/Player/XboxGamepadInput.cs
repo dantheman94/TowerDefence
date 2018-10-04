@@ -120,7 +120,7 @@ public class XboxGamepadInput : MonoBehaviour {
             _PreviousGamepadState = _GamepadState;
             _GamepadState = GamePad.GetState(_PlayerAttached.Index);
             
-            if (IsPrimaryController) {
+            if (IsPrimaryController && !TutorialScene.CurrentMessageData.LockControls) {
                 _ReticleObject.SetActive(true);
                 //Gamepad function presses.
                 DisplayButtonUI();

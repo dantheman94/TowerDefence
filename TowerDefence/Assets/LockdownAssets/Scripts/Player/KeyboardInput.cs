@@ -86,7 +86,7 @@ public class KeyboardInput : MonoBehaviour {
                 if (_XboxGamepadInputManager != null) { _XboxGamepadInputManager.IsPrimaryController = false; }
             }
             
-            if (IsPrimaryController && !GameManager.Instance._CinematicInProgress) {
+            if (IsPrimaryController && !GameManager.Instance._CinematicInProgress && !TutorialScene.CurrentMessageData.LockControls) {
 
                 Cursor.visible = true;
                 
