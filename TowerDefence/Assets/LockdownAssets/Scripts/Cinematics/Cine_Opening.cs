@@ -111,8 +111,13 @@ public class Cine_Opening : Cinematic {
     /// </summary>
     public override void StartCinematic() {
         base.StartCinematic();
-        
-        // Set starting position
+
+        // Set camera starting rotation
+        float angle = ViewCamera.transform.rotation.eulerAngles.x;
+        ViewCamera.transform.rotation = WaveManager.Instance.CentralCore.transform.rotation;
+        ViewCamera.transform.rotation = Quaternion.Euler(angle, ViewCamera.transform.rotation.eulerAngles.y, ViewCamera.transform.rotation.eulerAngles.z);
+
+        // Set camera starting position
         ViewCamera.transform.position = new Vector3(WaveManager.Instance.CentralCore.transform.position.x,
                                                     Settings.MaxCameraHeight,
                                                     WaveManager.Instance.CentralCore.transform.position.z);

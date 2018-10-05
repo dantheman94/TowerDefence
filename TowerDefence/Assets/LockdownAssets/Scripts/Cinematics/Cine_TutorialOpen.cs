@@ -79,13 +79,18 @@ public class Cine_TutorialOpen : Cinematic {
     public override void StartCinematic() {
         base.StartCinematic();
 
-        // Set starting position
+        // Set camera starting rotation
+        float angle = ViewCamera.transform.rotation.eulerAngles.x;
+        ViewCamera.transform.rotation = GameManager.Instance.StartingBase.transform.rotation;
+        ViewCamera.transform.rotation = Quaternion.Euler(angle, ViewCamera.transform.rotation.eulerAngles.y, ViewCamera.transform.rotation.eulerAngles.z);
+
+        // Set camera starting position
         ViewCamera.transform.position = new Vector3(GameManager.Instance.StartingBase.transform.position.x,
                                                     Settings.MaxCameraHeight,
                                                     GameManager.Instance.StartingBase.transform.position.z);
         ViewCamera.transform.position -= ViewCamera.transform.up * BaseOffset;
         ViewCamera.transform.position = new Vector3(ViewCamera.transform.position.x, Settings.MaxCameraHeight, ViewCamera.transform.position.z);
-        
+
         // Fade screen from black
         StartCoroutine(DelayedFadeIn());
 
