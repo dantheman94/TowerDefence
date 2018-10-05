@@ -76,8 +76,26 @@ public class HearingSphere : MonoBehaviour {
         // Valid unit or building
         if (other.CompareTag("Unit") || other.CompareTag("Building")) {
 
+            // Optimization check
+            bool checkForShoot = true;
+
+            // Try to chase the object if its our current attack target
+            if (_UnitAttached.GetAttackTarget() != null) {
+
+                // Currently the same target that is the AI's attack target
+                if (_UnitAttached.GetAttackTarget().gameObject == other.gameObject) {
+
+                    // Try to chase
+                    _UnitAttached.AddPotentialTarget(_UnitAttached.GetAttackTarget());
+                    _UnitAttached.TryToChaseTarget(_UnitAttached.GetAttackTarget());
+                    checkForShoot = false;
+                }
+            }
+
+            // If the unit fires their weapon and is within hearing range - let the unit that
+            // this component is attached to, know about it
             _WorldObjectInFocus = other.gameObject.GetComponent<WorldObject>();
-            if (_WorldObjectInFocus != null) {
+            if (_WorldObjectInFocus != null && checkForShoot) {
 
                 // Enemy team?
                 if (_WorldObjectInFocus.Team != _UnitAttached.Team && _WorldObjectInFocus.Team != GameManager.Team.Undefined) {
@@ -87,26 +105,18 @@ public class HearingSphere : MonoBehaviour {
 
                         // Is it currently shooting right now?
                         Unit unit = _WorldObjectInFocus.GetComponent<Unit>();
-                        if (unit.PrimaryWeapon != null) {
+                        if (unit != null) {
+                            
+                            if (unit.PrimaryWeapon != null) {
 
-                            if (unit.PrimaryWeapon.IsFiring()) {
+                                if (unit.PrimaryWeapon.IsFiring()) {
 
-                                // Add to weighted list
-                                _UnitAttached.AddPotentialTarget(unit);
+                                    // Add to weighted list
+                                    _UnitAttached.AddPotentialTarget(unit);
+                                }
                             }
                         }
                     }
-                }
-            }
-
-            if (_UnitAttached.GetAttackTarget() != null) {
-
-                // Currently the same target that is the AI's attack target
-                if (_UnitAttached.GetAttackTarget().gameObject == other.gameObject) {
-
-                    // Try to chase the target
-                    _UnitAttached.AddPotentialTarget(_UnitAttached.GetAttackTarget());
-                    _UnitAttached.TryToChaseTarget(_UnitAttached.GetAttackTarget());
                 }
             }
         }

@@ -67,6 +67,7 @@ public class WaveManager : MonoBehaviour {
     [Range(1, 10)]
     public int WavesPerInterval = 10;
     [Space]
+    public bool WaveStartPermitted = true;
     public int StartingWaveTimer = 30;
     public int TimeAddedPerWave = 5;
     public int TimeTillNextWaveAfterClear = 10;
@@ -285,7 +286,7 @@ public class WaveManager : MonoBehaviour {
     //  Starts a new game at the specified starting wave amount.
     /// </summary>
     public void StartNewMatch() {
-
+        
         // Initialize modifiers
         _CurrentDamageModifier = StartingDamageModifier;
         _CurrentHealthModifier = StartingHealthModifier;
@@ -304,7 +305,23 @@ public class WaveManager : MonoBehaviour {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  
+    //  Coroutine that waits until given permission (boolean) before starting a new match.
+    /// </summary>
+    /// <returns>
+    //  IEnumerator
+    /// </returns>
+    public IEnumerator DelayedStart() {
+
+        // Wait until 'WaveStartPermitted' becomes true
+        yield return new WaitUntil(() => WaveStartPermitted);
+
+        StartNewMatch();
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Starts spawning new wave enemies, as well as reinitializing the required stats for the wave.
     /// </summary>
     public void StartNewWave() {
 
