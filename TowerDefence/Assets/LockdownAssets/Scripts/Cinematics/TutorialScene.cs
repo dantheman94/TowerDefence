@@ -69,6 +69,8 @@ public class TutorialScene : MonoBehaviour {
     public Text ObjectiveText;
     public Text ObjectiveTextTwo;
     public Text PromptText;
+    public BuildingSlot TurretSlot;
+    public BuildingSlot BarricadeSlot;
     public  bool RunTutorial = false;
     [HideInInspector]
     public static MessageData CurrentMessageData;
@@ -214,12 +216,12 @@ public class TutorialScene : MonoBehaviour {
                 LerpCamera(MessageList[EventIndex]);
                 LerpCameraRotation(MessageList[EventIndex]);
             }
-            if (Vector3.Distance(_MainCamera.transform.position, MessageList[EventIndex].TargetObject.transform.position) < 0.1f)
+            if (Vector3.Distance(_MainCamera.transform.position, MessageList[EventIndex].TargetObject.transform.position) < 3.5f)
             {
                 MessageList[EventIndex].SetLerpComplete(true);
                 _MainCamera.transform.position = MessageList[EventIndex].TargetObject.transform.position;
             }
-            if (_MainCamera.transform.position == MessageList[EventIndex].TargetObject.transform.position)
+            if (MessageList[EventIndex].IsLerpComplete())
             {
                 if (Input.GetKeyDown(KeyCode.Return) || GamepadManager.Instance.GetGamepad(1).GetButtonDown("A"))
                 {
@@ -310,7 +312,20 @@ public class TutorialScene : MonoBehaviour {
     {
         switch(md.Action)
         {
+            
             case RequiredAction.BUILD_BARRICADE:
+           
+            if(BarricadeSlot.GetBuildingOnSlot() != null)
+                if((BarricadeSlot.GetBuildingOnSlot().ObjectName == BarricadeSlot.Buildings[1].ObjectName && BarricadeSlot.GetBuildingOnSlot()._ObjectState == WorldObject.WorldObjectStates.Active)
+                        ||( BarricadeSlot.GetBuildingOnSlot().ObjectName == BarricadeSlot.Buildings[2].ObjectName && BarricadeSlot.GetBuildingOnSlot()._ObjectState == WorldObject.WorldObjectStates.Active))
+                {
+                    ObjectiveText.text = "Build Barricade: 1/1";
+                    ActionBool = true;
+                }
+                else
+                {
+                    ObjectiveText.text = "Build Barricade: 0/1";
+                }
 
                 break;
             case RequiredAction.BUILD_BASIC_UNIT:
@@ -341,6 +356,19 @@ public class TutorialScene : MonoBehaviour {
                 }
                 break;
             case RequiredAction.BUILD_TOWER:
+
+                if (TurretSlot.GetBuildingOnSlot() != null)
+                    if ((TurretSlot.GetBuildingOnSlot().ObjectName == TurretSlot.Buildings[1].ObjectName && TurretSlot.GetBuildingOnSlot()._ObjectState == Abstraction.WorldObjectStates.Active)
+                      ||(TurretSlot.GetBuildingOnSlot().ObjectName == TurretSlot.Buildings[2].ObjectName && TurretSlot.GetBuildingOnSlot()._ObjectState == Abstraction.WorldObjectStates.Active)
+                      ||(TurretSlot.GetBuildingOnSlot().ObjectName == TurretSlot.Buildings[3].ObjectName && TurretSlot.GetBuildingOnSlot()._ObjectState == Abstraction.WorldObjectStates.Active))
+                {
+                    ObjectiveText.text = "Build Tower: 1/1";
+                    ActionBool = true;
+                }
+                else
+                {
+                    ObjectiveText.text = "Build Tower: 0/1";
+                }
                 break;
             case RequiredAction.BUILD_VEHICLE:
                 break;

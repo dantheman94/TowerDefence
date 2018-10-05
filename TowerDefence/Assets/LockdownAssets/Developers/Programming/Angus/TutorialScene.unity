@@ -3414,7 +3414,7 @@ MonoBehaviour:
     HighlightBase: 0
     HighlightSlots: 0
     HighlightSelectable: 0
-    LockControls: 0
+    LockControls: 1
     FreezeTime: 0
     DisablePrompt: 0
     ActionRequired: 0
@@ -3426,6 +3426,36 @@ MonoBehaviour:
     TargetObject: {fileID: 0}
     HighlightObject: {fileID: 0}
     LerpSpeed: 0.1
+    EnableTextFlash: 1
+    HighlightBase: 0
+    HighlightSlots: 0
+    HighlightSelectable: 0
+    LockControls: 1
+    FreezeTime: 0
+    DisablePrompt: 0
+    ActionRequired: 0
+    Action: 0
+  - DesiredPosition: {fileID: 363568933}
+    MessageContent: This long slot can be used to make barricades. Different barricades
+      have different defensive and offensive capabilities. Go ahead and build one
+      now!
+    TargetObject: {fileID: 1447458739}
+    HighlightObject: {fileID: 1299127102}
+    LerpSpeed: 0.05
+    EnableTextFlash: 0
+    HighlightBase: 0
+    HighlightSlots: 0
+    HighlightSelectable: 1
+    LockControls: 0
+    FreezeTime: 0
+    DisablePrompt: 1
+    ActionRequired: 1
+    Action: 2
+  - DesiredPosition: {fileID: 363568933}
+    MessageContent: 'Perfect that barricade should help keep enemies at bay. '
+    TargetObject: {fileID: 0}
+    HighlightObject: {fileID: 2001281434}
+    LerpSpeed: 0.05
     EnableTextFlash: 0
     HighlightBase: 0
     HighlightSlots: 0
@@ -3436,53 +3466,26 @@ MonoBehaviour:
     ActionRequired: 0
     Action: 0
   - DesiredPosition: {fileID: 363568933}
-    MessageContent: Go ahead and make a few now!
+    MessageContent: The smaller slot is a tower slot. Towers provide long range vision
+      and can even be armed to attack invading enemies. Go ahead and build one!
     TargetObject: {fileID: 0}
-    HighlightObject: {fileID: 1083547547}
+    HighlightObject: {fileID: 2001281434}
     LerpSpeed: 0.05
     EnableTextFlash: 0
     HighlightBase: 0
     HighlightSlots: 0
     HighlightSelectable: 1
-    LockControls: 1
+    LockControls: 0
     FreezeTime: 0
-    DisablePrompt: 0
-    ActionRequired: 0
-    Action: 0
-  - DesiredPosition: {fileID: 363568933}
-    MessageContent: This is the enemy base and the circular structure is an etherium
-      gate.
-    TargetObject: {fileID: 1684316824}
-    HighlightObject: {fileID: 1083547547}
-    LerpSpeed: 0.05
-    EnableTextFlash: 0
-    HighlightBase: 0
-    HighlightSlots: 0
-    HighlightSelectable: 1
-    LockControls: 1
-    FreezeTime: 0
-    DisablePrompt: 0
-    ActionRequired: 0
-    Action: 0
-  - DesiredPosition: {fileID: 363568933}
-    MessageContent: The etherium gate is used by rival enemies for troop transportation.
-      They will keep sending troops after us until we destroy their base.
-    TargetObject: {fileID: 0}
-    HighlightObject: {fileID: 1083547547}
-    LerpSpeed: 0.05
-    EnableTextFlash: 0
-    HighlightBase: 0
-    HighlightSlots: 0
-    HighlightSelectable: 1
-    LockControls: 1
-    FreezeTime: 0
-    DisablePrompt: 0
-    ActionRequired: 0
-    Action: 0
+    DisablePrompt: 1
+    ActionRequired: 1
+    Action: 5
   MessagePanel: {fileID: 196402403}
   ObjectiveText: {fileID: 2134194018}
   ObjectiveTextTwo: {fileID: 1589130699}
   PromptText: {fileID: 1781978153}
+  TurretSlot: {fileID: 2001281434}
+  BarricadeSlot: {fileID: 1299127102}
   RunTutorial: 1
   TownHall: {fileID: 532253987}
   BaseBuildingSlots:
@@ -7400,7 +7403,7 @@ Prefab:
     - target: {fileID: 114191352172799954, guid: 48f267e6564f5174aa786648bcff6471,
         type: 2}
       propertyPath: Radius
-      value: 120
+      value: 152.82
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 48f267e6564f5174aa786648bcff6471, type: 2}
@@ -8460,6 +8463,12 @@ Transform:
   m_PrefabParentObject: {fileID: 4719710095402518, guid: 75c6871efea1dd349ab282a2820b3a22,
     type: 2}
   m_PrefabInternal: {fileID: 1299127100}
+--- !u!114 &1299127102 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114366939821830164, guid: 75c6871efea1dd349ab282a2820b3a22,
+    type: 2}
+  m_PrefabInternal: {fileID: 1299127100}
+  m_Script: {fileID: 11500000, guid: 2f586be90bd3d6843a53f71c9c90f80a, type: 3}
 --- !u!1 &1309174210
 GameObject:
   m_ObjectHideFlags: 0
@@ -9979,13 +9988,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1447458739}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.21639864, y: 0.7784821, z: -0.36301216, w: 0.4640684}
+  m_LocalPosition: {x: 244.7, y: 97.1, z: 464.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 905765308}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 50, y: 118.4, z: 0}
 --- !u!1 &1470901571
 GameObject:
   m_ObjectHideFlags: 0
@@ -12146,7 +12155,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4549799531477632, guid: 97371d9815069d847860ef387529bbf3, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 171.65
+      value: 244.7
       objectReference: {fileID: 0}
     - target: {fileID: 4549799531477632, guid: 97371d9815069d847860ef387529bbf3, type: 2}
       propertyPath: m_LocalPosition.y
@@ -12154,23 +12163,23 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4549799531477632, guid: 97371d9815069d847860ef387529bbf3, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 327.9
+      value: 464.4
       objectReference: {fileID: 0}
     - target: {fileID: 4549799531477632, guid: 97371d9815069d847860ef387529bbf3, type: 2}
       propertyPath: m_LocalRotation.x
-      value: 0.1461024
+      value: 0.21639864
       objectReference: {fileID: 0}
     - target: {fileID: 4549799531477632, guid: 97371d9815069d847860ef387529bbf3, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0.850427
+      value: 0.7784821
       objectReference: {fileID: 0}
     - target: {fileID: 4549799531477632, guid: 97371d9815069d847860ef387529bbf3, type: 2}
       propertyPath: m_LocalRotation.z
-      value: -0.39656058
+      value: -0.36301216
       objectReference: {fileID: 0}
     - target: {fileID: 4549799531477632, guid: 97371d9815069d847860ef387529bbf3, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 0.31331763
+      value: 0.4640684
       objectReference: {fileID: 0}
     - target: {fileID: 4549799531477632, guid: 97371d9815069d847860ef387529bbf3, type: 2}
       propertyPath: m_RootOrder
@@ -12189,6 +12198,10 @@ Prefab:
     - target: {fileID: 1094551135196284, guid: 97371d9815069d847860ef387529bbf3, type: 2}
       propertyPath: m_Name
       value: Camera_Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4549799531477632, guid: 97371d9815069d847860ef387529bbf3, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 118.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 97371d9815069d847860ef387529bbf3, type: 2}
@@ -14903,6 +14916,12 @@ Transform:
   m_PrefabParentObject: {fileID: 4526429216962806, guid: b82553ad6d1ad044f979c7b11d141394,
     type: 2}
   m_PrefabInternal: {fileID: 2001281432}
+--- !u!114 &2001281434 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114111713111011338, guid: b82553ad6d1ad044f979c7b11d141394,
+    type: 2}
+  m_PrefabInternal: {fileID: 2001281432}
+  m_Script: {fileID: 11500000, guid: 2f586be90bd3d6843a53f71c9c90f80a, type: 3}
 --- !u!1001 &2007706769
 Prefab:
   m_ObjectHideFlags: 0
