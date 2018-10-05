@@ -281,7 +281,7 @@ public class WaveManager : MonoBehaviour {
             if (_CurrentWaveEnemies.Count == 0) {
 
                 WaveComplete();
-                StartNewWave();
+                StartCoroutine(PermittedWaveStart());
             }
 
             // Only non boss waves will start before the current wave is complete
@@ -291,7 +291,7 @@ public class WaveManager : MonoBehaviour {
 
                     // Next wave timer complete
                     WaveComplete();
-                    StartNewWave();
+                    StartCoroutine(PermittedWaveStart());
                 }
 
                 // Its a boss wave so force the timer to stay at zero when it's complete
@@ -322,7 +322,7 @@ public class WaveManager : MonoBehaviour {
         _TimeTillNextWave = StartingWaveTimer;
 
         // Start wave 1
-        StartNewWave();
+        StartCoroutine(PermittedWaveStart());
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -333,12 +333,28 @@ public class WaveManager : MonoBehaviour {
     /// <returns>
     //  IEnumerator
     /// </returns>
-    public IEnumerator DelayedStart() {
+    public IEnumerator PermittedMatchStart() {
 
         // Wait until 'WaveStartPermitted' becomes true
         yield return new WaitUntil(() => WaveStartPermitted);
 
         StartNewMatch();
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Coroutine that waits until given permission (boolean) before starting a new match.
+    /// </summary>
+    /// <returns>
+    //  IEnumerator
+    /// </returns>
+    public IEnumerator PermittedWaveStart() {
+
+        // Wait until 'WaveStartPermitted' becomes true
+        yield return new WaitUntil(() => WaveStartPermitted);
+
+        StartNewWave();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

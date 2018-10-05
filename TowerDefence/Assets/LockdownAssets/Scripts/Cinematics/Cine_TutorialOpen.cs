@@ -142,7 +142,7 @@ public class Cine_TutorialOpen : Cinematic {
         Cursor.visible = true;
 
         // Start match check
-        StartCoroutine(WaveManager.Instance.DelayedStart());
+        StartCoroutine(WaveManager.Instance.PermittedWaveStart());
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
