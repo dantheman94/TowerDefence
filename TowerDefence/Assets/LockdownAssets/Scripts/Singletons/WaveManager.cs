@@ -90,24 +90,41 @@ public class WaveManager : MonoBehaviour {
     [System.Serializable]
     public struct WaveInfo {
 
+        [Tooltip("The name of the wave, this is what is displayed when a new wave popup message appears on sceen\n\n" +
+                 "NOTE: no need to write NEW WAVE, just write the name with a capital letter on the first letter of each word ONLY)")]
         public string Name;
-        public WaveSeverity Severity;
-        public WaveType Type;
+        [Tooltip("This is where the RNG for wave selection takes place.\n\n" +
+                 "Every boss wave internal contains 10 wave internals.\n" +
+                 "(The 10th being the boss wave itself).\n" +
+                 "These sliders specify the wave range in which the randomizer will consider the wave to be in.")]
         public WaveInterval WaveIntervals;
+        [Tooltip("This is where the RNG for wave selection takes place.\n" +
+                 "These sliders specify the boss wave range in which the randomizer will consider this wave to be in.\n\n" +
+                 "(The first 10 waves in a match start at boss wave internal 0, after 9 normal waves and the " +
+                 "first boss wave is complete, the boss wave internal counter will increment by 1  and will " +
+                 "continue to do so every 10 waves after that.)")]
         public BossWaveInterval BossWaveIntervals;
         [Space]
+        [Tooltip("Within a wave; there are multiple (or just one if you set this to 1) subwave(s) that spawn in an even distribution throughout the wave.\n\n" +
+                 "NOTE: This variable helps determine the 'gap' between each subwave distribution & MUST be set to the same value as the highest 'StartAtSubwave' variable within your units, specified for this wave.")]
         public int Subwaves;
+        [Tooltip("Specify your wave enemy unit properties in here.")]
         public List<WaveEnemyInfo> Enemies;
     }
 
     [System.Serializable]
     public class WaveEnemyInfo {
-
-        public string Name;
+        
+        [Tooltip("Reference to the prefab for the specific unit you want to spawn during this wave.")]
         public WorldObject EnemyReference;
         [Space]
+        [Tooltip("If you have specified that there will be more than 1 subwave within this total wave of enemies, it will wait until this subwave has started before beginnning to spawn the unit.\n\n" +
+                 "NOTE: This is how you can force enemies to not spawn until later into a specific wave.")]
         public int StartAtSubwave = 1;
+        [Tooltip("For every subwave, will spawn this amount of units x times.\n\n" +
+                 "NOTE: this will only apply if there are enough respawns left for it, otherwise it will just spawn as much as it can, given the amount of respawns are left availiable.")]
         public int PerSpawnInterval;
+        [Tooltip("The maximum amount of times this unit will spawn throughout the entire wave.")]
         public int WaveMax;
         [HideInInspector]
         public int CurrentLives;
@@ -116,8 +133,10 @@ public class WaveManager : MonoBehaviour {
     [System.Serializable]
     public class WaveInterval {
 
+        [Tooltip("Minimum range for the RNG selector to consider this wave when being determined.")]
         [Range(1, 9)]
         public int MinimumWaveInterval = 1;
+        [Tooltip("Maximum range for the RNG selector to consider this wave when being determined.")]
         [Range(2, 9)]
         public int MaximumWaveInterval = 10;
     }
@@ -125,9 +144,13 @@ public class WaveManager : MonoBehaviour {
     [System.Serializable]
     public class BossWaveInterval {
 
+        [Tooltip("Minimum range for the RNG selector to consider this wave when being determined.")]
         [Range(0, 10)]
         public int MinimumBossWaveInterval = 0;
+        [Tooltip("Determines whether this wave will be considered regardless of the internal boss wave maximum.\n\n" +
+                 "NOTE: the minimum internal slider still matters in this case, this is how we make unlimited waves loop.")]
         public bool UnlimitedBossWaveIntervals = true;
+        [Tooltip("Maximum range for the RNG selector to consider this wave when being determined.")]
         [Range(0, 100)]
         public int MaximumBossWaveInterval = 0;
     }
