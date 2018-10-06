@@ -7,7 +7,7 @@ using UnityEngine;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 8/15/2018
+//  Last edited on: 6/10/2018
 //
 //******************************
 
@@ -31,6 +31,13 @@ public class DetonateMines : Abstraction {
     public override void OnWheelSelect(BuildingSlot buildingSlot) {
         base.OnWheelSelect(buildingSlot);
 
+        // Detonate all known mines on the attached minefield
+        MineField mineField = buildingSlot.GetBuildingOnSlot() as MineField;
+        for (int i = 0; i < mineField.GetUndetonatedMines().Count; i++) {
+
+            Mine mine = mineField.GetUndetonatedMines()[i];
+            mine.DetonateMine();
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

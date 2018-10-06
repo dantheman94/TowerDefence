@@ -482,12 +482,18 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
-  OnDeathEffect: {fileID: 0}
+  ProjectileImpactEffect: {fileID: 0}
+  HealthThresholdDamaged: 0.5
+  HealthDamagedParticles: []
+  OnDeathEffects: []
   ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.2
   AttachedBuildingSlot: {fileID: 0}
   ObjectHeight: 15
   HasABuildingQueue: 1
+  EffectPlayedWhenBuildingSelectable: {fileID: 0}
+  EffectPlayedOnBuiltSelectable: {fileID: 0}
+  BuiltSelectableEffectPosition: {fileID: 0}
   Selectables:
   - {fileID: 0}
   - {fileID: 0}
@@ -500,7 +506,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   BarricadeType: 0
-  MineStencil: {fileID: 1533624903940244, guid: 0edea548c129e9443b1e7adb32df97b1,
+  MineStencil: {fileID: 114182337636585678, guid: 0edea548c129e9443b1e7adb32df97b1,
     type: 2}
   MineVectorObjects:
   - {fileID: 1917956205987008}
