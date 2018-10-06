@@ -24,6 +24,7 @@ public class TutorialScene : MonoBehaviour {
         BUILD_TOWER,
         BUILD_BASIC_UNIT,
         BUILD_VEHICLE,
+        BUILD_BARRACKS,
         UPGRADE_TOWNHALL,
         NONE
     }
@@ -77,7 +78,7 @@ public class TutorialScene : MonoBehaviour {
 
     [Header(" SELECTABLE REFERENCES ")]
     public Selectable TownHall;
-    public List<Selectable> BaseBuildingSlots;
+    public List<BuildingSlot> BaseBuildingSlots;
 
     //                                    VARIABLES
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -273,17 +274,6 @@ public class TutorialScene : MonoBehaviour {
         _MainCamera.transform.rotation = Quaternion.Lerp(_MainCamera.transform.rotation, md.TargetObject.transform.rotation, md.LerpSpeed);
     }
 
-    IEnumerator PanCamera(MessageData md)
-    {
-        yield return new WaitForSeconds(md.LerpSpeed);
-    }
-
-    IEnumerator OutlineFlash(float timer)
-    {
-        OutlineColorFlash();
-        yield return new WaitForSeconds(timer);
-    }
-
     void OutlineColorFlash()
     {
         if (_FlashTimer < 0)
@@ -312,12 +302,12 @@ public class TutorialScene : MonoBehaviour {
     {
         switch(md.Action)
         {
-            
             case RequiredAction.BUILD_BARRICADE:
            
             if(BarricadeSlot.GetBuildingOnSlot() != null)
-                if((BarricadeSlot.GetBuildingOnSlot().ObjectName == BarricadeSlot.Buildings[1].ObjectName && BarricadeSlot.GetBuildingOnSlot()._ObjectState == WorldObject.WorldObjectStates.Active)
-                        ||( BarricadeSlot.GetBuildingOnSlot().ObjectName == BarricadeSlot.Buildings[2].ObjectName && BarricadeSlot.GetBuildingOnSlot()._ObjectState == WorldObject.WorldObjectStates.Active))
+            {
+                if ((BarricadeSlot.GetBuildingOnSlot().ObjectName == BarricadeSlot.Buildings[1].ObjectName && BarricadeSlot.GetBuildingOnSlot()._ObjectState == WorldObject.WorldObjectStates.Active)
+                                            || (BarricadeSlot.GetBuildingOnSlot().ObjectName == BarricadeSlot.Buildings[2].ObjectName && BarricadeSlot.GetBuildingOnSlot()._ObjectState == WorldObject.WorldObjectStates.Active))
                 {
                     ObjectiveText.text = "Build Barricade: 1/1";
                     ActionBool = true;
@@ -326,20 +316,16 @@ public class TutorialScene : MonoBehaviour {
                 {
                     ObjectiveText.text = "Build Barricade: 0/1";
                 }
+            }
+            else
+            {
+                ObjectiveText.text = "Build Barricade: 0/1";
+            }
+            
 
                 break;
             case RequiredAction.BUILD_BASIC_UNIT:
 
-                break;
-            case RequiredAction.BUILD_RESOURCE_GENERATORS:
-
-                ObjectiveText.text = "Supply Generator: " + _ResourceManager.GetSupplyGeneratorCount() + "/1";
-                ObjectiveTextTwo.text = "Power Generator: " + _ResourceManager.GetPowerGeneratorCount() + "/1";
-                if (_ResourceManager.GetSupplyGeneratorCount() == 1 && _ResourceManager.GetPowerGeneratorCount() == 1)
-                {
-         //           ObjectiveText.text = "Supply Generator: 1/1 /n Power Generator 1/1"; ;
-                    ActionBool = true;
-                }
                 break;
             case RequiredAction.BUILD_POWER_GENERATOR:
                 ObjectiveText.text = "Power Station: " + _ResourceManager.GetPowerGeneratorCount() + "/1";
@@ -358,23 +344,53 @@ public class TutorialScene : MonoBehaviour {
             case RequiredAction.BUILD_TOWER:
 
                 if (TurretSlot.GetBuildingOnSlot() != null)
-                    if ((TurretSlot.GetBuildingOnSlot().ObjectName == TurretSlot.Buildings[1].ObjectName && TurretSlot.GetBuildingOnSlot()._ObjectState == Abstraction.WorldObjectStates.Active)
-                      ||(TurretSlot.GetBuildingOnSlot().ObjectName == TurretSlot.Buildings[2].ObjectName && TurretSlot.GetBuildingOnSlot()._ObjectState == Abstraction.WorldObjectStates.Active)
-                      ||(TurretSlot.GetBuildingOnSlot().ObjectName == TurretSlot.Buildings[3].ObjectName && TurretSlot.GetBuildingOnSlot()._ObjectState == Abstraction.WorldObjectStates.Active))
                 {
-                    ObjectiveText.text = "Build Tower: 1/1";
-                    ActionBool = true;
+                    if ((TurretSlot.GetBuildingOnSlot().ObjectName == TurretSlot.Buildings[1].ObjectName && TurretSlot.GetBuildingOnSlot()._ObjectState == Abstraction.WorldObjectStates.Active)
+                 || (TurretSlot.GetBuildingOnSlot().ObjectName == TurretSlot.Buildings[2].ObjectName && TurretSlot.GetBuildingOnSlot()._ObjectState == Abstraction.WorldObjectStates.Active)
+                 || (TurretSlot.GetBuildingOnSlot().ObjectName == TurretSlot.Buildings[3].ObjectName && TurretSlot.GetBuildingOnSlot()._ObjectState == Abstraction.WorldObjectStates.Active))
+                    {
+                        ObjectiveText.text = "Build Tower: 1/1";
+                        ActionBool = true;
+                    }
+                    else
+                    {
+                        ObjectiveText.text = "Build Tower: 0/1";
+                    }
                 }
                 else
                 {
                     ObjectiveText.text = "Build Tower: 0/1";
                 }
+               
                 break;
             case RequiredAction.BUILD_VEHICLE:
                 break;
             case RequiredAction.KILL_ENEMIES:
                 break;
             case RequiredAction.UPGRADE_TOWNHALL:
+                break;
+            case RequiredAction.BUILD_BARRACKS:
+                for(int i = 0; i < BaseBuildingSlots.Count; ++i)
+                {
+                    if(BaseBuildingSlots[i].GetBuildingOnSlot() != null)
+                    {
+                        if (BaseBuildingSlots[i].GetBuildingOnSlot().ObjectName == BaseBuildingSlots[i].Buildings[9].ObjectName
+                    && BaseBuildingSlots[i].GetBuildingOnSlot()._ObjectState == Abstraction.WorldObjectStates.Active)
+                        {
+                            ObjectiveText.text = "Build Barracks 1/1";
+                            ActionBool = true;
+                        }
+                        else
+                        {
+                            ObjectiveText.text = "Build Barracks 0/1";
+                        }
+                    }
+                    else
+                    {
+                        ObjectiveText.text = "Build Barracks 0/1";
+                    }
+                
+                }
                 break;
             default:
                 break;
