@@ -781,7 +781,7 @@ MonoBehaviour:
   _WidgetShieldbarOffset: 10
   ProjectileImpactEffect: {fileID: 198188112472025816, guid: cb6673ab40070a140b992561941f7f20,
     type: 2}
-  HealthThresholdDamaged: 0.4
+  HealthThresholdDamaged: 0.5
   HealthDamagedParticles:
   - ParticleEffect: {fileID: 198338072501238106, guid: 8c8b7834fec4f7444a015d6435a41ddd,
       type: 2}
@@ -789,7 +789,8 @@ MonoBehaviour:
   - ParticleEffect: {fileID: 198338072501238106, guid: 8c8b7834fec4f7444a015d6435a41ddd,
       type: 2}
     ParticleLocation: {fileID: 4094762355022158}
-  OnDeathEffects: []
+  OnDeathEffects:
+  - {fileID: 198868045070431672, guid: 872ce7bee92507741ab6135803a77259, type: 2}
   ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.3
   UnitType: 8

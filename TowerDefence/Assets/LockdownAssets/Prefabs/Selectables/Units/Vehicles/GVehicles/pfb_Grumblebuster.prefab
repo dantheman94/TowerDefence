@@ -1317,31 +1317,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e3a299bc8060d0478dffe78b1b384f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetWeights:
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 1
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
 --- !u!114 &114585045816634058
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1393,8 +1368,12 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 50
   _WidgetShieldbarScaleY: 10
   _WidgetShieldbarOffset: 10
+  ProjectileImpactEffect: {fileID: 198188112472025816, guid: cb6673ab40070a140b992561941f7f20,
+    type: 2}
+  HealthThresholdDamaged: 0.5
+  HealthDamagedParticles: []
   OnDeathEffects:
-  - {fileID: 19800008, guid: 7075bd5fe1480184695a32611c15da57, type: 2}
+  - {fileID: 198400088648914588, guid: 94bb7220218e3a14a8dbb6e66f9a8ad6, type: 2}
   ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.3
   UnitType: 4

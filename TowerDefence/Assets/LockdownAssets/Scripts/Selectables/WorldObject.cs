@@ -79,6 +79,7 @@ public class WorldObject : Selectable {
     [Space]
     public ParticleSystem ProjectileImpactEffect = null;
     [Space]
+    [Range(0f, 0.9f)]
     public float HealthThresholdDamaged = 0.5f;
     public List<HealthThresholdParticles> HealthDamagedParticles;
 
@@ -267,11 +268,12 @@ public class WorldObject : Selectable {
         }
 
         // Despawn any damage particles if our health is above the threshold (IE: after being healed)
-        if (_HitPoints > HealthThresholdDamaged) {
+        if (_Health > HealthThresholdDamaged) {
 
             for (int i = 0; i < _DamagedParticles.Count; i++) {
 
                 ParticleSystem effect = _DamagedParticles[i];
+                effect.Stop(true);
                 ObjectPooling.Despawn(effect.gameObject);
             }
             if (_DamagedParticles.Count > 0) { _DamagedParticles.Clear(); }
@@ -495,6 +497,15 @@ public class WorldObject : Selectable {
         // Force deselect
         SetIsSelected(false);
 
+        // Despawn any damaged threshold particles in play
+        for (int i = 0; i < _DamagedParticles.Count; i++) {
+
+            ParticleSystem effect = _DamagedParticles[i];
+            effect.Stop(true);
+            ObjectPooling.Despawn(effect.gameObject);
+        }
+        if (_DamagedParticles.Count > 0) { _DamagedParticles.Clear(); }
+
         // Set object state
         _ObjectState = WorldObjectStates.Destroyed;
 
@@ -509,7 +520,7 @@ public class WorldObject : Selectable {
         // Clamping health
         _HitPoints = 0;
         _Health = 0f;
-
+        
         // Play OnDeath(s) effect
         for (int i = 0; i < OnDeathEffects.Count; i++) {
                     
@@ -523,7 +534,7 @@ public class WorldObject : Selectable {
         }
 
         // Send message to match feed
-        MatchFeed.Instance.AddMessage(string.Concat(ObjectName, " destroyed."));
+        if (Team == GameManager.Team.Defending) { MatchFeed.Instance.AddMessage(string.Concat(ObjectName, " destroyed.")); }
 
         // Delay then despawn
         StartCoroutine(DelayedShrinking(3f));
