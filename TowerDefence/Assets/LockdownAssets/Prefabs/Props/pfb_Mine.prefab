@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4295269495494024}
   - component: {fileID: 114182337636585678}
+  - component: {fileID: 135375295488244558}
   m_Layer: 0
   m_Name: pfb_Mine
   m_TagString: Untagged
@@ -127,14 +128,26 @@ MonoBehaviour:
   DamageFalloff: 0.5
   ExplosionEffect: {fileID: 19800002, guid: 6890a03af913b874092fbb1e8337747d, type: 2}
   Damages:
-    DamageDefault: 0
-    DamageCoreInfantry: 0
-    DamageAntiInfantryMarine: 0
-    DamageHero: 0
-    DamageCoreVehicle: 0
-    DamageAntiAirVehicle: 0
-    DamageMobileArtillery: 0
-    DamageBattleTank: 0
-    DamageCoreAirship: 0
-    DamageSupportShip: 0
-    DamageHeavyAirship: 0
+    DamageDefault: 10
+    DamageCoreInfantry: 10
+    DamageAntiInfantryMarine: 10
+    DamageHero: 10
+    DamageCoreVehicle: 10
+    DamageAntiAirVehicle: 10
+    DamageMobileArtillery: 10
+    DamageBattleTank: 10
+    DamageCoreAirship: 10
+    DamageSupportShip: 10
+    DamageHeavyAirship: 10
+--- !u!135 &135375295488244558
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1533624903940244}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 3
+  m_Center: {x: 0, y: 0, z: 0}

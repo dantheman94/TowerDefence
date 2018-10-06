@@ -58,6 +58,7 @@ public class Weapon : MonoBehaviour {
     [Header("-----------------------------------")]
     [Header(" IMPACT DAMAGES")]
     [Space]
+    public ParticleSystem DefaultImpactEffect = null;
     public GameObject SpawnOnImpact = null;
     [Space]
     public ObjectDamages Damages;
@@ -337,7 +338,7 @@ public class Weapon : MonoBehaviour {
 
             if (Physics.Raycast(_UnitAttached.MuzzleLaunchPoints[0].transform.position, attackDir, out hit, _UnitAttached.MaxAttackingRange)) {
 
-                Debug.DrawLine(_UnitAttached.MuzzleLaunchPoints[0].transform.position, hit.point, Color.red);
+                Debug.DrawLine(_UnitAttached.MuzzleLaunchPoints[0].transform.position, hit.point, Color.blue);
 
                 // Damage target
                 WorldObject worldObj = hit.transform.GetComponentInParent<WorldObject>();
@@ -345,6 +346,30 @@ public class Weapon : MonoBehaviour {
                 if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Ignore Raycast")) { return; }
 
                 else if (worldObj != null) {
+
+                    // Play impacted object's particle effect
+                    Vector3 position = hit.point;
+                    Quaternion rotation = Quaternion.FromToRotation(hit.point, _UnitAttached.MuzzleLaunchPoints[0].transform.position);
+                    if (worldObj.ProjectileImpactEffect != null) {
+
+                        ParticleSystem impact = ObjectPooling.Spawn(worldObj.ProjectileImpactEffect.gameObject, position, rotation).GetComponent<ParticleSystem>();
+                        impact.Play();
+
+                        // Despawn particle system once it has finished its cycle
+                        float effectDuration = impact.duration + impact.startLifetime;
+                        StartCoroutine(ParticleDespawn(impact, effectDuration));
+                    }
+
+                    // Play default impact effect
+                    else {
+
+                        ParticleSystem impact = ObjectPooling.Spawn(DefaultImpactEffect.gameObject, position, rotation).GetComponent<ParticleSystem>();
+                        impact.Play();
+
+                        // Despawn particle system once it has finished its cycle
+                        float effectDuration = impact.duration + impact.startLifetime;
+                        StartCoroutine(ParticleDespawn(impact, effectDuration));
+                    }
 
                     DifficultyManager dm = DifficultyManager.Instance;
                     DifficultyManager.EDifficultyModifiers mod = DifficultyManager.EDifficultyModifiers.Damage;
@@ -402,6 +427,30 @@ public class Weapon : MonoBehaviour {
 
                 else if (worldObj != null) {
 
+                    // Play impacted object's particle effect
+                    Vector3 position = hit.point;
+                    Quaternion rotation = Quaternion.FromToRotation(hit.point, _TowerAttached.MuzzleLaunchPoints[0].transform.position);
+                    if (worldObj.ProjectileImpactEffect != null) {
+
+                        ParticleSystem impact = ObjectPooling.Spawn(worldObj.ProjectileImpactEffect.gameObject, position, rotation).GetComponent<ParticleSystem>();
+                        impact.Play();
+
+                        // Despawn particle system once it has finished its cycle
+                        float effectDuration = impact.duration + impact.startLifetime;
+                        StartCoroutine(ParticleDespawn(impact, effectDuration));
+                    }
+
+                    // Play default impact effect
+                    else {
+
+                        ParticleSystem impact = ObjectPooling.Spawn(DefaultImpactEffect.gameObject, position, rotation).GetComponent<ParticleSystem>();
+                        impact.Play();
+
+                        // Despawn particle system once it has finished its cycle
+                        float effectDuration = impact.duration + impact.startLifetime;
+                        StartCoroutine(ParticleDespawn(impact, effectDuration));
+                    }
+
                     DifficultyManager dm = DifficultyManager.Instance;
                     DifficultyManager.EDifficultyModifiers mod = DifficultyManager.EDifficultyModifiers.Damage;
                     WaveManager wm = WaveManager.Instance;
@@ -457,6 +506,30 @@ public class Weapon : MonoBehaviour {
                 if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Ignore Raycast")) { return; }
 
                 else if (worldObj != null) {
+
+                    // Play impacted object's particle effect
+                    Vector3 position = hit.point;
+                    Quaternion rotation = Quaternion.FromToRotation(hit.point, _GunnerAttached.MuzzleLaunchPoints[0].transform.position);
+                    if (worldObj.ProjectileImpactEffect != null) {
+
+                        ParticleSystem impact = ObjectPooling.Spawn(worldObj.ProjectileImpactEffect.gameObject, position, rotation).GetComponent<ParticleSystem>();
+                        impact.Play();
+
+                        // Despawn particle system once it has finished its cycle
+                        float effectDuration = impact.duration + impact.startLifetime;
+                        StartCoroutine(ParticleDespawn(impact, effectDuration));
+                    }
+
+                    // Play default impact effect
+                    else {
+
+                        ParticleSystem impact = ObjectPooling.Spawn(DefaultImpactEffect.gameObject, position, rotation).GetComponent<ParticleSystem>();
+                        impact.Play();
+
+                        // Despawn particle system once it has finished its cycle
+                        float effectDuration = impact.duration + impact.startLifetime;
+                        StartCoroutine(ParticleDespawn(impact, effectDuration));
+                    }
 
                     DifficultyManager dm = DifficultyManager.Instance;
                     DifficultyManager.EDifficultyModifiers mod = DifficultyManager.EDifficultyModifiers.Damage;

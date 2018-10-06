@@ -74,6 +74,15 @@ public class WorldObject : Selectable {
     public float _WidgetShieldbarOffset = 22f;
 
     [Space]
+    [Header(" DAMAGED EFFECTS")]
+    [Header("-----------------------------------")]
+    [Space]
+    public ParticleSystem ProjectileImpactEffect = null;
+    [Space]
+    public float HealthThresholdDamaged = 0.5f;
+    public List<HealthThresholdParticles> HealthDamagedParticles;
+
+    [Space]
     [Header(" ON DEATH/DESTROYED")]
     [Header("-----------------------------------")]
     [Space]
@@ -89,6 +98,13 @@ public class WorldObject : Selectable {
     //
     //******************************************************************************************************************************
 
+    [System.Serializable]
+    public struct HealthThresholdParticles {
+
+        public ParticleSystem ParticleEffect;
+        public Transform ParticleLocation;
+    }
+    protected List<ParticleSystem> _DamagedParticles = null;
 
     protected bool _ReadyForDeployment = false;
 
@@ -129,6 +145,7 @@ public class WorldObject : Selectable {
         // Get component references
         if (QuadMinimap != null) { _MinimapQuadRenderer = QuadMinimap.GetComponent<Renderer>(); }
 
+        // Initialize
         Init();
     }
 
@@ -149,6 +166,9 @@ public class WorldObject : Selectable {
         // Set recycle values
         _RecycleSupplies = CostSupplies / 2;
         _RecyclePower = CostPower / 2;
+
+        // Create arrays
+        _DamagedParticles = new List<ParticleSystem>();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -244,12 +264,17 @@ public class WorldObject : Selectable {
             // Clamping health
             _HitPoints = 0;
             _Health = 0f;
+        }
 
-            if (_ObjectState != WorldObjectStates.Default) {
+        // Despawn any damage particles if our health is above the threshold (IE: after being healed)
+        if (_HitPoints > HealthThresholdDamaged) {
 
-                // Kill the object
-                ///OnDeath();
+            for (int i = 0; i < _DamagedParticles.Count; i++) {
+
+                ParticleSystem effect = _DamagedParticles[i];
+                ObjectPooling.Despawn(effect.gameObject);
             }
+            if (_DamagedParticles.Count > 0) { _DamagedParticles.Clear(); }
         }
 
         // Change minimap colour based on attacking/defending & team colour
@@ -430,15 +455,31 @@ public class WorldObject : Selectable {
     /// </summary>
     /// <param name="damage"></param>
     public virtual void Damage(float damage, WorldObject instigator = null) {
-
+        
         // Only proceed if were meant to be killable
         if (Damagable) {
 
             // Cant damage if were already destroyed
             if (_ObjectState != WorldObjectStates.Destroyed) {
 
-                // Damage object & kill it if theres no health left
+                // Damage object 
                 _HitPoints -= damage;
+
+                // Play any damaged particle effects needed
+                if (_HitPoints > 0) { _Health = _HitPoints / MaxHitPoints; }
+                if (_Health <= HealthThresholdDamaged) {
+                    
+                    // Loop and start playing the damaged particle systems
+                    for (int i = 0; i < HealthDamagedParticles.Count; i++) {
+
+                        Vector3 position = HealthDamagedParticles[i].ParticleLocation.position;
+                        Quaternion rotation = HealthDamagedParticles[i].ParticleLocation.rotation;
+                        ParticleSystem effect = ObjectPooling.Spawn(HealthDamagedParticles[i].ParticleEffect.gameObject, position, rotation).GetComponent<ParticleSystem>();
+                        effect.Play();
+                    }
+                }
+
+                // Kill it if theres no health left
                 if (_HitPoints <= 0) { OnDeath(instigator); }
             }
         }

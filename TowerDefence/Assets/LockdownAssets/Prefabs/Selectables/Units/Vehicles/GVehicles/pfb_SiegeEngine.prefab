@@ -43,6 +43,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 18
   m_IsActive: 1
+--- !u!1 &1183747573113422
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4094762355022158}
+  m_Layer: 9
+  m_Name: Point B
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1364828568622108
 GameObject:
   m_ObjectHideFlags: 0
@@ -61,6 +76,21 @@ GameObject:
   m_Layer: 9
   m_Name: pfb_SiegeEngine
   m_TagString: Unit
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1508516661918784
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4169555593466084}
+  m_Layer: 9
+  m_Name: Point A
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -162,6 +192,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 18
   m_IsActive: 1
+--- !u!1 &1857591891171992
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4018035591658096}
+  m_Layer: 9
+  m_Name: DamagedPoints
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1905767118408798
 GameObject:
   m_ObjectHideFlags: 1
@@ -229,6 +274,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &4018035591658096
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1857591891171992}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4169555593466084}
+  - {fileID: 4094762355022158}
+  m_Father: {fileID: 4868349429360610}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4053133247235062
 Transform:
   m_ObjectHideFlags: 1
@@ -240,6 +300,19 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4876265826987354}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4094762355022158
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1183747573113422}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.565, y: 2.619, z: -2.162}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4018035591658096}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4164118262573626
@@ -255,6 +328,19 @@ Transform:
   m_Father: {fileID: 4868349429360610}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!4 &4169555593466084
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1508516661918784}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.558, y: 2.619, z: -0.207}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4018035591658096}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4178686464863436
 Transform:
   m_ObjectHideFlags: 1
@@ -289,7 +375,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1364828568622108}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -23.8, y: 0, z: -105.3}
+  m_LocalPosition: {x: -23.8, y: -1.96, z: -105.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4868349429360610}
@@ -366,6 +452,7 @@ Transform:
   - {fileID: 4724221234874398}
   - {fileID: 4954697417015502}
   - {fileID: 4237549862593024}
+  - {fileID: 4018035591658096}
   m_Father: {fileID: 4300953811889052}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -692,7 +779,17 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 65
   _WidgetShieldbarScaleY: 10
   _WidgetShieldbarOffset: 10
-  OnDeathEffect: {fileID: 0}
+  ProjectileImpactEffect: {fileID: 198188112472025816, guid: cb6673ab40070a140b992561941f7f20,
+    type: 2}
+  HealthThresholdDamaged: 0.4
+  HealthDamagedParticles:
+  - ParticleEffect: {fileID: 198338072501238106, guid: 8c8b7834fec4f7444a015d6435a41ddd,
+      type: 2}
+    ParticleLocation: {fileID: 4169555593466084}
+  - ParticleEffect: {fileID: 198338072501238106, guid: 8c8b7834fec4f7444a015d6435a41ddd,
+      type: 2}
+    ParticleLocation: {fileID: 4094762355022158}
+  OnDeathEffects: []
   ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.3
   UnitType: 8
@@ -806,31 +903,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e3a299bc8060d0478dffe78b1b384f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetWeights:
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 1
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
 --- !u!114 &114969527644702498
 MonoBehaviour:
   m_ObjectHideFlags: 1
