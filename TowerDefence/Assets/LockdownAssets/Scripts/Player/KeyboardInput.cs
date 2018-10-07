@@ -93,10 +93,23 @@ public class KeyboardInput : MonoBehaviour {
             if (IsPrimaryController && !GameManager.Instance._CinematicInProgress && !lockcontrols) {
 
                 Cursor.visible = true;
-                
-                // Update camera
-                MoveCamera();
-                RotateCamera();
+               
+               if(TutorialScene.CurrentMessageData != null)
+                {
+                    if(!TutorialScene.CurrentMessageData.LockCamera)
+                    {
+                        // Update camera
+                        MoveCamera();
+                        RotateCamera();
+                    }
+                }
+               else
+                {
+                    // Update camera
+                    MoveCamera();
+                    RotateCamera();
+                }
+              
 
                 // Update camera FOV
                 ZoomCamera();

@@ -50,11 +50,16 @@ public class TutorialScene : MonoBehaviour {
         public bool HighlightSlots;
         [Tooltip("Enables the outline of the 'Hightlight Object'")]
         public bool HighlightSelectable;
-        [Tooltip("Locks Camera from player movement.")]
+        [Tooltip("Locks players controls.")]
         public bool LockControls;
-        [Tooltip("Freezes time.")]
-        public bool FreezeTime;
+        [Tooltip("Disables continue prompt on message.")]
         public bool DisablePrompt;
+        [Tooltip("Prevents camera from moving.")]
+        public bool LockCamera;
+        [Tooltip("Locks all buttons in lockable buttons")]
+        public bool LockButtons;
+        [Tooltip("The buttons that will be locked if LockButtons = true")]
+        public List<Button> LockableButtons;
         [Header(" PLAYER REQUIRED ACTION TO CONTINUE ")]
         public bool ActionRequired;
         public RequiredAction Action;
@@ -72,6 +77,7 @@ public class TutorialScene : MonoBehaviour {
     public Text PromptText;
     public BuildingSlot TurretSlot;
     public BuildingSlot BarricadeSlot;
+    public GameObject StartBase;
     public  bool RunTutorial = false;
     [HideInInspector]
     public static MessageData CurrentMessageData;
@@ -91,6 +97,8 @@ public class TutorialScene : MonoBehaviour {
     private Player _Player;
     private ResourceManager _ResourceManager;
     private bool ActionBool = false;
+    private int _PopulationCount = 0;
+    private bool StartTheWaves = false;
   
     //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -107,6 +115,7 @@ public class TutorialScene : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+        //Sets static message data based on index.
         CurrentMessageData = MessageList[EventIndex];
         if(RunTutorial)
         {
@@ -116,6 +125,9 @@ public class TutorialScene : MonoBehaviour {
 
     //////////////////////////////////////////////////////////////////////////////////////////
 
+    /// <summary>
+    /// Runs tutorial event based on the message data index.
+    /// </summary>
     void TutorialEvent()
     {
         //Set desired text to panel.
@@ -229,6 +241,7 @@ public class TutorialScene : MonoBehaviour {
                     if (!MessageList[EventIndex].ActionRequired)
                     {
                         ActionBool = false;
+                        _PopulationCount = 0;
                         MessagePanel.SetActive(false);
                         if (EventIndex + 1 < MessageList.Count)
                             EventIndex++;
@@ -246,34 +259,39 @@ public class TutorialScene : MonoBehaviour {
                     if (!MessageList[EventIndex].ActionRequired)
                     {
                         ActionBool = false;
+                        _PopulationCount = 0;
                         MessagePanel.SetActive(false);
                         if (EventIndex + 1 < MessageList.Count)
                             EventIndex++;
                     }
-
                 }
             }
         }
-       
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////
 
-    void LockCamera()
-    {
-
-    }
-
+    /// <summary>
+    /// Lerps camera to new location.
+    /// </summary>
+    /// <param name="md"></param>
     void LerpCamera(MessageData md)
     {
         _MainCamera.transform.position = Vector3.Lerp(_MainCamera.transform.position, md.TargetObject.transform.position, md.LerpSpeed);
     }
 
+    /// <summary>
+    /// Rotates camera to new location.
+    /// </summary>
+    /// <param name="md"></param>
     void LerpCameraRotation(MessageData md)
     {
         _MainCamera.transform.rotation = Quaternion.Lerp(_MainCamera.transform.rotation, md.TargetObject.transform.rotation, md.LerpSpeed);
     }
 
+    /// <summary>
+    /// Flashes Resource text.
+    /// </summary>
     void OutlineColorFlash()
     {
         if (_FlashTimer < 0)
@@ -290,7 +308,6 @@ public class TutorialScene : MonoBehaviour {
                 }
             }
             _FlashTimer = 0.5f;
-
         }
         else
         {
@@ -298,12 +315,16 @@ public class TutorialScene : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Prevents tutorial event from continuing until
+    /// the required action is met.
+    /// </summary>
+    /// <param name="md"></param>
     private void ActionRequired(MessageData md)
     {
         switch(md.Action)
         {
             case RequiredAction.BUILD_BARRICADE:
-           
             if(BarricadeSlot.GetBuildingOnSlot() != null)
             {
                 if ((BarricadeSlot.GetBuildingOnSlot().ObjectName == BarricadeSlot.Buildings[1].ObjectName && BarricadeSlot.GetBuildingOnSlot()._ObjectState == WorldObject.WorldObjectStates.Active)
@@ -321,11 +342,17 @@ public class TutorialScene : MonoBehaviour {
             {
                 ObjectiveText.text = "Build Barricade: 0/1";
             }
-            
-
                 break;
             case RequiredAction.BUILD_BASIC_UNIT:
-
+                if(_PopulationCount == 1)
+                {
+                    ActionBool = true;
+                    ObjectiveText.text = "Build Dwarf Soldier 1/1";
+                }
+                else
+                {
+                    ObjectiveText.text = "Build Dwarf Soldier 0/1";
+                }
                 break;
             case RequiredAction.BUILD_POWER_GENERATOR:
                 ObjectiveText.text = "Power Station: " + _ResourceManager.GetPowerGeneratorCount() + "/1";
@@ -368,6 +395,15 @@ public class TutorialScene : MonoBehaviour {
             case RequiredAction.KILL_ENEMIES:
                 break;
             case RequiredAction.UPGRADE_TOWNHALL:
+                if(!StartBase.activeInHierarchy)
+                {
+                    ActionBool = true;
+                    ObjectiveText.text = "Town Hall Tier II 1/1";
+                }
+                else
+                {
+                    ObjectiveText.text = "Town Hall Tier II 0/1";
+                }
                 break;
             case RequiredAction.BUILD_BARRACKS:
                 for(int i = 0; i < BaseBuildingSlots.Count; ++i)
@@ -389,7 +425,6 @@ public class TutorialScene : MonoBehaviour {
                     {
                         ObjectiveText.text = "Build Barracks 0/1";
                     }
-                
                 }
                 break;
             default:
@@ -398,4 +433,9 @@ public class TutorialScene : MonoBehaviour {
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    /// Added to selection button to know when a unit is being built.
+    /// </summary>
+    public void IncreasePop() { _PopulationCount++; }
 }
