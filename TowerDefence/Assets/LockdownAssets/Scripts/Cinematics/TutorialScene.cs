@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 //-=-=-=-=-=-=-=-=-=-
 // Created by: Angus Secomb
-// Last Edited: 2/10/18
+// Last Edited: 8/10/18
 // Editor: Angus Secomb
 //-=-=-=-=-=-=-=-=-=-
 
@@ -23,9 +23,11 @@ public class TutorialScene : MonoBehaviour {
         BUILD_SUPPLY_GENERATOR,
         BUILD_TOWER,
         BUILD_BASIC_UNIT,
+        BUILD_BARRACK_UNIT,
         BUILD_VEHICLE,
         BUILD_BARRACKS,
         UPGRADE_TOWNHALL,
+        FINISH_TUTORIAL,
         NONE
     }
 
@@ -123,6 +125,11 @@ public class TutorialScene : MonoBehaviour {
         {
             TutorialEvent();
         }
+        else
+        {
+            MessagePanel.SetActive(false);
+            ControlsObject.SetActive(true);
+        }
 	}
 
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -143,14 +150,18 @@ public class TutorialScene : MonoBehaviour {
 
         }
 
-        if (MessageList[EventIndex].LockControls || MessageList[EventIndex].LockCamera)
+        if(ControlsObject != null)
         {
-            ControlsObject.SetActive(false);
+            if (MessageList[EventIndex].LockControls || MessageList[EventIndex].LockCamera)
+            {
+                ControlsObject.SetActive(false);
+            }
+            else if (!MessageList[EventIndex].LockControls && !MessageList[EventIndex].LockCamera)
+            {
+                ControlsObject.SetActive(true);
+            }
         }
-        else if (!MessageList[EventIndex].LockControls && !MessageList[EventIndex].LockCamera)
-        {
-            ControlsObject.SetActive(true);
-        }
+
 
         if(MessageList[EventIndex].LockButtons)
         {
@@ -267,6 +278,14 @@ public class TutorialScene : MonoBehaviour {
                 {
                     if (!MessageList[EventIndex].ActionRequired)
                     {
+                        if (MessageList[EventIndex].Action == RequiredAction.FINISH_TUTORIAL)
+                        {
+                            RunTutorial = false;
+                            MessageList[EventIndex].LockCamera = false;
+                            MessageList[EventIndex].LockControls = false;
+                            MessageList[EventIndex].HighlightBase = false;
+                            MessageList[EventIndex].HighlightSlots = false;
+                        }
                         ActionBool = false;
                         _PopulationCount = 0;
                         MessagePanel.SetActive(false);
@@ -285,6 +304,14 @@ public class TutorialScene : MonoBehaviour {
                 {
                     if (!MessageList[EventIndex].ActionRequired)
                     {
+                        if(MessageList[EventIndex].Action == RequiredAction.FINISH_TUTORIAL)
+                        {
+                            RunTutorial = false;
+                            MessageList[EventIndex].LockCamera = false;
+                            MessageList[EventIndex].LockControls = false;
+                            MessageList[EventIndex].HighlightBase = false;
+                            MessageList[EventIndex].HighlightSlots = false;
+                        }
                         ActionBool = false;
                         _PopulationCount = 0;
                         MessagePanel.SetActive(false);
@@ -453,6 +480,22 @@ public class TutorialScene : MonoBehaviour {
                         ObjectiveText.text = "Build Barracks 0/1";
                     }
                 }
+                break;
+            case RequiredAction.BUILD_BARRACK_UNIT:
+                if (_PopulationCount == 1)
+                {
+                    ActionBool = true;
+                    ObjectiveText.text = "Build Barracks Unit 1/1";
+                }
+                else
+                {
+                    ObjectiveText.text = "Build Barracks Unit 0/1";
+                }
+                break;
+            case RequiredAction.FINISH_TUTORIAL:
+                ActionBool = true;
+               
+
                 break;
             default:
                 break;

@@ -1,7 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//-=-=-=-=-=-=-=-=-=-
+// Created by: Angus Secomb
+// Last Edited: 8/10/18
+// Editor: Angus Secomb
+//-=-=-=-=-=-=-=-=-=-
 public class TutorialMusicDummy : MonoBehaviour {
 
     public AudioSource TutorialMusic;
