@@ -11,25 +11,39 @@ using UnityEngine.UI;
 
 public class HideObject : MonoBehaviour {
 
+    // INSPECTOR
+    /////////////////////////////////////////////////////////
     public GameObject DesiredObject;
 
+
+    // VARIABLES
+    /////////////////////////////////////////////////////////
     private Toggle _Toggle;
 
-	// Use this for initialization
-	void Start () {
+    // FUNCTIONS
+    /////////////////////////////////////////////////////////
+
+    // Use this for initialization
+    void Start () {
         _Toggle = GetComponent<Toggle>();
         _Toggle.onValueChanged.AddListener(delegate {
             ToggleValueChanged(_Toggle);
         });
     }
-	
+
+    /////////////////////////////////////////////////////////
+
     public void Hide()
     {
         Destroy(DesiredObject);
     }
 
+    /////////////////////////////////////////////////////////
+
     void ToggleValueChanged(Toggle change)
     {
         Hide();
     }
+
+    /////////////////////////////////////////////////////////
 }

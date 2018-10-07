@@ -8,22 +8,31 @@ using UnityEngine;
 //-=-=-=-=-=-=-=-=-=-
 public class TutorialMusicDummy : MonoBehaviour {
 
+    // INSPECTOR
+    /////////////////////////////////////////////////////////
     public AudioSource TutorialMusic;
     [Range(0,1)]
     public float MusicVolume;
 
-	// Use this for initialization
-	void Start () {
+    // FUNCTIONS
+    /////////////////////////////////////////////////////////
+
+    // Use this for initialization
+    void Start () {
         TutorialMusic.Play();
         TutorialMusic.volume = MusicVolume;
 	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    /////////////////////////////////////////////////////////
+
+    // Update is called once per frame
+    void Update () {
 	    if(!TutorialMusic.isPlaying)
         {
             TutorialMusic.Play();
             
         }
 	}
+
+    /////////////////////////////////////////////////////////
 }
