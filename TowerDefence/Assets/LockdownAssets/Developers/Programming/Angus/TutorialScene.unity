@@ -8,8 +8,9 @@ OcclusionCullingSettings:
     smallestOccluder: 5
     smallestHole: 0.25
     backfaceThreshold: 100
-  m_SceneGUID: 00000000000000000000000000000000
-  m_OcclusionCullingData: {fileID: 0}
+  m_SceneGUID: 15c767415b5b8e44599a36b2775cb806
+  m_OcclusionCullingData: {fileID: 36300000, guid: 86953884e11af7743a8de24a383ef2ae,
+    type: 2}
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
@@ -4610,10 +4611,6 @@ Prefab:
       propertyPath: _Player
       value: 
       objectReference: {fileID: 590559695}
-    - target: {fileID: 4100269033822204, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 136.147
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
   m_IsPrefabParent: 0
@@ -7122,6 +7119,31 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 829578304}
     m_Modifications:
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[3].Enemies.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[4].Enemies.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[5].Enemies.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[6].Enemies.Array.size
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4812084017203582, guid: b395ec806e68f63448ff1add050a25ba, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -7201,7 +7223,7 @@ Prefab:
     - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
         type: 2}
       propertyPath: StartingWaveTimer
-      value: 15
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
         type: 2}
@@ -7211,9 +7233,370 @@ Prefab:
     - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
         type: 2}
       propertyPath: Waves.Array.data[0].Subwaves
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[0].Enemies.Array.data[0].WaveMax
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[0].Enemies.Array.data[1].WaveMax
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[3].Name
+      value: Very Light Air
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[3].WaveIntervals.MinimumWaveInterval
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[3].WaveIntervals.MaximumWaveInterval
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[3].Subwaves
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[3].Enemies.Array.data[0].EnemyReference
+      value: 
+      objectReference: {fileID: 114909369810655446, guid: af5b11a941f2b054891c736f4b77e2a2,
+        type: 2}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[3].Enemies.Array.data[0].StartAtSubwave
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[3].Enemies.Array.data[0].PerSpawnInterval
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[3].Enemies.Array.data[0].WaveMax
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[4].Name
+      value: Very Light Mixed
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[4].WaveIntervals.MinimumWaveInterval
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[4].WaveIntervals.MaximumWaveInterval
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[4].Subwaves
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[4].Enemies.Array.data[0].StartAtSubwave
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[4].Enemies.Array.data[0].PerSpawnInterval
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[4].Enemies.Array.data[0].WaveMax
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[4].Enemies.Array.data[1].EnemyReference
+      value: 
+      objectReference: {fileID: 114481798048649180, guid: c4a0f18ee5b21b74fbcb5adc9b905af4,
+        type: 2}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[4].Enemies.Array.data[1].StartAtSubwave
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[4].Enemies.Array.data[1].PerSpawnInterval
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[4].Enemies.Array.data[1].WaveMax
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[4].Enemies.Array.data[2].EnemyReference
+      value: 
+      objectReference: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
+        type: 2}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[4].Enemies.Array.data[2].StartAtSubwave
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[4].Enemies.Array.data[2].PerSpawnInterval
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[4].Enemies.Array.data[2].WaveMax
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[4].Enemies.Array.data[3].EnemyReference
+      value: 
+      objectReference: {fileID: 114908419093975514, guid: f9386fdae783087469d75d32e64a58ed,
+        type: 2}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[4].Enemies.Array.data[3].StartAtSubwave
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[4].Enemies.Array.data[3].PerSpawnInterval
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[4].Enemies.Array.data[3].WaveMax
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[5].Name
+      value: Very Light Boss
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[5].WaveIntervals.MinimumWaveInterval
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[5].WaveIntervals.MaximumWaveInterval
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[5].Subwaves
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[5].Enemies.Array.data[0].EnemyReference
+      value: 
+      objectReference: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
+        type: 2}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[5].Enemies.Array.data[0].StartAtSubwave
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[5].Enemies.Array.data[0].PerSpawnInterval
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[5].Enemies.Array.data[0].WaveMax
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[5].Enemies.Array.data[1].EnemyReference
+      value: 
+      objectReference: {fileID: 114036110279440992, guid: ddc75dcadc85db640b601008ffb388bd,
+        type: 2}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[5].Enemies.Array.data[1].StartAtSubwave
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[5].Enemies.Array.data[1].PerSpawnInterval
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[5].Enemies.Array.data[1].WaveMax
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[5].Enemies.Array.data[2].EnemyReference
+      value: 
+      objectReference: {fileID: 114585045816634058, guid: 71a43feeb36f7ac4faaaad78429ccc75,
+        type: 2}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[5].Enemies.Array.data[2].StartAtSubwave
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[5].Enemies.Array.data[2].PerSpawnInterval
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[5].Enemies.Array.data[2].WaveMax
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[6].Name
+      value: Light Ground Infantry
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[6].WaveIntervals.MinimumWaveInterval
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[6].WaveIntervals.MaximumWaveInterval
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[6].BossWaveIntervals.MinimumBossWaveInterval
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[6].BossWaveIntervals.MaximumBossWaveInterval
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[6].Subwaves
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[6].Enemies.Array.data[0].EnemyReference
+      value: 
+      objectReference: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
+        type: 2}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[6].Enemies.Array.data[0].StartAtSubwave
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[6].Enemies.Array.data[0].PerSpawnInterval
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[6].Enemies.Array.data[0].WaveMax
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[6].Enemies.Array.data[1].EnemyReference
+      value: 
+      objectReference: {fileID: 114908419093975514, guid: f9386fdae783087469d75d32e64a58ed,
+        type: 2}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[6].Enemies.Array.data[1].StartAtSubwave
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[6].Enemies.Array.data[1].PerSpawnInterval
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[6].Enemies.Array.data[1].WaveMax
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[6].Enemies.Array.data[2].EnemyReference
+      value: 
+      objectReference: {fileID: 114963470945021714, guid: b428dfdc6baddce46b81aed55d5c7396,
+        type: 2}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[6].Enemies.Array.data[2].StartAtSubwave
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[6].Enemies.Array.data[2].PerSpawnInterval
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[6].Enemies.Array.data[2].WaveMax
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[2].Name
+      value: Very Light Tut Boss
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[1].WaveIntervals.MaximumWaveInterval
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[1].Enemies.Array.data[0].PerSpawnInterval
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: StartingDamageModifier
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: StartingHealthModifier
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[2].WaveIntervals.MinimumWaveInterval
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: Waves.Array.data[2].WaveIntervals.MaximumWaveInterval
+      value: 2
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: b395ec806e68f63448ff1add050a25ba, type: 2}
   m_IsPrefabParent: 0
 --- !u!4 &869091045 stripped
@@ -10785,6 +11168,7 @@ GameObject:
   - component: {fileID: 1376223738}
   - component: {fileID: 1376223740}
   - component: {fileID: 1376223739}
+  - component: {fileID: 1376223741}
   m_Layer: 0
   m_Name: Sound Manager
   m_TagString: Untagged
@@ -10910,6 +11294,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TutorialMusic: {fileID: 1376223739}
   MusicVolume: 0.1
+--- !u!114 &1376223741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1376223736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f9ee337136525149ac221ddde2ec5a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Notes: HOLD down the END button to activate timescale mode. Then press 1-9 to multiply
+    the timescale by that amount.
 --- !u!114 &1379344489 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114765484230551798, guid: 2c37129149594764f83fc9d66f18fd29,
@@ -14377,6 +14774,105 @@ Transform:
   m_Father: {fileID: 160775628}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1716213448 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1447696867771778, guid: b395ec806e68f63448ff1add050a25ba,
+    type: 2}
+  m_PrefabInternal: {fileID: 869091044}
+--- !u!114 &1716213450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1716213448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cf9ef5805592b04b8342f3b6b73faec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackingTeamColour: {r: 1, g: 0, b: 0, a: 1}
+  StartingDamageModifier: 0.6
+  StartingHealthModifier: 0.5
+  StartingFriendlyUnits:
+  - {fileID: 497953166}
+  - {fileID: 1324521136}
+  CentralCore: {fileID: 1054475420}
+  LockdownPads:
+  - {fileID: 1854009267}
+  WaveNotificationWidget: {fileID: 479592507}
+  CoreDamagedWidget: {fileID: 1379344489}
+  CinematicOpening: {fileID: 1174989658}
+  CinematicDefeat: {fileID: 1174989657}
+  PerWaveIncrementDamage: 0.01
+  PerWaveIncrementHealth: 0.01
+  PerBossWaveIncrementDamage: 0.15
+  PerBossWaveIncrementHealth: 0.2
+  WavesPerInterval: 10
+  WaveStartPermitted: 1
+  StartingWaveTimer: 60
+  TimeAddedPerWave: 10
+  TimeTillNextWaveAfterClear: 10
+  Waves:
+  - Name: Very Light Ground Infantry
+    WaveIntervals:
+      MinimumWaveInterval: 1
+      MaximumWaveInterval: 2
+    BossWaveIntervals:
+      MinimumBossWaveInterval: 1
+      UnlimitedBossWaveIntervals: 0
+      MaximumBossWaveInterval: 1
+    Subwaves: 2
+    Enemies:
+    - EnemyReference: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
+        type: 2}
+      StartAtSubwave: 1
+      PerSpawnInterval: 2
+      WaveMax: 4
+      CurrentLives: 0
+    - EnemyReference: {fileID: 114908419093975514, guid: f9386fdae783087469d75d32e64a58ed,
+        type: 2}
+      StartAtSubwave: 1
+      PerSpawnInterval: 1
+      WaveMax: 2
+      CurrentLives: 0
+  - Name: Very Light Ground Vehicles
+    WaveIntervals:
+      MinimumWaveInterval: 2
+      MaximumWaveInterval: 2
+    BossWaveIntervals:
+      MinimumBossWaveInterval: 0
+      UnlimitedBossWaveIntervals: 0
+      MaximumBossWaveInterval: 0
+    Subwaves: 2
+    Enemies:
+    - EnemyReference: {fileID: 114585045816634058, guid: 71a43feeb36f7ac4faaaad78429ccc75,
+        type: 2}
+      StartAtSubwave: 1
+      PerSpawnInterval: 1
+      WaveMax: 2
+      CurrentLives: 0
+  - Name: Very Light Tut Boss
+    WaveIntervals:
+      MinimumWaveInterval: 3
+      MaximumWaveInterval: 3
+    BossWaveIntervals:
+      MinimumBossWaveInterval: 0
+      UnlimitedBossWaveIntervals: 0
+      MaximumBossWaveInterval: 0
+    Subwaves: 3
+    Enemies:
+    - EnemyReference: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
+        type: 2}
+      StartAtSubwave: 1
+      PerSpawnInterval: 2
+      WaveMax: 2
+      CurrentLives: 0
+    - EnemyReference: {fileID: 114585045816634058, guid: 71a43feeb36f7ac4faaaad78429ccc75,
+        type: 2}
+      StartAtSubwave: 1
+      PerSpawnInterval: 1
+      WaveMax: 1
+      CurrentLives: 0
 --- !u!224 &1723755454 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 224290323464904746, guid: 657d320fcb68b8443b5983f572410f71,
@@ -14643,7 +15139,7 @@ Prefab:
     - target: {fileID: 114841784551271276, guid: c4c393ebdeccc4a49a63075ada35ffff,
         type: 2}
       propertyPath: StartingPowerCount
-      value: 4500
+      value: 3200
       objectReference: {fileID: 0}
     - target: {fileID: 114555998984486396, guid: c4c393ebdeccc4a49a63075ada35ffff,
         type: 2}
@@ -14669,6 +15165,11 @@ Prefab:
         type: 2}
       propertyPath: StartingMaxPopulation
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 114841784551271276, guid: c4c393ebdeccc4a49a63075ada35ffff,
+        type: 2}
+      propertyPath: StartingSupplyCount
+      value: 1500
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c4c393ebdeccc4a49a63075ada35ffff, type: 2}
