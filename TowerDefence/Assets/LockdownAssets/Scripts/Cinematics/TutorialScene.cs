@@ -78,6 +78,8 @@ public class TutorialScene : MonoBehaviour {
     public BuildingSlot TurretSlot;
     public BuildingSlot BarricadeSlot;
     public GameObject StartBase;
+    public GameObject ControlsObject;
+    public Color UIGreyoutColor;
     public  bool RunTutorial = false;
     [HideInInspector]
     public static MessageData CurrentMessageData;
@@ -139,6 +141,31 @@ public class TutorialScene : MonoBehaviour {
             //Display the panel.
             MessagePanel.SetActive(true);
 
+        }
+
+        if (MessageList[EventIndex].LockControls || MessageList[EventIndex].LockCamera)
+        {
+            ControlsObject.SetActive(false);
+        }
+        else if (!MessageList[EventIndex].LockControls && !MessageList[EventIndex].LockCamera)
+        {
+            ControlsObject.SetActive(true);
+        }
+
+        if(MessageList[EventIndex].LockButtons)
+        {
+            for(int i = 0; i < MessageList[EventIndex].LockableButtons.Count; ++i)
+            {
+                MessageList[EventIndex].LockableButtons[i].interactable = false;
+                MessageList[EventIndex].LockableButtons[i].gameObject.GetComponent<Image>().color = UIGreyoutColor;
+            }
+        }
+        else
+        {
+            for (int i = 0; i < MessageList[EventIndex].LockableButtons.Count; ++i)
+            {
+                MessageList[EventIndex].LockableButtons[i].interactable = true;
+            }
         }
 
         if(PromptText != null)
@@ -250,7 +277,7 @@ public class TutorialScene : MonoBehaviour {
             }
         }
   
-        if (EventIndex == 0 || MessageList[EventIndex].TargetObject == null)
+        else if (EventIndex == 0 || MessageList[EventIndex].TargetObject == null)
         {
             if(!GameManager.Instance._CinematicInProgress)
             {
