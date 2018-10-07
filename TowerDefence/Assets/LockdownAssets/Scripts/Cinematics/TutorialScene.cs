@@ -280,6 +280,7 @@ public class TutorialScene : MonoBehaviour {
                     {
                         if (MessageList[EventIndex].Action == RequiredAction.FINISH_TUTORIAL)
                         {
+                            WaveManager.Instance.WaveStartPermitted = true;
                             RunTutorial = false;
                             MessageList[EventIndex].LockCamera = false;
                             MessageList[EventIndex].LockControls = false;
@@ -306,6 +307,7 @@ public class TutorialScene : MonoBehaviour {
                     {
                         if(MessageList[EventIndex].Action == RequiredAction.FINISH_TUTORIAL)
                         {
+                            WaveManager.Instance.WaveStartPermitted = true;
                             RunTutorial = false;
                             MessageList[EventIndex].LockCamera = false;
                             MessageList[EventIndex].LockControls = false;
