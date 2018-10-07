@@ -7122,11 +7122,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 829578304}
     m_Modifications:
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: StartingFriendlyUnits.Array.size
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 4812084017203582, guid: b395ec806e68f63448ff1add050a25ba, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -7171,11 +7166,6 @@ Prefab:
       objectReference: {fileID: 1324521136}
     - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
         type: 2}
-      propertyPath: StartingFriendlyUnits.Array.data[2]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
       propertyPath: CentralCore
       value: 
       objectReference: {fileID: 1054475420}
@@ -7210,23 +7200,18 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
         type: 2}
+      propertyPath: StartingWaveTimer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
       propertyPath: WaveStartPermitted
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
         type: 2}
-      propertyPath: WavesPerInterval
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[0].WaveIntervals.MaximumWaveInterval
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[0].WaveIntervals.MinimumWaveInterval
-      value: 3
+      propertyPath: Waves.Array.data[0].Subwaves
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b395ec806e68f63448ff1add050a25ba, type: 2}

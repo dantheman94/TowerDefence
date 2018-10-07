@@ -128,6 +128,7 @@ public class TutorialScene : MonoBehaviour {
         else
         {
             MessagePanel.SetActive(false);
+            if(ControlsObject != null)
             ControlsObject.SetActive(true);
         }
 	}
