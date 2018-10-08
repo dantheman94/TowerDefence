@@ -60,5 +60,18 @@ public class AntiAirVehicle : Vehicle {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
+
+    /// <summary>
+    //  Adds a WorldObject to the weighted target list
+    /// </summary>
+    /// <param name="target"></param>
+    public override void AddPotentialTarget(WorldObject target) {
+
+        // Target can ONLY be a air vehicle
+        if (target is AirVehicle) { base.AddPotentialTarget(target); }
+
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 }

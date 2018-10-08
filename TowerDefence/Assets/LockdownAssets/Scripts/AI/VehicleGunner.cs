@@ -160,24 +160,28 @@ public class VehicleGunner : Selectable {
     /// <param name="target"></param>
     public void AddPotentialTarget(WorldObject target) {
 
-        // Not a friendly unit...
-        if (target.Team != Team) {
+        // Can only fire at air units
+        if (target is AirVehicle) {
 
-            // Look for match
-            bool match = false;
-            for (int i = 0; i < _PotentialTargets.Count; i++) {
+            // Not a friendly unit...
+            if (target.Team != Team) {
 
-                // Match found
-                if (_PotentialTargets[i] == target) {
+                // Look for match
+                bool match = false;
+                for (int i = 0; i < _PotentialTargets.Count; i++) {
 
-                    match = true;
-                    break;
+                    // Match found
+                    if (_PotentialTargets[i] == target) {
+
+                        match = true;
+                        break;
+                    }
                 }
-            }
 
-            // Add to list if no matching target was found
-            if (!match) { _PotentialTargets.Add(target); }
-            if (_PotentialTargets.Count > 0 && _AttackTarget == null) { DetermineWeightedTargetFromList(TargetWeights); }
+                // Add to list if no matching target was found
+                if (!match) { _PotentialTargets.Add(target); }
+                if (_PotentialTargets.Count > 0 && _AttackTarget == null) { DetermineWeightedTargetFromList(TargetWeights); }
+            }
         }
     }
 
@@ -190,16 +194,19 @@ public class VehicleGunner : Selectable {
     /// <param name="target"></param>
     public void RemovePotentialTarget(WorldObject target) {
 
-        // Look for match
-        for (int i = 0; i < _PotentialTargets.Count; i++) {
+        /*
+            // Look for match
+            for (int i = 0; i < _PotentialTargets.Count; i++) {
 
-            // Match found
-            if (_PotentialTargets[i] == target) {
+                // Match found
+                if (_PotentialTargets[i] == target) {
 
-                _PotentialTargets.Remove(target);
-                break;
+                    _PotentialTargets.Remove(target);
+                    break;
+                }
             }
-        }
+        */
+        _PotentialTargets.Remove(target);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -212,9 +219,32 @@ public class VehicleGunner : Selectable {
         // Multiple targets to select from
         if (_PotentialTargets.Count > 0) {
 
-            // All potential targets have a weight of 1 to be the next target
+            // Use weighted selection to determine the next target
             List<int> targetWeights = new List<int>();
-            for (int i = 0; i < _PotentialTargets.Count; i++) { targetWeights.Add(1); }
+            if (weightList != null || weightList.Length > 0) {
+
+                // For each known potential target
+                for (int i = 0; i < _PotentialTargets.Count; i++) {
+
+                    // Look for a match within the passed in weight list
+                    for (int j = 0; j < weightList.Length - 1; j++) {
+
+                        // Current potential target matches the current iterator in the weight list
+                        Unit unit = _PotentialTargets[i].GetComponent<Unit>();
+                        if (unit.UnitType == weightList[j].UnitType) {
+
+                            // Add to local targetweights array
+                            targetWeights.Add(weightList[j].Weight);
+                        }
+                    }
+                }
+            }
+
+            else { /// weightList == null
+
+                // All potential targets have a weight of 1 to be the next target
+                for (int i = 0; i < _PotentialTargets.Count; i++) { targetWeights.Add(1); }
+            }
 
             // Set new target
             _AttackTarget = _PotentialTargets[GetWeightedRandomIndex(targetWeights)];

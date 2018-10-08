@@ -357,7 +357,7 @@ public class Weapon : MonoBehaviour {
 
                         // Despawn particle system once it has finished its cycle
                         float effectDuration = impact.duration + impact.startLifetime;
-                        StartCoroutine(ParticleDespawn(impact, effectDuration));
+                        StartCoroutine(ParticleDespawner.ParticleDespawn(impact, effectDuration));
                     }
 
                     // Play default impact effect
@@ -368,7 +368,7 @@ public class Weapon : MonoBehaviour {
 
                         // Despawn particle system once it has finished its cycle
                         float effectDuration = impact.duration + impact.startLifetime;
-                        StartCoroutine(ParticleDespawn(impact, effectDuration));
+                        StartCoroutine(ParticleDespawner.ParticleDespawn(impact, effectDuration));
                     }
 
                     DifficultyManager dm = DifficultyManager.Instance;
@@ -386,14 +386,14 @@ public class Weapon : MonoBehaviour {
                             switch (unitObj.UnitType) {
 
                                 case Unit.EUnitType.Undefined:          { unitObj.Damage(((Damages.DamageDefault * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
-                                case Unit.EUnitType.CoreMarine:         { unitObj.Damage(((Damages.DamageCoreInfantry * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
-                                case Unit.EUnitType.AntiInfantryMarine: { unitObj.Damage(((Damages.DamageAntiInfantryMarine * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
-                                case Unit.EUnitType.Hero:               { unitObj.Damage(((Damages.DamageHero * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
-                                case Unit.EUnitType.CoreVehicle:        { unitObj.Damage(((Damages.DamageCoreVehicle * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
-                                case Unit.EUnitType.AntiAirVehicle:     { unitObj.Damage(((Damages.DamageAntiAirVehicle * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
-                                case Unit.EUnitType.MobileArtillery:    { unitObj.Damage(((Damages.DamageMobileArtillery * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
-                                case Unit.EUnitType.BattleTank:         { unitObj.Damage(((Damages.DamageBattleTank * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
-                                case Unit.EUnitType.CoreAirship:        { unitObj.Damage(((Damages.DamageCoreAirship * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
+                                case Unit.EUnitType.DwfSoldier:         { unitObj.Damage(((Damages.DamageCoreInfantry * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
+                                case Unit.EUnitType.DwfSpecialistInfantry: { unitObj.Damage(((Damages.DamageAntiInfantryMarine * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
+                                case Unit.EUnitType.DwfSpecialistVehicle:               { unitObj.Damage(((Damages.DamageHero * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
+                                case Unit.EUnitType.Grumblebuster:        { unitObj.Damage(((Damages.DamageCoreVehicle * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
+                                case Unit.EUnitType.Skylancer:     { unitObj.Damage(((Damages.DamageAntiAirVehicle * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
+                                case Unit.EUnitType.Catapult:    { unitObj.Damage(((Damages.DamageMobileArtillery * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
+                                case Unit.EUnitType.SiegeEngine:         { unitObj.Damage(((Damages.DamageBattleTank * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
+                                case Unit.EUnitType.LightAirship:        { unitObj.Damage(((Damages.DamageCoreAirship * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
                                 case Unit.EUnitType.SupportShip:        { unitObj.Damage(((Damages.DamageSupportShip * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
                                 case Unit.EUnitType.HeavyAirship:       { unitObj.Damage(((Damages.DamageHeavyAirship * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
                                 default: break;
@@ -437,7 +437,7 @@ public class Weapon : MonoBehaviour {
 
                         // Despawn particle system once it has finished its cycle
                         float effectDuration = impact.duration + impact.startLifetime;
-                        StartCoroutine(ParticleDespawn(impact, effectDuration));
+                        StartCoroutine(ParticleDespawner.ParticleDespawn(impact, effectDuration));
                     }
 
                     // Play default impact effect
@@ -448,7 +448,7 @@ public class Weapon : MonoBehaviour {
 
                         // Despawn particle system once it has finished its cycle
                         float effectDuration = impact.duration + impact.startLifetime;
-                        StartCoroutine(ParticleDespawn(impact, effectDuration));
+                        StartCoroutine(ParticleDespawner.ParticleDespawn(impact, effectDuration));
                     }
 
                     DifficultyManager dm = DifficultyManager.Instance;
@@ -466,14 +466,14 @@ public class Weapon : MonoBehaviour {
                             switch (unitObj.UnitType) {
 
                                 case Unit.EUnitType.Undefined:          { unitObj.Damage((Damages.DamageDefault * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _TowerAttached); break; }
-                                case Unit.EUnitType.CoreMarine:         { unitObj.Damage((Damages.DamageCoreInfantry * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _TowerAttached); break; }
-                                case Unit.EUnitType.AntiInfantryMarine: { unitObj.Damage((Damages.DamageAntiInfantryMarine * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _TowerAttached); break; }
-                                case Unit.EUnitType.Hero:               { unitObj.Damage((Damages.DamageHero * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _TowerAttached); break; }
-                                case Unit.EUnitType.CoreVehicle:        { unitObj.Damage((Damages.DamageCoreVehicle * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _TowerAttached); break; }
-                                case Unit.EUnitType.AntiAirVehicle:     { unitObj.Damage((Damages.DamageAntiAirVehicle * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _TowerAttached); break; }
-                                case Unit.EUnitType.MobileArtillery:    { unitObj.Damage((Damages.DamageMobileArtillery * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _TowerAttached); break; }
-                                case Unit.EUnitType.BattleTank:         { unitObj.Damage((Damages.DamageBattleTank * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _TowerAttached); break; }
-                                case Unit.EUnitType.CoreAirship:        { unitObj.Damage((Damages.DamageCoreAirship * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _TowerAttached); break; }
+                                case Unit.EUnitType.DwfSoldier:         { unitObj.Damage((Damages.DamageCoreInfantry * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _TowerAttached); break; }
+                                case Unit.EUnitType.DwfSpecialistInfantry: { unitObj.Damage((Damages.DamageAntiInfantryMarine * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _TowerAttached); break; }
+                                case Unit.EUnitType.DwfSpecialistVehicle:               { unitObj.Damage((Damages.DamageHero * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _TowerAttached); break; }
+                                case Unit.EUnitType.Grumblebuster:        { unitObj.Damage((Damages.DamageCoreVehicle * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _TowerAttached); break; }
+                                case Unit.EUnitType.Skylancer:     { unitObj.Damage((Damages.DamageAntiAirVehicle * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _TowerAttached); break; }
+                                case Unit.EUnitType.Catapult:    { unitObj.Damage((Damages.DamageMobileArtillery * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _TowerAttached); break; }
+                                case Unit.EUnitType.SiegeEngine:         { unitObj.Damage((Damages.DamageBattleTank * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _TowerAttached); break; }
+                                case Unit.EUnitType.LightAirship:        { unitObj.Damage((Damages.DamageCoreAirship * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _TowerAttached); break; }
                                 case Unit.EUnitType.SupportShip:        { unitObj.Damage((Damages.DamageSupportShip * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _TowerAttached); break; }
                                 case Unit.EUnitType.HeavyAirship:       { unitObj.Damage((Damages.DamageHeavyAirship * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _TowerAttached); break; }
                                 default: break;
@@ -517,7 +517,7 @@ public class Weapon : MonoBehaviour {
 
                         // Despawn particle system once it has finished its cycle
                         float effectDuration = impact.duration + impact.startLifetime;
-                        StartCoroutine(ParticleDespawn(impact, effectDuration));
+                        StartCoroutine(ParticleDespawner.ParticleDespawn(impact, effectDuration));
                     }
 
                     // Play default impact effect
@@ -528,7 +528,7 @@ public class Weapon : MonoBehaviour {
 
                         // Despawn particle system once it has finished its cycle
                         float effectDuration = impact.duration + impact.startLifetime;
-                        StartCoroutine(ParticleDespawn(impact, effectDuration));
+                        StartCoroutine(ParticleDespawner.ParticleDespawn(impact, effectDuration));
                     }
 
                     DifficultyManager dm = DifficultyManager.Instance;
@@ -547,14 +547,14 @@ public class Weapon : MonoBehaviour {
                             switch (unitObj.UnitType) {
 
                                 case Unit.EUnitType.Undefined:          { unitObj.Damage(((Damages.DamageDefault * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
-                                case Unit.EUnitType.CoreMarine:         { unitObj.Damage(((Damages.DamageCoreInfantry * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
-                                case Unit.EUnitType.AntiInfantryMarine: { unitObj.Damage(((Damages.DamageAntiInfantryMarine * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
-                                case Unit.EUnitType.Hero:               { unitObj.Damage(((Damages.DamageHero * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
-                                case Unit.EUnitType.CoreVehicle:        { unitObj.Damage(((Damages.DamageCoreVehicle * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
-                                case Unit.EUnitType.AntiAirVehicle:     { unitObj.Damage(((Damages.DamageAntiAirVehicle * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
-                                case Unit.EUnitType.MobileArtillery:    { unitObj.Damage(((Damages.DamageMobileArtillery * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
-                                case Unit.EUnitType.BattleTank:         { unitObj.Damage(((Damages.DamageBattleTank * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
-                                case Unit.EUnitType.CoreAirship:        { unitObj.Damage(((Damages.DamageCoreAirship * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
+                                case Unit.EUnitType.DwfSoldier:         { unitObj.Damage(((Damages.DamageCoreInfantry * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
+                                case Unit.EUnitType.DwfSpecialistInfantry: { unitObj.Damage(((Damages.DamageAntiInfantryMarine * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
+                                case Unit.EUnitType.DwfSpecialistVehicle:               { unitObj.Damage(((Damages.DamageHero * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
+                                case Unit.EUnitType.Grumblebuster:        { unitObj.Damage(((Damages.DamageCoreVehicle * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
+                                case Unit.EUnitType.Skylancer:     { unitObj.Damage(((Damages.DamageAntiAirVehicle * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
+                                case Unit.EUnitType.Catapult:    { unitObj.Damage(((Damages.DamageMobileArtillery * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
+                                case Unit.EUnitType.SiegeEngine:         { unitObj.Damage(((Damages.DamageBattleTank * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
+                                case Unit.EUnitType.LightAirship:        { unitObj.Damage(((Damages.DamageCoreAirship * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
                                 case Unit.EUnitType.SupportShip:        { unitObj.Damage(((Damages.DamageSupportShip * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
                                 case Unit.EUnitType.HeavyAirship:       { unitObj.Damage(((Damages.DamageHeavyAirship * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
                                 default: break;
@@ -620,7 +620,7 @@ public class Weapon : MonoBehaviour {
 
             // Despawn particle system once it has finished its cycle
             float effectDuration = effect.duration + effect.startLifetime;
-            StartCoroutine(ParticleDespawn(effect, effectDuration));
+            StartCoroutine(ParticleDespawner.ParticleDespawn(effect, effectDuration));
         }
     }
 
@@ -736,7 +736,7 @@ public class Weapon : MonoBehaviour {
 
             // Despawn particle system once it has finished its cycle
             float effectDuration = effect.duration + effect.startLifetime;
-            StartCoroutine(ParticleParentDespawn(effect, effectDuration));
+            StartCoroutine(ParticleDespawner.ParticleParentDespawn(effect, effectDuration));
         }
     }
 
@@ -760,42 +760,6 @@ public class Weapon : MonoBehaviour {
             for (int i = 0; i < _MuzzleLaunchPoints.Count; i++) { _UnusedLaunchPoints.Add(i); }
         }
     }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  A coroutine that waits for the seconds specified then attempts to repool
-    //  the particle effect (or destroyed entirely if re-pooling isn't possible)
-    /// </summary>
-    /// <param name="particleEffect"></param>
-    /// <param name="delay"></param>
-    IEnumerator ParticleDespawn(ParticleSystem particleEffect, float delay) {
-
-        // Delay
-        yield return new WaitForSeconds(delay);
-
-        // Despawn the system
-        ObjectPooling.Despawn(particleEffect.gameObject);
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  A coroutine that waits for the seconds specified then attempts to repool
-    //  the particle effect (or destroyed entirely if re-pooling isn't possible)
-    /// </summary>
-    /// <param name="particleEffect"></param>
-    /// <param name="delay"></param>
-    IEnumerator ParticleParentDespawn(ParticleSystem particleEffect, float delay) {
-
-        // Delay
-        yield return new WaitForSeconds(delay);
-
-        // Despawn the system
-        ObjectPooling.Despawn(particleEffect.transform.parent.gameObject);
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     //  Sets references to the unit that this weapon is associated with &

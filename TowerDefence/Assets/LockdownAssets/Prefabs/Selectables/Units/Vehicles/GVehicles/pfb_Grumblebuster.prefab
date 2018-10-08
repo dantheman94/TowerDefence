@@ -334,7 +334,7 @@ GameObject:
   - component: {fileID: 114059539710701384}
   m_Layer: 2
   m_Name: HearingSphere
-  m_TagString: Untagged
+  m_TagString: HearingSphere
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -366,7 +366,7 @@ GameObject:
   - component: {fileID: 114311409357071820}
   m_Layer: 2
   m_Name: SightSphere
-  m_TagString: Untagged
+  m_TagString: SightSphere
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1396,8 +1396,6 @@ MonoBehaviour:
     Weight: 3
   - UnitType: 6
     Weight: 2
-  - UnitType: 7
-    Weight: 1
   - UnitType: 8
     Weight: 1
   - UnitType: 9
@@ -1405,7 +1403,7 @@ MonoBehaviour:
   - UnitType: 10
     Weight: 2
   - UnitType: 11
-    Weight: 1
+    Weight: 2
   PrimaryWeapon: {fileID: 114029489014596480, guid: 3774b07d23ff91e4b81d87a2fde8fdd1,
     type: 2}
   SecondaryWeapon: {fileID: 0}
@@ -1441,7 +1439,6 @@ MonoBehaviour:
   BaseRotationSpeed: 50
   WeaponRotationSpeed: 55
   WeaponBarrel: {fileID: 1216197724239558}
-  BarrelRotationTime: 1
   BarrelRotationSpeed: 500
 --- !u!114 &114608302553411444
 MonoBehaviour:

@@ -80,13 +80,13 @@ public class Unit : WorldObject {
     [System.Serializable]
     public struct TargetWeight {
 
-        public Unit.EUnitType UnitType;
+        public EUnitType UnitType;
         public int Weight;
     }
 
-    public const int _WeightLength = (int)Unit.EUnitType.ENUM_COUNT;
+    public const int _WeightLength = (int)EUnitType.ENUM_COUNT;
 
-    public enum EUnitType { Undefined, CoreMarine, AntiInfantryMarine, Hero, CoreVehicle, AntiAirVehicle, AntiBuildingVehicle, MobileArtillery, BattleTank, CoreAirship, SupportShip, HeavyAirship, ENUM_COUNT }
+    public enum EUnitType { Undefined, DwfSoldier, DwfSpecialistInfantry, DwfSpecialistVehicle, Grumblebuster, Skylancer, Ballista, Catapult, SiegeEngine, LightAirship, SupportShip, HeavyAirship, ENUM_COUNT }
     public enum ENavmeshType { Ground, Air }
 
     protected WorldObject _AttackTarget = null;
@@ -1198,42 +1198,42 @@ public class Unit : WorldObject {
 
         // Multiple targets to select from
         if (_PotentialTargets.Count > 0) {
-
-            // WHICH IS THE TANKIEST TARGET?
-
-            // WHICH TARGET HAS DAMAGED ME THE MOST?
-
-            // WHICH TARGET IS THE CLOSEST?
-
-            // WHICH TARGET AM I THE MOST EFFECTIVE AGAINST?
-
-            List<int> targetWeights = new List<int>();
-            /*
+            
+            // Use weighted selection to determine the next target
+            List<int> targetWeights = new List<int>();            
             if (weightList != null || weightList.Length > 0) {
                 
-                // For each knwon potential target
+                // For each known potential target
                 for (int i = 0; i < _PotentialTargets.Count; i++) {
 
                     // Look for a match within the passed in weight list
-                    for (int j = 0; j < weightList.Length; j++) {
+                    for (int j = 0; j < weightList.Length - 1; j++) {
 
                         // Current potential target matches the current iterator in the weight list
-                        Unit unit = _PotentialTargets[i].GetComponent<Unit>();
-                        if (unit.UnitType == weightList[j].UnitType) {
+                        WorldObject obj = _PotentialTargets[i];
 
-                            // Add to local targetweights array
+                        if (obj is Unit) {
+
+                            if ((obj as Unit).UnitType == weightList[j].UnitType) {
+
+                                // Add to local targetweights array
+                                targetWeights.Add(weightList[j].Weight);
+                            }
+                        }
+                        else if (obj is Building && weightList[j].UnitType == EUnitType.Undefined) {
+
+                            // Add building to the local targetweights array
                             targetWeights.Add(weightList[j].Weight);
                         }
                     }
                 }
-
             }
-            */
-            ///else { /// weightList == null
+            
+            else { /// weightList == null
 
-            // All potential targets have a weight of 1 to be the next target
-            for (int i = 0; i < _PotentialTargets.Count; i++) { targetWeights.Add(1); }
-            ///}
+                // All potential targets have a weight of 1 to be the next target
+                for (int i = 0; i < _PotentialTargets.Count; i++) { targetWeights.Add(1); }
+            }
 
             // Set new target
             _AttackTarget = _PotentialTargets[GetWeightedRandomIndex(targetWeights)];

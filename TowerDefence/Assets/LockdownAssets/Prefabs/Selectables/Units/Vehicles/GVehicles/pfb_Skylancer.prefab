@@ -128,7 +128,7 @@ GameObject:
   - component: {fileID: 114507600244803954}
   m_Layer: 2
   m_Name: SightSphere
-  m_TagString: Untagged
+  m_TagString: SightSphere
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -341,7 +341,7 @@ GameObject:
   - component: {fileID: 114385487935221344}
   m_Layer: 2
   m_Name: HearingSphere
-  m_TagString: Untagged
+  m_TagString: HearingSphere
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1323,8 +1323,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ObjectName: Skylancer
   ObjectDescriptionShort: Anti Air Vehicle
-  ObjectDescriptionLong: 'Light mobile anti air - despite being specific in its use,
-    the Skylancer can outperform all units in ground to air combat. Note: As formidable
+  ObjectDescriptionLong: 'Nimble anti air unit. Despite being specific in its use,
+    the Skylancer can outperform any unit in ground to air combat. Note: As formidable
     it is against enemy air units, the Skylancer is very limited in its non-aerial
     combat capabilities.'
   Logo: {fileID: 0}
@@ -1375,30 +1375,12 @@ MonoBehaviour:
   CanBePlayerControlled: 0
   SightCone: {fileID: 114327782046218432}
   TargetWeights:
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
+  - UnitType: 9
+    Weight: 2
+  - UnitType: 10
+    Weight: 1
+  - UnitType: 11
+    Weight: 2
   PrimaryWeapon: {fileID: 114249526960762328, guid: 99cfef0e85686f348912b0438e8da68e,
     type: 2}
   SecondaryWeapon: {fileID: 0}

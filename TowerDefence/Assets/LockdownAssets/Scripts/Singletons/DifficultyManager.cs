@@ -364,15 +364,15 @@ public class DifficultyManager : MonoBehaviour {
 
                 // Easy difficulty
                 case Unit.EUnitType.Undefined:              { fMod = EasyFriendlyHealthModifier.DamageUndefined; break; }
-                case Unit.EUnitType.CoreMarine:             { fMod = EasyFriendlyHealthModifier.DamageCoreMarine; break; }
-                case Unit.EUnitType.AntiInfantryMarine:     { fMod = EasyFriendlyHealthModifier.DamageAntiInfantryMarine; break; }
-                case Unit.EUnitType.Hero:                   { fMod = EasyFriendlyHealthModifier.DamageHero; break; }
-                case Unit.EUnitType.CoreVehicle:            { fMod = EasyFriendlyHealthModifier.DamageCoreVehicle; break; }
-                case Unit.EUnitType.AntiAirVehicle:         { fMod = EasyFriendlyHealthModifier.DamageAntiAirVehicle; break; }
-                case Unit.EUnitType.AntiBuildingVehicle:    { fMod = EasyFriendlyHealthModifier.DamageUndefined; break; }
-                case Unit.EUnitType.MobileArtillery:        { fMod = EasyFriendlyHealthModifier.DamageMobileArtillery; break; }
-                case Unit.EUnitType.BattleTank:             { fMod = EasyFriendlyHealthModifier.DamageBattleTank; break; }
-                case Unit.EUnitType.CoreAirship:            { fMod = EasyFriendlyHealthModifier.DamageCoreAirship; break; }
+                case Unit.EUnitType.DwfSoldier:             { fMod = EasyFriendlyHealthModifier.DamageCoreMarine; break; }
+                case Unit.EUnitType.DwfSpecialistInfantry:  { fMod = EasyFriendlyHealthModifier.DamageAntiInfantryMarine; break; }
+                case Unit.EUnitType.DwfSpecialistVehicle:   { fMod = EasyFriendlyHealthModifier.DamageHero; break; }
+                case Unit.EUnitType.Grumblebuster:          { fMod = EasyFriendlyHealthModifier.DamageCoreVehicle; break; }
+                case Unit.EUnitType.Skylancer:              { fMod = EasyFriendlyHealthModifier.DamageAntiAirVehicle; break; }
+                case Unit.EUnitType.Ballista:               { fMod = EasyFriendlyHealthModifier.DamageUndefined; break; }
+                case Unit.EUnitType.Catapult:               { fMod = EasyFriendlyHealthModifier.DamageMobileArtillery; break; }
+                case Unit.EUnitType.SiegeEngine:            { fMod = EasyFriendlyHealthModifier.DamageBattleTank; break; }
+                case Unit.EUnitType.LightAirship:           { fMod = EasyFriendlyHealthModifier.DamageCoreAirship; break; }
                 case Unit.EUnitType.SupportShip:            { fMod = EasyFriendlyHealthModifier.DamageSupportAirship; break; }
                 case Unit.EUnitType.HeavyAirship:           { fMod = EasyFriendlyHealthModifier.DamageHeavyAirship; break; }
                 default: break;
@@ -384,15 +384,15 @@ public class DifficultyManager : MonoBehaviour {
 
                 // Easy difficulty
                 case Unit.EUnitType.Undefined:              { fMod = EasyEnemyHealthModifier.DamageUndefined; break; }
-                case Unit.EUnitType.CoreMarine:             { fMod = EasyEnemyHealthModifier.DamageCoreMarine; break; }
-                case Unit.EUnitType.AntiInfantryMarine:     { fMod = EasyEnemyHealthModifier.DamageAntiInfantryMarine; break; }
-                case Unit.EUnitType.Hero:                   { fMod = EasyEnemyHealthModifier.DamageHero; break; }
-                case Unit.EUnitType.CoreVehicle:            { fMod = EasyEnemyHealthModifier.DamageCoreVehicle; break; }
-                case Unit.EUnitType.AntiAirVehicle:         { fMod = EasyEnemyHealthModifier.DamageAntiAirVehicle; break; }
-                case Unit.EUnitType.AntiBuildingVehicle:    { fMod = EasyEnemyHealthModifier.DamageUndefined; break; }
-                case Unit.EUnitType.MobileArtillery:        { fMod = EasyEnemyHealthModifier.DamageMobileArtillery; break; }
-                case Unit.EUnitType.BattleTank:             { fMod = EasyEnemyHealthModifier.DamageBattleTank; break; }
-                case Unit.EUnitType.CoreAirship:            { fMod = EasyEnemyHealthModifier.DamageCoreAirship; break; }
+                case Unit.EUnitType.DwfSoldier:             { fMod = EasyEnemyHealthModifier.DamageCoreMarine; break; }
+                case Unit.EUnitType.DwfSpecialistInfantry:  { fMod = EasyEnemyHealthModifier.DamageAntiInfantryMarine; break; }
+                case Unit.EUnitType.DwfSpecialistVehicle:   { fMod = EasyEnemyHealthModifier.DamageHero; break; }
+                case Unit.EUnitType.Grumblebuster:          { fMod = EasyEnemyHealthModifier.DamageCoreVehicle; break; }
+                case Unit.EUnitType.Skylancer:              { fMod = EasyEnemyHealthModifier.DamageAntiAirVehicle; break; }
+                case Unit.EUnitType.Ballista:               { fMod = EasyEnemyHealthModifier.DamageUndefined; break; }
+                case Unit.EUnitType.Catapult:               { fMod = EasyEnemyHealthModifier.DamageMobileArtillery; break; }
+                case Unit.EUnitType.SiegeEngine:            { fMod = EasyEnemyHealthModifier.DamageBattleTank; break; }
+                case Unit.EUnitType.LightAirship:           { fMod = EasyEnemyHealthModifier.DamageCoreAirship; break; }
                 case Unit.EUnitType.SupportShip:            { fMod = EasyEnemyHealthModifier.DamageSupportAirship; break; }
                 case Unit.EUnitType.HeavyAirship:           { fMod = EasyEnemyHealthModifier.DamageHeavyAirship; break; }
                 default: break;
@@ -420,15 +420,15 @@ public class DifficultyManager : MonoBehaviour {
 
                 // Normal difficulty
                 case Unit.EUnitType.Undefined:              { fMod = NormalFriendlyHealthModifier.DamageUndefined; break; }
-                case Unit.EUnitType.CoreMarine:             { fMod = NormalFriendlyHealthModifier.DamageCoreMarine; break; }
-                case Unit.EUnitType.AntiInfantryMarine:     { fMod = NormalFriendlyHealthModifier.DamageAntiInfantryMarine; break; }
-                case Unit.EUnitType.Hero:                   { fMod = NormalFriendlyHealthModifier.DamageHero; break; }
-                case Unit.EUnitType.CoreVehicle:            { fMod = NormalFriendlyHealthModifier.DamageCoreVehicle; break; }
-                case Unit.EUnitType.AntiAirVehicle:         { fMod = NormalFriendlyHealthModifier.DamageAntiAirVehicle; break; }
-                case Unit.EUnitType.AntiBuildingVehicle:    { fMod = NormalFriendlyHealthModifier.DamageUndefined; break; }
-                case Unit.EUnitType.MobileArtillery:        { fMod = NormalFriendlyHealthModifier.DamageMobileArtillery; break; }
-                case Unit.EUnitType.BattleTank:             { fMod = NormalFriendlyHealthModifier.DamageBattleTank; break; }
-                case Unit.EUnitType.CoreAirship:            { fMod = NormalFriendlyHealthModifier.DamageCoreAirship; break; }
+                case Unit.EUnitType.DwfSoldier:             { fMod = NormalFriendlyHealthModifier.DamageCoreMarine; break; }
+                case Unit.EUnitType.DwfSpecialistInfantry:     { fMod = NormalFriendlyHealthModifier.DamageAntiInfantryMarine; break; }
+                case Unit.EUnitType.DwfSpecialistVehicle:                   { fMod = NormalFriendlyHealthModifier.DamageHero; break; }
+                case Unit.EUnitType.Grumblebuster:            { fMod = NormalFriendlyHealthModifier.DamageCoreVehicle; break; }
+                case Unit.EUnitType.Skylancer:         { fMod = NormalFriendlyHealthModifier.DamageAntiAirVehicle; break; }
+                case Unit.EUnitType.Ballista:    { fMod = NormalFriendlyHealthModifier.DamageUndefined; break; }
+                case Unit.EUnitType.Catapult:        { fMod = NormalFriendlyHealthModifier.DamageMobileArtillery; break; }
+                case Unit.EUnitType.SiegeEngine:             { fMod = NormalFriendlyHealthModifier.DamageBattleTank; break; }
+                case Unit.EUnitType.LightAirship:            { fMod = NormalFriendlyHealthModifier.DamageCoreAirship; break; }
                 case Unit.EUnitType.SupportShip:            { fMod = NormalFriendlyHealthModifier.DamageSupportAirship; break; }
                 case Unit.EUnitType.HeavyAirship:           { fMod = NormalFriendlyHealthModifier.DamageHeavyAirship; break; }
                 default: break;
@@ -441,15 +441,15 @@ public class DifficultyManager : MonoBehaviour {
 
                 // Normal difficulty
                 case Unit.EUnitType.Undefined:              { fMod = NormalEnemyHealthModifier.DamageUndefined; break; }
-                case Unit.EUnitType.CoreMarine:             { fMod = NormalEnemyHealthModifier.DamageCoreMarine; break; }
-                case Unit.EUnitType.AntiInfantryMarine:     { fMod = NormalEnemyHealthModifier.DamageAntiInfantryMarine; break; }
-                case Unit.EUnitType.Hero:                   { fMod = NormalEnemyHealthModifier.DamageHero; break; }
-                case Unit.EUnitType.CoreVehicle:            { fMod = NormalEnemyHealthModifier.DamageCoreVehicle; break; }
-                case Unit.EUnitType.AntiAirVehicle:         { fMod = NormalEnemyHealthModifier.DamageAntiAirVehicle; break; }
-                case Unit.EUnitType.AntiBuildingVehicle:    { fMod = NormalEnemyHealthModifier.DamageUndefined; break; }
-                case Unit.EUnitType.MobileArtillery:        { fMod = NormalEnemyHealthModifier.DamageMobileArtillery; break; }
-                case Unit.EUnitType.BattleTank:             { fMod = NormalEnemyHealthModifier.DamageBattleTank; break; }
-                case Unit.EUnitType.CoreAirship:            { fMod = NormalEnemyHealthModifier.DamageCoreAirship; break; }
+                case Unit.EUnitType.DwfSoldier:             { fMod = NormalEnemyHealthModifier.DamageCoreMarine; break; }
+                case Unit.EUnitType.DwfSpecialistInfantry:     { fMod = NormalEnemyHealthModifier.DamageAntiInfantryMarine; break; }
+                case Unit.EUnitType.DwfSpecialistVehicle:                   { fMod = NormalEnemyHealthModifier.DamageHero; break; }
+                case Unit.EUnitType.Grumblebuster:            { fMod = NormalEnemyHealthModifier.DamageCoreVehicle; break; }
+                case Unit.EUnitType.Skylancer:         { fMod = NormalEnemyHealthModifier.DamageAntiAirVehicle; break; }
+                case Unit.EUnitType.Ballista:    { fMod = NormalEnemyHealthModifier.DamageUndefined; break; }
+                case Unit.EUnitType.Catapult:        { fMod = NormalEnemyHealthModifier.DamageMobileArtillery; break; }
+                case Unit.EUnitType.SiegeEngine:             { fMod = NormalEnemyHealthModifier.DamageBattleTank; break; }
+                case Unit.EUnitType.LightAirship:            { fMod = NormalEnemyHealthModifier.DamageCoreAirship; break; }
                 case Unit.EUnitType.SupportShip:            { fMod = NormalEnemyHealthModifier.DamageSupportAirship; break; }
                 case Unit.EUnitType.HeavyAirship:           { fMod = NormalEnemyHealthModifier.DamageHeavyAirship; break; }
                 default: break;
@@ -477,15 +477,15 @@ public class DifficultyManager : MonoBehaviour {
 
                 // Hard difficulty
                 case Unit.EUnitType.Undefined:              { fMod = HardFriendlyHealthModifier.DamageUndefined; break; }
-                case Unit.EUnitType.CoreMarine:             { fMod = HardFriendlyHealthModifier.DamageCoreMarine; break; }
-                case Unit.EUnitType.AntiInfantryMarine:     { fMod = HardFriendlyHealthModifier.DamageAntiInfantryMarine; break; }
-                case Unit.EUnitType.Hero:                   { fMod = HardFriendlyHealthModifier.DamageHero; break; }
-                case Unit.EUnitType.CoreVehicle:            { fMod = HardFriendlyHealthModifier.DamageCoreVehicle; break; }
-                case Unit.EUnitType.AntiAirVehicle:         { fMod = HardFriendlyHealthModifier.DamageAntiAirVehicle; break; }
-                case Unit.EUnitType.AntiBuildingVehicle:    { fMod = HardFriendlyHealthModifier.DamageUndefined; break; }
-                case Unit.EUnitType.MobileArtillery:        { fMod = HardFriendlyHealthModifier.DamageMobileArtillery; break; }
-                case Unit.EUnitType.BattleTank:             { fMod = HardFriendlyHealthModifier.DamageBattleTank; break; }
-                case Unit.EUnitType.CoreAirship:            { fMod = HardFriendlyHealthModifier.DamageCoreAirship; break; }
+                case Unit.EUnitType.DwfSoldier:             { fMod = HardFriendlyHealthModifier.DamageCoreMarine; break; }
+                case Unit.EUnitType.DwfSpecialistInfantry:     { fMod = HardFriendlyHealthModifier.DamageAntiInfantryMarine; break; }
+                case Unit.EUnitType.DwfSpecialistVehicle:                   { fMod = HardFriendlyHealthModifier.DamageHero; break; }
+                case Unit.EUnitType.Grumblebuster:            { fMod = HardFriendlyHealthModifier.DamageCoreVehicle; break; }
+                case Unit.EUnitType.Skylancer:         { fMod = HardFriendlyHealthModifier.DamageAntiAirVehicle; break; }
+                case Unit.EUnitType.Ballista:    { fMod = HardFriendlyHealthModifier.DamageUndefined; break; }
+                case Unit.EUnitType.Catapult:        { fMod = HardFriendlyHealthModifier.DamageMobileArtillery; break; }
+                case Unit.EUnitType.SiegeEngine:             { fMod = HardFriendlyHealthModifier.DamageBattleTank; break; }
+                case Unit.EUnitType.LightAirship:            { fMod = HardFriendlyHealthModifier.DamageCoreAirship; break; }
                 case Unit.EUnitType.SupportShip:            { fMod = HardFriendlyHealthModifier.DamageSupportAirship; break; }
                 case Unit.EUnitType.HeavyAirship:           { fMod = HardFriendlyHealthModifier.DamageHeavyAirship; break; }
                 default: break;
@@ -498,15 +498,15 @@ public class DifficultyManager : MonoBehaviour {
 
                 // Hard difficulty
                 case Unit.EUnitType.Undefined:              { fMod = HardEnemyHealthModifier.DamageUndefined; break; }
-                case Unit.EUnitType.CoreMarine:             { fMod = HardEnemyHealthModifier.DamageCoreMarine; break; }
-                case Unit.EUnitType.AntiInfantryMarine:     { fMod = HardEnemyHealthModifier.DamageAntiInfantryMarine; break; }
-                case Unit.EUnitType.Hero:                   { fMod = HardEnemyHealthModifier.DamageHero; break; }
-                case Unit.EUnitType.CoreVehicle:            { fMod = HardEnemyHealthModifier.DamageCoreVehicle; break; }
-                case Unit.EUnitType.AntiAirVehicle:         { fMod = HardEnemyHealthModifier.DamageAntiAirVehicle; break; }
-                case Unit.EUnitType.AntiBuildingVehicle:    { fMod = HardEnemyHealthModifier.DamageUndefined; break; }
-                case Unit.EUnitType.MobileArtillery:        { fMod = HardEnemyHealthModifier.DamageMobileArtillery; break; }
-                case Unit.EUnitType.BattleTank:             { fMod = HardEnemyHealthModifier.DamageBattleTank; break; }
-                case Unit.EUnitType.CoreAirship:            { fMod = HardEnemyHealthModifier.DamageCoreAirship; break; }
+                case Unit.EUnitType.DwfSoldier:             { fMod = HardEnemyHealthModifier.DamageCoreMarine; break; }
+                case Unit.EUnitType.DwfSpecialistInfantry:     { fMod = HardEnemyHealthModifier.DamageAntiInfantryMarine; break; }
+                case Unit.EUnitType.DwfSpecialistVehicle:                   { fMod = HardEnemyHealthModifier.DamageHero; break; }
+                case Unit.EUnitType.Grumblebuster:            { fMod = HardEnemyHealthModifier.DamageCoreVehicle; break; }
+                case Unit.EUnitType.Skylancer:         { fMod = HardEnemyHealthModifier.DamageAntiAirVehicle; break; }
+                case Unit.EUnitType.Ballista:    { fMod = HardEnemyHealthModifier.DamageUndefined; break; }
+                case Unit.EUnitType.Catapult:        { fMod = HardEnemyHealthModifier.DamageMobileArtillery; break; }
+                case Unit.EUnitType.SiegeEngine:             { fMod = HardEnemyHealthModifier.DamageBattleTank; break; }
+                case Unit.EUnitType.LightAirship:            { fMod = HardEnemyHealthModifier.DamageCoreAirship; break; }
                 case Unit.EUnitType.SupportShip:            { fMod = HardEnemyHealthModifier.DamageSupportAirship; break; }
                 case Unit.EUnitType.HeavyAirship:           { fMod = HardEnemyHealthModifier.DamageHeavyAirship; break; }
                 default: break;
@@ -534,15 +534,15 @@ public class DifficultyManager : MonoBehaviour {
 
                 // Impossible difficulty
                 case Unit.EUnitType.Undefined:              { fMod = ImpossibleFriendlyHealthModifier.DamageUndefined; break; }
-                case Unit.EUnitType.CoreMarine:             { fMod = ImpossibleFriendlyHealthModifier.DamageCoreMarine; break; }
-                case Unit.EUnitType.AntiInfantryMarine:     { fMod = ImpossibleFriendlyHealthModifier.DamageAntiInfantryMarine; break; }
-                case Unit.EUnitType.Hero:                   { fMod = ImpossibleFriendlyHealthModifier.DamageHero; break; }
-                case Unit.EUnitType.CoreVehicle:            { fMod = ImpossibleFriendlyHealthModifier.DamageCoreVehicle; break; }
-                case Unit.EUnitType.AntiAirVehicle:         { fMod = ImpossibleFriendlyHealthModifier.DamageAntiAirVehicle; break; }
-                case Unit.EUnitType.AntiBuildingVehicle:    { fMod = ImpossibleFriendlyHealthModifier.DamageUndefined; break; }
-                case Unit.EUnitType.MobileArtillery:        { fMod = ImpossibleFriendlyHealthModifier.DamageMobileArtillery; break; }
-                case Unit.EUnitType.BattleTank:             { fMod = ImpossibleFriendlyHealthModifier.DamageBattleTank; break; }
-                case Unit.EUnitType.CoreAirship:            { fMod = ImpossibleFriendlyHealthModifier.DamageCoreAirship; break; }
+                case Unit.EUnitType.DwfSoldier:             { fMod = ImpossibleFriendlyHealthModifier.DamageCoreMarine; break; }
+                case Unit.EUnitType.DwfSpecialistInfantry:     { fMod = ImpossibleFriendlyHealthModifier.DamageAntiInfantryMarine; break; }
+                case Unit.EUnitType.DwfSpecialistVehicle:                   { fMod = ImpossibleFriendlyHealthModifier.DamageHero; break; }
+                case Unit.EUnitType.Grumblebuster:            { fMod = ImpossibleFriendlyHealthModifier.DamageCoreVehicle; break; }
+                case Unit.EUnitType.Skylancer:         { fMod = ImpossibleFriendlyHealthModifier.DamageAntiAirVehicle; break; }
+                case Unit.EUnitType.Ballista:    { fMod = ImpossibleFriendlyHealthModifier.DamageUndefined; break; }
+                case Unit.EUnitType.Catapult:        { fMod = ImpossibleFriendlyHealthModifier.DamageMobileArtillery; break; }
+                case Unit.EUnitType.SiegeEngine:             { fMod = ImpossibleFriendlyHealthModifier.DamageBattleTank; break; }
+                case Unit.EUnitType.LightAirship:            { fMod = ImpossibleFriendlyHealthModifier.DamageCoreAirship; break; }
                 case Unit.EUnitType.SupportShip:            { fMod = ImpossibleFriendlyHealthModifier.DamageSupportAirship; break; }
                 case Unit.EUnitType.HeavyAirship:           { fMod = ImpossibleFriendlyHealthModifier.DamageHeavyAirship; break; }
                 default: break;
@@ -555,15 +555,15 @@ public class DifficultyManager : MonoBehaviour {
 
                 // Impossible difficulty
                 case Unit.EUnitType.Undefined:              { fMod = ImpossibleEnemyHealthModifier.DamageUndefined; break; }
-                case Unit.EUnitType.CoreMarine:             { fMod = ImpossibleEnemyHealthModifier.DamageCoreMarine; break; }
-                case Unit.EUnitType.AntiInfantryMarine:     { fMod = ImpossibleEnemyHealthModifier.DamageAntiInfantryMarine; break; }
-                case Unit.EUnitType.Hero:                   { fMod = ImpossibleEnemyHealthModifier.DamageHero; break; }
-                case Unit.EUnitType.CoreVehicle:            { fMod = ImpossibleEnemyHealthModifier.DamageCoreVehicle; break; }
-                case Unit.EUnitType.AntiAirVehicle:         { fMod = ImpossibleEnemyHealthModifier.DamageAntiAirVehicle; break; }
-                case Unit.EUnitType.AntiBuildingVehicle:    { fMod = ImpossibleEnemyHealthModifier.DamageUndefined; break; }
-                case Unit.EUnitType.MobileArtillery:        { fMod = ImpossibleEnemyHealthModifier.DamageMobileArtillery; break; }
-                case Unit.EUnitType.BattleTank:             { fMod = ImpossibleEnemyHealthModifier.DamageBattleTank; break; }
-                case Unit.EUnitType.CoreAirship:            { fMod = ImpossibleEnemyHealthModifier.DamageCoreAirship; break; }
+                case Unit.EUnitType.DwfSoldier:             { fMod = ImpossibleEnemyHealthModifier.DamageCoreMarine; break; }
+                case Unit.EUnitType.DwfSpecialistInfantry:     { fMod = ImpossibleEnemyHealthModifier.DamageAntiInfantryMarine; break; }
+                case Unit.EUnitType.DwfSpecialistVehicle:                   { fMod = ImpossibleEnemyHealthModifier.DamageHero; break; }
+                case Unit.EUnitType.Grumblebuster:            { fMod = ImpossibleEnemyHealthModifier.DamageCoreVehicle; break; }
+                case Unit.EUnitType.Skylancer:         { fMod = ImpossibleEnemyHealthModifier.DamageAntiAirVehicle; break; }
+                case Unit.EUnitType.Ballista:    { fMod = ImpossibleEnemyHealthModifier.DamageUndefined; break; }
+                case Unit.EUnitType.Catapult:        { fMod = ImpossibleEnemyHealthModifier.DamageMobileArtillery; break; }
+                case Unit.EUnitType.SiegeEngine:             { fMod = ImpossibleEnemyHealthModifier.DamageBattleTank; break; }
+                case Unit.EUnitType.LightAirship:            { fMod = ImpossibleEnemyHealthModifier.DamageCoreAirship; break; }
                 case Unit.EUnitType.SupportShip:            { fMod = ImpossibleEnemyHealthModifier.DamageSupportAirship; break; }
                 case Unit.EUnitType.HeavyAirship:           { fMod = ImpossibleEnemyHealthModifier.DamageHeavyAirship; break; }
                 default: break;
@@ -591,15 +591,15 @@ public class DifficultyManager : MonoBehaviour {
 
                 // Easy difficulty
                 case Unit.EUnitType.Undefined:              { fMod = EasyFriendlyFiringRateModifier.FiringRateUndefined; break; }
-                case Unit.EUnitType.CoreMarine:             { fMod = EasyFriendlyFiringRateModifier.FiringRateCoreMarine; break; }
-                case Unit.EUnitType.AntiInfantryMarine:     { fMod = EasyFriendlyFiringRateModifier.FiringRateAntiInfantryMarine; break; }
-                case Unit.EUnitType.Hero:                   { fMod = EasyFriendlyFiringRateModifier.FiringRateHero; break; }
-                case Unit.EUnitType.CoreVehicle:            { fMod = EasyFriendlyFiringRateModifier.FiringRateCoreVehicle; break; }
-                case Unit.EUnitType.AntiAirVehicle:         { fMod = EasyFriendlyFiringRateModifier.FiringRateAntiAirVehicle; break; }
-                case Unit.EUnitType.AntiBuildingVehicle:    { fMod = EasyFriendlyFiringRateModifier.FiringRateUndefined; break; }
-                case Unit.EUnitType.MobileArtillery:        { fMod = EasyFriendlyFiringRateModifier.FiringRateMobileArtillery; break; }
-                case Unit.EUnitType.BattleTank:             { fMod = EasyFriendlyFiringRateModifier.FiringRateBattleTank; break; }
-                case Unit.EUnitType.CoreAirship:            { fMod = EasyFriendlyFiringRateModifier.FiringRateCoreAirship; break; }
+                case Unit.EUnitType.DwfSoldier:             { fMod = EasyFriendlyFiringRateModifier.FiringRateCoreMarine; break; }
+                case Unit.EUnitType.DwfSpecialistInfantry:     { fMod = EasyFriendlyFiringRateModifier.FiringRateAntiInfantryMarine; break; }
+                case Unit.EUnitType.DwfSpecialistVehicle:                   { fMod = EasyFriendlyFiringRateModifier.FiringRateHero; break; }
+                case Unit.EUnitType.Grumblebuster:            { fMod = EasyFriendlyFiringRateModifier.FiringRateCoreVehicle; break; }
+                case Unit.EUnitType.Skylancer:         { fMod = EasyFriendlyFiringRateModifier.FiringRateAntiAirVehicle; break; }
+                case Unit.EUnitType.Ballista:    { fMod = EasyFriendlyFiringRateModifier.FiringRateUndefined; break; }
+                case Unit.EUnitType.Catapult:        { fMod = EasyFriendlyFiringRateModifier.FiringRateMobileArtillery; break; }
+                case Unit.EUnitType.SiegeEngine:             { fMod = EasyFriendlyFiringRateModifier.FiringRateBattleTank; break; }
+                case Unit.EUnitType.LightAirship:            { fMod = EasyFriendlyFiringRateModifier.FiringRateCoreAirship; break; }
                 case Unit.EUnitType.SupportShip:            { fMod = EasyFriendlyFiringRateModifier.FiringRateSupportAirship; break; }
                 case Unit.EUnitType.HeavyAirship:           { fMod = EasyFriendlyFiringRateModifier.FiringRateHeavyAirship; break; }
                 default: break;
@@ -611,15 +611,15 @@ public class DifficultyManager : MonoBehaviour {
 
                 // Easy difficulty
                 case Unit.EUnitType.Undefined:              { fMod = EasyEnemyFiringRateModifier.FiringRateUndefined; break; }
-                case Unit.EUnitType.CoreMarine:             { fMod = EasyEnemyFiringRateModifier.FiringRateCoreMarine; break; }
-                case Unit.EUnitType.AntiInfantryMarine:     { fMod = EasyEnemyFiringRateModifier.FiringRateAntiInfantryMarine; break; }
-                case Unit.EUnitType.Hero:                   { fMod = EasyEnemyFiringRateModifier.FiringRateHero; break; }
-                case Unit.EUnitType.CoreVehicle:            { fMod = EasyEnemyFiringRateModifier.FiringRateCoreVehicle; break; }
-                case Unit.EUnitType.AntiAirVehicle:         { fMod = EasyEnemyFiringRateModifier.FiringRateAntiAirVehicle; break; }
-                case Unit.EUnitType.AntiBuildingVehicle:    { fMod = EasyEnemyFiringRateModifier.FiringRateUndefined; break; }
-                case Unit.EUnitType.MobileArtillery:        { fMod = EasyEnemyFiringRateModifier.FiringRateMobileArtillery; break; }
-                case Unit.EUnitType.BattleTank:             { fMod = EasyEnemyFiringRateModifier.FiringRateBattleTank; break; }
-                case Unit.EUnitType.CoreAirship:            { fMod = EasyEnemyFiringRateModifier.FiringRateCoreAirship; break; }
+                case Unit.EUnitType.DwfSoldier:             { fMod = EasyEnemyFiringRateModifier.FiringRateCoreMarine; break; }
+                case Unit.EUnitType.DwfSpecialistInfantry:     { fMod = EasyEnemyFiringRateModifier.FiringRateAntiInfantryMarine; break; }
+                case Unit.EUnitType.DwfSpecialistVehicle:                   { fMod = EasyEnemyFiringRateModifier.FiringRateHero; break; }
+                case Unit.EUnitType.Grumblebuster:            { fMod = EasyEnemyFiringRateModifier.FiringRateCoreVehicle; break; }
+                case Unit.EUnitType.Skylancer:         { fMod = EasyEnemyFiringRateModifier.FiringRateAntiAirVehicle; break; }
+                case Unit.EUnitType.Ballista:    { fMod = EasyEnemyFiringRateModifier.FiringRateUndefined; break; }
+                case Unit.EUnitType.Catapult:        { fMod = EasyEnemyFiringRateModifier.FiringRateMobileArtillery; break; }
+                case Unit.EUnitType.SiegeEngine:             { fMod = EasyEnemyFiringRateModifier.FiringRateBattleTank; break; }
+                case Unit.EUnitType.LightAirship:            { fMod = EasyEnemyFiringRateModifier.FiringRateCoreAirship; break; }
                 case Unit.EUnitType.SupportShip:            { fMod = EasyEnemyFiringRateModifier.FiringRateSupportAirship; break; }
                 case Unit.EUnitType.HeavyAirship:           { fMod = EasyEnemyFiringRateModifier.FiringRateHeavyAirship; break; }
                 default: break;
@@ -647,15 +647,15 @@ public class DifficultyManager : MonoBehaviour {
 
                 // Normal difficulty
                 case Unit.EUnitType.Undefined:              { fMod = NormalFriendlyFiringRateModifier.FiringRateUndefined; break; }
-                case Unit.EUnitType.CoreMarine:             { fMod = NormalFriendlyFiringRateModifier.FiringRateCoreMarine; break; }
-                case Unit.EUnitType.AntiInfantryMarine:     { fMod = NormalFriendlyFiringRateModifier.FiringRateAntiInfantryMarine; break; }
-                case Unit.EUnitType.Hero:                   { fMod = NormalFriendlyFiringRateModifier.FiringRateHero; break; }
-                case Unit.EUnitType.CoreVehicle:            { fMod = NormalFriendlyFiringRateModifier.FiringRateCoreVehicle; break; }
-                case Unit.EUnitType.AntiAirVehicle:         { fMod = NormalFriendlyFiringRateModifier.FiringRateAntiAirVehicle; break; }
-                case Unit.EUnitType.AntiBuildingVehicle:    { fMod = NormalFriendlyFiringRateModifier.FiringRateUndefined; break; }
-                case Unit.EUnitType.MobileArtillery:        { fMod = NormalFriendlyFiringRateModifier.FiringRateMobileArtillery; break; }
-                case Unit.EUnitType.BattleTank:             { fMod = NormalFriendlyFiringRateModifier.FiringRateBattleTank; break; }
-                case Unit.EUnitType.CoreAirship:            { fMod = NormalFriendlyFiringRateModifier.FiringRateCoreAirship; break; }
+                case Unit.EUnitType.DwfSoldier:             { fMod = NormalFriendlyFiringRateModifier.FiringRateCoreMarine; break; }
+                case Unit.EUnitType.DwfSpecialistInfantry:     { fMod = NormalFriendlyFiringRateModifier.FiringRateAntiInfantryMarine; break; }
+                case Unit.EUnitType.DwfSpecialistVehicle:                   { fMod = NormalFriendlyFiringRateModifier.FiringRateHero; break; }
+                case Unit.EUnitType.Grumblebuster:            { fMod = NormalFriendlyFiringRateModifier.FiringRateCoreVehicle; break; }
+                case Unit.EUnitType.Skylancer:         { fMod = NormalFriendlyFiringRateModifier.FiringRateAntiAirVehicle; break; }
+                case Unit.EUnitType.Ballista:    { fMod = NormalFriendlyFiringRateModifier.FiringRateUndefined; break; }
+                case Unit.EUnitType.Catapult:        { fMod = NormalFriendlyFiringRateModifier.FiringRateMobileArtillery; break; }
+                case Unit.EUnitType.SiegeEngine:             { fMod = NormalFriendlyFiringRateModifier.FiringRateBattleTank; break; }
+                case Unit.EUnitType.LightAirship:            { fMod = NormalFriendlyFiringRateModifier.FiringRateCoreAirship; break; }
                 case Unit.EUnitType.SupportShip:            { fMod = NormalFriendlyFiringRateModifier.FiringRateSupportAirship; break; }
                 case Unit.EUnitType.HeavyAirship:           { fMod = NormalFriendlyFiringRateModifier.FiringRateHeavyAirship; break; }
                 default: break;
@@ -668,15 +668,15 @@ public class DifficultyManager : MonoBehaviour {
 
                 // Normal difficulty
                 case Unit.EUnitType.Undefined:              { fMod = NormalEnemyFiringRateModifier.FiringRateUndefined; break; }
-                case Unit.EUnitType.CoreMarine:             { fMod = NormalEnemyFiringRateModifier.FiringRateCoreMarine; break; }
-                case Unit.EUnitType.AntiInfantryMarine:     { fMod = NormalEnemyFiringRateModifier.FiringRateAntiInfantryMarine; break; }
-                case Unit.EUnitType.Hero:                   { fMod = NormalEnemyFiringRateModifier.FiringRateHero; break; }
-                case Unit.EUnitType.CoreVehicle:            { fMod = NormalEnemyFiringRateModifier.FiringRateCoreVehicle; break; }
-                case Unit.EUnitType.AntiAirVehicle:         { fMod = NormalEnemyFiringRateModifier.FiringRateAntiAirVehicle; break; }
-                case Unit.EUnitType.AntiBuildingVehicle:    { fMod = NormalEnemyFiringRateModifier.FiringRateUndefined; break; }
-                case Unit.EUnitType.MobileArtillery:        { fMod = NormalEnemyFiringRateModifier.FiringRateMobileArtillery; break; }
-                case Unit.EUnitType.BattleTank:             { fMod = NormalEnemyFiringRateModifier.FiringRateBattleTank; break; }
-                case Unit.EUnitType.CoreAirship:            { fMod = NormalEnemyFiringRateModifier.FiringRateCoreAirship; break; }
+                case Unit.EUnitType.DwfSoldier:             { fMod = NormalEnemyFiringRateModifier.FiringRateCoreMarine; break; }
+                case Unit.EUnitType.DwfSpecialistInfantry:     { fMod = NormalEnemyFiringRateModifier.FiringRateAntiInfantryMarine; break; }
+                case Unit.EUnitType.DwfSpecialistVehicle:                   { fMod = NormalEnemyFiringRateModifier.FiringRateHero; break; }
+                case Unit.EUnitType.Grumblebuster:            { fMod = NormalEnemyFiringRateModifier.FiringRateCoreVehicle; break; }
+                case Unit.EUnitType.Skylancer:         { fMod = NormalEnemyFiringRateModifier.FiringRateAntiAirVehicle; break; }
+                case Unit.EUnitType.Ballista:    { fMod = NormalEnemyFiringRateModifier.FiringRateUndefined; break; }
+                case Unit.EUnitType.Catapult:        { fMod = NormalEnemyFiringRateModifier.FiringRateMobileArtillery; break; }
+                case Unit.EUnitType.SiegeEngine:             { fMod = NormalEnemyFiringRateModifier.FiringRateBattleTank; break; }
+                case Unit.EUnitType.LightAirship:            { fMod = NormalEnemyFiringRateModifier.FiringRateCoreAirship; break; }
                 case Unit.EUnitType.SupportShip:            { fMod = NormalEnemyFiringRateModifier.FiringRateSupportAirship; break; }
                 case Unit.EUnitType.HeavyAirship:           { fMod = NormalEnemyFiringRateModifier.FiringRateHeavyAirship; break; }
                 default: break;
@@ -704,15 +704,15 @@ public class DifficultyManager : MonoBehaviour {
 
                 // Hard difficulty
                 case Unit.EUnitType.Undefined:              { fMod = HardFriendlyFiringRateModifier.FiringRateUndefined; break; }
-                case Unit.EUnitType.CoreMarine:             { fMod = HardFriendlyFiringRateModifier.FiringRateCoreMarine; break; }
-                case Unit.EUnitType.AntiInfantryMarine:     { fMod = HardFriendlyFiringRateModifier.FiringRateAntiInfantryMarine; break; }
-                case Unit.EUnitType.Hero:                   { fMod = HardFriendlyFiringRateModifier.FiringRateHero; break; }
-                case Unit.EUnitType.CoreVehicle:            { fMod = HardFriendlyFiringRateModifier.FiringRateCoreVehicle; break; }
-                case Unit.EUnitType.AntiAirVehicle:         { fMod = HardFriendlyFiringRateModifier.FiringRateAntiAirVehicle; break; }
-                case Unit.EUnitType.AntiBuildingVehicle:    { fMod = HardFriendlyFiringRateModifier.FiringRateUndefined; break; }
-                case Unit.EUnitType.MobileArtillery:        { fMod = HardFriendlyFiringRateModifier.FiringRateMobileArtillery; break; }
-                case Unit.EUnitType.BattleTank:             { fMod = HardFriendlyFiringRateModifier.FiringRateBattleTank; break; }
-                case Unit.EUnitType.CoreAirship:            { fMod = HardFriendlyFiringRateModifier.FiringRateCoreAirship; break; }
+                case Unit.EUnitType.DwfSoldier:             { fMod = HardFriendlyFiringRateModifier.FiringRateCoreMarine; break; }
+                case Unit.EUnitType.DwfSpecialistInfantry:     { fMod = HardFriendlyFiringRateModifier.FiringRateAntiInfantryMarine; break; }
+                case Unit.EUnitType.DwfSpecialistVehicle:                   { fMod = HardFriendlyFiringRateModifier.FiringRateHero; break; }
+                case Unit.EUnitType.Grumblebuster:            { fMod = HardFriendlyFiringRateModifier.FiringRateCoreVehicle; break; }
+                case Unit.EUnitType.Skylancer:         { fMod = HardFriendlyFiringRateModifier.FiringRateAntiAirVehicle; break; }
+                case Unit.EUnitType.Ballista:    { fMod = HardFriendlyFiringRateModifier.FiringRateUndefined; break; }
+                case Unit.EUnitType.Catapult:        { fMod = HardFriendlyFiringRateModifier.FiringRateMobileArtillery; break; }
+                case Unit.EUnitType.SiegeEngine:             { fMod = HardFriendlyFiringRateModifier.FiringRateBattleTank; break; }
+                case Unit.EUnitType.LightAirship:            { fMod = HardFriendlyFiringRateModifier.FiringRateCoreAirship; break; }
                 case Unit.EUnitType.SupportShip:            { fMod = HardFriendlyFiringRateModifier.FiringRateSupportAirship; break; }
                 case Unit.EUnitType.HeavyAirship:           { fMod = HardFriendlyFiringRateModifier.FiringRateHeavyAirship; break; }
                 default: break;
@@ -725,15 +725,15 @@ public class DifficultyManager : MonoBehaviour {
 
                 // Hard difficulty
                 case Unit.EUnitType.Undefined:              { fMod = HardEnemyFiringRateModifier.FiringRateUndefined; break; }
-                case Unit.EUnitType.CoreMarine:             { fMod = HardEnemyFiringRateModifier.FiringRateCoreMarine; break; }
-                case Unit.EUnitType.AntiInfantryMarine:     { fMod = HardEnemyFiringRateModifier.FiringRateAntiInfantryMarine; break; }
-                case Unit.EUnitType.Hero:                   { fMod = HardEnemyFiringRateModifier.FiringRateHero; break; }
-                case Unit.EUnitType.CoreVehicle:            { fMod = HardEnemyFiringRateModifier.FiringRateCoreVehicle; break; }
-                case Unit.EUnitType.AntiAirVehicle:         { fMod = HardEnemyFiringRateModifier.FiringRateAntiAirVehicle; break; }
-                case Unit.EUnitType.AntiBuildingVehicle:    { fMod = HardEnemyFiringRateModifier.FiringRateUndefined; break; }
-                case Unit.EUnitType.MobileArtillery:        { fMod = HardEnemyFiringRateModifier.FiringRateMobileArtillery; break; }
-                case Unit.EUnitType.BattleTank:             { fMod = HardEnemyFiringRateModifier.FiringRateBattleTank; break; }
-                case Unit.EUnitType.CoreAirship:            { fMod = HardEnemyFiringRateModifier.FiringRateCoreAirship; break; }
+                case Unit.EUnitType.DwfSoldier:             { fMod = HardEnemyFiringRateModifier.FiringRateCoreMarine; break; }
+                case Unit.EUnitType.DwfSpecialistInfantry:     { fMod = HardEnemyFiringRateModifier.FiringRateAntiInfantryMarine; break; }
+                case Unit.EUnitType.DwfSpecialistVehicle:                   { fMod = HardEnemyFiringRateModifier.FiringRateHero; break; }
+                case Unit.EUnitType.Grumblebuster:            { fMod = HardEnemyFiringRateModifier.FiringRateCoreVehicle; break; }
+                case Unit.EUnitType.Skylancer:         { fMod = HardEnemyFiringRateModifier.FiringRateAntiAirVehicle; break; }
+                case Unit.EUnitType.Ballista:    { fMod = HardEnemyFiringRateModifier.FiringRateUndefined; break; }
+                case Unit.EUnitType.Catapult:        { fMod = HardEnemyFiringRateModifier.FiringRateMobileArtillery; break; }
+                case Unit.EUnitType.SiegeEngine:             { fMod = HardEnemyFiringRateModifier.FiringRateBattleTank; break; }
+                case Unit.EUnitType.LightAirship:            { fMod = HardEnemyFiringRateModifier.FiringRateCoreAirship; break; }
                 case Unit.EUnitType.SupportShip:            { fMod = HardEnemyFiringRateModifier.FiringRateSupportAirship; break; }
                 case Unit.EUnitType.HeavyAirship:           { fMod = HardEnemyFiringRateModifier.FiringRateHeavyAirship; break; }
                 default: break;
@@ -761,15 +761,15 @@ public class DifficultyManager : MonoBehaviour {
 
                 // Impossible difficulty
                 case Unit.EUnitType.Undefined:              { fMod = ImpossibleFriendlyFiringRateModifier.FiringRateUndefined; break; }
-                case Unit.EUnitType.CoreMarine:             { fMod = ImpossibleFriendlyFiringRateModifier.FiringRateCoreMarine; break; }
-                case Unit.EUnitType.AntiInfantryMarine:     { fMod = ImpossibleFriendlyFiringRateModifier.FiringRateAntiInfantryMarine; break; }
-                case Unit.EUnitType.Hero:                   { fMod = ImpossibleFriendlyFiringRateModifier.FiringRateHero; break; }
-                case Unit.EUnitType.CoreVehicle:            { fMod = ImpossibleFriendlyFiringRateModifier.FiringRateCoreVehicle; break; }
-                case Unit.EUnitType.AntiAirVehicle:         { fMod = ImpossibleFriendlyFiringRateModifier.FiringRateAntiAirVehicle; break; }
-                case Unit.EUnitType.AntiBuildingVehicle:    { fMod = ImpossibleFriendlyFiringRateModifier.FiringRateUndefined; break; }
-                case Unit.EUnitType.MobileArtillery:        { fMod = ImpossibleFriendlyFiringRateModifier.FiringRateMobileArtillery; break; }
-                case Unit.EUnitType.BattleTank:             { fMod = ImpossibleFriendlyFiringRateModifier.FiringRateBattleTank; break; }
-                case Unit.EUnitType.CoreAirship:            { fMod = ImpossibleFriendlyFiringRateModifier.FiringRateCoreAirship; break; }
+                case Unit.EUnitType.DwfSoldier:             { fMod = ImpossibleFriendlyFiringRateModifier.FiringRateCoreMarine; break; }
+                case Unit.EUnitType.DwfSpecialistInfantry:     { fMod = ImpossibleFriendlyFiringRateModifier.FiringRateAntiInfantryMarine; break; }
+                case Unit.EUnitType.DwfSpecialistVehicle:                   { fMod = ImpossibleFriendlyFiringRateModifier.FiringRateHero; break; }
+                case Unit.EUnitType.Grumblebuster:            { fMod = ImpossibleFriendlyFiringRateModifier.FiringRateCoreVehicle; break; }
+                case Unit.EUnitType.Skylancer:         { fMod = ImpossibleFriendlyFiringRateModifier.FiringRateAntiAirVehicle; break; }
+                case Unit.EUnitType.Ballista:    { fMod = ImpossibleFriendlyFiringRateModifier.FiringRateUndefined; break; }
+                case Unit.EUnitType.Catapult:        { fMod = ImpossibleFriendlyFiringRateModifier.FiringRateMobileArtillery; break; }
+                case Unit.EUnitType.SiegeEngine:             { fMod = ImpossibleFriendlyFiringRateModifier.FiringRateBattleTank; break; }
+                case Unit.EUnitType.LightAirship:            { fMod = ImpossibleFriendlyFiringRateModifier.FiringRateCoreAirship; break; }
                 case Unit.EUnitType.SupportShip:            { fMod = ImpossibleFriendlyFiringRateModifier.FiringRateSupportAirship; break; }
                 case Unit.EUnitType.HeavyAirship:           { fMod = ImpossibleFriendlyFiringRateModifier.FiringRateHeavyAirship; break; }
                 default: break;
@@ -782,15 +782,15 @@ public class DifficultyManager : MonoBehaviour {
 
                 // Impossible difficulty
                 case Unit.EUnitType.Undefined:              { fMod = ImpossibleEnemyFiringRateModifier.FiringRateUndefined; break; }
-                case Unit.EUnitType.CoreMarine:             { fMod = ImpossibleEnemyFiringRateModifier.FiringRateCoreMarine; break; }
-                case Unit.EUnitType.AntiInfantryMarine:     { fMod = ImpossibleEnemyFiringRateModifier.FiringRateAntiInfantryMarine; break; }
-                case Unit.EUnitType.Hero:                   { fMod = ImpossibleEnemyFiringRateModifier.FiringRateHero; break; }
-                case Unit.EUnitType.CoreVehicle:            { fMod = ImpossibleEnemyFiringRateModifier.FiringRateCoreVehicle; break; }
-                case Unit.EUnitType.AntiAirVehicle:         { fMod = ImpossibleEnemyFiringRateModifier.FiringRateAntiAirVehicle; break; }
-                case Unit.EUnitType.AntiBuildingVehicle:    { fMod = ImpossibleEnemyFiringRateModifier.FiringRateUndefined; break; }
-                case Unit.EUnitType.MobileArtillery:        { fMod = ImpossibleEnemyFiringRateModifier.FiringRateMobileArtillery; break; }
-                case Unit.EUnitType.BattleTank:             { fMod = ImpossibleEnemyFiringRateModifier.FiringRateBattleTank; break; }
-                case Unit.EUnitType.CoreAirship:            { fMod = ImpossibleEnemyFiringRateModifier.FiringRateCoreAirship; break; }
+                case Unit.EUnitType.DwfSoldier:             { fMod = ImpossibleEnemyFiringRateModifier.FiringRateCoreMarine; break; }
+                case Unit.EUnitType.DwfSpecialistInfantry:     { fMod = ImpossibleEnemyFiringRateModifier.FiringRateAntiInfantryMarine; break; }
+                case Unit.EUnitType.DwfSpecialistVehicle:                   { fMod = ImpossibleEnemyFiringRateModifier.FiringRateHero; break; }
+                case Unit.EUnitType.Grumblebuster:            { fMod = ImpossibleEnemyFiringRateModifier.FiringRateCoreVehicle; break; }
+                case Unit.EUnitType.Skylancer:         { fMod = ImpossibleEnemyFiringRateModifier.FiringRateAntiAirVehicle; break; }
+                case Unit.EUnitType.Ballista:    { fMod = ImpossibleEnemyFiringRateModifier.FiringRateUndefined; break; }
+                case Unit.EUnitType.Catapult:        { fMod = ImpossibleEnemyFiringRateModifier.FiringRateMobileArtillery; break; }
+                case Unit.EUnitType.SiegeEngine:             { fMod = ImpossibleEnemyFiringRateModifier.FiringRateBattleTank; break; }
+                case Unit.EUnitType.LightAirship:            { fMod = ImpossibleEnemyFiringRateModifier.FiringRateCoreAirship; break; }
                 case Unit.EUnitType.SupportShip:            { fMod = ImpossibleEnemyFiringRateModifier.FiringRateSupportAirship; break; }
                 case Unit.EUnitType.HeavyAirship:           { fMod = ImpossibleEnemyFiringRateModifier.FiringRateHeavyAirship; break; }
                 default: break;
@@ -818,15 +818,15 @@ public class DifficultyManager : MonoBehaviour {
 
                 // Easy difficulty
                 case Unit.EUnitType.Undefined:              { fMod = EasyFriendlyMovementSpeedModifier.MovementSpeedUndefined; break; }
-                case Unit.EUnitType.CoreMarine:             { fMod = EasyFriendlyMovementSpeedModifier.MovementSpeedCoreMarine; break; }
-                case Unit.EUnitType.AntiInfantryMarine:     { fMod = EasyFriendlyMovementSpeedModifier.MovementSpeedAntiInfantryMarine; break; }
-                case Unit.EUnitType.Hero:                   { fMod = EasyFriendlyMovementSpeedModifier.MovementSpeedHero; break; }
-                case Unit.EUnitType.CoreVehicle:            { fMod = EasyFriendlyMovementSpeedModifier.MovementSpeedCoreVehicle; break; }
-                case Unit.EUnitType.AntiAirVehicle:         { fMod = EasyFriendlyMovementSpeedModifier.MovementSpeedAntiAirVehicle; break; }
-                case Unit.EUnitType.AntiBuildingVehicle:    { fMod = EasyFriendlyMovementSpeedModifier.MovementSpeedUndefined; break; }
-                case Unit.EUnitType.MobileArtillery:        { fMod = EasyFriendlyMovementSpeedModifier.MovementSpeedMobileArtillery; break; }
-                case Unit.EUnitType.BattleTank:             { fMod = EasyFriendlyMovementSpeedModifier.MovementSpeedBattleTank; break; }
-                case Unit.EUnitType.CoreAirship:            { fMod = EasyFriendlyMovementSpeedModifier.MovementSpeedCoreAirship; break; }
+                case Unit.EUnitType.DwfSoldier:             { fMod = EasyFriendlyMovementSpeedModifier.MovementSpeedCoreMarine; break; }
+                case Unit.EUnitType.DwfSpecialistInfantry:     { fMod = EasyFriendlyMovementSpeedModifier.MovementSpeedAntiInfantryMarine; break; }
+                case Unit.EUnitType.DwfSpecialistVehicle:                   { fMod = EasyFriendlyMovementSpeedModifier.MovementSpeedHero; break; }
+                case Unit.EUnitType.Grumblebuster:            { fMod = EasyFriendlyMovementSpeedModifier.MovementSpeedCoreVehicle; break; }
+                case Unit.EUnitType.Skylancer:         { fMod = EasyFriendlyMovementSpeedModifier.MovementSpeedAntiAirVehicle; break; }
+                case Unit.EUnitType.Ballista:    { fMod = EasyFriendlyMovementSpeedModifier.MovementSpeedUndefined; break; }
+                case Unit.EUnitType.Catapult:        { fMod = EasyFriendlyMovementSpeedModifier.MovementSpeedMobileArtillery; break; }
+                case Unit.EUnitType.SiegeEngine:             { fMod = EasyFriendlyMovementSpeedModifier.MovementSpeedBattleTank; break; }
+                case Unit.EUnitType.LightAirship:            { fMod = EasyFriendlyMovementSpeedModifier.MovementSpeedCoreAirship; break; }
                 case Unit.EUnitType.SupportShip:            { fMod = EasyFriendlyMovementSpeedModifier.MovementSpeedSupportAirship; break; }
                 case Unit.EUnitType.HeavyAirship:           { fMod = EasyFriendlyMovementSpeedModifier.MovementSpeedHeavyAirship; break; }
                 default: break;
@@ -838,15 +838,15 @@ public class DifficultyManager : MonoBehaviour {
 
                 // Easy difficulty
                 case Unit.EUnitType.Undefined:              { fMod = EasyEnemyMovementSpeedModifier.MovementSpeedUndefined; break; }
-                case Unit.EUnitType.CoreMarine:             { fMod = EasyEnemyMovementSpeedModifier.MovementSpeedCoreMarine; break; }
-                case Unit.EUnitType.AntiInfantryMarine:     { fMod = EasyEnemyMovementSpeedModifier.MovementSpeedAntiInfantryMarine; break; }
-                case Unit.EUnitType.Hero:                   { fMod = EasyEnemyMovementSpeedModifier.MovementSpeedHero; break; }
-                case Unit.EUnitType.CoreVehicle:            { fMod = EasyEnemyMovementSpeedModifier.MovementSpeedCoreVehicle; break; }
-                case Unit.EUnitType.AntiAirVehicle:         { fMod = EasyEnemyMovementSpeedModifier.MovementSpeedAntiAirVehicle; break; }
-                case Unit.EUnitType.AntiBuildingVehicle:    { fMod = EasyEnemyMovementSpeedModifier.MovementSpeedUndefined; break; }
-                case Unit.EUnitType.MobileArtillery:        { fMod = EasyEnemyMovementSpeedModifier.MovementSpeedMobileArtillery; break; }
-                case Unit.EUnitType.BattleTank:             { fMod = EasyEnemyMovementSpeedModifier.MovementSpeedBattleTank; break; }
-                case Unit.EUnitType.CoreAirship:            { fMod = EasyEnemyMovementSpeedModifier.MovementSpeedCoreAirship; break; }
+                case Unit.EUnitType.DwfSoldier:             { fMod = EasyEnemyMovementSpeedModifier.MovementSpeedCoreMarine; break; }
+                case Unit.EUnitType.DwfSpecialistInfantry:     { fMod = EasyEnemyMovementSpeedModifier.MovementSpeedAntiInfantryMarine; break; }
+                case Unit.EUnitType.DwfSpecialistVehicle:                   { fMod = EasyEnemyMovementSpeedModifier.MovementSpeedHero; break; }
+                case Unit.EUnitType.Grumblebuster:            { fMod = EasyEnemyMovementSpeedModifier.MovementSpeedCoreVehicle; break; }
+                case Unit.EUnitType.Skylancer:         { fMod = EasyEnemyMovementSpeedModifier.MovementSpeedAntiAirVehicle; break; }
+                case Unit.EUnitType.Ballista:    { fMod = EasyEnemyMovementSpeedModifier.MovementSpeedUndefined; break; }
+                case Unit.EUnitType.Catapult:        { fMod = EasyEnemyMovementSpeedModifier.MovementSpeedMobileArtillery; break; }
+                case Unit.EUnitType.SiegeEngine:             { fMod = EasyEnemyMovementSpeedModifier.MovementSpeedBattleTank; break; }
+                case Unit.EUnitType.LightAirship:            { fMod = EasyEnemyMovementSpeedModifier.MovementSpeedCoreAirship; break; }
                 case Unit.EUnitType.SupportShip:            { fMod = EasyEnemyMovementSpeedModifier.MovementSpeedSupportAirship; break; }
                 case Unit.EUnitType.HeavyAirship:           { fMod = EasyEnemyMovementSpeedModifier.MovementSpeedHeavyAirship; break; }
                 default: break;
@@ -874,15 +874,15 @@ public class DifficultyManager : MonoBehaviour {
 
                 // Normal difficulty
                 case Unit.EUnitType.Undefined:              { fMod = NormalFriendlyMovementSpeedModifier.MovementSpeedUndefined; break; }
-                case Unit.EUnitType.CoreMarine:             { fMod = NormalFriendlyMovementSpeedModifier.MovementSpeedCoreMarine; break; }
-                case Unit.EUnitType.AntiInfantryMarine:     { fMod = NormalFriendlyMovementSpeedModifier.MovementSpeedAntiInfantryMarine; break; }
-                case Unit.EUnitType.Hero:                   { fMod = NormalFriendlyMovementSpeedModifier.MovementSpeedHero; break; }
-                case Unit.EUnitType.CoreVehicle:            { fMod = NormalFriendlyMovementSpeedModifier.MovementSpeedCoreVehicle; break; }
-                case Unit.EUnitType.AntiAirVehicle:         { fMod = NormalFriendlyMovementSpeedModifier.MovementSpeedAntiAirVehicle; break; }
-                case Unit.EUnitType.AntiBuildingVehicle:    { fMod = NormalFriendlyMovementSpeedModifier.MovementSpeedUndefined; break; }
-                case Unit.EUnitType.MobileArtillery:        { fMod = NormalFriendlyMovementSpeedModifier.MovementSpeedMobileArtillery; break; }
-                case Unit.EUnitType.BattleTank:             { fMod = NormalFriendlyMovementSpeedModifier.MovementSpeedBattleTank; break; }
-                case Unit.EUnitType.CoreAirship:            { fMod = NormalFriendlyMovementSpeedModifier.MovementSpeedCoreAirship; break; }
+                case Unit.EUnitType.DwfSoldier:             { fMod = NormalFriendlyMovementSpeedModifier.MovementSpeedCoreMarine; break; }
+                case Unit.EUnitType.DwfSpecialistInfantry:     { fMod = NormalFriendlyMovementSpeedModifier.MovementSpeedAntiInfantryMarine; break; }
+                case Unit.EUnitType.DwfSpecialistVehicle:                   { fMod = NormalFriendlyMovementSpeedModifier.MovementSpeedHero; break; }
+                case Unit.EUnitType.Grumblebuster:            { fMod = NormalFriendlyMovementSpeedModifier.MovementSpeedCoreVehicle; break; }
+                case Unit.EUnitType.Skylancer:         { fMod = NormalFriendlyMovementSpeedModifier.MovementSpeedAntiAirVehicle; break; }
+                case Unit.EUnitType.Ballista:    { fMod = NormalFriendlyMovementSpeedModifier.MovementSpeedUndefined; break; }
+                case Unit.EUnitType.Catapult:        { fMod = NormalFriendlyMovementSpeedModifier.MovementSpeedMobileArtillery; break; }
+                case Unit.EUnitType.SiegeEngine:             { fMod = NormalFriendlyMovementSpeedModifier.MovementSpeedBattleTank; break; }
+                case Unit.EUnitType.LightAirship:            { fMod = NormalFriendlyMovementSpeedModifier.MovementSpeedCoreAirship; break; }
                 case Unit.EUnitType.SupportShip:            { fMod = NormalFriendlyMovementSpeedModifier.MovementSpeedSupportAirship; break; }
                 case Unit.EUnitType.HeavyAirship:           { fMod = NormalFriendlyMovementSpeedModifier.MovementSpeedHeavyAirship; break; }
                 default: break;
@@ -895,15 +895,15 @@ public class DifficultyManager : MonoBehaviour {
 
                 // Normal difficulty
                 case Unit.EUnitType.Undefined:              { fMod = NormalEnemyMovementSpeedModifier.MovementSpeedUndefined; break; }
-                case Unit.EUnitType.CoreMarine:             { fMod = NormalEnemyMovementSpeedModifier.MovementSpeedCoreMarine; break; }
-                case Unit.EUnitType.AntiInfantryMarine:     { fMod = NormalEnemyMovementSpeedModifier.MovementSpeedAntiInfantryMarine; break; }
-                case Unit.EUnitType.Hero:                   { fMod = NormalEnemyMovementSpeedModifier.MovementSpeedHero; break; }
-                case Unit.EUnitType.CoreVehicle:            { fMod = NormalEnemyMovementSpeedModifier.MovementSpeedCoreVehicle; break; }
-                case Unit.EUnitType.AntiAirVehicle:         { fMod = NormalEnemyMovementSpeedModifier.MovementSpeedAntiAirVehicle; break; }
-                case Unit.EUnitType.AntiBuildingVehicle:    { fMod = NormalEnemyMovementSpeedModifier.MovementSpeedUndefined; break; }
-                case Unit.EUnitType.MobileArtillery:        { fMod = NormalEnemyMovementSpeedModifier.MovementSpeedMobileArtillery; break; }
-                case Unit.EUnitType.BattleTank:             { fMod = NormalEnemyMovementSpeedModifier.MovementSpeedBattleTank; break; }
-                case Unit.EUnitType.CoreAirship:            { fMod = NormalEnemyMovementSpeedModifier.MovementSpeedCoreAirship; break; }
+                case Unit.EUnitType.DwfSoldier:             { fMod = NormalEnemyMovementSpeedModifier.MovementSpeedCoreMarine; break; }
+                case Unit.EUnitType.DwfSpecialistInfantry:     { fMod = NormalEnemyMovementSpeedModifier.MovementSpeedAntiInfantryMarine; break; }
+                case Unit.EUnitType.DwfSpecialistVehicle:                   { fMod = NormalEnemyMovementSpeedModifier.MovementSpeedHero; break; }
+                case Unit.EUnitType.Grumblebuster:            { fMod = NormalEnemyMovementSpeedModifier.MovementSpeedCoreVehicle; break; }
+                case Unit.EUnitType.Skylancer:         { fMod = NormalEnemyMovementSpeedModifier.MovementSpeedAntiAirVehicle; break; }
+                case Unit.EUnitType.Ballista:    { fMod = NormalEnemyMovementSpeedModifier.MovementSpeedUndefined; break; }
+                case Unit.EUnitType.Catapult:        { fMod = NormalEnemyMovementSpeedModifier.MovementSpeedMobileArtillery; break; }
+                case Unit.EUnitType.SiegeEngine:             { fMod = NormalEnemyMovementSpeedModifier.MovementSpeedBattleTank; break; }
+                case Unit.EUnitType.LightAirship:            { fMod = NormalEnemyMovementSpeedModifier.MovementSpeedCoreAirship; break; }
                 case Unit.EUnitType.SupportShip:            { fMod = NormalEnemyMovementSpeedModifier.MovementSpeedSupportAirship; break; }
                 case Unit.EUnitType.HeavyAirship:           { fMod = NormalEnemyMovementSpeedModifier.MovementSpeedHeavyAirship; break; }
                 default: break;
@@ -931,15 +931,15 @@ public class DifficultyManager : MonoBehaviour {
 
                 // Hard difficulty
                 case Unit.EUnitType.Undefined:              { fMod = HardFriendlyMovementSpeedModifier.MovementSpeedUndefined; break; }
-                case Unit.EUnitType.CoreMarine:             { fMod = HardFriendlyMovementSpeedModifier.MovementSpeedCoreMarine; break; }
-                case Unit.EUnitType.AntiInfantryMarine:     { fMod = HardFriendlyMovementSpeedModifier.MovementSpeedAntiInfantryMarine; break; }
-                case Unit.EUnitType.Hero:                   { fMod = HardFriendlyMovementSpeedModifier.MovementSpeedHero; break; }
-                case Unit.EUnitType.CoreVehicle:            { fMod = HardFriendlyMovementSpeedModifier.MovementSpeedCoreVehicle; break; }
-                case Unit.EUnitType.AntiAirVehicle:         { fMod = HardFriendlyMovementSpeedModifier.MovementSpeedAntiAirVehicle; break; }
-                case Unit.EUnitType.AntiBuildingVehicle:    { fMod = HardFriendlyMovementSpeedModifier.MovementSpeedUndefined; break; }
-                case Unit.EUnitType.MobileArtillery:        { fMod = HardFriendlyMovementSpeedModifier.MovementSpeedMobileArtillery; break; }
-                case Unit.EUnitType.BattleTank:             { fMod = HardFriendlyMovementSpeedModifier.MovementSpeedBattleTank; break; }
-                case Unit.EUnitType.CoreAirship:            { fMod = HardFriendlyMovementSpeedModifier.MovementSpeedCoreAirship; break; }
+                case Unit.EUnitType.DwfSoldier:             { fMod = HardFriendlyMovementSpeedModifier.MovementSpeedCoreMarine; break; }
+                case Unit.EUnitType.DwfSpecialistInfantry:     { fMod = HardFriendlyMovementSpeedModifier.MovementSpeedAntiInfantryMarine; break; }
+                case Unit.EUnitType.DwfSpecialistVehicle:                   { fMod = HardFriendlyMovementSpeedModifier.MovementSpeedHero; break; }
+                case Unit.EUnitType.Grumblebuster:            { fMod = HardFriendlyMovementSpeedModifier.MovementSpeedCoreVehicle; break; }
+                case Unit.EUnitType.Skylancer:         { fMod = HardFriendlyMovementSpeedModifier.MovementSpeedAntiAirVehicle; break; }
+                case Unit.EUnitType.Ballista:    { fMod = HardFriendlyMovementSpeedModifier.MovementSpeedUndefined; break; }
+                case Unit.EUnitType.Catapult:        { fMod = HardFriendlyMovementSpeedModifier.MovementSpeedMobileArtillery; break; }
+                case Unit.EUnitType.SiegeEngine:             { fMod = HardFriendlyMovementSpeedModifier.MovementSpeedBattleTank; break; }
+                case Unit.EUnitType.LightAirship:            { fMod = HardFriendlyMovementSpeedModifier.MovementSpeedCoreAirship; break; }
                 case Unit.EUnitType.SupportShip:            { fMod = HardFriendlyMovementSpeedModifier.MovementSpeedSupportAirship; break; }
                 case Unit.EUnitType.HeavyAirship:           { fMod = HardFriendlyMovementSpeedModifier.MovementSpeedHeavyAirship; break; }
                 default: break;
@@ -952,15 +952,15 @@ public class DifficultyManager : MonoBehaviour {
 
                 // Hard difficulty
                 case Unit.EUnitType.Undefined:              { fMod = HardEnemyMovementSpeedModifier.MovementSpeedUndefined; break; }
-                case Unit.EUnitType.CoreMarine:             { fMod = HardEnemyMovementSpeedModifier.MovementSpeedCoreMarine; break; }
-                case Unit.EUnitType.AntiInfantryMarine:     { fMod = HardEnemyMovementSpeedModifier.MovementSpeedAntiInfantryMarine; break; }
-                case Unit.EUnitType.Hero:                   { fMod = HardEnemyMovementSpeedModifier.MovementSpeedHero; break; }
-                case Unit.EUnitType.CoreVehicle:            { fMod = HardEnemyMovementSpeedModifier.MovementSpeedCoreVehicle; break; }
-                case Unit.EUnitType.AntiAirVehicle:         { fMod = HardEnemyMovementSpeedModifier.MovementSpeedAntiAirVehicle; break; }
-                case Unit.EUnitType.AntiBuildingVehicle:    { fMod = HardEnemyMovementSpeedModifier.MovementSpeedUndefined; break; }
-                case Unit.EUnitType.MobileArtillery:        { fMod = HardEnemyMovementSpeedModifier.MovementSpeedMobileArtillery; break; }
-                case Unit.EUnitType.BattleTank:             { fMod = HardEnemyMovementSpeedModifier.MovementSpeedBattleTank; break; }
-                case Unit.EUnitType.CoreAirship:            { fMod = HardEnemyMovementSpeedModifier.MovementSpeedCoreAirship; break; }
+                case Unit.EUnitType.DwfSoldier:             { fMod = HardEnemyMovementSpeedModifier.MovementSpeedCoreMarine; break; }
+                case Unit.EUnitType.DwfSpecialistInfantry:     { fMod = HardEnemyMovementSpeedModifier.MovementSpeedAntiInfantryMarine; break; }
+                case Unit.EUnitType.DwfSpecialistVehicle:                   { fMod = HardEnemyMovementSpeedModifier.MovementSpeedHero; break; }
+                case Unit.EUnitType.Grumblebuster:            { fMod = HardEnemyMovementSpeedModifier.MovementSpeedCoreVehicle; break; }
+                case Unit.EUnitType.Skylancer:         { fMod = HardEnemyMovementSpeedModifier.MovementSpeedAntiAirVehicle; break; }
+                case Unit.EUnitType.Ballista:    { fMod = HardEnemyMovementSpeedModifier.MovementSpeedUndefined; break; }
+                case Unit.EUnitType.Catapult:        { fMod = HardEnemyMovementSpeedModifier.MovementSpeedMobileArtillery; break; }
+                case Unit.EUnitType.SiegeEngine:             { fMod = HardEnemyMovementSpeedModifier.MovementSpeedBattleTank; break; }
+                case Unit.EUnitType.LightAirship:            { fMod = HardEnemyMovementSpeedModifier.MovementSpeedCoreAirship; break; }
                 case Unit.EUnitType.SupportShip:            { fMod = HardEnemyMovementSpeedModifier.MovementSpeedSupportAirship; break; }
                 case Unit.EUnitType.HeavyAirship:           { fMod = HardEnemyMovementSpeedModifier.MovementSpeedHeavyAirship; break; }
                 default: break;
@@ -988,15 +988,15 @@ public class DifficultyManager : MonoBehaviour {
 
                 // Impossible difficulty
                 case Unit.EUnitType.Undefined:              { fMod = ImpossibleFriendlyMovementSpeedModifier.MovementSpeedUndefined; break; }
-                case Unit.EUnitType.CoreMarine:             { fMod = ImpossibleFriendlyMovementSpeedModifier.MovementSpeedCoreMarine; break; }
-                case Unit.EUnitType.AntiInfantryMarine:     { fMod = ImpossibleFriendlyMovementSpeedModifier.MovementSpeedAntiInfantryMarine; break; }
-                case Unit.EUnitType.Hero:                   { fMod = ImpossibleFriendlyMovementSpeedModifier.MovementSpeedHero; break; }
-                case Unit.EUnitType.CoreVehicle:            { fMod = ImpossibleFriendlyMovementSpeedModifier.MovementSpeedCoreVehicle; break; }
-                case Unit.EUnitType.AntiAirVehicle:         { fMod = ImpossibleFriendlyMovementSpeedModifier.MovementSpeedAntiAirVehicle; break; }
-                case Unit.EUnitType.AntiBuildingVehicle:    { fMod = ImpossibleFriendlyMovementSpeedModifier.MovementSpeedUndefined; break; }
-                case Unit.EUnitType.MobileArtillery:        { fMod = ImpossibleFriendlyMovementSpeedModifier.MovementSpeedMobileArtillery; break; }
-                case Unit.EUnitType.BattleTank:             { fMod = ImpossibleFriendlyMovementSpeedModifier.MovementSpeedBattleTank; break; }
-                case Unit.EUnitType.CoreAirship:            { fMod = ImpossibleFriendlyMovementSpeedModifier.MovementSpeedCoreAirship; break; }
+                case Unit.EUnitType.DwfSoldier:             { fMod = ImpossibleFriendlyMovementSpeedModifier.MovementSpeedCoreMarine; break; }
+                case Unit.EUnitType.DwfSpecialistInfantry:     { fMod = ImpossibleFriendlyMovementSpeedModifier.MovementSpeedAntiInfantryMarine; break; }
+                case Unit.EUnitType.DwfSpecialistVehicle:                   { fMod = ImpossibleFriendlyMovementSpeedModifier.MovementSpeedHero; break; }
+                case Unit.EUnitType.Grumblebuster:            { fMod = ImpossibleFriendlyMovementSpeedModifier.MovementSpeedCoreVehicle; break; }
+                case Unit.EUnitType.Skylancer:         { fMod = ImpossibleFriendlyMovementSpeedModifier.MovementSpeedAntiAirVehicle; break; }
+                case Unit.EUnitType.Ballista:    { fMod = ImpossibleFriendlyMovementSpeedModifier.MovementSpeedUndefined; break; }
+                case Unit.EUnitType.Catapult:        { fMod = ImpossibleFriendlyMovementSpeedModifier.MovementSpeedMobileArtillery; break; }
+                case Unit.EUnitType.SiegeEngine:             { fMod = ImpossibleFriendlyMovementSpeedModifier.MovementSpeedBattleTank; break; }
+                case Unit.EUnitType.LightAirship:            { fMod = ImpossibleFriendlyMovementSpeedModifier.MovementSpeedCoreAirship; break; }
                 case Unit.EUnitType.SupportShip:            { fMod = ImpossibleFriendlyMovementSpeedModifier.MovementSpeedSupportAirship; break; }
                 case Unit.EUnitType.HeavyAirship:           { fMod = ImpossibleFriendlyMovementSpeedModifier.MovementSpeedHeavyAirship; break; }
                 default: break;
@@ -1009,15 +1009,15 @@ public class DifficultyManager : MonoBehaviour {
 
                 // Impossible difficulty
                 case Unit.EUnitType.Undefined:              { fMod = ImpossibleEnemyMovementSpeedModifier.MovementSpeedUndefined; break; }
-                case Unit.EUnitType.CoreMarine:             { fMod = ImpossibleEnemyMovementSpeedModifier.MovementSpeedCoreMarine; break; }
-                case Unit.EUnitType.AntiInfantryMarine:     { fMod = ImpossibleEnemyMovementSpeedModifier.MovementSpeedAntiInfantryMarine; break; }
-                case Unit.EUnitType.Hero:                   { fMod = ImpossibleEnemyMovementSpeedModifier.MovementSpeedHero; break; }
-                case Unit.EUnitType.CoreVehicle:            { fMod = ImpossibleEnemyMovementSpeedModifier.MovementSpeedCoreVehicle; break; }
-                case Unit.EUnitType.AntiAirVehicle:         { fMod = ImpossibleEnemyMovementSpeedModifier.MovementSpeedAntiAirVehicle; break; }
-                case Unit.EUnitType.AntiBuildingVehicle:    { fMod = ImpossibleEnemyMovementSpeedModifier.MovementSpeedUndefined; break; }
-                case Unit.EUnitType.MobileArtillery:        { fMod = ImpossibleEnemyMovementSpeedModifier.MovementSpeedMobileArtillery; break; }
-                case Unit.EUnitType.BattleTank:             { fMod = ImpossibleEnemyMovementSpeedModifier.MovementSpeedBattleTank; break; }
-                case Unit.EUnitType.CoreAirship:            { fMod = ImpossibleEnemyMovementSpeedModifier.MovementSpeedCoreAirship; break; }
+                case Unit.EUnitType.DwfSoldier:             { fMod = ImpossibleEnemyMovementSpeedModifier.MovementSpeedCoreMarine; break; }
+                case Unit.EUnitType.DwfSpecialistInfantry:     { fMod = ImpossibleEnemyMovementSpeedModifier.MovementSpeedAntiInfantryMarine; break; }
+                case Unit.EUnitType.DwfSpecialistVehicle:                   { fMod = ImpossibleEnemyMovementSpeedModifier.MovementSpeedHero; break; }
+                case Unit.EUnitType.Grumblebuster:            { fMod = ImpossibleEnemyMovementSpeedModifier.MovementSpeedCoreVehicle; break; }
+                case Unit.EUnitType.Skylancer:         { fMod = ImpossibleEnemyMovementSpeedModifier.MovementSpeedAntiAirVehicle; break; }
+                case Unit.EUnitType.Ballista:    { fMod = ImpossibleEnemyMovementSpeedModifier.MovementSpeedUndefined; break; }
+                case Unit.EUnitType.Catapult:        { fMod = ImpossibleEnemyMovementSpeedModifier.MovementSpeedMobileArtillery; break; }
+                case Unit.EUnitType.SiegeEngine:             { fMod = ImpossibleEnemyMovementSpeedModifier.MovementSpeedBattleTank; break; }
+                case Unit.EUnitType.LightAirship:            { fMod = ImpossibleEnemyMovementSpeedModifier.MovementSpeedCoreAirship; break; }
                 case Unit.EUnitType.SupportShip:            { fMod = ImpossibleEnemyMovementSpeedModifier.MovementSpeedSupportAirship; break; }
                 case Unit.EUnitType.HeavyAirship:           { fMod = ImpossibleEnemyMovementSpeedModifier.MovementSpeedHeavyAirship; break; }
                 default: break;
