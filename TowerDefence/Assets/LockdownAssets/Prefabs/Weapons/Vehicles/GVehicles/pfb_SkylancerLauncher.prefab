@@ -55,25 +55,31 @@ MonoBehaviour:
   ProjectileClass: {fileID: 114729503339577298, guid: d732441ca7c52d5499f1b8a031ed6d88,
     type: 2}
   FiringEffect: {fileID: 0}
-  MuzzleEffect: {fileID: 0}
+  FiringDelay: 0.1
+  MuzzleEffectWrapper: {fileID: 1743703279927862, guid: 8b0dc652071f71c4c9a3a5fc5680c653,
+    type: 2}
   MuzzlePatternType: 0
   ReusableMuzzlePoints: 1
-  FiringDelay: 0.5
   ChargeUpTime: 0
+  ChargeLightRange: 50
+  ChargeLightIntensity: 1
+  ChargeUpColor: {r: 1, g: 1, b: 1, a: 1}
   AngularOffsetType: 0
-  AngularOffset: {x: 0, y: 0, z: 0}
+  AngularOffset: {x: 0, y: 0.5, z: 0}
+  DefaultImpactEffect: {fileID: 0}
+  SpawnOnImpact: {fileID: 0}
   Damages:
     DamageDefault: 1
-    DamageCoreInfantry: 1
-    DamageAntiInfantryMarine: 1
-    DamageHero: 1
-    DamageCoreVehicle: 1
-    DamageAntiAirVehicle: 1
-    DamageMobileArtillery: 1
-    DamageBattleTank: 1
-    DamageCoreAirship: 12
-    DamageSupportShip: 12
-    DamageHeavyAirship: 12
+    DamageCoreInfantry: 7
+    DamageAntiInfantryMarine: 7
+    DamageHero: 7
+    DamageCoreVehicle: 7
+    DamageAntiAirVehicle: 7
+    DamageMobileArtillery: 7
+    DamageBattleTank: 7
+    DamageCoreAirship: 30
+    DamageSupportShip: 30
+    DamageHeavyAirship: 30
   BottomlessClip: 0
-  MagazineSize: 6
-  ReloadTime: 4
+  MagazineSize: 2
+  ReloadTime: 0.6

@@ -227,8 +227,7 @@ public class Projectile : MonoBehaviour {
             float effectDuration = effect.duration + effect.startLifetime;
             StartCoroutine(ParticleDespawn(effect, effectDuration));
         }
-
-        gameObject.SetActive(false);
+        
         ObjectPooling.Despawn(gameObject);
     }
 
@@ -359,9 +358,7 @@ public class Projectile : MonoBehaviour {
     //  IEnumerator
     /// </returns>
     IEnumerator ParticleDespawn(ParticleSystem particleEffect, float delay) {
-
-        yield return gameObject.activeInHierarchy;
-
+        
         // Delay
         yield return new WaitForSeconds(delay);
 
