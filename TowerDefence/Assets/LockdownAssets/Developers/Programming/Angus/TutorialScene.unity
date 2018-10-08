@@ -5132,7 +5132,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 2
-  m_Camera: {fileID: 1319087383}
+  m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -9541,7 +9541,7 @@ Prefab:
         type: 2}
       propertyPath: ViewCamera
       value: 
-      objectReference: {fileID: 1319087383}
+      objectReference: {fileID: 0}
     - target: {fileID: 1869192643814678, guid: 519ab758fecbc094488db85aea104202, type: 2}
       propertyPath: m_Name
       value: '--- Cinematics ---'
@@ -10682,11 +10682,6 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1316344008}
---- !u!20 &1319087383 stripped
-Camera:
-  m_PrefabParentObject: {fileID: 20535277967441924, guid: 97371d9815069d847860ef387529bbf3,
-    type: 2}
-  m_PrefabInternal: {fileID: 1697397910}
 --- !u!4 &1319087384 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4549799531477632, guid: 97371d9815069d847860ef387529bbf3,
@@ -11101,7 +11096,7 @@ Prefab:
         type: 2}
       propertyPath: PlayerCamera
       value: 
-      objectReference: {fileID: 1319087383}
+      objectReference: {fileID: 1697397920}
     - target: {fileID: 114717441679538020, guid: 2026df39a4e1f1245a5289ed76abff7c,
         type: 2}
       propertyPath: _CheekyMaterial
@@ -14800,6 +14795,30 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 97371d9815069d847860ef387529bbf3, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1697397911 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1563527522435192, guid: 97371d9815069d847860ef387529bbf3,
+    type: 2}
+  m_PrefabInternal: {fileID: 1697397910}
+--- !u!114 &1697397912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1697397911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86382bfadffaff740aed9efce4d50737, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LineMaterial: {fileID: 2100000, guid: 0cb137f17a86c1848920db05fe301278, type: 2}
+  LineWidth: 0.01
+  Depth: 5
+--- !u!20 &1697397920 stripped
+Camera:
+  m_PrefabParentObject: {fileID: 20411447022865590, guid: 97371d9815069d847860ef387529bbf3,
+    type: 2}
+  m_PrefabInternal: {fileID: 1697397910}
 --- !u!1 &1713282244
 GameObject:
   m_ObjectHideFlags: 0
