@@ -728,15 +728,15 @@ public class Weapon : MonoBehaviour {
 
             // Muzzle iterator should be set already coz the firing weapon mechanism has already been set this frame
             // (in the switch statement just above)
-            effect.transform.position = _MuzzleLaunchPoints[_MuzzleIterator].position;
-            effect.transform.rotation = _MuzzleLaunchPoints[_MuzzleIterator].rotation;
+            effect.transform.parent.position = _MuzzleLaunchPoints[_MuzzleIterator].position;
+            effect.transform.parent.rotation = _MuzzleLaunchPoints[_MuzzleIterator].rotation;
 
             // Play
             effect.Play();
 
             // Despawn particle system once it has finished its cycle
             float effectDuration = effect.duration + effect.startLifetime;
-            StartCoroutine(ParticleDespawn(effect, effectDuration));
+            StartCoroutine(ParticleParentDespawn(effect, effectDuration));
         }
     }
 
@@ -776,6 +776,23 @@ public class Weapon : MonoBehaviour {
 
         // Despawn the system
         ObjectPooling.Despawn(particleEffect.gameObject);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  A coroutine that waits for the seconds specified then attempts to repool
+    //  the particle effect (or destroyed entirely if re-pooling isn't possible)
+    /// </summary>
+    /// <param name="particleEffect"></param>
+    /// <param name="delay"></param>
+    IEnumerator ParticleParentDespawn(ParticleSystem particleEffect, float delay) {
+
+        // Delay
+        yield return new WaitForSeconds(delay);
+
+        // Despawn the system
+        ObjectPooling.Despawn(particleEffect.transform.parent.gameObject);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

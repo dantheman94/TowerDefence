@@ -24,18 +24,14 @@ public class CoreVehicle : Vehicle {
     [Header(" GRUMBLEBUSTER PROPERTIES")]
     [Space]
     public GameObject WeaponBarrel = null;
-    public float BarrelRotationTime = 1f;
-    public float BarrelRotationSpeed = 1f;
+    public float BarrelRotationSpeed = 500f;
 
     //******************************************************************************************************************************
     //
     //      VARIABLES
     //
     //******************************************************************************************************************************
-
-    private bool _RotatingBarrels = false;
-    private bool _CoroutineReset = true;
-
+    
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
@@ -50,19 +46,11 @@ public class CoreVehicle : Vehicle {
     protected override void Update() {
         base.Update();
         
-        // Cancel & restarting the barrel rotation stopper
-        if (_IsFiring) {
-
-            if (_CoroutineReset) { StartCoroutine(StopBarrelRotation()); }
-            else                 { StopCoroutine(StopBarrelRotation()); }
-            _CoroutineReset = !_CoroutineReset;
-        }
-        
         // Check if the barrels should rotate
-        if (_RotatingBarrels && WeaponBarrel != null) {
+        if (/*_IsFiring &&*/ WeaponBarrel != null) {
 
             // Rotate the barrel by rotation speed
-            WeaponBarrel.transform.Rotate(Vector3.left * (BarrelRotationSpeed * Time.deltaTime));
+            WeaponBarrel.transform.Rotate(Vector3.forward * (BarrelRotationSpeed * Time.deltaTime));
         }
     }
 
@@ -74,28 +62,9 @@ public class CoreVehicle : Vehicle {
     /// </summary>
     public override void OnFireWeapon() {
         base.OnFireWeapon();
-
-        // Rotate the barrels
-        if (WeaponBarrel != null) {
-
-            _RotatingBarrels = true;
-        }
+        
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  
-    /// </summary>
-    /// <returns>
-    //  IEnumerator
-    /// </returns>
-    private IEnumerator StopBarrelRotation() {
-
-        yield return new WaitForSeconds(BarrelRotationTime);
-        _RotatingBarrels = false;
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    
 }

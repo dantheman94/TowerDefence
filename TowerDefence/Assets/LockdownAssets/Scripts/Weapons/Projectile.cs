@@ -35,6 +35,8 @@ public class Projectile : MonoBehaviour {
     [Header("-----------------------------------")]
     [Header(" ON IMPACT")]
     [Space]
+    public ParticleSystem ImpactEffect = null;
+    [Space]
     public bool ExplodeOnImpact = false;
     public float ExplosionRadius = 20f;
     public float DamageFalloff = 0.5f;
@@ -208,6 +210,24 @@ public class Projectile : MonoBehaviour {
             }
         }
 
+        // Set the projectile's impact effect to match the weapon's impact effect (if set in the weapon)
+        if (_WeaponAttached != null) {
+
+            if (_WeaponAttached.DefaultImpactEffect != null) { ImpactEffect = _WeaponAttached.DefaultImpactEffect; }
+        }
+
+        // Play impact effect
+        if (ImpactEffect != null) {
+
+            // Play
+            ParticleSystem effect = ObjectPooling.Spawn(ImpactEffect.gameObject, transform.position, transform.rotation).GetComponent<ParticleSystem>();
+            effect.Play();
+
+            // Despawn particle system once it has finished its cycle
+            float effectDuration = effect.duration + effect.startLifetime;
+            StartCoroutine(ParticleDespawn(effect, effectDuration));
+        }
+
         gameObject.SetActive(false);
         ObjectPooling.Despawn(gameObject);
     }
@@ -339,6 +359,8 @@ public class Projectile : MonoBehaviour {
     //  IEnumerator
     /// </returns>
     IEnumerator ParticleDespawn(ParticleSystem particleEffect, float delay) {
+
+        yield return gameObject.activeInHierarchy;
 
         // Delay
         yield return new WaitForSeconds(delay);

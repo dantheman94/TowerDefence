@@ -375,6 +375,16 @@ public class Unit : WorldObject {
     /// <summary>
     //  
     /// </summary>
+    protected void LateUpdate() {
+
+        ///_IsFiring = false;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
     /// <param name="highlight"></param>
     public override void DrawSelection(bool draw) {
         base.DrawHighlight(draw);
@@ -1132,23 +1142,26 @@ public class Unit : WorldObject {
     /// <param name="target"></param>
     public virtual void AddPotentialTarget(WorldObject target) {
 
-        // Not a friendly unit...
-        if (target.Team != Team) {
+        if (_PotentialTargets != null) {
 
-            // Look for match
-            bool match = false;
-            for (int i = 0; i < _PotentialTargets.Count; i++) {
+            // Not a friendly unit...
+            if (target.Team != Team) {
 
-                // Match found
-                if (_PotentialTargets[i] == target) {
+                // Look for match
+                bool match = false;
+                for (int i = 0; i < _PotentialTargets.Count; i++) {
 
-                    match = true;
-                    break;
+                    // Match found
+                    if (_PotentialTargets[i] == target) {
+
+                        match = true;
+                        break;
+                    }
                 }
-            }
 
-            // Add to list if no matching target was found
-            if (!match) { _PotentialTargets.Add(target); }
+                // Add to list if no matching target was found
+                if (!match) { _PotentialTargets.Add(target); }
+            }
         }
     }
 
