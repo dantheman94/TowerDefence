@@ -204,7 +204,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1855190537707758}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 13.34, y: 6.86, z: -158.05}
+  m_LocalPosition: {x: -365.3, y: 20.77, z: -225.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4283149930936878}
@@ -508,31 +508,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e3a299bc8060d0478dffe78b1b384f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetWeights:
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
 --- !u!114 &114112841073946020
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -632,7 +607,11 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 50
   _WidgetShieldbarScaleY: 8
   _WidgetShieldbarOffset: 8
-  OnDeathEffect: {fileID: 0}
+  ProjectileImpactEffect: {fileID: 198878342192308802, guid: 7cd2c777efbcac943a0ae995ed7e7653,
+    type: 2}
+  HealthThresholdDamaged: 0.5
+  HealthDamagedParticles: []
+  OnDeathEffects: []
   ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.3
   UnitType: 1

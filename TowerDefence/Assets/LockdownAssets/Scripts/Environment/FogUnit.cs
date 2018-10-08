@@ -18,7 +18,10 @@ public class FogUnit : MonoBehaviour {
 
     //                  INSPECTOR
     ///////////////////////////////////////////////////////////////////////////
-    [Header("----SHAPE PROPERTIES----")]
+
+    [Space]
+    [Header("-----------------------------------")]
+    [Header(" SHAPE PROPERTIES")]
     [Space]
     public FogShapeType ShapeType = FogShapeType.Circle;
     public Vector2 Offset = Vector2.zero;
@@ -29,12 +32,17 @@ public class FogUnit : MonoBehaviour {
     [Range(0.0f, 180.0f)]
     public float Angle = 180;
 
-    [Header("----TEXTURE PROPERTIES----")]
+    [Space]
+    [Header("-----------------------------------")]
+    [Header(" TEXTURE PROPERTIES")]
+    [Space]
     public Texture2D Texture;
     public bool RotateToForward = false;
 
-    [Header("----LOS MASK SETTINGS----")]
-
+    [Space]
+    [Header("-----------------------------------")]
+    [Header(" LINE OF SIGHT MASK SETTINGS")]
+    [Space]
     public LayerMask LineOfSightMask = 0;
     [Tooltip("How much the pixels go through objects.")]
     public float LineOfSightPenetration = 0;

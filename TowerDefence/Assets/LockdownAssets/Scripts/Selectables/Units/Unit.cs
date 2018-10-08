@@ -31,6 +31,8 @@ public class Unit : WorldObject {
     public float InfantryMovementSpeed = 10f;
     [Space]
     public bool CanBePlayerControlled = false;
+    [Space]
+    public ConeCollider SightCone = null;
 
     [Space]
     [Header("-----------------------------------")]
@@ -95,6 +97,7 @@ public class Unit : WorldObject {
     protected bool _IsChasing;
     protected bool _IsSeeking;
     protected bool _IsReturningToOrigin;
+    protected bool _IsFiring = false;
 
     protected Vector3 _ChaseOriginPosition = Vector3.zero;
     protected Vector3 _SeekTarget = Vector3.zero;
@@ -128,6 +131,9 @@ public class Unit : WorldObject {
 
     private const int VeterancyLength = 3;
     private UnitVeterancyCounter _UnitVeterancyWidget = null;
+
+    private SphereCollider _SightSphere = null;
+    private SphereCollider _HearingSphere = null;
 
     //******************************************************************************************************************************
     //
@@ -166,6 +172,19 @@ public class Unit : WorldObject {
         // Set fog vision radius
         FogUnit _FogOfWarSight = GetComponent<FogUnit>();
         _FogOfWarSight.Radius = MaxAttackingRange * 1.5f;
+
+        // Get sensory collider references
+        SphereCollider[] sphereCols = GetComponentsInChildren<SphereCollider>();
+        for (int i = 0; i < sphereCols.Length; i++) {
+            
+            if (sphereCols[i].CompareTag("SightSphere"))    { _SightSphere = sphereCols[i]; continue; }
+            if (sphereCols[i].CompareTag("HearingSphere"))  { _HearingSphere = sphereCols[i]; continue; }
+        }
+
+        // Set sensorary sizes
+        if (_SightSphere != null) { _SightSphere.radius = _FogOfWarSight.Radius * 0.9f; }
+        if (_HearingSphere != null) { _HearingSphere.radius = _FogOfWarSight.Radius * 1f; }
+        if (SightCone != null) { SightCone.SetDistance(_FogOfWarSight.Radius * 0.9f); }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -822,7 +841,7 @@ public class Unit : WorldObject {
         if (Physics.Raycast(MuzzleLaunchPoints[0].transform.position, _AttackTarget.TargetPoint.transform.position, out hit, MaxAttackingRange, mask)) {
 
             // There is a line of sight to the target, fire the weapon (if possible)
-            if (PrimaryWeapon.CanFire()) { PrimaryWeapon.FireWeapon(); }
+            if (PrimaryWeapon.CanFire()) { OnFireWeapon(); }
 
             Debug.DrawLine(MuzzleLaunchPoints[0].transform.position, _AttackTarget.TargetPoint.transform.position, Color.green);
         }
@@ -1434,5 +1453,18 @@ public class Unit : WorldObject {
     public AttackPath GetAttackPath() { return _AttackPath; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
+
+    /// <summary>
+    //  Called whenever the unit fires its weapon. 
+    //  (Used for animation).
+    /// </summary>
+    public virtual void OnFireWeapon() {
+
+        // Actually fire the weapon
+        PrimaryWeapon.FireWeapon();
+        _IsFiring = true;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 }

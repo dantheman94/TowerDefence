@@ -2094,12 +2094,13 @@ MonoBehaviour:
   CostPower: 100
   CostTechLevel: 3
   CostPopulation: 8
-  _ObjectState: 4
-  Team: 1
+  _ObjectState: 0
+  Team: 0
   _Player: {fileID: 0}
   ShowSelectionGUI: 0
-  ShowQuadHighlighter: 1
-  ShowQuadSelector: 1
+  ShowOutline: 1
+  OutlineHighlightedWidth: 2
+  OutlineSelectedWidth: 3
   TargetPoint: {fileID: 1193572716779888}
   ShowcaseOffsetY: 1
   ShowcaseFOV: 60
@@ -2122,10 +2123,17 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 150
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
-  OnDeathEffect: {fileID: 0}
+  ProjectileImpactEffect: {fileID: 198188112472025816, guid: cb6673ab40070a140b992561941f7f20,
+    type: 2}
+  HealthThresholdDamaged: 0.5
+  HealthDamagedParticles: []
+  OnDeathEffects: []
   ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.3
-  _ChasingDistance: 30
+  UnitType: 11
+  NavmeshType: 1
+  InfantryMovementSpeed: 10
+  CanBePlayerControlled: 0
   TargetWeights:
   - UnitType: 0
     Weight: 0
@@ -2151,10 +2159,6 @@ MonoBehaviour:
     Weight: 0
   - UnitType: 0
     Weight: 0
-  UnitType: 11
-  NavmeshType: 1
-  InfantryMovementSpeed: 10
-  CanBePlayerControlled: 0
   PrimaryWeapon: {fileID: 114422076111310268, guid: 8c3491a95c06a304797794459e68eef4,
     type: 2}
   SecondaryWeapon: {fileID: 0}
@@ -2162,6 +2166,7 @@ MonoBehaviour:
   MaxAttackingRange: 150
   IdealAttackRangeMax: 100
   IdealAttackRangeMin: 50
+  ChasingDistance: 30
   CanBeStunned: 0
   BarrierDetectionDistance: 20
   StartingVeterancyLevel: 0
@@ -2219,8 +2224,9 @@ MonoBehaviour:
   Team: 0
   _Player: {fileID: 0}
   ShowSelectionGUI: 0
-  ShowQuadHighlighter: 0
-  ShowQuadSelector: 0
+  ShowOutline: 1
+  OutlineHighlightedWidth: 2
+  OutlineSelectedWidth: 3
   TargetPoint: {fileID: 0}
   ShowcaseOffsetY: 0
   ShowcaseFOV: 40
@@ -2315,31 +2321,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e3a299bc8060d0478dffe78b1b384f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetWeights:
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
 --- !u!114 &114383638971030122
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2351,7 +2332,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 206db76a377c0d04f8fbaa2f01e31960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _AIAttached: {fileID: 0}
+  _UnitAttached: {fileID: 0}
   _GunnerAttached: {fileID: 114559347768653706}
 --- !u!114 &114393189959707686
 MonoBehaviour:
@@ -2364,7 +2345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 206db76a377c0d04f8fbaa2f01e31960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _AIAttached: {fileID: 0}
+  _UnitAttached: {fileID: 0}
   _GunnerAttached: {fileID: 114527182714711284}
 --- !u!114 &114394658331583468
 MonoBehaviour:
@@ -2405,8 +2386,9 @@ MonoBehaviour:
   Team: 0
   _Player: {fileID: 0}
   ShowSelectionGUI: 0
-  ShowQuadHighlighter: 0
-  ShowQuadSelector: 0
+  ShowOutline: 1
+  OutlineHighlightedWidth: 2
+  OutlineSelectedWidth: 3
   TargetPoint: {fileID: 0}
   ShowcaseOffsetY: 0
   ShowcaseFOV: 40
@@ -2468,8 +2450,9 @@ MonoBehaviour:
   Team: 0
   _Player: {fileID: 0}
   ShowSelectionGUI: 0
-  ShowQuadHighlighter: 0
-  ShowQuadSelector: 0
+  ShowOutline: 1
+  OutlineHighlightedWidth: 2
+  OutlineSelectedWidth: 3
   TargetPoint: {fileID: 0}
   ShowcaseOffsetY: 0
   ShowcaseFOV: 40
@@ -2562,7 +2545,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 206db76a377c0d04f8fbaa2f01e31960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _AIAttached: {fileID: 0}
+  _UnitAttached: {fileID: 0}
   _GunnerAttached: {fileID: 114038078142947512}
 --- !u!114 &114968754490472322
 MonoBehaviour:

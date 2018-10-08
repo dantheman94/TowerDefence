@@ -34,7 +34,7 @@ public class Weapon : MonoBehaviour {
     [Header("-----------------------------------")]
     [Header(" MUZZLE EFFECTS")]
     [Space]
-    public ParticleSystem MuzzleEffect = null;
+    public GameObject MuzzleEffectWrapper = null;
     public EMuzzleFiringPatternType MuzzlePatternType = EMuzzleFiringPatternType.Consective;
     public bool ReusableMuzzlePoints = true;
 
@@ -721,10 +721,10 @@ public class Weapon : MonoBehaviour {
         }
 
         // Play muzzle firing effect
-        if (MuzzleEffect != null) {
+        if (MuzzleEffectWrapper != null) {
 
             // Spawn
-            ParticleSystem effect = ObjectPooling.Spawn(MuzzleEffect.gameObject).GetComponent<ParticleSystem>();
+            ParticleSystem effect = ObjectPooling.Spawn(MuzzleEffectWrapper.gameObject).GetComponentInChildren<ParticleSystem>();
 
             // Muzzle iterator should be set already coz the firing weapon mechanism has already been set this frame
             // (in the switch statement just above)

@@ -278,6 +278,16 @@ public class WorldObject : Selectable {
             }
             if (_DamagedParticles.Count > 0) { _DamagedParticles.Clear(); }
         }
+        else {
+
+            // Update the position of the particle effects so that they are constantly at the attached object
+            for (int i = 0; i < _DamagedParticles.Count; i++) {
+
+                GameObject effect = _DamagedParticles[i].gameObject;
+                effect.transform.position = HealthDamagedParticles[i].ParticleLocation.position;
+                effect.transform.rotation = HealthDamagedParticles[i].ParticleLocation.rotation;
+            }
+        }
 
         // Change minimap colour based on attacking/defending & team colour
         if (_MinimapQuadRenderer != null) {
@@ -478,6 +488,7 @@ public class WorldObject : Selectable {
                         Quaternion rotation = HealthDamagedParticles[i].ParticleLocation.rotation;
                         ParticleSystem effect = ObjectPooling.Spawn(HealthDamagedParticles[i].ParticleEffect.gameObject, position, rotation).GetComponent<ParticleSystem>();
                         effect.Play();
+                        _DamagedParticles.Add(effect);
                     }
                 }
 

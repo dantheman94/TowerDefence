@@ -160,7 +160,7 @@ public class KeyboardInput : MonoBehaviour {
 
         // Update center point for RotateAround() function
         RaycastHit hit;
-        Physics.Raycast(_PlayerAttached.PlayerCamera.transform.position, _PlayerAttached.PlayerCamera.transform.forward * 1000, out hit);
+        Physics.Raycast(_PlayerAttached.PlayerCamera.transform.parent.position, _PlayerAttached.PlayerCamera.transform.parent.forward * 1000, out hit);
         _LookPoint = hit.point;
     }
     
@@ -174,11 +174,11 @@ public class KeyboardInput : MonoBehaviour {
 
         // Make sure movement is in the direction the camera is pointing
         // but ignore the vertical tilt of the camera to get sensible scrolling
-        movement = _PlayerAttached.PlayerCamera.transform.TransformDirection(movement);
+        movement = _PlayerAttached.PlayerCamera.transform.parent.TransformDirection(movement);
         movement.y = 0;
 
         // Calculate desired camera position based on received input
-        Vector3 posOrigin = _PlayerAttached.PlayerCamera.transform.position;
+        Vector3 posOrigin = _PlayerAttached.PlayerCamera.transform.parent.position;
         Vector3 posDestination = posOrigin;
         posDestination.x += movement.x;
         posDestination.y += movement.y;
@@ -197,7 +197,7 @@ public class KeyboardInput : MonoBehaviour {
         if (posDestination != posOrigin) {
 
             // Update position
-            _PlayerAttached.PlayerCamera.transform.position = Vector3.MoveTowards(posOrigin, posDestination, Settings.MovementSpeed * Time.deltaTime);
+            _PlayerAttached.PlayerCamera.transform.parent.position = Vector3.MoveTowards(posOrigin, posDestination, Settings.MovementSpeed * Time.deltaTime);
         }
     }
 
@@ -211,11 +211,11 @@ public class KeyboardInput : MonoBehaviour {
 
         // Make sure movement is in the direction the camera is pointing
         // but ignore the vertical tilt of the camera to get sensible scrolling
-        movement = _PlayerAttached.PlayerCamera.transform.TransformDirection(movement);
+        movement = _PlayerAttached.PlayerCamera.transform.parent.TransformDirection(movement);
         movement.y = 0;
 
         // Calculate desired camera position based on received input
-        Vector3 posOrigin = _PlayerAttached.PlayerCamera.transform.position;
+        Vector3 posOrigin = _PlayerAttached.PlayerCamera.transform.parent.position;
         Vector3 posDestination = posOrigin;
         posDestination.x += movement.x;
         posDestination.y += movement.y;
@@ -231,7 +231,7 @@ public class KeyboardInput : MonoBehaviour {
         else if (posDestination.y < Settings.MinCameraHeight) { posDestination.y = Settings.MinCameraHeight; }
 
         // Smoothly move toward target position
-        _PlayerAttached.PlayerCamera.transform.position = Vector3.SmoothDamp(posOrigin, posDestination, ref _CurrentVelocity, Settings.MovementSpeed * Time.deltaTime);
+        _PlayerAttached.PlayerCamera.transform.parent.position = Vector3.SmoothDamp(posOrigin, posDestination, ref _CurrentVelocity, Settings.MovementSpeed * Time.deltaTime);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -423,11 +423,11 @@ public class KeyboardInput : MonoBehaviour {
 
         // Make sure movement is in the direction the camera is pointing
         // but ignore the vertical tilt of the camera to get sensible scrolling
-        movement = _PlayerAttached.PlayerCamera.transform.TransformDirection(movement);
+        movement = _PlayerAttached.PlayerCamera.transform.parent.TransformDirection(movement);
         movement.y = 0;
 
         // Calculate desired camera position based on received input
-        Vector3 posOrigin = _PlayerAttached.PlayerCamera.transform.position;
+        Vector3 posOrigin = _PlayerAttached.PlayerCamera.transform.parent.position;
         Vector3 posDestination = posOrigin;
         posDestination.x += movement.x;
         posDestination.y += movement.y;
@@ -441,7 +441,7 @@ public class KeyboardInput : MonoBehaviour {
         if (posDestination != posOrigin) {
 
             // Update position
-            _PlayerAttached.PlayerCamera.transform.position = Vector3.MoveTowards(posOrigin, posDestination, Time.deltaTime * Settings.MovementSpeed);
+            _PlayerAttached.PlayerCamera.transform.parent.position = Vector3.MoveTowards(posOrigin, posDestination, Time.deltaTime * Settings.MovementSpeed);
         }
 
         // Smoothly move toward target position
@@ -455,7 +455,7 @@ public class KeyboardInput : MonoBehaviour {
     /// </summary>
     private void RotateCamera() {
 
-        Vector3 rotOrigin = _PlayerAttached.PlayerCamera.transform.eulerAngles;
+        Vector3 rotOrigin = _PlayerAttached.PlayerCamera.transform.parent.eulerAngles;
         Vector3 rotDestination = rotOrigin;
 
         bool pressed = false;
@@ -474,7 +474,7 @@ public class KeyboardInput : MonoBehaviour {
             if (GameManager.Instance.GetIsUnitControlling()) { _LookPoint = _PlayerAttached._CameraFollow.GetFollowTarget().transform.position; }
 
             // Rotate around point
-            _PlayerAttached.PlayerCamera.transform.RotateAround(_LookPoint, Vector3.up, Settings.RotateSpeed * -dir * Time.deltaTime);
+            _PlayerAttached.PlayerCamera.transform.parent.RotateAround(_LookPoint, Vector3.up, Settings.RotateSpeed * -dir * Time.deltaTime);
 
             // Used for resetting the mouse position
             pressed = true;

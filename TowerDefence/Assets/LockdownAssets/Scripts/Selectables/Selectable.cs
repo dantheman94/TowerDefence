@@ -104,7 +104,7 @@ public class Selectable : Abstraction {
     protected virtual void Update() {
 
         // Only enable fog vision if this unit is a defending unit (player team friendly)
-        if (_FogVision != null) { _FogVision.enabled = Team == GameManager.Team.Defending; }
+        if (_FogVision != null) { _FogVision.enabled = Team == GameManager.Team.Defending && _ObjectState == WorldObjectStates.Active; }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
