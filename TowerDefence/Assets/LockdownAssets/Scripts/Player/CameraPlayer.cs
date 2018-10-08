@@ -237,7 +237,7 @@ public class CameraPlayer : MonoBehaviour {
         if (distance < ShakeThreshold) {
 
             // Calculate strenth
-            float shakeStrength = (1.0f * (Mathf.Abs(distance * 0.1f))) + (_Camera.fieldOfView * 0.1f);
+            float shakeStrength = (1.0f * (Mathf.Abs(distance * 0.1f))) + (Mathf.Abs(_Camera.fieldOfView * 0.1f));
             // Calculate duration
             float shakeDuration = 1f;
    
