@@ -2047,6 +2047,16 @@ Prefab:
       value: Population acts as your unit count but also as a resource for higher
         tier units.
       objectReference: {fileID: 0}
+    - target: {fileID: 114433879934669574, guid: dcbd8f47ba6fc7f4e8f9b2199c58ffc5,
+        type: 2}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    - target: {fileID: 114272442167603076, guid: dcbd8f47ba6fc7f4e8f9b2199c58ffc5,
+        type: 2}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: dcbd8f47ba6fc7f4e8f9b2199c58ffc5, type: 2}
   m_IsPrefabParent: 0
@@ -2917,7 +2927,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 8b899e7c7e24f469a9cfac7f06b0c63d, type: 3}
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 14
     m_FontStyle: 1
     m_BestFit: 0
@@ -3287,6 +3297,7 @@ Transform:
   m_Children:
   - {fileID: 1639950802}
   - {fileID: 1319087384}
+  - {fileID: 1129252825}
   m_Father: {fileID: 160775628}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3376,7 +3387,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 8b899e7c7e24f469a9cfac7f06b0c63d, type: 3}
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 14
     m_FontStyle: 1
     m_BestFit: 0
@@ -4044,8 +4055,8 @@ MonoBehaviour:
     Action: 9
   - DesiredPosition: {fileID: 998421025}
     MessageContent: Click on your town hall and upgrade it. The town hall is special
-      when it comes to upgrading as it increases your tech level. The higher your
-      tech level the more you can upgrade/build.
+      as it increases your tech level. The higher your tech level the more you can
+      upgrade/build.
     TargetObject: {fileID: 694249754}
     HighlightObject: {fileID: 1083547547}
     LerpSpeed: 0.05
@@ -9238,6 +9249,47 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1127623999}
+--- !u!1 &1129252824
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1129252825}
+  - component: {fileID: 1129252828}
+  m_Layer: 0
+  m_Name: LineDrawer (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1129252825
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1129252824}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 379826994}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1129252828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1129252824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cea4aefd10a63b4c9cbe02104529c86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Line: {fileID: 1516900804071516, guid: 5db47460b32fb9b4ebfac16b44015fbf, type: 2}
 --- !u!1 &1140013987
 GameObject:
   m_ObjectHideFlags: 0
@@ -9350,7 +9402,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 8b899e7c7e24f469a9cfac7f06b0c63d, type: 3}
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 14
     m_FontStyle: 1
     m_BestFit: 0
@@ -10162,7 +10214,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 8b899e7c7e24f469a9cfac7f06b0c63d, type: 3}
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 20
     m_FontStyle: 1
     m_BestFit: 0
@@ -11050,6 +11102,11 @@ Prefab:
       propertyPath: PlayerCamera
       value: 
       objectReference: {fileID: 1319087383}
+    - target: {fileID: 114717441679538020, guid: 2026df39a4e1f1245a5289ed76abff7c,
+        type: 2}
+      propertyPath: _CheekyMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 0cb137f17a86c1848920db05fe301278, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2026df39a4e1f1245a5289ed76abff7c, type: 2}
   m_IsPrefabParent: 0
@@ -13774,7 +13831,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 8b899e7c7e24f469a9cfac7f06b0c63d, type: 3}
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 14
     m_FontStyle: 1
     m_BestFit: 0
@@ -14791,8 +14848,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AttackingTeamColour: {r: 1, g: 0, b: 0, a: 1}
-  StartingDamageModifier: 0.4
-  StartingHealthModifier: 0.5
+  StartingDamageModifier: 0.1
+  StartingHealthModifier: 0.2
   StartingFriendlyUnits:
   - {fileID: 497953166}
   - {fileID: 1324521136}
@@ -14808,7 +14865,7 @@ MonoBehaviour:
   PerBossWaveIncrementDamage: 0.15
   PerBossWaveIncrementHealth: 0.2
   WavesPerInterval: 5
-  WaveStartPermitted: 1
+  WaveStartPermitted: 0
   StartingWaveTimer: 60
   TimeAddedPerWave: 15
   TimeTillNextWaveAfterClear: 20
@@ -15164,7 +15221,7 @@ Prefab:
     - target: {fileID: 114841784551271276, guid: c4c393ebdeccc4a49a63075ada35ffff,
         type: 2}
       propertyPath: StartingMaxPopulation
-      value: 15
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 114841784551271276, guid: c4c393ebdeccc4a49a63075ada35ffff,
         type: 2}
@@ -18738,7 +18795,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 8b899e7c7e24f469a9cfac7f06b0c63d, type: 3}
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 28
     m_FontStyle: 0
     m_BestFit: 0
