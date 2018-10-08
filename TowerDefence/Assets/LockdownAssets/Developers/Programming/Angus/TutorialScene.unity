@@ -8640,7 +8640,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1038663325}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 128, y: 11.6, z: 50}
+  m_LocalPosition: {x: 114, y: 11.6, z: 50}
   m_LocalScale: {x: 600, y: 1, z: 600}
   m_Children: []
   m_Father: {fileID: 184530269}
@@ -14791,7 +14791,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AttackingTeamColour: {r: 1, g: 0, b: 0, a: 1}
-  StartingDamageModifier: 0.6
+  StartingDamageModifier: 0.4
   StartingHealthModifier: 0.5
   StartingFriendlyUnits:
   - {fileID: 497953166}
@@ -14807,59 +14807,59 @@ MonoBehaviour:
   PerWaveIncrementHealth: 0.01
   PerBossWaveIncrementDamage: 0.15
   PerBossWaveIncrementHealth: 0.2
-  WavesPerInterval: 10
+  WavesPerInterval: 5
   WaveStartPermitted: 1
   StartingWaveTimer: 60
-  TimeAddedPerWave: 10
-  TimeTillNextWaveAfterClear: 10
+  TimeAddedPerWave: 15
+  TimeTillNextWaveAfterClear: 20
   Waves:
   - Name: Very Light Ground Infantry
     WaveIntervals:
       MinimumWaveInterval: 1
-      MaximumWaveInterval: 2
+      MaximumWaveInterval: 4
     BossWaveIntervals:
-      MinimumBossWaveInterval: 1
+      MinimumBossWaveInterval: 0
       UnlimitedBossWaveIntervals: 0
-      MaximumBossWaveInterval: 1
-    Subwaves: 2
+      MaximumBossWaveInterval: 0
+    Subwaves: 0
     Enemies:
     - EnemyReference: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
         type: 2}
       StartAtSubwave: 1
-      PerSpawnInterval: 2
-      WaveMax: 4
+      PerSpawnInterval: 1
+      WaveMax: 1
       CurrentLives: 0
     - EnemyReference: {fileID: 114908419093975514, guid: f9386fdae783087469d75d32e64a58ed,
         type: 2}
       StartAtSubwave: 1
       PerSpawnInterval: 1
-      WaveMax: 2
+      WaveMax: 1
       CurrentLives: 0
   - Name: Very Light Ground Vehicles
     WaveIntervals:
-      MinimumWaveInterval: 2
-      MaximumWaveInterval: 2
+      MinimumWaveInterval: 3
+      MaximumWaveInterval: 5
     BossWaveIntervals:
       MinimumBossWaveInterval: 0
       UnlimitedBossWaveIntervals: 0
       MaximumBossWaveInterval: 0
-    Subwaves: 2
+    Subwaves: 1
     Enemies:
     - EnemyReference: {fileID: 114585045816634058, guid: 71a43feeb36f7ac4faaaad78429ccc75,
         type: 2}
       StartAtSubwave: 1
       PerSpawnInterval: 1
-      WaveMax: 2
+      WaveMax: 1
       CurrentLives: 0
-  - Name: Very Light Tut Boss
+  - Name: Very Light Boss
     WaveIntervals:
-      MinimumWaveInterval: 3
-      MaximumWaveInterval: 3
+      MinimumWaveInterval: 5
+      MaximumWaveInterval: 5
     BossWaveIntervals:
-      MinimumBossWaveInterval: 0
+      MinimumBossWaveInterval: 1
       UnlimitedBossWaveIntervals: 0
-      MaximumBossWaveInterval: 0
-    Subwaves: 3
+      MaximumBossWaveInterval: 1
+    Subwaves: 1
     Enemies:
     - EnemyReference: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
         type: 2}
