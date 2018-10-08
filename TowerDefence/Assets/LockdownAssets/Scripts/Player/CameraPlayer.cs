@@ -56,11 +56,8 @@ public class CameraPlayer : MonoBehaviour {
     [Header("-----------------------------------")]
     [Header(" CAMERA SHAKE")]
     [Space]
-    public float ShakeTime;
     public float ShakeTrauma;
-    private float ShakeOffsetX = 1f;
-    private float ShakeOffsetY = 1f;
-    private float ShakeOffsetZ = 1f;
+    public float ShakeThreshold;
     public bool IsShaking = false;
 
     //******************************************************************************************************************************
@@ -72,6 +69,11 @@ public class CameraPlayer : MonoBehaviour {
     private Renderer _MinimapRenderer;
     private Player _PlayerAttached = null;
     private KeyboardInput _KeyBoardInput;
+    private Camera _Camera;
+
+    private float ShakeOffsetX = 1f;
+    private float ShakeOffsetY = 1f;
+    private float ShakeOffsetZ = 1f;
 
     public float _MinCameraHeight { get; set; }
     public float _MaxCameraHeight { get; set; }
@@ -126,7 +128,7 @@ public class CameraPlayer : MonoBehaviour {
                 PastBoundsEast = false;
             }
 
-            if(transform.position.z <= SouthBounds)
+            if (transform.position.z <= SouthBounds)
             {
                 PastBoundsSouth = true;
             }
@@ -154,13 +156,8 @@ public class CameraPlayer : MonoBehaviour {
     private void Update() {
 
         CheckCameraBounds();
-
-        if (Input.GetKeyDown(KeyCode.B) == true)
-        {
-            StartCoroutine(CameraShake(ShakeTrauma, ShakeTime));
-        }
     }
-    
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
@@ -185,6 +182,7 @@ public class CameraPlayer : MonoBehaviour {
 
     /// <summary>
     /// Creates camera shake.
+    /// Example call: StartCoroutine(CameraShake(ShakeTrauma, ShakeTime));
     /// </summary>
     public IEnumerator CameraShake(float strength, float time) {
 
@@ -209,9 +207,9 @@ public class CameraPlayer : MonoBehaviour {
 
             // Add camera shake offset to a rotation that the camera's rotation is set to match
             Quaternion newRot = Quaternion.Euler(transform.rotation.eulerAngles.x + offsetX,
-                                                 transform.rotation.eulerAngles.y + offsetY, 
+                                                 transform.rotation.eulerAngles.y + offsetY,
                                                  transform.rotation.eulerAngles.z + offsetZ);
-            
+
             // Set the rotation
             transform.rotation = newRot;
 
@@ -219,12 +217,27 @@ public class CameraPlayer : MonoBehaviour {
             _ElapsedTime += Time.deltaTime;
             yield return null;
         }
-        
+
         // Insert Lerp loop here back to origin.
         transform.rotation = _InitialCameraRotation;
         IsShaking = false;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public void ExplosionShake(Vector3 location, float radius) {
+
+        float distance = Vector3.Distance(location, transform.position);
+
+        if (distance < ShakeThreshold) {
+
+            float shakeStrength = (1.0f * (Mathf.Abs(distance * 0.1f))) + (_Camera.fieldOfView * 0.1f);
+            float shakeDuration = 1f;
+   
+
+            StartCoroutine(CameraShake(shakeStrength * ShakeTrauma, shakeDuration));
+        }
+
+    }
 
 }
