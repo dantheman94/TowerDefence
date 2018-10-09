@@ -224,7 +224,7 @@ public class Unit : WorldObject {
             if (_UnitVeterancyWidget == null) { _UnitVeterancyWidget = ObjectPooling.Spawn(GameManager.Instance.UnitVeterancyPanel.gameObject).GetComponent<UnitVeterancyCounter>(); }
             if (_UnitVeterancyWidget != null && _Player != null) {
 
-                _UnitVeterancyWidget.SetCameraAttached(_Player.PlayerCamera);
+                _UnitVeterancyWidget.SetCameraAttached(_Player.CameraAttached);
                 _UnitVeterancyWidget.SetUnitAttached(this);
                 _UnitVeterancyWidget.transform.SetParent(GameManager.Instance.WorldSpaceCanvas.gameObject.transform, false);
                 _UnitVeterancyWidget.gameObject.SetActive(true);
@@ -317,7 +317,7 @@ public class Unit : WorldObject {
             else {
 
                 if (_Player == null && GameManager.Instance != null) { _Player = GameManager.Instance.Players[0]; }
-                if (_Player != null && _ShowHealthbar) { CreateHealthBar(this, _Player.PlayerCamera); }
+                if (_Player != null && _ShowHealthbar) { CreateHealthBar(this, _Player.CameraAttached); }
             }            
         }
 
@@ -335,7 +335,7 @@ public class Unit : WorldObject {
 
                     // Initialize camera follow script
                     _Player._CameraFollow.SetFollowTarget(this);
-                    _Player._CameraFollow.SetCameraAttached(_Player.PlayerCamera);
+                    _Player._CameraFollow.SetCameraAttached(_Player.CameraAttached);
                     _Player._CameraFollow.Init();
 
                     // Hide any seek points that are currently visible
@@ -461,7 +461,7 @@ public class Unit : WorldObject {
         if (_Player != null) {
 
             if (_Player._KeyboardInputManager.CreateScreenSelection()) {
-                Vector3 CamPos = _Player.PlayerCamera.WorldToScreenPoint(transform.position);
+                Vector3 CamPos = _Player.CameraAttached.WorldToScreenPoint(transform.position);
 
                 if (KeyboardInput.SelectionScreen.Contains(CamPos)) {
 
@@ -489,7 +489,7 @@ public class Unit : WorldObject {
 
             if (!KeyboardInput.MouseIsDown) {
 
-                Vector3 camPos = _Player.PlayerCamera.WorldToScreenPoint(transform.position);
+                Vector3 camPos = _Player.CameraAttached.WorldToScreenPoint(transform.position);
                 camPos.y = KeyboardInput.InvertMouseY(camPos.y);
 
                 if (KeyboardInput.Selection.Contains(camPos)) {
@@ -593,7 +593,7 @@ public class Unit : WorldObject {
             if (unit._UnitVeterancyWidget == null) { _UnitVeterancyWidget = ObjectPooling.Spawn(GameManager.Instance.UnitVeterancyPanel.gameObject).GetComponent<UnitVeterancyCounter>(); }
             if (unit._UnitVeterancyWidget != null && _Player != null) {
 
-                unit._UnitVeterancyWidget.SetCameraAttached(unit._Player.PlayerCamera);
+                unit._UnitVeterancyWidget.SetCameraAttached(unit._Player.CameraAttached);
                 unit._UnitVeterancyWidget.SetUnitAttached(unit);
                 unit._UnitVeterancyWidget.transform.SetParent(GameManager.Instance.WorldSpaceCanvas.gameObject.transform, false);
                 unit._UnitVeterancyWidget.gameObject.SetActive(true);
@@ -1388,7 +1388,7 @@ public class Unit : WorldObject {
                 if (_UnitVeterancyWidget == null) { _UnitVeterancyWidget = ObjectPooling.Spawn(GameManager.Instance.UnitVeterancyPanel).GetComponent<UnitVeterancyCounter>(); }
                 if (_UnitVeterancyWidget != null) {
 
-                    _UnitVeterancyWidget.SetCameraAttached(_Player.PlayerCamera);
+                    _UnitVeterancyWidget.SetCameraAttached(_Player.CameraAttached);
                     _UnitVeterancyWidget.SetUnitAttached(this);
                     _UnitVeterancyWidget.transform.SetParent(GameManager.Instance.WorldSpaceCanvas.gameObject.transform, false);
                     _UnitVeterancyWidget.gameObject.SetActive(true);

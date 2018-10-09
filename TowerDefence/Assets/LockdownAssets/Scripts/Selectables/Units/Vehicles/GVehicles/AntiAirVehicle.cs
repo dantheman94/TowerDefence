@@ -68,8 +68,8 @@ public class AntiAirVehicle : Vehicle {
     public override void AddPotentialTarget(WorldObject target) {
 
         // Target can ONLY be a air vehicle
-        if (target is AirVehicle) { base.AddPotentialTarget(target); }
-
+        AirVehicle air = target.GetComponent<AirVehicle>();
+        if (air != null) { base.AddPotentialTarget(air); }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

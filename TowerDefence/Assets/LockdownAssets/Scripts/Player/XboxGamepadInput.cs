@@ -91,7 +91,7 @@ public class XboxGamepadInput : MonoBehaviour {
 
         // Initialize center point for LookAt() function
         RaycastHit hit;
-        Physics.Raycast(_PlayerAttached.PlayerCamera.transform.position, _PlayerAttached.PlayerCamera.transform.forward * 1000, out hit);
+        Physics.Raycast(_PlayerAttached.CameraAttached.transform.position, _PlayerAttached.CameraAttached.transform.forward * 1000, out hit);
         _LookPoint = hit.point;
 
         IsPrimaryController = false;
@@ -317,7 +317,7 @@ public class XboxGamepadInput : MonoBehaviour {
 
         // Update center point for RotateAround() function
         RaycastHit hit;
-        Physics.Raycast(_PlayerAttached.PlayerCamera.transform.position, _PlayerAttached.PlayerCamera.transform.forward * 1000, out hit);
+        Physics.Raycast(_PlayerAttached.CameraAttached.transform.position, _PlayerAttached.CameraAttached.transform.forward * 1000, out hit);
         _LookPoint = hit.point;
     }
 
@@ -467,11 +467,11 @@ public class XboxGamepadInput : MonoBehaviour {
         
         // Make sure movement is in the direction the camera is pointing
         // but ignore the vertical tilt of the camera to get sensible scrolling
-        movement = _PlayerAttached.PlayerCamera.transform.TransformDirection(movement);
+        movement = _PlayerAttached.CameraAttached.transform.TransformDirection(movement);
         movement.y = 0;
 
         // Calculate desired camera position based on received input
-        Vector3 posOrigin = _PlayerAttached.PlayerCamera.transform.position;
+        Vector3 posOrigin = _PlayerAttached.CameraAttached.transform.position;
         Vector3 posDestination = posOrigin;
         posDestination.x += movement.x;
         posDestination.y += movement.y;
@@ -488,7 +488,7 @@ public class XboxGamepadInput : MonoBehaviour {
         if (posDestination != posOrigin) {
 
             // Update position
-            _PlayerAttached.PlayerCamera.transform.position = Vector3.MoveTowards(posOrigin, posDestination, Time.deltaTime * Settings.MovementSpeed);
+            _PlayerAttached.CameraAttached.transform.position = Vector3.MoveTowards(posOrigin, posDestination, Time.deltaTime * Settings.MovementSpeed);
         }
 
         // Smoothly move toward target position
@@ -680,7 +680,7 @@ public class XboxGamepadInput : MonoBehaviour {
     /// </summary>
     private void RotateCamera() {
 
-        Vector3 rotOrigin = _PlayerAttached.PlayerCamera.transform.eulerAngles;
+        Vector3 rotOrigin = _PlayerAttached.CameraAttached.transform.eulerAngles;
 
         bool pressed = false;
 
@@ -698,7 +698,7 @@ public class XboxGamepadInput : MonoBehaviour {
             if (GameManager.Instance.GetIsUnitControlling()) { _LookPoint = _PlayerAttached._CameraFollow.GetFollowTarget().transform.position; }
 
             // Rotate around point
-            _PlayerAttached.PlayerCamera.transform.RotateAround(_LookPoint, Vector3.up, Settings.RotateSpeed * -dir * Time.deltaTime);
+            _PlayerAttached.CameraAttached.transform.RotateAround(_LookPoint, Vector3.up, Settings.RotateSpeed * -dir * Time.deltaTime);
 
             // Used for resetting the mouse position
             pressed = true;
@@ -733,18 +733,18 @@ public class XboxGamepadInput : MonoBehaviour {
     private void ZoomCamera() {
 
         // Change camera fov
-        float fov = _PlayerAttached.PlayerCamera.fieldOfView;
+        float fov = _PlayerAttached.CameraAttached.fieldOfView;
         if (GetRightThumbstickYaxis() > 0) {
 
             // Zooming in
             if (fov > Settings.MinFov)
-                _PlayerAttached.PlayerCamera.fieldOfView -= Time.deltaTime * Settings.ZoomSpeed;
+                _PlayerAttached.CameraAttached.fieldOfView -= Time.deltaTime * Settings.ZoomSpeed;
         }
         if (GetRightThumbstickYaxis() < 0) {
 
             // Zooming out
             if (fov < Settings.MaxFov)
-                _PlayerAttached.PlayerCamera.fieldOfView += Time.deltaTime * Settings.ZoomSpeed;
+                _PlayerAttached.CameraAttached.fieldOfView += Time.deltaTime * Settings.ZoomSpeed;
         }
     }
 

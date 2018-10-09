@@ -175,7 +175,7 @@ public class UpgradeTree : Abstraction {
             GameObject progressWidget = Instantiate(GameManager.Instance.BuildingInProgressPanel.gameObject);
             UpgradeBuildingCounter upgradeCounter = progressWidget.GetComponent<UpgradeBuildingCounter>();
             upgradeCounter.SetUpgradeAttached(this);
-            upgradeCounter.SetCameraAttached(_BuildingAttached._Player.PlayerCamera);
+            upgradeCounter.SetCameraAttached(_BuildingAttached._Player.CameraAttached);
             progressWidget.transform.SetParent(GameManager.Instance.WorldSpaceCanvas.gameObject.transform, false);
             progressWidget.gameObject.SetActive(true);
 
