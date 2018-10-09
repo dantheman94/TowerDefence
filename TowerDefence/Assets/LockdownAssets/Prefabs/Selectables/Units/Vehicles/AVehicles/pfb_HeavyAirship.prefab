@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 114374390199670380}
   m_Layer: 2
   m_Name: SightSphere
-  m_TagString: Untagged
+  m_TagString: SightSphere
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -291,7 +291,7 @@ GameObject:
   - component: {fileID: 114273337980186794}
   m_Layer: 2
   m_Name: HearingSphere
-  m_TagString: Untagged
+  m_TagString: HearingSphere
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2087,7 +2087,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ObjectName: Heavy Airship
   ObjectDescriptionShort: Aerial Tank
-  ObjectDescriptionLong: 
+  ObjectDescriptionLong: Heavily armoured, flying tank. The Heavy Airship provides
+    significant firepower to ground units with its undermounted cannon. Additionally,
+    the Heavy Airship is equipped with 3 top mounted gunners that provide aerial combat
+    capabilities. It is a formidable unit that provides heavy presence at the battle
+    field.
   Logo: {fileID: 0}
   BuildingTime: 0
   CostSupplies: 800
@@ -2134,31 +2138,24 @@ MonoBehaviour:
   NavmeshType: 1
   InfantryMovementSpeed: 10
   CanBePlayerControlled: 0
+  SightCone: {fileID: 0}
   TargetWeights:
   - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
+    Weight: 2
+  - UnitType: 1
+    Weight: 2
+  - UnitType: 2
+    Weight: 3
+  - UnitType: 3
+    Weight: 3
+  - UnitType: 4
+    Weight: 3
+  - UnitType: 5
+    Weight: 1
+  - UnitType: 6
+    Weight: 3
+  - UnitType: 8
+    Weight: 3
   PrimaryWeapon: {fileID: 114422076111310268, guid: 8c3491a95c06a304797794459e68eef4,
     type: 2}
   SecondaryWeapon: {fileID: 0}
@@ -2240,30 +2237,12 @@ MonoBehaviour:
   - {fileID: 1109929035473804}
   _VehicleAttached: {fileID: 114036110279440992}
   TargetWeights:
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
+  - UnitType: 9
+    Weight: 3
+  - UnitType: 10
+    Weight: 2
+  - UnitType: 11
+    Weight: 3
 --- !u!114 &114273337980186794
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2402,30 +2381,12 @@ MonoBehaviour:
   - {fileID: 1624694831215876}
   _VehicleAttached: {fileID: 114036110279440992}
   TargetWeights:
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
+  - UnitType: 9
+    Weight: 3
+  - UnitType: 10
+    Weight: 2
+  - UnitType: 11
+    Weight: 3
 --- !u!114 &114559347768653706
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2466,30 +2427,12 @@ MonoBehaviour:
   - {fileID: 1709372137103688}
   _VehicleAttached: {fileID: 114036110279440992}
   TargetWeights:
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
+  - UnitType: 9
+    Weight: 2
+  - UnitType: 10
+    Weight: 3
+  - UnitType: 11
+    Weight: 3
 --- !u!114 &114616624484732044
 MonoBehaviour:
   m_ObjectHideFlags: 1

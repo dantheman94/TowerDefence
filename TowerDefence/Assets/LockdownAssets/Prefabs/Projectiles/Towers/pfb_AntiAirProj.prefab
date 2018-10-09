@@ -55,7 +55,7 @@ Transform:
   m_GameObject: {fileID: 1206350890658126}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 41.207886, y: -0.39231873, z: -159.50366}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 4625625579653698}
   m_Father: {fileID: 0}
@@ -144,13 +144,14 @@ MonoBehaviour:
   MovementSpeed: 60
   MaxDistance: 1000
   AffectedByGravity: 0
-  GravityStrength: 1
   HomingProjectile: 1
   TrackingStrength: 2
+  ImpactEffect: {fileID: 0}
   ExplodeOnImpact: 1
   ExplosionRadius: 10
   DamageFalloff: 0.1
-  ExplosionEffect: {fileID: 0}
+  ExplosionEffect: {fileID: 198765120655587754, guid: 972a86d9432c0ab4f927e4c7fded61ba,
+    type: 2}
 --- !u!136 &136303811653236044
 CapsuleCollider:
   m_ObjectHideFlags: 1

@@ -742,8 +742,9 @@ MonoBehaviour:
   ObjectName: Siege Engine
   ObjectDescriptionShort: Heavy Tank
   ObjectDescriptionLong: Slow moving, heavy armoured tank adds significant attacking
-    capabilities to opposing ground units. Main cannon cannot attack air units by
-    default, but the tank can be upgrade to support air unit combat capabilities.
+    capabilities to opposing ground units. However, the Siege Engine does not have
+    any air combat capabilities and can be destroyed by air units with ease if not
+    accompanied with supportive air capable firepower.
   Logo: {fileID: 0}
   BuildingTime: 15
   CostSupplies: 750
@@ -797,31 +798,24 @@ MonoBehaviour:
   NavmeshType: 0
   InfantryMovementSpeed: 10
   CanBePlayerControlled: 0
+  SightCone: {fileID: 0}
   TargetWeights:
   - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
+    Weight: 2
+  - UnitType: 1
+    Weight: 4
+  - UnitType: 2
+    Weight: 4
+  - UnitType: 3
+    Weight: 1
+  - UnitType: 4
+    Weight: 3
+  - UnitType: 5
+    Weight: 3
+  - UnitType: 6
+    Weight: 3
+  - UnitType: 8
+    Weight: 2
   PrimaryWeapon: {fileID: 114255812415927018, guid: e9d3da69bc6ad464cb1b0403e9101ae3,
     type: 2}
   SecondaryWeapon: {fileID: 0}
@@ -990,7 +984,7 @@ NavMeshAgent:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1364828568622108}
   m_Enabled: 0
-  m_AgentTypeID: 0
+  m_AgentTypeID: 1479372276
   m_Radius: 4
   m_Speed: 3.5
   m_Acceleration: 8

@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 114048441600327330}
   m_Layer: 2
   m_Name: HearingSphere
-  m_TagString: Untagged
+  m_TagString: HearingSphere
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 18
@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 114808108716132012}
   m_Layer: 2
   m_Name: SightSphere
-  m_TagString: Untagged
+  m_TagString: SightSphere
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 18
@@ -671,30 +671,29 @@ MonoBehaviour:
   NavmeshType: 0
   InfantryMovementSpeed: 13.5
   CanBePlayerControlled: 0
+  SightCone: {fileID: 0}
   TargetWeights:
   - UnitType: 0
+    Weight: 2
+  - UnitType: 1
+    Weight: 2
+  - UnitType: 2
+    Weight: 2
+  - UnitType: 3
+    Weight: 2
+  - UnitType: 4
+    Weight: 3
+  - UnitType: 5
+    Weight: 3
+  - UnitType: 6
+    Weight: 3
+  - UnitType: 8
+    Weight: 3
+  - UnitType: 9
     Weight: 0
-  - UnitType: 0
+  - UnitType: 10
     Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
-    Weight: 0
-  - UnitType: 0
+  - UnitType: 11
     Weight: 0
   PrimaryWeapon: {fileID: 114367971041064904, guid: bb990bb2e301df0419cd908979dc9b81,
     type: 2}
