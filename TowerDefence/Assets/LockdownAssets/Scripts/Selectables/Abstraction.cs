@@ -88,6 +88,8 @@ public class Abstraction : MonoBehaviour {
 
         _ObjectState = WorldObjectStates.Building;
 
+        if (buildingSlot != null) { buildingSlot.GetBuildingOnSlot().SetBuildingStarted(true); }
+
         // Send message to match feed
         MatchFeed.Instance.AddMessage(string.Concat(ObjectName, " started construction."));
     }

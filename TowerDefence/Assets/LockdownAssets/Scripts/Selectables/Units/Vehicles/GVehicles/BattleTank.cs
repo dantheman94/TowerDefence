@@ -28,4 +28,32 @@ public class BattleTank : Vehicle {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="worldObject"></param>
+    public override bool ForceChaseTarget(WorldObject objTarget, bool playerCommand = false) {
+
+        // The siege engine CANNOT fire at air units so never allow it to reach the target list
+        AirVehicle air = objTarget.GetComponent<AirVehicle>();
+        if (air == null) { return base.ForceChaseTarget(objTarget, playerCommand); }
+        return false;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="worldObject"></param>
+    public override bool TryToChaseTarget(WorldObject objTarget) {
+
+        // Target can ONLY be a air vehicle
+        AirVehicle air = objTarget.GetComponent<AirVehicle>();
+        if (air == null) { return base.ForceChaseTarget(objTarget); }
+        return false;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 }

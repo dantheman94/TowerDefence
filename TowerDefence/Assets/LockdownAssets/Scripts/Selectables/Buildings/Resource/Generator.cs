@@ -69,7 +69,6 @@ public class Generator : Building {
 
             hitpoints = originalGenerator.GetHitPoints();
             if (originalGenerator._HealthBar != null) { ObjectPooling.Despawn(originalGenerator._HealthBar.gameObject); }
-
         }
 
         // Start building process

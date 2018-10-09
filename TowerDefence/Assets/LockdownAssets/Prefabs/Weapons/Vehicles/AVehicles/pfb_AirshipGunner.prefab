@@ -26,7 +26,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4317335299960998
 Transform:
   m_ObjectHideFlags: 1
@@ -51,16 +51,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f24bbf81aea765549a797e3e95ee482d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ProjectileType: 2
+  _ProjectileType: 1
   ProjectileClass: {fileID: 0}
-  FiringEffect: {fileID: 198718711815295068, guid: 85890053984b40445ac3d1b2f38e3314,
-    type: 2}
-  MuzzleEffect: {fileID: 0}
-  FiringType: 0
-  ProjectilesPerShot: 1
+  FiringEffect: {fileID: 0}
   FiringDelay: 0.1
+  MuzzleEffectWrapper: {fileID: 1560277312721016, guid: 11231320927d81640b144228cbc61e41,
+    type: 2}
+  MuzzlePatternType: 0
+  ReusableMuzzlePoints: 1
+  ChargeUpTime: 0
+  ChargeLightRange: 50
+  ChargeLightIntensity: 1
+  ChargeUpColor: {r: 1, g: 1, b: 1, a: 1}
   AngularOffsetType: 0
   AngularOffset: {x: 0, y: 0, z: 0}
+  DefaultImpactEffect: {fileID: 198446651987843752, guid: 36de6f0d59bbaa44cbdba8d022ea60d7,
+    type: 2}
+  SpawnOnImpact: {fileID: 0}
   Damages:
     DamageDefault: 4
     DamageCoreInfantry: 4

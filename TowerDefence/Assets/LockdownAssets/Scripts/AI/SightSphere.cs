@@ -70,18 +70,12 @@ public class SightSphere : MonoBehaviour {
                     // Enemy team?
                     if (_WorldObjectInFocus.Team != _UnitAttached.Team && _WorldObjectInFocus.Team != GameManager.Team.Undefined) {
 
-                        // Not a building slot?
-                        BuildingSlot slot = _WorldObjectInFocus.GetComponent<BuildingSlot>();
-                        if (slot == null) {
+                        // Active in the world?
+                        if (_WorldObjectInFocus._ObjectState == Abstraction.WorldObjectStates.Active) {
 
-                            // Active in the world?
-                            if (_WorldObjectInFocus._ObjectState == WorldObject.WorldObjectStates.Active) {
-
-                                // Try to add to weighted list
-                                _UnitAttached.AddPotentialTarget(_WorldObjectInFocus);
-                            }
+                            // Try to add to weighted list
+                            _UnitAttached.AddPotentialTarget(_WorldObjectInFocus);
                         }
-
                     }
                 }
 
@@ -91,16 +85,11 @@ public class SightSphere : MonoBehaviour {
                     // Enemy team?
                     if (_WorldObjectInFocus.Team != _TowerAttached.Team && _WorldObjectInFocus.Team != GameManager.Team.Undefined) {
 
-                        // Not a building slot?
-                        BuildingSlot slot = _WorldObjectInFocus.GetComponent<BuildingSlot>();
-                        if (slot == null) {
+                        // Active in the world?
+                        if (_WorldObjectInFocus._ObjectState == Abstraction.WorldObjectStates.Active) {
 
-                            // Active in the world?
-                            if (_WorldObjectInFocus._ObjectState == WorldObject.WorldObjectStates.Active) {
-
-                                // Try to add to weighted list
-                                _TowerAttached.AddPotentialTarget(_WorldObjectInFocus);
-                            }
+                            // Try to add to weighted list
+                            _TowerAttached.AddPotentialTarget(_WorldObjectInFocus);
                         }
                     }
                 }
@@ -167,6 +156,7 @@ public class SightSphere : MonoBehaviour {
             // This component is attached to a unit/AI object
             if (_UnitAttached != null) {
 
+                // The unit attached already has an attack target
                 if (_UnitAttached.GetAttackTarget() != null) {
 
                     // Currently the same target that is the AI's attack target
@@ -175,6 +165,20 @@ public class SightSphere : MonoBehaviour {
                         // Try to chase the target
                         _UnitAttached.AddPotentialTarget(_UnitAttached.GetAttackTarget());
                         _UnitAttached.TryToChaseTarget(_UnitAttached.GetAttackTarget());
+                    }
+                }
+
+                // The unit attached has no attack target
+                else {
+
+                    WorldObject worldObject = other.gameObject.GetComponent<WorldObject>();
+
+                    // Enemy team?
+                    if (worldObject.Team != _UnitAttached.Team) {
+
+                        // Try to chase the target
+                        _UnitAttached.AddPotentialTarget(worldObject);
+                        _UnitAttached.TryToChaseTarget(worldObject);
                     }
                 }
             }

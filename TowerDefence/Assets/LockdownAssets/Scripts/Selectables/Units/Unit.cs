@@ -487,10 +487,10 @@ public class Unit : WorldObject {
         // Precautions
         if (_Player != null) {
 
-            if (!KeyboardInput.MouseIsDown) {
+            Vector3 camPos = _Player.CameraAttached.WorldToScreenPoint(transform.position);
+            camPos.y = KeyboardInput.InvertMouseY(camPos.y);
 
-                Vector3 camPos = _Player.CameraAttached.WorldToScreenPoint(transform.position);
-                camPos.y = KeyboardInput.InvertMouseY(camPos.y);
+            if (!Input.GetMouseButton(0)) {
 
                 if (KeyboardInput.Selection.Contains(camPos)) {
 
@@ -500,6 +500,17 @@ public class Unit : WorldObject {
                         _Player.SelectedUnits.Add(this);
                         this.SetPlayer(_Player);
                         this.SetIsSelected(true);
+                    }
+                }
+            }
+            else {
+
+                if (KeyboardInput.Selection.Contains(camPos)) {
+
+                    if (this.GetObjectState() == WorldObject.WorldObjectStates.Active && !_IsCurrentlyHighlighted) {
+                        
+                        this.SetPlayer(_Player);
+                        this.SetIsHighlighted(true);
                     }
                 }
             }
@@ -636,6 +647,15 @@ public class Unit : WorldObject {
 
         // Add intigator to the potential list
         if (instigator != null) { AddPotentialTarget(instigator); }
+
+        // Change attack target if someone damages us whilst were attacking the core
+        if (_AttackTarget == WaveManager.Instance.CentralCore || 
+                             WaveManager.Instance.CentralCore.Spires[0] || 
+                             WaveManager.Instance.CentralCore.Spires[1] || 
+                             WaveManager.Instance.CentralCore.Spires[2]) {
+
+            DetermineWeightedTargetFromList(TargetWeights);
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1172,22 +1192,7 @@ public class Unit : WorldObject {
     //  target list & removes if it found.
     /// </summary>
     /// <param name="target"></param>
-    public void RemovePotentialTarget(WorldObject target) {
-
-        /*
-            // Look for match
-            for (int i = 0; i < _PotentialTargets.Count; i++) {
-
-                // Match found
-                if (_PotentialTargets[i] == target) {
-
-                    _PotentialTargets.RemoveAt(i);
-                    break;
-                }
-            }
-        */
-        _PotentialTargets.Remove(target);
-    }
+    public void RemovePotentialTarget(WorldObject target) { _PotentialTargets.Remove(target); }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -1288,24 +1293,7 @@ public class Unit : WorldObject {
     /// <returns>
     //  bool
     /// </returns>
-    public bool IsTargetInPotentialList(WorldObject target) {
-
-        /*
-            bool match = false;
-            for (int i = 0; i < _PotentialTargets.Count; i++) {
-
-                // Match found
-                if (_PotentialTargets[i] == target) {
-
-                    match = true;
-                    break;
-                }
-            }
-            return match;
-        */
-
-        return _PotentialTargets.Contains(target);
-    }
+    public bool IsTargetInPotentialList(WorldObject target) { return _PotentialTargets.Contains(target); }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -1332,7 +1320,7 @@ public class Unit : WorldObject {
     //  
     /// </summary>
     /// <param name="worldObject"></param>
-    public bool TryToChaseTarget(WorldObject objTarget) {
+    public virtual bool TryToChaseTarget(WorldObject objTarget) {
 
         // Validity check
         if (objTarget != null) {
@@ -1354,7 +1342,7 @@ public class Unit : WorldObject {
     //  
     /// </summary>
     /// <param name="worldObject"></param>
-    public bool ForceChaseTarget(WorldObject objTarget, bool playerCommand = false) {
+    public virtual bool ForceChaseTarget(WorldObject objTarget, bool playerCommand = false) {
 
         // Validity check
         if (objTarget != null) {
@@ -1364,6 +1352,7 @@ public class Unit : WorldObject {
             // Force chase the target
             _AttackTarget = objTarget;
             _IsChasing = true;
+            AddPotentialTarget(_AttackTarget);
             return true;
         }
         return false;
