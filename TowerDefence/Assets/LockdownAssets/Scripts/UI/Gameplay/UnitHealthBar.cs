@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 //******************************
 //
 //  Created by: Daniel Marton
 //
-//  Last edited by: Daniel Marton
-//  Last edited on: 26/5/2018
+//  Last edited by: Joshua D'Agostino
+//  Last edited on: 09/10/2018
 //
 //******************************
 
@@ -24,7 +25,7 @@ public class UnitHealthBar : MonoBehaviour {
     [Header("-----------------------------------")]
     [Header(" UI COMPONENTS")]
     [Space]
-    public Text _TextComponent;
+    public TMP_Text _TextComponent;
     [Space]
     public Slider ShieldSlider = null;
     public Image ShieldFill = null;

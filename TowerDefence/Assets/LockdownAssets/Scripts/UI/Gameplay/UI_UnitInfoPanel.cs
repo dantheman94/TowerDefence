@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 //******************************
 //
 //  Created by: Daniel Marton
 //
-//  Last edited by: Daniel Marton
-//  Last edited on: 11/7/2018
+//  Last edited by: Joshua D'Agostino
+//  Last edited on: 09/10/2018
 //
 //******************************
 
@@ -25,9 +26,9 @@ public class UI_UnitInfoPanel : MonoBehaviour {
     [Header(" COMPONENTS")]
     [Space]
     public Image LogoComponent = null;
-    public Text UnitName = null;
-    public Text AmountCounter = null;
-    public Text AbilityText = null;
+    public TMP_Text UnitName = null;
+    public TMP_Text AmountCounter = null;
+    public TMP_Text AbilityText = null;
 
     //******************************************************************************************************************************
     //
