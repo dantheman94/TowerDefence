@@ -48,6 +48,7 @@ public class Building : WorldObject {
     protected RecycleBuilding _RecycleOption;
     protected GameObject _Rallypoint = null;
 
+    protected bool _BuildingStarted = false;
     protected bool _IsBuildingSomething = false;
     protected WorldObject _ObjectBeingBuilt = null;
     protected bool _IsInBuildingQueue = false;
@@ -115,7 +116,7 @@ public class Building : WorldObject {
                 // Check if current building is complete
                 _BuildingQueue[0]._ObjectState = WorldObjectStates.Building;
                 if (_BuildingQueue[0].GetCurrentBuildTimeRemaining() <= 0f) {
-
+                    
                     // Play "on selectable built" particle effect if neccessary
                     if (EffectPlayedOnBuiltSelectable != null) {
 
@@ -132,7 +133,12 @@ public class Building : WorldObject {
                     _BuildingQueue.RemoveAt(0);
 
                     // Start building next item
-                    if (_BuildingQueue.Count > 0) { _BuildingQueue[0].StartBuildingObject(); }
+                    if (_BuildingQueue.Count > 0) {
+
+                        _BuildingQueue[0].StartBuildingObject(AttachedBuildingSlot);
+                        _IsBuildingSomething = true;
+                    }
+                    else { _IsBuildingSomething = false; }
 
                     // Update building queue UI
                     _BuildingQueueUI.UpdateQueueItemList();
@@ -140,6 +146,9 @@ public class Building : WorldObject {
 
                 // Currently building something
                 else {
+
+                    _IsBuildingSomething = true;
+                    _BuildingStarted = false;
 
                     // Play "on building selectable" particle effect if neccessary
                     if (EffectPlayedWhenBuildingSelectable != null && _SelectableBuildingEffect == null) {
@@ -160,6 +169,7 @@ public class Building : WorldObject {
                     }
                 }
             }
+            else { _BuildingStarted = false; }
         }
     }
     
@@ -552,6 +562,14 @@ public class Building : WorldObject {
     //  GameObject
     /// </returns>
     public GameObject GetRallyPoint() { return _Rallypoint; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="value"></param>
+    public void SetBuildingStarted(bool value) { _BuildingStarted = value; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
