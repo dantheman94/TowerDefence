@@ -42,8 +42,8 @@ public class CoreAirShip : AirVehicle {
         base.Update();
 
         // Constantly rotate the propellors
-        for (int i = 0; i < PropellorsClockwise.Count; i++)     { PropellorsClockwise[i].transform.Rotate(Vector3.left * RotationSpeed * Time.deltaTime); }
-        for (int i = 0; i < PropellorsAntiClockwise.Count; i++) { PropellorsAntiClockwise[i].transform.Rotate(-Vector3.left * RotationSpeed * Time.deltaTime); }
+        for (int i = 0; i < PropellorsClockwise.Count; i++)     { PropellorsClockwise[i].transform.Rotate(Vector3.up * RotationSpeed * Time.deltaTime); }
+        for (int i = 0; i < PropellorsAntiClockwise.Count; i++) { PropellorsAntiClockwise[i].transform.Rotate(Vector3.up * -RotationSpeed * Time.deltaTime); }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
