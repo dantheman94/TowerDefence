@@ -425,6 +425,7 @@ public class WorldObject : Selectable {
             // Add to building queue
             _ClonedWorldObject._ObjectState = WorldObjectStates.InQueue;
             if (buildingSlot.GetBuildingOnSlot() != null) { buildingSlot.GetBuildingOnSlot().AddToQueue(_ClonedWorldObject); }
+            else if (buildingSlot.AttachedBuilding != null) { buildingSlot.AttachedBuilding.AddToQueue(_ClonedWorldObject); }
             else {
 
                 // Add to base queue
