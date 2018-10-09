@@ -93,7 +93,7 @@ public class Cine_Opening : Cinematic {
 
                     // Initialize starting base
                     Base startingBase = GameManager.Instance.StartingBase;
-                    startingBase.CreateHealthBar(startingBase, startingBase._Player.PlayerCamera);
+                    startingBase.CreateHealthBar(startingBase, startingBase._Player.CameraAttached);
                     startingBase.CreateQueueWidget();
                     startingBase.CreateRallyPoint();
 

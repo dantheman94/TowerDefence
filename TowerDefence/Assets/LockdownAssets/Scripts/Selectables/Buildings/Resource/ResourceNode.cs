@@ -102,7 +102,7 @@ public class ResourceNode : WorldObject {
             GameObject progressWidget = ObjectPooling.Spawn(GameManager.Instance.CaptureProgressPanel.gameObject);
             _NodeWidget = progressWidget.GetComponent<NodeCaptureCounter>();
             _NodeWidget.setObjectAttached(this);
-            _NodeWidget.setCameraAttached(_Player.PlayerCamera);
+            _NodeWidget.setCameraAttached(_Player.CameraAttached);
             _NodeWidget.setResourceNode(this);
             _NodeWidget.Offsetting.y += 15;
             progressWidget.gameObject.SetActive(true);

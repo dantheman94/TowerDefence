@@ -220,7 +220,7 @@ public class WaveManager : MonoBehaviour {
         for (int i = 0; i < LockdownPads.Count; i++) {
 
             // Create healthbar
-            LockdownPads[i].BuildingSlotAttached.AttachedBase.CreateHealthBar(LockdownPads[i].BuildingSlotAttached.AttachedBase, LockdownPads[i].BuildingSlotAttached.AttachedBase._Player.PlayerCamera);
+            LockdownPads[i].BuildingSlotAttached.AttachedBase.CreateHealthBar(LockdownPads[i].BuildingSlotAttached.AttachedBase, LockdownPads[i].BuildingSlotAttached.AttachedBase._Player.CameraAttached);
         }
 
         // Get reference to all the pad slots
@@ -527,7 +527,7 @@ public class WaveManager : MonoBehaviour {
 
                 unit.Team = GameManager.Team.Attacking;
                 unit.OnSpawn();
-                unit.CreateHealthBar(unit, player.PlayerCamera);
+                unit.CreateHealthBar(unit, player.CameraAttached);
 
                 if (unit is AirVehicle) {
 

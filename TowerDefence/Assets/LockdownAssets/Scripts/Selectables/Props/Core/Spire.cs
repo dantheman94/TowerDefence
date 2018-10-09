@@ -45,9 +45,9 @@ public class Spire : Building {
                 if (_Player == null) {
 
                     Player plyr = GameManager.Instance.Players[0];
-                    _HealthBar.SetCameraAttached(plyr.PlayerCamera);
+                    _HealthBar.SetCameraAttached(plyr.CameraAttached);
                 }
-                else { _HealthBar.SetCameraAttached(_Player.PlayerCamera); }
+                else { _HealthBar.SetCameraAttached(_Player.CameraAttached); }
             }
         }
     }

@@ -109,7 +109,7 @@ public class TutorialScene : MonoBehaviour {
     // Use this for initialization
     void Start () {
         _Player = GameManager.Instance.Players[0];
-        _MainCamera = GameManager.Instance.Players[0].PlayerCamera;
+        _MainCamera = GameManager.Instance.Players[0].CameraAttached;
         _MessagePanelText = MessagePanel.transform.GetComponentInChildren<Text>();
         OutlineColor = ResourceTextOutlines[0].effectColor;
         _ResourceManager = _Player.GetResourceManager();

@@ -88,6 +88,10 @@ public class WorldObject : Selectable {
     [Header("-----------------------------------")]
     [Space]
     public List<ParticleSystem> OnDeathEffects;
+    [Space]
+    public bool CameraShakeOnDeath = false;
+    public float DeathExplosionRadius = 10f;
+    [Space]
     public bool ShrinkWhenDestroyed = true;
     [Tooltip("When this unit is killed, the speed in which it shrinks down until it is no longer visible " +
             "before being sent back to the object pool.")]
@@ -408,13 +412,13 @@ public class WorldObject : Selectable {
             _ClonedWorldObject.Init();
             
             // Create healthbar
-            CreateHealthBar(_ClonedWorldObject, plyr.PlayerCamera);
+            CreateHealthBar(_ClonedWorldObject, plyr.CameraAttached);
 
             // Create building progress panel & allocate it to the unit
             GameObject buildProgressObj = ObjectPooling.Spawn(GameManager.Instance.BuildingInProgressPanel.gameObject);
             _BuildingProgressCounter = buildProgressObj.GetComponent<UnitBuildingCounter>();
             _BuildingProgressCounter.SetObjectAttached(_ClonedWorldObject);
-            _BuildingProgressCounter.SetCameraAttached(plyr.PlayerCamera);
+            _BuildingProgressCounter.SetCameraAttached(plyr.CameraAttached);
             buildProgressObj.gameObject.SetActive(true);
             buildProgressObj.transform.SetParent(GameManager.Instance.WorldSpaceCanvas.gameObject.transform, false);
 
@@ -543,6 +547,9 @@ public class WorldObject : Selectable {
             float effectDuration = effect.duration + effect.startLifetime;
             StartCoroutine(ParticleDespawn(effect, effectDuration));
         }
+
+        // Camera shake if neccessary
+        if (CameraShakeOnDeath && _Player != null) { _Player.CameraRTS.ExplosionShake(transform.position, DeathExplosionRadius); }
 
         // Send message to match feed
         if (Team == GameManager.Team.Defending) { MatchFeed.Instance.AddMessage(string.Concat(ObjectName, " destroyed.")); }

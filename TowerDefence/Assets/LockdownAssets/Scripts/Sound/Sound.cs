@@ -54,7 +54,7 @@ public class Sound : MonoBehaviour {
         _DistanceFromScreenCenter = Vector3.Distance(transform.position, _ScreenCenter);
 
         // Get player camera position and store it into a Vector3
-        Vector3 camPos = _Player.PlayerCamera.WorldToScreenPoint(transform.position);
+        Vector3 camPos = _Player.CameraAttached.WorldToScreenPoint(transform.position);
 
         // The y axis is upside down so we need to invert it
         camPos.y = KeyboardInput.InvertMouseY(camPos.y);

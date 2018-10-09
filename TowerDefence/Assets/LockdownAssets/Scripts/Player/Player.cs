@@ -25,7 +25,8 @@ public class Player : MonoBehaviour {
     [Header("-----------------------------------")]
     [Header(" CAMERA SETUP")]
     [Space]
-    public Camera PlayerCamera = null;
+    public Camera CameraAttached = null;
+    public CameraPlayer CameraRTS = null;
 
     [Space]
     [Header("-----------------------------------")]
@@ -149,7 +150,7 @@ public class Player : MonoBehaviour {
         for (int i = 0; i < _PlatoonCount; i++) { _Platoons.Add(GameManager.Instance.PlatoonUnitsHUD.UnitInfoPanels[i].GetComponent<Platoon>()); }
 
         // Setup camera
-        if (PlayerCamera != null) { PlayerCamera.GetComponent<CameraPlayer>().SetPlayerAttached(this); }
+        if (CameraAttached != null) { CameraAttached.GetComponent<CameraPlayer>().SetPlayerAttached(this); }
 
         // Initialize starting base
         _Bases.Add(GameManager.Instance.StartingBase);
