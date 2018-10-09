@@ -225,19 +225,27 @@ public class CameraPlayer : MonoBehaviour {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /// <summary>
+    /// 
+    /// </summary>
     public void ExplosionShake(Vector3 location, float radius) {
 
+        // Get the distance between the explosion and the camera
         float distance = Vector3.Distance(location, transform.position);
 
+        // If the distance is within the threshold, shake
         if (distance < ShakeThreshold) {
 
-            float shakeStrength = (1.0f * (Mathf.Abs(distance * 0.1f))) + (_Camera.fieldOfView * 0.1f);
+            // Calculate strenth
+            float shakeStrength = (1.0f * (Mathf.Abs(distance * 0.1f))) + (Mathf.Abs(_Camera.fieldOfView * 0.1f));
+            // Calculate duration
             float shakeDuration = 1f;
    
-
+            // Start shake
             StartCoroutine(CameraShake(shakeStrength * ShakeTrauma, shakeDuration));
         }
-
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }
