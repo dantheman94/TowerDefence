@@ -3297,7 +3297,6 @@ Transform:
   m_Children:
   - {fileID: 1639950802}
   - {fileID: 1319087384}
-  - {fileID: 1129252825}
   m_Father: {fileID: 160775628}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9249,47 +9248,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1127623999}
---- !u!1 &1129252824
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1129252825}
-  - component: {fileID: 1129252828}
-  m_Layer: 0
-  m_Name: LineDrawer (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1129252825
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1129252824}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 379826994}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1129252828
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1129252824}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cea4aefd10a63b4c9cbe02104529c86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _Line: {fileID: 1516900804071516, guid: 5db47460b32fb9b4ebfac16b44015fbf, type: 2}
 --- !u!1 &1140013987
 GameObject:
   m_ObjectHideFlags: 0
@@ -9541,11 +9499,21 @@ Prefab:
         type: 2}
       propertyPath: ViewCamera
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1697397920}
     - target: {fileID: 1869192643814678, guid: 519ab758fecbc094488db85aea104202, type: 2}
       propertyPath: m_Name
       value: '--- Cinematics ---'
       objectReference: {fileID: 0}
+    - target: {fileID: 114685860084283822, guid: 519ab758fecbc094488db85aea104202,
+        type: 2}
+      propertyPath: ViewCamera
+      value: 
+      objectReference: {fileID: 1697397920}
+    - target: {fileID: 114749021542179998, guid: 519ab758fecbc094488db85aea104202,
+        type: 2}
+      propertyPath: ViewCamera
+      value: 
+      objectReference: {fileID: 1697397920}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 519ab758fecbc094488db85aea104202, type: 2}
   m_IsPrefabParent: 0
@@ -11102,6 +11070,16 @@ Prefab:
       propertyPath: _CheekyMaterial
       value: 
       objectReference: {fileID: 2100000, guid: 0cb137f17a86c1848920db05fe301278, type: 2}
+    - target: {fileID: 114537414513584320, guid: 2026df39a4e1f1245a5289ed76abff7c,
+        type: 2}
+      propertyPath: CameraAttached
+      value: 
+      objectReference: {fileID: 1697397920}
+    - target: {fileID: 114537414513584320, guid: 2026df39a4e1f1245a5289ed76abff7c,
+        type: 2}
+      propertyPath: CameraRTS
+      value: 
+      objectReference: {fileID: 1697397918}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2026df39a4e1f1245a5289ed76abff7c, type: 2}
   m_IsPrefabParent: 0
@@ -14792,6 +14770,31 @@ Prefab:
       propertyPath: MapOffset.y
       value: 300
       objectReference: {fileID: 0}
+    - target: {fileID: 114934396457095928, guid: 97371d9815069d847860ef387529bbf3,
+        type: 2}
+      propertyPath: Sun
+      value: 
+      objectReference: {fileID: 445906310}
+    - target: {fileID: 114594483081117626, guid: 97371d9815069d847860ef387529bbf3,
+        type: 2}
+      propertyPath: RawImage
+      value: 
+      objectReference: {fileID: 1011036726}
+    - target: {fileID: 114573625726707578, guid: 97371d9815069d847860ef387529bbf3,
+        type: 2}
+      propertyPath: MapSize
+      value: 600
+      objectReference: {fileID: 0}
+    - target: {fileID: 114573625726707578, guid: 97371d9815069d847860ef387529bbf3,
+        type: 2}
+      propertyPath: MapOffset.x
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 114573625726707578, guid: 97371d9815069d847860ef387529bbf3,
+        type: 2}
+      propertyPath: MapOffset.y
+      value: 300
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 97371d9815069d847860ef387529bbf3, type: 2}
   m_IsPrefabParent: 0
@@ -14814,6 +14817,12 @@ MonoBehaviour:
   LineMaterial: {fileID: 2100000, guid: 0cb137f17a86c1848920db05fe301278, type: 2}
   LineWidth: 0.01
   Depth: 5
+--- !u!114 &1697397918 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114208860418754094, guid: 97371d9815069d847860ef387529bbf3,
+    type: 2}
+  m_PrefabInternal: {fileID: 1697397910}
+  m_Script: {fileID: 11500000, guid: fd4d1419009293c439b6330088db3d6d, type: 3}
 --- !u!20 &1697397920 stripped
 Camera:
   m_PrefabParentObject: {fileID: 20411447022865590, guid: 97371d9815069d847860ef387529bbf3,
