@@ -388,7 +388,7 @@ Transform:
   m_GameObject: {fileID: 1187960113512334}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1.0000002, z: 1}
+  m_LocalScale: {x: 4, y: 4, z: 1}
   m_Children: []
   m_Father: {fileID: 4030994594427364}
   m_RootOrder: 0
@@ -583,7 +583,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1722838760022248}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1512.2, y: 0, z: -320}
+  m_LocalPosition: {x: -1512.2, y: -1, z: -310}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4030994594427364}
@@ -1328,7 +1328,12 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
-  OnDeathEffect: {fileID: 0}
+  ProjectileImpactEffect: {fileID: 0}
+  HealthThresholdDamaged: 0.5
+  HealthDamagedParticles: []
+  OnDeathEffects: []
+  CameraShakeOnDeath: 0
+  DeathExplosionRadius: 10
   ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 0
@@ -1396,7 +1401,12 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
-  OnDeathEffect: {fileID: 0}
+  ProjectileImpactEffect: {fileID: 0}
+  HealthThresholdDamaged: 0.5
+  HealthDamagedParticles: []
+  OnDeathEffects: []
+  CameraShakeOnDeath: 0
+  DeathExplosionRadius: 10
   ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 0
@@ -1481,7 +1491,12 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
-  OnDeathEffect: {fileID: 0}
+  ProjectileImpactEffect: {fileID: 0}
+  HealthThresholdDamaged: 0.5
+  HealthDamagedParticles: []
+  OnDeathEffects: []
+  CameraShakeOnDeath: 0
+  DeathExplosionRadius: 10
   ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 0
@@ -1566,7 +1581,12 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
-  OnDeathEffect: {fileID: 0}
+  ProjectileImpactEffect: {fileID: 0}
+  HealthThresholdDamaged: 0.5
+  HealthDamagedParticles: []
+  OnDeathEffects: []
+  CameraShakeOnDeath: 0
+  DeathExplosionRadius: 10
   ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 0
@@ -1636,13 +1656,18 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 150
   _WidgetShieldbarScaleY: 10
   _WidgetShieldbarOffset: 10
-  OnDeathEffect: {fileID: 198806059745770222, guid: 7b5593a2f35dd8d489b6687073fde66a,
-    type: 2}
+  ProjectileImpactEffect: {fileID: 0}
+  HealthThresholdDamaged: 0.5
+  HealthDamagedParticles: []
+  OnDeathEffects: []
+  CameraShakeOnDeath: 0
+  DeathExplosionRadius: 10
   ShrinkWhenDestroyed: 0
   ShrinkSpeed: 0.3
   AttachedBuildingSlot: {fileID: 0}
   ObjectHeight: 30
   HasABuildingQueue: 1
+  EffectPlayedWhenBuildingSelectable: {fileID: 0}
   EffectPlayedOnBuiltSelectable: {fileID: 0}
   BuiltSelectableEffectPosition: {fileID: 0}
   Selectables:
@@ -1756,7 +1781,12 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
-  OnDeathEffect: {fileID: 0}
+  ProjectileImpactEffect: {fileID: 0}
+  HealthThresholdDamaged: 0.5
+  HealthDamagedParticles: []
+  OnDeathEffects: []
+  CameraShakeOnDeath: 0
+  DeathExplosionRadius: 10
   ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 0
@@ -1841,7 +1871,12 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
-  OnDeathEffect: {fileID: 0}
+  ProjectileImpactEffect: {fileID: 0}
+  HealthThresholdDamaged: 0.5
+  HealthDamagedParticles: []
+  OnDeathEffects: []
+  CameraShakeOnDeath: 0
+  DeathExplosionRadius: 10
   ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 0
@@ -1960,7 +1995,12 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
-  OnDeathEffect: {fileID: 0}
+  ProjectileImpactEffect: {fileID: 0}
+  HealthThresholdDamaged: 0.5
+  HealthDamagedParticles: []
+  OnDeathEffects: []
+  CameraShakeOnDeath: 0
+  DeathExplosionRadius: 10
   ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 0
@@ -2045,7 +2085,12 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
-  OnDeathEffect: {fileID: 0}
+  ProjectileImpactEffect: {fileID: 0}
+  HealthThresholdDamaged: 0.5
+  HealthDamagedParticles: []
+  OnDeathEffects: []
+  CameraShakeOnDeath: 0
+  DeathExplosionRadius: 10
   ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 0
@@ -2125,7 +2170,12 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
-  OnDeathEffect: {fileID: 0}
+  ProjectileImpactEffect: {fileID: 0}
+  HealthThresholdDamaged: 0.5
+  HealthDamagedParticles: []
+  OnDeathEffects: []
+  CameraShakeOnDeath: 0
+  DeathExplosionRadius: 10
   ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 0
@@ -2216,7 +2266,12 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
-  OnDeathEffect: {fileID: 0}
+  ProjectileImpactEffect: {fileID: 0}
+  HealthThresholdDamaged: 0.5
+  HealthDamagedParticles: []
+  OnDeathEffects: []
+  CameraShakeOnDeath: 0
+  DeathExplosionRadius: 10
   ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.2
   OnlyAppearWhenAttachedToBase: 0

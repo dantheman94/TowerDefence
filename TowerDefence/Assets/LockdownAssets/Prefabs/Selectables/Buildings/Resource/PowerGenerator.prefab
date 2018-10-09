@@ -82,6 +82,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 18
   m_IsActive: 1
+--- !u!1 &1409856453097846
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4564858598291992}
+  m_Layer: 0
+  m_Name: TargetPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1430483934314032
 GameObject:
   m_ObjectHideFlags: 0
@@ -158,7 +173,7 @@ Transform:
   m_Children:
   - {fileID: 4468904118817692}
   m_Father: {fileID: 4724847416450164}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4420440687844880
 Transform:
@@ -171,7 +186,7 @@ Transform:
   m_LocalScale: {x: 10, y: 10, z: 1}
   m_Children: []
   m_Father: {fileID: 4724847416450164}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!4 &4468904118817692
 Transform:
@@ -199,7 +214,20 @@ Transform:
   - {fileID: 4239994121449500}
   - {fileID: 4983598073379550}
   m_Father: {fileID: 4724847416450164}
-  m_RootOrder: 2
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4564858598291992
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1409856453097846}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.5, y: 2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4724847416450164}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4724847416450164
 Transform:
@@ -211,6 +239,7 @@ Transform:
   m_LocalPosition: {x: -1019.65, y: 0, z: -590.36}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 4564858598291992}
   - {fileID: 4420440687844880}
   - {fileID: 4253336252100062}
   - {fileID: 4547434203417698}
@@ -419,7 +448,7 @@ MonoBehaviour:
   ShowOutline: 1
   OutlineHighlightedWidth: 2
   OutlineSelectedWidth: 3
-  TargetPoint: {fileID: 0}
+  TargetPoint: {fileID: 1409856453097846}
   ShowcaseOffsetY: 0
   ShowcaseFOV: 40
   ShoecaseScale: 1
@@ -441,8 +470,13 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 60
   _WidgetShieldbarScaleY: 10
   _WidgetShieldbarOffset: 10
+  ProjectileImpactEffect: {fileID: 0}
+  HealthThresholdDamaged: 0.5
+  HealthDamagedParticles: []
   OnDeathEffects:
   - {fileID: 198831994865105058, guid: 451198ea52c916b4ca0f0cad0dadd9a1, type: 2}
+  CameraShakeOnDeath: 0
+  DeathExplosionRadius: 10
   ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.3
   AttachedBuildingSlot: {fileID: 0}
