@@ -29,6 +29,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 18
   m_IsActive: 0
+--- !u!1 &1323480689692748
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4209556030530664}
+  m_Layer: 0
+  m_Name: TargetPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1348181821997930
 GameObject:
   m_ObjectHideFlags: 0
@@ -130,6 +145,19 @@ Transform:
   m_Father: {fileID: 4638625436571334}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!4 &4209556030530664
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1323480689692748}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.5, y: 2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4638625436571334}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4300135074452888
 Transform:
   m_ObjectHideFlags: 1
@@ -142,7 +170,7 @@ Transform:
   m_Children:
   - {fileID: 4584042074675514}
   m_Father: {fileID: 4638625436571334}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4435558085440814
 Transform:
@@ -156,7 +184,7 @@ Transform:
   m_Children:
   - {fileID: 4953803393730790}
   m_Father: {fileID: 4638625436571334}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4584042074675514
 Transform:
@@ -178,10 +206,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1870176042156110}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -941.65, y: 0, z: -584.34}
+  m_LocalPosition: {x: -997.6, y: 0, z: -643.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4064596564207912}
+  - {fileID: 4209556030530664}
   - {fileID: 4435558085440814}
   - {fileID: 4300135074452888}
   m_Father: {fileID: 0}
@@ -429,7 +458,7 @@ MonoBehaviour:
   ShowOutline: 1
   OutlineHighlightedWidth: 2
   OutlineSelectedWidth: 3
-  TargetPoint: {fileID: 0}
+  TargetPoint: {fileID: 1323480689692748}
   ShowcaseOffsetY: 0
   ShowcaseFOV: 40
   ShoecaseScale: 1
@@ -451,13 +480,19 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 60
   _WidgetShieldbarScaleY: 10
   _WidgetShieldbarOffset: 10
+  ProjectileImpactEffect: {fileID: 0}
+  HealthThresholdDamaged: 0.5
+  HealthDamagedParticles: []
   OnDeathEffects:
   - {fileID: 198831994865105058, guid: 451198ea52c916b4ca0f0cad0dadd9a1, type: 2}
+  CameraShakeOnDeath: 0
+  DeathExplosionRadius: 10
   ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.3
   AttachedBuildingSlot: {fileID: 0}
   ObjectHeight: 15
   HasABuildingQueue: 1
+  EffectPlayedWhenBuildingSelectable: {fileID: 0}
   EffectPlayedOnBuiltSelectable: {fileID: 0}
   BuiltSelectableEffectPosition: {fileID: 0}
   Selectables:
