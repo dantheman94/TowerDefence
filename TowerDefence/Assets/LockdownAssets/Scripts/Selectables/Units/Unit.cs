@@ -1162,7 +1162,7 @@ public class Unit : WorldObject {
     /// <param name="target"></param>
     public virtual void AddPotentialTarget(WorldObject target) {
 
-        if (_PotentialTargets != null) {
+        if (_PotentialTargets != null && _ObjectState == WorldObjectStates.Active) {
 
             // Not a friendly unit...
             if (target.Team != Team) {
