@@ -6748,6 +6748,12 @@ Transform:
   m_Father: {fileID: 905765308}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &796282490 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114680855820500154, guid: 2026df39a4e1f1245a5289ed76abff7c,
+    type: 2}
+  m_PrefabInternal: {fileID: 1352489113}
+  m_Script: {fileID: 11500000, guid: 506b563165ba6c949ad7065ebd960fb5, type: 3}
 --- !u!1001 &798312184
 Prefab:
   m_ObjectHideFlags: 0
@@ -11080,6 +11086,11 @@ Prefab:
       propertyPath: CameraRTS
       value: 
       objectReference: {fileID: 1697397918}
+    - target: {fileID: 114717441679538020, guid: 2026df39a4e1f1245a5289ed76abff7c,
+        type: 2}
+      propertyPath: Slicedrawer
+      value: 
+      objectReference: {fileID: 1697397912}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2026df39a4e1f1245a5289ed76abff7c, type: 2}
   m_IsPrefabParent: 0
@@ -11230,7 +11241,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44962307e94d3784a9ff7d7d0c7a0f7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _MusicSource: {fileID: 0}
 --- !u!82 &1376223739
 AudioSource:
   m_ObjectHideFlags: 0
@@ -14817,6 +14827,9 @@ MonoBehaviour:
   LineMaterial: {fileID: 2100000, guid: 0cb137f17a86c1848920db05fe301278, type: 2}
   LineWidth: 0.01
   Depth: 5
+  MouseEndPoint: {x: 0, y: 0, z: 0}
+  checker: 0
+  hud: {fileID: 796282490}
 --- !u!114 &1697397918 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114208860418754094, guid: 97371d9815069d847860ef387529bbf3,

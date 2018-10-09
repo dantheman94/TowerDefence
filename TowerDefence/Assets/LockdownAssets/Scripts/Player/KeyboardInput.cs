@@ -6,7 +6,7 @@ using TowerDefence;
 //
 //  Created by: Daniel Marton
 //
-//  Last edited by: Daniel Marton
+//  Last edited by: Angus Secomb
 //  Last edited on: 10/9/2018
 //
 //******************************
@@ -27,6 +27,7 @@ public class KeyboardInput : MonoBehaviour {
     public static Rect SelectionScreen = new Rect(0, 0, Screen.width, Screen.height);
     public Texture SelectionHighlight;
     public Minimap MiniMap;
+    public SliceDrawer Slicedrawer;
     
 
     private Vector3 _LookPoint;
@@ -75,6 +76,11 @@ public class KeyboardInput : MonoBehaviour {
     /// 
     private void Update() {
         CreateSelectionBox();
+        
+        if(Input.GetMouseButtonUp(1))
+        {
+      //      LineMovement();
+        }
         if (_PlayerAttached) {
 
             // Update primary controller
@@ -858,7 +864,9 @@ public class KeyboardInput : MonoBehaviour {
         if (GameManager.Instance.GetIsUnitControlling() == false) {
 
             // There are AI currently selected and therefore we can command them
-            if (UnitsSelected.Count > 0) { AiMouseCommandsInput(UnitsSelected); }
+            if (UnitsSelected.Count > 0) { AiMouseCommandsInput(UnitsSelected); 
+             
+            }
         }
     }
 
@@ -1461,6 +1469,39 @@ public class KeyboardInput : MonoBehaviour {
         }
     }
 
+    private void LineMovement()
+    {
+        // Get point in world that is used to command the AI currently selected (go position, attack target, etc)
+        GameObject hitObjectstart = Slicedrawer.StartGO;
+        Vector3 hitPointstart = Slicedrawer.LineStartPoint;
+        GameObject hitObjectend = Slicedrawer.EndGO;
+        Vector3 hitPointend = Slicedrawer.MouseEndPoint;
+        for (int i = 0; i < _PlayerAttached.SelectedUnits.Count; ++i)
+        {
+         
+            if (hitObjectstart && hitPointstart != Settings.InvalidPosition)
+            {
+                
+                // AI seek to hitpoint vector
+                if (hitObjectstart.tag == "Ground")
+                {
+                        if (i == 0)
+                        {
+                            _PlayerAttached.SelectedUnits[i].AgentSeekPosition(hitPointstart, true, true);
+                        }
+                        if (i == _PlayerAttached.SelectedUnits.Count - 1)
+                        {
+                            if (hitPointend != Settings.InvalidPosition && hitObjectend.tag == "Ground")
+                                _PlayerAttached.SelectedUnits[i].AgentSeekPosition(hitPointend, true, true);
+                        }
+             
+                
+                    }
+                }
+
+            }
+        }
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
@@ -1517,7 +1558,6 @@ public class KeyboardInput : MonoBehaviour {
             GUI.color = new Color(1, 1, 1, 0.5f);
             GUI.DrawTexture(Selection, SelectionHighlight);
         }
-        //GUI.DrawTexture(SelectionScreen, SelectionHighlight);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
