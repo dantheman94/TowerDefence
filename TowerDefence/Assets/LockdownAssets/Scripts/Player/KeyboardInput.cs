@@ -25,7 +25,6 @@ public class KeyboardInput : MonoBehaviour {
     public bool IsPrimaryController { get; set; }
     public static Rect Selection = new Rect(0, 0, 0, 0);
     public static Rect SelectionScreen = new Rect(0, 0, Screen.width, Screen.height);
-    public static bool MouseIsDown = false;
     public Texture SelectionHighlight;
     public Minimap MiniMap;
     
@@ -1484,15 +1483,25 @@ public class KeyboardInput : MonoBehaviour {
                 Selection.height = -Selection.height;
             }
 
-            MouseIsDown = false;
             _BoxStartPoint = -Vector3.one;
 
         }
 
         if (Input.GetMouseButton(0)) {
-            MouseIsDown = true;
+      
             Selection = new Rect(_BoxStartPoint.x, InvertMouseY(_BoxStartPoint.y), Input.mousePosition.x - _BoxStartPoint.x,
                                  InvertMouseY(Input.mousePosition.y) - InvertMouseY(_BoxStartPoint.y));
+
+            if (Selection.width < 0)
+            {
+                Selection.x += Selection.width;
+                Selection.width = -Selection.width;
+            }
+            if (Selection.height < 0)
+            {
+                Selection.y += Selection.height;
+                Selection.height = -Selection.height;
+            }
         }
 
     }
