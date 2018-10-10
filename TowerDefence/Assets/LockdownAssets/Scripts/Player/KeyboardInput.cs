@@ -1488,32 +1488,48 @@ public class KeyboardInput : MonoBehaviour {
         float relativeCopy = relativeDistance;
         for (int i = 0; i < _PlayerAttached.SelectedUnits.Count; ++i)
         {
-            if (hitObjectstart && hitPointstart != Settings.InvalidPosition)
+            if (_PlayerAttached.SelectedUnits.Count == 2)
             {
-                //Use direction of end point to go from start point to next node using relativeDistance
-                // need to count count first and last
 
-          //   hitObjectstart.transform.LookAt(hitPointend);
-                Vector3 newVector = (hitPointstart + hitPointend) / 2;
-                Vector3 newVector2 = (hitPointstart + newVector) / 2;
-
-                // AI seek to hitpoint vector
-                if (hitObjectstart.tag == "Ground")
+                if (hitObjectstart && hitPointstart != Settings.InvalidPosition)
                 {
+                    if (i == 0)
                     {
-                        Vector3 newDirection = hitPointend - hitPointstart;
-                        Vector3 directionOnly = newDirection.normalized;
-                        Vector3 pointAlongDirection = hitPointstart + (directionOnly * relativeDistance);
-
-                        _PlayerAttached.SelectedUnits[i].AgentSeekPosition(pointAlongDirection, true, true);
-                        relativeDistance += relativeCopy;
+                        _PlayerAttached.SelectedUnits[i].AgentSeekPosition(hitPointstart, true, true);
                     }
+                    else if (i == 1)
+                    {
+                        _PlayerAttached.SelectedUnits[i].AgentSeekPosition(hitPointend, true, true);
+                    }
+
+                }
+            }
+            else
+            {
+
+                if (hitObjectstart && hitPointstart != Settings.InvalidPosition)
+                {
+                    //Use direction of end point to go from start point to next node using relativeDistance
+                    // need to count count first and last
+
+                    // AI seek to hitpoint vector
+                    if (hitObjectstart.tag == "Ground")
+                    {
+                        {
+                            Vector3 newDirection = hitPointend - hitPointstart;
+                            Vector3 directionOnly = newDirection.normalized;
+                            Vector3 pointAlongDirection = hitPointstart + (directionOnly * relativeDistance);
+
+                            _PlayerAttached.SelectedUnits[i].AgentSeekPosition(pointAlongDirection, true, true);
+                            relativeDistance += relativeCopy;
+                        }
                     }
                 }
 
             }
+           }
         }
-
+  
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
