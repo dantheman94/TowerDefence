@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 //******************************
 //
@@ -12,7 +14,20 @@ using UnityEngine;
 //******************************
 
 public class Platoon : MonoBehaviour {
-    
+
+    //******************************************************************************************************************************
+    //
+    //      INSPECTOR
+    //
+    //******************************************************************************************************************************
+
+    [Space]
+    [Header("-----------------------------------")]
+    [Header(" WIDGET COMPONENTS")]
+    [Space]
+    public Image LogoComponent = null;
+    public TMP_Text PlatoonCounter = null;
+
     //******************************************************************************************************************************
     //
     //      VARIABLES
@@ -36,7 +51,21 @@ public class Platoon : MonoBehaviour {
 
         _PlatoonAi = new List<Unit>();
     }
-    
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    public void Wipe() {
+
+        // Clear everything
+        if (PlatoonCounter != null) { PlatoonCounter.text = ""; }
+
+        // Hide the gameObject
+        gameObject.SetActive(false);
+    }
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public List<Unit> GetAi() { return _PlatoonAi; }

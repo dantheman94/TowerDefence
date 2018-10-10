@@ -55,25 +55,34 @@ MonoBehaviour:
   ProjectileClass: {fileID: 114949425887279486, guid: 72945235f2e544941bf7e042d430a5a4,
     type: 2}
   FiringEffect: {fileID: 0}
-  MuzzleEffect: {fileID: 0}
+  FiringDelay: 0.5
+  MuzzleEffectWrapper: {fileID: 1928097249720604, guid: aa59544ed9789cd439abe565dbbb44a1,
+    type: 2}
   MuzzlePatternType: 0
   ReusableMuzzlePoints: 1
-  FiringDelay: 1
-  ChargeUpTime: 0.5
+  ChargeUpTime: 0
   ChargeLightRange: 50
   ChargeLightIntensity: 1
   ChargeUpColor: {r: 1, g: 1, b: 1, a: 1}
   AngularOffsetType: 0
   AngularOffset: {x: 0, y: 0, z: 0}
+  VisualizeHitscanTrace: 0
+  HitScanDrawTime: 1
+  HitScanStartColour: {r: 1, g: 1, b: 1, a: 1}
+  HitScanStartWidth: 1
+  HitScanEndColour: {r: 1, g: 1, b: 1, a: 1}
+  HitScanEndWidth: 1
+  DefaultImpactEffect: {fileID: 0}
+  SpawnOnImpact: {fileID: 0}
   Damages:
-    DamageDefault: 2
-    DamageCoreInfantry: 2
-    DamageAntiInfantryMarine: 2
-    DamageHero: 2
-    DamageCoreVehicle: 6
-    DamageAntiAirVehicle: 6
-    DamageMobileArtillery: 6
-    DamageBattleTank: 6
+    DamageDefault: 3
+    DamageCoreInfantry: 3
+    DamageAntiInfantryMarine: 3
+    DamageHero: 3
+    DamageCoreVehicle: 20
+    DamageAntiAirVehicle: 20
+    DamageMobileArtillery: 20
+    DamageBattleTank: 20
     DamageCoreAirship: 3
     DamageSupportShip: 3
     DamageHeavyAirship: 3

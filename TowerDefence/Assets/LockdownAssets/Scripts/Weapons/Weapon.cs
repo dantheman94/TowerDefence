@@ -56,6 +56,19 @@ public class Weapon : MonoBehaviour {
 
     [Space]
     [Header("-----------------------------------")]
+    [Header(" RAYCAST DRAW PROPERTIES")]
+    [Space]
+    public bool VisualizeHitscanTrace = false;
+    public float HitScanDrawTime = 1f;
+    [Space]
+    public Color HitScanStartColour = Color.white;
+    public float HitScanStartWidth = 1f;
+    [Space]
+    public Color HitScanEndColour = Color.white;
+    public float HitScanEndWidth = 1f;
+    
+    [Space]
+    [Header("-----------------------------------")]
     [Header(" IMPACT DAMAGES")]
     [Space]
     public ParticleSystem DefaultImpactEffect = null;
@@ -77,7 +90,7 @@ public class Weapon : MonoBehaviour {
     //
     //******************************************************************************************************************************
 
-    public enum EProjectileType { Object, Raycast, Particle }
+    public enum EProjectileType { Object, RaycastSingle, RaycastSpread, Particle }
     public enum EOffsetType { Alternate, Consecutive, Random }
     public enum EMuzzleFiringPatternType { Consective, Random }
 
@@ -325,6 +338,276 @@ public class Weapon : MonoBehaviour {
     /// <summary>
     //  Fires a hitscan based projectile.
     /// </summary>
+    private void ProjectileRaycastSpread() {
+
+        // Weapon is attached to a unit
+        if (_UnitAttached != null) {
+
+            RaycastHit hit;
+            Vector3 attackPos = _UnitAttached.GetAttackTarget().transform.position;
+            attackPos.y = attackPos.y + _UnitAttached.GetAttackTarget().GetObjectHeight() / 2;
+            Vector3 attackDir = attackPos - _UnitAttached.MuzzleLaunchPoints[0].transform.position;
+            attackDir.Normalize();
+
+            if (Physics.Raycast(_UnitAttached.MuzzleLaunchPoints[0].transform.position, attackDir, out hit, _UnitAttached.MaxAttackingRange)) {
+
+                // Render line
+                Debug.DrawLine(_UnitAttached.MuzzleLaunchPoints[0].transform.position, hit.point, Color.blue);
+                GenerateHitScanVisualizer(_UnitAttached.MuzzleLaunchPoints[0].transform.position, hit.point);
+
+                // Damage target
+                WorldObject worldObj = hit.transform.GetComponentInParent<WorldObject>();
+
+                if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Ignore Raycast")) { return; }
+
+                else if (worldObj != null) {
+
+                    // Play impacted object's particle effect
+                    Vector3 position = hit.point;
+                    Quaternion rotation = Quaternion.FromToRotation(hit.point, _UnitAttached.MuzzleLaunchPoints[0].transform.position);
+                    if (worldObj.ProjectileImpactEffect != null) {
+
+                        ParticleSystem impact = ObjectPooling.Spawn(worldObj.ProjectileImpactEffect.gameObject, position, rotation).GetComponent<ParticleSystem>();
+                        impact.Play();
+
+                        // Despawn particle system once it has finished its cycle
+                        float effectDuration = impact.duration + impact.startLifetime;
+                        StartCoroutine(ParticleDespawner.ParticleDespawn(impact, effectDuration));
+                    }
+
+                    // Play default impact effect
+                    else {
+
+                        ParticleSystem impact = ObjectPooling.Spawn(DefaultImpactEffect.gameObject, position, rotation).GetComponent<ParticleSystem>();
+                        impact.Play();
+
+                        // Despawn particle system once it has finished its cycle
+                        float effectDuration = impact.duration + impact.startLifetime;
+                        StartCoroutine(ParticleDespawner.ParticleDespawn(impact, effectDuration));
+                    }
+
+                    DifficultyManager dm = DifficultyManager.Instance;
+                    DifficultyManager.EDifficultyModifiers mod = DifficultyManager.EDifficultyModifiers.Damage;
+                    WaveManager wm = WaveManager.Instance;
+
+                    // Check if object is of type unit
+                    Unit unitObj = worldObj.GetComponent<Unit>();
+                    if (unitObj != null) {
+
+                        // Cannot damage self
+                        if (unitObj.Team != _UnitAttached.Team) {
+
+                            // Damage based on unit type
+                            switch (unitObj.UnitType) {
+
+                                case Unit.EUnitType.Undefined: { unitObj.Damage(((Damages.DamageDefault * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
+                                case Unit.EUnitType.DwfSoldier: { unitObj.Damage(((Damages.DamageCoreInfantry * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
+                                case Unit.EUnitType.DwfSpecialistInfantry: { unitObj.Damage(((Damages.DamageAntiInfantryMarine * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
+                                case Unit.EUnitType.DwfSpecialistVehicle: { unitObj.Damage(((Damages.DamageHero * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
+                                case Unit.EUnitType.Grumblebuster: { unitObj.Damage(((Damages.DamageCoreVehicle * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
+                                case Unit.EUnitType.Skylancer: { unitObj.Damage(((Damages.DamageAntiAirVehicle * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
+                                case Unit.EUnitType.Catapult: { unitObj.Damage(((Damages.DamageMobileArtillery * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
+                                case Unit.EUnitType.SiegeEngine: { unitObj.Damage(((Damages.DamageBattleTank * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
+                                case Unit.EUnitType.LightAirship: { unitObj.Damage(((Damages.DamageCoreAirship * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
+                                case Unit.EUnitType.SupportShip: { unitObj.Damage(((Damages.DamageSupportShip * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
+                                case Unit.EUnitType.HeavyAirship: { unitObj.Damage(((Damages.DamageHeavyAirship * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
+                                default: break;
+                            }
+                        }
+                    }
+
+                    // Damage the object (its not a unit so use the default damage value)
+                    else { worldObj.Damage((Damages.DamageDefault * wm.GetWaveDamageModifier(worldObj)) * dm.GetDifficultyModifier(Unit.EUnitType.Undefined, worldObj.Team == GameManager.Team.Defending, mod), _UnitAttached); }
+                }
+            }
+            else {
+
+                // No raycast hit but still draw a hitscan visualizer
+                GenerateHitScanVisualizer(_UnitAttached.MuzzleLaunchPoints[0].transform.position, _UnitAttached.MuzzleLaunchPoints[0].transform.forward * 1000f);
+            }
+        }
+
+        // Weapon is attached to a tower
+        if (_TowerAttached != null) {
+
+            RaycastHit hit;
+            Vector3 attackPos = _TowerAttached.GetAttackTarget().transform.position;
+            attackPos.y = attackPos.y + _TowerAttached.GetAttackTarget().GetObjectHeight() / 2;
+            Vector3 attackDir = attackPos - _TowerAttached.MuzzleLaunchPoints[0].transform.position;
+            attackDir.Normalize();
+
+            if (Physics.Raycast(_TowerAttached.MuzzleLaunchPoints[0].transform.position, attackDir, out hit, _TowerAttached.MaxAttackingRange)) {
+
+                // Render line
+                Debug.DrawLine(_TowerAttached.MuzzleLaunchPoints[0].transform.position, hit.point, Color.blue);
+                GenerateHitScanVisualizer(_TowerAttached.MuzzleLaunchPoints[0].transform.position, hit.point);
+
+                // Damage target
+                WorldObject worldObj = hit.transform.GetComponentInParent<WorldObject>();
+
+                if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Ignore Raycast")) { return; }
+
+                else if (worldObj != null) {
+
+                    // Play impacted object's particle effect
+                    Vector3 position = hit.point;
+                    Quaternion rotation = Quaternion.FromToRotation(hit.point, _TowerAttached.MuzzleLaunchPoints[0].transform.position);
+                    if (worldObj.ProjectileImpactEffect != null) {
+
+                        ParticleSystem impact = ObjectPooling.Spawn(worldObj.ProjectileImpactEffect.gameObject, position, rotation).GetComponent<ParticleSystem>();
+                        impact.Play();
+
+                        // Despawn particle system once it has finished its cycle
+                        float effectDuration = impact.duration + impact.startLifetime;
+                        StartCoroutine(ParticleDespawner.ParticleDespawn(impact, effectDuration));
+                    }
+
+                    // Play default impact effect
+                    else {
+
+                        ParticleSystem impact = ObjectPooling.Spawn(DefaultImpactEffect.gameObject, position, rotation).GetComponent<ParticleSystem>();
+                        impact.Play();
+
+                        // Despawn particle system once it has finished its cycle
+                        float effectDuration = impact.duration + impact.startLifetime;
+                        StartCoroutine(ParticleDespawner.ParticleDespawn(impact, effectDuration));
+                    }
+
+                    DifficultyManager dm = DifficultyManager.Instance;
+                    DifficultyManager.EDifficultyModifiers mod = DifficultyManager.EDifficultyModifiers.Damage;
+                    WaveManager wm = WaveManager.Instance;
+
+                    // Check if object is of type unit
+                    Unit unitObj = worldObj.GetComponent<Unit>();
+                    if (unitObj != null) {
+
+                        // Cannot damage self
+                        if (unitObj.Team != _TowerAttached.Team) {
+
+                            // Damage based on unit type
+                            switch (unitObj.UnitType) {
+
+                                case Unit.EUnitType.Undefined: { unitObj.Damage((Damages.DamageDefault * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _TowerAttached); break; }
+                                case Unit.EUnitType.DwfSoldier: { unitObj.Damage((Damages.DamageCoreInfantry * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _TowerAttached); break; }
+                                case Unit.EUnitType.DwfSpecialistInfantry: { unitObj.Damage((Damages.DamageAntiInfantryMarine * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _TowerAttached); break; }
+                                case Unit.EUnitType.DwfSpecialistVehicle: { unitObj.Damage((Damages.DamageHero * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _TowerAttached); break; }
+                                case Unit.EUnitType.Grumblebuster: { unitObj.Damage((Damages.DamageCoreVehicle * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _TowerAttached); break; }
+                                case Unit.EUnitType.Skylancer: { unitObj.Damage((Damages.DamageAntiAirVehicle * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _TowerAttached); break; }
+                                case Unit.EUnitType.Catapult: { unitObj.Damage((Damages.DamageMobileArtillery * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _TowerAttached); break; }
+                                case Unit.EUnitType.SiegeEngine: { unitObj.Damage((Damages.DamageBattleTank * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _TowerAttached); break; }
+                                case Unit.EUnitType.LightAirship: { unitObj.Damage((Damages.DamageCoreAirship * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _TowerAttached); break; }
+                                case Unit.EUnitType.SupportShip: { unitObj.Damage((Damages.DamageSupportShip * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _TowerAttached); break; }
+                                case Unit.EUnitType.HeavyAirship: { unitObj.Damage((Damages.DamageHeavyAirship * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _TowerAttached); break; }
+                                default: break;
+                            }
+                        }
+                    }
+
+                    // Damage the object (its not a unit so use the default damage value)
+                    else { worldObj.Damage((Damages.DamageDefault * wm.GetWaveDamageModifier(worldObj)) * dm.GetDifficultyModifier(Unit.EUnitType.Undefined, worldObj.Team == GameManager.Team.Defending, mod), _TowerAttached); }
+                }
+            }
+            else {
+
+                // No raycast hit but still draw a hitscan visualizer
+                GenerateHitScanVisualizer(_TowerAttached.MuzzleLaunchPoints[0].transform.position, _TowerAttached.MuzzleLaunchPoints[0].transform.forward * 1000f);
+            }
+        }
+
+        // Weapon is attached to a gunner seat
+        if (_GunnerAttached != null) {
+
+            RaycastHit hit;
+            Vector3 attackPos = _GunnerAttached.GetAttackTarget().transform.position;
+            attackPos.y = attackPos.y + _GunnerAttached.GetAttackTarget().GetObjectHeight() / 2;
+            Vector3 attackDir = attackPos - _GunnerAttached.MuzzleLaunchPoints[0].transform.position;
+            attackDir.Normalize();
+
+            if (Physics.Raycast(_GunnerAttached.MuzzleLaunchPoints[0].transform.position, attackDir, out hit, _GunnerAttached.MaxAttackRange)) {
+
+                // Render line
+                Debug.DrawLine(_GunnerAttached.MuzzleLaunchPoints[0].transform.position, hit.point, Color.blue);
+                GenerateHitScanVisualizer(_GunnerAttached.MuzzleLaunchPoints[0].transform.position, hit.point);
+
+                // Damage target
+                WorldObject worldObj = hit.transform.GetComponentInParent<WorldObject>();
+
+                if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Ignore Raycast")) { return; }
+
+                else if (worldObj != null) {
+
+                    // Play impacted object's particle effect
+                    Vector3 position = hit.point;
+                    Quaternion rotation = Quaternion.FromToRotation(hit.point, _GunnerAttached.MuzzleLaunchPoints[0].transform.position);
+                    if (worldObj.ProjectileImpactEffect != null) {
+
+                        ParticleSystem impact = ObjectPooling.Spawn(worldObj.ProjectileImpactEffect.gameObject, position, rotation).GetComponent<ParticleSystem>();
+                        impact.Play();
+
+                        // Despawn particle system once it has finished its cycle
+                        float effectDuration = impact.duration + impact.startLifetime;
+                        StartCoroutine(ParticleDespawner.ParticleDespawn(impact, effectDuration));
+                    }
+
+                    // Play default impact effect
+                    else {
+
+                        ParticleSystem impact = ObjectPooling.Spawn(DefaultImpactEffect.gameObject, position, rotation).GetComponent<ParticleSystem>();
+                        impact.Play();
+
+                        // Despawn particle system once it has finished its cycle
+                        float effectDuration = impact.duration + impact.startLifetime;
+                        StartCoroutine(ParticleDespawner.ParticleDespawn(impact, effectDuration));
+                    }
+
+                    DifficultyManager dm = DifficultyManager.Instance;
+                    DifficultyManager.EDifficultyModifiers mod = DifficultyManager.EDifficultyModifiers.Damage;
+                    WaveManager wm = WaveManager.Instance;
+
+                    // Check if object is of type unit
+                    Unit unitObj = worldObj.GetComponent<Unit>();
+                    if (unitObj != null) {
+
+                        // Cannot damage self
+                        if (unitObj.Team != _GunnerAttached._VehicleAttached.Team) {
+                            Vehicle vehicleA = _GunnerAttached._VehicleAttached;
+
+                            // Damage based on unit type
+                            switch (unitObj.UnitType) {
+
+                                case Unit.EUnitType.Undefined: { unitObj.Damage(((Damages.DamageDefault * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
+                                case Unit.EUnitType.DwfSoldier: { unitObj.Damage(((Damages.DamageCoreInfantry * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
+                                case Unit.EUnitType.DwfSpecialistInfantry: { unitObj.Damage(((Damages.DamageAntiInfantryMarine * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
+                                case Unit.EUnitType.DwfSpecialistVehicle: { unitObj.Damage(((Damages.DamageHero * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
+                                case Unit.EUnitType.Grumblebuster: { unitObj.Damage(((Damages.DamageCoreVehicle * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
+                                case Unit.EUnitType.Skylancer: { unitObj.Damage(((Damages.DamageAntiAirVehicle * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
+                                case Unit.EUnitType.Catapult: { unitObj.Damage(((Damages.DamageMobileArtillery * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
+                                case Unit.EUnitType.SiegeEngine: { unitObj.Damage(((Damages.DamageBattleTank * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
+                                case Unit.EUnitType.LightAirship: { unitObj.Damage(((Damages.DamageCoreAirship * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
+                                case Unit.EUnitType.SupportShip: { unitObj.Damage(((Damages.DamageSupportShip * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
+                                case Unit.EUnitType.HeavyAirship: { unitObj.Damage(((Damages.DamageHeavyAirship * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
+                                default: break;
+                            }
+                        }
+                    }
+
+                    // Damage the object (its not a unit so use the default damage value)
+                    else { worldObj.Damage((Damages.DamageDefault * wm.GetWaveDamageModifier(worldObj)) * dm.GetDifficultyModifier(Unit.EUnitType.Undefined, worldObj.Team == GameManager.Team.Defending, mod), _GunnerAttached._VehicleAttached); }
+                }
+            }
+            else {
+
+                // No raycast hit but still draw a hitscan visualizer
+                GenerateHitScanVisualizer(_GunnerAttached.MuzzleLaunchPoints[0].transform.position, _GunnerAttached.MuzzleLaunchPoints[0].transform.forward * 1000f);
+            }
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Fires a hitscan based projectile.
+    /// </summary>
     private void ProjectileRaycast() {
         
         // Weapon is attached to a unit
@@ -338,7 +621,9 @@ public class Weapon : MonoBehaviour {
 
             if (Physics.Raycast(_UnitAttached.MuzzleLaunchPoints[0].transform.position, attackDir, out hit, _UnitAttached.MaxAttackingRange)) {
 
+                // Render line
                 Debug.DrawLine(_UnitAttached.MuzzleLaunchPoints[0].transform.position, hit.point, Color.blue);
+                GenerateHitScanVisualizer(_UnitAttached.MuzzleLaunchPoints[0].transform.position, hit.point);
 
                 // Damage target
                 WorldObject worldObj = hit.transform.GetComponentInParent<WorldObject>();
@@ -405,6 +690,11 @@ public class Weapon : MonoBehaviour {
                     else { worldObj.Damage((Damages.DamageDefault * wm.GetWaveDamageModifier(worldObj)) * dm.GetDifficultyModifier(Unit.EUnitType.Undefined, worldObj.Team == GameManager.Team.Defending, mod), _UnitAttached); }
                 }
             }
+            else {
+
+                // No raycast hit but still draw a hitscan visualizer
+                GenerateHitScanVisualizer(_UnitAttached.MuzzleLaunchPoints[0].transform.position, _UnitAttached.MuzzleLaunchPoints[0].transform.forward * 1000f);
+            }
         }
 
         // Weapon is attached to a tower
@@ -418,7 +708,9 @@ public class Weapon : MonoBehaviour {
 
             if (Physics.Raycast(_TowerAttached.MuzzleLaunchPoints[0].transform.position, attackDir, out hit, _TowerAttached.MaxAttackingRange)) {
 
-                Debug.DrawLine(_TowerAttached.MuzzleLaunchPoints[0].transform.position, hit.point, Color.red);
+                // Render line
+                Debug.DrawLine(_TowerAttached.MuzzleLaunchPoints[0].transform.position, hit.point, Color.blue);
+                GenerateHitScanVisualizer(_TowerAttached.MuzzleLaunchPoints[0].transform.position, hit.point);
 
                 // Damage target
                 WorldObject worldObj = hit.transform.GetComponentInParent<WorldObject>();
@@ -485,6 +777,11 @@ public class Weapon : MonoBehaviour {
                     else { worldObj.Damage((Damages.DamageDefault * wm.GetWaveDamageModifier(worldObj)) * dm.GetDifficultyModifier(Unit.EUnitType.Undefined, worldObj.Team == GameManager.Team.Defending, mod), _TowerAttached); }
                 }
             }
+            else {
+
+                // No raycast hit but still draw a hitscan visualizer
+                GenerateHitScanVisualizer(_TowerAttached.MuzzleLaunchPoints[0].transform.position, _TowerAttached.MuzzleLaunchPoints[0].transform.forward * 1000f);
+            }
         }
 
         // Weapon is attached to a gunner seat
@@ -498,7 +795,9 @@ public class Weapon : MonoBehaviour {
 
             if (Physics.Raycast(_GunnerAttached.MuzzleLaunchPoints[0].transform.position, attackDir, out hit, _GunnerAttached.MaxAttackRange)) {
 
-                Debug.DrawLine(_GunnerAttached.MuzzleLaunchPoints[0].transform.position, hit.point, Color.red);
+                // Render line
+                Debug.DrawLine(_GunnerAttached.MuzzleLaunchPoints[0].transform.position, hit.point, Color.blue);
+                GenerateHitScanVisualizer(_GunnerAttached.MuzzleLaunchPoints[0].transform.position, hit.point);
 
                 // Damage target
                 WorldObject worldObj = hit.transform.GetComponentInParent<WorldObject>();
@@ -546,17 +845,17 @@ public class Weapon : MonoBehaviour {
                             // Damage based on unit type
                             switch (unitObj.UnitType) {
 
-                                case Unit.EUnitType.Undefined:          { unitObj.Damage(((Damages.DamageDefault * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
-                                case Unit.EUnitType.DwfSoldier:         { unitObj.Damage(((Damages.DamageCoreInfantry * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
+                                case Unit.EUnitType.Undefined: { unitObj.Damage(((Damages.DamageDefault * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
+                                case Unit.EUnitType.DwfSoldier: { unitObj.Damage(((Damages.DamageCoreInfantry * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
                                 case Unit.EUnitType.DwfSpecialistInfantry: { unitObj.Damage(((Damages.DamageAntiInfantryMarine * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
-                                case Unit.EUnitType.DwfSpecialistVehicle:               { unitObj.Damage(((Damages.DamageHero * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
-                                case Unit.EUnitType.Grumblebuster:        { unitObj.Damage(((Damages.DamageCoreVehicle * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
-                                case Unit.EUnitType.Skylancer:     { unitObj.Damage(((Damages.DamageAntiAirVehicle * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
-                                case Unit.EUnitType.Catapult:    { unitObj.Damage(((Damages.DamageMobileArtillery * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
-                                case Unit.EUnitType.SiegeEngine:         { unitObj.Damage(((Damages.DamageBattleTank * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
-                                case Unit.EUnitType.LightAirship:        { unitObj.Damage(((Damages.DamageCoreAirship * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
-                                case Unit.EUnitType.SupportShip:        { unitObj.Damage(((Damages.DamageSupportShip * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
-                                case Unit.EUnitType.HeavyAirship:       { unitObj.Damage(((Damages.DamageHeavyAirship * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
+                                case Unit.EUnitType.DwfSpecialistVehicle: { unitObj.Damage(((Damages.DamageHero * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
+                                case Unit.EUnitType.Grumblebuster: { unitObj.Damage(((Damages.DamageCoreVehicle * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
+                                case Unit.EUnitType.Skylancer: { unitObj.Damage(((Damages.DamageAntiAirVehicle * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
+                                case Unit.EUnitType.Catapult: { unitObj.Damage(((Damages.DamageMobileArtillery * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
+                                case Unit.EUnitType.SiegeEngine: { unitObj.Damage(((Damages.DamageBattleTank * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
+                                case Unit.EUnitType.LightAirship: { unitObj.Damage(((Damages.DamageCoreAirship * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
+                                case Unit.EUnitType.SupportShip: { unitObj.Damage(((Damages.DamageSupportShip * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
+                                case Unit.EUnitType.HeavyAirship: { unitObj.Damage(((Damages.DamageHeavyAirship * vehicleA.VetDamages[vehicleA.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), vehicleA); break; }
                                 default: break;
                             }
                         }
@@ -566,7 +865,65 @@ public class Weapon : MonoBehaviour {
                     else { worldObj.Damage((Damages.DamageDefault * wm.GetWaveDamageModifier(worldObj)) * dm.GetDifficultyModifier(Unit.EUnitType.Undefined, worldObj.Team == GameManager.Team.Defending, mod), _GunnerAttached._VehicleAttached); }
                 }
             }
+            else {
+
+                // No raycast hit but still draw a hitscan visualizer
+                GenerateHitScanVisualizer(_GunnerAttached.MuzzleLaunchPoints[0].transform.position, _GunnerAttached.MuzzleLaunchPoints[0].transform.forward * 1000f);
+            }
         }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Creates a line renderer to visualize 
+    /// </summary>
+    /// <param name="start"></param>
+    /// <param name="end"></param>
+    private void GenerateHitScanVisualizer(Vector3 start, Vector3 end) {
+
+        if (VisualizeHitscanTrace) {
+
+            // Create line renderer object
+            GameObject lineStencil = GameManager.Instance.HitScanVisualizer;
+            LineRenderer line = ObjectPooling.Spawn(lineStencil.gameObject, Vector3.zero).GetComponent<LineRenderer>();
+
+            Vector3[] positions = new Vector3[2];
+            positions[0] = start;
+            positions[1] = end;
+
+            // Set line properties
+            line.positionCount = 2;
+            line.SetPositions(positions);
+            line.material = new Material(Shader.Find("Particles/Additive"));
+            line.startColor = HitScanStartColour;
+            line.endColor = HitScanEndColour;
+            line.startWidth = HitScanStartWidth;
+            line.endWidth = HitScanEndWidth;
+
+            // Delayed despawn
+            StartCoroutine(HitscanRenderDespawn(line, HitScanDrawTime));
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  A coroutine that waits for the time specified in seconds, then despawns the line renderer gameobject
+    //  that is passed through.
+    /// </summary>
+    /// <param name="line"></param>
+    /// <param name="delay"></param>
+    /// <returns>
+    //  IEnumerator
+    /// </returns>
+    private IEnumerator HitscanRenderDespawn(LineRenderer line, float delay) {
+
+        // Delay
+        yield return new WaitForSeconds(delay);
+
+        // Despawn
+        ObjectPooling.Despawn(line.gameObject);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -715,7 +1072,7 @@ public class Weapon : MonoBehaviour {
         switch (_ProjectileType) {
 
             case EProjectileType.Object:    { ProjectileObject(); break; }
-            case EProjectileType.Raycast:   { ProjectileRaycast(); break; }
+            case EProjectileType.RaycastSingle:   { ProjectileRaycast(); break; }
             case EProjectileType.Particle:  { ProjectileParticle(); break; }
             default: { break; }
         }

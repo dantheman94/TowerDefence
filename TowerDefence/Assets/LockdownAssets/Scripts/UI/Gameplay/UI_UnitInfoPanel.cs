@@ -8,8 +8,8 @@ using TMPro;
 //
 //  Created by: Daniel Marton
 //
-//  Last edited by: Joshua D'Agostino
-//  Last edited on: 09/10/2018
+//  Last edited by: Daniel Marton
+//  Last edited on: 10/10/2018
 //
 //******************************
 
@@ -23,7 +23,7 @@ public class UI_UnitInfoPanel : MonoBehaviour {
 
     [Space]
     [Header("-----------------------------------")]
-    [Header(" COMPONENTS")]
+    [Header(" WIDGET COMPONENTS")]
     [Space]
     public Image LogoComponent = null;
     public TMP_Text UnitName = null;
@@ -32,7 +32,7 @@ public class UI_UnitInfoPanel : MonoBehaviour {
 
     //******************************************************************************************************************************
     //
-    //      INSPECTOR
+    //      FUNCTIONS
     //
     //******************************************************************************************************************************
 

@@ -55,16 +55,24 @@ MonoBehaviour:
   ProjectileClass: {fileID: 0}
   FiringEffect: {fileID: 198718711815295068, guid: 85890053984b40445ac3d1b2f38e3314,
     type: 2}
-  MuzzleEffect: {fileID: 0}
+  FiringDelay: 0.2
+  MuzzleEffectWrapper: {fileID: 0}
   MuzzlePatternType: 0
   ReusableMuzzlePoints: 1
-  FiringDelay: 0.2
   ChargeUpTime: 0
-  ChargeLightRadius: 5
+  ChargeLightRange: 50
   ChargeLightIntensity: 1
   ChargeUpColor: {r: 1, g: 1, b: 1, a: 1}
   AngularOffsetType: 0
   AngularOffset: {x: 0, y: 0, z: 0}
+  VisualizeHitscanTrace: 1
+  HitScanDrawTime: 0.05
+  HitScanStartColour: {r: 0.6691177, g: 0.6691177, b: 0.6691177, a: 1}
+  HitScanStartWidth: 0.05
+  HitScanEndColour: {r: 0.36764705, g: 0.36764705, b: 0.36764705, a: 1}
+  HitScanEndWidth: 0.05
+  DefaultImpactEffect: {fileID: 0}
+  SpawnOnImpact: {fileID: 0}
   Damages:
     DamageDefault: 3
     DamageCoreInfantry: 3

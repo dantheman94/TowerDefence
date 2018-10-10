@@ -8,7 +8,7 @@ using UnityEngine.UI;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 25/7/2018
+//  Last edited on: 10/10/2018
 //
 //******************************
 
@@ -24,7 +24,7 @@ public class UI_PlatoonUnits : MonoBehaviour {
     [Header("-----------------------------------")]
     [Header(" PANELS")]
     [Space]
-    public List<UI_UnitInfoPanel> UnitInfoPanels;
+    public List<Platoon> PlatoonInfoPanels;
 
     //******************************************************************************************************************************
     //
@@ -47,8 +47,6 @@ public class UI_PlatoonUnits : MonoBehaviour {
     /// </summary>
     private void Start() {
 
-        // Get component references
-        _PlayerAttached = GameManager.Instance.Players[0];
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -60,12 +58,15 @@ public class UI_PlatoonUnits : MonoBehaviour {
 
         if (_PlayerAttached != null) {
 
-            for (int i = 0; i < UnitInfoPanels.Count; i++) {
+            for (int i = 0; i < PlatoonInfoPanels.Count; i++) {
 
                 // Update platoon size
-                UnitInfoPanels[i].AmountCounter.text = _PlayerAttached.GetPlatoon(i).GetAi().Count.ToString();
+                PlatoonInfoPanels[i].PlatoonCounter.text = _PlayerAttached.GetPlatoon(i).GetAi().Count.ToString();
             }
         }
+
+        // Get component references
+        else { _PlayerAttached = GameManager.Instance.Players[0]; }
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

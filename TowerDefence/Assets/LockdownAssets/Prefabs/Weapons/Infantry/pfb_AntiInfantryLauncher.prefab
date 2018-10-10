@@ -51,12 +51,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f24bbf81aea765549a797e3e95ee482d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ProjectileType: 0
+  _ProjectileType: 2
   ProjectileClass: {fileID: 114429450592400748, guid: a78c558a35b7c404facd00f0d0c8eae2,
     type: 2}
   FiringEffect: {fileID: 0}
   FiringDelay: 1
-  MuzzleEffect: {fileID: 0}
+  MuzzleEffectWrapper: {fileID: 0}
   MuzzlePatternType: 0
   ReusableMuzzlePoints: 1
   ChargeUpTime: 0
@@ -65,6 +65,13 @@ MonoBehaviour:
   ChargeUpColor: {r: 1, g: 1, b: 1, a: 1}
   AngularOffsetType: 0
   AngularOffset: {x: 0, y: 0, z: 0}
+  VisualizeHitscanTrace: 0
+  HitScanDrawTime: 1
+  HitScanStartColour: {r: 1, g: 1, b: 1, a: 1}
+  HitScanStartWidth: 1
+  HitScanEndColour: {r: 1, g: 1, b: 1, a: 1}
+  HitScanEndWidth: 1
+  DefaultImpactEffect: {fileID: 0}
   SpawnOnImpact: {fileID: 0}
   Damages:
     DamageDefault: 2

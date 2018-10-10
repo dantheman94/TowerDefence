@@ -88,6 +88,7 @@ public class GameManager : MonoBehaviour {
     public GameObject ObjectSelected;
     public GameObject ObjectHighlighted;
     public GameObject RallyPointObject = null;
+    public GameObject HitScanVisualizer = null;
 
     [Header("-----------------------------------")]
     [Header(" SCREENS")]
@@ -182,6 +183,7 @@ public class GameManager : MonoBehaviour {
 
         // Initialize lists
         Selectables = new List<Selectable>();
+        Players = new List<Player>();
 
         _CinematicInProgress = false;
     }
@@ -194,7 +196,6 @@ public class GameManager : MonoBehaviour {
     private void Start() {
 
         // Get all player entities
-        Players = new List<Player>();
         GameObject[] objs = GameObject.FindGameObjectsWithTag("Player");
         foreach (var item in objs) {
 

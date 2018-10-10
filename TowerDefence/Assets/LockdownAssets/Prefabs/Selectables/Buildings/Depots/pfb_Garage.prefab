@@ -47,7 +47,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1094313661839204
 GameObject:
   m_ObjectHideFlags: 0
@@ -555,8 +555,13 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 60
   _WidgetShieldbarScaleY: 10
   _WidgetShieldbarOffset: 10
+  ProjectileImpactEffect: {fileID: 0}
+  HealthThresholdDamaged: 0.5
+  HealthDamagedParticles: []
   OnDeathEffects:
   - {fileID: 198831994865105058, guid: 451198ea52c916b4ca0f0cad0dadd9a1, type: 2}
+  CameraShakeOnDeath: 1
+  DeathExplosionRadius: 10
   ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.3
   AttachedBuildingSlot: {fileID: 0}

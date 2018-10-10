@@ -512,7 +512,7 @@ public class WaveManager : MonoBehaviour {
     private void SpawnSubwave(List<WorldObject> subwaveEnemies) {
 
         // Notify HUD
-        _CurrentLockdownPad.LockdownPadHud.Flash();
+        ///_CurrentLockdownPad.LockdownPadHud.Flash();
 
         // Spawn units
         List<Vector3> spawnPositions = _CurrentLockdownPad.GetSpawnLocations(subwaveEnemies.Count);

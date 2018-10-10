@@ -251,7 +251,7 @@ public class Unit : WorldObject {
     //  Called each frame. 
     /// </summary>
     protected override void Update() {
-        base.Update();
+        base.Update();  
 
         // Update chasing enemy
         if (_IsChasing) { UpdateChasingEnemy(); }
@@ -604,6 +604,7 @@ public class Unit : WorldObject {
             if (unit._UnitVeterancyWidget == null) { _UnitVeterancyWidget = ObjectPooling.Spawn(GameManager.Instance.UnitVeterancyPanel.gameObject).GetComponent<UnitVeterancyCounter>(); }
             if (unit._UnitVeterancyWidget != null && _Player != null) {
 
+                unit.StartingVeterancyLevel = 0;
                 unit._UnitVeterancyWidget.SetCameraAttached(unit._Player.CameraAttached);
                 unit._UnitVeterancyWidget.SetUnitAttached(unit);
                 unit._UnitVeterancyWidget.transform.SetParent(GameManager.Instance.WorldSpaceCanvas.gameObject.transform, false);
@@ -652,7 +653,8 @@ public class Unit : WorldObject {
         if (_AttackTarget == WaveManager.Instance.CentralCore || 
                              WaveManager.Instance.CentralCore.Spires[0] || 
                              WaveManager.Instance.CentralCore.Spires[1] || 
-                             WaveManager.Instance.CentralCore.Spires[2]) {
+                             WaveManager.Instance.CentralCore.Spires[2] &&
+                             Team == GameManager.Team.Attacking) { 
 
             DetermineWeightedTargetFromList(TargetWeights);
         }
