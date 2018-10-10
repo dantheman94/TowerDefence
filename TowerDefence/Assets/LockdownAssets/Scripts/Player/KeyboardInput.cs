@@ -79,7 +79,7 @@ public class KeyboardInput : MonoBehaviour {
         
         if(Input.GetMouseButtonUp(1))
         {
-      //      LineMovement();
+            LineMovement();
         }
         if (_PlayerAttached) {
 
@@ -864,7 +864,7 @@ public class KeyboardInput : MonoBehaviour {
         if (GameManager.Instance.GetIsUnitControlling() == false) {
 
             // There are AI currently selected and therefore we can command them
-            if (UnitsSelected.Count > 0) { AiMouseCommandsInput(UnitsSelected); 
+            if (UnitsSelected.Count > 0) { //AiMouseCommandsInput(UnitsSelected); 
              
             }
         }
@@ -1459,6 +1459,10 @@ public class KeyboardInput : MonoBehaviour {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /// <summary>
+    /// Create screen selection.
+    /// </summary>
+    /// <returns></returns>
     public bool CreateScreenSelection() {
 
         if (Input.GetKeyDown(KeyCode.Q)) {
@@ -1469,6 +1473,9 @@ public class KeyboardInput : MonoBehaviour {
         }
     }
 
+
+    /// <summary>
+    /// Line movement for forming straight formations with a group of enemies
     private void LineMovement()
     {
         // Get point in world that is used to command the AI currently selected (go position, attack target, etc)
@@ -1476,26 +1483,31 @@ public class KeyboardInput : MonoBehaviour {
         Vector3 hitPointstart = Slicedrawer.LineStartPoint;
         GameObject hitObjectend = Slicedrawer.EndGO;
         Vector3 hitPointend = Slicedrawer.MouseEndPoint;
+        float Distance = Vector3.Distance(hitPointstart, hitPointend);
+        float relativeDistance = (Distance / _PlayerAttached.SelectedUnits.Count);
+        float relativeCopy = relativeDistance;
         for (int i = 0; i < _PlayerAttached.SelectedUnits.Count; ++i)
         {
-         
             if (hitObjectstart && hitPointstart != Settings.InvalidPosition)
             {
-                
+                //Use direction of end point to go from start point to next node using relativeDistance
+                // need to count count first and last
+
+          //   hitObjectstart.transform.LookAt(hitPointend);
+                Vector3 newVector = (hitPointstart + hitPointend) / 2;
+                Vector3 newVector2 = (hitPointstart + newVector) / 2;
+
                 // AI seek to hitpoint vector
                 if (hitObjectstart.tag == "Ground")
                 {
-                        if (i == 0)
-                        {
-                            _PlayerAttached.SelectedUnits[i].AgentSeekPosition(hitPointstart, true, true);
-                        }
-                        if (i == _PlayerAttached.SelectedUnits.Count - 1)
-                        {
-                            if (hitPointend != Settings.InvalidPosition && hitObjectend.tag == "Ground")
-                                _PlayerAttached.SelectedUnits[i].AgentSeekPosition(hitPointend, true, true);
-                        }
-             
-                
+                    {
+                        Vector3 newDirection = hitPointend - hitPointstart;
+                        Vector3 directionOnly = newDirection.normalized;
+                        Vector3 pointAlongDirection = hitPointstart + (directionOnly * relativeDistance);
+
+                        _PlayerAttached.SelectedUnits[i].AgentSeekPosition(pointAlongDirection, true, true);
+                        relativeDistance += relativeCopy;
+                    }
                     }
                 }
 

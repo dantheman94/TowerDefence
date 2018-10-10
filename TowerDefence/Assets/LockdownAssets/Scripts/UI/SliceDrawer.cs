@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 //-=-=-=-=-=-=-=-=-=-=-=-=
 //Created by Angus Secomb
 //Last Modified:1 0/9/2018
@@ -27,6 +28,7 @@ public class SliceDrawer : MonoBehaviour {
     public GameObject EndGO;
 
     public HUD hud;
+    
     // VARIABLES
     ///////////////////////////////////////////////////////////////////
     private Vector3 _LineStartPoint;
@@ -46,7 +48,6 @@ public class SliceDrawer : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-
 
         if (Input.GetMouseButtonDown(1))
         {
@@ -73,12 +74,11 @@ public class SliceDrawer : MonoBehaviour {
                 lineRenderer.endWidth = LineWidth;
             }
 
-
             // LineStartPoint = null;
         }
         if(Input.GetMouseButtonUp(1))
         {
- 
+         
             Destroy(newobject);
             MouseEndPoint = hud.FindHitPoint();
             EndGO = hud.FindHitObject();
