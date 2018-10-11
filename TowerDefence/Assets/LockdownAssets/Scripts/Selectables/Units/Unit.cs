@@ -168,10 +168,9 @@ public class Unit : WorldObject {
         if (MaxAttackingRange < IdealAttackRangeMax)   { MaxAttackingRange = IdealAttackRangeMax; }
         if (MaxAttackingRange < IdealAttackRangeMax) { MaxAttackingRange = IdealAttackRangeMax; }
         SnapLookAtRange = IdealAttackRangeMin;
-        
+
         // Set fog vision radius
-        FogUnit _FogOfWarSight = GetComponent<FogUnit>();
-        _FogOfWarSight.Radius = MaxAttackingRange * 1.5f;
+        if (_FogOfWarSight != null) { _FogOfWarSight.Radius = MaxAttackingRange * 1.5f; }
 
         // Get sensory collider references
         SphereCollider[] sphereCols = GetComponentsInChildren<SphereCollider>();
@@ -182,9 +181,9 @@ public class Unit : WorldObject {
         }
 
         // Set sensorary sizes
-        if (_SightSphere != null) { _SightSphere.radius = _FogOfWarSight.Radius * 0.9f; }
-        if (_HearingSphere != null) { _HearingSphere.radius = _FogOfWarSight.Radius * 1f; }
-        if (SightCone != null) { SightCone.SetDistance(_FogOfWarSight.Radius * 0.9f); }
+        if (_SightSphere != null && _FogOfWarSight != null) { _SightSphere.radius = _FogOfWarSight.Radius * 0.9f; }
+        if (_HearingSphere != null && _FogOfWarSight != null) { _HearingSphere.radius = _FogOfWarSight.Radius * 1f; }
+        if (SightCone != null && _FogOfWarSight != null) { SightCone.SetDistance(_FogOfWarSight.Radius * 0.9f); }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -27,9 +27,6 @@ public class Projectile : MonoBehaviour {
     public float MaxDistance = 1000f;
     [Space]
     public bool AffectedByGravity = false;
-    [Space]
-    public bool HomingProjectile = false;
-    public float TrackingStrength = 0f;
 
     [Space]
     [Header("-----------------------------------")]
@@ -53,6 +50,9 @@ public class Projectile : MonoBehaviour {
 
     private Vector3 _Downwards = Vector3.down;
     private Vector3 _Velocity = Vector3.zero;
+
+    private bool _HomingProjectile = false;
+    private float _TrackingStrength = 0f;
 
     private float _DistanceTravelled = 0f;
 
@@ -106,7 +106,9 @@ public class Projectile : MonoBehaviour {
         gameObject.SetActive(true);
 
         // Set homing target for tracking
-        if (HomingProjectile) {
+        _HomingProjectile = wep.TrackingProjectile;
+        _TrackingStrength = wep.TrackingStrength;
+        if (_HomingProjectile) {
 
             if (_WeaponAttached.GetUnitAttached() != null)  { HomingTarget = _WeaponAttached.GetUnitAttached().GetAttackTarget(); }
             if (_WeaponAttached.GetTowerAttached() != null) { HomingTarget = _WeaponAttached.GetTowerAttached().GetAttackTarget(); }
@@ -136,31 +138,35 @@ public class Projectile : MonoBehaviour {
         // Re-pool projectile when it has reached max distance threshold
         if (_DistanceTravelled < MaxDistance) _DistanceTravelled = Vector3.Distance(_OriginPosition, transform.position);
         else { OnDestroy(); }
-
-        // Determine if we have passed our target & no longer track if so
-        if (_DistanceTravelled >= _DisableTrackDistance) {
-
-            HomingTarget = null;
-            HomingProjectile = false;
-        }
-
+        
         // Track target if possible
-        if (HomingProjectile && HomingTarget != null) {
+        if (_HomingProjectile && HomingTarget != null) {
+            
+            // Determine if we have passed our target & no longer track if so
+            if (_DistanceTravelled >= _DisableTrackDistance) {
 
-            if (HomingTarget.IsAlive()) {
-                
-                // Find the vector pointing from our position to the target
-                Vector3 target = HomingTarget.transform.position;
-                target.y += HomingTarget.GetObjectHeight() * 0.75f;
-                if (HomingTarget.TargetPoint != null) { target = HomingTarget.TargetPoint.transform.position; }
+                HomingTarget = null;
+                _HomingProjectile = false;
+            }
 
-                _DirectionToTarget = (target - transform.position).normalized;
+            // Is the projectile still tracking
+            if (HomingTarget != null) {
 
-                // Create the rotation we need to be in to look at the target
-                _WeaponLookRotation = Quaternion.LookRotation(_DirectionToTarget);
+                if (HomingTarget.IsAlive()) {
 
-                // Rotate us over time according to speed until we are in the required rotation
-                transform.rotation = Quaternion.Lerp(transform.rotation, _WeaponLookRotation, TrackingStrength * Time.deltaTime);
+                    // Find the vector pointing from our position to the target
+                    Vector3 target = HomingTarget.transform.position;
+                    target.y += HomingTarget.GetObjectHeight() * 0.75f;
+                    if (HomingTarget.TargetPoint != null) { target = HomingTarget.TargetPoint.transform.position; }
+
+                    _DirectionToTarget = (target - transform.position).normalized;
+
+                    // Create the rotation we need to be in to look at the target
+                    _WeaponLookRotation = Quaternion.LookRotation(_DirectionToTarget);
+
+                    // Rotate us over time according to speed until we are in the required rotation
+                    transform.rotation = Quaternion.Lerp(transform.rotation, _WeaponLookRotation, _TrackingStrength * Time.deltaTime);
+                }
             }
         }
     }
@@ -221,7 +227,7 @@ public class Projectile : MonoBehaviour {
 
                 // Despawn particle system once it has finished its cycle
                 float effectDuration = effect.duration + effect.startLifetime;
-                StartCoroutine(ParticleDespawner.ParticleDespawn(effect, effectDuration));
+                StartCoroutine(ParticleDespawner.Instance.ParticleDespawn(effect, effectDuration));
             }
 
             // Camera shake on explosion
@@ -244,7 +250,7 @@ public class Projectile : MonoBehaviour {
 
             // Despawn particle system once it has finished its cycle
             float effectDuration = effect.duration + effect.startLifetime;
-            StartCoroutine(ParticleDespawner.ParticleDespawn(effect, effectDuration));
+            StartCoroutine(ParticleDespawner.Instance.ParticleDespawn(effect, effectDuration));
         }
                 
         ObjectPooling.Despawn(gameObject);

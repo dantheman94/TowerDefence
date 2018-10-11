@@ -29,6 +29,9 @@ public class Weapon : MonoBehaviour {
     public ParticleSystem FiringEffect = null;
     [Space]
     public float FiringDelay = 0.5f;
+    [Space]
+    public bool TrackingProjectile = false;
+    public float TrackingStrength = 1f;
 
     [Space]
     [Header("-----------------------------------")]
@@ -56,7 +59,11 @@ public class Weapon : MonoBehaviour {
 
     [Space]
     [Header("-----------------------------------")]
-    [Header(" RAYCAST DRAW PROPERTIES")]
+    [Header(" RAYCAST PROPERTIES")]
+    [Space]
+    public bool SpreadRaycasts = false;
+    public int SpreadAmount = 1;
+    public float SpreadAngle = 1f;
     [Space]
     public bool VisualizeHitscanTrace = false;
     public float HitScanDrawTime = 1f;
@@ -90,7 +97,7 @@ public class Weapon : MonoBehaviour {
     //
     //******************************************************************************************************************************
 
-    public enum EProjectileType { Object, RaycastSingle, RaycastSpread, Particle }
+    public enum EProjectileType { Object, Raycast, Particle }
     public enum EOffsetType { Alternate, Consecutive, Random }
     public enum EMuzzleFiringPatternType { Consective, Random }
 
@@ -343,87 +350,98 @@ public class Weapon : MonoBehaviour {
         // Weapon is attached to a unit
         if (_UnitAttached != null) {
 
-            RaycastHit hit;
-            Vector3 attackPos = _UnitAttached.GetAttackTarget().transform.position;
-            attackPos.y = attackPos.y + _UnitAttached.GetAttackTarget().GetObjectHeight() / 2;
-            Vector3 attackDir = attackPos - _UnitAttached.MuzzleLaunchPoints[0].transform.position;
-            attackDir.Normalize();
+            // The first projectile has already been shot so the next
+            // iterator(s) fire off in an additive angle by the previous iterator
+            for (int i = 0; i < SpreadAmount; i++) {
 
-            if (Physics.Raycast(_UnitAttached.MuzzleLaunchPoints[0].transform.position, attackDir, out hit, _UnitAttached.MaxAttackingRange)) {
+                RaycastHit hit;
+                Vector3 attackPos = _UnitAttached.GetAttackTarget().transform.position;
+                attackPos.y = attackPos.y + _UnitAttached.GetAttackTarget().GetObjectHeight() / 2;
+                Vector3 attackDir = attackPos - _UnitAttached.MuzzleLaunchPoints[0].transform.position;
+                attackDir.Normalize();
+                attackDir = Quaternion.AngleAxis(SpreadAngle * i, Vector3.up) * attackDir;
+                ///attackDir.Normalize();
 
-                // Render line
-                Debug.DrawLine(_UnitAttached.MuzzleLaunchPoints[0].transform.position, hit.point, Color.blue);
-                GenerateHitScanVisualizer(_UnitAttached.MuzzleLaunchPoints[0].transform.position, hit.point);
+                // Raycast hit something
+                if (Physics.Raycast(_UnitAttached.MuzzleLaunchPoints[0].transform.position, attackDir, out hit, _UnitAttached.MaxAttackingRange)) {
 
-                // Damage target
-                WorldObject worldObj = hit.transform.GetComponentInParent<WorldObject>();
+                    // Render line
+                    Debug.DrawLine(_UnitAttached.MuzzleLaunchPoints[0].transform.position, hit.point, Color.blue);
+                    GenerateHitScanVisualizer(_UnitAttached.MuzzleLaunchPoints[0].transform.position, hit.point);
 
-                if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Ignore Raycast")) { return; }
+                    // Damage target
+                    WorldObject worldObj = hit.transform.GetComponentInParent<WorldObject>();
 
-                else if (worldObj != null) {
+                    if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Ignore Raycast")) { return; }
 
-                    // Play impacted object's particle effect
-                    Vector3 position = hit.point;
-                    Quaternion rotation = Quaternion.FromToRotation(hit.point, _UnitAttached.MuzzleLaunchPoints[0].transform.position);
-                    if (worldObj.ProjectileImpactEffect != null) {
+                    else if (worldObj != null) {
 
-                        ParticleSystem impact = ObjectPooling.Spawn(worldObj.ProjectileImpactEffect.gameObject, position, rotation).GetComponent<ParticleSystem>();
-                        impact.Play();
+                        // Play impacted object's particle effect
+                        Vector3 position = hit.point;
+                        Quaternion rotation = Quaternion.FromToRotation(hit.point, _UnitAttached.MuzzleLaunchPoints[0].transform.position);
+                        if (worldObj.ProjectileImpactEffect != null) {
 
-                        // Despawn particle system once it has finished its cycle
-                        float effectDuration = impact.duration + impact.startLifetime;
-                        StartCoroutine(ParticleDespawner.ParticleDespawn(impact, effectDuration));
-                    }
+                            ParticleSystem impact = ObjectPooling.Spawn(worldObj.ProjectileImpactEffect.gameObject, position, rotation).GetComponent<ParticleSystem>();
+                            impact.Play();
 
-                    // Play default impact effect
-                    else {
+                            // Despawn particle system once it has finished its cycle
+                            float effectDuration = impact.duration + impact.startLifetime;
+                            StartCoroutine(ParticleDespawner.Instance.ParticleDespawn(impact, effectDuration));
+                        }
 
-                        ParticleSystem impact = ObjectPooling.Spawn(DefaultImpactEffect.gameObject, position, rotation).GetComponent<ParticleSystem>();
-                        impact.Play();
+                        // Play default impact effect
+                        else {
 
-                        // Despawn particle system once it has finished its cycle
-                        float effectDuration = impact.duration + impact.startLifetime;
-                        StartCoroutine(ParticleDespawner.ParticleDespawn(impact, effectDuration));
-                    }
+                            ParticleSystem impact = ObjectPooling.Spawn(DefaultImpactEffect.gameObject, position, rotation).GetComponent<ParticleSystem>();
+                            impact.Play();
 
-                    DifficultyManager dm = DifficultyManager.Instance;
-                    DifficultyManager.EDifficultyModifiers mod = DifficultyManager.EDifficultyModifiers.Damage;
-                    WaveManager wm = WaveManager.Instance;
+                            // Despawn particle system once it has finished its cycle
+                            float effectDuration = impact.duration + impact.startLifetime;
+                            StartCoroutine(ParticleDespawner.Instance.ParticleDespawn(impact, effectDuration));
+                        }
 
-                    // Check if object is of type unit
-                    Unit unitObj = worldObj.GetComponent<Unit>();
-                    if (unitObj != null) {
+                        DifficultyManager dm = DifficultyManager.Instance;
+                        DifficultyManager.EDifficultyModifiers mod = DifficultyManager.EDifficultyModifiers.Damage;
+                        WaveManager wm = WaveManager.Instance;
 
-                        // Cannot damage self
-                        if (unitObj.Team != _UnitAttached.Team) {
+                        // Check if object is of type unit
+                        Unit unitObj = worldObj.GetComponent<Unit>();
+                        if (unitObj != null) {
 
-                            // Damage based on unit type
-                            switch (unitObj.UnitType) {
+                            // Cannot damage self
+                            if (unitObj.Team != _UnitAttached.Team) {
 
-                                case Unit.EUnitType.Undefined: { unitObj.Damage(((Damages.DamageDefault * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
-                                case Unit.EUnitType.DwfSoldier: { unitObj.Damage(((Damages.DamageCoreInfantry * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
-                                case Unit.EUnitType.DwfSpecialistInfantry: { unitObj.Damage(((Damages.DamageAntiInfantryMarine * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
-                                case Unit.EUnitType.DwfSpecialistVehicle: { unitObj.Damage(((Damages.DamageHero * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
-                                case Unit.EUnitType.Grumblebuster: { unitObj.Damage(((Damages.DamageCoreVehicle * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
-                                case Unit.EUnitType.Skylancer: { unitObj.Damage(((Damages.DamageAntiAirVehicle * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
-                                case Unit.EUnitType.Catapult: { unitObj.Damage(((Damages.DamageMobileArtillery * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
-                                case Unit.EUnitType.SiegeEngine: { unitObj.Damage(((Damages.DamageBattleTank * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
-                                case Unit.EUnitType.LightAirship: { unitObj.Damage(((Damages.DamageCoreAirship * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
-                                case Unit.EUnitType.SupportShip: { unitObj.Damage(((Damages.DamageSupportShip * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
-                                case Unit.EUnitType.HeavyAirship: { unitObj.Damage(((Damages.DamageHeavyAirship * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
-                                default: break;
+                                // Damage based on unit type
+                                switch (unitObj.UnitType) {
+
+                                    case Unit.EUnitType.Undefined: { unitObj.Damage(((Damages.DamageDefault * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
+                                    case Unit.EUnitType.DwfSoldier: { unitObj.Damage(((Damages.DamageCoreInfantry * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
+                                    case Unit.EUnitType.DwfSpecialistInfantry: { unitObj.Damage(((Damages.DamageAntiInfantryMarine * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
+                                    case Unit.EUnitType.DwfSpecialistVehicle: { unitObj.Damage(((Damages.DamageHero * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
+                                    case Unit.EUnitType.Grumblebuster: { unitObj.Damage(((Damages.DamageCoreVehicle * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
+                                    case Unit.EUnitType.Skylancer: { unitObj.Damage(((Damages.DamageAntiAirVehicle * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
+                                    case Unit.EUnitType.Catapult: { unitObj.Damage(((Damages.DamageMobileArtillery * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
+                                    case Unit.EUnitType.SiegeEngine: { unitObj.Damage(((Damages.DamageBattleTank * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
+                                    case Unit.EUnitType.LightAirship: { unitObj.Damage(((Damages.DamageCoreAirship * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
+                                    case Unit.EUnitType.SupportShip: { unitObj.Damage(((Damages.DamageSupportShip * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
+                                    case Unit.EUnitType.HeavyAirship: { unitObj.Damage(((Damages.DamageHeavyAirship * _UnitAttached.VetDamages[_UnitAttached.GetVeterancyLevel()]) * wm.GetWaveDamageModifier(unitObj)) * dm.GetDifficultyModifier(unitObj, mod), _UnitAttached); break; }
+                                    default: break;
+                                }
                             }
                         }
+
+                        // Damage the object (its not a unit so use the default damage value)
+                        else { worldObj.Damage((Damages.DamageDefault * wm.GetWaveDamageModifier(worldObj)) * dm.GetDifficultyModifier(Unit.EUnitType.Undefined, worldObj.Team == GameManager.Team.Defending, mod), _UnitAttached); }
                     }
-
-                    // Damage the object (its not a unit so use the default damage value)
-                    else { worldObj.Damage((Damages.DamageDefault * wm.GetWaveDamageModifier(worldObj)) * dm.GetDifficultyModifier(Unit.EUnitType.Undefined, worldObj.Team == GameManager.Team.Defending, mod), _UnitAttached); }
                 }
-            }
-            else {
+                else {
 
-                // No raycast hit but still draw a hitscan visualizer
-                GenerateHitScanVisualizer(_UnitAttached.MuzzleLaunchPoints[0].transform.position, _UnitAttached.MuzzleLaunchPoints[0].transform.forward * 1000f);
+                    Vector3 dir = _UnitAttached.MuzzleLaunchPoints[0].transform.forward;
+                    dir = Quaternion.AngleAxis(SpreadAngle * i, Vector3.up) * dir;
+
+                    // No raycast hit but still draw a hitscan visualizer
+                    GenerateHitScanVisualizer(_UnitAttached.MuzzleLaunchPoints[0].transform.position, dir * 1000f);
+                }
             }
         }
 
@@ -459,7 +477,7 @@ public class Weapon : MonoBehaviour {
 
                         // Despawn particle system once it has finished its cycle
                         float effectDuration = impact.duration + impact.startLifetime;
-                        StartCoroutine(ParticleDespawner.ParticleDespawn(impact, effectDuration));
+                        StartCoroutine(ParticleDespawner.Instance.ParticleDespawn(impact, effectDuration));
                     }
 
                     // Play default impact effect
@@ -470,7 +488,7 @@ public class Weapon : MonoBehaviour {
 
                         // Despawn particle system once it has finished its cycle
                         float effectDuration = impact.duration + impact.startLifetime;
-                        StartCoroutine(ParticleDespawner.ParticleDespawn(impact, effectDuration));
+                        StartCoroutine(ParticleDespawner.Instance.ParticleDespawn(impact, effectDuration));
                     }
 
                     DifficultyManager dm = DifficultyManager.Instance;
@@ -546,7 +564,7 @@ public class Weapon : MonoBehaviour {
 
                         // Despawn particle system once it has finished its cycle
                         float effectDuration = impact.duration + impact.startLifetime;
-                        StartCoroutine(ParticleDespawner.ParticleDespawn(impact, effectDuration));
+                        StartCoroutine(ParticleDespawner.Instance.ParticleDespawn(impact, effectDuration));
                     }
 
                     // Play default impact effect
@@ -557,7 +575,7 @@ public class Weapon : MonoBehaviour {
 
                         // Despawn particle system once it has finished its cycle
                         float effectDuration = impact.duration + impact.startLifetime;
-                        StartCoroutine(ParticleDespawner.ParticleDespawn(impact, effectDuration));
+                        StartCoroutine(ParticleDespawner.Instance.ParticleDespawn(impact, effectDuration));
                     }
 
                     DifficultyManager dm = DifficultyManager.Instance;
@@ -642,18 +660,23 @@ public class Weapon : MonoBehaviour {
 
                         // Despawn particle system once it has finished its cycle
                         float effectDuration = impact.duration + impact.startLifetime;
-                        StartCoroutine(ParticleDespawner.ParticleDespawn(impact, effectDuration));
+                        StartCoroutine(ParticleDespawner.Instance.ParticleDespawn(impact, effectDuration));
                     }
 
                     // Play default impact effect
                     else {
 
-                        ParticleSystem impact = ObjectPooling.Spawn(DefaultImpactEffect.gameObject, position, rotation).GetComponent<ParticleSystem>();
-                        impact.Play();
+                        // Validity check
+                        if (DefaultImpactEffect != null) {
 
-                        // Despawn particle system once it has finished its cycle
-                        float effectDuration = impact.duration + impact.startLifetime;
-                        StartCoroutine(ParticleDespawner.ParticleDespawn(impact, effectDuration));
+                            // Object pool the effect
+                            ParticleSystem impact = ObjectPooling.Spawn(DefaultImpactEffect.gameObject, position, rotation).GetComponent<ParticleSystem>();
+                            impact.Play();
+
+                            // Despawn particle system once it has finished its cycle
+                            float effectDuration = impact.duration + impact.startLifetime;
+                            StartCoroutine(ParticleDespawner.Instance.ParticleDespawn(impact, effectDuration));
+                        }
                     }
 
                     DifficultyManager dm = DifficultyManager.Instance;
@@ -729,7 +752,7 @@ public class Weapon : MonoBehaviour {
 
                         // Despawn particle system once it has finished its cycle
                         float effectDuration = impact.duration + impact.startLifetime;
-                        StartCoroutine(ParticleDespawner.ParticleDespawn(impact, effectDuration));
+                        StartCoroutine(ParticleDespawner.Instance.ParticleDespawn(impact, effectDuration));
                     }
 
                     // Play default impact effect
@@ -740,7 +763,7 @@ public class Weapon : MonoBehaviour {
 
                         // Despawn particle system once it has finished its cycle
                         float effectDuration = impact.duration + impact.startLifetime;
-                        StartCoroutine(ParticleDespawner.ParticleDespawn(impact, effectDuration));
+                        StartCoroutine(ParticleDespawner.Instance.ParticleDespawn(impact, effectDuration));
                     }
 
                     DifficultyManager dm = DifficultyManager.Instance;
@@ -816,7 +839,7 @@ public class Weapon : MonoBehaviour {
 
                         // Despawn particle system once it has finished its cycle
                         float effectDuration = impact.duration + impact.startLifetime;
-                        StartCoroutine(ParticleDespawner.ParticleDespawn(impact, effectDuration));
+                        StartCoroutine(ParticleDespawner.Instance.ParticleDespawn(impact, effectDuration));
                     }
 
                     // Play default impact effect
@@ -827,7 +850,7 @@ public class Weapon : MonoBehaviour {
 
                         // Despawn particle system once it has finished its cycle
                         float effectDuration = impact.duration + impact.startLifetime;
-                        StartCoroutine(ParticleDespawner.ParticleDespawn(impact, effectDuration));
+                        StartCoroutine(ParticleDespawner.Instance.ParticleDespawn(impact, effectDuration));
                     }
 
                     DifficultyManager dm = DifficultyManager.Instance;
@@ -871,6 +894,9 @@ public class Weapon : MonoBehaviour {
                 GenerateHitScanVisualizer(_GunnerAttached.MuzzleLaunchPoints[0].transform.position, _GunnerAttached.MuzzleLaunchPoints[0].transform.forward * 1000f);
             }
         }
+
+        // Fire raycasts in a spread
+        if (SpreadRaycasts && SpreadAmount > 1) { ProjectileRaycastSpread(); }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -977,7 +1003,7 @@ public class Weapon : MonoBehaviour {
 
             // Despawn particle system once it has finished its cycle
             float effectDuration = effect.duration + effect.startLifetime;
-            StartCoroutine(ParticleDespawner.ParticleDespawn(effect, effectDuration));
+            StartCoroutine(ParticleDespawner.Instance.ParticleDespawn(effect, effectDuration));
         }
     }
 
@@ -1072,7 +1098,7 @@ public class Weapon : MonoBehaviour {
         switch (_ProjectileType) {
 
             case EProjectileType.Object:    { ProjectileObject(); break; }
-            case EProjectileType.RaycastSingle:   { ProjectileRaycast(); break; }
+            case EProjectileType.Raycast:   { ProjectileRaycast(); break; }
             case EProjectileType.Particle:  { ProjectileParticle(); break; }
             default: { break; }
         }
@@ -1093,7 +1119,7 @@ public class Weapon : MonoBehaviour {
 
             // Despawn particle system once it has finished its cycle
             float effectDuration = effect.duration + effect.startLifetime;
-            StartCoroutine(ParticleDespawner.ParticleParentDespawn(effect, effectDuration));
+            StartCoroutine(ParticleDespawner.Instance.ParticleParentDespawn(effect, effectDuration));
         }
     }
 

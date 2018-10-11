@@ -130,6 +130,7 @@ public class WorldObject : Selectable {
 
     protected WorldObject _ClonedWorldObject = null;
     private Renderer _MinimapQuadRenderer;
+    protected FogUnit _FogOfWarSight;
 
     protected bool _ShowHealthbar = true;
 
@@ -139,6 +140,20 @@ public class WorldObject : Selectable {
     //
     //******************************************************************************************************************************
 
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Called before Start().
+    /// </summary>
+    protected override void Awake() {
+        base.Awake();
+        
+        // Get component references
+        if (QuadMinimap != null) { _MinimapQuadRenderer = QuadMinimap.GetComponent<Renderer>(); }
+        FogUnit _FogOfWarSight = GetComponent<FogUnit>();
+    }
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
@@ -147,9 +162,6 @@ public class WorldObject : Selectable {
     protected override void Start() {
         base.Start();
         
-        // Get component references
-        if (QuadMinimap != null) { _MinimapQuadRenderer = QuadMinimap.GetComponent<Renderer>(); }
-
         // Initialize
         Init();
     }
@@ -193,6 +205,9 @@ public class WorldObject : Selectable {
                 if (BuildingState) { BuildingState.SetActive(false); }
                 if (ActiveState) { ActiveState.SetActive(false); }
                 if (DestroyedState) { DestroyedState.SetActive(false); }
+
+                // Hide fog of war
+                if (_FogOfWarSight != null) { _FogOfWarSight.enabled = false; }
                 break;
             }
 
@@ -203,6 +218,9 @@ public class WorldObject : Selectable {
                 if (InQueueState) { InQueueState.SetActive(true); }
                 if (ActiveState) { ActiveState.SetActive(false); }
                 if (DestroyedState) { DestroyedState.SetActive(false); }
+
+                // Hide fog of war
+                if (_FogOfWarSight != null) { _FogOfWarSight.enabled = false; }
                 break;
             }
 
@@ -226,6 +244,9 @@ public class WorldObject : Selectable {
                 if (BuildingState) { BuildingState.SetActive(true); }
                 if (ActiveState) { ActiveState.SetActive(false); }
                 if (DestroyedState) { DestroyedState.SetActive(false); }
+
+                // Hide fog of war
+                if (_FogOfWarSight != null) { _FogOfWarSight.enabled = false; }
                 break;
             }
 
@@ -238,6 +259,9 @@ public class WorldObject : Selectable {
                 if (BuildingState) { BuildingState.SetActive(false); }
                 if (ActiveState) { ActiveState.SetActive(true); }
                 if (DestroyedState) { DestroyedState.SetActive(false); }
+
+                // Show fog of war
+                if (_FogOfWarSight != null) { _FogOfWarSight.enabled = true; }
                 break;
             }
 
@@ -248,6 +272,9 @@ public class WorldObject : Selectable {
                 if (BuildingState) { BuildingState.SetActive(false); }
                 if (ActiveState) { ActiveState.SetActive(false); }
                 if (DestroyedState) { DestroyedState.SetActive(true); }
+
+                // Hide fog of war
+                if (_FogOfWarSight != null) { _FogOfWarSight.enabled = false; }
                 break;
             }
                                 
