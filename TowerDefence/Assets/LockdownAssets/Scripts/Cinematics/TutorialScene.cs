@@ -75,7 +75,6 @@ public class TutorialScene : MonoBehaviour {
     public List<MessageData> MessageList;
     public GameObject MessagePanel;
     public Text ObjectiveText;
-    public Text ObjectiveTextTwo;
     public Text PromptText;
     public BuildingSlot TurretSlot;
     public BuildingSlot BarricadeSlot;
@@ -205,7 +204,6 @@ public class TutorialScene : MonoBehaviour {
         else
         {
             ObjectiveText.text = "";
-            ObjectiveTextTwo.text = "";
         }
 
         if(MessageList[EventIndex].HighlightSlots)

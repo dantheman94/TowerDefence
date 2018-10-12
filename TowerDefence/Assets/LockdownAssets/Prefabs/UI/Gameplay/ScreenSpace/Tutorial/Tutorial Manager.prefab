@@ -1,0 +1,423 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1523765356352300}
+  m_IsPrefabParent: 1
+--- !u!1 &1523765356352300
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4922466325103946}
+  - component: {fileID: 114225296383776690}
+  m_Layer: 0
+  m_Name: Tutorial Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4922466325103946
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1523765356352300}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114225296383776690
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1523765356352300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd371925b92e2904186cda41dc2f4bf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ResourceTextOutlines:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  MessageList:
+  - DesiredPosition: {fileID: 0}
+    MessageContent: Welcome to our forest drill site newcomer. Here we will cover
+      the basics of commanding our drill outposts for defense against rival factions.
+    TargetObject: {fileID: 0}
+    HighlightObject: {fileID: 0}
+    LerpSpeed: 3
+    EnableTextFlash: 0
+    HighlightBase: 0
+    HighlightSlots: 0
+    HighlightSelectable: 0
+    LockControls: 1
+    DisablePrompt: 0
+    LockCamera: 0
+    LockButtons: 0
+    LockableButtons: []
+    ActionRequired: 0
+    Action: 9
+  - DesiredPosition: {fileID: 0}
+    MessageContent: This is your outpost. Your duty will be to raise its defense,
+      build an army and defend our drill from rival factions.
+    TargetObject: {fileID: 0}
+    HighlightObject: {fileID: 0}
+    LerpSpeed: 0
+    EnableTextFlash: 0
+    HighlightBase: 1
+    HighlightSlots: 1
+    HighlightSelectable: 0
+    LockControls: 1
+    DisablePrompt: 0
+    LockCamera: 0
+    LockButtons: 0
+    LockableButtons: []
+    ActionRequired: 0
+    Action: 0
+  - DesiredPosition: {fileID: 0}
+    MessageContent: Go ahead and click on one of the empty slots and build a power
+      station we can't power our machinery without it.
+    TargetObject: {fileID: 0}
+    HighlightObject: {fileID: 0}
+    LerpSpeed: 0
+    EnableTextFlash: 0
+    HighlightBase: 0
+    HighlightSlots: 1
+    HighlightSelectable: 0
+    LockControls: 0
+    DisablePrompt: 1
+    LockCamera: 1
+    LockButtons: 1
+    LockableButtons:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    ActionRequired: 1
+    Action: 3
+  - DesiredPosition: {fileID: 0}
+    MessageContent: Great! Now build a supply generator we will need to produce more
+      supplies in order to build new structures and bolster our ranks.
+    TargetObject: {fileID: 0}
+    HighlightObject: {fileID: 0}
+    LerpSpeed: 0
+    EnableTextFlash: 0
+    HighlightBase: 0
+    HighlightSlots: 0
+    HighlightSelectable: 1
+    LockControls: 0
+    DisablePrompt: 1
+    LockCamera: 1
+    LockButtons: 1
+    LockableButtons:
+    - {fileID: 0}
+    - {fileID: 0}
+    ActionRequired: 1
+    Action: 4
+  - DesiredPosition: {fileID: 0}
+    MessageContent: Your resources and local suroundings are displayed bottom corner.
+      You'll notice your power and supply have started going up thanks to those buildings.
+    TargetObject: {fileID: 0}
+    HighlightObject: {fileID: 0}
+    LerpSpeed: 0
+    EnableTextFlash: 1
+    HighlightBase: 0
+    HighlightSlots: 0
+    HighlightSelectable: 0
+    LockControls: 1
+    DisablePrompt: 0
+    LockCamera: 0
+    LockButtons: 0
+    LockableButtons: []
+    ActionRequired: 0
+    Action: 0
+  - DesiredPosition: {fileID: 0}
+    MessageContent: This is the mining drill core. It's pumping etherium from the
+      ground a substance that has endless applications.
+    TargetObject: {fileID: 0}
+    HighlightObject: {fileID: 0}
+    LerpSpeed: 0.05
+    EnableTextFlash: 1
+    HighlightBase: 0
+    HighlightSlots: 0
+    HighlightSelectable: 1
+    LockControls: 1
+    DisablePrompt: 0
+    LockCamera: 0
+    LockButtons: 0
+    LockableButtons: []
+    ActionRequired: 0
+    Action: 0
+  - DesiredPosition: {fileID: 0}
+    MessageContent: A substance like this attracts unwanted attention from enemy factions.
+      You must protect the core at all costs! Once all three spires are destroyed
+      it will leave the drill open for attack.
+    TargetObject: {fileID: 0}
+    HighlightObject: {fileID: 0}
+    LerpSpeed: 0.1
+    EnableTextFlash: 0
+    HighlightBase: 0
+    HighlightSlots: 0
+    HighlightSelectable: 1
+    LockControls: 1
+    DisablePrompt: 0
+    LockCamera: 0
+    LockButtons: 0
+    LockableButtons: []
+    ActionRequired: 0
+    Action: 0
+  - DesiredPosition: {fileID: 0}
+    MessageContent: Lets start by getting another soldiers boots on the ground. Click
+      on the town hall and make a dwarf soldier.
+    TargetObject: {fileID: 0}
+    HighlightObject: {fileID: 0}
+    LerpSpeed: 0.05
+    EnableTextFlash: 0
+    HighlightBase: 1
+    HighlightSlots: 0
+    HighlightSelectable: 0
+    LockControls: 0
+    DisablePrompt: 1
+    LockCamera: 1
+    LockButtons: 0
+    LockableButtons: []
+    ActionRequired: 1
+    Action: 6
+  - DesiredPosition: {fileID: 0}
+    MessageContent: The more units you build the more your population increases, stronger
+      units have a higher cost so pay attention to how many units you have.
+    TargetObject: {fileID: 0}
+    HighlightObject: {fileID: 0}
+    LerpSpeed: 0.05
+    EnableTextFlash: 0
+    HighlightBase: 0
+    HighlightSlots: 0
+    HighlightSelectable: 0
+    LockControls: 1
+    DisablePrompt: 0
+    LockCamera: 1
+    LockButtons: 0
+    LockableButtons: []
+    ActionRequired: 0
+    Action: 0
+  - DesiredPosition: {fileID: 0}
+    MessageContent: Alright we have a small army, now lets build some defenses.
+    TargetObject: {fileID: 0}
+    HighlightObject: {fileID: 0}
+    LerpSpeed: 0.05
+    EnableTextFlash: 0
+    HighlightBase: 0
+    HighlightSlots: 0
+    HighlightSelectable: 0
+    LockControls: 1
+    DisablePrompt: 0
+    LockCamera: 0
+    LockButtons: 0
+    LockableButtons: []
+    ActionRequired: 0
+    Action: 5
+  - DesiredPosition: {fileID: 0}
+    MessageContent: This long slot is barricade. Barricades are used to protect your
+      buildings and units from incoming attacks. Build a barricade of any type.
+    TargetObject: {fileID: 0}
+    HighlightObject: {fileID: 0}
+    LerpSpeed: 0.05
+    EnableTextFlash: 0
+    HighlightBase: 0
+    HighlightSlots: 0
+    HighlightSelectable: 1
+    LockControls: 0
+    DisablePrompt: 1
+    LockCamera: 1
+    LockButtons: 0
+    LockableButtons: []
+    ActionRequired: 1
+    Action: 2
+  - DesiredPosition: {fileID: 0}
+    MessageContent: Now that we have a barricade the smaller slot next to it is used
+      for creating towers.
+    TargetObject: {fileID: 0}
+    HighlightObject: {fileID: 0}
+    LerpSpeed: 0.05
+    EnableTextFlash: 0
+    HighlightBase: 0
+    HighlightSlots: 0
+    HighlightSelectable: 1
+    LockControls: 0
+    DisablePrompt: 0
+    LockCamera: 1
+    LockButtons: 0
+    LockableButtons: []
+    ActionRequired: 0
+    Action: 8
+  - DesiredPosition: {fileID: 0}
+    MessageContent: Towers provide logicistical and offensive support. They extend
+      your vision range and can attack enemies. Go ahead and build one.
+    TargetObject: {fileID: 0}
+    HighlightObject: {fileID: 0}
+    LerpSpeed: 0.05
+    EnableTextFlash: 0
+    HighlightBase: 0
+    HighlightSlots: 0
+    HighlightSelectable: 1
+    LockControls: 0
+    DisablePrompt: 1
+    LockCamera: 1
+    LockButtons: 0
+    LockableButtons: []
+    ActionRequired: 1
+    Action: 5
+  - DesiredPosition: {fileID: 0}
+    MessageContent: This is the enemy base. The circular structure on the ground is
+      what's known as an Etherium Gate.
+    TargetObject: {fileID: 0}
+    HighlightObject: {fileID: 0}
+    LerpSpeed: 0.05
+    EnableTextFlash: 0
+    HighlightBase: 0
+    HighlightSlots: 0
+    HighlightSelectable: 1
+    LockControls: 1
+    DisablePrompt: 0
+    LockCamera: 0
+    LockButtons: 0
+    LockableButtons: []
+    ActionRequired: 0
+    Action: 5
+  - DesiredPosition: {fileID: 0}
+    MessageContent: The Etherium Gate allows enemies to transport troops with ease,
+      the only way to stop it is destroy the nearby base.
+    TargetObject: {fileID: 0}
+    HighlightObject: {fileID: 0}
+    LerpSpeed: 0.05
+    EnableTextFlash: 0
+    HighlightBase: 0
+    HighlightSlots: 0
+    HighlightSelectable: 1
+    LockControls: 1
+    DisablePrompt: 0
+    LockCamera: 0
+    LockButtons: 0
+    LockableButtons: []
+    ActionRequired: 0
+    Action: 5
+  - DesiredPosition: {fileID: 0}
+    MessageContent: Ok you are nearly ready to face the enemy. I've managed to halt
+      enemy transportation but they will have it up and running soon.
+    TargetObject: {fileID: 0}
+    HighlightObject: {fileID: 0}
+    LerpSpeed: 0.05
+    EnableTextFlash: 0
+    HighlightBase: 0
+    HighlightSlots: 0
+    HighlightSelectable: 1
+    LockControls: 1
+    DisablePrompt: 0
+    LockCamera: 0
+    LockButtons: 0
+    LockableButtons: []
+    ActionRequired: 0
+    Action: 5
+  - DesiredPosition: {fileID: 0}
+    MessageContent: The last building we need is a barracks. It will let you train
+      your soldiers to deal with certain types of enemies.
+    TargetObject: {fileID: 0}
+    HighlightObject: {fileID: 0}
+    LerpSpeed: 0.05
+    EnableTextFlash: 0
+    HighlightBase: 0
+    HighlightSlots: 1
+    HighlightSelectable: 1
+    LockControls: 0
+    DisablePrompt: 1
+    LockCamera: 1
+    LockButtons: 0
+    LockableButtons: []
+    ActionRequired: 1
+    Action: 9
+  - DesiredPosition: {fileID: 0}
+    MessageContent: The last thing to cover is upgrading buildings. Some buildings
+      can be upgraded making them more efficient or to give you access to better units.
+    TargetObject: {fileID: 0}
+    HighlightObject: {fileID: 0}
+    LerpSpeed: 0.05
+    EnableTextFlash: 0
+    HighlightBase: 1
+    HighlightSlots: 0
+    HighlightSelectable: 0
+    LockControls: 1
+    DisablePrompt: 0
+    LockCamera: 0
+    LockButtons: 0
+    LockableButtons: []
+    ActionRequired: 0
+    Action: 9
+  - DesiredPosition: {fileID: 0}
+    MessageContent: Click on your town hall and upgrade it. The town hall is special
+      as it increases your tech level. The higher your tech level the more you can
+      upgrade/build.
+    TargetObject: {fileID: 0}
+    HighlightObject: {fileID: 0}
+    LerpSpeed: 0.05
+    EnableTextFlash: 0
+    HighlightBase: 1
+    HighlightSlots: 0
+    HighlightSelectable: 0
+    LockControls: 0
+    DisablePrompt: 1
+    LockCamera: 1
+    LockButtons: 0
+    LockableButtons: []
+    ActionRequired: 1
+    Action: 10
+  - DesiredPosition: {fileID: 0}
+    MessageContent: Excellent! I've taught you what you need to know. Right in time
+      too looks like the enemies are coming. Show me what you got!
+    TargetObject: {fileID: 0}
+    HighlightObject: {fileID: 0}
+    LerpSpeed: 0.05
+    EnableTextFlash: 0
+    HighlightBase: 0
+    HighlightSlots: 0
+    HighlightSelectable: 0
+    LockControls: 0
+    DisablePrompt: 0
+    LockCamera: 1
+    LockButtons: 0
+    LockableButtons: []
+    ActionRequired: 1
+    Action: 11
+  MessagePanel: {fileID: 0}
+  ObjectiveText: {fileID: 0}
+  ObjectiveTextTwo: {fileID: 0}
+  PromptText: {fileID: 0}
+  TurretSlot: {fileID: 0}
+  BarricadeSlot: {fileID: 0}
+  StartBase: {fileID: 0}
+  ControlsObject: {fileID: 0}
+  UIGreyoutColor: {r: 0, g: 0, b: 0, a: 0.5}
+  RunTutorial: 1
+  TownHall: {fileID: 0}
+  BaseBuildingSlots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
