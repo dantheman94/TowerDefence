@@ -39,8 +39,6 @@ GameObject:
   - component: {fileID: 114606649631409634}
   - component: {fileID: 114186422852185974}
   - component: {fileID: 114322529417041928}
-  - component: {fileID: 114839974758232964}
-  - component: {fileID: 114201089943171180}
   m_Layer: 0
   m_Name: pfb_LockdownPad
   m_TagString: Untagged
@@ -313,29 +311,6 @@ MonoBehaviour:
     m_Bits: 0
   LineOfSightPenetration: 0
   AntiFlicker: 0
---- !u!114 &114201089943171180
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1414252274725860}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fef8ad8a83ba874eaa952e0960d4788, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShapeType: 0
-  Offset: {x: 0, y: 0}
-  Radius: 45
-  InnerRadius: 0.694
-  Angle: 180
-  Texture: {fileID: 0}
-  RotateToForward: 0
-  LineOfSightMask:
-    serializedVersion: 2
-    m_Bits: 0
-  LineOfSightPenetration: 0
-  AntiFlicker: 0
 --- !u!114 &114322529417041928
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -381,26 +356,3 @@ MonoBehaviour:
   LockdownPadHud: {fileID: 0}
   AttackPaths:
   - {fileID: 0}
---- !u!114 &114839974758232964
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1414252274725860}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fef8ad8a83ba874eaa952e0960d4788, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShapeType: 0
-  Offset: {x: 0, y: 0}
-  Radius: 45
-  InnerRadius: 0.694
-  Angle: 180
-  Texture: {fileID: 0}
-  RotateToForward: 0
-  LineOfSightMask:
-    serializedVersion: 2
-    m_Bits: 0
-  LineOfSightPenetration: 0
-  AntiFlicker: 0

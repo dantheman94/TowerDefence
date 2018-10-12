@@ -25,13 +25,16 @@ public class CoreVehicle : Vehicle {
     [Space]
     public GameObject WeaponBarrel = null;
     public float BarrelRotationSpeed = 500f;
+    [Space]
+    public List<GameObject> Wheels;
+    public float WheelMaxRotationSpeed = 400f;
 
     //******************************************************************************************************************************
     //
     //      VARIABLES
     //
     //******************************************************************************************************************************
-    
+
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
@@ -51,6 +54,18 @@ public class CoreVehicle : Vehicle {
 
             // Rotate the barrel by rotation speed
             WeaponBarrel.transform.Rotate(Vector3.forward * (BarrelRotationSpeed * Time.deltaTime));
+        }
+
+        // Rotate the wheels when the vehicle moves
+        if (_CurrentSpeed > 0) {
+
+            // The wheels will speed up/slow down by the current over max
+            float fraction = _CurrentSpeed / MaxSpeed;
+            for (int i = 0; i < Wheels.Count; i++) {
+
+                // Rotate the wheels
+                Wheels[i].transform.Rotate(Vector3.right * (_CurrentSpeed * WheelMaxRotationSpeed * Time.deltaTime));
+            }
         }
     }
 

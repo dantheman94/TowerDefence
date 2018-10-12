@@ -90,7 +90,7 @@ public class WatchTower : Tower {
                 _StareAtTimer += Time.deltaTime;
                 if (_StareAtTimer >= _StareAtTargetTime) {
 
-                    // Timer reached threshold - generator new search light target position
+                    // Timer reached threshold - generate new search light target position
                     _StareAtTimer = 0f;
                     _StareAtTargetTime = Random.Range(StareAtTargetPositionTimeMin, StareAtTargetPositionTimeMax);
                     _SearchLightTarget = CreateSearchLightTarget();
