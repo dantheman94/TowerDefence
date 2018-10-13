@@ -977,8 +977,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1227051746626024}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.86, y: 62.55, z: -125.15}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -19.9, y: 62.55, z: -183.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4022856670970490}
@@ -2247,7 +2247,8 @@ MonoBehaviour:
     type: 2}
   HealthThresholdDamaged: 0.5
   HealthDamagedParticles: []
-  OnDeathEffects: []
+  OnDeathEffects:
+  - {fileID: 198868045070431672, guid: 872ce7bee92507741ab6135803a77259, type: 2}
   CameraShakeOnDeath: 0
   DeathExplosionRadius: 10
   ShrinkWhenDestroyed: 1
@@ -2319,7 +2320,7 @@ MonoBehaviour:
   - {fileID: 114559347768653706}
   - {fileID: 114038078142947512}
   - {fileID: 114527182714711284}
-  PropellorRotationSpeed: -500
+  PropellorRotationSpeed: 500
   PropellorObject: {fileID: 1129201529330516}
 --- !u!114 &114038078142947512
 MonoBehaviour:

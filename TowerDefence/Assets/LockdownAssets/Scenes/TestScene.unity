@@ -308,6 +308,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114036110279440992, guid: ddc75dcadc85db640b601008ffb388bd,
+        type: 2}
+      propertyPath: CameraShakeOnDeath
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114036110279440992, guid: ddc75dcadc85db640b601008ffb388bd,
+        type: 2}
+      propertyPath: DeathExplosionRadius
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ddc75dcadc85db640b601008ffb388bd, type: 2}
   m_IsPrefabParent: 0
@@ -2328,7 +2338,7 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114415540041196638, guid: 48f267e6564f5174aa786648bcff6471,
+    - target: {fileID: 114534616440039552, guid: 48f267e6564f5174aa786648bcff6471,
         type: 2}
       propertyPath: _Player
       value: 
@@ -2338,7 +2348,7 @@ Prefab:
       propertyPath: _Player
       value: 
       objectReference: {fileID: 590559695}
-    - target: {fileID: 114534616440039552, guid: 48f267e6564f5174aa786648bcff6471,
+    - target: {fileID: 114415540041196638, guid: 48f267e6564f5174aa786648bcff6471,
         type: 2}
       propertyPath: _Player
       value: 
@@ -2348,11 +2358,6 @@ Prefab:
       propertyPath: _Player
       value: 
       objectReference: {fileID: 590559695}
-    - target: {fileID: 114191352172799954, guid: 48f267e6564f5174aa786648bcff6471,
-        type: 2}
-      propertyPath: Radius
-      value: 200
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 48f267e6564f5174aa786648bcff6471, type: 2}
   m_IsPrefabParent: 0
@@ -46213,6 +46218,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 1110838878}
     m_Modifications:
+    - target: {fileID: 114909369810655446, guid: af5b11a941f2b054891c736f4b77e2a2,
+        type: 2}
+      propertyPath: OnDeathEffects.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4139023003084844, guid: af5b11a941f2b054891c736f4b77e2a2, type: 2}
       propertyPath: m_LocalPosition.x
       value: -1022.11
@@ -46244,6 +46254,17 @@ Prefab:
     - target: {fileID: 4139023003084844, guid: af5b11a941f2b054891c736f4b77e2a2, type: 2}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114909369810655446, guid: af5b11a941f2b054891c736f4b77e2a2,
+        type: 2}
+      propertyPath: OnDeathEffects.Array.data[0]
+      value: 
+      objectReference: {fileID: 198400088648914588, guid: 94bb7220218e3a14a8dbb6e66f9a8ad6,
+        type: 2}
+    - target: {fileID: 114909369810655446, guid: af5b11a941f2b054891c736f4b77e2a2,
+        type: 2}
+      propertyPath: CameraShakeOnDeath
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: af5b11a941f2b054891c736f4b77e2a2, type: 2}
@@ -59378,7 +59399,7 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2010478782}
-  m_LocalRotation: {x: -0.55258256, y: -0.6054929, z: 0.5340028, w: -0.20705575}
+  m_LocalRotation: {x: -0.55258256, y: -0.6054929, z: 0.5340028, w: -0.2070557}
   m_LocalPosition: {x: -445.4, y: -5.76, z: 92}
   m_LocalScale: {x: 3.0000021, y: 3.0000012, z: 3.0000005}
   m_Children: []

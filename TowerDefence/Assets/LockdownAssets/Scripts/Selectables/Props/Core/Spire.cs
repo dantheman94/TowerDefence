@@ -7,11 +7,40 @@ using UnityEngine;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 12/8/2018
+//  Last edited on: 13/10/2018
 //
 //******************************
 
 public class Spire : Building {
+
+    //******************************************************************************************************************************
+    //
+    //      INSPECTOR
+    //
+    //******************************************************************************************************************************
+
+    [Space]
+    [Header("-----------------------------------")]
+    [Header(" SPIRE PROPERTIES")]
+    [Space]
+    public List<StreamLights> StreamLighters;
+
+    //******************************************************************************************************************************
+    //
+    //      FUNCTIONS
+    //
+    //******************************************************************************************************************************
+
+    [System.Serializable]
+    public class StreamLights {
+
+        public Light Light;
+        public bool Flicker = true;
+        public float FlickerIntensity = 1f;
+
+        [HideInInspector]
+        public float _BaseLuminosity;
+    }
 
     //******************************************************************************************************************************
     //
@@ -22,8 +51,23 @@ public class Spire : Building {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  Called each frame. 
+    // Called when the gameObject is created.
     /// </summary>
+    protected override void Start() {
+        base.Start();
+
+        // Get reference to the base intensity for all the lights in the list
+        for (int i = 0; i < StreamLighters.Count; i++) {
+
+            StreamLighters[i]._BaseLuminosity = StreamLighters[i].Light.intensity;
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        /// <summary>
+        //  Called each frame. 
+        /// </summary>
     protected override void Update() {
         base.Update();
 
@@ -48,6 +92,22 @@ public class Spire : Building {
                     _HealthBar.SetCameraAttached(plyr.CameraAttached);
                 }
                 else { _HealthBar.SetCameraAttached(_Player.CameraAttached); }
+            }
+
+            // Flicker lights
+            if (StreamLighters.Count > 0) {
+
+                for (int i = 0; i < StreamLighters.Count; i++) {
+
+                    // Flicker the lights if needed
+                    if (StreamLighters[i].Flicker) {
+
+                        float noise = Mathf.PerlinNoise(Random.Range(0f, 1000f), Time.time);
+                        float baseLuminosity = StreamLighters[i]._BaseLuminosity;
+                        float flickerintensity = StreamLighters[i].FlickerIntensity;
+                        StreamLighters[i].Light.intensity = Mathf.Lerp(baseLuminosity - flickerintensity, baseLuminosity, noise);
+                    }
+                }
             }
         }
     }
