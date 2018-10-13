@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4826078560088076}
   - component: {fileID: 114422076111310268}
   m_Layer: 0
-  m_Name: pfb_HeavyAirshipGunner
+  m_Name: pfb_HeavyAirshipGatlingGun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52,27 +52,45 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ProjectileType: 0
-  ProjectileClass: {fileID: 114484461968729360, guid: b87b68df599bfc84eae5e189ef5a8423,
+  ProjectileClass: {fileID: 114419692928983864, guid: 1e582c31f50276a4e9e66f30d7cb98cb,
     type: 2}
   FiringEffect: {fileID: 0}
-  MuzzleEffect: {fileID: 0}
-  FiringType: 0
-  ProjectilesPerShot: 1
-  FiringDelay: 0
+  FiringDelay: 0.25
+  TrackingProjectile: 0
+  TrackingStrength: 1
+  MuzzleEffectWrapper: {fileID: 1632544767215828, guid: a7af8f262f556c24882f14cd7cc8b341,
+    type: 2}
+  MuzzlePatternType: 0
+  ReusableMuzzlePoints: 1
+  ChargeUpTime: 2
+  ChargeLightRange: 50
+  ChargeLightIntensity: 1
+  ChargeUpColor: {r: 1, g: 0.51724136, b: 0, a: 1}
   AngularOffsetType: 0
   AngularOffset: {x: 0, y: 0, z: 0}
+  SpreadRaycasts: 0
+  SpreadAmount: 1
+  SpreadAngle: 1
+  VisualizeHitscanTrace: 0
+  HitScanDrawTime: 1
+  HitScanStartColour: {r: 1, g: 1, b: 1, a: 1}
+  HitScanStartWidth: 1
+  HitScanEndColour: {r: 1, g: 1, b: 1, a: 1}
+  HitScanEndWidth: 1
+  DefaultImpactEffect: {fileID: 0}
+  SpawnOnImpact: {fileID: 0}
   Damages:
-    DamageDefault: 30
-    DamageCoreInfantry: 30
-    DamageAntiInfantryMarine: 30
-    DamageHero: 30
-    DamageCoreVehicle: 30
-    DamageAntiAirVehicle: 30
-    DamageMobileArtillery: 30
-    DamageBattleTank: 30
-    DamageCoreAirship: 30
-    DamageSupportShip: 30
-    DamageHeavyAirship: 30
+    DamageDefault: 20
+    DamageCoreInfantry: 20
+    DamageAntiInfantryMarine: 20
+    DamageHero: 20
+    DamageCoreVehicle: 20
+    DamageAntiAirVehicle: 20
+    DamageMobileArtillery: 20
+    DamageBattleTank: 20
+    DamageCoreAirship: 20
+    DamageSupportShip: 20
+    DamageHeavyAirship: 20
   BottomlessClip: 0
-  MagazineSize: 1
-  ReloadTime: 2
+  MagazineSize: 4
+  ReloadTime: 4

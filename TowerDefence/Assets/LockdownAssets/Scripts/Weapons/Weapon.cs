@@ -716,7 +716,7 @@ public class Weapon : MonoBehaviour {
             else {
 
                 // No raycast hit but still draw a hitscan visualizer
-                GenerateHitScanVisualizer(_UnitAttached.MuzzleLaunchPoints[0].transform.position, _UnitAttached.MuzzleLaunchPoints[0].transform.forward * 1000f);
+                GenerateHitScanVisualizer(_UnitAttached.MuzzleLaunchPoints[0].transform.position, _UnitAttached.MuzzleLaunchPoints[0].transform.forward * _UnitAttached.MaxAttackingRange);
             }
         }
 
@@ -803,7 +803,7 @@ public class Weapon : MonoBehaviour {
             else {
 
                 // No raycast hit but still draw a hitscan visualizer
-                GenerateHitScanVisualizer(_TowerAttached.MuzzleLaunchPoints[0].transform.position, _TowerAttached.MuzzleLaunchPoints[0].transform.forward * 1000f);
+                GenerateHitScanVisualizer(_TowerAttached.MuzzleLaunchPoints[0].transform.position, _TowerAttached.MuzzleLaunchPoints[0].transform.forward * _TowerAttached.MaxAttackingRange);
             }
         }
 
@@ -891,7 +891,7 @@ public class Weapon : MonoBehaviour {
             else {
 
                 // No raycast hit but still draw a hitscan visualizer
-                GenerateHitScanVisualizer(_GunnerAttached.MuzzleLaunchPoints[0].transform.position, _GunnerAttached.MuzzleLaunchPoints[0].transform.forward * 1000f);
+                GenerateHitScanVisualizer(_GunnerAttached.MuzzleLaunchPoints[0].transform.position, _GunnerAttached.MuzzleLaunchPoints[0].transform.forward * _GunnerAttached.MaxAttackRange);
             }
         }
 
