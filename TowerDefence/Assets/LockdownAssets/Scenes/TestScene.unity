@@ -308,16 +308,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 114036110279440992, guid: ddc75dcadc85db640b601008ffb388bd,
-        type: 2}
-      propertyPath: CameraShakeOnDeath
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114036110279440992, guid: ddc75dcadc85db640b601008ffb388bd,
-        type: 2}
-      propertyPath: DeathExplosionRadius
-      value: 20
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ddc75dcadc85db640b601008ffb388bd, type: 2}
   m_IsPrefabParent: 0
@@ -14479,7 +14469,7 @@ Prefab:
       objectReference: {fileID: 590559695}
     - target: {fileID: 1855190537707758, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
         type: 2}
@@ -26140,11 +26130,6 @@ Prefab:
       propertyPath: StartingFriendlyUnits.Array.data[2]
       value: 
       objectReference: {fileID: 1986499864}
-    - target: {fileID: 114268670636041262, guid: 99fbf120740006442b53325be4fcaf38,
-        type: 2}
-      propertyPath: StartingFriendlyUnits.Array.data[3]
-      value: 
-      objectReference: {fileID: 1656347026}
     - target: {fileID: 114268670636041262, guid: 99fbf120740006442b53325be4fcaf38,
         type: 2}
       propertyPath: CentralCore
@@ -82353,7 +82338,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1855190537707758, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
@@ -84685,6 +84670,10 @@ Prefab:
       propertyPath: _Player
       value: 
       objectReference: {fileID: 590559695}
+    - target: {fileID: 1227051746626024, guid: ddc75dcadc85db640b601008ffb388bd, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ddc75dcadc85db640b601008ffb388bd, type: 2}
   m_IsPrefabParent: 0
@@ -89898,11 +89887,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 1110838878}
     m_Modifications:
-    - target: {fileID: 114909369810655446, guid: af5b11a941f2b054891c736f4b77e2a2,
-        type: 2}
-      propertyPath: OnDeathEffects.Array.size
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4139023003084844, guid: af5b11a941f2b054891c736f4b77e2a2, type: 2}
       propertyPath: m_LocalPosition.x
       value: -1022.11
@@ -89934,17 +89918,6 @@ Prefab:
     - target: {fileID: 4139023003084844, guid: af5b11a941f2b054891c736f4b77e2a2, type: 2}
       propertyPath: m_RootOrder
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114909369810655446, guid: af5b11a941f2b054891c736f4b77e2a2,
-        type: 2}
-      propertyPath: OnDeathEffects.Array.data[0]
-      value: 
-      objectReference: {fileID: 198400088648914588, guid: 94bb7220218e3a14a8dbb6e66f9a8ad6,
-        type: 2}
-    - target: {fileID: 114909369810655446, guid: af5b11a941f2b054891c736f4b77e2a2,
-        type: 2}
-      propertyPath: CameraShakeOnDeath
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: af5b11a941f2b054891c736f4b77e2a2, type: 2}
@@ -91970,12 +91943,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4526429216962806, guid: b82553ad6d1ad044f979c7b11d141394,
     type: 2}
   m_PrefabInternal: {fileID: 1652393063}
---- !u!114 &1656347026 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114036110279440992, guid: ddc75dcadc85db640b601008ffb388bd,
-    type: 2}
-  m_PrefabInternal: {fileID: 1408468823}
-  m_Script: {fileID: 11500000, guid: b92fcee14b8ced249881150714ce698b, type: 3}
 --- !u!1001 &1658396004
 Prefab:
   m_ObjectHideFlags: 0
@@ -102150,7 +102117,7 @@ Prefab:
       objectReference: {fileID: 590559695}
     - target: {fileID: 1855190537707758, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}

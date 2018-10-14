@@ -145,7 +145,8 @@ public class UnitHealthBar : MonoBehaviour {
             else { ObjectPooling.Despawn(gameObject); }
 
             // Update team colour
-            UpdateTeamColourFill();
+            ///UpdateTeamColourFill();
+            UpdateTeamColourOutline();
         } 
     }
 
