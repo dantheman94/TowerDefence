@@ -127,11 +127,6 @@ public class FogManager : MonoBehaviour {
     //                      VARIABLES
     ////////////////////////////////////////////////////////////////////////////////
 
-    public static FogManager GetFogOfWarTeam(int team)
-    {
-        return Instances.Find(f => f.Team == team);
-    }
-
     ////////////////////////////////////////////////////////////////////////////////
 
     void Awake()
@@ -636,6 +631,12 @@ public class FogManager : MonoBehaviour {
         GL.End();
         GL.PopMatrix();
     }
+
+    public static FogManager GetFogManager()
+    {
+        return Instances[0];
+    }
+
 
     ////////////////////////////////////////////////////////////////////////////////
 
