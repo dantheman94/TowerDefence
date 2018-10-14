@@ -19,8 +19,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4666510405837378}
-  - component: {fileID: 114555998984486396}
   - component: {fileID: 114841784551271276}
+  - component: {fileID: 114708573341014616}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -41,7 +41,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114555998984486396
+--- !u!114 &114708573341014616
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -49,16 +49,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1162486525421322}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e80a813b58a051445abd38d0963ce651, type: 3}
+  m_Script: {fileID: 11500000, guid: 7b55cb63960cd844398d7acd5d1ebdee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelIndex: 2
-  LevelName: Midgard
-  LevelDescription: Even on the edges of all the lands, the volatile etherium proves
-    to be the most sought out resource for all of the worlds inhabitants.
-  LevelThumbnailSprite: {fileID: 21300000, guid: ebe3857ea6398a74eae26a9c9a2e0588,
-    type: 3}
-  HoverText: {fileID: 0}
 --- !u!114 &114841784551271276
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -70,16 +63,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8596901773f7c24abafb2224b812462, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _Level: {fileID: 114555998984486396}
+  _Level: {fileID: 0}
   FlyingNavMesh: {fileID: 0}
   GroundNavMesh: {fileID: 0}
   StartingBase: {fileID: 0}
   StartingSupplyCount: 12500
   StartingPowerCount: 4500
   StartingTechLevel: 3
-  StartingMaxSupplyCount: 100000
-  StartingMaxPowerCount: 100000
-  StartingMaxPopulation: 60
+  StartingMaxSupplyCount: 5000
+  StartingMaxPowerCount: 5000
+  StartingMaxPopulation: 15
   StartingWave: 0
   HUDWrapper: {fileID: 0}
   WorldSpaceCanvas: {fileID: 0}
@@ -105,10 +98,6 @@ MonoBehaviour:
   UnitVeterancyPanel: {fileID: 1275172058734706, guid: fbcf1af3cfb5abd4ba34ae423e72fe2a,
     type: 2}
   RecycleBuilding: {fileID: 1686393191144852, guid: 79277ac9396fb6649b8e74d19bdac0b4,
-    type: 2}
-  ObjectSelected: {fileID: 1316711828955324, guid: deef73c21c83ffa448286ecc25312cf7,
-    type: 2}
-  ObjectHighlighted: {fileID: 1103044040107444, guid: 01e1986d03a2f92459d4d4d50a107850,
     type: 2}
   RallyPointObject: {fileID: 1844536012740676, guid: eaffd4d8b9ec4fe41a865b53070c4def,
     type: 2}
