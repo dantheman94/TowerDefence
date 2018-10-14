@@ -3858,7 +3858,7 @@ GameObject:
   m_IsActive: 1
 --- !u!4 &289942804 stripped
 Transform:
-  m_PrefabParentObject: {fileID: 4666510405837378, guid: c4c393ebdeccc4a49a63075ada35ffff,
+  m_PrefabParentObject: {fileID: 4929924212606110, guid: bdc86748c51c2724a81bfc74b4f54e2c,
     type: 2}
   m_PrefabInternal: {fileID: 1736392556}
 --- !u!1 &291463697
@@ -7788,7 +7788,7 @@ MonoBehaviour:
     monoUsage: 1
     gfx: 0
   deviceInfoCounter:
-    enabled: 1
+    enabled: 0
     anchor: 2
     color: {r: 0.6745098, g: 0.6745098, b: 0.6745098, a: 1}
     style: 0
@@ -10369,6 +10369,53 @@ Transform:
   m_Father: {fileID: 905765308}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 50, y: 118.4, z: 0}
+--- !u!1 &701409692
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 701409693}
+  - component: {fileID: 701409694}
+  m_Layer: 0
+  m_Name: GameInfo
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &701409693
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 701409692}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 829578304}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &701409694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 701409692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e80a813b58a051445abd38d0963ce651, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LevelIndex: 2
+  LevelName: Tutorial
+  LevelDescription: source for all of the worlds inhabitants.olatile etherium proves
+    to be the most sought out resource for all of the worlds inhabitants.
+  LevelThumbnailSprite: {fileID: 21300000, guid: ebe3857ea6398a74eae26a9c9a2e0588,
+    type: 3}
+  HoverText: {fileID: 0}
 --- !u!1 &704559505
 GameObject:
   m_ObjectHideFlags: 0
@@ -12071,6 +12118,7 @@ Transform:
   - {fileID: 869091045}
   - {fileID: 1376223737}
   - {fileID: 422248359}
+  - {fileID: 701409693}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -25635,6 +25683,30 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 97371d9815069d847860ef387529bbf3, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1697397911 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1563527522435192, guid: 97371d9815069d847860ef387529bbf3,
+    type: 2}
+  m_PrefabInternal: {fileID: 1697397910}
+--- !u!114 &1697397912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1697397911}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86382bfadffaff740aed9efce4d50737, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LineMaterial: {fileID: 0}
+  LineWidth: 0
+  Depth: 5
+  MouseEndPoint: {x: 0, y: 0, z: 0}
+  LineStartPoint: {x: 0, y: 0, z: 0}
+  StartGO: {fileID: 0}
+  EndGO: {fileID: 0}
+  hud: {fileID: 0}
 --- !u!1 &1698235435
 GameObject:
   m_ObjectHideFlags: 0
@@ -26288,165 +26360,130 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 829578304}
     m_Modifications:
-    - target: {fileID: 4666510405837378, guid: c4c393ebdeccc4a49a63075ada35ffff, type: 2}
+    - target: {fileID: 4929924212606110, guid: bdc86748c51c2724a81bfc74b4f54e2c, type: 2}
       propertyPath: m_LocalPosition.x
       value: -50.114594
       objectReference: {fileID: 0}
-    - target: {fileID: 4666510405837378, guid: c4c393ebdeccc4a49a63075ada35ffff, type: 2}
+    - target: {fileID: 4929924212606110, guid: bdc86748c51c2724a81bfc74b4f54e2c, type: 2}
       propertyPath: m_LocalPosition.y
       value: 105.42339
       objectReference: {fileID: 0}
-    - target: {fileID: 4666510405837378, guid: c4c393ebdeccc4a49a63075ada35ffff, type: 2}
+    - target: {fileID: 4929924212606110, guid: bdc86748c51c2724a81bfc74b4f54e2c, type: 2}
       propertyPath: m_LocalPosition.z
       value: -70.0204
       objectReference: {fileID: 0}
-    - target: {fileID: 4666510405837378, guid: c4c393ebdeccc4a49a63075ada35ffff, type: 2}
+    - target: {fileID: 4929924212606110, guid: bdc86748c51c2724a81bfc74b4f54e2c, type: 2}
       propertyPath: m_LocalRotation.x
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 4666510405837378, guid: c4c393ebdeccc4a49a63075ada35ffff, type: 2}
+    - target: {fileID: 4929924212606110, guid: bdc86748c51c2724a81bfc74b4f54e2c, type: 2}
       propertyPath: m_LocalRotation.y
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 4666510405837378, guid: c4c393ebdeccc4a49a63075ada35ffff, type: 2}
+    - target: {fileID: 4929924212606110, guid: bdc86748c51c2724a81bfc74b4f54e2c, type: 2}
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 4666510405837378, guid: c4c393ebdeccc4a49a63075ada35ffff, type: 2}
+    - target: {fileID: 4929924212606110, guid: bdc86748c51c2724a81bfc74b4f54e2c, type: 2}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4666510405837378, guid: c4c393ebdeccc4a49a63075ada35ffff, type: 2}
+    - target: {fileID: 4929924212606110, guid: bdc86748c51c2724a81bfc74b4f54e2c, type: 2}
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114841784551271276, guid: c4c393ebdeccc4a49a63075ada35ffff,
+    - target: {fileID: 114083001813579554, guid: bdc86748c51c2724a81bfc74b4f54e2c,
+        type: 2}
+      propertyPath: _Level
+      value: 
+      objectReference: {fileID: 701409694}
+    - target: {fileID: 114083001813579554, guid: bdc86748c51c2724a81bfc74b4f54e2c,
         type: 2}
       propertyPath: FlyingNavMesh
       value: 
       objectReference: {fileID: 1038663325}
-    - target: {fileID: 114841784551271276, guid: c4c393ebdeccc4a49a63075ada35ffff,
+    - target: {fileID: 114083001813579554, guid: bdc86748c51c2724a81bfc74b4f54e2c,
         type: 2}
       propertyPath: GroundNavMesh
       value: 
       objectReference: {fileID: 995413811}
-    - target: {fileID: 114841784551271276, guid: c4c393ebdeccc4a49a63075ada35ffff,
+    - target: {fileID: 114083001813579554, guid: bdc86748c51c2724a81bfc74b4f54e2c,
         type: 2}
       propertyPath: StartingBase
       value: 
       objectReference: {fileID: 532253987}
-    - target: {fileID: 114841784551271276, guid: c4c393ebdeccc4a49a63075ada35ffff,
+    - target: {fileID: 114083001813579554, guid: bdc86748c51c2724a81bfc74b4f54e2c,
         type: 2}
       propertyPath: HUDWrapper
       value: 
       objectReference: {fileID: 561388998}
-    - target: {fileID: 114841784551271276, guid: c4c393ebdeccc4a49a63075ada35ffff,
+    - target: {fileID: 114083001813579554, guid: bdc86748c51c2724a81bfc74b4f54e2c,
         type: 2}
       propertyPath: WorldSpaceCanvas
       value: 
       objectReference: {fileID: 545165677}
-    - target: {fileID: 114841784551271276, guid: c4c393ebdeccc4a49a63075ada35ffff,
+    - target: {fileID: 114083001813579554, guid: bdc86748c51c2724a81bfc74b4f54e2c,
         type: 2}
       propertyPath: ScreenSpaceCanvas
       value: 
       objectReference: {fileID: 1267848074}
-    - target: {fileID: 114841784551271276, guid: c4c393ebdeccc4a49a63075ada35ffff,
+    - target: {fileID: 114083001813579554, guid: bdc86748c51c2724a81bfc74b4f54e2c,
         type: 2}
       propertyPath: CinematicBars
       value: 
       objectReference: {fileID: 220949294}
-    - target: {fileID: 114841784551271276, guid: c4c393ebdeccc4a49a63075ada35ffff,
+    - target: {fileID: 114083001813579554, guid: bdc86748c51c2724a81bfc74b4f54e2c,
         type: 2}
       propertyPath: SelectionWheel
       value: 
       objectReference: {fileID: 1654617373}
-    - target: {fileID: 114841784551271276, guid: c4c393ebdeccc4a49a63075ada35ffff,
+    - target: {fileID: 114083001813579554, guid: bdc86748c51c2724a81bfc74b4f54e2c,
         type: 2}
       propertyPath: selectionWindow
       value: 
       objectReference: {fileID: 1365309279}
-    - target: {fileID: 114841784551271276, guid: c4c393ebdeccc4a49a63075ada35ffff,
+    - target: {fileID: 114083001813579554, guid: bdc86748c51c2724a81bfc74b4f54e2c,
         type: 2}
       propertyPath: ConfirmRecycleScreen
       value: 
       objectReference: {fileID: 2075110296}
-    - target: {fileID: 114841784551271276, guid: c4c393ebdeccc4a49a63075ada35ffff,
+    - target: {fileID: 114083001813579554, guid: bdc86748c51c2724a81bfc74b4f54e2c,
         type: 2}
       propertyPath: AbilityWheel
       value: 
       objectReference: {fileID: 2081872101}
-    - target: {fileID: 114841784551271276, guid: c4c393ebdeccc4a49a63075ada35ffff,
+    - target: {fileID: 114083001813579554, guid: bdc86748c51c2724a81bfc74b4f54e2c,
         type: 2}
       propertyPath: SelectedUnitsHUD
       value: 
       objectReference: {fileID: 390639108}
-    - target: {fileID: 114841784551271276, guid: c4c393ebdeccc4a49a63075ada35ffff,
+    - target: {fileID: 114083001813579554, guid: bdc86748c51c2724a81bfc74b4f54e2c,
         type: 2}
       propertyPath: PlatoonUnitsHUD
       value: 
       objectReference: {fileID: 242634333}
-    - target: {fileID: 114841784551271276, guid: c4c393ebdeccc4a49a63075ada35ffff,
+    - target: {fileID: 114083001813579554, guid: bdc86748c51c2724a81bfc74b4f54e2c,
         type: 2}
       propertyPath: WaveStatsHUD
       value: 
       objectReference: {fileID: 1382395674}
-    - target: {fileID: 114841784551271276, guid: c4c393ebdeccc4a49a63075ada35ffff,
+    - target: {fileID: 114083001813579554, guid: bdc86748c51c2724a81bfc74b4f54e2c,
         type: 2}
       propertyPath: BuildingQueueHUD
       value: 
       objectReference: {fileID: 661810958}
-    - target: {fileID: 114841784551271276, guid: c4c393ebdeccc4a49a63075ada35ffff,
+    - target: {fileID: 114083001813579554, guid: bdc86748c51c2724a81bfc74b4f54e2c,
         type: 2}
       propertyPath: PauseWidget
       value: 
       objectReference: {fileID: 1443492023}
-    - target: {fileID: 114841784551271276, guid: c4c393ebdeccc4a49a63075ada35ffff,
+    - target: {fileID: 114083001813579554, guid: bdc86748c51c2724a81bfc74b4f54e2c,
         type: 2}
       propertyPath: GameOverWidget
       value: 
       objectReference: {fileID: 1444541656}
-    - target: {fileID: 1162486525421322, guid: c4c393ebdeccc4a49a63075ada35ffff, type: 2}
-      propertyPath: m_Name
-      value: Game Manager
-      objectReference: {fileID: 0}
-    - target: {fileID: 114841784551271276, guid: c4c393ebdeccc4a49a63075ada35ffff,
-        type: 2}
-      propertyPath: StartingPowerCount
-      value: 4500
-      objectReference: {fileID: 0}
-    - target: {fileID: 114555998984486396, guid: c4c393ebdeccc4a49a63075ada35ffff,
-        type: 2}
-      propertyPath: LevelName
-      value: Tutorial
-      objectReference: {fileID: 0}
-    - target: {fileID: 114841784551271276, guid: c4c393ebdeccc4a49a63075ada35ffff,
-        type: 2}
-      propertyPath: StartingMaxSupplyCount
-      value: 5000
-      objectReference: {fileID: 0}
-    - target: {fileID: 114841784551271276, guid: c4c393ebdeccc4a49a63075ada35ffff,
-        type: 2}
-      propertyPath: StartingMaxPowerCount
-      value: 5000
-      objectReference: {fileID: 0}
-    - target: {fileID: 114841784551271276, guid: c4c393ebdeccc4a49a63075ada35ffff,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114841784551271276, guid: c4c393ebdeccc4a49a63075ada35ffff,
-        type: 2}
-      propertyPath: StartingMaxPopulation
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 114555998984486396, guid: c4c393ebdeccc4a49a63075ada35ffff,
-        type: 2}
-      propertyPath: LevelDescription
-      value: source for all of the worlds inhabitants.olatile etherium proves to be
-        the most sought out resource for all of the worlds inhabitants.
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: c4c393ebdeccc4a49a63075ada35ffff, type: 2}
+  m_ParentPrefab: {fileID: 100100000, guid: bdc86748c51c2724a81bfc74b4f54e2c, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1740119134
 GameObject:

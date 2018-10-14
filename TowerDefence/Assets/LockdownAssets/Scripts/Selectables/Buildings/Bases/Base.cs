@@ -216,6 +216,8 @@ public class Base : Building {
         // Show any hidden base slots that are linked to the building slot
         if (AttachedBuildingSlot != null) { AttachedBuildingSlot.SetLinkedSlotsBase(this); }
 
+        
+
         // Pass the building queue to the new building   
         Base newBase = _ClonedWorldObject.GetComponent<Base>();
         if (newBase._PreviousBase != null) {
@@ -237,6 +239,26 @@ public class Base : Building {
                 UI_BuildingQueueWrapper.Instance.RemoveFromQueue(newBase._PreviousBase._BuildingQueueUI);
                 Destroy(newBase._PreviousBase._BuildingQueueUI);
             }
+
+            //Passes the old tower slot reference to the new building.
+            for (int i = 0; i < newBase._PreviousBase.TowerSlots.Count; ++i)
+            {
+                if(newBase._PreviousBase.TowerSlots[i].GetBuildingOnSlot() != null)
+                {
+                    newBase.TowerSlots[i].GetBuildingOnSlot().AttachedBuildingSlot = newBase._PreviousBase.TowerSlots[i];
+                }
+            }
+
+            //Passes the old building slot reference to the new building.
+            for (int i = 0; i < newBase._PreviousBase.DepotSlots.Count; ++i)
+            {
+
+                if (newBase._PreviousBase.DepotSlots[i].GetBuildingOnSlot() != null)
+                {
+                    newBase.TowerSlots[i].GetBuildingOnSlot().AttachedBuildingSlot = newBase._PreviousBase.DepotSlots[i];
+                }
+            }
+
         }
 
         // Create a rally point

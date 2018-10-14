@@ -1,0 +1,114 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1156681894628644}
+  m_IsPrefabParent: 1
+--- !u!1 &1156681894628644
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4929924212606110}
+  - component: {fileID: 114083001813579554}
+  - component: {fileID: 114054313826314258}
+  m_Layer: 0
+  m_Name: Tutorial Game Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4929924212606110
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1156681894628644}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -50.114594, y: 105.42339, z: -70.0204}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114054313826314258
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1156681894628644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b55cb63960cd844398d7acd5d1ebdee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114083001813579554
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1156681894628644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8596901773f7c24abafb2224b812462, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Level: {fileID: 0}
+  FlyingNavMesh: {fileID: 0}
+  GroundNavMesh: {fileID: 0}
+  StartingBase: {fileID: 0}
+  StartingSupplyCount: 12500
+  StartingPowerCount: 4500
+  StartingTechLevel: 3
+  StartingMaxSupplyCount: 5000
+  StartingMaxPowerCount: 5000
+  StartingMaxPopulation: 15
+  StartingWave: 0
+  HUDWrapper: {fileID: 0}
+  WorldSpaceCanvas: {fileID: 0}
+  ScreenSpaceCanvas: {fileID: 0}
+  AgentSeekObject: {fileID: 1134938833437318, guid: ea031de5b8365524f8aaa65938b35a46,
+    type: 2}
+  CinematicBars: {fileID: 0}
+  _IsRadialMenu: 1
+  SelectionWheel: {fileID: 0}
+  selectionWindow: {fileID: 0}
+  ConfirmRecycleScreen: {fileID: 0}
+  AbilityWheel: {fileID: 0}
+  SelectedUnitsHUD: {fileID: 0}
+  PlatoonUnitsHUD: {fileID: 0}
+  WaveStatsHUD: {fileID: 0}
+  BuildingQueueHUD: {fileID: 0}
+  UnitHealthBar: {fileID: 1286360948267456, guid: 7673b65b15c71f74587469d8c157abbf,
+    type: 2}
+  BuildingInProgressPanel: {fileID: 1450678203001116, guid: fdac97a7b32ac224eb51920a9dec0613,
+    type: 2}
+  CaptureProgressPanel: {fileID: 1624020617670622, guid: a93afcb6feaab6e4f959f93bf2af90eb,
+    type: 2}
+  UnitVeterancyPanel: {fileID: 1275172058734706, guid: fbcf1af3cfb5abd4ba34ae423e72fe2a,
+    type: 2}
+  RecycleBuilding: {fileID: 1686393191144852, guid: 79277ac9396fb6649b8e74d19bdac0b4,
+    type: 2}
+  RallyPointObject: {fileID: 1844536012740676, guid: eaffd4d8b9ec4fe41a865b53070c4def,
+    type: 2}
+  HitScanVisualizer: {fileID: 1861956453304142, guid: c15ef64f41143ea43a44f0543e1c58b0,
+    type: 2}
+  PauseWidget: {fileID: 0}
+  GameOverWidget: {fileID: 0}
+  PreloadGameObjects:
+  - gameObject: {fileID: 1286360948267456, guid: 7673b65b15c71f74587469d8c157abbf,
+      type: 2}
+    size: 100
+  PreloadWorldObjects: []
+  PreloadProjectiles: []
+  PreloadParticles: []
