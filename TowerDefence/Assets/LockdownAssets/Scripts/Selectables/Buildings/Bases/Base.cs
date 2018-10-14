@@ -161,8 +161,12 @@ public class Base : Building {
                         if (newBase._PreviousBase.DepotSlots[i] != null) {
 
                             // Send building to new base
-                            newBase.DepotSlots[i].SetBuildingOnSlot(newBase._PreviousBase.DepotSlots[i].GetBuildingOnSlot());
-                            newBase._PreviousBase.DepotSlots[i].SetBuildingOnSlot(null);
+                            if (newBase._PreviousBase.DepotSlots[i].GetBuildingOnSlot() != null)
+                            {
+                                newBase._PreviousBase.DepotSlots[i].GetBuildingOnSlot().AttachedBuildingSlot = newBase.DepotSlots[i];
+                                newBase.DepotSlots[i].SetBuildingOnSlot(newBase._PreviousBase.DepotSlots[i].GetBuildingOnSlot());
+                                newBase._PreviousBase.DepotSlots[i].SetBuildingOnSlot(null);
+                            }
                         }
                         else { continue; }
                     }
@@ -179,8 +183,12 @@ public class Base : Building {
                         if (newBase._PreviousBase.TowerSlots[i] != null) {
 
                             // Send tower to new base
-                            newBase.TowerSlots[i].SetBuildingOnSlot(_PreviousBase.TowerSlots[i].GetBuildingOnSlot());
-                            newBase._PreviousBase.TowerSlots[i].SetBuildingOnSlot(null);
+                            if (newBase._PreviousBase.TowerSlots[i].GetBuildingOnSlot() != null)
+                            {
+                                newBase._PreviousBase.TowerSlots[i].GetBuildingOnSlot().AttachedBuildingSlot = newBase.TowerSlots[i];
+                                newBase.TowerSlots[i].SetBuildingOnSlot(newBase._PreviousBase.TowerSlots[i].GetBuildingOnSlot());
+                                newBase._PreviousBase.TowerSlots[i].SetBuildingOnSlot(null);
+                            }
                         }
                         else { continue; }
                     }
@@ -215,9 +223,7 @@ public class Base : Building {
 
         // Show any hidden base slots that are linked to the building slot
         if (AttachedBuildingSlot != null) { AttachedBuildingSlot.SetLinkedSlotsBase(this); }
-
         
-
         // Pass the building queue to the new building   
         Base newBase = _ClonedWorldObject.GetComponent<Base>();
         if (newBase._PreviousBase != null) {
@@ -240,23 +246,38 @@ public class Base : Building {
                 Destroy(newBase._PreviousBase._BuildingQueueUI);
             }
 
-            //Passes the old tower slot reference to the new building.
+            //  Passes the new bases's building slot to the old bases's building slots's building (confusing right?)
             for (int i = 0; i < newBase._PreviousBase.TowerSlots.Count; ++i)
             {
-                if(newBase._PreviousBase.TowerSlots[i].GetBuildingOnSlot() != null)
-                {
-                    newBase.TowerSlots[i].GetBuildingOnSlot().AttachedBuildingSlot = newBase._PreviousBase.TowerSlots[i];
-                }
+                // Tower slots
+                ///BuildingSlot oldBaseSlot = newBase._PreviousBase.TowerSlots[i];
+                ///BuildingSlot newBaseSlot = newBase.TowerSlots[i];
+                ///if (oldBaseSlot.GetBuildingOnSlot() != null)
+                ///{
+                ///    oldBaseSlot.GetBuildingOnSlot().AttachedBuildingSlot = newBaseSlot;
+                ///}                
+
+                ///if(newBase._PreviousBase.TowerSlots[i].GetBuildingOnSlot() != null)
+                ///{
+                ///    newBase.TowerSlots[i].GetBuildingOnSlot().AttachedBuildingSlot = newBase._PreviousBase.TowerSlots[i];
+                ///}
             }
 
-            //Passes the old building slot reference to the new building.
+            // Passes the new bases's building slot to the old bases's building slots's building (confusing right?)
             for (int i = 0; i < newBase._PreviousBase.DepotSlots.Count; ++i)
             {
+                // Depot slots
+                ///BuildingSlot oldBaseSlot = newBase._PreviousBase.DepotSlots[i];
+                ///BuildingSlot newBaseSlot = newBase.DepotSlots[i];
+                ///if (oldBaseSlot.GetBuildingOnSlot() != null)
+                ///{
+                ///    oldBaseSlot.GetBuildingOnSlot().AttachedBuildingSlot = newBaseSlot;
+                ///}
 
-                if (newBase._PreviousBase.DepotSlots[i].GetBuildingOnSlot() != null)
-                {
-                    newBase.TowerSlots[i].GetBuildingOnSlot().AttachedBuildingSlot = newBase._PreviousBase.DepotSlots[i];
-                }
+                ///if (newBase._PreviousBase.DepotSlots[i].GetBuildingOnSlot() != null)
+                ///{
+                ///    newBase.TowerSlots[i].GetBuildingOnSlot().AttachedBuildingSlot = newBase._PreviousBase.DepotSlots[i];
+                ///}
             }
 
         }
