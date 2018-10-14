@@ -231,7 +231,9 @@ public class Projectile : MonoBehaviour {
             }
 
             // Camera shake on explosion
-            Player player = _WeaponAttached.GetUnitAttached()._Player;
+            Player player = null;
+            if (_WeaponAttached.GetUnitAttached() != null) { player = _WeaponAttached.GetUnitAttached()._Player; }
+            if (_WeaponAttached.GetTowerAttached() != null) { player = _WeaponAttached.GetTowerAttached()._Player; }
             if (player != null) { player.CameraRTS.ExplosionShake(transform.position, ExplosionRadius); }
         }
 

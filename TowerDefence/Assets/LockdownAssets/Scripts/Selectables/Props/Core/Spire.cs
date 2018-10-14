@@ -23,7 +23,7 @@ public class Spire : Building {
     [Header("-----------------------------------")]
     [Header(" SPIRE PROPERTIES")]
     [Space]
-    public List<StreamLights> StreamLighters;
+    public List<LightData> StreamLights;
 
     //******************************************************************************************************************************
     //
@@ -31,15 +31,22 @@ public class Spire : Building {
     //
     //******************************************************************************************************************************
 
+    public enum LightInterpolationType { SmoothCurve, Linear }
+
     [System.Serializable]
-    public class StreamLights {
+    public class LightData {
 
         public Light Light;
-        public bool Flicker = true;
-        public float FlickerIntensity = 1f;
+        public LightInterpolationType InterpolationType = LightInterpolationType.Linear;
+        public float LuminosityMax = 3f;
+        public float GlowSpeed = 1f;
 
         [HideInInspector]
         public float _BaseLuminosity;
+        [HideInInspector]
+        public float LuminosityRange;
+        [HideInInspector]
+        public float LuminosityOffset;
     }
 
     //******************************************************************************************************************************
@@ -56,18 +63,20 @@ public class Spire : Building {
     protected override void Start() {
         base.Start();
 
-        // Get reference to the base intensity for all the lights in the list
-        for (int i = 0; i < StreamLighters.Count; i++) {
+        // Get reference to the base intensities & ranges for all the lights in the list
+        for (int i = 0; i < StreamLights.Count; i++) {
 
-            StreamLighters[i]._BaseLuminosity = StreamLighters[i].Light.intensity;
+            StreamLights[i]._BaseLuminosity = StreamLights[i].Light.intensity;
+            StreamLights[i].LuminosityRange = (StreamLights[i].LuminosityMax - StreamLights[i]._BaseLuminosity) / 2;
+            StreamLights[i].LuminosityOffset = StreamLights[i].LuminosityRange + StreamLights[i]._BaseLuminosity;
         }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        /// <summary>
-        //  Called each frame. 
-        /// </summary>
+    /// <summary>
+    //  Called each frame. 
+    /// </summary>
     protected override void Update() {
         base.Update();
 
@@ -94,19 +103,33 @@ public class Spire : Building {
                 else { _HealthBar.SetCameraAttached(_Player.CameraAttached); }
             }
 
-            // Flicker lights
-            if (StreamLighters.Count > 0) {
+            // Glowing stream lights
+            if (StreamLights.Count > 0) {
 
-                for (int i = 0; i < StreamLighters.Count; i++) {
+                for (int i = 0; i < StreamLights.Count; i++) {
 
-                    // Flicker the lights if needed
-                    if (StreamLighters[i].Flicker) {
+                    float luminosity = 1f;
 
-                        float noise = Mathf.PerlinNoise(Random.Range(0f, 1000f), Time.time);
-                        float baseLuminosity = StreamLighters[i]._BaseLuminosity;
-                        float flickerintensity = StreamLighters[i].FlickerIntensity;
-                        StreamLighters[i].Light.intensity = Mathf.Lerp(baseLuminosity - flickerintensity, baseLuminosity, noise);
+                    // Interpolate between min & max
+                    switch (StreamLights[i].InterpolationType) {
+
+                        // Smooth curve (sin)
+                        case LightInterpolationType.SmoothCurve: {
+
+                            luminosity = StreamLights[i].LuminosityOffset + Mathf.Sin(Time.time * StreamLights[i].GlowSpeed) * StreamLights[i].LuminosityRange;
+                            break;
+                        }
+
+                        // Linear (ping pong)
+                        case LightInterpolationType.Linear: {
+
+                            luminosity = Mathf.PingPong(Time.time * StreamLights[i].GlowSpeed, StreamLights[i].LuminosityMax) + StreamLights[i]._BaseLuminosity;
+                            break;
+                        }
+
+                        default: break;
                     }
+                    StreamLights[i].Light.intensity = luminosity;
                 }
             }
         }
@@ -124,9 +147,8 @@ public class Spire : Building {
 
         // Notify the player
         WaveManager.Instance.CoreDamagedWidget.ShowNotification();
-
     }
-
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }

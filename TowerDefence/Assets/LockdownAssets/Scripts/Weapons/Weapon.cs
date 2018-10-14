@@ -392,12 +392,15 @@ public class Weapon : MonoBehaviour {
                         // Play default impact effect
                         else {
 
-                            ParticleSystem impact = ObjectPooling.Spawn(DefaultImpactEffect.gameObject, position, rotation).GetComponent<ParticleSystem>();
-                            impact.Play();
+                            if (DefaultImpactEffect != null) {
 
-                            // Despawn particle system once it has finished its cycle
-                            float effectDuration = impact.duration + impact.startLifetime;
-                            StartCoroutine(ParticleDespawner.Instance.ParticleDespawn(impact, effectDuration));
+                                ParticleSystem impact = ObjectPooling.Spawn(DefaultImpactEffect.gameObject, position, rotation).GetComponent<ParticleSystem>();
+                                impact.Play();
+
+                                // Despawn particle system once it has finished its cycle
+                                float effectDuration = impact.duration + impact.startLifetime;
+                                StartCoroutine(ParticleDespawner.Instance.ParticleDespawn(impact, effectDuration));
+                            }
                         }
 
                         DifficultyManager dm = DifficultyManager.Instance;
