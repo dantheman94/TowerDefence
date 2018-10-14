@@ -199,13 +199,13 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4575314155230008}
-  - component: {fileID: 95070038621204732}
   - component: {fileID: 114716274696979752}
   - component: {fileID: 195119732705220930}
   - component: {fileID: 114036110279440992}
   - component: {fileID: 114310500213514308}
   - component: {fileID: 114317453787052962}
   - component: {fileID: 114616624484732044}
+  - component: {fileID: 114355361440465814}
   m_Layer: 9
   m_Name: pfb_HeavyAirship
   m_TagString: Unit
@@ -2084,23 +2084,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 6, y: 13, z: 12}
   m_Center: {x: 0, y: 6.5, z: 0}
---- !u!95 &95070038621204732
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1227051746626024}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: cbac5c40bbb3a7b4d9c54abfbe7e3e9b, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!95 &95804103828780004
 Animator:
   serializedVersion: 3
@@ -2414,6 +2397,18 @@ MonoBehaviour:
     m_Bits: 0
   LineOfSightPenetration: 0
   AntiFlicker: 0
+--- !u!114 &114355361440465814
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1227051746626024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43023972f48e02a4a862a4bbe7eb2916, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ActiveObject: {fileID: 1397092352571976}
 --- !u!114 &114374390199670380
 MonoBehaviour:
   m_ObjectHideFlags: 1

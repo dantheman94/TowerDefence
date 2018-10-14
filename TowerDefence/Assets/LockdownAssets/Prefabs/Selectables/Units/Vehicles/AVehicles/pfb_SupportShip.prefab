@@ -101,12 +101,12 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4465727479051524}
-  - component: {fileID: 95540640986924554}
   - component: {fileID: 114394934853265518}
   - component: {fileID: 195019058673026604}
   - component: {fileID: 114481798048649180}
   - component: {fileID: 114576291319745108}
   - component: {fileID: 114498831969564056}
+  - component: {fileID: 114165346573249152}
   m_Layer: 9
   m_Name: pfb_SupportShip
   m_TagString: Unit
@@ -310,23 +310,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1886552500673026}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!95 &95540640986924554
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1734302136085430}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: cbac5c40bbb3a7b4d9c54abfbe7e3e9b, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!95 &95868136337533040
 Animator:
   serializedVersion: 3
@@ -344,6 +327,18 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114165346573249152
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1734302136085430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43023972f48e02a4a862a4bbe7eb2916, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ActiveObject: {fileID: 1225915462733972}
 --- !u!114 &114223245746741550
 MonoBehaviour:
   m_ObjectHideFlags: 1
