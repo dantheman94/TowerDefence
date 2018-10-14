@@ -85,8 +85,6 @@ public class GameManager : MonoBehaviour {
     [Header(" MISCELLANEOUS")]
     [Space]
     public GameObject RecycleBuilding;
-    public GameObject ObjectSelected;
-    public GameObject ObjectHighlighted;
     public GameObject RallyPointObject = null;
     public GameObject HitScanVisualizer = null;
 

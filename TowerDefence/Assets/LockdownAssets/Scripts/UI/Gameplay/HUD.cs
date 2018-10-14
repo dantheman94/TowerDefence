@@ -67,10 +67,6 @@ public class HUD : MonoBehaviour {
         
         // Get component references
         _Player = GetComponent<Player>();
-
-        // Initialize selectable properties
-        Settings.StoreSelectBoxItems(GameManager.Instance.ObjectSelected);
-        Settings.StoreHighlightBoxItems(GameManager.Instance.ObjectHighlighted);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
