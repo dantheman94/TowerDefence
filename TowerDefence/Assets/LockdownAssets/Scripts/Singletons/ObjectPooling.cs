@@ -60,7 +60,7 @@ public static class ObjectPooling {
             this._GameObject = obj;
             _POOL_INACTIVE_OBJECTS = new Stack<GameObject>(size);
 
-            _Parent = new GameObject("_POOL_" + obj.name);
+            _Parent = new GameObject("_OBJECT_POOL_" + obj.name);
             _Parent.transform.position = Vector3.zero;
             _Parent.transform.rotation = Quaternion.identity;
         }
@@ -100,7 +100,7 @@ public static class ObjectPooling {
             }
 
             // Set object's transform
- //           obj.transform.SetParent(_Parent.transform);
+            if (_Parent != null) { obj.transform.SetParent(_Parent.transform); }
             obj.transform.position = position;
             obj.transform.rotation = rotation;
             obj.SetActive(true);
@@ -141,7 +141,7 @@ public static class ObjectPooling {
             }
 
             // Set object's transform
-  //          obj.transform.SetParent(_Parent.transform);
+            if (_Parent != null) { obj.transform.SetParent(_Parent.transform); }
             obj.transform.position = position;
             obj.SetActive(true);
             return obj;
@@ -181,7 +181,7 @@ public static class ObjectPooling {
             }
 
             // Set object's transform
-        //    obj.transform.SetParent(_Parent.transform);
+            if (_Parent != null) { obj.transform.SetParent(_Parent.transform); }
             obj.SetActive(true);
             return obj;
         }

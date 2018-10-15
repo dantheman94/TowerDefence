@@ -12,7 +12,7 @@ using UnityEngine;
 //******************************
 
 public class AutoDespawn : MonoBehaviour {
-
+    
     //******************************************************************************************************************************
     //
     //      VARIABLES
@@ -20,6 +20,7 @@ public class AutoDespawn : MonoBehaviour {
     //******************************************************************************************************************************
 
     private ParticleSystem _ParticleSystem = null;
+    private bool _DespawnNow = false;
 
     //******************************************************************************************************************************
     //
@@ -34,7 +35,7 @@ public class AutoDespawn : MonoBehaviour {
     /// </summary>
     private void Start() {
 
-        _ParticleSystem = GetComponent<ParticleSystem>();
+        _ParticleSystem = GetComponentInChildren<ParticleSystem>();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -43,16 +44,34 @@ public class AutoDespawn : MonoBehaviour {
     //  Called each frame.
     /// </summary>
     private void Update() {
-        
+
         if (_ParticleSystem != null) {
 
-            // Wait until the particle has finished its cycle
-            if (!_ParticleSystem.IsAlive()) {
+            // Wait until the particle has finished its cycle (for force to stop)
+            if (!_ParticleSystem.IsAlive() || _DespawnNow) {
 
                 // Despawn
                 ObjectPooling.Despawn(gameObject);
             }
         }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Waits for the specified seconds, then despawns the particle effect next frame.
+    /// </summary>
+    /// <param name="seconds"></param>
+    /// <returns>
+    //  IEnumerator
+    /// </returns>
+    public IEnumerator DelayedDespawnSeconds(int seconds) {
+
+        // Wait for seconds specified
+        yield return new WaitForSeconds(seconds);
+
+        // Despawn next frame
+        _DespawnNow = true;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

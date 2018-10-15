@@ -51,13 +51,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f24bbf81aea765549a797e3e95ee482d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ProjectileType: 1
+  _ProjectileType: 2
   ProjectileClass: {fileID: 0}
-  FiringEffect: {fileID: 0}
+  FiringEffect: {fileID: 1018574680409092, guid: 3f436dc8110fff14fa9cd4576875ee53,
+    type: 2}
   FiringDelay: 0.1
+  LoopingFire: 1
+  FiringDuration: 3
   TrackingProjectile: 0
   TrackingStrength: 1
-  MuzzleEffectWrapper: {fileID: 0}
+  MuzzleEffectWrapper: {fileID: 1018574680409092, guid: 3f436dc8110fff14fa9cd4576875ee53,
+    type: 2}
   MuzzlePatternType: 0
   ReusableMuzzlePoints: 1
   ChargeUpTime: 0
@@ -69,7 +73,7 @@ MonoBehaviour:
   SpreadRaycasts: 1
   SpreadAmount: 4
   SpreadAngle: 10
-  VisualizeHitscanTrace: 1
+  VisualizeHitscanTrace: 0
   HitScanDrawTime: 0.1
   HitScanStartColour: {r: 1, g: 0, b: 0, a: 1}
   HitScanStartWidth: 0.05
