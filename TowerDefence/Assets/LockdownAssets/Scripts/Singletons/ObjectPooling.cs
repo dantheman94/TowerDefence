@@ -348,9 +348,9 @@ public static class ObjectPooling {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  Destroys all active GameObjects in the world.
+    //  Despawns all active GameObjects in the world.
     /// </summary>
-    public static void DestroyAll() {
+    public static void DespawnAll() {
 
         // Find all gameObjects
         List<GameObject> objectsInScene = new List<GameObject>();
@@ -365,6 +365,25 @@ public static class ObjectPooling {
         
         // Destroy all gameObjects
         for (int i = 0; i < objectsInScene.Count; i++) { Despawn(objectsInScene[i]); }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Destroys all active GameObjects in the world.
+    /// </summary>
+    public static void DestroyAll() {
+
+        // Find all gameobjects
+        GameObject[] objects = Object.FindObjectsOfType<GameObject>();
+        for (int i = 0; i < objects.Length - 1; i++) {
+
+            // Destroy the root
+            if (objects[i].transform.root != null) {
+
+                Object.Destroy(objects[i].transform.root);
+            }
+        }        
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
