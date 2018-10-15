@@ -130,6 +130,11 @@ public class TutorialScene : MonoBehaviour {
             if(ControlsObject != null)
             ControlsObject.SetActive(true);
         }
+
+        if(GameManager.Instance.GetGameOverState())
+        {
+            PlayerPrefs.SetString("TutorialComplete", "Yes");
+        }
 	}
 
     //////////////////////////////////////////////////////////////////////////////////////////
