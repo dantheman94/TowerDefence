@@ -78,7 +78,7 @@ public class KeyboardInput : MonoBehaviour {
         
         if(Input.GetMouseButtonUp(1))
         {
-      //      LineMovement();
+            LineMovement();
         }
         if (_PlayerAttached) {
 
