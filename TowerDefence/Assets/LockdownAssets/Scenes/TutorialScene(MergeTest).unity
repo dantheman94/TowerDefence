@@ -5250,7 +5250,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 356ca20544b103f409cea053fe189484, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SelectionPanels: []
+  StencilObject: {fileID: 0}
+  StartingPositionX: 85
+  StartingPositionY: 140
+  OffsetX: 5
 --- !u!224 &391259453
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15475,6 +15478,12 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1138203966 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114680855820500154, guid: 2026df39a4e1f1245a5289ed76abff7c,
+    type: 2}
+  m_PrefabInternal: {fileID: 1352489113}
+  m_Script: {fileID: 11500000, guid: 506b563165ba6c949ad7065ebd960fb5, type: 3}
 --- !u!1 &1138986022
 GameObject:
   m_ObjectHideFlags: 0
@@ -19594,6 +19603,11 @@ Prefab:
       propertyPath: CameraRTS
       value: 
       objectReference: {fileID: 798642849}
+    - target: {fileID: 114717441679538020, guid: 2026df39a4e1f1245a5289ed76abff7c,
+        type: 2}
+      propertyPath: Slicedrawer
+      value: 
+      objectReference: {fileID: 1697397912}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2026df39a4e1f1245a5289ed76abff7c, type: 2}
   m_IsPrefabParent: 0
@@ -24710,19 +24724,19 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1697397911}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 86382bfadffaff740aed9efce4d50737, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LineMaterial: {fileID: 0}
-  LineWidth: 0
+  LineMaterial: {fileID: 2100000, guid: 0cb137f17a86c1848920db05fe301278, type: 2}
+  LineWidth: 0.04
   Depth: 5
   MouseEndPoint: {x: 0, y: 0, z: 0}
   LineStartPoint: {x: 0, y: 0, z: 0}
   StartGO: {fileID: 0}
   EndGO: {fileID: 0}
-  hud: {fileID: 0}
+  hud: {fileID: 1138203966}
 --- !u!1 &1698235435
 GameObject:
   m_ObjectHideFlags: 0
