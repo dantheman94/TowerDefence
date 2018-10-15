@@ -1528,6 +1528,8 @@ public class KeyboardInput : MonoBehaviour {
 
             _BoxStartPoint = -Vector3.one;
 
+            // Update units selected panels
+            GameManager.Instance.SelectedUnitsHUD.RefreshPanels();
         }
 
         if (Input.GetMouseButton(0)) {
@@ -1545,6 +1547,9 @@ public class KeyboardInput : MonoBehaviour {
                 Selection.y += Selection.height;
                 Selection.height = -Selection.height;
             }
+
+            // Update units selected panels
+            GameManager.Instance.SelectedUnitsHUD.RefreshPanels();
         }
 
     }
