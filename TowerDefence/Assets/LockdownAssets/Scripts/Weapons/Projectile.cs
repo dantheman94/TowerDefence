@@ -249,10 +249,6 @@ public class Projectile : MonoBehaviour {
             // Play
             ParticleSystem effect = ObjectPooling.Spawn(ImpactEffect, transform.position, transform.rotation).GetComponentInChildren<ParticleSystem>();
             effect.Play();
-
-            // Despawn particle system once it has finished its cycle
-            float effectDuration = effect.duration + effect.startLifetime;
-            StartCoroutine(ParticleDespawner.Instance.ParticleParentDespawn(effect, effectDuration));
         }
                 
         ObjectPooling.Despawn(gameObject);
