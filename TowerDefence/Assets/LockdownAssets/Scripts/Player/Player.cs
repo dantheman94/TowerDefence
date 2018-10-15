@@ -64,6 +64,7 @@ public class Player : MonoBehaviour {
     public BuildingSlot SelectedBuildingSlot { get; set; }
     public List<Selectable> SelectedWorldObjects { get; set; }
     public List<Unit> SelectedUnits { get; set; }
+    public static Rect SelectionScreen = new Rect(0, 0, Screen.width, Screen.height);
 
     // Economy
     public int MaxPopulation { get; set; }

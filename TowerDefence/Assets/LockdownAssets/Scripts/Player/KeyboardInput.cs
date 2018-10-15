@@ -24,7 +24,6 @@ public class KeyboardInput : MonoBehaviour {
     private XboxGamepadInput _XboxGamepadInputManager = null;
     public bool IsPrimaryController { get; set; }
     public static Rect Selection = new Rect(0, 0, 0, 0);
-    public static Rect SelectionScreen = new Rect(0, 0, Screen.width, Screen.height);
     public Texture SelectionHighlight;
     public Minimap MiniMap;
     public SliceDrawer Slicedrawer;

@@ -462,7 +462,7 @@ public class Unit : WorldObject {
             if (_Player._KeyboardInputManager.CreateScreenSelection()) {
                 Vector3 CamPos = _Player.CameraAttached.WorldToScreenPoint(transform.position);
 
-                if (KeyboardInput.SelectionScreen.Contains(CamPos)) {
+                if (Player.SelectionScreen.Contains(CamPos)) {
 
                     if (this.GetObjectState() == WorldObject.WorldObjectStates.Active && !_IsCurrentlySelected) {
 
