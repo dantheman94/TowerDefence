@@ -842,7 +842,7 @@ public class KeyboardInput : MonoBehaviour {
                 else { _PlayerAttached.DeselectAllObjects(); }
 
                 // Update units selected panels
-                ///GameManager.Instance.SelectedUnitsHUD.NewSelection(_PlayerAttached.SelectedWorldObjects);
+                GameManager.Instance.SelectedUnitsHUD.RefreshPanels();
             }
         }
     }

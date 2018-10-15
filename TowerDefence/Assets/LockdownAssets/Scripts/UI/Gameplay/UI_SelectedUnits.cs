@@ -21,9 +21,13 @@ public class UI_SelectedUnits : MonoBehaviour {
 
     [Space]
     [Header("-----------------------------------")]
-    [Header(" SELECTION PANELS")]
+    [Header(" WIDGET PROPERTIES")]
     [Space]
-    public List<UI_UnitInfoPanel> SelectionPanels;
+    public UI_UnitInfoPanel StencilObject = null;
+    [Space]
+    public float StartingPositionX = 85f;
+    public float StartingPositionY = 140f;
+    public float OffsetX = 5f;
 
     //******************************************************************************************************************************
     //
@@ -37,9 +41,14 @@ public class UI_SelectedUnits : MonoBehaviour {
         public int _Amount;
         public Texture2D _Logo;
     }
+    
+    private Player _Player = null;
+    private List<Unit> _SelectedUnits = null;
 
-    private List<WorldObject> _CurrentlySelected;
     private List<UnitInfos> _UnitInfos;
+    private List<UI_UnitInfoPanel> _UnitInfoPanels = null;
+
+    private float _PanelSize = 100f;
 
     //******************************************************************************************************************************
     //
@@ -53,10 +62,16 @@ public class UI_SelectedUnits : MonoBehaviour {
     // Called when the gameObject is created.
     /// </summary>
     private void Start() {
-
+        
         // Initialize lists
-        _CurrentlySelected = new List<WorldObject>();
+        _SelectedUnits = new List<Unit>();
         _UnitInfos = new List<UnitInfos>();
+        _UnitInfoPanels = new List<UI_UnitInfoPanel>();
+        if (StencilObject != null) {
+
+            // Get panel sizing for offset
+            _PanelSize = StencilObject.GetComponent<RectTransform>().rect.width;
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -65,117 +80,92 @@ public class UI_SelectedUnits : MonoBehaviour {
     //  Called each frame. 
     /// </summary>
     private void Update() {
+        
+        // Get reference to the player class
+        if (_Player == null) { _Player = GameManager.Instance.Players[0]; }
+        else {
 
+            // Match the currently selected array to the players array
+            _SelectedUnits = _Player.SelectedUnits;
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    public void RefreshPanels() {
+
+        // Reset lists
+        for (int i = 0; i < _UnitInfoPanels.Count; i++) {
+
+            ObjectPooling.Despawn(_UnitInfoPanels[i].gameObject);
+        }
+        _UnitInfos.Clear();
+        _UnitInfoPanels.Clear();
+
+        // Add a new panel for each type of unit selected by the player
+        for (int i = 0; i < _SelectedUnits.Count; i++) {
+
+            // Check if this unit already exists in the info lists
+            bool matchingType = false;
+            for (int j = 0; j < _UnitInfos.Count; j++) {
+
+                // Matching type to existing info
+                if (_SelectedUnits[i].UnitType == _UnitInfos[j]._UnitType) {
+
+                    // Add to count of the unit info
+                    _UnitInfos[j]._Amount++;
+                    matchingType = true;
+                    break;
+                }
+            }
+
+            // No unit infos match the selected unit were testing against
+            if (!matchingType) {
+
+                // Create a new iterator in the info lists
+                UnitInfos info = new UnitInfos {
+
+                    _UnitType = _SelectedUnits[i].UnitType,
+                    _Logo = _SelectedUnits[i].Logo,
+                    _Amount = 1
+                };
+                _UnitInfos.Add(info);
+            }
+        }
+
+        // Create a new panel for each unit info
         for (int i = 0; i < _UnitInfos.Count; i++) {
 
-            if (SelectionPanels.Count >= i) {
+            if (StencilObject != null) {
 
-                // Update unit logo image
-                ///UnitInfoPanels[i].LogoComponent.sprite = _UnitInfos[i]._Logo;
+                // Spawn panel & pass unit info data
+                UI_UnitInfoPanel panel = ObjectPooling.Spawn(StencilObject.gameObject).GetComponent<UI_UnitInfoPanel>();
+                panel.UnitName.text = _UnitInfos[i]._UnitType.ToString();
+                panel.AmountCounter.text = _UnitInfos[i]._Amount.ToString();
 
-                // Update name
-                ///UnitInfoPanels[i].UnitName.text = _UnitInfos[i]._UnitType.ToString();
+                // Set anchoring position
+                RectTransform rectT = panel.GetComponent<RectTransform>();
+                panel.transform.SetParent(gameObject.transform);
+                if (i > 0) {
 
-                // Update amount selected text
-                ///UnitInfoPanels[i].AmountCounter.text = _UnitInfos[i]._Amount.ToString();
-
-                // Show the gameobject
-                SelectionPanels[i].gameObject.SetActive(true);
-            }
-        }
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  
-    /// </summary>
-    public void NewSelectionOLD(List<Selectable> selected) {
-
-        // Clear all the panels
-        for (int i = 0; i < SelectionPanels.Count; i++) { SelectionPanels[i].Wipe(); }
-        _CurrentlySelected.Clear();
-        _UnitInfos.Clear();
-
-        // Cast Selectables to WorldObjects
-        for (int i = 0; i < selected.Count; i++) {
-
-            WorldObject obj = selected[i].GetComponent<WorldObject>();
-            if (obj != null) { _CurrentlySelected.Add(obj); }
-        }
-
-        // Loop through selected WorldObjects
-        for (int i = 0; i < _CurrentlySelected.Count; i++) {
-
-            // As long as the WorldObject is a valid AI object
-            if (GetUnitType(_CurrentlySelected[i]) != Unit.EUnitType.Undefined) {
-
-                // First unit type
-                if (_UnitInfos.Count == 0) {
-
-                    // Add new type to known list
-                    UnitInfos info = new UnitInfos {
-
-                        _UnitType = GetUnitType(_CurrentlySelected[i]),
-                        _Amount = 1,
-                        _Logo = _CurrentlySelected[i].Logo
-                    };
-                    _UnitInfos.Add(info);
+                    // Not the first panel
+                    rectT.anchoredPosition = new Vector2((StartingPositionX + (_PanelSize * i) + (OffsetX * i)), StartingPositionY);
                 }
-
                 else {
 
-                    // Loop through known unit types
-                    for (int j = 0; j < _UnitInfos.Count; j++) {
-
-                        // This unit type is already known
-                        if (GetUnitType(_CurrentlySelected[i]) == _UnitInfos[j]._UnitType) {
-
-                            // Add to unit amount
-                            _UnitInfos[j]._Amount++;
-                            break;
-                        }
-
-                        // Reached the end of the known unit types with no match
-                        if (j + 1 == _UnitInfos.Count) {
-
-                            // Add new type to known list
-                            UnitInfos info = new UnitInfos {
-
-                                _UnitType = GetUnitType(_CurrentlySelected[i]),
-                                _Amount = 1,
-                                _Logo = _CurrentlySelected[i].Logo
-                            };
-                            _UnitInfos.Add(info);
-                        }
-                    }
+                    // First panel
+                    rectT.anchoredPosition = new Vector2(StartingPositionX, StartingPositionY);
                 }
+                _UnitInfoPanels.Add(panel);
             }
         }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  
-    /// </summary>
-    public void NewSelection(List<Selectable> selected) {
-
-        // Clear all the panels
-        for (int i = 0; i < SelectionPanels.Count; i++) { SelectionPanels[i].Wipe(); }
-        _CurrentlySelected.Clear();
-        _UnitInfos.Clear();
-
-        // Cast Selectables to WorldObjects
-        for (int i = 0; i < selected.Count; i++) {
-
-            WorldObject obj = selected[i].GetComponent<WorldObject>();
-            if (obj != null) { _CurrentlySelected.Add(obj); }
-        }
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    
     /// <summary>
     //  
     /// </summary>
@@ -184,8 +174,8 @@ public class UI_SelectedUnits : MonoBehaviour {
     //  Unit.UnitType
     /// </returns>
     private Unit.EUnitType GetUnitType(WorldObject worldObject) {
-
-        // If the object is a unit
+        
+        // If the object is a unit - return its type
         Unit unit = worldObject.GetComponent<Unit>();
         if (unit != null) { return unit.UnitType; }
         
