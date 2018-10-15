@@ -32,7 +32,7 @@ public class Projectile : MonoBehaviour {
     [Header("-----------------------------------")]
     [Header(" ON IMPACT")]
     [Space]
-    public ParticleSystem ImpactEffect = null;
+    public GameObject ImpactEffect = null;
     [Space]
     public bool ExplodeOnImpact = false;
     public float ExplosionRadius = 20f;
@@ -247,12 +247,12 @@ public class Projectile : MonoBehaviour {
         if (ImpactEffect != null) {
 
             // Play
-            ParticleSystem effect = ObjectPooling.Spawn(ImpactEffect.gameObject, transform.position, transform.rotation).GetComponent<ParticleSystem>();
+            ParticleSystem effect = ObjectPooling.Spawn(ImpactEffect, transform.position, transform.rotation).GetComponentInChildren<ParticleSystem>();
             effect.Play();
 
             // Despawn particle system once it has finished its cycle
             float effectDuration = effect.duration + effect.startLifetime;
-            StartCoroutine(ParticleDespawner.Instance.ParticleDespawn(effect, effectDuration));
+            StartCoroutine(ParticleDespawner.Instance.ParticleParentDespawn(effect, effectDuration));
         }
                 
         ObjectPooling.Despawn(gameObject);

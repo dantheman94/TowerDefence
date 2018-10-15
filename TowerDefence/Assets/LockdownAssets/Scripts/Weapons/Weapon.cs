@@ -78,7 +78,7 @@ public class Weapon : MonoBehaviour {
     [Header("-----------------------------------")]
     [Header(" IMPACT DAMAGES")]
     [Space]
-    public ParticleSystem DefaultImpactEffect = null;
+    public GameObject DefaultImpactEffect = null;
     public GameObject SpawnOnImpact = null;
     [Space]
     public ObjectDamages Damages;
@@ -381,25 +381,28 @@ public class Weapon : MonoBehaviour {
                         Quaternion rotation = Quaternion.FromToRotation(hit.point, _UnitAttached.MuzzleLaunchPoints[0].transform.position);
                         if (worldObj.ProjectileImpactEffect != null) {
 
-                            ParticleSystem impact = ObjectPooling.Spawn(worldObj.ProjectileImpactEffect.gameObject, position, rotation).GetComponent<ParticleSystem>();
-                            impact.Play();
+                            ParticleSystem impact = ObjectPooling.Spawn(worldObj.ProjectileImpactEffect, position, rotation).GetComponentInChildren<ParticleSystem>();
+                            if (impact != null) {
 
-                            // Despawn particle system once it has finished its cycle
-                            float effectDuration = impact.duration + impact.startLifetime;
-                            StartCoroutine(ParticleDespawner.Instance.ParticleDespawn(impact, effectDuration));
-                        }
-
-                        // Play default impact effect
-                        else {
-
-                            if (DefaultImpactEffect != null) {
-
-                                ParticleSystem impact = ObjectPooling.Spawn(DefaultImpactEffect.gameObject, position, rotation).GetComponent<ParticleSystem>();
                                 impact.Play();
 
                                 // Despawn particle system once it has finished its cycle
                                 float effectDuration = impact.duration + impact.startLifetime;
-                                StartCoroutine(ParticleDespawner.Instance.ParticleDespawn(impact, effectDuration));
+                                StartCoroutine(ParticleDespawner.Instance.ParticleParentDespawn(impact, effectDuration));
+                            }
+                        }
+
+                        // Play default impact effect
+                        if (DefaultImpactEffect != null) {
+
+                            ParticleSystem impact = ObjectPooling.Spawn(DefaultImpactEffect, position, rotation).GetComponentInChildren<ParticleSystem>();
+                            if (impact != null) {
+
+                                impact.Play();
+
+                                // Despawn particle system once it has finished its cycle
+                                float effectDuration = impact.duration + impact.startLifetime;
+                                StartCoroutine(ParticleDespawner.Instance.ParticleParentDespawn(impact, effectDuration));
                             }
                         }
 
@@ -658,27 +661,29 @@ public class Weapon : MonoBehaviour {
                     Quaternion rotation = Quaternion.FromToRotation(hit.point, _UnitAttached.MuzzleLaunchPoints[0].transform.position);
                     if (worldObj.ProjectileImpactEffect != null) {
 
-                        ParticleSystem impact = ObjectPooling.Spawn(worldObj.ProjectileImpactEffect.gameObject, position, rotation).GetComponent<ParticleSystem>();
-                        impact.Play();
+                        ParticleSystem impact = ObjectPooling.Spawn(worldObj.ProjectileImpactEffect, position, rotation).GetComponentInChildren<ParticleSystem>();
+                        if (impact != null) {
 
-                        // Despawn particle system once it has finished its cycle
-                        float effectDuration = impact.duration + impact.startLifetime;
-                        StartCoroutine(ParticleDespawner.Instance.ParticleDespawn(impact, effectDuration));
-                    }
-
-                    // Play default impact effect
-                    else {
-
-                        // Validity check
-                        if (DefaultImpactEffect != null) {
-
-                            // Object pool the effect
-                            ParticleSystem impact = ObjectPooling.Spawn(DefaultImpactEffect.gameObject, position, rotation).GetComponent<ParticleSystem>();
                             impact.Play();
 
                             // Despawn particle system once it has finished its cycle
                             float effectDuration = impact.duration + impact.startLifetime;
-                            StartCoroutine(ParticleDespawner.Instance.ParticleDespawn(impact, effectDuration));
+                            StartCoroutine(ParticleDespawner.Instance.ParticleParentDespawn(impact, effectDuration));
+                        }
+                    }
+
+                    // Play default impact effect
+                    if (DefaultImpactEffect != null) {
+
+                        // Object pool the effect
+                        ParticleSystem impact = ObjectPooling.Spawn(DefaultImpactEffect, position, rotation).GetComponentInChildren<ParticleSystem>();
+                        if (impact != null) {
+
+                            impact.Play();
+
+                            // Despawn particle system once it has finished its cycle
+                            float effectDuration = impact.duration + impact.startLifetime;
+                            StartCoroutine(ParticleDespawner.Instance.ParticleParentDespawn(impact, effectDuration));
                         }
                     }
 

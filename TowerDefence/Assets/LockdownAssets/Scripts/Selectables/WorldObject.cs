@@ -77,7 +77,7 @@ public class WorldObject : Selectable {
     [Header(" DAMAGED EFFECTS")]
     [Header("-----------------------------------")]
     [Space]
-    public ParticleSystem ProjectileImpactEffect = null;
+    public GameObject ProjectileImpactEffect = null;
     [Space]
     [Range(0f, 0.9f)]
     public float HealthThresholdDamaged = 0.5f;
