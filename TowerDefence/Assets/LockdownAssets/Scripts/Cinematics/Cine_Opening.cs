@@ -202,7 +202,7 @@ public class Cine_Opening : Cinematic {
         yield return new WaitForSeconds(MatchStartDelay);
 
         // Start match check
-        StartCoroutine(WaveManager.Instance.PermittedWaveStart());
+        StartCoroutine(WaveManager.Instance.PermittedMatchStart());
 
         Destroy(_TargetTransform.gameObject);
     }
