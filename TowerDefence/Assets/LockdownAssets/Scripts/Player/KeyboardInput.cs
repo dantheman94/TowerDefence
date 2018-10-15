@@ -142,6 +142,9 @@ public class KeyboardInput : MonoBehaviour {
                         ai.SetPlayer(_PlayerAttached);
                         ai.SetIsSelected(true);
                     }
+
+                    // Update units selected panels
+                    GameManager.Instance.SelectedUnitsHUD.RefreshPanels();
                 }
             }
         }

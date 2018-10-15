@@ -334,12 +334,21 @@ MonoBehaviour:
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 10
   _WidgetShieldbarOffset: 10
-  OnDeathEffect: {fileID: 0}
+  ProjectileImpactEffect: {fileID: 1428903181581706, guid: cb6673ab40070a140b992561941f7f20,
+    type: 2}
+  HealthThresholdDamaged: 0.5
+  HealthDamagedParticles: []
+  OnDeathEffects: []
+  CameraShakeOnDeath: 0
+  DeathExplosionRadius: 10
   ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.3
   AttachedBuildingSlot: {fileID: 0}
   ObjectHeight: 15
   HasABuildingQueue: 1
+  EffectPlayedWhenBuildingSelectable: {fileID: 0}
+  EffectPlayedOnBuiltSelectable: {fileID: 0}
+  BuiltSelectableEffectPosition: {fileID: 0}
   Selectables:
   - {fileID: 0}
   - {fileID: 0}

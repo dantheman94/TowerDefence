@@ -35,7 +35,7 @@ public class UI_SelectedUnits : MonoBehaviour {
     //
     //******************************************************************************************************************************
 
-    private class UnitInfos {
+    public class UnitInfos {
 
         public Unit.EUnitType _UnitType;
         public int _Amount;
@@ -145,6 +145,8 @@ public class UI_SelectedUnits : MonoBehaviour {
                 UI_UnitInfoPanel panel = ObjectPooling.Spawn(StencilObject.gameObject).GetComponent<UI_UnitInfoPanel>();
                 panel.UnitName.text = _UnitInfos[i]._UnitType.ToString();
                 panel.AmountCounter.text = _UnitInfos[i]._Amount.ToString();
+                panel.SetPanelInfo(_UnitInfos[i]);
+                panel.SetPlayer(_Player);
 
                 // Set anchoring position
                 RectTransform rectT = panel.GetComponent<RectTransform>();

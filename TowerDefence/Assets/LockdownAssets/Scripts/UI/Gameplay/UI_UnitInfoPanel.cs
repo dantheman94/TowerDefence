@@ -32,6 +32,16 @@ public class UI_UnitInfoPanel : MonoBehaviour {
 
     //******************************************************************************************************************************
     //
+    //      VARIABLES
+    //
+    //******************************************************************************************************************************
+
+    private UI_SelectedUnits.UnitInfos _PanelInfo;
+
+    private Player _Player;
+
+    //******************************************************************************************************************************
+    //
     //      FUNCTIONS
     //
     //******************************************************************************************************************************
@@ -41,17 +51,46 @@ public class UI_UnitInfoPanel : MonoBehaviour {
     /// <summary>
     //  
     /// </summary>
-    public void Wipe() {
+    public void SelectUnit() {
 
-        // Clear everything
-        if (LogoComponent != null) { LogoComponent.sprite = null; }
-        if (UnitName != null) { UnitName.text = ""; }
-        if (AmountCounter != null) { AmountCounter.text = ""; }
-        if (AbilityText != null) { AmountCounter.text = ""; }
+        Unit.EUnitType type = _PanelInfo._UnitType;
+        if (_Player != null) {
 
-        // Hide the gameObject
-        gameObject.SetActive(false);
+            // Deselect all units
+            _Player.DeselectAllObjects();
+
+            // Select all units in the player's army that have the same type
+            for (int i = 0; i < _Player.GetArmy().Count; i++) {
+
+                // Matching unit type?
+                Unit unit = _Player.GetArmy()[i];
+                if (unit.UnitType == type) {
+
+                    // Select the unit
+                    _Player.SelectedUnits.Add(unit);
+                    unit.SetPlayer(_Player);
+                    unit.SetIsSelected(true);
+                }
+            }
+
+            // Update units selected panels
+            GameManager.Instance.SelectedUnitsHUD.RefreshPanels();
+        }
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    public void SetPanelInfo(UI_SelectedUnits.UnitInfos info) { _PanelInfo = info; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    /// <summary>
+    //  
+    /// </summary>
+    public void SetPlayer(Player player) { _Player = player; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
