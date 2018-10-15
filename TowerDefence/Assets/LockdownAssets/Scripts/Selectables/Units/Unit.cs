@@ -1206,7 +1206,8 @@ public class Unit : WorldObject {
         if (_PotentialTargets.Count > 0) {
             
             // Use weighted selection to determine the next target
-            List<int> targetWeights = new List<int>();            
+            List<int> targetWeights = new List<int>();
+            /*
             if (weightList != null || weightList.Length > 0) {
                 
                 // For each known potential target
@@ -1240,6 +1241,9 @@ public class Unit : WorldObject {
                 // All potential targets have a weight of 1 to be the next target
                 for (int i = 0; i < _PotentialTargets.Count; i++) { targetWeights.Add(1); }
             }
+            */
+            // All potential targets have a weight of 1 to be the next target
+            for (int i = 0; i < _PotentialTargets.Count; i++) { targetWeights.Add(1); }
 
             // Set new target
             _AttackTarget = _PotentialTargets[GetWeightedRandomIndex(targetWeights)];
