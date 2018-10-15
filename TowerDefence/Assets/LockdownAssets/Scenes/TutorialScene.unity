@@ -8631,7 +8631,7 @@ Prefab:
     - target: {fileID: 114222093602020462, guid: ef4574e7df5c0c14aa9039b40e5b26a4,
         type: 2}
       propertyPath: Difficulty
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ef4574e7df5c0c14aa9039b40e5b26a4, type: 2}
@@ -10967,6 +10967,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WaveNameTitle: {fileID: 2065857263}
   WaveNameDescription: {fileID: 1470068813}
+  HorizontalLine: {fileID: 0}
+  FadeInSpeed: 2
   TimeOnScreen: 3
 --- !u!1 &767831006
 GameObject:
@@ -12289,6 +12291,16 @@ Prefab:
         type: 2}
       propertyPath: Waves.Array.data[0].Subwaves
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: StartingDamageModifier
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: StartingHealthModifier
+      value: 0.3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b395ec806e68f63448ff1add050a25ba, type: 2}
@@ -22763,8 +22775,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1443492023}
-        m_MethodName: OnSaveAndQuit
+      - m_Target: {fileID: 542764819}
+        m_MethodName: BackToMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -25049,6 +25061,7 @@ GameObject:
   - component: {fileID: 1728756682}
   - component: {fileID: 1728756681}
   - component: {fileID: 1728756680}
+  - component: {fileID: 1728756687}
   m_Layer: 0
   m_Name: DDOL
   m_TagString: Untagged
@@ -25137,6 +25150,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1728756687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1728756679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab0a3da3721856a4d88af44b493120bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1729391297
 GameObject:
   m_ObjectHideFlags: 0
@@ -25466,7 +25490,7 @@ Prefab:
     - target: {fileID: 114083001813579554, guid: bdc86748c51c2724a81bfc74b4f54e2c,
         type: 2}
       propertyPath: StartingMaxPopulation
-      value: 25
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 114083001813579554, guid: bdc86748c51c2724a81bfc74b4f54e2c,
         type: 2}

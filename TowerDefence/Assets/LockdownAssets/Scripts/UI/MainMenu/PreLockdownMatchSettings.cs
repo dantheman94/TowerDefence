@@ -32,6 +32,9 @@ public class PreLockdownMatchSettings : MonoBehaviour {
     public Text TempLevelText = null;
     public Text TempDiffText = null;
     public Button StartMatchButton;
+    public Button DifficultyButton;
+    public Button LevelButton;
+
 
     //******************************************************************************************************************************
     //
@@ -42,6 +45,7 @@ public class PreLockdownMatchSettings : MonoBehaviour {
     private InstanceManager.EFaction _Faction = InstanceManager.EFaction.Ethereal;
     private Info_Level _Level = null;
     private Info_Difficulty _Difficulty = null;
+    private string TutorialSetting = "";
 
     //******************************************************************************************************************************
     //
@@ -56,6 +60,16 @@ public class PreLockdownMatchSettings : MonoBehaviour {
     /// </summary>
     private void Update() {
         DisableButton();
+
+        if(PlayerPrefs.GetString("TutorialComplete") != null || PlayerPrefs.GetString("TutorialComplete") != "")
+        {
+            LevelButton.interactable = false;
+        }
+        else if(PlayerPrefs.GetString("TutorialComplete") == "Yes")
+        {
+            LevelButton.interactable = true;
+        }
+        
 
         // Update level text
         if (LevelText != null && _Level != null) { LevelText.text = _Level.LevelName.ToString(); }
@@ -115,6 +129,16 @@ public class PreLockdownMatchSettings : MonoBehaviour {
 
         _Level = level;
         InstanceManager.Instance._Level = _Level;
+    }
+
+    public void LockDifficulty()
+    {
+        DifficultyButton.interactable = false;
+    }
+
+    public void UnlockDifficulty()
+    {
+        DifficultyButton.interactable = true;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
