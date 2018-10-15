@@ -239,6 +239,7 @@ public class UI_PauseWidget : MonoBehaviour {
         }
         else
         {
+            if(GamepadUI != null)
             GamepadUI.SetActive(false);
         }
     }

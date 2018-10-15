@@ -179,6 +179,8 @@ public class GameManager : MonoBehaviour {
 
         Instance = this;
 
+        OnUnpause();
+
         // Initialize lists
         Selectables = new List<Selectable>();
         Players = new List<Player>();

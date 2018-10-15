@@ -66,10 +66,10 @@ public class UI_LoadingScreen : MonoBehaviour
         }
 
         // Update level name text
-        if (LevelName != null) { LevelName.text = InstanceManager.Instance._Level.LevelName.ToUpper(); }
+        if (LevelName != null && InstanceManager.Instance._Level != null) { LevelName.text = InstanceManager.Instance._Level.LevelName.ToUpper(); }
 
         // Update level description text
-        if (LevelDescription != null) { LevelDescription.text = InstanceManager.Instance._Level.LevelDescription; }
+        if (LevelDescription != null && InstanceManager.Instance._Level != null) { LevelDescription.text = InstanceManager.Instance._Level.LevelDescription; }
 
         // Update gamemode text
         if (Gamemode != null) {

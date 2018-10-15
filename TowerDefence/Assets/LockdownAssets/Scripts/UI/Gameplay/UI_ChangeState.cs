@@ -35,9 +35,11 @@ public class UI_ChangeState : MonoBehaviour {
         //Load the "loading" scene
         ASyncLoading.Instance.LoadLevel(1);
         ASyncLoading.Instance.ActivateLevel();
-
+        ObjectPooling.DestroyAll();
         //Load the gameplay scene.
         ASyncLoading.Instance.LoadLevel(LevelInfo.LevelIndex);
+        GameManager.Instance.OnUnpause();
+
     }
 
     public void ExitGame()

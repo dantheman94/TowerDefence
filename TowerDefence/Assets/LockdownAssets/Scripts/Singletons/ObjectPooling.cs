@@ -100,7 +100,7 @@ public static class ObjectPooling {
             }
 
             // Set object's transform
-            obj.transform.SetParent(_Parent.transform);
+ //           obj.transform.SetParent(_Parent.transform);
             obj.transform.position = position;
             obj.transform.rotation = rotation;
             obj.SetActive(true);
@@ -141,7 +141,7 @@ public static class ObjectPooling {
             }
 
             // Set object's transform
-            obj.transform.SetParent(_Parent.transform);
+  //          obj.transform.SetParent(_Parent.transform);
             obj.transform.position = position;
             obj.SetActive(true);
             return obj;
@@ -181,7 +181,7 @@ public static class ObjectPooling {
             }
 
             // Set object's transform
-            obj.transform.SetParent(_Parent.transform);
+        //    obj.transform.SetParent(_Parent.transform);
             obj.SetActive(true);
             return obj;
         }
@@ -378,12 +378,21 @@ public static class ObjectPooling {
         GameObject[] objects = Object.FindObjectsOfType<GameObject>();
         for (int i = 0; i < objects.Length - 1; i++) {
 
-            // Destroy the root
             if (objects[i].transform.root != null) {
 
+                // Destroy children
+                for (int j = 0; j < objects[i].transform.root.childCount; j++)
+                {
+                    Object.Destroy(objects[i].transform.root.GetChild(j));
+                }
+
+                // Destroy the root
                 Object.Destroy(objects[i].transform.root);
             }
-        }        
+        }
+
+        // Clear the dicks
+        ObjectPools.Clear();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
