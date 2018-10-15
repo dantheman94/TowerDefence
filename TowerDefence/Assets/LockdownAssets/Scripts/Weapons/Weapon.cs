@@ -8,7 +8,7 @@ using UnityEngine;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 1/9/2018
+//  Last edited on: 15/10/2018
 //
 //******************************
 
@@ -132,8 +132,8 @@ public class Weapon : MonoBehaviour {
 
     private float _CurrentOffsetMultiplier = 1f;
     
-    private int _MuzzleIterator = 0;
-    private List<Transform> _MuzzleLaunchPoints = null;
+    protected int _MuzzleIterator = 0;
+    protected List<Transform> _MuzzleLaunchPoints = null;
     private List<int> _UnusedLaunchPoints = null;
 
     private Light _ChargeLight = null;
@@ -635,7 +635,7 @@ public class Weapon : MonoBehaviour {
     /// <summary>
     //  Fires a hitscan based projectile.
     /// </summary>
-    private void ProjectileRaycast() {
+    protected virtual void ProjectileRaycast() {
         
         // Weapon is attached to a unit
         if (_UnitAttached != null) { 

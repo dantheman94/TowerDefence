@@ -87,11 +87,16 @@ public class UI_BuildingQueue : MonoBehaviour {
         // Replace with current building queue items
         if (_BuildingAttached != null) {
 
-            // Add current items
-            for (int i = 0; i < _BuildingAttached.GetBuildingQueue().Count; i++) {
+            if (_BuildingAttached.GetBuildingQueue().Count > 0) {
 
-                AddToQueue(_BuildingAttached.GetBuildingQueue()[i]);
+                AddToQueue(_BuildingAttached.GetBuildingQueue()[0]);
             }
+
+            // Add current items
+            ///for (int i = 0; i < _BuildingAttached.GetBuildingQueue().Count; i++) {
+            ///
+            ///    AddToQueue(_BuildingAttached.GetBuildingQueue()[i]);
+            ///}
         }        
     }
 
