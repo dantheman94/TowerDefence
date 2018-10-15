@@ -1486,18 +1486,22 @@ public class KeyboardInput : MonoBehaviour {
             if (_PlayerAttached.SelectedUnits.Count == 2)
             {
 
-                if (hitObjectstart && hitPointstart != Settings.InvalidPosition)
+                if(hitObjectstart.tag == "Ground")
                 {
-                    if (i == 0)
+                    if (hitObjectstart && hitPointstart != Settings.InvalidPosition)
                     {
-                        _PlayerAttached.SelectedUnits[i].AgentSeekPosition(hitPointstart, true, true);
-                    }
-                    else if (i == 1)
-                    {
-                        _PlayerAttached.SelectedUnits[i].AgentSeekPosition(hitPointend, true, true);
-                    }
+                        if (i == 0)
+                        {
+                            _PlayerAttached.SelectedUnits[i].AgentSeekPosition(hitPointstart, true, true);
+                        }
+                        else if (i == 1)
+                        {
+                            _PlayerAttached.SelectedUnits[i].AgentSeekPosition(hitPointend, true, true);
+                        }
 
+                    }
                 }
+      
             }
             else
             {
