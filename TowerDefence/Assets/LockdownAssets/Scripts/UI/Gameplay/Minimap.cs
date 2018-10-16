@@ -68,7 +68,16 @@ public class Minimap : MonoBehaviour
         //    }
         //}
         //Check for minimap click event.
-        ClickedMinimap();
+        if(TutorialScene.CurrentMessageData != null)
+        {
+        if(!TutorialScene.CurrentMessageData.LockCamera && !TutorialScene.CurrentMessageData.LockControls)
+            {
+                ClickedMinimap();
+            }
+
+        }
+  
+     
 
         //If debug is true run the debug functions.
         if (debug)
