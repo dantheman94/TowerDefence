@@ -539,6 +539,7 @@ public class WaveManager : MonoBehaviour {
                     AttackPath path = _CurrentLockdownPad.GetRandomAttackPath();
                     unit.SetAttackPath(path);
                     unit.AgentSeekPosition(unit.GetAttackPath().GetFirstNodeWithOffset(), false, false);
+                    unit.SetPathInterupted(false);
                 }
 
                 // Set lockdown base reference for the unit
