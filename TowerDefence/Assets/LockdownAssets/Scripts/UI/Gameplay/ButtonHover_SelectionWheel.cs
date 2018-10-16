@@ -13,7 +13,7 @@ using UnityEngine.EventSystems;
 //
 //******************************
 
-public class ButtonHover_SelectionWheel : MonoBehaviour, IPointerEnterHandler {
+public class ButtonHover_SelectionWheel : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 
     //******************************************************************************************************************************
     //
@@ -57,7 +57,7 @@ public class ButtonHover_SelectionWheel : MonoBehaviour, IPointerEnterHandler {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    /// 
+    //  
     /// </summary>
     /// <param name="eventdata"></param>
     public void OnPointerEnter(PointerEventData eventdata) {
@@ -66,6 +66,12 @@ public class ButtonHover_SelectionWheel : MonoBehaviour, IPointerEnterHandler {
 
             // Update the highlight text in the selection wheel
             if (_ObjectRefComponent.AbstractRef != null) {
+
+                // Get selection wheel reference
+                SelectionWheel selectionWheel = null;
+                if (GameManager.Instance._IsRadialMenu) { selectionWheel = GameManager.Instance.SelectionWheel.GetComponentInChildren<SelectionWheel>(); }
+                else { selectionWheel = GameManager.Instance.selectionWindow.GetComponentInChildren<SelectionWheel>(); }
+                selectionWheel.ShowItemPurchaseInfoPanel();
 
                 // Detail window
                 SelectionWheel.DetailedHighlightTitle.text = _ObjectRefComponent.AbstractRef.ObjectName.ToUpper();
@@ -79,6 +85,24 @@ public class ButtonHover_SelectionWheel : MonoBehaviour, IPointerEnterHandler {
                 SelectionWheel.CenterPowerText.text = _ObjectRefComponent.AbstractRef.CostPower.ToString();
                 SelectionWheel.CenterPopulationText.text = _ObjectRefComponent.AbstractRef.CostPopulation.ToString();
             }
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="eventData"></param>
+    public void OnPointerExit(PointerEventData eventData) {
+
+        if (SelectionWheel != null && _ObjectRefComponent != null && _ButtonComponent != null) {
+
+            // Get selection wheel reference
+            SelectionWheel selectionWheel = null;
+            if (GameManager.Instance._IsRadialMenu) { selectionWheel = GameManager.Instance.SelectionWheel.GetComponentInChildren<SelectionWheel>(); }
+            else { selectionWheel = GameManager.Instance.selectionWindow.GetComponentInChildren<SelectionWheel>(); }
+            selectionWheel.HideItemPurchaseInfoPanel();
         }
     }
 

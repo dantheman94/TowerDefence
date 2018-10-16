@@ -45,6 +45,7 @@ public class WaveManager : MonoBehaviour {
     [Header(" UI")]
     [Space]
     public UI_WaveNotification WaveNotificationWidget = null;
+    public UI_WaveComplete WaveCompleteWidget = null;
     public UI_CoreDamagedNotification CoreDamagedWidget = null;
 
     [Space]
@@ -279,6 +280,10 @@ public class WaveManager : MonoBehaviour {
 
             // Wave has been cleared out?
             if (_CurrentWaveEnemies.Count == 0) {
+
+                //
+                WaveCompleteWidget.gameObject.SetActive(true);
+                WaveCompleteWidget.OnWaveComplete();
 
                 WaveComplete();
                 StartCoroutine(PermittedWaveStart());

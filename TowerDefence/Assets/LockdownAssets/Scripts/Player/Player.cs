@@ -169,6 +169,12 @@ public class Player : MonoBehaviour {
 
             // If there are no bases in the player's list >> Lose the match
             if (_Bases.Count == 0) { GameManager.Instance.OnGameover(false); }
+
+            if (Input.GetKey(KeyCode.Space)) {
+
+                WaveManager.Instance.WaveCompleteWidget.gameObject.SetActive(true);
+                WaveManager.Instance.WaveCompleteWidget.OnWaveComplete();
+            }
         }
     }
 
@@ -324,5 +330,5 @@ public class Player : MonoBehaviour {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    
 }

@@ -92,6 +92,13 @@ public class BuildingSlot : WorldObject {
                 // Show selection wheel
                 GameManager.Instance.SelectionWheel.SetActive(true);
 
+                // Get selection wheel reference
+                SelectionWheel selectionWheel = null;
+                if (GameManager.Instance._IsRadialMenu) { selectionWheel = GameManager.Instance.SelectionWheel.GetComponentInChildren<SelectionWheel>(); }
+                else { selectionWheel = GameManager.Instance.selectionWindow.GetComponentInChildren<SelectionWheel>(); }
+                selectionWheel.SetDefaultAbstraction(this);
+                selectionWheel.HideItemPurchaseInfoPanel();
+
                 _IsCurrentlySelected = true;
             }
 

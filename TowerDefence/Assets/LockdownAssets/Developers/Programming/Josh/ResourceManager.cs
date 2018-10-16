@@ -6,8 +6,8 @@ using UnityEngine;
 //
 //  Created by: Joshua Peake
 //
-//  Last edited by: Joshua Peake
-//  Last edited on: 01/10/2018
+//  Last edited by: Daniel Marton
+//  Last edited on: 15/10/2018
 //
 //******************************
 
@@ -49,7 +49,7 @@ public class ResourceManager : MonoBehaviour {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    ///  Called when the gameObject is created.
+    //  Called when the gameObject is created.
     /// </summary>
     void Start () {
 
@@ -60,42 +60,76 @@ public class ResourceManager : MonoBehaviour {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    ///  Called each frame.
+    //  Called each frame.
     /// </summary>
     void Update()
     {
         if (_Player != null)
         {
-            // Keep generating resources for the player
-            if (_SupplyTimer < SupplyGenerator.GeneratorTickDelay / _SupplyGenerators) {
+            if (_SupplyGenerators > 0) {
 
-                _SupplyTimer += Time.deltaTime;
-            }
-            else {
+                // Keep generating supplies for the player
+                if (_SupplyTimer < SupplyGenerator.GeneratorTickDelay / _SupplyGenerators) {
 
-                if ((_Player.SuppliesCount < _Player.MaxSupplyCount) && _SupplyGenerators >= 1) {
-
-                    _Player.SuppliesCount += 1;
+                    _SupplyTimer += Time.deltaTime;
                 }
-                // Reset timer
-                _SupplyTimer = 0f;
-            }
+                else {
 
-            // Keep generating power for the player
-            if (_PowerTimer < PowerStation.GeneratorTickDelay / _PowerGenerators) {
+                    if ((_Player.SuppliesCount < _Player.MaxSupplyCount) && _SupplyGenerators >= 1) {
 
-                _PowerTimer += Time.deltaTime;
-            }
-            else {
-
-                if ((_Player.PowerCount < _Player.MaxSupplyCount) && _PowerGenerators >= 1) {
-
-                    _Player.PowerCount += 1;
+                        _Player.SuppliesCount += 1;
+                    }
+                    // Reset timer
+                    _SupplyTimer = 0f;
                 }
-                // Reset timer
-                _PowerTimer = 0f;
             }
+            else { Debug.Log("supply gen" + _SupplyGenerators); }
+
+            if (_PowerGenerators > 0) {
+
+                // Keep generating power for the player
+                if (_PowerTimer < PowerStation.GeneratorTickDelay / _PowerGenerators) {
+
+                    _PowerTimer += Time.deltaTime;
+                }
+                else {
+
+                    if ((_Player.PowerCount < _Player.MaxSupplyCount) && _PowerGenerators >= 1) {
+
+                        _Player.PowerCount += 1;
+                    }
+                    // Reset timer
+                    _PowerTimer = 0f;
+                }
+            }
+            else { Debug.Log("power gen" + _PowerGenerators); }
         }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Temorarily boosts the players resource generation rate by the time & boost additive specified.
+    /// </summary>
+    /// <param name="seconds"></param>
+    /// <param name="boostAmount"></param>
+    /// <returns>
+    //  Ienumerator
+    /// </returns>
+    public IEnumerator ResourceBoost(float seconds, int boostSupply, int boostPower) {
+
+        // Boost the resource generation rate
+        _SupplyGenerators += boostSupply;
+        _PowerGenerators += boostPower;
+
+        yield return new WaitForSeconds(seconds);
+
+        // Slow down the resource generation & clamp to 0
+        _SupplyGenerators -= boostSupply;
+        if (_SupplyGenerators < 0) { _SupplyGenerators = 0; }
+
+        _PowerGenerators -= boostPower;
+        if (_PowerGenerators < 0) { _PowerGenerators = 0; }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -115,4 +149,16 @@ public class ResourceManager : MonoBehaviour {
     public int GetSupplyGeneratorCount() { return _SupplyGenerators; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public void ResourceBoostComplete(int supply, int power) {
+
+        _SupplyGenerators -= supply;
+        if (_SupplyGenerators < 0) { _SupplyGenerators = 0; }
+
+        _PowerGenerators -= power;
+        if (_PowerGenerators < 0) { _PowerGenerators = 0; }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 }

@@ -195,6 +195,13 @@ public class Building : WorldObject {
 
                 // Show selection wheel
                 if (ShowSelectionGUI) { GameManager.Instance.SelectionWheel.SetActive(true); }
+
+                // Update center panels
+                SelectionWheel selectionWheel = null;
+                if (GameManager.Instance._IsRadialMenu) { selectionWheel = GameManager.Instance.SelectionWheel.GetComponentInChildren<SelectionWheel>(); }
+                else { selectionWheel = GameManager.Instance.selectionWindow.GetComponentInChildren<SelectionWheel>(); }
+                selectionWheel.SetDefaultAbstraction(this);
+                selectionWheel.HideItemPurchaseInfoPanel();
             }
             _IsCurrentlySelected = true;
         }
@@ -228,6 +235,13 @@ public class Building : WorldObject {
 
                 // Show selection wheel
                 if (ShowSelectionGUI) { GameManager.Instance.SelectionWheel.SetActive(true); }
+
+                // Update center panels
+                SelectionWheel selectionWheel = null;
+                if (GameManager.Instance._IsRadialMenu) { selectionWheel = GameManager.Instance.SelectionWheel.GetComponentInChildren<SelectionWheel>(); }
+                else { selectionWheel = GameManager.Instance.selectionWindow.GetComponentInChildren<SelectionWheel>(); }
+                selectionWheel.SetDefaultAbstraction(this);
+                selectionWheel.HideItemPurchaseInfoPanel();
             }
             _IsCurrentlySelected = true;
         }

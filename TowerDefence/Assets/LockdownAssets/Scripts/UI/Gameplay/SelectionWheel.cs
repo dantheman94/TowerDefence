@@ -35,15 +35,17 @@ public class SelectionWheel : MonoBehaviour {
     [Header("-----------------------------------")]
     [Header(" ITEM HIGHLIGHT DETAIL WINDOW")]
     [Space]
+    public GameObject ItemPurchaseInfoPanel;
+    public GameObject RadialDefaultCenterPanel;
+    [Space]
     public Text DetailedHighlightTitle;
     public Text DetailedHighlightDescriptionShort;
     public Text DetailedHighlightDescriptionLong;
 
     [Space]
     [Header("-----------------------------------")]
-    [Header(" ITEM HIGHLIGHT DETAIL WINDOW")]
+    [Header(" GAMEPAD PROPERTIES")]
     [Space]
-    public UI_BuildingQueue BuildingQueue;
     public RectTransform SelectionMarker;
 
     [Space]
@@ -62,6 +64,9 @@ public class SelectionWheel : MonoBehaviour {
     
     [HideInInspector]
     public List<Abstraction> _BuildingList;
+
+    private Abstraction _AbstractionInDefaultFocus = null;
+    private string _DefaultFocusString = "";
     
     //******************************************************************************************************************************
     //
@@ -256,6 +261,8 @@ public class SelectionWheel : MonoBehaviour {
 
         GameManager.Instance.SelectionWheel.SetActive(true);
         MasterButton.enabled = false;
+
+        HideItemPurchaseInfoPanel();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -276,6 +283,50 @@ public class SelectionWheel : MonoBehaviour {
     /// </summary>
     public void HideSelectionWheel() {
         StartCoroutine(WaitHide());
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    public void ShowItemPurchaseInfoPanel() {
+
+        // Show info panel
+        if (ItemPurchaseInfoPanel != null) { ItemPurchaseInfoPanel.gameObject.SetActive(true); }
+
+        // Hide center default panel
+        if (RadialDefaultCenterPanel != null) { RadialDefaultCenterPanel.gameObject.SetActive(false); }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    public void HideItemPurchaseInfoPanel() {
+
+        // Hide info panel
+        if (ItemPurchaseInfoPanel != null) { ItemPurchaseInfoPanel.gameObject.SetActive(false); }
+
+        // Show center default panel
+        if (RadialDefaultCenterPanel != null) { RadialDefaultCenterPanel.gameObject.SetActive(true); }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="abs"></param>
+    public void SetDefaultAbstraction(Abstraction abs) {
+
+        // Get reference
+        _AbstractionInDefaultFocus = abs;
+        _DefaultFocusString = _AbstractionInDefaultFocus.ObjectName;
+
+        // Update text
+        RadialDefaultCenterPanel.GetComponentInChildren<Text>().text = _DefaultFocusString;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

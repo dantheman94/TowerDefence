@@ -34,6 +34,16 @@ public class UI_WaveStats : MonoBehaviour {
     [Space]
     public Text NextWaveTimerText = null;
 
+    [Space]
+    [Header("-----------------------------------")]
+    [Header(" FLASHING TEXT")]
+    [Space]
+    public List<UnityEngine.UI.Outline> OutlineComponents = null;
+    [Space]
+    public float FlashingTextSpeed = 1f;
+    public Color FlashStartingColour = Color.white;
+    public Color FlashEndColour = Color.red;
+
     //******************************************************************************************************************************
     //
     //      VARIALBES
@@ -57,7 +67,7 @@ public class UI_WaveStats : MonoBehaviour {
     private void Update() {
 
         // Update wave name text
-        if (WaveName != null) { WaveName.text = string.Concat(WaveManager.Instance.GetCurrentWaveInfo().Name + ":"); }
+        if (WaveName != null) { WaveName.text = string.Concat(WaveManager.Instance.GetCurrentWaveInfo().Name + " "); }
 
         // Update modifiers text
         if (DamageModiferText != null) { DamageModiferText.text = string.Concat(WaveManager.Instance.GetCurrentDamageModifer().ToString("0.00") + "%"); }
@@ -85,7 +95,7 @@ public class UI_WaveStats : MonoBehaviour {
             // Not a boss wave - update next wave timer
             int minutes = Mathf.FloorToInt(WaveManager.Instance.GetTimeTillNextWave() / 60f);
             int seconds = Mathf.FloorToInt(WaveManager.Instance.GetTimeTillNextWave() - minutes * 60);
-            string timeText = string.Format("{0:0}:{1:00}", minutes, seconds);
+            string timeText = string.Format("{0:0}:{1:00} ", minutes, seconds);
             if (NextWaveTimerText != null) { NextWaveTimerText.text = timeText; }
         }
 
