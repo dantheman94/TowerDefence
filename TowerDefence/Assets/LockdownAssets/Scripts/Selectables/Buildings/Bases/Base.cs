@@ -398,4 +398,27 @@ public class Base : Building {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /// <summary>
+    //  
+    /// </summary>
+    /// <returns>
+    //  Vector3
+    /// </returns>
+    public Vector3 GetPositionNearTheBase() {
+
+        // Generate a sphere
+        SphereCollider sphere = gameObject.AddComponent<SphereCollider>();
+        sphere.center = transform.position;
+        sphere.radius = 50f;
+        sphere.isTrigger = true;
+
+        // Random position somewhere within the sphere
+        float randX = Random.Range(sphere.center.x - sphere.radius, sphere.center.x + sphere.radius);
+        float randZ = Random.Range(sphere.center.z - sphere.radius, sphere.center.z + sphere.radius);
+        Vector3 pos = new Vector3(randX, gameObject.transform.position.y, randZ);
+        return pos;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 }

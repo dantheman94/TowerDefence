@@ -1509,15 +1509,15 @@ public class Unit : WorldObject {
 
             // Core is closer
             if (distanceToCore < distanceToBase) {
-
-                // Keep going through our attack path if were not complete
+                
             }
 
             // Lockdown base is closer
             else {
 
                 // Retreat
-
+                _PathInterupted = true;
+                AgentSeekPosition(_LockdownBase.GetPositionNearTheBase(), true, true);
             }
         }
     }
