@@ -36,7 +36,8 @@ public class Info_Level : MonoBehaviour, IPointerEnterHandler {
     [Header(" BUTTON HOVER PROPERTIES")]
     [Space]
     public Text HoverText = null;
-
+    private Info_Level _Level;
+    
     //******************************************************************************************************************************
     //
     //      FUNCTIONS

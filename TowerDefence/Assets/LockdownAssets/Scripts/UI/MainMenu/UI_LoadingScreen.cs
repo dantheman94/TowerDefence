@@ -30,6 +30,7 @@ public class UI_LoadingScreen : MonoBehaviour
     [Space]
     public Text LevelName = null;
     public Text LevelDescription = null;
+    public Image LevelImage = null;
     [Space]
     public Text Gamemode = null;
     [Space]
@@ -52,7 +53,7 @@ public class UI_LoadingScreen : MonoBehaviour
     private void Update() {
 
         // Update loading screen panel widgets
-        if (InstanceManager.Instance._LoadingGameplay) {
+        if (InstanceManager.Instance._LoadingGameplay) { 
 
             // Show gameplay loading screen
             if (LoadingGameplayScreen != null) { LoadingGameplayScreen.SetActive(true); }
@@ -66,18 +67,20 @@ public class UI_LoadingScreen : MonoBehaviour
         }
 
         // Update level name text
-        if (LevelName != null && InstanceManager.Instance._Level != null) { LevelName.text = InstanceManager.Instance._Level.LevelName.ToUpper(); }
+        if (LevelName != null /*&& InstanceManager.Instance._Level != null*/) { LevelName.text = InstanceManager.Instance._Level.LevelName.ToUpper(); }
 
         // Update level description text
-        if (LevelDescription != null && InstanceManager.Instance._Level != null) { LevelDescription.text = InstanceManager.Instance._Level.LevelDescription; }
+        if (LevelDescription != null/* && InstanceManager.Instance._Level != null*/) { LevelDescription.text = InstanceManager.Instance._Level.LevelDescription; }
+
+        if(LevelImage != null) { LevelImage.sprite = InstanceManager.Instance._Level.LevelThumbnailSprite; }
 
         // Update gamemode text
         if (Gamemode != null) {
-            if(InstanceManager.Instance._Difficulty != null)
-            {
+            //if(InstanceManager.Instance._Difficulty != null)
+            //{
                 string text = string.Concat(InstanceManager.Instance._Difficulty.GetUIEnumerator().ToUpper() + " | CORE DEFENCE");
                 Gamemode.text = text;
-            }
+        //    }
             
             
         }
