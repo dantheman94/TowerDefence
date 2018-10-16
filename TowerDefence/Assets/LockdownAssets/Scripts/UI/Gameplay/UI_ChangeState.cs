@@ -18,8 +18,10 @@ public class UI_ChangeState : MonoBehaviour {
 
     public void BackToMenu()
     {
+        InstanceManager.Instance._Difficulty = DifficultyManager.Instance._Difficulty;
+        InstanceManager.Instance._Level = GameManager.Instance._Level;
         InstanceManager.Instance.SetLoadingType(true);
-
+  
         //Load the "loading" scene
         ASyncLoading.Instance.LoadLevel(1);
         ASyncLoading.Instance.ActivateLevel();
@@ -30,14 +32,16 @@ public class UI_ChangeState : MonoBehaviour {
 
     public void RestartGame()
     {
+        InstanceManager.Instance._Difficulty = DifficultyManager.Instance._Difficulty;
+        InstanceManager.Instance._Level = GameManager.Instance._Level;
         InstanceManager.Instance.SetLoadingType(true);
-
+       
         //Load the "loading" scene
         ASyncLoading.Instance.LoadLevel(1);
         ASyncLoading.Instance.ActivateLevel();
         ObjectPooling.DestroyAll();
         //Load the gameplay scene.
-        ASyncLoading.Instance.LoadLevel(LevelInfo.LevelIndex);
+        ASyncLoading.Instance.LoadLevel(InstanceManager.Instance._Level.LevelIndex);
         GameManager.Instance.OnUnpause();
 
     }

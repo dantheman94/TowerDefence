@@ -61,15 +61,15 @@ public class PreLockdownMatchSettings : MonoBehaviour {
     private void Update() {
         DisableButton();
 
-        if(PlayerPrefs.GetString("TutorialComplete") != null || PlayerPrefs.GetString("TutorialComplete") != "")
+        if(PlayerPrefs.GetString("TutorialComplete") == null || PlayerPrefs.GetString("TutorialComplete") == "")
         {
             LevelButton.interactable = false;
         }
-        else if(PlayerPrefs.GetString("TutorialComplete") == "Yes")
+        if(PlayerPrefs.GetString("TutorialComplete") == "Yes")
         {
             LevelButton.interactable = true;
         }
-        
+        Debug.Log(PlayerPrefs.GetString("TutorialComplete"));
 
         // Update level text
         if (LevelText != null && _Level != null) { LevelText.text = _Level.LevelName.ToString(); }
