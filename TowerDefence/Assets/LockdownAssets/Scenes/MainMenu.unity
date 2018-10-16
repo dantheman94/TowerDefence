@@ -7537,7 +7537,7 @@ Prefab:
     - target: {fileID: 114801843126779764, guid: a7bd93362b46c4648a76d547d7a15937,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 114743122892793216, guid: a7bd93362b46c4648a76d547d7a15937,
         type: 2}
@@ -7660,7 +7660,7 @@ Prefab:
       objectReference: {fileID: 311979274}
     - target: {fileID: 1743631012053780, guid: a7bd93362b46c4648a76d547d7a15937, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224359602642316512, guid: a7bd93362b46c4648a76d547d7a15937,
         type: 2}
@@ -7727,7 +7727,7 @@ Prefab:
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
       value: 
-      objectReference: {fileID: 478284571}
+      objectReference: {fileID: 1332233994}
     - target: {fileID: 114743122892793216, guid: a7bd93362b46c4648a76d547d7a15937,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
@@ -7751,7 +7751,7 @@ Prefab:
     - target: {fileID: 114382336797035940, guid: a7bd93362b46c4648a76d547d7a15937,
         type: 2}
       propertyPath: LevelName
-      value: 
+      value: Tutorial
       objectReference: {fileID: 0}
     - target: {fileID: 114382336797035940, guid: a7bd93362b46c4648a76d547d7a15937,
         type: 2}
@@ -7931,15 +7931,34 @@ Prefab:
       value: 
       objectReference: {fileID: 21300000, guid: 85d22c2488a9f444d97b50c1885fc2d3,
         type: 3}
+    - target: {fileID: 114801843126779764, guid: a7bd93362b46c4648a76d547d7a15937,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[4].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114801843126779764, guid: a7bd93362b46c4648a76d547d7a15937,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[4].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114801843126779764, guid: a7bd93362b46c4648a76d547d7a15937,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[4].m_Target
+      value: 
+      objectReference: {fileID: 1796289606}
+    - target: {fileID: 114801843126779764, guid: a7bd93362b46c4648a76d547d7a15937,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[4].m_MethodName
+      value: AssignLevelToInstance
+      objectReference: {fileID: 0}
+    - target: {fileID: 114801843126779764, guid: a7bd93362b46c4648a76d547d7a15937,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[4].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a7bd93362b46c4648a76d547d7a15937, type: 2}
   m_IsPrefabParent: 0
---- !u!114 &478284571 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114382336797035940, guid: a7bd93362b46c4648a76d547d7a15937,
-    type: 2}
-  m_PrefabInternal: {fileID: 478284570}
-  m_Script: {fileID: 11500000, guid: e80a813b58a051445abd38d0963ce651, type: 3}
 --- !u!114 &478284572 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114002754238421846, guid: a7bd93362b46c4648a76d547d7a15937,
@@ -14345,6 +14364,10 @@ Prefab:
       propertyPath: m_Text
       value: Siege Tower
       objectReference: {fileID: 0}
+    - target: {fileID: 1786670693934686, guid: 05b445bb4c825644d97e44443b5181ff, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114204131759460148, guid: 05b445bb4c825644d97e44443b5181ff, type: 2}
     - {fileID: 114571518258641230, guid: 05b445bb4c825644d97e44443b5181ff, type: 2}
@@ -15908,6 +15931,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1332233994 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114160196618060538, guid: a7bd93362b46c4648a76d547d7a15937,
+    type: 2}
+  m_PrefabInternal: {fileID: 478284570}
+  m_Script: {fileID: 11500000, guid: e80a813b58a051445abd38d0963ce651, type: 3}
 --- !u!1 &1346064663
 GameObject:
   m_ObjectHideFlags: 0
