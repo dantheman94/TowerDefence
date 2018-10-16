@@ -44,8 +44,8 @@ public class Minimap : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        MapArea.x = Screen.width / 1.16f;
-        MapArea.y = Screen.height / 1.31f;
+  //      MapArea.x = Screen.width / 1.16f;
+    //    MapArea.y = Screen.height / 1.31f;
         //On start get map information.
         GetBounds();
     }
@@ -130,8 +130,8 @@ public class Minimap : MonoBehaviour
                     else
                     {
                         Vector2 ActualBounds = new Vector2(MousePOS.x - MapArea.x, MapArea.y - MousePOS.y - 30);
-                        Camera.main.transform.position = new Vector3((ActualBounds.x * (_XSize / MapArea.width)) - TopLeft.transform.position.x,
-                      Camera.main.transform.position.y, ActualBounds.y * (_YSize / MapArea.height) - TopRight.transform.position.z);
+                        Camera.main.transform.position = new Vector3((ActualBounds.x * (_XSize / MapArea.width)) - TopLeft.transform.position.x + XOffset,
+                      Camera.main.transform.position.y, ActualBounds.y * (_YSize / MapArea.height) - TopRight.transform.position.z + YOffset);
                         //                Debug.Log("Actual Bounds: " + ActualBounds);
                     }
                 }
