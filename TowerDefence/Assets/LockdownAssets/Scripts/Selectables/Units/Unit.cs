@@ -615,6 +615,7 @@ public class Unit : WorldObject {
                 unit._UnitVeterancyWidget.transform.SetParent(GameManager.Instance.WorldSpaceCanvas.gameObject.transform, false);
                 unit._UnitVeterancyWidget.gameObject.SetActive(true);
             }
+            unit.SetPathInterupted(false);
         }
     }
 
@@ -1509,7 +1510,9 @@ public class Unit : WorldObject {
 
             // Core is closer
             if (distanceToCore < distanceToBase) {
-                
+
+                _PathInterupted = false;
+
             }
 
             // Lockdown base is closer
