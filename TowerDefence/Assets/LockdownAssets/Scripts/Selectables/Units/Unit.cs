@@ -169,7 +169,7 @@ public class Unit : WorldObject {
         if (IdealAttackRangeMax < IdealAttackRangeMin) { IdealAttackRangeMax = IdealAttackRangeMin * 1.5f; }
         if (MaxAttackingRange < IdealAttackRangeMax)   { MaxAttackingRange = IdealAttackRangeMax; }
         if (MaxAttackingRange < IdealAttackRangeMax) { MaxAttackingRange = IdealAttackRangeMax; }
-        SnapLookAtRange = IdealAttackRangeMin;
+        SnapLookAtRange = IdealAttackRangeMin / 2;
 
         // Set fog vision radius
         if (_FogOfWarSight != null) { _FogOfWarSight.Radius = MaxAttackingRange * 1.5f; }
@@ -440,6 +440,7 @@ public class Unit : WorldObject {
                     Vector2 rand = Random.insideUnitCircle * 30f;
                     Vector3 pos = _AttackPath.GetNodePositions()[_AttackPathIterator] + new Vector3(rand.x, _AttackPath.GetNodePositions()[_AttackPathIterator].y, rand.y);
 
+                    // Uncomment this if you want a waypoint to be created at the offsetted node locations in the attack path
                     ///Instantiate(GameManager.Instance.AgentSeekObject, _AttackPath.GetNodePositions()[_AttackPathIterator], Quaternion.identity);
 
                     StartCoroutine(AgentAttackPathSeekPosition(pos));
@@ -669,7 +670,7 @@ public class Unit : WorldObject {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  
+    //  Called when the unit 'dies'.
     /// </summary>
     public override void OnDeath(WorldObject instigator) {
         base.OnDeath(instigator);
@@ -729,20 +730,13 @@ public class Unit : WorldObject {
 
             // Update agent seeking status
             _IsSeeking = _Agent.remainingDistance > 2f;
-            //HasReachedTarget = _Agent.remainingDistance < 2f;
 
             // Temporary until the origin return bug is squashed
             _IsReturningToOrigin = false;
             
-            if (_IsSeeking) {
-
-                // Look at seek point
-                ///_Agent.transform.LookAt(_Agent.destination);
-            }
-            else {
+            if (!_IsSeeking) {
 
                 _IsChasing = false;
-                _IsSeeking = false;
                 _IsReturningToOrigin = false;
 
                 // Have to check if the current target is dead otherwise the command variable
@@ -838,6 +832,10 @@ public class Unit : WorldObject {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /// <summary>
+    //  Called each frame - raycasts for a building (any building that is an enemy) 
+    //  and pauses the unit's attack path to combat it.
+    /// </summary>
     private void UpdateBarrierDetection() {
 
         // Origin position starts from the "chest"
@@ -849,13 +847,17 @@ public class Unit : WorldObject {
         if (Physics.Raycast(origin, transform.forward * BarrierDetectionDistance, out hit, LayerMask.NameToLayer("Building"))) {
 
             // Only detect against barrier worldObjects
-            Barrier barrier = hit.transform.GetComponent<Barrier>();
-            if (barrier != null) {
+            Building building = hit.transform.GetComponent<Building>();
+            if (building != null) {
 
-                // Interrupt the unit's pathfinding (just stop moving it)
-                _PathInterupted = true;
-                AddPotentialTarget(barrier);
-                DetermineWeightedTargetFromList(TargetWeights);                
+                // Enemy team
+                if (building.Team != Team) {
+
+                    // Interrupt the unit's pathfinding (just stop moving it)
+                    _PathInterupted = true;
+                    AddPotentialTarget(building);
+                    DetermineWeightedTargetFromList(TargetWeights);
+                }
             }
         }
     }
@@ -928,7 +930,7 @@ public class Unit : WorldObject {
     //  Sets the agent's destination for seeking.
     /// </summary>
     /// <param name="seekTarget"></param>
-    public void AgentSeekPosition(Vector3 seekTarget, bool overwrite = false, bool displayWaypoint = true) {
+    public virtual void AgentSeekPosition(Vector3 seekTarget, bool overwrite = false, bool displayWaypoint = true) {
 
         _DisplaySeekWaypoint = displayWaypoint;
 
