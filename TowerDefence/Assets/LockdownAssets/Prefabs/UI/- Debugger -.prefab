@@ -26,7 +26,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1106505670521568
 GameObject:
   m_ObjectHideFlags: 0
@@ -45,7 +45,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1432615417567134
 GameObject:
   m_ObjectHideFlags: 0
@@ -54,6 +54,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 224332786284718386}
+  - component: {fileID: 114990305545877896}
   m_Layer: 0
   m_Name: '- Debugger -'
   m_TagString: Untagged
@@ -142,7 +143,7 @@ MonoBehaviour:
     screenDataNewLine: 1
     deviceModel: 1
     deviceModelNewLine: 1
-  hotKey: 9
+  hotKey: 0
   circleGesture: 0
   hotKeyCtrl: 0
   hotKeyShift: 0
@@ -231,6 +232,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Notes: HOLD down the END button to activate timescale mode. Then press 1-9 to multiply
     the timescale by that amount.
+--- !u!114 &114990305545877896
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1432615417567134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 404cf032b98843b45975f66b641bd5b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  keyToUse: 9
+  objectsToToggle:
+  - {fileID: 1023509982464812}
+  - {fileID: 1106505670521568}
 --- !u!222 &222010240661766244
 CanvasRenderer:
   m_ObjectHideFlags: 1
