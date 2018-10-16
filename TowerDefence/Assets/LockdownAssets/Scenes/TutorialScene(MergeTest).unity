@@ -7889,8 +7889,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1443492023}
-        m_MethodName: 
+      - m_Target: {fileID: 542764819}
+        m_MethodName: ExitGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7944,6 +7944,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 1910292050}
     m_Modifications:
+    - target: {fileID: 114074998001096552, guid: 549e9dc24e170e340822eb44fa85a0f1,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 224011943985464546, guid: 549e9dc24e170e340822eb44fa85a0f1,
         type: 2}
       propertyPath: m_LocalPosition.x
@@ -8086,11 +8091,11 @@ Prefab:
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 542764819}
+      objectReference: {fileID: 1443492023}
     - target: {fileID: 114074998001096552, guid: 549e9dc24e170e340822eb44fa85a0f1,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: BackToMenu
+      value: OnSaveAndQuit
       objectReference: {fileID: 0}
     - target: {fileID: 114677312295066484, guid: 549e9dc24e170e340822eb44fa85a0f1,
         type: 2}
@@ -8106,6 +8111,46 @@ Prefab:
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 114074998001096552, guid: 549e9dc24e170e340822eb44fa85a0f1,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114074998001096552, guid: 549e9dc24e170e340822eb44fa85a0f1,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114074998001096552, guid: 549e9dc24e170e340822eb44fa85a0f1,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114074998001096552, guid: 549e9dc24e170e340822eb44fa85a0f1,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114074998001096552, guid: 549e9dc24e170e340822eb44fa85a0f1,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114074998001096552, guid: 549e9dc24e170e340822eb44fa85a0f1,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 114074998001096552, guid: 549e9dc24e170e340822eb44fa85a0f1,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114074998001096552, guid: 549e9dc24e170e340822eb44fa85a0f1,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 549e9dc24e170e340822eb44fa85a0f1, type: 2}
@@ -15429,8 +15474,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1443492023}
-        m_MethodName: OnRestartLevel
+      - m_Target: {fileID: 542764819}
+        m_MethodName: RestartGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -22823,8 +22868,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 542764819}
-        m_MethodName: BackToMenu
+      - m_Target: {fileID: 1443492023}
+        m_MethodName: OnSaveAndQuit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

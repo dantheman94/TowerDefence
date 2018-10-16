@@ -60,6 +60,8 @@ public class InstanceManager : MonoBehaviour {
             return;
         }
 
+        
+
         Instance = this;
     }
 
