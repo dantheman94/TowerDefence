@@ -44,6 +44,8 @@ public class Base : Building {
     protected List<Building> _BuildingList;
     protected Base _PreviousBase = null;
 
+    protected List<Unit> _EnemyUnits = null;
+
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
@@ -60,6 +62,7 @@ public class Base : Building {
 
         // Get component references
         _BuildingList = new List<Building>();
+        _EnemyUnits = new List<Unit>();
 
         // Set matching team for all the building slots
         for (int i = 0; i < DepotSlots.Count; i++) {
@@ -293,6 +296,23 @@ public class Base : Building {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
+    //  Damages the object by a set amount.
+    /// </summary>
+    /// <param name="damage"></param>
+    public override void Damage(float damage, WorldObject instigator = null) {
+        base.Damage(damage, instigator);
+
+        // Check if the enemies attached to this base should retreat?
+        if (_EnemyUnits.Count > 0 && Team == GameManager.Team.Attacking) {
+
+            // Retreat check
+            for (int i = 0; i < _EnemyUnits.Count; i++) { _EnemyUnits[i].RetreatToLockdownBaseCheck(); }
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
     //  d
     /// </summary>
     public override void OnDeath(WorldObject instigator) {
@@ -365,6 +385,16 @@ public class Base : Building {
     /// </summary>
     /// <param name="value"></param>
     public void SetPreviousBase(Base value) { _PreviousBase = value; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Returns reference to the _EnemyUnits array.
+    /// </summary>
+    /// <returns>
+    //  List<Unit>
+    /// </returns>
+    public List<Unit> GetEnemyUnitList() { return _EnemyUnits; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

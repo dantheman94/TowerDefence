@@ -172,4 +172,37 @@ public class Core : Building {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /// <summary>
+    //  Gets the closet attack target tested against the position specified
+    /// </summary>
+    /// <param name="position"></param>
+    /// <returns>
+    //  WorldObject 
+    /// </returns>
+    public WorldObject GetClosestObject(Vector3 position) {
+        
+        float closestDist = 100000f;
+        int iter = 0;
+        bool core = true;
+        for (int i = 0; i < Spires.Count; i++) {
+
+            // Only if the spire is alive
+            if (Spires[i].GetHitPoints() > 0) {
+
+                // Check if the current spire iterator is closer than the previously known iterator
+                float testDist = Vector3.Distance(position, Spires[i].transform.position);
+                if (testDist < closestDist) {
+
+                    closestDist = testDist;
+                    iter = i;
+                    core = false;
+                }
+            }
+        }
+        if (core) { return this; }
+        else { return Spires[iter]; }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 }

@@ -51,13 +51,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c4ec1d0e46a84d4383d13a0cae5ebf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ProjectileType: 2
+  _ProjectileType: 1
   ProjectileClass: {fileID: 0}
   FiringEffect: {fileID: 1018574680409092, guid: 3f436dc8110fff14fa9cd4576875ee53,
     type: 2}
-  FiringDelay: 0.2
+  FiringDelay: 0.01
   LoopingFire: 1
-  FiringDuration: 3
+  FiringDuration: 5
   TrackingProjectile: 0
   TrackingStrength: 1
   MuzzleEffectWrapper: {fileID: 0}
@@ -70,9 +70,9 @@ MonoBehaviour:
   AngularOffsetType: 0
   AngularOffset: {x: 0, y: 0, z: 0}
   SpreadRaycasts: 1
-  SpreadAmount: 4
-  SpreadAngle: 10
-  VisualizeHitscanTrace: 1
+  SpreadAmount: 2
+  SpreadAngle: 5
+  VisualizeHitscanTrace: 0
   HitScanDrawTime: 0.1
   HitScanStartColour: {r: 1, g: 0, b: 0, a: 1}
   HitScanStartWidth: 0.1
@@ -82,17 +82,17 @@ MonoBehaviour:
     type: 2}
   SpawnOnImpact: {fileID: 0}
   Damages:
-    DamageDefault: 2
-    DamageCoreInfantry: 6
-    DamageAntiInfantryMarine: 6
-    DamageHero: 6
-    DamageCoreVehicle: 2
-    DamageAntiAirVehicle: 2
-    DamageMobileArtillery: 2
-    DamageBattleTank: 2
+    DamageDefault: 0.2
+    DamageCoreInfantry: 1
+    DamageAntiInfantryMarine: 1
+    DamageHero: 1
+    DamageCoreVehicle: 0.2
+    DamageAntiAirVehicle: 0.2
+    DamageMobileArtillery: 0.2
+    DamageBattleTank: 0.2
     DamageCoreAirship: 0
     DamageSupportShip: 0
     DamageHeavyAirship: 0
   BottomlessClip: 0
-  MagazineSize: 100
+  MagazineSize: 50
   ReloadTime: 4

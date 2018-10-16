@@ -135,6 +135,8 @@ public class Unit : WorldObject {
     private SphereCollider _SightSphere = null;
     private SphereCollider _HearingSphere = null;
 
+    private Base _LockdownBase = null;
+
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
@@ -420,6 +422,7 @@ public class Unit : WorldObject {
 
         if (_AttackPath != null && _AttackTarget == null) {
 
+            // Check if the attack path is complete
             if (_AttackPathIterator + 1 < _AttackPath.GetNodePositions().Count) { _AttackPathComplete = false; }
             else { _AttackPathComplete = true; }
 
@@ -470,6 +473,7 @@ public class Unit : WorldObject {
                         _Player.SelectedUnits.Add(this);
                         this.SetPlayer(_Player);
                         this.SetIsSelected(true);
+                        GameManager.Instance.SelectedUnitsHUD.RefreshPanels();
                     }
                 }
             }
@@ -499,6 +503,7 @@ public class Unit : WorldObject {
                         _Player.SelectedUnits.Add(this);
                         this.SetPlayer(_Player);
                         this.SetIsSelected(true);
+                        GameManager.Instance.SelectedUnitsHUD.RefreshPanels();
                     }
                 }
             }
@@ -510,6 +515,7 @@ public class Unit : WorldObject {
                         
                         this.SetPlayer(_Player);
                         this.SetIsHighlighted(true);
+                        GameManager.Instance.SelectedUnitsHUD.RefreshPanels();
                     }
                 }
             }
@@ -812,8 +818,8 @@ public class Unit : WorldObject {
 
                     // Make sure we have completed the attack path allocated to us
                     if (_AttackTarget == null && _AttackPathComplete) {
-
-                        AddPotentialTarget(WaveManager.Instance.CentralCore.GetAttackObject());
+                        
+                        AddPotentialTarget(WaveManager.Instance.CentralCore.GetClosestObject(_Agent.transform.position));
                         DetermineWeightedTargetFromList(TargetWeights);
                         TryToChaseTarget(_AttackTarget);
                     }
@@ -863,16 +869,20 @@ public class Unit : WorldObject {
         // Look at attack target
         _IsAttacking = true;
         ///if (_IsAttacking) { LookAt(_AttackTargetObject.transform.position); }
+        
+        // TEMPORARY JUST FIRE IMMEDIATELY WITHOUT A SIGHTLINE CHECK
+        if (PrimaryWeapon.CanFire()) { OnFireWeapon(); }
 
         // Fire raycast to confirm valid line of sight to target
         int def = 1 << LayerMask.NameToLayer("Default");
         int units = 1 << LayerMask.NameToLayer("Units");
-        LayerMask mask = def | units;
+        int buildings = 1 << LayerMask.NameToLayer("Buildings");
+        LayerMask mask = def | units | buildings;
         RaycastHit hit;
         if (Physics.Raycast(MuzzleLaunchPoints[0].transform.position, _AttackTarget.TargetPoint.transform.position, out hit, MaxAttackingRange, mask)) {
 
             // There is a line of sight to the target, fire the weapon (if possible)
-            if (PrimaryWeapon.CanFire()) { OnFireWeapon(); }
+            ///if (PrimaryWeapon.CanFire()) { OnFireWeapon(); }
 
             Debug.DrawLine(MuzzleLaunchPoints[0].transform.position, _AttackTarget.TargetPoint.transform.position, Color.green);
         }
@@ -1470,6 +1480,46 @@ public class Unit : WorldObject {
         // Actually fire the weapon
         PrimaryWeapon.FireWeapon();
         _IsFiring = true;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Sets reference to the Lockdown base associated with this attacking unit. (Used for retreating)
+    /// </summary>
+    /// <param name=""></param>
+    public void SetLockdownBase(Base lockdownBase) {
+
+        if (Team == GameManager.Team.Attacking) { _LockdownBase = lockdownBase; }
+        else { _LockdownBase = null; }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    /// <summary>
+    //  Checks if the enemy unit is closer to the core or their lockdown base & moves towards the closer target.
+    /// </summary>
+    public void RetreatToLockdownBaseCheck() {
+
+        // Precaution check so only enemy units will do a retreat check
+        if (_LockdownBase != null && Team == GameManager.Team.Attacking) {
+
+            float distanceToCore = Vector3.Distance(_Agent.transform.position, WaveManager.Instance.CentralCore.transform.position);
+            float distanceToBase = Vector3.Distance(_Agent.transform.position, _LockdownBase.transform.position);
+
+            // Core is closer
+            if (distanceToCore < distanceToBase) {
+
+                // Keep going through our attack path if were not complete
+            }
+
+            // Lockdown base is closer
+            else {
+
+                // Retreat
+
+            }
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

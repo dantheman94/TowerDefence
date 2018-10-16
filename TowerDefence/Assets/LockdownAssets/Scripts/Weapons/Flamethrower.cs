@@ -26,10 +26,13 @@ public class Flamethrower : Weapon {
             effect.transform.rotation = _MuzzleLaunchPoints[_MuzzleIterator].rotation;
 
             // Play
+            effect.Stop();
+            var main = effect.main;
+            main.duration = FiringDuration;
             effect.Play();
 
             if (LoopingFire) {
-
+                
                 AutoDespawn auto = effect.GetComponentInParent<AutoDespawn>();
                 StartCoroutine(auto.DelayedDespawnSeconds((int)FiringDuration));
             }

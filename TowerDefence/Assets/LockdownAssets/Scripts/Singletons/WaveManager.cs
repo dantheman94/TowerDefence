@@ -467,6 +467,7 @@ public class WaveManager : MonoBehaviour {
         GameManager.Instance.WaveStatsHUD.UpdatePopulationCount(current, max);
 
         // First subwave
+        _CurrentLockdownPad.BuildingSlotAttached.AttachedBase.GetEnemyUnitList().Clear();
         SpawnSubwave(GetSubwave());
         _WaveInProgress = true;
     }
@@ -539,6 +540,10 @@ public class WaveManager : MonoBehaviour {
                     unit.SetAttackPath(path);
                     unit.AgentSeekPosition(unit.GetAttackPath().GetFirstNodeWithOffset(), false, false);
                 }
+
+                // Set lockdown base reference for the unit
+                unit.SetLockdownBase(_CurrentLockdownPad.BuildingSlotAttached.AttachedBase);
+                _CurrentLockdownPad.BuildingSlotAttached.AttachedBase.GetEnemyUnitList().Add(unit);
                 _CurrentWaveEnemies.Add(unit);
             }
         }

@@ -107,17 +107,17 @@ public class Weapon : MonoBehaviour {
     [System.Serializable]
     public struct ObjectDamages {
 
-        public int DamageDefault;
-        public int DamageCoreInfantry;
-        public int DamageAntiInfantryMarine;
-        public int DamageHero;
-        public int DamageCoreVehicle;
-        public int DamageAntiAirVehicle;
-        public int DamageMobileArtillery;
-        public int DamageBattleTank;
-        public int DamageCoreAirship;
-        public int DamageSupportShip;
-        public int DamageHeavyAirship;
+        public float DamageDefault;
+        public float DamageCoreInfantry;
+        public float DamageAntiInfantryMarine;
+        public float DamageHero;
+        public float DamageCoreVehicle;
+        public float DamageAntiAirVehicle;
+        public float DamageMobileArtillery;
+        public float DamageBattleTank;
+        public float DamageCoreAirship;
+        public float DamageSupportShip;
+        public float DamageHeavyAirship;
     }
 
     private int _CurrentMagazineCount;
@@ -714,7 +714,7 @@ public class Weapon : MonoBehaviour {
             else {
 
                 // No raycast hit but still draw a hitscan visualizer
-                GenerateHitScanVisualizer(_UnitAttached.MuzzleLaunchPoints[0].transform.position, _UnitAttached.MuzzleLaunchPoints[0].transform.forward * _UnitAttached.MaxAttackingRange);
+                ///GenerateHitScanVisualizer(_UnitAttached.MuzzleLaunchPoints[0].transform.position, _UnitAttached.MuzzleLaunchPoints[0].transform.forward * _UnitAttached.MaxAttackingRange);
             }
         }
 
