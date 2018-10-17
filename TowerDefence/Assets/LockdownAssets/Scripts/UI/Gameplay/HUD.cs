@@ -23,25 +23,27 @@ public class HUD : MonoBehaviour {
 
     [Space]
     [Header("-----------------------------------")]
-    [Space]
     [Header(" HUD WRAPPERS")]
+    [Space]
     public SelectionWheel SelectionWheel;
     public SelectionWheel SelectionWindow;
     public GameObject AbilitiesWheel;
 
     [Space]
     [Header("-----------------------------------")]
-    [Space]
     [Header(" GUI TEXT COMPONENTS")]
+    [Space]
     public Text PopulationText;
     public Text SuppliesCountText;
     public Text PowerCountText;
     public Text PlayerLevelText;
+    [Space]
+    public Text PlayerScoreText;
 
     [Space]
     [Header("-----------------------------------")]
-    [Space]
     [Header(" RAYCAST LAYERMASK")]
+    [Space]
     public LayerMask MaskBlock;
 
     //******************************************************************************************************************************
