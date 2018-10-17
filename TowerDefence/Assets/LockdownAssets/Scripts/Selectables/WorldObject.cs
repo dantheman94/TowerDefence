@@ -87,7 +87,7 @@ public class WorldObject : Selectable {
     [Header(" ON DEATH/DESTROYED")]
     [Header("-----------------------------------")]
     [Space]
-    public List<ParticleSystem> OnDeathEffects;
+    public List<OnDeathParticles> OnDeathEffects;
     [Space]
     public bool CameraShakeOnDeath = false;
     public float DeathExplosionRadius = 10f;
@@ -109,6 +109,14 @@ public class WorldObject : Selectable {
         public ParticleSystem ParticleEffect;
         public Transform ParticleLocation;
     }
+
+    [System.Serializable]
+    public struct OnDeathParticles {
+
+        public ParticleSystem ParticleEffect;
+        public Transform ParticleLocation;
+    }
+
     protected List<ParticleSystem> _DamagedParticles = null;
 
     protected bool _ReadyForDeployment = false;
@@ -567,20 +575,27 @@ public class WorldObject : Selectable {
         // Play OnDeath(s) effect
         for (int i = 0; i < OnDeathEffects.Count; i++) {
                     
-            // Play
-            ParticleSystem effect = ObjectPooling.Spawn(OnDeathEffects[i].gameObject, transform.position, transform.rotation).GetComponent<ParticleSystem>();
+            // Play at location
+            ParticleSystem effect = ObjectPooling.Spawn(OnDeathEffects[i].ParticleEffect.gameObject, 
+                                                        OnDeathEffects[i].ParticleLocation.position, 
+                                                        OnDeathEffects[i].ParticleLocation.rotation).GetComponent<ParticleSystem>();
             effect.Play();
-
-            // Despawn particle system once it has finished its cycle
-            float effectDuration = effect.duration + effect.startLifetime;
-            StartCoroutine(ParticleDespawn(effect, effectDuration));
         }
 
         // Camera shake if neccessary
         if (CameraShakeOnDeath && _Player != null) { _Player.CameraRTS.ExplosionShake(transform.position, DeathExplosionRadius); }
 
         // Send message to match feed
-        if (Team == GameManager.Team.Defending) { MatchFeed.Instance.AddMessage(string.Concat(ObjectName, " destroyed.")); }
+        if (Team == GameManager.Team.Defending) {
+
+            if (this is Unit) { MatchFeed.Instance.AddMessage(string.Concat(ObjectName, " has been killed.")); }
+            if (!(this is Unit)) { MatchFeed.Instance.AddMessage(string.Concat(ObjectName, " destroyed.")); }
+
+            _Player.AddUnitsLost();
+        }
+        
+        // Add to enemies killed stats
+        else if (Team == GameManager.Team.Attacking && _Player != null) { _Player.AddUnitsKilled(); }
 
         // Delay then despawn
         StartCoroutine(DelayedShrinking(3f));
