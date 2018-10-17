@@ -871,7 +871,6 @@ public class Unit : WorldObject {
 
         // Look at attack target
         _IsAttacking = true;
-        ///if (_IsAttacking) { LookAt(_AttackTargetObject.transform.position); }
         
         // TEMPORARY JUST FIRE IMMEDIATELY WITHOUT A SIGHTLINE CHECK
         if (PrimaryWeapon.CanFire()) { OnFireWeapon(); }
