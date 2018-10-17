@@ -9,11 +9,11 @@ using UnityEngine.EventSystems;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 29/7/2018
+//  Last edited on: 17/10/2018
 //
 //******************************
 
-public class ButtonHover_SelectionWheel : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
+public class ButtonHover_SelectionWheel : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler {
 
     //******************************************************************************************************************************
     //
@@ -103,6 +103,40 @@ public class ButtonHover_SelectionWheel : MonoBehaviour, IPointerEnterHandler, I
             if (GameManager.Instance._IsRadialMenu) { selectionWheel = GameManager.Instance.SelectionWheel.GetComponentInChildren<SelectionWheel>(); }
             else { selectionWheel = GameManager.Instance.selectionWindow.GetComponentInChildren<SelectionWheel>(); }
             selectionWheel.HideItemPurchaseInfoPanel();
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="eventData"></param>
+    public void OnPointerClick(PointerEventData eventData) {
+
+        // Deduct item from queue if it exists
+        if (eventData.button == PointerEventData.InputButton.Right && SelectionWheel != null) {
+
+            // Check if the item exists in the building queue of the building
+            // Deduct the last iterator of the abstraction type from the queue
+            List<Abstraction> queue = SelectionWheel.GetBuildingSlotInstigator().GetBuildingOnSlot().GetBuildingQueue();
+            for (int i = queue.Count - 1; i >= 0; i--) {
+                
+                // Matching type found
+                if (queue[i].GetType() == _ObjectRefComponent.AbstractRef.GetType()) {
+
+                    // Add resources back to the player
+                    Player player = GameManager.Instance.Players[0];
+                    player.PopulationCount -= _ObjectRefComponent.AbstractRef.CostPopulation;
+                    player.SuppliesCount += _ObjectRefComponent.AbstractRef.CostSupplies;
+                    player.PowerCount += _ObjectRefComponent.AbstractRef.CostPower;
+
+                    // Remove it
+                    queue.RemoveAt(i);
+                    break;
+                }
+            }
+            SelectionWheel.UpdateButtonStates();
         }
     }
 

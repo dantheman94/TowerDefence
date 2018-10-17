@@ -42,6 +42,8 @@ public class BuildingSlot : WorldObject {
     
     private Building _BuildingOnSlot = null;
 
+    private List<Abstraction> _AbstractionBuildings = null;
+
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
@@ -64,13 +66,14 @@ public class BuildingSlot : WorldObject {
         }
     }
 
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  
+    //  Called when the object is "clicked on" and the selection wheel appears.
     /// </summary>
-    protected override void DrawSelectionWheel() {
-        base.DrawSelectionWheel();
+    public override void OnSelectionWheel() {
+        base.OnSelectionWheel();
 
         // Show building slot wheel
         if (_Player) {
@@ -124,7 +127,7 @@ public class BuildingSlot : WorldObject {
 
             if (!_Player._HUD.SelectionWheel.transform.parent.gameObject.activeSelf) {
 
-                DrawSelectionWheel();
+                OnSelectionWheel();
             }
         }
     }
@@ -223,6 +226,22 @@ public class BuildingSlot : WorldObject {
     /// </summary>
     /// <returns></returns>
     public Building GetBuildingOnSlot() { return _BuildingOnSlot; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public List<Abstraction> GetBuildingsAsAbstraction() {
+
+        if (_AbstractionBuildings != null && _AbstractionBuildings.Count > 0) { return _AbstractionBuildings; }
+        else if (_AbstractionBuildings == null) {
+
+            _AbstractionBuildings = new List<Abstraction>();
+            for (int i = 0; i < Buildings.Count; i++) {
+
+                _AbstractionBuildings.Add(Buildings[i]);
+            }
+        }
+        return _AbstractionBuildings;
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

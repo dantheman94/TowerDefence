@@ -236,9 +236,10 @@ public class Unit : WorldObject {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  Called when a unit is being re-pooled/respawned. Use this to reset all the stats from its previous life
+    //  Initializes the object.
     /// </summary>
-    protected void Reinit() {
+    protected override void Init() {
+        base.Init();
 
         // Reset veterancy
         _VeterancyLevel = 0;

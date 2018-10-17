@@ -67,6 +67,10 @@ public class SelectionWheel : MonoBehaviour {
 
     private Abstraction _AbstractionInDefaultFocus = null;
     private string _DefaultFocusString = "";
+
+    private BuildingSlot _BuildingSlotInstigator = null;
+
+    private Player _Player = null;
     
     //******************************************************************************************************************************
     //
@@ -82,6 +86,8 @@ public class SelectionWheel : MonoBehaviour {
     private void LateUpdate() {
 
         if (MasterButton != null && MasterButton.gameObject.activeInHierarchy == true) { MasterButton.enabled = true; }
+
+        if (_Player == null) { _Player = GameManager.Instance.Players[0]; }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -91,6 +97,8 @@ public class SelectionWheel : MonoBehaviour {
     /// </summary>
     /// <param name="selectables"></param>
     public void UpdateListWithBuildings(List<Abstraction> selectables, BuildingSlot buildingSlotInFocus) {
+
+        _BuildingSlotInstigator = buildingSlotInFocus;
 
         // Reset button click events for all buttons
         foreach (var button in _WheelButtons) {
@@ -135,7 +143,9 @@ public class SelectionWheel : MonoBehaviour {
     /// </summary>
     /// <param name="selectable"></param>
     public void UpdateListWithBuildables(List<Abstraction> selectable, BuildingSlot buildingSlotInFocus) {
-        
+
+        _BuildingSlotInstigator = buildingSlotInFocus;
+
         // Reset button click events for all buttons
         foreach (var button in _WheelButtons) {
 
@@ -143,7 +153,7 @@ public class SelectionWheel : MonoBehaviour {
             button.onClick.RemoveAllListeners();
 
             // Add defaults
-            button.onClick.AddListener(() => HideSelectionWheel());
+            button.onClick.AddListener(() => RefreshButtons(selectable));
         }
 
         // Clear list & update
@@ -179,11 +189,35 @@ public class SelectionWheel : MonoBehaviour {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
+    //  
+    /// </summary>
+    public void UpdateButtonStates() {
+
+        if (_BuildingSlotInstigator != null) {
+
+            if (_BuildingSlotInstigator.GetBuildingOnSlot() != null) {
+
+                RefreshButtons(_BuildingSlotInstigator.GetBuildingOnSlot().Selectables);
+            }
+            else { RefreshButtons(_BuildingSlotInstigator.GetBuildingsAsAbstraction()); }
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
     /// 
     /// </summary>
     /// <param name="list"></param>
     public void RefreshButtons(List<Abstraction> list) {
 
+        // Update radial wheel building queue item counters
+        if (_BuildingSlotInstigator != null) {
+
+            Building building = _BuildingSlotInstigator.GetBuildingOnSlot();
+            if (building != null) { building.GetBuildingQueueUI().UpdateSelectionWheelItemCounters(); }
+        }
+        
         int i = 0;
         foreach (var button in _WheelButtons) {
 
@@ -310,7 +344,13 @@ public class SelectionWheel : MonoBehaviour {
         if (ItemPurchaseInfoPanel != null) { ItemPurchaseInfoPanel.gameObject.SetActive(false); }
 
         // Show center default panel
-        if (RadialDefaultCenterPanel != null) { RadialDefaultCenterPanel.gameObject.SetActive(true); }
+        if (RadialDefaultCenterPanel != null) {
+
+            RadialDefaultCenterPanel.gameObject.SetActive(true);
+            DetailedHighlightTitle.text = _AbstractionInDefaultFocus.ObjectName.ToUpper();
+            DetailedHighlightDescriptionShort.text = _AbstractionInDefaultFocus.ObjectDescriptionShort.ToUpper();
+            DetailedHighlightDescriptionLong.text = _AbstractionInDefaultFocus.ObjectDescriptionLong;
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -328,6 +368,16 @@ public class SelectionWheel : MonoBehaviour {
         // Update text
         RadialDefaultCenterPanel.GetComponentInChildren<Text>().text = _DefaultFocusString;
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <returns>
+    //  BuildingSlot
+    /// </returns>
+    public BuildingSlot GetBuildingSlotInstigator() { return _BuildingSlotInstigator; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

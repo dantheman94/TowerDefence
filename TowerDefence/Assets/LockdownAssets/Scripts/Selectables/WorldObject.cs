@@ -378,20 +378,7 @@ public class WorldObject : Selectable {
             }
         }
     }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  
-    /// </summary>
-    protected virtual void DrawSelectionWheel() {
-
-        // Get selection wheel reference
-        SelectionWheel selectionWheel = null;
-        if (GameManager.Instance._IsRadialMenu) { selectionWheel = GameManager.Instance.SelectionWheel.GetComponentInChildren<SelectionWheel>(); }
-        else { selectionWheel = GameManager.Instance.selectionWindow.GetComponentInChildren<SelectionWheel>(); }
-    }
-
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
@@ -411,11 +398,6 @@ public class WorldObject : Selectable {
     //  Called when the object is "clicked on" and the selection wheel appears.
     /// </summary>
     public virtual void OnSelectionWheel() {
-
-        // Get selection wheel reference
-        SelectionWheel selectionWheel = null;
-        if (GameManager.Instance._IsRadialMenu) { selectionWheel = GameManager.Instance.SelectionWheel.GetComponentInChildren<SelectionWheel>(); }
-        else                                    { selectionWheel = GameManager.Instance.selectionWindow.GetComponentInChildren<SelectionWheel>(); }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

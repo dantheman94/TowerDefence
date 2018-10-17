@@ -44,9 +44,13 @@ public class AutoDespawn : MonoBehaviour {
                 ObjectPooling.Despawn(gameObject);
             }
         }
-        
+
         // Get reference to the particle system
-        else { _ParticleSystem = GetComponentInChildren<ParticleSystem>(); }
+        else {
+
+            _ParticleSystem = GetComponent<ParticleSystem>();
+            if (_ParticleSystem == null) { _ParticleSystem = GetComponentInChildren<ParticleSystem>(); }
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

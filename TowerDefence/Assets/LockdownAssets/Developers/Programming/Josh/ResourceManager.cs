@@ -101,6 +101,12 @@ public class ResourceManager : MonoBehaviour {
                     _PowerTimer = 0f;
                 }
             }
+
+            // Get selection wheel reference
+            SelectionWheel selectionWheel = null;
+            if (GameManager.Instance._IsRadialMenu) { selectionWheel = GameManager.Instance.SelectionWheel.GetComponentInChildren<SelectionWheel>(); }
+            else { selectionWheel = GameManager.Instance.selectionWindow.GetComponentInChildren<SelectionWheel>(); }
+            selectionWheel.UpdateButtonStates();
         }
     }
 

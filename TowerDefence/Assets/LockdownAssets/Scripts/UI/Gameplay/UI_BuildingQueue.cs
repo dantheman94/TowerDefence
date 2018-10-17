@@ -38,10 +38,10 @@ public class UI_BuildingQueue : MonoBehaviour {
 
     public class AbstractionCounter {
 
-        public AbstractionCounter(Abstraction abs) {
+        public AbstractionCounter(Abstraction abs, int count = 1) {
 
             _Abstraction = abs;
-            _AbsCount = 1;
+            _AbsCount = count;
         }
 
         public Abstraction _Abstraction = null;
@@ -105,10 +105,10 @@ public class UI_BuildingQueue : MonoBehaviour {
             }
 
             // Add current items
-            ///for (int i = 0; i < _BuildingAttached.GetBuildingQueue().Count; i++) {
-            ///
-            ///    AddToQueue(_BuildingAttached.GetBuildingQueue()[i]);
-            ///}
+            //for (int i = 0; i < _BuildingAttached.GetBuildingQueue().Count; i++) {
+            //
+            //    AddToQueue(_BuildingAttached.GetBuildingQueue()[i]);
+            //}
         }        
     }
 
@@ -180,23 +180,19 @@ public class UI_BuildingQueue : MonoBehaviour {
     //  
     /// </summary>
     /// <returns>
-    //  List<UI_BuildingQueueItem>
+    //  List<AbstractionCounter>
     /// </returns>
-    public List<UI_BuildingQueueItem> GetPanelItems() { return _Items; }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
     private List<AbstractionCounter> GetAmountOfEachUnits() {
 
         List<AbstractionCounter> absCounter = new List<AbstractionCounter>();
-        for (int i = 0; i < _Items.Count; i++) {
+        for (int i = 0; i < _BuildingAttached.GetBuildingQueue().Count; i++) {
 
             if (absCounter.Count > 0) {
 
                 // Check for matches against both lists
                 for (int j = 0; j < absCounter.Count; j++) {
-
-                    if (_Items[i].GetAbstractionLinked().GetType() == absCounter[j]._Abstraction.GetType()) {
+                    
+                    if (_BuildingAttached.GetBuildingQueue()[i].GetType() == absCounter[j]._Abstraction.GetType()) {
 
                         // Add to counter
                         absCounter[j]._AbsCount++;
@@ -207,7 +203,7 @@ public class UI_BuildingQueue : MonoBehaviour {
                     if (j == absCounter.Count - 1) {
 
                         // Add the item in the building queue that is being tested against
-                        absCounter.Add(new AbstractionCounter(_Items[i].GetAbstractionLinked()));
+                        absCounter.Add(new AbstractionCounter(_BuildingAttached.GetBuildingQueue()[i]));
                     }
                 }
             }
@@ -216,7 +212,7 @@ public class UI_BuildingQueue : MonoBehaviour {
             else {
 
                 // Add the first item in the building queue
-                absCounter.Add(new AbstractionCounter(_Items[i].GetAbstractionLinked()));
+                absCounter.Add(new AbstractionCounter(_BuildingAttached.GetBuildingQueue()[i]));
             }
         }
         return absCounter;
@@ -224,6 +220,9 @@ public class UI_BuildingQueue : MonoBehaviour {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /// <summary>
+    //  
+    /// </summary>
     public void UpdateSelectionWheelItemCounters() {
         
         // Get selection wheel reference
@@ -232,18 +231,40 @@ public class UI_BuildingQueue : MonoBehaviour {
         else { selectionWheel = GameManager.Instance.selectionWindow.GetComponentInChildren<SelectionWheel>(); }
 
         // Update each item counter in the selection wheel based off the current building queue
-        List<AbstractionCounter> absCounter = GetAmountOfEachUnits();
+        List<AbstractionCounter> absCounter = new List<AbstractionCounter>();
+        absCounter = GetAmountOfEachUnits();
         for (int i = 0; i < selectionWheel._WheelButtons.Count; i++) {
 
             SelectionWheelUnitRef wheelUnitRef = selectionWheel._WheelButtons[i].GetComponent<SelectionWheelUnitRef>();
-            Abstraction absRef = wheelUnitRef.AbstractRef;
-            for (int j = 0; j < absCounter.Count; j++) {
 
-                wheelUnitRef.SetQueueCounter(absCounter[j]._AbsCount);
-                break;
+            if (absCounter.Count > 0) {
+
+                // Button item has a valid abstraction reference
+                Abstraction absRef = wheelUnitRef.AbstractRef;
+                if (absRef != null) {
+
+                    for (int k = 0; k < absCounter.Count; k++) {
+                        
+                        // Button item abstraction type matches the building queue abstraction type
+                        if (absRef.GetType() == absCounter[k]._Abstraction.GetType()) {
+
+                            // Update button item counter
+                            wheelUnitRef.SetQueueCounter(absCounter[k]._AbsCount);
+                            break;
+                        }
+
+                        // Reached the end of the absCounter array
+                        if (k == absCounter.Count - 1) {
+
+                            // Button item abstraction counter is 0
+                            wheelUnitRef.SetQueueCounter(0);
+                        }
+                    }
+                }
+                else { continue; }
             }
+            else { wheelUnitRef.SetQueueCounter(0); }
         }
-
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

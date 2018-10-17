@@ -126,7 +126,7 @@ public class Building : WorldObject {
                         _SelectableBuiltEffect = ObjectPooling.Spawn(EffectPlayedOnBuiltSelectable.gameObject, BuiltSelectableEffectPosition.position, transform.rotation).GetComponent<ParticleSystem>();
                         _SelectableBuiltEffect.Play();
 
-                        // Despawn particle effect when it has finished its cycle
+                        // Despawn particle effect when it has finished its cycle *************************************************************************************************************
                         float duration = _SelectableBuiltEffect.duration + _SelectableBuiltEffect.startLifetime;
                         StartCoroutine(ParticleDespawn(_SelectableBuiltEffect, duration));
                     }
@@ -159,7 +159,7 @@ public class Building : WorldObject {
                         _SelectableBuildingEffect = ObjectPooling.Spawn(EffectPlayedWhenBuildingSelectable.gameObject, BuiltSelectableEffectPosition.position, transform.rotation).GetComponent<ParticleSystem>();
                         _SelectableBuildingEffect.Play();
 
-                        // Despawn particle effect when it has finished its cycle
+                        // Despawn particle effect when it has finished its cycle *************************************************************************************************************
                         float duration = _BuildingQueue[0].BuildingTime;
                         StartCoroutine(ParticleDespawn(_SelectableBuildingEffect, duration));
                     }
@@ -169,6 +169,18 @@ public class Building : WorldObject {
                         // Building particle is complete so null the reference (so next time its used - it repools a new instance)
                         if (!_SelectableBuildingEffect.isPlaying) { _SelectableBuildingEffect = null; }
                     }
+                }
+
+                // Update radial wheel building queue item counters
+                if (_BuildingQueueUI != null) {
+
+                    // Get selection wheel reference
+                    SelectionWheel selectionWheel = null;
+                    if (GameManager.Instance._IsRadialMenu) { selectionWheel = GameManager.Instance.SelectionWheel.GetComponentInChildren<SelectionWheel>(); }
+                    else { selectionWheel = GameManager.Instance.selectionWindow.GetComponentInChildren<SelectionWheel>(); }
+                  
+                    // Only update the selection wheel item counters if the UI widget is currently being displayed
+                    if (selectionWheel.gameObject.activeInHierarchy) { _BuildingQueueUI.UpdateSelectionWheelItemCounters(); }
                 }
             }
             else { _BuildingStarted = false; }
@@ -195,6 +207,7 @@ public class Building : WorldObject {
                 // Get reference to the recycle building option
                 if (Selectables[5] != null) { _RecycleOption = Selectables[5].GetComponent<RecycleBuilding>(); }
                 
+                // Update radial wheel building queue item counters
                 if (_BuildingQueueUI != null) { _BuildingQueueUI.UpdateSelectionWheelItemCounters(); }
 
                 // Show selection wheel
@@ -607,6 +620,16 @@ public class Building : WorldObject {
     /// </summary>
     /// <param name="value"></param>
     public void SetCanBeDamaged(bool value) { _CanBeDamaged = value; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <returns>
+    //  UI_BuildingQueue
+    /// </returns>
+    public UI_BuildingQueue GetBuildingQueueUI() { return _BuildingQueueUI; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
