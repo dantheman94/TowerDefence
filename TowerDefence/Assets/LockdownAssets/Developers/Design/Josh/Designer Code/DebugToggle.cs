@@ -38,26 +38,27 @@ public class DebugToggle : MonoBehaviour {
 
 
     /// <summary>
-    /// Goes through each item in the list and enables them and disables them if the button is pressed again
+    /// Goes through each item in the list and enables them and disables them if the button is pressed again.
     /// </summary>
     void DoTheToggle()
     {
         if (Input.GetKeyDown(keyToUse))
         {
             
-            keyPressedToggle = !keyPressedToggle; //Toggles bool each time key is pressed
+            keyPressedToggle = !keyPressedToggle; //Toggles bool each time key is pressed.
 
-            if (keyPressedToggle)//Enable the objects
+            if (keyPressedToggle)//Enable the objects.
             {
                 foreach (GameObject obj in objectsToToggle)
                 {
                     obj.SetActive(true);
                 }
             }
-            else { //Disables the objects
+            else { //Disables the objects.
                 foreach (GameObject obj in objectsToToggle)
                 {
                     obj.SetActive(false);
+                    Time.timeScale = 1.0f; // Set timescale back to normal in case timescale is increased in the timescalescript when it was disabled.
                 }
             }
         }
