@@ -75,5 +75,15 @@ public class UI_BuildingQueueItem : MonoBehaviour {
     public void SetAbstractionAttached(Abstraction abs) { _AbstractionAttached = abs; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    /// <summary>
+    //  
+    /// </summary>
+    /// <returns>
+    //  Abstraction
+    /// </returns>
+    public Abstraction GetAbstractionLinked() { return _AbstractionAttached; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }

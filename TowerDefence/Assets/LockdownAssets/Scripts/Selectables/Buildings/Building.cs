@@ -204,6 +204,8 @@ public class Building : WorldObject {
                 selectionWheel.HideItemPurchaseInfoPanel();
             }
             _IsCurrentlySelected = true;
+
+            if (_BuildingQueueUI != null) { _BuildingQueueUI.UpdateQueueItemList(); }
         }
 
         // Show a wheel with recycle only as the selection (so you can cancel building the world object)
