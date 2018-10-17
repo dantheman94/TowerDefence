@@ -107,6 +107,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1336228581705908
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4370656622587364}
+  m_Layer: 9
+  m_Name: DeathTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1364828568622108
 GameObject:
   m_ObjectHideFlags: 0
@@ -568,6 +583,7 @@ Transform:
   m_Children:
   - {fileID: 4868349429360610}
   - {fileID: 4178686464863436}
+  - {fileID: 4370656622587364}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 87.328, z: 0}
@@ -602,6 +618,19 @@ Transform:
   - {fileID: 4820824662123776}
   m_Father: {fileID: 4227918954693346}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4370656622587364
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1336228581705908}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 2, z: -0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4300953811889052}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4434833352571718
 Transform:
@@ -1243,6 +1272,7 @@ MonoBehaviour:
     accompanied with supportive air capable firepower.
   Logo: {fileID: 0}
   BuildingTime: 15
+  BuildingTimeTutorial: 5
   CostSupplies: 750
   CostPower: 50
   CostTechLevel: 3
@@ -1287,7 +1317,9 @@ MonoBehaviour:
       type: 2}
     ParticleLocation: {fileID: 4094762355022158}
   OnDeathEffects:
-  - {fileID: 198868045070431672, guid: 872ce7bee92507741ab6135803a77259, type: 2}
+  - ParticleEffect: {fileID: 198868045070431672, guid: 872ce7bee92507741ab6135803a77259,
+      type: 2}
+    ParticleLocation: {fileID: 4370656622587364}
   CameraShakeOnDeath: 0
   DeathExplosionRadius: 10
   ShrinkWhenDestroyed: 1
