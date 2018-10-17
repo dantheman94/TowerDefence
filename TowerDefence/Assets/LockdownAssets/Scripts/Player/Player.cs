@@ -8,8 +8,8 @@ using XInputDotNetPure;
 //
 //  Created by: Daniel Marton
 //
-//  Last edited by: Angus Secomb
-//  Last edited on: 3/08/2018
+//  Last edited by: Daniel Marton
+//  Last edited on: 17/10/2018
 //
 //******************************
 
@@ -74,11 +74,17 @@ public class Player : MonoBehaviour {
     public float PowerCount { get; set; }
     public float MaxPowerCount { get; set; }
     public int Level { get; set; }
-    private int _Score = 0;
-    private int _WavesSurvived = 0;
     private UpgradeManager _UpgradeManager;
     private ResourceManager _ResourceManager;
 
+    // Leaderboard stats
+    private int _Score = 0;
+    private int _WavesSurvived = 0;
+    private int _EnemiesKilled = 0;
+    private int _UnitsProduced = 0;
+    private int _UnitsLost = 0;
+
+    
     // Army
     private List<Base> _Bases;
     private List<Unit> _Army;
@@ -330,5 +336,55 @@ public class Player : MonoBehaviour {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
+
+    /// <summary>
+    //  Adds to the player's score & updates the HUD text component.
+    /// </summary>
+    /// <param name="add"></param>
+    public void AddToScore(int add) {
+
+        _Score += add;
+
+        // Update text in HUD
+        if (_HUD.PlayerScoreText != null) { _HUD.PlayerScoreText.text = _Score.ToString(); }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Subtracts from the player's score & updates the HUD text component.
+    /// </summary>
+    /// <param name="subtract"></param>
+    public void SubstractFromScore(int subtract) {
+
+        _Score -= subtract;
+        if (_Score < 0) { _Score = 0; }
+
+        // Update text in HUD
+        if (_HUD.PlayerScoreText != null) { _HUD.PlayerScoreText.text = _Score.ToString(); }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Adds to the internal counter for the enemies that are killed (leaderboards stats).
+    /// </summary>
+    public void AddUnitsKilled() { _EnemiesKilled += 1; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Adds to the internal counter for the friendly units that are built (leaderboards stats).
+    /// </summary>
+    public void AddUnitsProduced() { _UnitsProduced += 1; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Adds to the internal counter for the friendly units that are killed (leaderboards stats).
+    /// </summary>
+    public void AddUnitsLost() { _UnitsLost += 1; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 }
