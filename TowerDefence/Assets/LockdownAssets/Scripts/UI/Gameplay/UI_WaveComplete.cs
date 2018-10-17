@@ -8,7 +8,7 @@ using UnityEngine.UI;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 16/10/2018
+//  Last edited on: 17/10/2018
 //
 //******************************
 
@@ -102,9 +102,9 @@ public class UI_WaveComplete : MonoBehaviour {
 
         yield return new WaitForSeconds(seconds);
 
-        Player player = GameManager.Instance.Players[0];
-        ResourceManager rm = player.gameObject.GetComponent<ResourceManager>();
-        rm.ResourceBoostComplete(ResourceBoostAdditiveSupply, ResourceBoostAdditivePower);
+        ///Player player = GameManager.Instance.Players[0];
+        ///ResourceManager rm = player.gameObject.GetComponent<ResourceManager>();
+        ///rm.ResourceBoostComplete(ResourceBoostAdditiveSupply, ResourceBoostAdditivePower);
 
         _Flashing = false;
         _CurrentFlashColour = FlashStartingColour;
