@@ -27,17 +27,7 @@ public class AutoDespawn : MonoBehaviour {
     //      FUNCTIONS
     //
     //******************************************************************************************************************************
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    // Called when the gameObject is created.
-    /// </summary>
-    private void Start() {
-
-        _ParticleSystem = GetComponentInChildren<ParticleSystem>();
-    }
-
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
@@ -54,6 +44,9 @@ public class AutoDespawn : MonoBehaviour {
                 ObjectPooling.Despawn(gameObject);
             }
         }
+        
+        // Get reference to the particle system
+        else { _ParticleSystem = GetComponentInChildren<ParticleSystem>(); }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
