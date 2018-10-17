@@ -57,6 +57,8 @@ public class Building : WorldObject {
 
     private ParticleSystem _SelectableBuildingEffect = null;
     private ParticleSystem _SelectableBuiltEffect = null;
+
+    protected bool _CanBeDamaged = true;
     
     //******************************************************************************************************************************
     //
@@ -192,6 +194,8 @@ public class Building : WorldObject {
 
                 // Get reference to the recycle building option
                 if (Selectables[5] != null) { _RecycleOption = Selectables[5].GetComponent<RecycleBuilding>(); }
+                
+                if (_BuildingQueueUI != null) { _BuildingQueueUI.UpdateSelectionWheelItemCounters(); }
 
                 // Show selection wheel
                 if (ShowSelectionGUI) { GameManager.Instance.SelectionWheel.SetActive(true); }
@@ -204,8 +208,6 @@ public class Building : WorldObject {
                 selectionWheel.HideItemPurchaseInfoPanel();
             }
             _IsCurrentlySelected = true;
-
-            if (_BuildingQueueUI != null) { _BuildingQueueUI.UpdateQueueItemList(); }
         }
 
         // Show a wheel with recycle only as the selection (so you can cancel building the world object)
@@ -472,6 +474,17 @@ public class Building : WorldObject {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
+    //  Damages the object by a set amount.
+    /// </summary>
+    /// <param name="damage"></param>
+    public override void Damage(float damage, WorldObject instigator = null) {
+
+        if (_CanBeDamaged) { base.Damage(damage, instigator); }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
     //  
     /// </summary>
     /// <param name="value"></param>
@@ -586,6 +599,14 @@ public class Building : WorldObject {
     /// </summary>
     /// <param name="value"></param>
     public void SetBuildingStarted(bool value) { _BuildingStarted = value; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="value"></param>
+    public void SetCanBeDamaged(bool value) { _CanBeDamaged = value; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
