@@ -34,7 +34,10 @@ public class Abstraction : MonoBehaviour {
     [Tooltip("The thumbnail image that represents this object in.")]
     public Texture2D Logo;
     [Tooltip("The amount of time in SECONDS that this object takes to build.")]
+    [Space]
     public int BuildingTime = 20;
+    [Tooltip("The amount of time in SECONDS that this object takes to build. (In the tutorial level ONLY).")]
+    public int BuildingTimeTutorial = 5;
     [Space]
     [Tooltip("How much supply resource are required to build this object.")]
     public int CostSupplies = 0;
