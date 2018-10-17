@@ -83,7 +83,6 @@ public class ResourceManager : MonoBehaviour {
                     _SupplyTimer = 0f;
                 }
             }
-            else { Debug.Log("supply gen" + _SupplyGenerators); }
 
             if (_PowerGenerators > 0) {
 
@@ -102,7 +101,6 @@ public class ResourceManager : MonoBehaviour {
                     _PowerTimer = 0f;
                 }
             }
-            else { Debug.Log("power gen" + _PowerGenerators); }
         }
     }
 
