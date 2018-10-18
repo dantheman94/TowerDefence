@@ -25,6 +25,7 @@ public class VehicleGunner : Selectable {
     [Space]
     public GameObject Head = null;
     public float HeadAimingSpeed = 5f;
+    public float BarrelRotationSpeed = 500f;
     [Space]
     public Weapon GunnerWeapon = null;
     public float MaxAttackRange = 200f;
@@ -108,6 +109,13 @@ public class VehicleGunner : Selectable {
 
                     // Fire weapon at the target
                     if (GunnerWeapon.CanFire()) { GunnerWeapon.FireWeapon(); }
+
+                    // Check if the barrels should rotate
+                    if (/*_IsFiring &&*/ Head != null) {
+
+                        // Rotate the barrel by rotation speed
+                        Head.transform.Rotate(Vector3.forward * (BarrelRotationSpeed * Time.deltaTime));
+                    }
                 }
             }
 

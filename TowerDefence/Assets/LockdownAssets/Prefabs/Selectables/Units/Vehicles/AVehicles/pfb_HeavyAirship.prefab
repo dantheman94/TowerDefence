@@ -209,7 +209,7 @@ GameObject:
   m_Layer: 9
   m_Name: pfb_HeavyAirship
   m_TagString: Unit
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7707008975528953803, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -701,9 +701,9 @@ Transform:
   m_Children:
   - {fileID: 4803078565000846}
   - {fileID: 4735381761289894}
+  - {fileID: 4984046356241278}
   - {fileID: 4436363247258318}
   - {fileID: 4456460826399218}
-  - {fileID: 4984046356241278}
   - {fileID: 4771000763623890}
   - {fileID: 4931168193057880}
   - {fileID: 4069062128084682}
@@ -916,7 +916,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4022856670970490}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4453055623075818
 Transform:
@@ -942,7 +942,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4022856670970490}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4475167933760800
 Transform:
@@ -978,7 +978,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1227051746626024}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -19.9, y: 62.55, z: -183.2}
+  m_LocalPosition: {x: 88.09, y: 20, z: 57.879993}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4022856670970490}
@@ -1233,7 +1233,7 @@ Transform:
   - {fileID: 4488417735480070}
   - {fileID: 4268925708185826}
   m_Father: {fileID: 4022856670970490}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23000555083425560
 MeshRenderer:
@@ -2193,6 +2193,7 @@ MonoBehaviour:
     field.
   Logo: {fileID: 0}
   BuildingTime: 15
+  BuildingTimeTutorial: 5
   CostSupplies: 800
   CostPower: 100
   CostTechLevel: 3
@@ -2231,7 +2232,8 @@ MonoBehaviour:
   HealthThresholdDamaged: 0.5
   HealthDamagedParticles: []
   OnDeathEffects:
-  - {fileID: 198868045070431672, guid: 872ce7bee92507741ab6135803a77259, type: 2}
+  - ParticleEffect: {fileID: 0}
+    ParticleLocation: {fileID: 0}
   CameraShakeOnDeath: 1
   DeathExplosionRadius: 20
   ShrinkWhenDestroyed: 1
@@ -2321,6 +2323,7 @@ MonoBehaviour:
   ObjectDescriptionLong: 
   Logo: {fileID: 0}
   BuildingTime: 0
+  BuildingTimeTutorial: 5
   CostSupplies: 0
   CostPower: 0
   CostTechLevel: 0
@@ -2338,6 +2341,7 @@ MonoBehaviour:
   ShoecaseScale: 1
   Head: {fileID: 1754600022197738}
   HeadAimingSpeed: 5
+  BarrelRotationSpeed: 500
   GunnerWeapon: {fileID: 114890569164590910, guid: b0999596a484fc74d8adf0b5e6db2e60,
     type: 2}
   MaxAttackRange: 60
@@ -2477,6 +2481,7 @@ MonoBehaviour:
   ObjectDescriptionLong: 
   Logo: {fileID: 0}
   BuildingTime: 0
+  BuildingTimeTutorial: 5
   CostSupplies: 0
   CostPower: 0
   CostTechLevel: 0
@@ -2494,6 +2499,7 @@ MonoBehaviour:
   ShoecaseScale: 1
   Head: {fileID: 1937187020650802}
   HeadAimingSpeed: 5
+  BarrelRotationSpeed: 500
   GunnerWeapon: {fileID: 114890569164590910, guid: b0999596a484fc74d8adf0b5e6db2e60,
     type: 2}
   MaxAttackRange: 60
@@ -2523,6 +2529,7 @@ MonoBehaviour:
   ObjectDescriptionLong: 
   Logo: {fileID: 0}
   BuildingTime: 0
+  BuildingTimeTutorial: 5
   CostSupplies: 0
   CostPower: 0
   CostTechLevel: 0
@@ -2540,6 +2547,7 @@ MonoBehaviour:
   ShoecaseScale: 1
   Head: {fileID: 1656343503019626}
   HeadAimingSpeed: 5
+  BarrelRotationSpeed: 500
   GunnerWeapon: {fileID: 114890569164590910, guid: b0999596a484fc74d8adf0b5e6db2e60,
     type: 2}
   MaxAttackRange: 60

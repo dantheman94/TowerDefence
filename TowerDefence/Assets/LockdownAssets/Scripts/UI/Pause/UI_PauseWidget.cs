@@ -29,6 +29,8 @@ public class UI_PauseWidget : MonoBehaviour {
     public Text ScoreTrackerText = null;
     public Text CurrentWaveTrackerText = null;
     [Space]
+    public Image LevelImage = null;
+    [Space]
     public Button StartButton;
     [Space]
     public GameObject SettingsMenu;
@@ -69,6 +71,9 @@ public class UI_PauseWidget : MonoBehaviour {
 
             // Update current wave count
             if (CurrentWaveTrackerText != null) { CurrentWaveTrackerText.text = string.Concat(WaveManager.Instance.GetWaveCount() - 1).ToString(); }
+
+            // Update level image
+            if (LevelImage != null) { LevelImage.sprite = GameManager.Instance._Level.LevelThumbnailSprite; }
 
             // Update inputs
             UpdateKeyboardInput();

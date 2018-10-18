@@ -403,10 +403,10 @@ GameObject:
   m_Layer: 9
   m_Name: pfb_Airship
   m_TagString: Unit
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7707008975528953803, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1892271828056772
 GameObject:
   m_ObjectHideFlags: 1
@@ -5035,6 +5035,7 @@ MonoBehaviour:
     to alternative flanking tactics and enhanced terrain traversal capabilities.
   Logo: {fileID: 0}
   BuildingTime: 15
+  BuildingTimeTutorial: 5
   CostSupplies: 300
   CostPower: 0
   CostTechLevel: 2
@@ -5073,7 +5074,8 @@ MonoBehaviour:
   HealthThresholdDamaged: 0.5
   HealthDamagedParticles: []
   OnDeathEffects:
-  - {fileID: 198400088648914588, guid: 94bb7220218e3a14a8dbb6e66f9a8ad6, type: 2}
+  - ParticleEffect: {fileID: 0}
+    ParticleLocation: {fileID: 0}
   CameraShakeOnDeath: 1
   DeathExplosionRadius: 10
   ShrinkWhenDestroyed: 1
