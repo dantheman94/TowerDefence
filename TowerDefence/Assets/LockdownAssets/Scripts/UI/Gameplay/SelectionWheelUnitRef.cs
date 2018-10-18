@@ -22,7 +22,9 @@ public class SelectionWheelUnitRef : MonoBehaviour {
 
     [Space]
     [Header("-----------------------------------")]
-    [Header(" PC HOTKEY")]
+    [Header(" PROPERTIES")]
+    [Space]
+    public Text QueueCounterTextComponent = null;
     [Space]
     public KeyCode PCShortcutKey;
 
@@ -37,7 +39,6 @@ public class SelectionWheelUnitRef : MonoBehaviour {
     private int _UnitCounter = 0;
 
     private Image _ButtonItemLogoComponent = null;
-    private Text _QueueCounterTextComponent = null;
 
     //******************************************************************************************************************************
     //
@@ -54,11 +55,6 @@ public class SelectionWheelUnitRef : MonoBehaviour {
 
         // Get component references
         _ButtonItemLogoComponent = GetComponent<Image>();
-        Text[] texts = GetComponentsInChildren<Text>();
-        for (int i = 0; i < texts.Length - 1; i++) {
-
-            if (texts[i].CompareTag("UI_SelectionWheel_QueueCounter")) { _QueueCounterTextComponent = texts[i]; }
-        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -69,12 +65,12 @@ public class SelectionWheelUnitRef : MonoBehaviour {
     private void Update() {
         
         // Update queue counter text string
-        if (_UnitCounter > 0 && _QueueCounterTextComponent != null) {
+        if (_UnitCounter > 0 && QueueCounterTextComponent != null) {
 
-            _QueueCounterTextComponent.gameObject.SetActive(true);
-            _QueueCounterTextComponent.text = _UnitCounter.ToString();
+            QueueCounterTextComponent.gameObject.SetActive(true);
+            QueueCounterTextComponent.text = _UnitCounter.ToString();
         }
-        else if (_QueueCounterTextComponent != null) { _QueueCounterTextComponent.gameObject.SetActive(false); }
+        else if (QueueCounterTextComponent != null) { QueueCounterTextComponent.gameObject.SetActive(false); }
 
         // PC hotkey input for this button
         if (Input.GetKeyDown(PCShortcutKey)) {
