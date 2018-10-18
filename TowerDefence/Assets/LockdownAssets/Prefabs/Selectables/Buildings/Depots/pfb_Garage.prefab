@@ -512,8 +512,9 @@ MonoBehaviour:
   ObjectDescriptionShort: Ground Vehicle Depot
   ObjectDescriptionLong: Provides ground vehicles that have increased armour & damage
     output. Also provides upgrade paths for ground vehicles.
-  Logo: {fileID: 0}
+  Logo: {fileID: 21300000, guid: 8d3268e70c7057a44b6d6272f7bff2de, type: 3}
   BuildingTime: 20
+  BuildingTimeTutorial: 5
   CostSupplies: 500
   CostPower: 0
   CostTechLevel: 2
@@ -552,7 +553,8 @@ MonoBehaviour:
   HealthThresholdDamaged: 0.5
   HealthDamagedParticles: []
   OnDeathEffects:
-  - {fileID: 198831994865105058, guid: 451198ea52c916b4ca0f0cad0dadd9a1, type: 2}
+  - ParticleEffect: {fileID: 0}
+    ParticleLocation: {fileID: 0}
   CameraShakeOnDeath: 1
   DeathExplosionRadius: 10
   ShrinkWhenDestroyed: 1

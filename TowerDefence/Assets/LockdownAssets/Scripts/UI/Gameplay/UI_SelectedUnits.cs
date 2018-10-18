@@ -39,7 +39,7 @@ public class UI_SelectedUnits : MonoBehaviour {
 
         public Unit.EUnitType _UnitType;
         public int _Amount;
-        public Texture2D _Logo;
+        public Sprite _Logo;
     }
     
     private Player _Player = null;

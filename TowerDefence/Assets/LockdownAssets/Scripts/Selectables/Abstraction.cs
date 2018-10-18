@@ -7,7 +7,7 @@ using UnityEngine;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 28/9/2018
+//  Last edited on: 18/10/2018
 //
 //******************************
 
@@ -32,7 +32,7 @@ public class Abstraction : MonoBehaviour {
     public string ObjectDescriptionLong;
     [Space]
     [Tooltip("The thumbnail image that represents this object in.")]
-    public Texture2D Logo;
+    public Sprite Logo;
     [Tooltip("The amount of time in SECONDS that this object takes to build.")]
     [Space]
     public int BuildingTime = 20;

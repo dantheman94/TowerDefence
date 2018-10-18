@@ -1907,8 +1907,9 @@ MonoBehaviour:
   ObjectDescriptionShort: Economy Upgrades
   ObjectDescriptionLong: The War Room houses economy & general unit upgrades so that
     base & army efficiency is increased.
-  Logo: {fileID: 0}
+  Logo: {fileID: 21300000, guid: f778e5b273e8415449844a2a960bd17d, type: 3}
   BuildingTime: 0
+  BuildingTimeTutorial: 5
   CostSupplies: 1000
   CostPower: 500
   CostTechLevel: 3
@@ -1947,7 +1948,8 @@ MonoBehaviour:
   HealthThresholdDamaged: 0.5
   HealthDamagedParticles: []
   OnDeathEffects:
-  - {fileID: 198831994865105058, guid: 451198ea52c916b4ca0f0cad0dadd9a1, type: 2}
+  - ParticleEffect: {fileID: 0}
+    ParticleLocation: {fileID: 0}
   CameraShakeOnDeath: 1
   DeathExplosionRadius: 10
   ShrinkWhenDestroyed: 1

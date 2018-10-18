@@ -477,8 +477,9 @@ MonoBehaviour:
   ObjectName: Barracks
   ObjectDescriptionShort: Ground Infantry Depot
   ObjectDescriptionLong: 
-  Logo: {fileID: 0}
+  Logo: {fileID: 21300000, guid: e454f3f98338e1b448bf34c3c85ffc4c, type: 3}
   BuildingTime: 20
+  BuildingTimeTutorial: 5
   CostSupplies: 300
   CostPower: 0
   CostTechLevel: 1
@@ -517,7 +518,8 @@ MonoBehaviour:
   HealthThresholdDamaged: 0.5
   HealthDamagedParticles: []
   OnDeathEffects:
-  - {fileID: 198831994865105058, guid: 451198ea52c916b4ca0f0cad0dadd9a1, type: 2}
+  - ParticleEffect: {fileID: 0}
+    ParticleLocation: {fileID: 0}
   CameraShakeOnDeath: 1
   DeathExplosionRadius: 10
   ShrinkWhenDestroyed: 1

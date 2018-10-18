@@ -1045,8 +1045,9 @@ MonoBehaviour:
   ObjectDescriptionLong: Produces air units that can traverse areas of the map that
     are not normally accessable by standard ground units. Also provides upgrades for
     air units.
-  Logo: {fileID: 0}
+  Logo: {fileID: 21300000, guid: abeffcd5efdf8d746a8f7a96d5b0def3, type: 3}
   BuildingTime: 20
+  BuildingTimeTutorial: 5
   CostSupplies: 600
   CostPower: 100
   CostTechLevel: 2
@@ -1085,7 +1086,8 @@ MonoBehaviour:
   HealthThresholdDamaged: 0.5
   HealthDamagedParticles: []
   OnDeathEffects:
-  - {fileID: 198831994865105058, guid: 451198ea52c916b4ca0f0cad0dadd9a1, type: 2}
+  - ParticleEffect: {fileID: 0}
+    ParticleLocation: {fileID: 0}
   CameraShakeOnDeath: 1
   DeathExplosionRadius: 10
   ShrinkWhenDestroyed: 1

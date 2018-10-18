@@ -234,14 +234,16 @@ public class SelectionWheel : MonoBehaviour {
                     SelectionWheelUnitRef unitRef = button.GetComponent<SelectionWheelUnitRef>();
                     if (unitRef.AbstractRef != null) {
 
+                        unitRef.UpdateUnitRefLogo();
+
                         Player player = GameManager.Instance.Players[0];
                         Abstraction item = unitRef.AbstractRef;
 
+                        // Check whether the button should be interactable or not
                         bool unlock = player.Level >= item.CostTechLevel;
                         bool purchasable = player.SuppliesCount >= item.CostSupplies &&
                                            player.PowerCount >= item.CostPower &&
                                            (player.MaxPopulation - player.PopulationCount) >= item.CostPopulation;
-
                         button.interactable = unlock && purchasable;
                     }
 
