@@ -39,6 +39,7 @@ public class SelectionWheelUnitRef : MonoBehaviour {
     private int _UnitCounter = 0;
 
     private Image _ButtonItemLogoComponent = null;
+    private Player _Player = null;
 
     //******************************************************************************************************************************
     //
@@ -71,6 +72,13 @@ public class SelectionWheelUnitRef : MonoBehaviour {
             QueueCounterTextComponent.text = _UnitCounter.ToString();
         }
         else if (QueueCounterTextComponent != null) { QueueCounterTextComponent.gameObject.SetActive(false); }
+
+        // PC hotkey visibility
+        if (_Player == null) { _Player = GameManager.Instance.Players[0]; }
+        if (_Player != null) {
+
+
+        }        
 
         // PC hotkey input for this button
         if (Input.GetKeyDown(PCShortcutKey)) {

@@ -27,14 +27,23 @@ public class ButtonHover_SelectionWheel : MonoBehaviour, IPointerEnterHandler, I
     [Space]
     public SelectionWheel SelectionWheel;
 
+    [Space]
+    [Header("-----------------------------------")]
+    [Header(" CONTROLLER ")]
+    [Space]
+    public GameObject PCHotkeyObj = null;
+
     //******************************************************************************************************************************
     //
     //      VARIABLES
     //
     //******************************************************************************************************************************
 
-    private SelectionWheelUnitRef _ObjectRefComponent;
-    private Button _ButtonComponent;
+    private SelectionWheelUnitRef _ObjectRefComponent = null;
+    private Button _ButtonComponent = null;
+    private TextMesh _TextComponent = null;
+    private Color _PCHotkeyColour;
+    private Color _OriginalColour;
 
     //******************************************************************************************************************************
     //
@@ -52,6 +61,33 @@ public class ButtonHover_SelectionWheel : MonoBehaviour, IPointerEnterHandler, I
         // Get component references
         _ObjectRefComponent = GetComponent<SelectionWheelUnitRef>();
         _ButtonComponent = GetComponent<Button>();
+        if (PCHotkeyObj != null) {
+
+            _TextComponent = PCHotkeyObj.GetComponentInChildren<TextMesh>();
+
+            // Store colours set by the inspector
+            _PCHotkeyColour = _TextComponent.color;
+            _OriginalColour = _PCHotkeyColour;
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Called each frame.
+    /// </summary>
+    private void Update() {
+        
+        // Update the PC hotkey text colour
+        if (_ButtonComponent != null && PCHotkeyObj != null) {
+
+            // Get colour for the text component
+            if (_ButtonComponent.IsInteractable())  { _PCHotkeyColour = _ButtonComponent.colors.disabledColor; }
+            else                                    { _PCHotkeyColour = _OriginalColour; }
+
+            // Set text colour
+            _TextComponent.color = _PCHotkeyColour;
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -109,7 +145,8 @@ public class ButtonHover_SelectionWheel : MonoBehaviour, IPointerEnterHandler, I
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  
+    //  Called when the button this script is attached to is clicked on by a mouse.
+    //  RMB - Deducts this object from the queue.
     /// </summary>
     /// <param name="eventData"></param>
     public void OnPointerClick(PointerEventData eventData) {

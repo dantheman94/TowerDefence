@@ -25,8 +25,37 @@ public class Platoon : MonoBehaviour {
     [Header("-----------------------------------")]
     [Header(" WIDGET COMPONENTS")]
     [Space]
-    public Image LogoComponent = null;
     public TMP_Text PlatoonCounter = null;
+
+    [Space]
+    [Header("-----------------------------------")]
+    [Header(" BLOCK COLOURS ")]
+    [Space]
+    public Image BlockImage = null;
+    public float BlockLerpDuration = 1f;
+    [Space]
+    public Color DefaultBlockColour = Color.white;
+    public Color HighlightingBlockColour = Color.cyan;
+    [Space]
+    public Color DefaultBlockOutlineColour = Color.white;
+    public Color HighlightingBlockOutlineColour = Color.cyan;
+
+    [Header("-----------------------------------")]
+    [Header(" OULINE COLOURS ")]
+    [Space]
+    public float HotkeyLerpDuration = 1f;
+    [Space]
+    public Color DefaultHotkeyColour = Color.white;
+    public Color HighlightingHotkeyColour = Color.cyan;
+    [Space]
+    public Color DefaultHotkeyOutlineColour = Color.white;
+    public Color HighlightingHotkeyOutlineColour = Color.cyan;
+
+    [Space]
+    [Header("-----------------------------------")]
+    [Header(" CONTROLLER ")]
+    [Space]
+    public GameObject PCHotkeyObj = null;
 
     //******************************************************************************************************************************
     //
@@ -35,6 +64,14 @@ public class Platoon : MonoBehaviour {
     //******************************************************************************************************************************
 
     private List<Unit> _PlatoonAi;
+
+    private Player _Player = null;
+
+    private Text _PCHotkeyTextComponent = null;
+    private Outline _PCHotkeyOutline = null;
+
+    private float _CurrentTime = 0f;
+    private float _CurrentBlockTime = 0f;
 
     //******************************************************************************************************************************
     //
@@ -49,7 +86,13 @@ public class Platoon : MonoBehaviour {
     /// </summary>
     private void Start() {
 
+        // Initialize the gameobject
         _PlatoonAi = new List<Unit>();
+        if (PCHotkeyObj != null) {
+
+            _PCHotkeyTextComponent = PCHotkeyObj.gameObject.GetComponent<Text>();
+            _PCHotkeyOutline = PCHotkeyObj.gameObject.GetComponent<Outline>();
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -61,14 +104,96 @@ public class Platoon : MonoBehaviour {
 
         // Clear everything
         if (PlatoonCounter != null) { PlatoonCounter.text = ""; }
-
-        // Hide the gameObject
-        gameObject.SetActive(false);
+        _PlatoonAi.Clear();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public List<Unit> GetAi() { return _PlatoonAi; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    /// <summary>
+    //  Called each frame by keyboard input.cs
+    /// </summary>
+    public void LightUpText() {
+
+        if (_PCHotkeyTextComponent != null) {
+
+            // Outline
+            _PCHotkeyTextComponent.color = Color.Lerp(DefaultHotkeyOutlineColour, HighlightingHotkeyOutlineColour, _CurrentTime);
+
+            // Text
+            _PCHotkeyTextComponent.color = Color.Lerp(DefaultHotkeyColour, HighlightingHotkeyColour, _CurrentTime);
+            if (_CurrentTime < 1) {
+
+                _CurrentTime += Time.deltaTime / HotkeyLerpDuration;
+            }
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Called each frame by keyboard input.cs
+    /// </summary>
+    public void LightDownText() {
+
+        if (_PCHotkeyTextComponent != null) {
+
+            // Outline
+            _PCHotkeyTextComponent.color = Color.Lerp(DefaultHotkeyOutlineColour, HighlightingHotkeyOutlineColour, _CurrentTime);
+
+            // Text
+            _PCHotkeyTextComponent.color = Color.Lerp(DefaultHotkeyColour, HighlightingHotkeyColour, _CurrentTime);
+            if (_CurrentTime > 0) {
+
+                _CurrentTime -= Time.deltaTime / HotkeyLerpDuration;
+            }
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Called each frame by keyboard input.cs
+    /// </summary>
+    public void LightUpBlock() {
+
+        if (BlockImage != null) {
+
+            // Outline
+            BlockImage.color = Color.Lerp(DefaultBlockOutlineColour, HighlightingBlockOutlineColour, _CurrentBlockTime);
+
+            // Text
+            BlockImage.color = Color.Lerp(DefaultBlockColour, HighlightingBlockColour, _CurrentBlockTime);
+            if (_CurrentBlockTime < 1) {
+
+                _CurrentBlockTime += Time.deltaTime / BlockLerpDuration;
+            }
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Called each frame by keyboard input.cs
+    /// </summary>
+    public void LightDownBlock() {
+
+        if (BlockImage != null) {
+
+            // Outline
+            BlockImage.color = Color.Lerp(DefaultBlockOutlineColour, HighlightingBlockOutlineColour, _CurrentBlockTime);
+
+            // Text
+            BlockImage.color = Color.Lerp(DefaultBlockColour, HighlightingBlockColour, _CurrentBlockTime);
+            if (_CurrentBlockTime > 0) {
+
+                _CurrentBlockTime -= Time.deltaTime / BlockLerpDuration;
+            }
+        }
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
