@@ -1060,14 +1060,14 @@ public class KeyboardInput : MonoBehaviour {
         if (_PlayerAttached.GetPlatoon(iter).GetAi().Count > 0) {
 
             // Binding glow UP if theres AI in the group
-            _PlayerAttached.GetPlatoon(iter).LightUpText();
+            _PlayerAttached.GetPlatoon(iter).LightUpCounter();
         }
 
         // Unglow
         if (!Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.LeftShift)) {
 
             // Binding glow DOWN
-            _PlayerAttached.GetPlatoon(iter).LightDownText();
+            _PlayerAttached.GetPlatoon(iter).LightDownPCHotkeyText();
 
             // Unglow the block
             if (_PlayerAttached.GetPlatoon(iter).GetAi().Count == 0) {
@@ -1123,6 +1123,8 @@ public class KeyboardInput : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.Alpha1) && (!Input.GetKeyDown(KeyCode.LeftShift) && (!Input.GetKeyDown(KeyCode.LeftControl)))) {
 
             _PlayerAttached.DeselectAllObjects();
+            _PlayerAttached.UnselectAllPlatoons();
+            _PlayerAttached.GetPlatoon(iter).SetSelected(true);
 
             // Loop through & select all army objects
             foreach (var ai in _PlayerAttached.GetPlatoon(iter).GetAi()) {
@@ -1151,14 +1153,14 @@ public class KeyboardInput : MonoBehaviour {
         if (_PlayerAttached.GetPlatoon(iter).GetAi().Count > 0) {
 
             // Binding glow UP if theres AI in the group
-            _PlayerAttached.GetPlatoon(iter).LightUpText();
+            _PlayerAttached.GetPlatoon(iter).LightUpCounter();
         }
 
         // Unglow
         if (!Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.LeftShift)) {
 
             // Binding glow DOWN
-            _PlayerAttached.GetPlatoon(iter).LightDownText();
+            _PlayerAttached.GetPlatoon(iter).LightDownPCHotkeyText();
 
             // Unglow the block
             if (_PlayerAttached.GetPlatoon(iter).GetAi().Count == 0) {
@@ -1214,6 +1216,8 @@ public class KeyboardInput : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Keypad2) || Input.GetKeyDown(KeyCode.Alpha2) && (!Input.GetKeyDown(KeyCode.LeftShift) && (!Input.GetKeyDown(KeyCode.LeftControl)))) {
 
             _PlayerAttached.DeselectAllObjects();
+            _PlayerAttached.UnselectAllPlatoons();
+            _PlayerAttached.GetPlatoon(iter).SetSelected(true);
 
             // Loop through & select all army objects
             foreach (var ai in _PlayerAttached.GetPlatoon(iter).GetAi()) {
@@ -1242,14 +1246,14 @@ public class KeyboardInput : MonoBehaviour {
         if (_PlayerAttached.GetPlatoon(iter).GetAi().Count > 0) {
 
             // Binding glow UP if theres AI in the group
-            _PlayerAttached.GetPlatoon(iter).LightUpText();
+            _PlayerAttached.GetPlatoon(iter).LightUpCounter();
         }
 
         // Unglow
         if (!Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.LeftShift)) {
 
             // Binding glow DOWN
-            _PlayerAttached.GetPlatoon(iter).LightDownText();
+            _PlayerAttached.GetPlatoon(iter).LightDownPCHotkeyText();
 
             // Unglow the block
             if (_PlayerAttached.GetPlatoon(iter).GetAi().Count == 0) {
@@ -1333,14 +1337,14 @@ public class KeyboardInput : MonoBehaviour {
         if (_PlayerAttached.GetPlatoon(iter).GetAi().Count > 0) {
 
             // Binding glow UP if theres AI in the group
-            _PlayerAttached.GetPlatoon(iter).LightUpText();
+            _PlayerAttached.GetPlatoon(iter).LightUpCounter();
         }
 
         // Unglow
         if (!Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.LeftShift)) {
 
             // Binding glow DOWN
-            _PlayerAttached.GetPlatoon(iter).LightDownText();
+            _PlayerAttached.GetPlatoon(iter).LightDownPCHotkeyText();
 
             // Unglow the block
             if (_PlayerAttached.GetPlatoon(iter).GetAi().Count == 0) {
@@ -1396,6 +1400,8 @@ public class KeyboardInput : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Keypad4) || Input.GetKeyDown(KeyCode.Alpha4) && (!Input.GetKeyDown(KeyCode.LeftShift) && (!Input.GetKeyDown(KeyCode.LeftControl)))) {
 
             _PlayerAttached.DeselectAllObjects();
+            _PlayerAttached.UnselectAllPlatoons();
+            _PlayerAttached.GetPlatoon(iter).SetSelected(true);
 
             // Loop through & select all army objects
             foreach (var ai in _PlayerAttached.GetPlatoon(iter).GetAi()) {
@@ -1424,14 +1430,14 @@ public class KeyboardInput : MonoBehaviour {
         if (_PlayerAttached.GetPlatoon(iter).GetAi().Count > 0) {
 
             // Binding glow UP if theres AI in the group
-            _PlayerAttached.GetPlatoon(iter).LightUpText();
+            _PlayerAttached.GetPlatoon(iter).LightUpCounter();
         }
 
         // Unglow
         if (!Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.LeftShift)) {
 
             // Binding glow DOWN
-            _PlayerAttached.GetPlatoon(iter).LightDownText();
+            _PlayerAttached.GetPlatoon(iter).LightDownPCHotkeyText();
 
             // Unglow the block
             if (_PlayerAttached.GetPlatoon(iter).GetAi().Count == 0) {
@@ -1487,6 +1493,8 @@ public class KeyboardInput : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Keypad5) || Input.GetKeyDown(KeyCode.Alpha5) && (!Input.GetKeyDown(KeyCode.LeftShift) && (!Input.GetKeyDown(KeyCode.LeftControl)))) {
 
             _PlayerAttached.DeselectAllObjects();
+            _PlayerAttached.UnselectAllPlatoons();
+            _PlayerAttached.GetPlatoon(iter).SetSelected(true);
 
             // Loop through & select all army objects
             foreach (var ai in _PlayerAttached.GetPlatoon(iter).GetAi()) {
@@ -1515,14 +1523,14 @@ public class KeyboardInput : MonoBehaviour {
         if (_PlayerAttached.GetPlatoon(iter).GetAi().Count > 0) {
 
             // Binding glow UP if theres AI in the group
-            _PlayerAttached.GetPlatoon(iter).LightUpText();
+            _PlayerAttached.GetPlatoon(iter).LightUpCounter();
         }
 
         // Unglow
         if (!Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.LeftShift)) {
 
             // Binding glow DOWN
-            _PlayerAttached.GetPlatoon(iter).LightDownText();
+            _PlayerAttached.GetPlatoon(iter).LightDownPCHotkeyText();
 
             // Unglow the block
             if (_PlayerAttached.GetPlatoon(iter).GetAi().Count == 0) {
@@ -1578,6 +1586,8 @@ public class KeyboardInput : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Keypad6) || Input.GetKeyDown(KeyCode.Alpha6) && (!Input.GetKeyDown(KeyCode.LeftShift) && (!Input.GetKeyDown(KeyCode.LeftControl)))) {
 
             _PlayerAttached.DeselectAllObjects();
+            _PlayerAttached.UnselectAllPlatoons();
+            _PlayerAttached.GetPlatoon(iter).SetSelected(true);
 
             // Loop through & select all army objects
             foreach (var ai in _PlayerAttached.GetPlatoon(iter).GetAi()) {
@@ -1606,14 +1616,14 @@ public class KeyboardInput : MonoBehaviour {
         if (_PlayerAttached.GetPlatoon(iter).GetAi().Count > 0) {
 
             // Binding glow UP if theres AI in the group
-            _PlayerAttached.GetPlatoon(iter).LightUpText();
+            _PlayerAttached.GetPlatoon(iter).LightUpCounter();
         }
 
         // Unglow
         if (!Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.LeftShift)) {
 
             // Binding glow DOWN
-            _PlayerAttached.GetPlatoon(iter).LightDownText();
+            _PlayerAttached.GetPlatoon(iter).LightDownPCHotkeyText();
 
             // Unglow the block
             if (_PlayerAttached.GetPlatoon(iter).GetAi().Count == 0) {
@@ -1669,6 +1679,8 @@ public class KeyboardInput : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Keypad7) || Input.GetKeyDown(KeyCode.Alpha7) && (!Input.GetKeyDown(KeyCode.LeftShift) && (!Input.GetKeyDown(KeyCode.LeftControl)))) {
 
             _PlayerAttached.DeselectAllObjects();
+            _PlayerAttached.UnselectAllPlatoons();
+            _PlayerAttached.GetPlatoon(iter).SetSelected(true);
 
             // Loop through & select all army objects
             foreach (var ai in _PlayerAttached.GetPlatoon(iter).GetAi()) {
@@ -1697,14 +1709,14 @@ public class KeyboardInput : MonoBehaviour {
         if (_PlayerAttached.GetPlatoon(iter).GetAi().Count > 0) {
 
             // Binding glow UP if theres AI in the group
-            _PlayerAttached.GetPlatoon(iter).LightUpText();
+            _PlayerAttached.GetPlatoon(iter).LightUpCounter();
         }
 
         // Unglow
         if (!Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.LeftShift)) {
 
             // Binding glow DOWN
-            _PlayerAttached.GetPlatoon(iter).LightDownText();
+            _PlayerAttached.GetPlatoon(iter).LightDownPCHotkeyText();
 
             // Unglow the block
             if (_PlayerAttached.GetPlatoon(iter).GetAi().Count == 0) {
@@ -1760,6 +1772,8 @@ public class KeyboardInput : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Keypad8) || Input.GetKeyDown(KeyCode.Alpha8) && (!Input.GetKeyDown(KeyCode.LeftShift) && (!Input.GetKeyDown(KeyCode.LeftControl)))) {
 
             _PlayerAttached.DeselectAllObjects();
+            _PlayerAttached.UnselectAllPlatoons();
+            _PlayerAttached.GetPlatoon(iter).SetSelected(true);
 
             // Loop through & select all army objects
             foreach (var ai in _PlayerAttached.GetPlatoon(iter).GetAi()) {
@@ -1788,14 +1802,14 @@ public class KeyboardInput : MonoBehaviour {
         if (_PlayerAttached.GetPlatoon(iter).GetAi().Count > 0) {
 
             // Binding glow UP if theres AI in the group
-            _PlayerAttached.GetPlatoon(iter).LightUpText();
+            _PlayerAttached.GetPlatoon(iter).LightUpCounter();
         }
 
         // Unglow
         if (!Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.LeftShift)) {
 
             // Binding glow DOWN
-            _PlayerAttached.GetPlatoon(iter).LightDownText();
+            _PlayerAttached.GetPlatoon(iter).LightDownPCHotkeyText();
 
             // Unglow the block
             if (_PlayerAttached.GetPlatoon(iter).GetAi().Count == 0) {
@@ -1851,6 +1865,8 @@ public class KeyboardInput : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Keypad9) || Input.GetKeyDown(KeyCode.Alpha9) && (!Input.GetKeyDown(KeyCode.LeftShift) && (!Input.GetKeyDown(KeyCode.LeftControl)))) {
 
             _PlayerAttached.DeselectAllObjects();
+            _PlayerAttached.UnselectAllPlatoons();
+            _PlayerAttached.GetPlatoon(iter).SetSelected(true);
 
             // Loop through & select all army objects
             foreach (var ai in _PlayerAttached.GetPlatoon(iter).GetAi()) {
@@ -1879,14 +1895,14 @@ public class KeyboardInput : MonoBehaviour {
         if (_PlayerAttached.GetPlatoon(iter).GetAi().Count > 0) {
 
             // Binding glow UP if theres AI in the group
-            _PlayerAttached.GetPlatoon(iter).LightUpText();
+            _PlayerAttached.GetPlatoon(iter).LightUpCounter();
         }
 
         // Unglow
         if (!Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.LeftShift)) {
 
             // Binding glow DOWN
-            _PlayerAttached.GetPlatoon(iter).LightDownText();
+            _PlayerAttached.GetPlatoon(iter).LightDownPCHotkeyText();
 
             // Unglow the block
             if (_PlayerAttached.GetPlatoon(iter).GetAi().Count == 0) {
@@ -1942,6 +1958,8 @@ public class KeyboardInput : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Keypad0) || Input.GetKeyDown(KeyCode.Alpha0) && (!Input.GetKeyDown(KeyCode.LeftShift) && (!Input.GetKeyDown(KeyCode.LeftControl)))) {
 
             _PlayerAttached.DeselectAllObjects();
+            _PlayerAttached.UnselectAllPlatoons();
+            _PlayerAttached.GetPlatoon(iter).SetSelected(true);
 
             // Loop through & select all army objects
             foreach (var ai in _PlayerAttached.GetPlatoon(iter).GetAi()) {
@@ -1953,6 +1971,9 @@ public class KeyboardInput : MonoBehaviour {
                 ai.SetIsSelected(true);
             }
         }
+
+        // Update units selected panels
+        GameManager.Instance.SelectedUnitsHUD.RefreshPanels();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
