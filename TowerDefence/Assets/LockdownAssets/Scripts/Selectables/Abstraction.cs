@@ -55,6 +55,8 @@ public class Abstraction : MonoBehaviour {
         "\n\nACTIVE = The object is active/interactable within the game world.")]
     public WorldObjectStates _ObjectState = WorldObjectStates.Default;
 
+    public Sprite UIImage;
+
     //******************************************************************************************************************************
     //
     //      VARIABLES

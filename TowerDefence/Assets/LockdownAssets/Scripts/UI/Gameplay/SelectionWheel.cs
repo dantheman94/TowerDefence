@@ -122,6 +122,10 @@ public class SelectionWheel : MonoBehaviour {
                 if (building != null) {
 
                     _BuildingList.Add(building);
+                    if(obj.UIImage != null)
+                    {
+                        
+                    }
 
                     // Update reference unit
                     SelectionWheelUnitRef unitRef = _WheelButtons[i].GetComponent<SelectionWheelUnitRef>();
@@ -229,6 +233,17 @@ public class SelectionWheel : MonoBehaviour {
                     // Update button text
                     Text txtComp = button.GetComponentInChildren<Text>();
                     txtComp.text = list[i].ObjectName;
+                    button.image.color = new Color(108, 108, 63);
+                    if (list[i].UIImage != null)
+                    {
+                        button.image.sprite = list[i].UIImage;
+                        button.image.color = new Color(148, 108, 63, 255);
+                    }
+                    else
+                    {
+                        button.image.sprite = null;
+                        button.image.color = new Color(148, 108, 63,255);
+                    }
 
                     // Update button interactibility state
                     SelectionWheelUnitRef unitRef = button.GetComponent<SelectionWheelUnitRef>();
@@ -277,7 +292,7 @@ public class SelectionWheel : MonoBehaviour {
             // Show / hide the button
             imgComp.gameObject.SetActive(visibile);
             
-            if (buttonItem.GetComponent<Button>().interactable) { imgComp.color = new Color(0, 0, 0, 1); }
+            if (buttonItem.GetComponent<Button>().interactable) { imgComp.color = new Color(148, 108, 63, 1); }
             else                                                { imgComp.color = new Color(0, 0, 0, 0.5f); }
         }
         if (txtComp) {

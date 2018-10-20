@@ -9,77 +9,64 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1289772260442452}
+  m_RootGameObject: {fileID: 1839700655603850}
   m_IsPrefabParent: 1
---- !u!1 &1289772260442452
+--- !u!1 &1839700655603850
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4995424627145822}
-  - component: {fileID: 114490372684620426}
-  - component: {fileID: 114510743210242130}
+  - component: {fileID: 4385224635438272}
+  - component: {fileID: 114427840396066532}
+  - component: {fileID: 114273810815215226}
   m_Layer: 0
-  m_Name: pfb_Ability_FogSpotter
+  m_Name: Fog Spotter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4995424627145822
+--- !u!4 &4385224635438272
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1289772260442452}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_GameObject: {fileID: 1839700655603850}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -7.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114490372684620426
+--- !u!114 &114273810815215226
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1289772260442452}
+  m_GameObject: {fileID: 1839700655603850}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 664d126b83175174cb85241555ae2144, type: 3}
+  m_Script: {fileID: 11500000, guid: cc0b5e36632fac74388e56b94e4e1201, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObjectName: Fog Vision
-  ObjectDescriptionShort: PLAYER ABILITY
-  ObjectDescriptionLong: "Briefly exposes an area of the fog to reveal enemy positions.
-    Note: Abilities don\u2019t require being added to the queue."
-  Logo: {fileID: 0}
-  BuildingTime: 20
-  BuildingTimeTutorial: 5
-  CostSupplies: 0
-  CostPower: 1000
-  CostTechLevel: 0
-  CostPopulation: 0
-  _ObjectState: 0
-  UIImage: {fileID: 0}
-  FogSpotterObject: {fileID: 1839700655603850, guid: 5157a0ae0a817e5499fedb3fd9adac75,
-    type: 2}
-  BoxSelection:
+  SpotterLifetime: 10
+  BoxImage: {fileID: 2800000, guid: 19d6f02fc2bca9d4b9c1777bdc3b158f, type: 3}
+  HitAreaGUI:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 0
-    height: 0
---- !u!114 &114510743210242130
+    width: 250
+    height: 250
+--- !u!114 &114427840396066532
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1289772260442452}
-  m_Enabled: 1
+  m_GameObject: {fileID: 1839700655603850}
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6fef8ad8a83ba874eaa952e0960d4788, type: 3}
   m_Name: 

@@ -13,7 +13,37 @@ using UnityEngine;
 
 public class Ability_FogSpotter : Abstraction {
 
+    
+
+    // Variables
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public GameObject FogSpotterObject;
+
+    private FogUnit _FogUnit;
+    private bool _ActivateSpotter = false;
+    private int _SpotterLifetime = 10;
+    private int VisionRadius = 60;
+    public Rect BoxSelection = new Rect();
+
+
+    public void Start()
+    {
+
+    }
+
+    private void Update()
+    {
+        //if(_ActivateSpotter)
+        //{
+        //    if(Input.GetMouseButtonDown(0))
+        //    {
+        //       GameObject go = Instantiate(FogSpotterObject, GameManager.Instance.Players[0]._HUD.FindHitPoint(),new Quaternion());
+        //        Destroy(go, _SpotterLifetime);
+        //        _ActivateSpotter = false;
+        //    }
+         
+        //}
+    }
 
     /// <summary>
     //  Called when the player presses a button on the selection wheel with this world object linked to the button.
@@ -26,18 +56,24 @@ public class Ability_FogSpotter : Abstraction {
 
         // Deselect the building slot
         buildingSlot.SetIsSelected(false);
-
+        Debug.Log("Fog ability!");
         // Get player reference
         Player plyr = GameManager.Instance.Players[0];
 
         // Check if the player has enough resources to build the object
         if ((plyr.SuppliesCount >= this.CostSupplies) && (plyr.PowerCount >= this.CostPower)) {
 
-            // DO SOME SHIT BRO
+            Instantiate(FogSpotterObject, plyr._HUD.FindHitPoint(), new Quaternion());
         }
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    }
+
+    private void OnGUI()
+    {
+        GUI.color = new Color(1, 1, 1, 0.5f);
+     //   GUI.DrawTexture(BoxSelection);
     }
 
 }
