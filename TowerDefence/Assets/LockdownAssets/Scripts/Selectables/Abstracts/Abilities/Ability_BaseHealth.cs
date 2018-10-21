@@ -43,6 +43,8 @@ public class Ability_BaseHealth : Abstraction {
         // Check if the player has enough resources to build the object
         if ((plyr.SuppliesCount >= this.CostSupplies) && (plyr.PowerCount >= this.CostPower)) {
 
+            plyr.SuppliesCount -= CostSupplies;
+            plyr.PowerCount -= CostPower;
             buildingSlot.AttachedBase.SetCanBeDamaged(false);
             for(int i = 0; i < buildingSlot.AttachedBase.GetBuildingList().Count; ++i)
             {

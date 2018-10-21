@@ -25,26 +25,6 @@ public class Ability_FogSpotter : Abstraction {
     private int VisionRadius = 60;
     public Rect BoxSelection = new Rect();
 
-
-    public void Start()
-    {
-
-    }
-
-    private void Update()
-    {
-        //if(_ActivateSpotter)
-        //{
-        //    if(Input.GetMouseButtonDown(0))
-        //    {
-        //       GameObject go = Instantiate(FogSpotterObject, GameManager.Instance.Players[0]._HUD.FindHitPoint(),new Quaternion());
-        //        Destroy(go, _SpotterLifetime);
-        //        _ActivateSpotter = false;
-        //    }
-         
-        //}
-    }
-
     /// <summary>
     //  Called when the player presses a button on the selection wheel with this world object linked to the button.
     /// </summary>
@@ -63,6 +43,8 @@ public class Ability_FogSpotter : Abstraction {
         // Check if the player has enough resources to build the object
         if ((plyr.SuppliesCount >= this.CostSupplies) && (plyr.PowerCount >= this.CostPower)) {
 
+            plyr.SuppliesCount -= CostSupplies;
+            plyr.PowerCount -= CostPower; 
             Instantiate(FogSpotterObject, plyr._HUD.FindHitPoint(), new Quaternion());
         }
 
