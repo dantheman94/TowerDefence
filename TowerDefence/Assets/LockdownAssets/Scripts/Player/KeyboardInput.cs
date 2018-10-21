@@ -1048,9 +1048,9 @@ public class KeyboardInput : MonoBehaviour {
         int keypad = 257;
         int alpha = 49;
 
-        // There are 10 platoons
-        for (int i = 0; i < 10; i++) {
-
+        // There are 9 platoons
+        for (int i = 0; i < 9; i++) {
+                        
             // On Left CTRL OR Left Shift
             if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.LeftShift)) {
 

@@ -89,7 +89,7 @@ public class Player : MonoBehaviour {
     private List<Base> _Bases;
     private List<Unit> _Army;
     private List<Platoon> _Platoons;
-    const int _PlatoonCount = 10;
+    const int _PlatoonCount = 9;
 
     // Global rally point
     private bool _GlobalRallyPointActive = false;
