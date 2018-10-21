@@ -191,8 +191,8 @@ using UnityEngine;
                 var index = bakeKeys.IndexOf(meshFilter.sharedMesh);
                 var smoothNormals = (index >= 0) ? bakeValues[index].data : SmoothNormals(meshFilter.sharedMesh);
 
-                // Store smooth normals in UV3
-                meshFilter.sharedMesh.SetUVs(3, smoothNormals);
+            // Store smooth normals in UV3
+            if (meshFilter.sharedMesh != null) { meshFilter.sharedMesh.SetUVs(3, smoothNormals); }
             }
 
             // Clear UV3 on skinned mesh renderers
@@ -203,7 +203,9 @@ using UnityEngine;
             }
         }
 
-        List<Vector3> SmoothNormals(Mesh mesh) {
+    List<Vector3> SmoothNormals(Mesh mesh) {
+
+        if (mesh != null) {
 
             // Group vertices by location
             var groups = mesh.vertices.Select((vertex, index) => new KeyValuePair<Vector3, int>(vertex, index)).GroupBy(pair => pair.Key);
@@ -236,6 +238,8 @@ using UnityEngine;
 
             return smoothNormals;
         }
+        return null;
+    }
 
         void UpdateMaterialProperties() {
 
