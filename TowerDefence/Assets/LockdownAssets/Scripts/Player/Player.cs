@@ -398,4 +398,16 @@ public class Player : MonoBehaviour {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="unit"></param>
+    public void RemoveUnitFromAllPlatoons(Unit unit) {
+
+        // Loop through all the platoons and try to remove the unit from them
+        for (int i = 0; i < _Platoons.Count; i++) { _Platoons[i].TryToRemoveUnit(unit); }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 }

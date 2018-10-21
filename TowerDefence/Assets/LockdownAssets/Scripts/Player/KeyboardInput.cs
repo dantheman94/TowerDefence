@@ -1045,931 +1045,108 @@ public class KeyboardInput : MonoBehaviour {
     private void PlatoonInput() {
 
         int iter = 0;
+        int keypad = 257;
+        int alpha = 49;
 
-        /*
-         *          
-         *  PLATOON ONE 
-         *           
-         */
+        // There are 10 platoons
+        for (int i = 0; i < 10; i++) {
 
-        // Glow
-        if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.LeftShift)) {
+            // On Left CTRL OR Left Shift
+            if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.LeftShift)) {
 
-            _PlayerAttached.GetPlatoon(iter).LightUpBlock();
-        }
-        if (_PlayerAttached.GetPlatoon(iter).GetAi().Count > 0) {
-
-            // Binding glow UP if theres AI in the group
-            _PlayerAttached.GetPlatoon(iter).LightUpCounter();
-        }
-
-        // Unglow
-        if (!Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.LeftShift)) {
-
-            // Binding glow DOWN
-            _PlayerAttached.GetPlatoon(iter).LightDownPCHotkeyText();
-
-            // Unglow the block
-            if (_PlayerAttached.GetPlatoon(iter).GetAi().Count == 0) {
-
-                _PlayerAttached.GetPlatoon(iter).LightDownBlock();
+                // Make the entire platoon block glow
+                _PlayerAttached.GetPlatoon(iter).LightUpBlock();
             }
-        }
 
-        // Add to platoon 1
-        if ((Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.Alpha1) && (Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.LeftControl)))) {
-            
-            // Get lists of AIs that are selected
-            List<Unit> UnitsSelected = new List<Unit>();
+            // There is at least 1 unit in the platoon
+            if (_PlayerAttached.GetPlatoon(iter).GetAi().Count > 0) {
 
-            GetAISelectedFromAllSelected(ref UnitsSelected);
+                // Make the platoon counter glow
+                _PlayerAttached.GetPlatoon(iter).LightUpCounter();
+            }
 
-            // Add any units selected to platoon
-            for (int i = 0; i < UnitsSelected.Count; i++) {
-
-                // Dont re-add the same unit
-                if (!_PlayerAttached.GetPlatoon(iter).GetAi().Contains(UnitsSelected[i])) {
-
-                    // Safe to add
-                    _PlayerAttached.GetPlatoon(iter).GetAi().Add(UnitsSelected[i]);
+            // Not pressing Left CTRL AND Left Shift
+            if (!Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.LeftShift)) {
+                
+                // No units in the platoon
+                if (_PlayerAttached.GetPlatoon(iter).GetAi().Count == 0) {
+                    
+                    // Unglow the platoon counter
+                    _PlayerAttached.GetPlatoon(iter).LightDownCounter();
                 }
             }
-        }
 
-        // Replace platoon 1
-        if ((Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.Alpha1) && (!Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.LeftControl)))) {
+            // Add to platoon (LEFT CONTROL ONLY)
+            if ((Input.GetKeyDown((KeyCode)keypad) || Input.GetKeyDown((KeyCode)alpha) && (Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.LeftControl)))) {
 
-            // Get lists of AIs that are selected
-            List<Unit> UnitsSelected = new List<Unit>();
+                // Get lists of AIs that are selected
+                List<Unit> UnitsSelected = new List<Unit>();
 
-            GetAISelectedFromAllSelected(ref UnitsSelected);
+                GetAISelectedFromAllSelected(ref UnitsSelected);
 
-            // Clear platoon
-            _PlayerAttached.GetPlatoon(iter).Wipe();
+                // Add any units selected to platoon
+                for (int j = 0; j < UnitsSelected.Count; j++) {
 
-            // Add any units selected to platoon
-            for (int i = 0; i < UnitsSelected.Count; i++) {
+                    // Remove it from any other existing platoons
+                    _PlayerAttached.RemoveUnitFromAllPlatoons(UnitsSelected[j]);
 
-                // Dont re-add the same unit
-                if (!_PlayerAttached.GetPlatoon(iter).GetAi().Contains(UnitsSelected[i])) {
+                    // Dont re-add the same unit
+                    if (!_PlayerAttached.GetPlatoon(iter).GetAi().Contains(UnitsSelected[j])) {
 
-                    // Safe to add
-                    _PlayerAttached.GetPlatoon(iter).GetAi().Add(UnitsSelected[i]);
+                        // Safe to add
+                        _PlayerAttached.GetPlatoon(iter).GetAi().Add(UnitsSelected[j]);
+                    }
                 }
             }
-        }
 
-        // Select platoon 1
-        if (Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.Alpha1) && (!Input.GetKeyDown(KeyCode.LeftShift) && (!Input.GetKeyDown(KeyCode.LeftControl)))) {
+            // Replace platoon (LEFT SHIFT ONLY)
+            if ((Input.GetKeyDown((KeyCode)keypad) || Input.GetKeyDown((KeyCode)alpha) && (!Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.LeftControl)))) {
 
-            _PlayerAttached.DeselectAllObjects();
-            _PlayerAttached.UnselectAllPlatoons();
-            _PlayerAttached.GetPlatoon(iter).SetSelected(true);
+                // Get lists of AIs that are selected
+                List<Unit> UnitsSelected = new List<Unit>();
 
-            // Loop through & select all army objects
-            foreach (var ai in _PlayerAttached.GetPlatoon(iter).GetAi()) {
+                GetAISelectedFromAllSelected(ref UnitsSelected);
 
-                // Add to selection list
-                _PlayerAttached.SelectedWorldObjects.Add(ai);
-                _PlayerAttached.SelectedUnits.Add(ai);
-                ai.SetPlayer(_PlayerAttached);
-                ai.SetIsSelected(true);
-            }
-        }
+                // Clear platoon
+                _PlayerAttached.GetPlatoon(iter).Wipe();
 
-        ++iter;
+                // Add any units selected to platoon
+                for (int j = 0; j < UnitsSelected.Count; j++) {
 
-        /*
-         *          
-         *  PLATOON TWO 
-         *           
-         */
+                    // Remove it from any other existing platoons
+                    _PlayerAttached.RemoveUnitFromAllPlatoons(UnitsSelected[j]);
 
-        // Glow
-        if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.LeftShift)) {
+                    // Dont re-add the same unit
+                    if (!_PlayerAttached.GetPlatoon(iter).GetAi().Contains(UnitsSelected[j])) {
 
-            _PlayerAttached.GetPlatoon(iter).LightUpBlock();
-        }
-        if (_PlayerAttached.GetPlatoon(iter).GetAi().Count > 0) {
-
-            // Binding glow UP if theres AI in the group
-            _PlayerAttached.GetPlatoon(iter).LightUpCounter();
-        }
-
-        // Unglow
-        if (!Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.LeftShift)) {
-
-            // Binding glow DOWN
-            _PlayerAttached.GetPlatoon(iter).LightDownPCHotkeyText();
-
-            // Unglow the block
-            if (_PlayerAttached.GetPlatoon(iter).GetAi().Count == 0) {
-
-                _PlayerAttached.GetPlatoon(iter).LightDownBlock();
-            }
-        }
-
-        // Add to platoon 2
-        if ((Input.GetKeyDown(KeyCode.Keypad2) || Input.GetKeyDown(KeyCode.Alpha2) && (Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.LeftControl)))) {
-
-            // Get lists of AIs that are selected
-            List<Unit> UnitsSelected = new List<Unit>();
-
-            GetAISelectedFromAllSelected(ref UnitsSelected);
-
-            // Add any units selected to platoon
-            for (int i = 0; i < UnitsSelected.Count; i++) {
-
-                // Dont re-add the same unit
-                if (!_PlayerAttached.GetPlatoon(iter).GetAi().Contains(UnitsSelected[i])) {
-
-                    // Safe to add
-                    _PlayerAttached.GetPlatoon(iter).GetAi().Add(UnitsSelected[i]);
+                        // Safe to add
+                        _PlayerAttached.GetPlatoon(iter).GetAi().Add(UnitsSelected[j]);
+                    }
                 }
             }
-        }
 
-        // Replace platoon 2
-        if ((Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.Alpha1) && (!Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.LeftControl)))) {
+            // Select platoon (NUMBER ONLY)
+            if (Input.GetKeyDown((KeyCode)keypad) || Input.GetKeyDown((KeyCode)alpha) && (!Input.GetKeyDown(KeyCode.LeftShift) && (!Input.GetKeyDown(KeyCode.LeftControl)))) {
 
-            // Get lists of AIs that are selected
-            List<Unit> UnitsSelected = new List<Unit>();
+                _PlayerAttached.DeselectAllObjects();
 
-            GetAISelectedFromAllSelected(ref UnitsSelected);
+                // Make the block & hotkey glow
+                _PlayerAttached.UnselectAllPlatoons();
+                _PlayerAttached.GetPlatoon(iter).SetSelected(true);
 
-            // Clear platoon
-            _PlayerAttached.GetPlatoon(iter).Wipe();
-
-            // Add any units selected to platoon
-            for (int i = 0; i < UnitsSelected.Count; i++) {
-
-                // Dont re-add the same unit
-                if (!_PlayerAttached.GetPlatoon(iter).GetAi().Contains(UnitsSelected[i])) {
-
-                    // Safe to add
-                    _PlayerAttached.GetPlatoon(iter).GetAi().Add(UnitsSelected[i]);
+                // Loop through & select all units in the platoon
+                foreach (var ai in _PlayerAttached.GetPlatoon(iter).GetAi()) {
+                    
+                    _PlayerAttached.SelectedWorldObjects.Add(ai);
+                    _PlayerAttached.SelectedUnits.Add(ai);
+                    ai.SetPlayer(_PlayerAttached);
+                    ai.SetIsSelected(true);
                 }
             }
-        }
-    
-        // Select platoon 2
-        if (Input.GetKeyDown(KeyCode.Keypad2) || Input.GetKeyDown(KeyCode.Alpha2) && (!Input.GetKeyDown(KeyCode.LeftShift) && (!Input.GetKeyDown(KeyCode.LeftControl)))) {
 
-            _PlayerAttached.DeselectAllObjects();
-            _PlayerAttached.UnselectAllPlatoons();
-            _PlayerAttached.GetPlatoon(iter).SetSelected(true);
-
-            // Loop through & select all army objects
-            foreach (var ai in _PlayerAttached.GetPlatoon(iter).GetAi()) {
-
-                // Add to selection list
-                _PlayerAttached.SelectedWorldObjects.Add(ai);
-                _PlayerAttached.SelectedUnits.Add(ai);
-                ai.SetPlayer(_PlayerAttached);
-                ai.SetIsSelected(true);
-            }
-        }
-
-        ++iter;
-
-        /*
-         *          
-         *  PLATOON THREE 
-         *           
-         */
-
-        // Glow
-        if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.LeftShift)) {
-
-            _PlayerAttached.GetPlatoon(iter).LightUpBlock();
-        }
-        if (_PlayerAttached.GetPlatoon(iter).GetAi().Count > 0) {
-
-            // Binding glow UP if theres AI in the group
-            _PlayerAttached.GetPlatoon(iter).LightUpCounter();
-        }
-
-        // Unglow
-        if (!Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.LeftShift)) {
-
-            // Binding glow DOWN
-            _PlayerAttached.GetPlatoon(iter).LightDownPCHotkeyText();
-
-            // Unglow the block
-            if (_PlayerAttached.GetPlatoon(iter).GetAi().Count == 0) {
-
-                _PlayerAttached.GetPlatoon(iter).LightDownBlock();
-            }
-        }
-
-        // Add to platoon 3
-        if ((Input.GetKeyDown(KeyCode.Keypad3) || Input.GetKeyDown(KeyCode.Alpha3) && (Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.LeftControl)))) {
-
-            // Get lists of AIs that are selected
-            List<Unit> UnitsSelected = new List<Unit>();
-
-            GetAISelectedFromAllSelected(ref UnitsSelected);
-
-            // Add any units selected to platoon
-            for (int i = 0; i < UnitsSelected.Count; i++) {
-
-                // Dont re-add the same unit
-                if (!_PlayerAttached.GetPlatoon(iter).GetAi().Contains(UnitsSelected[i])) {
-
-                    // Safe to add
-                    _PlayerAttached.GetPlatoon(iter).GetAi().Add(UnitsSelected[i]);
-                }
-            }
-        }
-
-        // Replace platoon 3
-        if ((Input.GetKeyDown(KeyCode.Keypad3) || Input.GetKeyDown(KeyCode.Alpha3) && (!Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.LeftControl)))) {
-
-            // Get lists of AIs that are selected
-            List<Unit> UnitsSelected = new List<Unit>();
-
-            GetAISelectedFromAllSelected(ref UnitsSelected);
-
-            // Clear platoon
-            _PlayerAttached.GetPlatoon(iter).Wipe();
-
-            // Add any units selected to platoon
-            for (int i = 0; i < UnitsSelected.Count; i++) {
-
-                // Dont re-add the same unit
-                if (!_PlayerAttached.GetPlatoon(iter).GetAi().Contains(UnitsSelected[i])) {
-
-                    // Safe to add
-                    _PlayerAttached.GetPlatoon(iter).GetAi().Add(UnitsSelected[i]);
-                }
-            }
-        }
-
-        // Select platoon 3
-        if (Input.GetKeyDown(KeyCode.Keypad3) || Input.GetKeyDown(KeyCode.Alpha3) && (!Input.GetKeyDown(KeyCode.LeftShift) && (!Input.GetKeyDown(KeyCode.LeftControl)))) {
-
-            _PlayerAttached.DeselectAllObjects();
-
-            // Loop through & select all army objects
-            foreach (var ai in _PlayerAttached.GetPlatoon(iter).GetAi()) {
-
-                // Add to selection list
-                _PlayerAttached.SelectedWorldObjects.Add(ai);
-                _PlayerAttached.SelectedUnits.Add(ai);
-                ai.SetPlayer(_PlayerAttached);
-                ai.SetIsSelected(true);
-            }
-        }
-
-        ++iter;
-
-        /*
-         *                  
-         *  PLATOON FOUR 
-         *           
-         */
-
-        // Glow
-        if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.LeftShift)) {
-
-            _PlayerAttached.GetPlatoon(iter).LightUpBlock();
-        }
-        if (_PlayerAttached.GetPlatoon(iter).GetAi().Count > 0) {
-
-            // Binding glow UP if theres AI in the group
-            _PlayerAttached.GetPlatoon(iter).LightUpCounter();
-        }
-
-        // Unglow
-        if (!Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.LeftShift)) {
-
-            // Binding glow DOWN
-            _PlayerAttached.GetPlatoon(iter).LightDownPCHotkeyText();
-
-            // Unglow the block
-            if (_PlayerAttached.GetPlatoon(iter).GetAi().Count == 0) {
-
-                _PlayerAttached.GetPlatoon(iter).LightDownBlock();
-            }
-        }
-
-        // Add to platoon 4
-        if ((Input.GetKeyDown(KeyCode.Keypad4) || Input.GetKeyDown(KeyCode.Alpha4) && (Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.LeftControl)))) {
-
-            // Get lists of AIs that are selected
-            List<Unit> UnitsSelected = new List<Unit>();
-
-            GetAISelectedFromAllSelected(ref UnitsSelected);
-
-            // Add any units selected to platoon
-            for (int i = 0; i < UnitsSelected.Count; i++) {
-
-                // Dont re-add the same unit
-                if (!_PlayerAttached.GetPlatoon(iter).GetAi().Contains(UnitsSelected[i])) {
-
-                    // Safe to add
-                    _PlayerAttached.GetPlatoon(iter).GetAi().Add(UnitsSelected[i]);
-                }
-            }
-        }
-
-        // Replace platoon 4
-        if ((Input.GetKeyDown(KeyCode.Keypad4) || Input.GetKeyDown(KeyCode.Alpha4) && (!Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.LeftControl)))) {
-
-            // Get lists of AIs that are selected
-            List<Unit> UnitsSelected = new List<Unit>();
-
-            GetAISelectedFromAllSelected(ref UnitsSelected);
-
-            // Clear platoon
-            _PlayerAttached.GetPlatoon(iter).Wipe();
-
-            // Add any units selected to platoon
-            for (int i = 0; i < UnitsSelected.Count; i++) {
-
-                // Dont re-add the same unit
-                if (!_PlayerAttached.GetPlatoon(iter).GetAi().Contains(UnitsSelected[i])) {
-
-                    // Safe to add
-                    _PlayerAttached.GetPlatoon(iter).GetAi().Add(UnitsSelected[i]);
-                }
-            }
-        }
-
-        // Select platoon 4
-        if (Input.GetKeyDown(KeyCode.Keypad4) || Input.GetKeyDown(KeyCode.Alpha4) && (!Input.GetKeyDown(KeyCode.LeftShift) && (!Input.GetKeyDown(KeyCode.LeftControl)))) {
-
-            _PlayerAttached.DeselectAllObjects();
-            _PlayerAttached.UnselectAllPlatoons();
-            _PlayerAttached.GetPlatoon(iter).SetSelected(true);
-
-            // Loop through & select all army objects
-            foreach (var ai in _PlayerAttached.GetPlatoon(iter).GetAi()) {
-
-                // Add to selection list
-                _PlayerAttached.SelectedWorldObjects.Add(ai);
-                _PlayerAttached.SelectedUnits.Add(ai);
-                ai.SetPlayer(_PlayerAttached);
-                ai.SetIsSelected(true);
-            }
-        }
-
-        ++iter;
-
-        /*
-         *          
-         *  PLATOON FIVE
-         *           
-         */
-
-        // Glow
-        if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.LeftShift)) {
-
-            _PlayerAttached.GetPlatoon(iter).LightUpBlock();
-        }
-        if (_PlayerAttached.GetPlatoon(iter).GetAi().Count > 0) {
-
-            // Binding glow UP if theres AI in the group
-            _PlayerAttached.GetPlatoon(iter).LightUpCounter();
-        }
-
-        // Unglow
-        if (!Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.LeftShift)) {
-
-            // Binding glow DOWN
-            _PlayerAttached.GetPlatoon(iter).LightDownPCHotkeyText();
-
-            // Unglow the block
-            if (_PlayerAttached.GetPlatoon(iter).GetAi().Count == 0) {
-
-                _PlayerAttached.GetPlatoon(iter).LightDownBlock();
-            }
-        }
-
-        // Add to platoon 5
-        if ((Input.GetKeyDown(KeyCode.Keypad5) || Input.GetKeyDown(KeyCode.Alpha5) && (Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.LeftControl)))) {
-
-            // Get lists of AIs that are selected
-            List<Unit> UnitsSelected = new List<Unit>();
-
-            GetAISelectedFromAllSelected(ref UnitsSelected);
-
-            // Add any units selected to platoon
-            for (int i = 0; i < UnitsSelected.Count; i++) {
-
-                // Dont re-add the same unit
-                if (!_PlayerAttached.GetPlatoon(iter).GetAi().Contains(UnitsSelected[i])) {
-
-                    // Safe to add
-                    _PlayerAttached.GetPlatoon(iter).GetAi().Add(UnitsSelected[i]);
-                }
-            }
-        }
-
-        // Replace platoon 5
-        if ((Input.GetKeyDown(KeyCode.Keypad5) || Input.GetKeyDown(KeyCode.Alpha5) && (!Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.LeftControl)))) {
-
-            // Get lists of AIs that are selected
-            List<Unit> UnitsSelected = new List<Unit>();
-
-            GetAISelectedFromAllSelected(ref UnitsSelected);
-
-            // Clear platoon
-            _PlayerAttached.GetPlatoon(iter).Wipe();
-
-            // Add any units selected to platoon
-            for (int i = 0; i < UnitsSelected.Count; i++) {
-
-                // Dont re-add the same unit
-                if (!_PlayerAttached.GetPlatoon(iter).GetAi().Contains(UnitsSelected[i])) {
-
-                    // Safe to add
-                    _PlayerAttached.GetPlatoon(iter).GetAi().Add(UnitsSelected[i]);
-                }
-            }
-        }
-
-        // Select platoon 5
-        if (Input.GetKeyDown(KeyCode.Keypad5) || Input.GetKeyDown(KeyCode.Alpha5) && (!Input.GetKeyDown(KeyCode.LeftShift) && (!Input.GetKeyDown(KeyCode.LeftControl)))) {
-
-            _PlayerAttached.DeselectAllObjects();
-            _PlayerAttached.UnselectAllPlatoons();
-            _PlayerAttached.GetPlatoon(iter).SetSelected(true);
-
-            // Loop through & select all army objects
-            foreach (var ai in _PlayerAttached.GetPlatoon(iter).GetAi()) {
-
-                // Add to selection list
-                _PlayerAttached.SelectedWorldObjects.Add(ai);
-                _PlayerAttached.SelectedUnits.Add(ai);
-                ai.SetPlayer(_PlayerAttached);
-                ai.SetIsSelected(true);
-            }
-        }
-
-        ++iter;
-
-        /*
-         *          
-         *  PLATOON SIX
-         *           
-         */
-
-        // Glow
-        if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.LeftShift)) {
-
-            _PlayerAttached.GetPlatoon(iter).LightUpBlock();
-        }
-        if (_PlayerAttached.GetPlatoon(iter).GetAi().Count > 0) {
-
-            // Binding glow UP if theres AI in the group
-            _PlayerAttached.GetPlatoon(iter).LightUpCounter();
-        }
-
-        // Unglow
-        if (!Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.LeftShift)) {
-
-            // Binding glow DOWN
-            _PlayerAttached.GetPlatoon(iter).LightDownPCHotkeyText();
-
-            // Unglow the block
-            if (_PlayerAttached.GetPlatoon(iter).GetAi().Count == 0) {
-
-                _PlayerAttached.GetPlatoon(iter).LightDownBlock();
-            }
-        }
-
-        // Add to platoon 6
-        if ((Input.GetKeyDown(KeyCode.Keypad6) || Input.GetKeyDown(KeyCode.Alpha6) && (Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.LeftControl)))) {
-
-            // Get lists of AIs that are selected
-            List<Unit> UnitsSelected = new List<Unit>();
-
-            GetAISelectedFromAllSelected(ref UnitsSelected);
-
-            // Add any units selected to platoon
-            for (int i = 0; i < UnitsSelected.Count; i++) {
-
-                // Dont re-add the same unit
-                if (!_PlayerAttached.GetPlatoon(iter).GetAi().Contains(UnitsSelected[i])) {
-
-                    // Safe to add
-                    _PlayerAttached.GetPlatoon(iter).GetAi().Add(UnitsSelected[i]);
-                }
-            }
-        }
-
-        // Replace platoon 6
-        if ((Input.GetKeyDown(KeyCode.Keypad6) || Input.GetKeyDown(KeyCode.Alpha6) && (!Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.LeftControl)))) {
-
-            // Get lists of AIs that are selected
-            List<Unit> UnitsSelected = new List<Unit>();
-
-            GetAISelectedFromAllSelected(ref UnitsSelected);
-
-            // Clear platoon
-            _PlayerAttached.GetPlatoon(iter).Wipe();
-
-            // Add any units selected to platoon
-            for (int i = 0; i < UnitsSelected.Count; i++) {
-
-                // Dont re-add the same unit
-                if (!_PlayerAttached.GetPlatoon(iter).GetAi().Contains(UnitsSelected[i])) {
-
-                    // Safe to add
-                    _PlayerAttached.GetPlatoon(iter).GetAi().Add(UnitsSelected[i]);
-                }
-            }
-        }
-
-        // Select platoon 6
-        if (Input.GetKeyDown(KeyCode.Keypad6) || Input.GetKeyDown(KeyCode.Alpha6) && (!Input.GetKeyDown(KeyCode.LeftShift) && (!Input.GetKeyDown(KeyCode.LeftControl)))) {
-
-            _PlayerAttached.DeselectAllObjects();
-            _PlayerAttached.UnselectAllPlatoons();
-            _PlayerAttached.GetPlatoon(iter).SetSelected(true);
-
-            // Loop through & select all army objects
-            foreach (var ai in _PlayerAttached.GetPlatoon(iter).GetAi()) {
-
-                // Add to selection list
-                _PlayerAttached.SelectedWorldObjects.Add(ai);
-                _PlayerAttached.SelectedUnits.Add(ai);
-                ai.SetPlayer(_PlayerAttached);
-                ai.SetIsSelected(true);
-            }
-        }
-
-        ++iter;
-
-        /*
-         *          
-         *  PLATOON SEVEN
-         *           
-         */
-
-        // Glow
-        if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.LeftShift)) {
-
-            _PlayerAttached.GetPlatoon(iter).LightUpBlock();
-        }
-        if (_PlayerAttached.GetPlatoon(iter).GetAi().Count > 0) {
-
-            // Binding glow UP if theres AI in the group
-            _PlayerAttached.GetPlatoon(iter).LightUpCounter();
-        }
-
-        // Unglow
-        if (!Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.LeftShift)) {
-
-            // Binding glow DOWN
-            _PlayerAttached.GetPlatoon(iter).LightDownPCHotkeyText();
-
-            // Unglow the block
-            if (_PlayerAttached.GetPlatoon(iter).GetAi().Count == 0) {
-
-                _PlayerAttached.GetPlatoon(iter).LightDownBlock();
-            }
-        }
-
-        // Add to platoon 7
-        if ((Input.GetKeyDown(KeyCode.Keypad7) || Input.GetKeyDown(KeyCode.Alpha7) && (Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.LeftControl)))) {
-
-            // Get lists of AIs that are selected
-            List<Unit> UnitsSelected = new List<Unit>();
-
-            GetAISelectedFromAllSelected(ref UnitsSelected);
-
-            // Add any units selected to platoon
-            for (int i = 0; i < UnitsSelected.Count; i++) {
-
-                // Dont re-add the same unit
-                if (!_PlayerAttached.GetPlatoon(iter).GetAi().Contains(UnitsSelected[i])) {
-
-                    // Safe to add
-                    _PlayerAttached.GetPlatoon(iter).GetAi().Add(UnitsSelected[i]);
-                }
-            }
-        }
-
-        // Replace platoon 7
-        if ((Input.GetKeyDown(KeyCode.Keypad7) || Input.GetKeyDown(KeyCode.Alpha7) && (!Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.LeftControl)))) {
-
-            // Get lists of AIs that are selected
-            List<Unit> UnitsSelected = new List<Unit>();
-
-            GetAISelectedFromAllSelected(ref UnitsSelected);
-
-            // Clear platoon
-            _PlayerAttached.GetPlatoon(iter).Wipe();
-
-            // Add any units selected to platoon
-            for (int i = 0; i < UnitsSelected.Count; i++) {
-
-                // Dont re-add the same unit
-                if (!_PlayerAttached.GetPlatoon(iter).GetAi().Contains(UnitsSelected[i])) {
-
-                    // Safe to add
-                    _PlayerAttached.GetPlatoon(iter).GetAi().Add(UnitsSelected[i]);
-                }
-            }
-        }
-
-        // Select platoon 7
-        if (Input.GetKeyDown(KeyCode.Keypad7) || Input.GetKeyDown(KeyCode.Alpha7) && (!Input.GetKeyDown(KeyCode.LeftShift) && (!Input.GetKeyDown(KeyCode.LeftControl)))) {
-
-            _PlayerAttached.DeselectAllObjects();
-            _PlayerAttached.UnselectAllPlatoons();
-            _PlayerAttached.GetPlatoon(iter).SetSelected(true);
-
-            // Loop through & select all army objects
-            foreach (var ai in _PlayerAttached.GetPlatoon(iter).GetAi()) {
-
-                // Add to selection list
-                _PlayerAttached.SelectedWorldObjects.Add(ai);
-                _PlayerAttached.SelectedUnits.Add(ai);
-                ai.SetPlayer(_PlayerAttached);
-                ai.SetIsSelected(true);
-            }
-        }
-
-        ++iter;
-
-        /*
-         *          
-         *  PLATOON EIGHT
-         *           
-         */
-
-        // Glow
-        if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.LeftShift)) {
-
-            _PlayerAttached.GetPlatoon(iter).LightUpBlock();
-        }
-        if (_PlayerAttached.GetPlatoon(iter).GetAi().Count > 0) {
-
-            // Binding glow UP if theres AI in the group
-            _PlayerAttached.GetPlatoon(iter).LightUpCounter();
-        }
-
-        // Unglow
-        if (!Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.LeftShift)) {
-
-            // Binding glow DOWN
-            _PlayerAttached.GetPlatoon(iter).LightDownPCHotkeyText();
-
-            // Unglow the block
-            if (_PlayerAttached.GetPlatoon(iter).GetAi().Count == 0) {
-
-                _PlayerAttached.GetPlatoon(iter).LightDownBlock();
-            }
-        }
-
-        // Add to platoon 8
-        if ((Input.GetKeyDown(KeyCode.Keypad8) || Input.GetKeyDown(KeyCode.Alpha8) && (Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.LeftControl)))) {
-
-            // Get lists of AIs that are selected
-            List<Unit> UnitsSelected = new List<Unit>();
-
-            GetAISelectedFromAllSelected(ref UnitsSelected);
-
-            // Add any units selected to platoon
-            for (int i = 0; i < UnitsSelected.Count; i++) {
-
-                // Dont re-add the same unit
-                if (!_PlayerAttached.GetPlatoon(iter).GetAi().Contains(UnitsSelected[i])) {
-
-                    // Safe to add
-                    _PlayerAttached.GetPlatoon(iter).GetAi().Add(UnitsSelected[i]);
-                }
-            }
-        }
-
-        // Replace platoon 8
-        if ((Input.GetKeyDown(KeyCode.Keypad8) || Input.GetKeyDown(KeyCode.Alpha8) && (!Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.LeftControl)))) {
-
-            // Get lists of AIs that are selected
-            List<Unit> UnitsSelected = new List<Unit>();
-
-            GetAISelectedFromAllSelected(ref UnitsSelected);
-
-            // Clear platoon
-            _PlayerAttached.GetPlatoon(iter).Wipe();
-
-            // Add any units selected to platoon
-            for (int i = 0; i < UnitsSelected.Count; i++) {
-
-                // Dont re-add the same unit
-                if (!_PlayerAttached.GetPlatoon(iter).GetAi().Contains(UnitsSelected[i])) {
-
-                    // Safe to add
-                    _PlayerAttached.GetPlatoon(iter).GetAi().Add(UnitsSelected[i]);
-                }
-            }
-        }
-
-        // Select platoon 8
-        if (Input.GetKeyDown(KeyCode.Keypad8) || Input.GetKeyDown(KeyCode.Alpha8) && (!Input.GetKeyDown(KeyCode.LeftShift) && (!Input.GetKeyDown(KeyCode.LeftControl)))) {
-
-            _PlayerAttached.DeselectAllObjects();
-            _PlayerAttached.UnselectAllPlatoons();
-            _PlayerAttached.GetPlatoon(iter).SetSelected(true);
-
-            // Loop through & select all army objects
-            foreach (var ai in _PlayerAttached.GetPlatoon(iter).GetAi()) {
-
-                // Add to selection list
-                _PlayerAttached.SelectedWorldObjects.Add(ai);
-                _PlayerAttached.SelectedUnits.Add(ai);
-                ai.SetPlayer(_PlayerAttached);
-                ai.SetIsSelected(true);
-            }
-        }
-
-        ++iter;
-
-        /*
-         *          
-         *  PLATOON NINE
-         *           
-         */
-
-        // Glow
-        if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.LeftShift)) {
-
-            _PlayerAttached.GetPlatoon(iter).LightUpBlock();
-        }
-        if (_PlayerAttached.GetPlatoon(iter).GetAi().Count > 0) {
-
-            // Binding glow UP if theres AI in the group
-            _PlayerAttached.GetPlatoon(iter).LightUpCounter();
-        }
-
-        // Unglow
-        if (!Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.LeftShift)) {
-
-            // Binding glow DOWN
-            _PlayerAttached.GetPlatoon(iter).LightDownPCHotkeyText();
-
-            // Unglow the block
-            if (_PlayerAttached.GetPlatoon(iter).GetAi().Count == 0) {
-
-                _PlayerAttached.GetPlatoon(iter).LightDownBlock();
-            }
-        }
-
-        // Add to platoon 9
-        if ((Input.GetKeyDown(KeyCode.Keypad9) || Input.GetKeyDown(KeyCode.Alpha9) && (Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.LeftControl)))) {
-
-            // Get lists of AIs that are selected
-            List<Unit> UnitsSelected = new List<Unit>();
-
-            GetAISelectedFromAllSelected(ref UnitsSelected);
-
-            // Add any units selected to platoon
-            for (int i = 0; i < UnitsSelected.Count; i++) {
-
-                // Dont re-add the same unit
-                if (!_PlayerAttached.GetPlatoon(iter).GetAi().Contains(UnitsSelected[i])) {
-
-                    // Safe to add
-                    _PlayerAttached.GetPlatoon(iter).GetAi().Add(UnitsSelected[i]);
-                }
-            }
-        }
-
-        // Replace platoon 9
-        if ((Input.GetKeyDown(KeyCode.Keypad9) || Input.GetKeyDown(KeyCode.Alpha9) && (!Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.LeftControl)))) {
-
-            // Get lists of AIs that are selected
-            List<Unit> UnitsSelected = new List<Unit>();
-
-            GetAISelectedFromAllSelected(ref UnitsSelected);
-
-            // Clear platoon
-            _PlayerAttached.GetPlatoon(iter).Wipe();
-
-            // Add any units selected to platoon
-            for (int i = 0; i < UnitsSelected.Count; i++) {
-
-                // Dont re-add the same unit
-                if (!_PlayerAttached.GetPlatoon(iter).GetAi().Contains(UnitsSelected[i])) {
-
-                    // Safe to add
-                    _PlayerAttached.GetPlatoon(iter).GetAi().Add(UnitsSelected[i]);
-                }
-            }
-        }
-
-        // Select platoon 9
-        if (Input.GetKeyDown(KeyCode.Keypad9) || Input.GetKeyDown(KeyCode.Alpha9) && (!Input.GetKeyDown(KeyCode.LeftShift) && (!Input.GetKeyDown(KeyCode.LeftControl)))) {
-
-            _PlayerAttached.DeselectAllObjects();
-            _PlayerAttached.UnselectAllPlatoons();
-            _PlayerAttached.GetPlatoon(iter).SetSelected(true);
-
-            // Loop through & select all army objects
-            foreach (var ai in _PlayerAttached.GetPlatoon(iter).GetAi()) {
-
-                // Add to selection list
-                _PlayerAttached.SelectedWorldObjects.Add(ai);
-                _PlayerAttached.SelectedUnits.Add(ai);
-                ai.SetPlayer(_PlayerAttached);
-                ai.SetIsSelected(true);
-            }
-        }
-
-        ++iter;
-
-        /*
-         *          
-         *  PLATOON TEN
-         *           
-         */
-
-        // Glow
-        if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.LeftShift)) {
-
-            _PlayerAttached.GetPlatoon(iter).LightUpBlock();
-        }
-        if (_PlayerAttached.GetPlatoon(iter).GetAi().Count > 0) {
-
-            // Binding glow UP if theres AI in the group
-            _PlayerAttached.GetPlatoon(iter).LightUpCounter();
-        }
-
-        // Unglow
-        if (!Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.LeftShift)) {
-
-            // Binding glow DOWN
-            _PlayerAttached.GetPlatoon(iter).LightDownPCHotkeyText();
-
-            // Unglow the block
-            if (_PlayerAttached.GetPlatoon(iter).GetAi().Count == 0) {
-
-                _PlayerAttached.GetPlatoon(iter).LightDownBlock();
-            }
-        }
-
-        // Add to platoon 10
-        if ((Input.GetKeyDown(KeyCode.Keypad0) || Input.GetKeyDown(KeyCode.Alpha0) && (Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.LeftControl)))) {
-
-            // Get lists of AIs that are selected
-            List<Unit> UnitsSelected = new List<Unit>();
-
-            GetAISelectedFromAllSelected(ref UnitsSelected);
-
-            // Add any units selected to platoon
-            for (int i = 0; i < UnitsSelected.Count; i++) {
-
-                // Dont re-add the same unit
-                if (!_PlayerAttached.GetPlatoon(iter).GetAi().Contains(UnitsSelected[i])) {
-
-                    // Safe to add
-                    _PlayerAttached.GetPlatoon(iter).GetAi().Add(UnitsSelected[i]);
-                }
-            }
-        }
-
-        // Replace platoon 10
-        if ((Input.GetKeyDown(KeyCode.Keypad0) || Input.GetKeyDown(KeyCode.Alpha0) && (!Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.LeftControl)))) {
-
-            // Get lists of AIs that are selected
-            List<Unit> UnitsSelected = new List<Unit>();
-
-            GetAISelectedFromAllSelected(ref UnitsSelected);
-
-            // Clear platoon
-            _PlayerAttached.GetPlatoon(iter).Wipe();
-
-            // Add any units selected to platoon
-            for (int i = 0; i < UnitsSelected.Count; i++) {
-
-                // Dont re-add the same unit
-                if (!_PlayerAttached.GetPlatoon(iter).GetAi().Contains(UnitsSelected[i])) {
-
-                    // Safe to add
-                    _PlayerAttached.GetPlatoon(iter).GetAi().Add(UnitsSelected[i]);
-                }
-            }
-        }
-
-        // Select platoon 10
-        if (Input.GetKeyDown(KeyCode.Keypad0) || Input.GetKeyDown(KeyCode.Alpha0) && (!Input.GetKeyDown(KeyCode.LeftShift) && (!Input.GetKeyDown(KeyCode.LeftControl)))) {
-
-            _PlayerAttached.DeselectAllObjects();
-            _PlayerAttached.UnselectAllPlatoons();
-            _PlayerAttached.GetPlatoon(iter).SetSelected(true);
-
-            // Loop through & select all army objects
-            foreach (var ai in _PlayerAttached.GetPlatoon(iter).GetAi()) {
-
-                // Add to selection list
-                _PlayerAttached.SelectedWorldObjects.Add(ai);
-                _PlayerAttached.SelectedUnits.Add(ai);
-                ai.SetPlayer(_PlayerAttached);
-                ai.SetIsSelected(true);
-            }
+            ++iter;
+            ++keypad;
+            ++alpha;
         }
 
         // Update units selected panels

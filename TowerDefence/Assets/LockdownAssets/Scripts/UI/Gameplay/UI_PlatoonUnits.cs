@@ -39,16 +39,7 @@ public class UI_PlatoonUnits : MonoBehaviour {
     //      FUNCTIONS
     //
     //******************************************************************************************************************************
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    // Called when the gameObject is created.
-    /// </summary>
-    private void Start() {
-
-    }
-
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
@@ -60,7 +51,7 @@ public class UI_PlatoonUnits : MonoBehaviour {
 
             for (int i = 0; i < PlatoonInfoPanels.Count; i++) {
 
-                // Update platoon size
+                // Update platoon counter texts
                 PlatoonInfoPanels[i].PlatoonCounter.text = _PlayerAttached.GetPlatoon(i).GetAi().Count.ToString();
             }
         }

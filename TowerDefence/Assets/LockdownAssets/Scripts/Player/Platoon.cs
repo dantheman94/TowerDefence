@@ -23,9 +23,10 @@ public class Platoon : MonoBehaviour {
 
     [Space]
     [Header("-----------------------------------")]
-    [Header(" WIDGET COMPONENTS")]
+    [Header(" PROPERTIES")]
     [Space]
     public TMP_Text PlatoonCounter = null;
+    public float SelectedDurationWithEmpty = 3f;
 
     [Space]
     [Header("-----------------------------------")]
@@ -40,6 +41,7 @@ public class Platoon : MonoBehaviour {
     public Color DefaultBlockOutlineColour = Color.white;
     public Color HighlightingBlockOutlineColour = Color.cyan;
 
+    [Space]
     [Header("-----------------------------------")]
     [Header(" GROUP COUNTER COLOURS ")]
     [Space]
@@ -53,6 +55,7 @@ public class Platoon : MonoBehaviour {
     public Color DefaultCounterOutlineColour = Color.white;
     public Color HighlightingCounterOutlineColour = Color.cyan;
 
+    [Space]
     [Header("-----------------------------------")]
     [Header(" PC HOTKEY COLOURS ")]
     [Space]
@@ -71,23 +74,21 @@ public class Platoon : MonoBehaviour {
     //      VARIABLES
     //
     //******************************************************************************************************************************
-
+    
+    private bool _Selected = true;
     private List<Unit> _PlatoonAi;
 
-    private Player _Player = null;
+    private float _SelectedTime = 0f;
+    private float _CurrentBlockTime = 0f;
 
+    private float _CurrentHotKeyTime = 0f;
     private Text _PCHotkeyTextComponent = null;
     private Outline _PCHotkeyOutline = null;
 
-    private Text _CounterTextComponent = null;
+    private TextMeshProUGUI _CounterTextComponent = null;
     private Outline _CounterOutline = null;
-
-    private float _CurrentHotKeyTime = 0f;
-    private float _CurrentBlockTime = 0f;
     private float _CurrentCounterTime = 0f;
-
-    private bool _Selected = false;
-
+    
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
@@ -112,7 +113,7 @@ public class Platoon : MonoBehaviour {
         }
         if (GroupCounterObj != null) {
 
-            _CounterTextComponent = GroupCounterObj.gameObject.GetComponent<Text>();
+            _CounterTextComponent = GroupCounterObj.gameObject.GetComponent<TextMeshProUGUI>();
             _CounterOutline = GroupCounterObj.gameObject.GetComponent<Outline>();
         }
     }
@@ -128,11 +129,21 @@ public class Platoon : MonoBehaviour {
 
             // Light up the hotkey
             LightUpPCHotkeyText();
+
+            // Make the entire platoon block glow
+            LightUpBlock();
+
+            // Unselect if there are no units in the platoon, after a few seconds
+            _SelectedTime += Time.deltaTime;
+            if (_SelectedTime >= SelectedDurationWithEmpty && _PlatoonAi.Count == 0) { _Selected = false; }
         }
         else {
 
             // Unlight the hotkey
             LightDownPCHotkeyText();
+
+            // Unglow the platoon block if there are no units in the platoon
+            if (_PlatoonAi.Count == 0) { LightDownBlock(); }
         }
     }
 
@@ -150,7 +161,45 @@ public class Platoon : MonoBehaviour {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public void SetSelected(bool value) { _Selected = value; }
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="unit"></param>
+    public void TryToRemoveUnit(Unit unit) {
+
+        // Check if it exists in the platoon
+        if (_PlatoonAi.Contains(unit)) {
+
+            // Remove it from the platoon
+            _PlatoonAi.Remove(unit);
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Sets whether the platoon is selected or not.
+    /// </summary>
+    /// <param name="value"></param>
+    public void SetSelected(bool value) {
+
+        _Selected = value;
+        if (value == true) {
+
+            // Reset the selected timer
+            _SelectedTime = 0f;
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Returns whether the platoon is selected or not.
+    /// </summary>
+    /// <returns>
+    //  bool
+    /// </returns>
+    public bool GetSelected() { return _Selected; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
