@@ -184,38 +184,42 @@ public class UI_BuildingQueue : MonoBehaviour {
     /// </returns>
     private List<AbstractionCounter> GetAmountOfEachUnits() {
 
-        List<AbstractionCounter> absCounter = new List<AbstractionCounter>();
-        for (int i = 0; i < _BuildingAttached.GetBuildingQueue().Count; i++) {
+        if (_BuildingAttached != null) {
 
-            if (absCounter.Count > 0) {
+            List<AbstractionCounter> absCounter = new List<AbstractionCounter>();
+            for (int i = 0; i < _BuildingAttached.GetBuildingQueue().Count; i++) {
 
-                // Check for matches against both lists
-                for (int j = 0; j < absCounter.Count; j++) {
-                    
-                    if (_BuildingAttached.GetBuildingQueue()[i].GetType() == absCounter[j]._Abstraction.GetType()) {
+                if (absCounter.Count > 0) {
 
-                        // Add to counter
-                        absCounter[j]._AbsCount++;
-                        break;
-                    }
+                    // Check for matches against both lists
+                    for (int j = 0; j < absCounter.Count; j++) {
 
-                    // Reached the end of the absCounter list
-                    if (j == absCounter.Count - 1) {
+                        if (_BuildingAttached.GetBuildingQueue()[i].GetType() == absCounter[j]._Abstraction.GetType()) {
 
-                        // Add the item in the building queue that is being tested against
-                        absCounter.Add(new AbstractionCounter(_BuildingAttached.GetBuildingQueue()[i]));
+                            // Add to counter
+                            absCounter[j]._AbsCount++;
+                            break;
+                        }
+
+                        // Reached the end of the absCounter list
+                        if (j == absCounter.Count - 1) {
+
+                            // Add the item in the building queue that is being tested against
+                            absCounter.Add(new AbstractionCounter(_BuildingAttached.GetBuildingQueue()[i]));
+                        }
                     }
                 }
-            }
 
-            // First absCounter iterator
-            else {
+                // First absCounter iterator
+                else {
 
-                // Add the first item in the building queue
-                absCounter.Add(new AbstractionCounter(_BuildingAttached.GetBuildingQueue()[i]));
+                    // Add the first item in the building queue
+                    absCounter.Add(new AbstractionCounter(_BuildingAttached.GetBuildingQueue()[i]));
+                }
             }
+            return absCounter;
         }
-        return absCounter;
+        else { return null; }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

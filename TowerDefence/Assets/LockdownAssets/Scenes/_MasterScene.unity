@@ -7595,12 +7595,12 @@ Prefab:
     - target: {fileID: 224985813896864460, guid: 49a0c17c37794a04a8b327d477541f7e,
         type: 2}
       propertyPath: m_AnchorMin.x
-      value: 0.569
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224985813896864460, guid: 49a0c17c37794a04a8b327d477541f7e,
         type: 2}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224985813896864460, guid: 49a0c17c37794a04a8b327d477541f7e,
         type: 2}
@@ -9787,6 +9787,7 @@ Transform:
   - {fileID: 289942804}
   - {fileID: 571261785}
   - {fileID: 869091045}
+  - {fileID: 1982141584}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -12367,6 +12368,10 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1733678930525928, guid: 4b4f334fa6fd29142985817f6f30ed75, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4b4f334fa6fd29142985817f6f30ed75, type: 2}
@@ -20968,6 +20973,53 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f6c3f68213c40a848a0170f9a90af0ef, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1982141583
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1982141584}
+  - component: {fileID: 1982141585}
+  m_Layer: 0
+  m_Name: Level Info
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1982141584
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1982141583}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 829578304}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1982141585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1982141583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e80a813b58a051445abd38d0963ce651, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LevelIndex: 0
+  LevelName: Midgard
+  LevelDescription: Even on the edges of all the lands, the volatile etherium proves
+    to be the most sought out resource for all of the worlds inhabitants.
+  LevelThumbnailSprite: {fileID: 21300000, guid: ebe3857ea6398a74eae26a9c9a2e0588,
+    type: 3}
+  HoverText: {fileID: 0}
 --- !u!4 &1985171933 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4099690757911654, guid: 390346eefb0a2ae43bb0237eb827239e,

@@ -169,21 +169,21 @@ public class Building : WorldObject {
                         // Building particle is complete so null the reference (so next time its used - it repools a new instance)
                         if (!_SelectableBuildingEffect.isPlaying) { _SelectableBuildingEffect = null; }
                     }
-                }
 
-                // Update radial wheel building queue item counters
-                if (_BuildingQueueUI != null) {
+                    // Update radial wheel building queue item counters
+                    if (_BuildingQueueUI != null) {
 
-                    // Get selection wheel reference
-                    SelectionWheel selectionWheel = null;
-                    if (GameManager.Instance._IsRadialMenu) { selectionWheel = GameManager.Instance.SelectionWheel.GetComponentInChildren<SelectionWheel>(); }
-                    else { selectionWheel = GameManager.Instance.selectionWindow.GetComponentInChildren<SelectionWheel>(); }
-                  
-                    // Only update the selection wheel item counters if the UI widget is currently being displayed
-                    if (selectionWheel.gameObject.activeInHierarchy) {
+                        // Get selection wheel reference
+                        SelectionWheel selectionWheel = null;
+                        if (GameManager.Instance._IsRadialMenu) { selectionWheel = GameManager.Instance.SelectionWheel.GetComponentInChildren<SelectionWheel>(); }
+                        else { selectionWheel = GameManager.Instance.selectionWindow.GetComponentInChildren<SelectionWheel>(); }
 
-                        _BuildingQueueUI.UpdateSelectionWheelItemCounters();
+                        // Only update the selection wheel item counters if the UI widget is currently being displayed
+                        if (selectionWheel.gameObject.activeInHierarchy) {
 
+                            _BuildingQueueUI.UpdateSelectionWheelItemCounters();
+                            selectionWheel.UpdateLogoSliders(_BuildingQueue[0]);
+                        }
                     }
                 }
             }
