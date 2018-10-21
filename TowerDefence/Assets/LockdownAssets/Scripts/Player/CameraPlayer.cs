@@ -156,6 +156,15 @@ public class CameraPlayer : MonoBehaviour {
     private void Update() {
 
         CheckCameraBounds();
+
+        if (Input.GetKeyDown(KeyCode.P) == true)
+        {
+            float rad = 20.0f;
+            //SoundManager.Instance.PlaySound("Audio/pfb_Battle", 0.9f, 1.1f);
+            ExplosionShake(transform.position, rad);
+
+            Debug.Log("Button tapped.");
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -229,9 +238,12 @@ public class CameraPlayer : MonoBehaviour {
     /// 
     /// </summary>
     public void ExplosionShake(Vector3 location, float radius) {
+        
+        if (_Camera == null) { _Camera = GetComponent<Camera>(); }
 
         // Get the distance between the explosion and the camera
         float distance = Vector3.Distance(location, transform.position);
+        Debug.Log(distance);
 
         // If the distance is within the threshold, shake
         if (distance < ShakeThreshold) {
@@ -240,7 +252,7 @@ public class CameraPlayer : MonoBehaviour {
             float shakeStrength = (1.0f * (Mathf.Abs(distance * 0.1f))) + (Mathf.Abs(_Camera.fieldOfView * 0.1f));
             // Calculate duration
             float shakeDuration = 1f;
-   
+
             // Start shake
             StartCoroutine(CameraShake(shakeStrength * ShakeTrauma, shakeDuration));
         }
