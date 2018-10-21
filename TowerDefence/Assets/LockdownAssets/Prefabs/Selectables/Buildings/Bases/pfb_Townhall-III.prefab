@@ -1665,9 +1665,12 @@ MonoBehaviour:
     type: 2}
   HealthThresholdDamaged: 0.5
   HealthDamagedParticles: []
-  OnDeathEffects: []
-  CameraShakeOnDeath: 0
-  DeathExplosionRadius: 10
+  OnDeathEffects:
+  - ParticleEffect: {fileID: 198806059745770222, guid: 7b5593a2f35dd8d489b6687073fde66a,
+      type: 2}
+    ParticleLocation: {fileID: 4927676880125596}
+  CameraShakeOnDeath: 1
+  DeathExplosionRadius: 200
   ShrinkWhenDestroyed: 0
   ShrinkSpeed: 0.3
   AttachedBuildingSlot: {fileID: 0}

@@ -336,6 +336,7 @@ MonoBehaviour:
     upgrades. Can be stacked to increase resource streaming with more power generation.
   Logo: {fileID: 0}
   BuildingTime: 20
+  BuildingTimeTutorial: 5
   CostSupplies: 0
   CostPower: 400
   CostTechLevel: 1
@@ -374,9 +375,11 @@ MonoBehaviour:
   HealthThresholdDamaged: 0.5
   HealthDamagedParticles: []
   OnDeathEffects:
-  - {fileID: 198831994865105058, guid: 451198ea52c916b4ca0f0cad0dadd9a1, type: 2}
+  - ParticleEffect: {fileID: 198831994865105058, guid: 451198ea52c916b4ca0f0cad0dadd9a1,
+      type: 2}
+    ParticleLocation: {fileID: 4298342312890408}
   CameraShakeOnDeath: 1
-  DeathExplosionRadius: 10
+  DeathExplosionRadius: 200
   ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.3
   AttachedBuildingSlot: {fileID: 0}
