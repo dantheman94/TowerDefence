@@ -75,7 +75,7 @@ public class Platoon : MonoBehaviour {
     //
     //******************************************************************************************************************************
     
-    private bool _Selected = true;
+    private bool _Selected = false;
     private List<Unit> _PlatoonAi;
 
     private float _SelectedTime = 0f;

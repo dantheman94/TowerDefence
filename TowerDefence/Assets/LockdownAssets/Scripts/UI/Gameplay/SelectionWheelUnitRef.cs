@@ -26,6 +26,10 @@ public class SelectionWheelUnitRef : MonoBehaviour {
     [Space]
     public Text QueueCounterTextComponent = null;
     [Space]
+    public Slider SliderBar = null;
+    public Image SliderFillImage = null;
+    [Space]
+    public GameObject PCHotkeyObject = null;
     public KeyCode PCShortcutKey;
 
     //******************************************************************************************************************************
@@ -40,6 +44,8 @@ public class SelectionWheelUnitRef : MonoBehaviour {
 
     private Image _ButtonItemLogoComponent = null;
     private Player _Player = null;
+
+    private float _CurrentBuildProgress = 0f;
 
     //******************************************************************************************************************************
     //
@@ -64,6 +70,9 @@ public class SelectionWheelUnitRef : MonoBehaviour {
     //  Called each frame.
     /// </summary>
     private void Update() {
+
+        // Update slider progress value
+        if (SliderBar != null) { SliderBar.value = _CurrentBuildProgress; }
         
         // Update queue counter text string
         if (_UnitCounter > 0 && QueueCounterTextComponent != null) {
@@ -75,9 +84,10 @@ public class SelectionWheelUnitRef : MonoBehaviour {
 
         // PC hotkey visibility
         if (_Player == null) { _Player = GameManager.Instance.Players[0]; }
-        if (_Player != null) {
+        if (_Player != null && PCHotkeyObject != null) {
 
-
+            // Set active based on whether the keyboard is the primary controller or not 
+            PCHotkeyObject.SetActive(_Player._KeyboardInputManager.IsPrimaryController);
         }        
 
         // PC hotkey input for this button
@@ -120,7 +130,18 @@ public class SelectionWheelUnitRef : MonoBehaviour {
 
         // Set the button's sprite to match the abstraction ref's logo sprite
         if (_ButtonItemLogoComponent != null) { _ButtonItemLogoComponent.sprite = AbstractRef.Logo; }
+
+        // Update the slider image to match the logo sprite
+        if (SliderFillImage != null) { SliderFillImage.sprite = AbstractRef.Logo; }
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="val"></param>
+    public void SetCurrentBuildProgress(float val) { _CurrentBuildProgress = val; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

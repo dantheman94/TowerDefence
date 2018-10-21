@@ -54,9 +54,7 @@ public class Abstraction : MonoBehaviour {
         "\n\nDEPLOYABLE = The object has been built but is locked/hidden in its building (IE: AI Units). " +
         "\n\nACTIVE = The object is active/interactable within the game world.")]
     public WorldObjectStates _ObjectState = WorldObjectStates.Default;
-
-    public Sprite UIImage;
-
+    
     //******************************************************************************************************************************
     //
     //      VARIABLES

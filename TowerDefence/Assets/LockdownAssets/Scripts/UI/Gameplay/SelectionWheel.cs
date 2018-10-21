@@ -23,6 +23,14 @@ public class SelectionWheel : MonoBehaviour {
 
     [Space]
     [Header("-----------------------------------")]
+    [Header(" COLOURS")]
+    [Space]
+    public Color ColorAvailiable = Color.white;
+    public Color ColorExpensive = Color.grey;
+    public Color ColorLocked = Color.grey;
+
+    [Space]
+    [Header("-----------------------------------")]
     [Header(" ITEM HIGHLIGHT CENTER PANEL")]
     [Space]
     public Text CenterHighlightTitle;
@@ -122,10 +130,6 @@ public class SelectionWheel : MonoBehaviour {
                 if (building != null) {
 
                     _BuildingList.Add(building);
-                    if(obj.UIImage != null)
-                    {
-                        
-                    }
 
                     // Update reference unit
                     SelectionWheelUnitRef unitRef = _WheelButtons[i].GetComponent<SelectionWheelUnitRef>();
@@ -233,33 +237,30 @@ public class SelectionWheel : MonoBehaviour {
                     // Update button text
                     Text txtComp = button.GetComponentInChildren<Text>();
                     txtComp.text = list[i].ObjectName;
-                    button.image.color = new Color(108, 108, 63);
-                    if (list[i].UIImage != null)
-                    {
-                        button.image.sprite = list[i].UIImage;
-                        button.image.color = new Color(148, 108, 63, 255);
-                    }
-                    else
-                    {
-                        button.image.sprite = null;
-                        button.image.color = new Color(148, 108, 63,255);
-                    }
+                    
+                    ///button.image.sprite = list[i].Logo;
 
-                    // Update button interactibility state
+                    // Update button
                     SelectionWheelUnitRef unitRef = button.GetComponent<SelectionWheelUnitRef>();
                     if (unitRef.AbstractRef != null) {
-
-                        unitRef.UpdateUnitRefLogo();
 
                         Player player = GameManager.Instance.Players[0];
                         Abstraction item = unitRef.AbstractRef;
 
+                        // Update button image
+                        unitRef.UpdateUnitRefLogo();
+                        
                         // Check whether the button should be interactable or not
                         bool unlock = player.Level >= item.CostTechLevel;
                         bool purchasable = player.SuppliesCount >= item.CostSupplies &&
                                            player.PowerCount >= item.CostPower &&
                                            (player.MaxPopulation - player.PopulationCount) >= item.CostPopulation;
                         button.interactable = unlock && purchasable;
+
+                        // Update image colour based on state
+                        if (!unlock)            { button.image.color = ColorLocked; }
+                        else if (!purchasable)  { button.image.color = ColorExpensive; }
+                        else                    { button.image.color = ColorAvailiable; }
                     }
 
                     // If theres no unit reference in the button, just disable it by default
@@ -298,8 +299,8 @@ public class SelectionWheel : MonoBehaviour {
         if (txtComp) {
             
             // Change the text colour depending if the button is locked or not
-            if (buttonItem.GetComponent<Button>().interactable) { txtComp.color = new Color(1, 1, 1, 1); }
-            else                                                { txtComp.color = new Color(0, 0, 0, 1); }
+            if (buttonItem.GetComponent<Button>().interactable) { txtComp.color = new Color(0, 0, 0, 1); }
+            else                                                { txtComp.color = new Color(1, 1, 1, 1); }
         }
     }
 
@@ -395,6 +396,22 @@ public class SelectionWheel : MonoBehaviour {
     //  BuildingSlot
     /// </returns>
     public BuildingSlot GetBuildingSlotInstigator() { return _BuildingSlotInstigator; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public void UpdateLogoSliders(Abstraction abs) {
+
+        for (int i = 0; i < _WheelButtons.Count; i++) {
+
+            // Find matching slider
+            SelectionWheelUnitRef unitRef = _WheelButtons[i].GetComponent<SelectionWheelUnitRef>();
+            if (unitRef.AbstractRef == abs) {
+
+                // Match found - update the slider attached to this button
+                unitRef.SetCurrentBuildProgress(abs.GetBuildPercentage());
+            }
+        }
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

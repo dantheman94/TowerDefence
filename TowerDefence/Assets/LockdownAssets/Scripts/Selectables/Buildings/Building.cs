@@ -180,7 +180,11 @@ public class Building : WorldObject {
                     else { selectionWheel = GameManager.Instance.selectionWindow.GetComponentInChildren<SelectionWheel>(); }
                   
                     // Only update the selection wheel item counters if the UI widget is currently being displayed
-                    if (selectionWheel.gameObject.activeInHierarchy) { _BuildingQueueUI.UpdateSelectionWheelItemCounters(); }
+                    if (selectionWheel.gameObject.activeInHierarchy) {
+
+                        _BuildingQueueUI.UpdateSelectionWheelItemCounters();
+
+                    }
                 }
             }
             else { _BuildingStarted = false; }
