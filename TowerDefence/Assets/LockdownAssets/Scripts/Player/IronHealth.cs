@@ -25,8 +25,6 @@ public class IronHealth : MonoBehaviour {
     private List<Building> _Buildings;
     private bool _OnDestroy = false;
 
-
-
     //        FUNCTIONS
     //////////////////////////////////////////////
 
@@ -44,17 +42,23 @@ public class IronHealth : MonoBehaviour {
         }
 	}
 
+    ////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     /// Gets list of buildings from the base.
     /// </summary>
     /// <param name="buildings"></param>
     public void SetBuildings(List<Building> buildings) { _Buildings = buildings; }
 
+    ////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     /// Gets base reference.
     /// </summary>
     /// <param name="a_base"></param>
     public void SetBase(Base a_base) { _DesiredBase = a_base; }
+
+    ////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     /// Destroys the iron health object.
@@ -70,4 +74,6 @@ public class IronHealth : MonoBehaviour {
       
         Destroy(this.gameObject);
     }
+
+    ////////////////////////////////////////////////////////////////////////
 }

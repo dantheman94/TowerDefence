@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//-=-=-=-=-=-=-=-=-=-=-=-=-=
+// Created by: Angus Secomb
+// Last modified: 23/10/18
+// Editor: Angus
+//-=-=-=-=-=-=-=-=-=-=-=-=-=
+
 public class VeteranUI : MonoBehaviour {
 
     public Image PowerImage;

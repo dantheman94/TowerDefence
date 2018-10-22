@@ -6,8 +6,8 @@ using UnityEngine;
 //
 //  Created by: Daniel Marton
 //
-//  Last edited by: Daniel Marton
-//  Last edited on: 17/10/2018
+//  Last edited by: Angus Secomb
+//  Last edited on: 23/10/2018
 //
 //******************************
 
@@ -34,6 +34,7 @@ public class Ability_CoreZapper : Abstraction {
         if ((plyr.SuppliesCount >= this.CostSupplies) && (plyr.PowerCount >= this.CostPower)) {
 
             // DO SOME SHIT BRO
+            CoreZapper.EnableZapper = true;
         }
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
