@@ -45,6 +45,7 @@ public class UnitHealthBar : MonoBehaviour {
     [Space]
     public Image ShieldbarTeamColourOutline = null;
     [Space]
+    public Color ShieldInvolnerableColour = Color.grey;
     public Color ShieldOkayColour = Color.green;
     [Space]
     [Range(0f, 1f)]
@@ -61,6 +62,7 @@ public class UnitHealthBar : MonoBehaviour {
     [Space]
     public Image HealthbarTeamColourOutline = null;
     [Space]
+    public Color HealthInvolnerableColour = Color.grey;
     public Color HealthOkayColour = Color.green;
     [Space]
     [Range(0f, 1f)]
@@ -147,6 +149,7 @@ public class UnitHealthBar : MonoBehaviour {
             // Update team colour
             ///UpdateTeamColourFill();
             UpdateTeamColourOutline();
+            UpdateInvulnerableFillColour();
         } 
     }
 
@@ -181,6 +184,20 @@ public class UnitHealthBar : MonoBehaviour {
                 break;
 
             default: break;
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    private void UpdateInvulnerableFillColour() {
+
+        if ((_WorldObject as Building).GetIsDamageable()) {
+            
+            if (ShieldFill != null) { ShieldFill.color = ShieldInvolnerableColour; }
+            if (HealthFill != null) { HealthFill.color = HealthInvolnerableColour; }
         }
     }
 
