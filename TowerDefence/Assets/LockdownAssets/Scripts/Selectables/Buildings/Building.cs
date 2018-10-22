@@ -284,6 +284,9 @@ public class Building : WorldObject {
         // Get reference to the newly cloned building
         if (_ClonedWorldObject != null) {
 
+            // Reset building time
+            _CurrentBuildTime = BuildingTime;
+
             // Update building slot team for the outline colouring
             Building building = _ClonedWorldObject.GetComponent<Building>();
             building.AttachedBuildingSlot = buildingSlot;
@@ -624,6 +627,16 @@ public class Building : WorldObject {
     /// </summary>
     /// <param name="value"></param>
     public void SetCanBeDamaged(bool value) { _CanBeDamaged = value; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <returns>
+    //  bool
+    /// </returns>
+    public bool GetIsDamageable() { return _CanBeDamaged; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
