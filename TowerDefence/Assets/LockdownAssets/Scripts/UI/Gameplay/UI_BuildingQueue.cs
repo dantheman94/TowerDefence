@@ -184,7 +184,7 @@ public class UI_BuildingQueue : MonoBehaviour {
     /// </returns>
     private List<AbstractionCounter> GetAmountOfEachUnits() {
 
-        if (_BuildingAttached != null) {
+        if (_BuildingAttached != null && _BuildingAttached.GetBuildingQueue() != null) {
 
             List<AbstractionCounter> absCounter = new List<AbstractionCounter>();
             for (int i = 0; i < _BuildingAttached.GetBuildingQueue().Count; i++) {
