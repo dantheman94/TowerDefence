@@ -20,10 +20,9 @@ public class Particles : MonoBehaviour {
     //******************************************************************************************************************************
 
     private Player _Player;
-    private Renderer _Renderer;
 
     public static Rect Selection = new Rect(0, 0, 0, 0);
-    public bool _IsInScreenSpace = false;
+    private bool _IsInScreenSpace = false;
     private Vector3 _ScreenCenter;
     private float _DistanceFromScreenCenter;
 
@@ -43,14 +42,8 @@ public class Particles : MonoBehaviour {
 
     void Start () {
 
-        _Renderer = GetComponent<Renderer>();
-        _Renderer.enabled = true;
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    void Awake() {
-
+        ParticleSystem childrenParticles = GetComponentInChildren<ParticleSystem>();
+        childrenParticles.Play();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -78,12 +71,11 @@ public class Particles : MonoBehaviour {
 
                     // Set to true
                     _IsInScreenSpace = true;
-                    _Renderer.enabled = true;
-                    // Set to false
-                    gameObject.transform.GetChild(0).gameObject.GetComponent<ParticleSystem>().Play();
-                    gameObject.transform.GetChild(1).gameObject.GetComponent<ParticleSystem>().Play();
 
-                    Debug.Log("Object is within the camera view.");
+                    ParticleSystem childrenParticles = GetComponentInChildren<ParticleSystem>();
+                    childrenParticles.Play();
+                    //Debug.Log("Object is within the camera view.");
+                    Debug.Log("Object is within the camera view. childrenParticles isPlaying: " + childrenParticles.isPlaying);
                 }
 
                 // If the particle object is not within the rect
@@ -91,12 +83,11 @@ public class Particles : MonoBehaviour {
 
                     // Set to false
                     _IsInScreenSpace = false;
-                    _Renderer.enabled = false;
-                    // Set to true
-                    gameObject.transform.GetChild(0).gameObject.GetComponent<ParticleSystem>().Pause();
-                    gameObject.transform.GetChild(1).gameObject.GetComponent<ParticleSystem>().Pause();
 
-                    Debug.Log("Object is not within the camera view.");
+                    ParticleSystem childrenParticles = GetComponentInChildren<ParticleSystem>();
+                    childrenParticles.Pause();
+                    //Debug.Log("Object is within the camera view.");
+                    Debug.Log("Object is within the camera view. childrenParticles isPlaying: " + childrenParticles.isPlaying);
                 }
             }
 
@@ -108,7 +99,6 @@ public class Particles : MonoBehaviour {
 
                     // Set to true
                     _IsInScreenSpace = true;
-                    _Renderer.enabled = true;
                 }
 
                 // If the particle object is not within the rect
@@ -116,7 +106,6 @@ public class Particles : MonoBehaviour {
 
                     // Set to false
                     _IsInScreenSpace = false;
-                    _Renderer.enabled = false;
                 }
             }
         }
