@@ -143,6 +143,7 @@ public class UI_SelectedUnits : MonoBehaviour {
 
                 // Spawn panel & pass unit info data
                 UI_UnitInfoPanel panel = ObjectPooling.Spawn(StencilObject.gameObject).GetComponent<UI_UnitInfoPanel>();
+                panel.LogoComponent.sprite = _UnitInfos[i]._Logo;
                 panel.UnitName.text = _UnitInfos[i]._UnitType.ToString();
                 panel.AmountCounter.text = _UnitInfos[i]._Amount.ToString();
                 panel.SetPanelInfo(_UnitInfos[i]);
