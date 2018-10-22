@@ -223,7 +223,10 @@ public class SelectionWheel : MonoBehaviour {
         if (_BuildingSlotInstigator != null) {
 
             Building building = _BuildingSlotInstigator.GetBuildingOnSlot();
-            if (building != null) { building.GetBuildingQueueUI().UpdateSelectionWheelItemCounters(); }
+            if (building != null) {
+
+                if (building.GetBuildingQueue() != null) { building.GetBuildingQueueUI().UpdateSelectionWheelItemCounters(); }
+            }
         }
         
         int i = 0;

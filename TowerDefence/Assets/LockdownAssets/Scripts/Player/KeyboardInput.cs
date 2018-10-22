@@ -6,13 +6,35 @@ using TowerDefence;
 //
 //  Created by: Daniel Marton
 //
-//  Last edited by: Angus Secomb
-//  Last edited on: 10/9/2018
+//  Last edited by: Daniel Marton
+//  Last edited on: 22/10/2018
 //
 //******************************
 
 public class KeyboardInput : MonoBehaviour {
-    
+
+    //******************************************************************************************************************************
+    //
+    //      INSPECTOR
+    //
+    //******************************************************************************************************************************
+
+    [Space]
+    [Header("-----------------------------------")]
+    [Header(" CORE RESET PROPERTIES")]
+    [Space]
+    public float ReturningDuration = 100f;
+
+    [Space]
+    [Header("-----------------------------------")]
+    [Header(" OTHER PROPERTIES")]
+    [Space]
+    public Texture SelectionHighlight;
+    [Space]
+    public Minimap MiniMap;
+    [Space]
+    public SliceDrawer Slicedrawer;
+
     //******************************************************************************************************************************
     //
     //      VARIABLES
@@ -24,9 +46,6 @@ public class KeyboardInput : MonoBehaviour {
     private XboxGamepadInput _XboxGamepadInputManager = null;
     public bool IsPrimaryController { get; set; }
     public static Rect Selection = new Rect(0, 0, 0, 0);
-    public Texture SelectionHighlight;
-    public Minimap MiniMap;
-    public SliceDrawer Slicedrawer;
     
 
     private Vector3 _LookPoint;
@@ -39,6 +58,10 @@ public class KeyboardInput : MonoBehaviour {
     private Building _HighlightBuilding = null;
     private WorldObject _HighlightWorldObject = null;
     private bool SelectedTrue = false;
+
+    private Transform _CoreReturnTransform = null;
+    private Vector3 _CurrentReturnVelocity = Vector3.zero;
+    private bool _ReturningToCore = false;
 
     //******************************************************************************************************************************
     //
@@ -144,6 +167,9 @@ public class KeyboardInput : MonoBehaviour {
 
                 // Update platoon input
                 PlatoonInput();
+
+                // Update returning to core input
+                ReturnToCore();
 
                 // Select all units
                 if (Input.GetKeyDown(KeyCode.E)) {
@@ -395,6 +421,7 @@ public class KeyboardInput : MonoBehaviour {
                 // Move forwards
                 movement.y += Settings.MovementSpeed;
                 CreateCenterPoint();
+                _ReturningToCore = false;
             }
 
             if (Input.GetKey(KeyCode.S) && (!Input.GetKey(KeyCode.LeftAlt)) && (!_PlayerCamera.PastBoundsSouth)) {
@@ -402,6 +429,7 @@ public class KeyboardInput : MonoBehaviour {
                 // Move backwards
                 movement.y -= Settings.MovementSpeed;
                 CreateCenterPoint();
+                _ReturningToCore = false;
             }
 
             if (Input.GetKey(KeyCode.D) && (!Input.GetKey(KeyCode.LeftAlt)) && (!_PlayerCamera.PastBoundsEast)) {
@@ -409,6 +437,7 @@ public class KeyboardInput : MonoBehaviour {
                 // Move right
                 movement.x += Settings.MovementSpeed;
                 CreateCenterPoint();
+                _ReturningToCore = false;
             }
 
             if (Input.GetKey(KeyCode.A) && (!Input.GetKey(KeyCode.LeftAlt)) && (!_PlayerCamera.PastBoundsWest))
@@ -417,12 +446,14 @@ public class KeyboardInput : MonoBehaviour {
                 // Move left
                 movement.x -= Settings.MovementSpeed;
                 CreateCenterPoint();
+                _ReturningToCore = false;
             }
 
             if (Input.GetKey(KeyCode.LeftShift)) {
 
                 // 'Sprint' movement speed
                 Settings.MovementSpeed = Settings.CameraSprintSpeed;
+                _ReturningToCore = false;
             }
             else {
 
@@ -485,6 +516,8 @@ public class KeyboardInput : MonoBehaviour {
         // Rotate camera state if ALT is being held down
         if (_RotatingCamera = (Input.GetKey(KeyCode.LeftAlt))) {
 
+            _ReturningToCore = false;
+
             // Hide mouse cursor
             Cursor.visible = false;
 
@@ -504,6 +537,8 @@ public class KeyboardInput : MonoBehaviour {
 
         // Not rotating the camera
         else {
+            
+            CreateCenterPoint();
 
             // Always hide the mouse cursor whilst the player IS controlling a unit
             if (GameManager.Instance.GetIsUnitControlling()) {
@@ -896,6 +931,43 @@ public class KeyboardInput : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.Tab)) {
 
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    private void ReturnToCore() {
+        
+        // Initialise
+        if (Input.GetKeyDown(KeyCode.T)) {
+                        
+            // Set target transform properties
+            _CoreReturnTransform = new GameObject().transform;
+            _CoreReturnTransform.rotation = _PlayerAttached.transform.parent.rotation;
+            _CoreReturnTransform.position = new Vector3(WaveManager.Instance.CentralCore.transform.position.x,
+                                                        _PlayerCamera.transform.parent.position.y,
+                                                        WaveManager.Instance.CentralCore.transform.position.z);
+            _CoreReturnTransform.position += _CoreReturnTransform.up * 100f;
+            _CoreReturnTransform.position = new Vector3(_CoreReturnTransform.position.x,
+                                                        _PlayerCamera.transform.parent.position.y,
+                                                        _CoreReturnTransform.position.z);
+                        
+            // Start returning to the core
+            _ReturningToCore = true;
+        }
+
+        // Return to the core
+        if (_ReturningToCore) {
+            
+            // Smoothly move toward target position
+            _PlayerCamera.transform.parent.position = Vector3.SmoothDamp(_PlayerCamera.transform.parent.position, _CoreReturnTransform.position, ref _CurrentReturnVelocity, ReturningDuration * Time.deltaTime);
+
+            // Camera has reached target
+            float dist = Vector3.Distance(_PlayerAttached.transform.parent.position, _CoreReturnTransform.position);
+            if (dist < 10f) {
+
+                _ReturningToCore = false;
+            }
         }
     }
 

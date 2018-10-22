@@ -243,7 +243,6 @@ public class CameraPlayer : MonoBehaviour {
 
         // Get the distance between the explosion and the camera
         float distance = Vector3.Distance(location, transform.position);
-        Debug.Log(distance);
 
         // If the distance is within the threshold, shake
         if (distance < ShakeThreshold) {

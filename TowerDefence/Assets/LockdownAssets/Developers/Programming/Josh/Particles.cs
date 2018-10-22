@@ -75,7 +75,7 @@ public class Particles : MonoBehaviour {
                     ParticleSystem childrenParticles = GetComponentInChildren<ParticleSystem>();
                     childrenParticles.Play();
                     //Debug.Log("Object is within the camera view.");
-                    Debug.Log("Object is within the camera view. childrenParticles isPlaying: " + childrenParticles.isPlaying);
+                    ///Debug.Log("Object is within the camera view. childrenParticles isPlaying: " + childrenParticles.isPlaying);
                 }
 
                 // If the particle object is not within the rect
@@ -87,7 +87,7 @@ public class Particles : MonoBehaviour {
                     ParticleSystem childrenParticles = GetComponentInChildren<ParticleSystem>();
                     childrenParticles.Pause();
                     //Debug.Log("Object is within the camera view.");
-                    Debug.Log("Object is within the camera view. childrenParticles isPlaying: " + childrenParticles.isPlaying);
+                    ///Debug.Log("Object is within the camera view. childrenParticles isPlaying: " + childrenParticles.isPlaying);
                 }
             }
 

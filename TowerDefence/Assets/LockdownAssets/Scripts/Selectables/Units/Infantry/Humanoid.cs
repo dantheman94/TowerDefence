@@ -11,7 +11,7 @@ using UnityEngine;
 //
 //******************************
 
-public class Humanoid : Unit {
+public class Humanoid : Vehicle {
 
     //******************************************************************************************************************************
     //
@@ -21,9 +21,18 @@ public class Humanoid : Unit {
 
     [Space]
     [Header("-----------------------------------")]
-    [Header(" HUMANOID MOVEMENT")]
+    [Header(" ANIMATIONS")]
     [Space]
-    public float RotatingSpeed = 100f;
+    public SkinnedMeshRenderer Legs = null;
+    public SkinnedMeshRenderer Torso = null;
+    [Space]
+    public Animation LegsAnimator = null;
+    public Animation TorsoAnimator = null;
+    [Space]
+    public AnimationClip IdleAnimation = null;
+    public AnimationClip WalkingAnimation = null;
+    public AnimationClip ShootingAnimation = null;
+    public AnimationClip DeathAnimation = null;
 
     //******************************************************************************************************************************
     //
@@ -32,9 +41,8 @@ public class Humanoid : Unit {
     //******************************************************************************************************************************
 
     private float _ControlRotation = 0f;
-    protected Vector3 _DirectionToTarget = Vector3.zero;
     protected Quaternion _LookRotation = Quaternion.identity;
-
+    
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
@@ -54,6 +62,37 @@ public class Humanoid : Unit {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /// <summary>
+    //  Called every frame - updates the soldier/unit's movement and combat behaviours.
+    /// </summary>
+    protected override void UpdateAIControllerMovement() {
+        base.UpdateAIControllerMovement();
+        
+        // Currently moving
+        if (_CurrentSpeed > 0) {
+
+            // Play walking animation on the legs
+            if (WalkingAnimation != null && LegsAnimator != null) {
+
+                LegsAnimator.clip = WalkingAnimation;
+                LegsAnimator.Play();
+            }
+        }
+
+        // Not currently moving
+        else {
+
+            // Play idle animation on the legs
+            if (IdleAnimation != null && LegsAnimator != null) {
+
+                LegsAnimator.clip = IdleAnimation;
+                LegsAnimator.Play();
+            }
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     public override void OnDeath(WorldObject instigator) {
 
         // Play some fancy animation maybe?
@@ -61,38 +100,7 @@ public class Humanoid : Unit {
         // Despawn it
         base.OnDeath(instigator);
     }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  
-    /// </summary>
-    protected override void UpdatePlayerControlledMovement() {
-        
-        // Forward input
-        float forward = Input.GetAxis("Vertical");
-        if (forward != 0f) { transform.position = transform.position + transform.forward * forward * InfantryMovementSpeed * Time.deltaTime; }
-
-        // Right input
-        float right = Input.GetAxis("Horizontal");
-        if (right != 0f) { transform.position = transform.position + transform.right * right * InfantryMovementSpeed * Time.deltaTime; }
-
-        // Update base rotation
-        _ControlRotation = Input.GetAxis("Mouse X") * RotatingSpeed * Time.deltaTime;
-        if (_ControlRotation != 0) { transform.eulerAngles += new Vector3(0f, _ControlRotation, 0f); }
-
-        // Check for weapon firing input
-        if (Input.GetMouseButtonDown(0)) {
-
-            // If theres a weapon attached
-            if (PrimaryWeapon) {
-
-                // Fire the weapon if possible
-                if (PrimaryWeapon.CanFire()) { PrimaryWeapon.FireWeapon(); }
-            }
-        }
-    }
-
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     /// <summary>

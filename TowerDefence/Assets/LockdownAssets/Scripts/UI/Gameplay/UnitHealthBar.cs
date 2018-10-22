@@ -194,10 +194,13 @@ public class UnitHealthBar : MonoBehaviour {
     /// </summary>
     private void UpdateInvulnerableFillColour() {
 
-        if (!(_WorldObject as Building).GetIsDamageable()) {
-            
-            if (ShieldFill != null) { ShieldFill.color = ShieldInvolnerableColour; }
-            if (HealthFill != null) { HealthFill.color = HealthInvolnerableColour; }
+        if (_WorldObject is Building) {
+
+            if (!(_WorldObject as Building).GetIsDamageable()) {
+
+                if (ShieldFill != null) { ShieldFill.color = ShieldInvolnerableColour; }
+                if (HealthFill != null) { HealthFill.color = HealthInvolnerableColour; }
+            }
         }
     }
 
