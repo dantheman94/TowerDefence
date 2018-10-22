@@ -267,6 +267,7 @@ public class Unit : WorldObject {
         // Selecting the unit via drag selection
         UpdateSquadSelection();
         UpdateBoxSelection();
+        UpdateVeteranSelection();
 
         // Hide the unit UI widgets if it is building
         if (_ObjectState == WorldObjectStates.Building) {
@@ -478,6 +479,48 @@ public class Unit : WorldObject {
                     }
                 }
             }
+        }
+    }
+
+    /// <summary>
+    /// Update veteran selection.
+    /// </summary>
+    private void UpdateVeteranSelection()
+    {
+ 
+        if(_Player != null)
+        {
+            Vector3 camPos = _Player.CameraAttached.WorldToScreenPoint(transform.position);
+
+            if(VeteranUpgrade.Area != null)
+            if(VeteranUpgrade.Area.Contains(camPos))
+            {
+                bool check = false;
+                for(int i = 0; i < VeteranUpgrade._Units.Count; ++i)
+                {
+                    if(VeteranUpgrade._Units[i] == this)
+                    {
+                            check = true;
+                    }
+                }
+
+                if(!check)
+                 {
+                    VeteranUpgrade._Units.Add(this);
+                 }
+
+                    if (GetObjectState() == WorldObjectStates.Active && Input.GetMouseButtonDown(0))
+                {
+                   if(_VeterancyLevel < 3)
+                   {
+                       _VeterancyLevel++;
+                        
+                            //Debug.Log(this.gameObject + " has gone up one veteran level");
+                   }
+          
+                }
+            }
+
         }
     }
 
