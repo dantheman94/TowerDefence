@@ -1,8 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+//-=-=-=-=-=-=-=-=-=
+// Created by: Angus Secomb
+// Last modified: 23/10/18
+// Editor: Angus
 
 public class InputChecker : MonoBehaviour {
+
+
+    public Button ReferenceButton;
+    
+
+    // VARIABLES
+    //////////////////////////
 
     public static string CurrentController;
     private xb_gamepad _Gamepad;
@@ -32,13 +44,17 @@ public class InputChecker : MonoBehaviour {
                 if (_Gamepad.GetAnyButton() || _Gamepad.GetStick_L().X != 0)
                 {
                     CurrentController = "Controller";
+                    _MousePosition = Input.mousePosition;
+                    if(ReferenceButton != null)
+                    ReferenceButton.Select();
+                    
                 }
             }
         }
         else if(CurrentController == "Controller")
         {
             
-            if(Input.GetMouseButton(0) || Input.GetKey(KeyCode.Escape) || Input.GetKey(KeyCode.Return))
+            if(Input.GetMouseButton(0) || Input.GetKey(KeyCode.Escape) || Input.GetKey(KeyCode.Return) || _MousePosition != Input.mousePosition)
             {
                 CurrentController = "Keyboard";
             }
