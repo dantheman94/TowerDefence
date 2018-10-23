@@ -239,7 +239,7 @@ public class SelectionWheel : MonoBehaviour {
 
                     // Update button text
                     Text txtComp = button.GetComponentInChildren<Text>();
-                    txtComp.text = list[i].ObjectName;
+                    ///txtComp.text = list[i].ObjectName;
                     
                     ///button.image.sprite = list[i].Logo;
 
@@ -259,11 +259,28 @@ public class SelectionWheel : MonoBehaviour {
                                            player.PowerCount >= item.CostPower &&
                                            (player.MaxPopulation - player.PopulationCount) >= item.CostPopulation;
                         button.interactable = unlock && purchasable;
-
+                                                
                         // Update image colour based on state
                         if (!unlock)            { button.image.color = ColorLocked; }
                         else if (!purchasable)  { button.image.color = ColorExpensive; }
                         else                    { button.image.color = ColorAvailiable; }
+
+                        // Update cost texts colour based on state
+                        /// Tech level
+                        if (player.Level >= item.CostTechLevel) { CenterTechLevelText.color = Color.black; }
+                        else { CenterTechLevelText.color = Color.red; }
+
+                        /// Population
+                        if ((player.MaxPopulation - player.PopulationCount) >= item.CostPopulation) { CenterPopulationText.color = Color.black; }
+                        else { CenterPopulationText.color = Color.red; }
+
+                        /// Supplies
+                        if (player.SuppliesCount >= item.CostSupplies) { CenterSupplyText.color = Color.black; }
+                        else { CenterSupplyText.color = Color.red; }
+
+                        /// Power
+                        if (player.PowerCount >= item.CostPower) { CenterPowerText.color = Color.black; }
+                        else { CenterPowerText.color = Color.red; }
                     }
 
                     // If theres no unit reference in the button, just disable it by default
@@ -402,16 +419,22 @@ public class SelectionWheel : MonoBehaviour {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="abs"></param>
     public void UpdateLogoSliders(Abstraction abs) {
 
         for (int i = 0; i < _WheelButtons.Count; i++) {
 
             // Find matching slider
             SelectionWheelUnitRef unitRef = _WheelButtons[i].GetComponent<SelectionWheelUnitRef>();
-            if (unitRef.AbstractRef == abs) {
+            if (unitRef.AbstractRef != null) {
+                if (unitRef.AbstractRef.GetType() == abs.GetType()) {
 
-                // Match found - update the slider attached to this button
-                unitRef.SetCurrentBuildProgress(abs.GetBuildPercentage());
+                    // Match found - update the slider attached to this button
+                    unitRef.SetCurrentBuildProgress(abs.GetBuildPercentage());
+                }
             }
         }
     }
