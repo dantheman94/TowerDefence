@@ -8,7 +8,7 @@ using UnityEngine.UI;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Angus Secomb
-//  Last edited on: 08/08/2018
+//  Last edited on: 23/10/2018
 //
 //******************************
 
@@ -16,6 +16,10 @@ public class Widget_Settings : MonoBehaviour {
 
     public Button EnterButton = null;
     public Button ExitButton;
+
+    public List<Button> GamepadButtons;
+    public List<Button> KeyboardButtons;
+    public List<Button> AmpiDextrousButtons;
 
     //******************************************************************************************************************************
     //
@@ -74,6 +78,45 @@ public class Widget_Settings : MonoBehaviour {
     /// </summary>
     public void SaveSettings() {
 
+    }
+
+    private void Update()
+    {
+        SwitchButtons();
+    }
+
+    public void SwitchButtons()
+    {
+        if(InputChecker.CurrentController == "Keyboard")
+        {
+            for(int i = 0; i < GamepadButtons.Count; ++i)
+            {
+                GamepadButtons[i].gameObject.SetActive(false);
+            }
+            for(int i = 0; i < KeyboardButtons.Count; ++i)
+            {
+                KeyboardButtons[i].gameObject.SetActive(true);
+            }
+            for (int i = 0; i < AmpiDextrousButtons.Count; ++i)
+            {
+
+            }
+        }
+        else if(InputChecker.CurrentController == "Controller")
+        {
+            for (int i = 0; i < GamepadButtons.Count; ++i)
+            {
+                GamepadButtons[i].gameObject.SetActive(true);
+            }
+            for (int i = 0; i < KeyboardButtons.Count; ++i)
+            {
+      //          KeyboardButtons[i].gameObject.SetActive(false);
+            }
+            for(int i = 0; i < AmpiDextrousButtons.Count; ++i)
+            {
+
+            }
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -511,14 +511,140 @@ public class SettingsMenuNavigator : MonoBehaviour {
         }
     }
 
-    public void IncreaseSFXToggle()
+    public void IncreaseToggle(string DesiredMenu)
     {
-        EffectsVolume++;
+        switch(DesiredMenu)
+        {
+            case "SelectionMenu":
+                if (_MenuType < MenuType.WINDOW)
+                    _MenuType++;
+                else
+                {
+                    _MenuType = 0;
+                }
+                PlayerPrefs.SetInt("MenuType", (int)_MenuType);
+                UpdateTextAndApplySettings();
+                PlayerPrefs.Save();
+                break;
+            case "WindowMode":
+                if (_WindowMode < WindowMode.WINDOWED)
+                    _WindowMode++;
+                else
+                {
+                    _WindowMode = 0;
+                }
+                PlayerPrefs.SetInt("WindowMode", (int)_WindowMode);
+                UpdateTextAndApplySettings();
+                PlayerPrefs.Save();
+                break;
+            case "Resolution":
+                break;
+            case "Aspect Ratio":
+                if (_AspectRatio < AspectRatio.FIVE_FOUR)
+                {
+                    _AspectRatio++;
+                }
+                else
+                {
+                    _AspectRatio = AspectRatio.SIXTEEN_NINE;
+                }
+                PlayerPrefs.SetInt("AspectRatio", (int)_AspectRatio);
+                UpdateTextAndApplySettings();
+                PlayerPrefs.Save();
+                break;
+            case "VSync":
+                if (VSync == 0)
+                {
+                    VSync = 1;
+                }
+                else if (VSync == 1)
+                {
+                    VSync = 0;
+                }
+                PlayerPrefs.SetInt("VSync", VSync);
+                UpdateTextAndApplySettings();
+                PlayerPrefs.Save();
+                break;
+            case "TextureQ":
+                if (_TextureQuality < TextureQuality.ULTRA)
+                    _TextureQuality++;
+                else
+                {
+                    _TextureQuality = 0;
+                }
+                PlayerPrefs.SetInt("TextureQuality", (int)_TextureQuality);
+                UpdateTextAndApplySettings();
+                PlayerPrefs.Save();
+                break;
+        }
     }
 
-    public void DecreaseSFXToggle()
+    public void DecreaseToggle(string DesiredMenu)
     {
-        EffectsVolume--;
+        switch (DesiredMenu)
+        {
+            case "SelectionMenu":
+                if (_MenuType > MenuType.RADIAL)
+                    _MenuType--;
+                else
+                {
+                    _MenuType = MenuType.WINDOW; ;
+                }
+                UpdateTextAndApplySettings();
+                PlayerPrefs.SetInt("MenuType", (int)_MenuType);
+                PlayerPrefs.Save();
+                break;
+            case "WindowMode":
+                if (_WindowMode > WindowMode.FULLSCREEN)
+                    _WindowMode--;
+                else
+                {
+                    _WindowMode = WindowMode.WINDOWED;
+                }
+                PlayerPrefs.SetInt("WindowMode", (int)_WindowMode);
+                UpdateTextAndApplySettings();
+                PlayerPrefs.Save();
+                break;
+            case "Resolution":
+                break;
+            case "Aspect Ratio":
+                if (_AspectRatio > AspectRatio.SIXTEEN_NINE)
+                {
+                    _AspectRatio--;
+                }
+                else
+                {
+                    _AspectRatio = AspectRatio.FIVE_FOUR;
+                }
+                PlayerPrefs.SetInt("AspectRatio", (int)_AspectRatio);
+                UpdateTextAndApplySettings();
+                PlayerPrefs.Save();
+                break;
+            case "VSync":
+                if (VSync == 0)
+                {
+                    VSync = 1;
+                }
+                else if (VSync == 1)
+                {
+                    VSync = 0;
+                }
+                PlayerPrefs.SetInt("VSync", VSync);
+                UpdateTextAndApplySettings();
+                PlayerPrefs.Save();
+                break;
+            case "TextureQ":
+                if (_TextureQuality > TextureQuality.VERY_LOW)
+                    _TextureQuality--;
+                else
+                {
+                    _TextureQuality = TextureQuality.ULTRA;
+                }
+                PlayerPrefs.SetInt("TextureQuality", (int)_TextureQuality);
+                UpdateTextAndApplySettings();
+                PlayerPrefs.Save();
+                break;
+        }
     }
 
     /// <summary>
@@ -711,6 +837,8 @@ public class SettingsMenuNavigator : MonoBehaviour {
         else if(InputChecker.CurrentController == "Keyboard")
         {
             MasterVolume = (int)MasterVolSlider.value;
+            MusicVolume = (int)MusicVolSlider.value;
+            EffectsVolume = (int)EffectVolSlider.value;
             MasterVolSlider.GetComponentInChildren<Text>().text = MasterVolume.ToString();
             MusicVolSlider.GetComponentInChildren<Text>().text = MusicVolume.ToString();
             EffectVolSlider.GetComponentInChildren<Text>().text = EffectsVolume.ToString();
