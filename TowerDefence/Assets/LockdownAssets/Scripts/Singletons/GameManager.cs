@@ -70,6 +70,7 @@ public class GameManager : MonoBehaviour {
     public UI_PlatoonUnits PlatoonUnitsHUD;
     public UI_WaveStats WaveStatsHUD;
     public UI_BuildingQueueWrapper BuildingQueueHUD;
+    public UI_TurretVariant TurretVariantWidget;
 
     [Space]
     [Header("-----------------------------------")]

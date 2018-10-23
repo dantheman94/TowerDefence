@@ -163,27 +163,7 @@ public class Player : MonoBehaviour {
         _Bases.Add(GameManager.Instance.StartingBase);
         GameManager.Instance.StartingBase.AttachedBuildingSlot.SetBuildingOnSlot(GameManager.Instance.StartingBase);
     }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  Called each frame.
-    /// </summary>
-    private void Update() {
-
-        if (!GameManager.Instance._CinematicInProgress) {
-
-            // If there are no bases in the player's list >> Lose the match
-            if (_Bases.Count == 0) { GameManager.Instance.OnGameover(false); }
-
-            if (Input.GetKey(KeyCode.Space)) {
-
-                WaveManager.Instance.WaveCompleteWidget.gameObject.SetActive(true);
-                WaveManager.Instance.WaveCompleteWidget.OnWaveComplete();
-            }
-        }
-    }
-
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>

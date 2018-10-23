@@ -30,8 +30,9 @@ public class BaseTurret : Tower {
     //      VARIABLES
     //
     //******************************************************************************************************************************
-
+    
     private Quaternion _DefaultRotation = Quaternion.identity;
+    private UI_TurretVariant _TurretVariantUI = null;
 
     //******************************************************************************************************************************
     //
@@ -148,5 +149,20 @@ public class BaseTurret : Tower {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
+
+    /// <summary>
+    //  Called when the object's state switches to active (Only once)
+    /// </summary>
+    protected override void OnBuilt() {
+        base.OnBuilt();
+
+        // Create turret variant widget
+        _TurretVariantUI = ObjectPooling.Spawn(GameManager.Instance.TurretVariantWidget.gameObject).GetComponent<UI_TurretVariant>();
+        _TurretVariantUI.SetTowerAttached(this);
+        _TurretVariantUI.gameObject.SetActive(true);
+        _TurretVariantUI.transform.SetParent(GameManager.Instance.WorldSpaceCanvas.gameObject.transform, false);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 }

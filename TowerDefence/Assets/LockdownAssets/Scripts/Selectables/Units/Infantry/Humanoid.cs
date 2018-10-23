@@ -23,9 +23,6 @@ public class Humanoid : Vehicle {
     [Header("-----------------------------------")]
     [Header(" ANIMATIONS")]
     [Space]
-    public SkinnedMeshRenderer Legs = null;
-    public SkinnedMeshRenderer Torso = null;
-    [Space]
     public Animation LegsAnimator = null;
     public Animation TorsoAnimator = null;
     [Space]
@@ -87,6 +84,12 @@ public class Humanoid : Vehicle {
                 LegsAnimator.clip = IdleAnimation;
                 LegsAnimator.Play();
             }
+        }
+
+        if (_IsAttacking) {
+
+            TorsoAnimator.clip = ShootingAnimation;
+            TorsoAnimator.Play();
         }
     }
 
