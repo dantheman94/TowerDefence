@@ -158,6 +158,11 @@ public class CameraPlayer : MonoBehaviour {
 
         CheckCameraBounds();
 
+        if (_Camera != null)
+        {
+            //Debug.Log("FOV " + _Camera.fieldOfView);
+        }
+
         if (Input.GetKeyDown(KeyCode.P) == true)
         {
             float rad = 20.0f;
@@ -166,6 +171,7 @@ public class CameraPlayer : MonoBehaviour {
 
             Debug.Log("Button tapped.");
         }
+
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -248,7 +254,10 @@ public class CameraPlayer : MonoBehaviour {
             if (distance < ShakeMaxRange) {
 
                 // Calculate strenth
-                float shakeStrength = (1.0f * (Mathf.Abs(distance * 0.1f))) + (Mathf.Abs(_Camera.fieldOfView * 0.1f));
+                // FOV value becomes larger as you zoom out so we must use division here
+                float shakeStrength = (1.0f * (Mathf.Abs(distance * 0.75f))) / (Mathf.Abs(_Camera.fieldOfView));
+
+                Debug.Log("Shake strength dist: " + (Mathf.Abs(distance * 0.75f)) + ", FOV: " + (Mathf.Abs(_Camera.fieldOfView)) + ", total strength: " + shakeStrength);
 
                 // Calculate duration
                 float shakeDuration = 1f;
