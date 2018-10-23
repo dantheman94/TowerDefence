@@ -174,6 +174,9 @@ public class KeyboardInput : MonoBehaviour {
                 // Select all units
                 if (Input.GetKeyDown(KeyCode.E)) {
 
+                    // Deselect all units
+                    _PlayerAttached.DeselectAllObjects();
+
                     // Loop through & select all army objects
                     foreach (var ai in _PlayerAttached.GetArmy()) {
 
