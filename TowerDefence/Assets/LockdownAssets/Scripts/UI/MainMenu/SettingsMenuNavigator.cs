@@ -90,7 +90,6 @@ public class SettingsMenuNavigator : MonoBehaviour {
     private TextureQuality _TextureQuality;
     private MenuType _MenuType;
     private int _SchemeIndex = 0;
-    private bool _IsController = false;
 
     [Header("----------------------")]
     [Space]
@@ -101,9 +100,9 @@ public class SettingsMenuNavigator : MonoBehaviour {
     [Header("----------------------")]
     [Space]
     [Header("VOLUME REFERENCES")]
-    public float MasterVolume = 100;
-    public float MusicVolume = 100;
-    public float EffectsVolume = 100;
+    public int MasterVolume = 100;
+    public int MusicVolume = 100;
+    public int EffectsVolume = 100;
 
 
     [Header("----------------------")]
@@ -227,222 +226,252 @@ public class SettingsMenuNavigator : MonoBehaviour {
          switch(CurrentSelection)
         {
             case "MenuType":
-                if(gamepad.GetButtonDown("RB"))
+                if (InputChecker.CurrentController == "Controller")
                 {
-                    if(_MenuType < MenuType.WINDOW)
-                    _MenuType++;
-                    else
+                    if (gamepad.GetButtonDown("RB"))
                     {
-                        _MenuType = 0;
+                        if (_MenuType < MenuType.WINDOW)
+                            _MenuType++;
+                        else
+                        {
+                            _MenuType = 0;
+                        }
+                        PlayerPrefs.SetInt("MenuType", (int)_MenuType);
+                        UpdateTextAndApplySettings();
+                        PlayerPrefs.Save();
                     }
-                    PlayerPrefs.SetInt("MenuType", (int)_MenuType);
-                    UpdateTextAndApplySettings();
-                    PlayerPrefs.Save();
-                }
-                else if(gamepad.GetButtonDown("LB"))
-                {
-                    if (_MenuType > MenuType.RADIAL)
-                        _MenuType--;
-                    else
+                    else if (gamepad.GetButtonDown("LB"))
                     {
-                        _MenuType = MenuType.WINDOW; ;
+                        if (_MenuType > MenuType.RADIAL)
+                            _MenuType--;
+                        else
+                        {
+                            _MenuType = MenuType.WINDOW; ;
+                        }
+                        UpdateTextAndApplySettings();
+                        PlayerPrefs.SetInt("MenuType", (int)_MenuType);
+                        PlayerPrefs.Save();
                     }
-                    UpdateTextAndApplySettings();
-                    PlayerPrefs.SetInt("MenuType", (int)_MenuType);
-                    PlayerPrefs.Save();
                 }
                 break;
             case "WindowMode":
-                if (gamepad.GetButtonDown("RB"))
+                if (InputChecker.CurrentController == "Controller")
                 {
-                    if (_WindowMode < WindowMode.WINDOWED)
-                        _WindowMode++;
-                    else
+                    if (gamepad.GetButtonDown("RB"))
                     {
-                        _WindowMode = 0;
+                        if (_WindowMode < WindowMode.WINDOWED)
+                            _WindowMode++;
+                        else
+                        {
+                            _WindowMode = 0;
+                        }
+                        PlayerPrefs.SetInt("WindowMode", (int)_WindowMode);
+                        UpdateTextAndApplySettings();
+                        PlayerPrefs.Save();
+
                     }
-                    PlayerPrefs.SetInt("WindowMode", (int)_WindowMode);
-                    UpdateTextAndApplySettings();
-                    PlayerPrefs.Save();
-                }
-                else if (gamepad.GetButtonDown("LB"))
-                {
-                    if (_WindowMode > WindowMode.FULLSCREEN)
-                        _WindowMode--;
-                    else
+                    else if (gamepad.GetButtonDown("LB"))
                     {
-                        _WindowMode = WindowMode.WINDOWED;
+                        if (_WindowMode > WindowMode.FULLSCREEN)
+                            _WindowMode--;
+                        else
+                        {
+                            _WindowMode = WindowMode.WINDOWED;
+                        }
+                        PlayerPrefs.SetInt("WindowMode", (int)_WindowMode);
+                        UpdateTextAndApplySettings();
+                        PlayerPrefs.Save();
                     }
-                    PlayerPrefs.SetInt("WindowMode", (int)_WindowMode);
-                    UpdateTextAndApplySettings();
-                    PlayerPrefs.Save();
                 }
                 break;
             case "Resolution":
-                if(gamepad.GetButtonDown("RB"))
+                if (InputChecker.CurrentController == "Controller")
                 {
-                    PlayerPrefs.SetInt("Resolution", (int)_Resolution);
-                    PlayerPrefs.Save();
-                }
-                else if(gamepad.GetButtonDown("LB"))
-                {
-                    PlayerPrefs.SetInt("Resolution", (int)_Resolution);
-                    PlayerPrefs.Save();
+                    if (gamepad.GetButtonDown("RB"))
+                    {
+                        PlayerPrefs.SetInt("Resolution", (int)_Resolution);
+                        PlayerPrefs.Save();
+                    }
+                    else if (gamepad.GetButtonDown("LB"))
+                    {
+                        PlayerPrefs.SetInt("Resolution", (int)_Resolution);
+                        PlayerPrefs.Save();
+                    }
                 }
                 break;
             case "AspectRatio":
-                if (gamepad.GetButtonDown("RB"))
+                if (InputChecker.CurrentController == "Controller")
                 {
-                    if (_AspectRatio < AspectRatio.FIVE_FOUR)
+                    if (gamepad.GetButtonDown("RB"))
                     {
-                        _AspectRatio++;
+                        if (_AspectRatio < AspectRatio.FIVE_FOUR)
+                        {
+                            _AspectRatio++;
+                        }
+                        else
+                        {
+                            _AspectRatio = AspectRatio.SIXTEEN_NINE;
+                        }
+                        PlayerPrefs.SetInt("AspectRatio", (int)_AspectRatio);
+                        UpdateTextAndApplySettings();
+                        PlayerPrefs.Save();
                     }
-                    else
+                    else if (gamepad.GetButtonDown("LB"))
                     {
-                        _AspectRatio = AspectRatio.SIXTEEN_NINE;
+                        if (_AspectRatio > AspectRatio.SIXTEEN_NINE)
+                        {
+                            _AspectRatio--;
+                        }
+                        else
+                        {
+                            _AspectRatio = AspectRatio.FIVE_FOUR;
+                        }
+                        PlayerPrefs.SetInt("AspectRatio", (int)_AspectRatio);
+                        UpdateTextAndApplySettings();
+                        PlayerPrefs.Save();
                     }
-                    PlayerPrefs.SetInt("AspectRatio", (int)_AspectRatio);
-                    UpdateTextAndApplySettings();
-                    PlayerPrefs.Save();
-                }
-                else if(gamepad.GetButtonDown("LB"))
-                {
-                    if (_AspectRatio > AspectRatio.SIXTEEN_NINE)
-                    {
-                        _AspectRatio--;
-                    }
-                    else
-                    {
-                        _AspectRatio = AspectRatio.FIVE_FOUR;
-                    }
-                    PlayerPrefs.SetInt("AspectRatio", (int)_AspectRatio);
-                    UpdateTextAndApplySettings();
-                    PlayerPrefs.Save();
                 }
                 break;
             case "VSync":
-                if (gamepad.GetButtonDown("RB"))
+                if (InputChecker.CurrentController == "Controller")
                 {
-                   if(VSync == 0)
+                    if (gamepad.GetButtonDown("RB"))
                     {
-                        VSync = 1;
+                        if (VSync == 0)
+                        {
+                            VSync = 1;
+                        }
+                        else if (VSync == 1)
+                        {
+                            VSync = 0;
+                        }
+                        PlayerPrefs.SetInt("VSync", VSync);
+                        UpdateTextAndApplySettings();
+                        PlayerPrefs.Save();
                     }
-                   else if(VSync == 1)
+                    else if (gamepad.GetButtonDown("LB"))
                     {
-                        VSync = 0;
+                        if (VSync == 0)
+                        {
+                            VSync = 1;
+                        }
+                        else if (VSync == 1)
+                        {
+                            VSync = 0;
+                        }
+                        PlayerPrefs.SetInt("VSync", VSync);
+                        UpdateTextAndApplySettings();
+                        PlayerPrefs.Save();
                     }
-                    PlayerPrefs.SetInt("VSync", VSync);
-                       UpdateTextAndApplySettings();
-                    PlayerPrefs.Save();
-                }
-                else if (gamepad.GetButtonDown("LB"))
-                {
-                    if (VSync == 0)
-                    {
-                        VSync = 1;
-                    }
-                    else if (VSync == 1)
-                    {
-                        VSync = 0;
-                    }
-                    PlayerPrefs.SetInt("VSync", VSync);
-                    UpdateTextAndApplySettings();
-                    PlayerPrefs.Save();
                 }
                 break;
             case "TextureQuality":
-                if (gamepad.GetButtonDown("RB"))
+                if (InputChecker.CurrentController == "Controller")
                 {
-                    if (_TextureQuality < TextureQuality.ULTRA)
-                        _TextureQuality++;
-                    else
+                    if (gamepad.GetButtonDown("RB"))
                     {
-                        _TextureQuality = 0;
+                        if (_TextureQuality < TextureQuality.ULTRA)
+                            _TextureQuality++;
+                        else
+                        {
+                            _TextureQuality = 0;
+                        }
+                        PlayerPrefs.SetInt("TextureQuality", (int)_TextureQuality);
+                        UpdateTextAndApplySettings();
+                        PlayerPrefs.Save();
                     }
-                    PlayerPrefs.SetInt("TextureQuality", (int)_TextureQuality);
-                    UpdateTextAndApplySettings();
-                    PlayerPrefs.Save();
-                }
-                else if (gamepad.GetButtonDown("LB"))
-                {
-                    if (_TextureQuality > TextureQuality.VERY_LOW)
-                        _TextureQuality--;
-                    else
+                    else if (gamepad.GetButtonDown("LB"))
                     {
-                        _TextureQuality = TextureQuality.ULTRA ;
+                        if (_TextureQuality > TextureQuality.VERY_LOW)
+                            _TextureQuality--;
+                        else
+                        {
+                            _TextureQuality = TextureQuality.ULTRA;
+                        }
+                        PlayerPrefs.SetInt("TextureQuality", (int)_TextureQuality);
+                        UpdateTextAndApplySettings();
+                        PlayerPrefs.Save();
                     }
-                    PlayerPrefs.SetInt("TextureQuality", (int)_TextureQuality);
-                    UpdateTextAndApplySettings();
-                    PlayerPrefs.Save();
                 }
                 break;
             case "MasterVolume":
-                if(gamepad.GetButton("LB"))
+                if (InputChecker.CurrentController == "Controller")
                 {
-                    if(MasterVolume > 0)
+                    if (gamepad.GetButton("LB"))
                     {
-                        MasterVolume--;
+                        if (MasterVolume > 0)
+                        {
+                            MasterVolume--;
+                        }
+                        PlayerPrefs.SetFloat("MasterVolume", MasterVolume);
+                        UpdateTextAndApplySettings();
+                        PlayerPrefs.Save();
                     }
-                    PlayerPrefs.SetFloat("MasterVolume", MasterVolume);
-                       UpdateTextAndApplySettings();
-                    PlayerPrefs.Save();
-                }
-                else if(gamepad.GetButton("RB"))
-                {
-                    if (MasterVolume < 100)
+                    else if (gamepad.GetButton("RB"))
                     {
-                        MasterVolume++;
+                        if (MasterVolume < 100)
+                        {
+                            MasterVolume++;
+                        }
+                        PlayerPrefs.SetFloat("MasterVolume", MasterVolume);
+                        UpdateTextAndApplySettings();
+                        PlayerPrefs.Save();
                     }
-                    PlayerPrefs.SetFloat("MasterVolume", MasterVolume);
-                    UpdateTextAndApplySettings();
-                    PlayerPrefs.Save();
                 }
                 break;
             case "MusicVolume":
-                if (gamepad.GetButton("LB"))
+                if(InputChecker.CurrentController  == "Controller")
                 {
-                    if (MusicVolume > 0)
+                    if (gamepad.GetButton("LB"))
                     {
-                        MusicVolume--;
+                        if (MusicVolume > 0)
+                        {
+                            MusicVolume--;
+                        }
+                        PlayerPrefs.SetFloat("MusicVolume", MusicVolume);
+                        UpdateTextAndApplySettings();
+                        PlayerPrefs.Save();
                     }
-                    PlayerPrefs.SetFloat("MusicVolume", MusicVolume);
-                    UpdateTextAndApplySettings();
-                    PlayerPrefs.Save();
-                }
-                else if (gamepad.GetButton("RB"))
-                {
-                    if (MusicVolume < 100)
+                    else if (gamepad.GetButton("RB"))
                     {
-                        MusicVolume++;
+                        if (MusicVolume < 100)
+                        {
+                            MusicVolume++;
+                        }
+                        PlayerPrefs.SetFloat("MusicVolume", MusicVolume);
+                        UpdateTextAndApplySettings();
+                        PlayerPrefs.Save();
                     }
-                    PlayerPrefs.SetFloat("MusicVolume", MusicVolume);
-                    UpdateTextAndApplySettings();
-                    PlayerPrefs.Save();
                 }
+
                 break;
             case "SFXVolume":
-                if (gamepad.GetButton("LB"))
+                if(InputChecker.CurrentController == "Controller")
                 {
-                    if (EffectsVolume > 0)
+                    if (gamepad.GetButton("LB"))
                     {
-                        EffectsVolume--;
-                    }
+                        if (EffectsVolume > 0)
+                        {
+                            EffectsVolume--;
+                        }
 
-                    PlayerPrefs.SetFloat("SFXVolume", EffectsVolume);
-                    UpdateTextAndApplySettings();
-                    PlayerPrefs.Save();
-                }
-                else if (gamepad.GetButton("RB"))
-                {
-                    if (EffectsVolume < 100)
+                        PlayerPrefs.SetFloat("SFXVolume", EffectsVolume);
+                        UpdateTextAndApplySettings();
+                        PlayerPrefs.Save();
+                    }
+                    else if (gamepad.GetButton("RB"))
                     {
-                        EffectsVolume++;
-                    }
+                        if (EffectsVolume < 100)
+                        {
+                            EffectsVolume++;
+                        }
 
-                    PlayerPrefs.SetFloat("SFXVolume", EffectsVolume);
-                    UpdateTextAndApplySettings();
-                     PlayerPrefs.Save();
+                        PlayerPrefs.SetFloat("SFXVolume", EffectsVolume);
+                        UpdateTextAndApplySettings();
+                        PlayerPrefs.Save();
+                    }
                 }
+          
                 break;
             default:
                 break;
@@ -480,6 +509,16 @@ public class SettingsMenuNavigator : MonoBehaviour {
             SettingsBase.SetActive(true);
             StartCoroutine(DelayedSelect(SettingInfo.GamePadSchemes));
         }
+    }
+
+    public void IncreaseSFXToggle()
+    {
+        EffectsVolume++;
+    }
+
+    public void DecreaseSFXToggle()
+    {
+        EffectsVolume--;
     }
 
     /// <summary>
@@ -620,9 +659,8 @@ public class SettingsMenuNavigator : MonoBehaviour {
     {
         if (_MenuNavigator.SettingsMenu.AreaState == MenuNavigator.SceneAreaState.ACTIVE)
         {
-            if (gamepad.IsConnected && !_IsController)
+            if (InputChecker.CurrentController == "Controller" )
             {
-                _IsController = true;
                 SettingInfo.SelectionMenuLeft.GetComponentInChildren<Text>().text = "LT";
                 SettingInfo.SelectionMenuRight.GetComponentInChildren<Text>().text = "RT";
                 SettingInfo.TextureQualityLeft.GetComponentInChildren<Text>().text = "LT";
@@ -636,9 +674,8 @@ public class SettingsMenuNavigator : MonoBehaviour {
                 SettingInfo.AspectRatioLeft.GetComponentInChildren<Text>().text = "LT";
                 SettingInfo.AspectRatioRight.GetComponentInChildren<Text>().text = "RT";
             }
-            else if(!gamepad.IsConnected)
+            else if(InputChecker.CurrentController == "Keyboard")
             {
-                _IsController = false;
                 SettingInfo.SelectionMenuLeft.GetComponentInChildren<Text>().text = "<";
                 SettingInfo.SelectionMenuRight.GetComponentInChildren<Text>().text = ">";
                 SettingInfo.TextureQualityLeft.GetComponentInChildren<Text>().text = "<";
@@ -661,12 +698,24 @@ public class SettingsMenuNavigator : MonoBehaviour {
         /// </summary>
     private void NavigateSettingsMenu()
     {
-        MasterVolSlider.value = MasterVolume;
-        MusicVolSlider.value = MusicVolume;
-        EffectVolSlider.value = EffectsVolume;
-        MasterVolSlider.GetComponentInChildren<Text>().text = MasterVolume.ToString();
-        MusicVolSlider.GetComponentInChildren<Text>().text = MusicVolume.ToString();
-        EffectVolSlider.GetComponentInChildren<Text>().text = EffectsVolume.ToString();
+        if(InputChecker.CurrentController == "Controller")
+        {
+            MasterVolSlider.value = MasterVolume;
+            MusicVolSlider.value = MusicVolume;
+            EffectVolSlider.value = EffectsVolume;
+
+            MasterVolSlider.GetComponentInChildren<Text>().text = MasterVolume.ToString();
+            MusicVolSlider.GetComponentInChildren<Text>().text = MusicVolume.ToString();
+            EffectVolSlider.GetComponentInChildren<Text>().text = EffectsVolume.ToString();
+        }
+        else if(InputChecker.CurrentController == "Keyboard")
+        {
+            MasterVolume = (int)MasterVolSlider.value;
+            MasterVolSlider.GetComponentInChildren<Text>().text = MasterVolume.ToString();
+            MusicVolSlider.GetComponentInChildren<Text>().text = MusicVolume.ToString();
+            EffectVolSlider.GetComponentInChildren<Text>().text = EffectsVolume.ToString();
+        }
+
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

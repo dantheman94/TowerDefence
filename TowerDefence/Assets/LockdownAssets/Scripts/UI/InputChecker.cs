@@ -11,7 +11,8 @@ public class InputChecker : MonoBehaviour {
 
 
     public Button ReferenceButton;
-    
+    private MenuNavigator Navigator;
+
 
     // VARIABLES
     //////////////////////////
@@ -22,7 +23,7 @@ public class InputChecker : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        
+        Navigator = GetComponent<MenuNavigator>();
         _Gamepad = GamepadManager.Instance.GetGamepad(1);
       if(_Gamepad.IsConnected)
         {
@@ -45,9 +46,15 @@ public class InputChecker : MonoBehaviour {
                 {
                     CurrentController = "Controller";
                     _MousePosition = Input.mousePosition;
+
+                    if(Navigator.SettingsMenu.WholeAreaObject.activeInHierarchy)
+                    {
+                       StartCoroutine(DelayedSelectButton(Navigator.SettingsMenu.StartButton));
+                    }
+                    else
                     if(ReferenceButton != null)
-                    ReferenceButton.Select();
-                    
+                    StartCoroutine(DelayedSelectButton(ReferenceButton));
+                   
                 }
             }
         }
@@ -65,4 +72,10 @@ public class InputChecker : MonoBehaviour {
 	void Update () {
         GetActiveInputDevice();
 	}
+
+    IEnumerator DelayedSelectButton(Button a_button)
+    {
+        yield return new WaitForSeconds(0.05f);
+        a_button.Select();
+    }
 }
