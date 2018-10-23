@@ -46,7 +46,7 @@ public class WaveManager : MonoBehaviour {
     [Space]
     public UI_WaveNotification WaveNotificationWidget = null;
     public UI_WaveComplete WaveCompleteWidget = null;
-    public UI_CoreDamagedNotification CoreDamagedWidget = null;
+    public GameObject CoreDamagedWidget = null;
 
     [Space]
     [Header("-----------------------------------")]
