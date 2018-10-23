@@ -46,6 +46,9 @@ public class RecycleBuilding : Abstraction {
         // Valid building check
         if (_BuildingToRecycle != null) {
 
+            // Hide the selection wheel
+            GameManager.Instance.SelectionWheel.SetActive(false);
+
             // Show the confirm screen popup
             GameObject confirmScreen = GameManager.Instance.ConfirmRecycleScreen;
             if (confirmScreen != null) {
