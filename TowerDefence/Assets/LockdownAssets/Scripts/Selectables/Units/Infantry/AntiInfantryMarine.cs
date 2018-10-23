@@ -27,7 +27,9 @@ public class AntiInfantryMarine : Humanoid {
     public float ExplodeOnDeathChance = 0.5f;
     [Space]
     public ParticleSystem CannisterLeakStencil = null;
+    public Transform CannisterLeakTransform = null;
     public ParticleSystem ExplosionEffectStencil = null;
+    public Transform ExplosionEffectTransform = null;
     [Space]
     public float CannisterLeakTime = 2f;
     public bool ExplosionCanDamageUnits = false;
@@ -56,11 +58,13 @@ public class AntiInfantryMarine : Humanoid {
     public override void OnDeath(WorldObject instigator) {
 
         // Determine whether the character should explode or not
-        float xplode = Random.Range(0, 1);
-        if (xplode > ExplodeOnDeathChance) {
+        float xplode = Random.Range(0f, 1f);
+        if (xplode <= ExplodeOnDeathChance) {
+
+            _Agent.enabled = false;
 
             // Cannister leak then explode
-            _CannisterLeakEffect = ObjectPooling.Spawn(CannisterLeakStencil.gameObject, transform.position, Quaternion.identity).GetComponent<ParticleSystem>();
+            _CannisterLeakEffect = ObjectPooling.Spawn(CannisterLeakStencil.gameObject, CannisterLeakTransform.position, CannisterLeakTransform.rotation).GetComponent<ParticleSystem>();
             _CannisterLeakEffect.Play();
 
             StartCoroutine(DelayedExplosion());
@@ -109,7 +113,7 @@ public class AntiInfantryMarine : Humanoid {
             // Clamping health
             _HitPoints = 0;
             _Health = 0f;
-            
+
             // Camera shake if neccessary
             if (CameraShakeOnDeath && _Player != null) { _Player.CameraRTS.ExplosionShake(transform.position, DeathExplosionRadius); }
 
@@ -139,12 +143,24 @@ public class AntiInfantryMarine : Humanoid {
     private IEnumerator DelayedExplosion() {
 
         // Delay
-        yield return new WaitForSeconds(CannisterLeakTime);
+        float normalizedTime = 0f;
+        while (normalizedTime <= 1f) {
+
+            normalizedTime += Time.deltaTime / CannisterLeakTime;
+            yield return null;
+        }
 
         // Stop leaking & explode
         if (_CannisterLeakEffect != null) { _CannisterLeakEffect.Stop(); }
-        ExplosionEffectStencil = ObjectPooling.Spawn(ExplosionEffectStencil.gameObject, transform.position, Quaternion.identity).GetComponent<ParticleSystem>();
+        ExplosionEffectStencil = ObjectPooling.Spawn(ExplosionEffectStencil.gameObject, ExplosionEffectTransform.position, ExplosionEffectTransform.rotation).GetComponent<ParticleSystem>();
         ExplosionEffectStencil.Play();
+
+        // Camera shake
+        _Player.CameraRTS.ExplosionShake(ExplosionEffectTransform.position, ExplosionRadius);
+
+        // Hide/despawn the unit
+        _ObjectState = WorldObjectStates.Default;
+        ObjectPooling.Despawn(gameObject);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
