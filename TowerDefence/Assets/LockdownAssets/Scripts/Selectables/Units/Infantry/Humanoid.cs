@@ -57,7 +57,7 @@ public class Humanoid : Vehicle {
     protected override void Init() {
         base.Init();
 
-        if (_Agent != null) { _Agent.acceleration = 10000; }
+        if (_Agent != null) { _Agent.acceleration = 1000; }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
