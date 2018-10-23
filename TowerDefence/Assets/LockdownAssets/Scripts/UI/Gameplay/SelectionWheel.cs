@@ -430,11 +430,13 @@ public class SelectionWheel : MonoBehaviour {
             // Find matching slider
             SelectionWheelUnitRef unitRef = _WheelButtons[i].GetComponent<SelectionWheelUnitRef>();
             if (unitRef.AbstractRef != null) {
+
                 if (unitRef.AbstractRef.GetType() == abs.GetType()) {
 
                     // Match found - update the slider attached to this button
                     unitRef.SetCurrentBuildProgress(abs.GetBuildPercentage());
                 }
+                else { unitRef.SetCurrentBuildProgress(0f); }
             }
         }
     }
