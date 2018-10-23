@@ -146,7 +146,9 @@ public class Spire : Building {
         base.Damage(damage, instigator);
 
         // Notify the player
-        WaveManager.Instance.CoreDamagedWidget.ShowNotification();
+        //  WaveManager.Instance.CoreDamagedWidget.ShowNotification();
+        WaveManager.Instance.CoreDamagedWidget.SetActive(true);
+        Core._NoteTimer = 3.0f;
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
