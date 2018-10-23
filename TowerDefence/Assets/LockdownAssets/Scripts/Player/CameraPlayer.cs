@@ -7,8 +7,8 @@ using TowerDefence;
 //
 //  Created by: Daniel Marton
 //
-//  Last edited by: Angus Secomb
-//  Last edited on: 1/10/2018
+//  Last edited by: Joshua Peake
+//  Last edited on: 24/10/2018
 //
 //******************************
 
@@ -163,14 +163,14 @@ public class CameraPlayer : MonoBehaviour {
             //Debug.Log("FOV " + _Camera.fieldOfView);
         }
 
-        if (Input.GetKeyDown(KeyCode.P) == true)
-        {
-            float rad = 20.0f;
-            //SoundManager.Instance.PlaySound("Audio/pfb_Battle", 0.9f, 1.1f);
-            ExplosionShake(transform.position, rad);
+        //if (Input.GetKeyDown(KeyCode.P) == true)
+        //{
+        //    float rad = 20.0f;
+        //    //SoundManager.Instance.PlaySound("Audio/pfb_Battle", 0.9f, 1.1f);
+        //    ExplosionShake(transform.position, rad);
 
-            Debug.Log("Button tapped.");
-        }
+        //    Debug.Log("Button tapped.");
+        //}
 
     }
 
@@ -257,7 +257,7 @@ public class CameraPlayer : MonoBehaviour {
                 // FOV value becomes larger as you zoom out so we must use division here
                 float shakeStrength = (1.0f * (Mathf.Abs(distance * 0.75f))) / (Mathf.Abs(_Camera.fieldOfView));
 
-                Debug.Log("Shake strength dist: " + (Mathf.Abs(distance * 0.75f)) + ", FOV: " + (Mathf.Abs(_Camera.fieldOfView)) + ", total strength: " + shakeStrength);
+                //Debug.Log("Shake strength dist: " + (Mathf.Abs(distance * 0.75f)) + ", FOV: " + (Mathf.Abs(_Camera.fieldOfView)) + ", total strength: " + shakeStrength);
 
                 // Calculate duration
                 float shakeDuration = 1f;
