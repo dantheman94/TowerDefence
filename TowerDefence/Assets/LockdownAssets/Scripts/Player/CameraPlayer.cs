@@ -56,9 +56,10 @@ public class CameraPlayer : MonoBehaviour {
     [Header("-----------------------------------")]
     [Header(" CAMERA SHAKE")]
     [Space]
-    public float ShakeTrauma;
-    public float ShakeThreshold;
-    public bool IsShaking = false;
+    public bool EnableScreenShake = true;
+    [Space]
+    public float ShakeMagnitude;
+    public float ShakeMaxRange;
 
     //******************************************************************************************************************************
     //
@@ -206,9 +207,7 @@ public class CameraPlayer : MonoBehaviour {
 
         // Begin shaking
         while (_ElapsedTime < time) {
-
-            IsShaking = true;
-
+            
             // Set offset values
             offsetX = ShakeOffsetX * ((Random.value - 0.5f) * Mathf.PerlinNoise(Mathf.Ceil(Random.Range(10000, 99999)), time)) * strength;
             offsetY = ShakeOffsetY * ((Random.value - 0.5f) * Mathf.PerlinNoise(Mathf.Ceil(Random.Range(10000, 99999)), time)) * strength;
@@ -229,7 +228,6 @@ public class CameraPlayer : MonoBehaviour {
 
         // Insert Lerp loop here back to origin.
         transform.rotation = _InitialCameraRotation;
-        IsShaking = false;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -238,22 +236,26 @@ public class CameraPlayer : MonoBehaviour {
     /// 
     /// </summary>
     public void ExplosionShake(Vector3 location, float radius) {
-        
-        if (_Camera == null) { _Camera = GetComponent<Camera>(); }
 
-        // Get the distance between the explosion and the camera
-        float distance = Vector3.Distance(location, transform.position);
+        if (EnableScreenShake) {
 
-        // If the distance is within the threshold, shake
-        if (distance < ShakeThreshold) {
+            if (_Camera == null) { _Camera = GetComponent<Camera>(); }
 
-            // Calculate strenth
-            float shakeStrength = (1.0f * (Mathf.Abs(distance * 0.1f))) + (Mathf.Abs(_Camera.fieldOfView * 0.1f));
-            // Calculate duration
-            float shakeDuration = 1f;
+            // Get the distance between the explosion and the camera
+            float distance = Vector3.Distance(location, transform.position);
 
-            // Start shake
-            StartCoroutine(CameraShake(shakeStrength * ShakeTrauma, shakeDuration));
+            // If the distance is within the threshold, shake
+            if (distance < ShakeMaxRange) {
+
+                // Calculate strenth
+                float shakeStrength = (1.0f * (Mathf.Abs(distance * 0.1f))) + (Mathf.Abs(_Camera.fieldOfView * 0.1f));
+
+                // Calculate duration
+                float shakeDuration = 1f;
+
+                // Start shake
+                StartCoroutine(CameraShake(shakeStrength * ShakeMagnitude, shakeDuration));
+            }
         }
     }
 
