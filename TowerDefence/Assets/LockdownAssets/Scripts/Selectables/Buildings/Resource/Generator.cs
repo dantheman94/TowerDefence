@@ -27,7 +27,7 @@ public class Generator : Building {
     public bool UpgradedGenerator = false;
     public int ResourcesGivenWhenBuilt = 100;
     public float GeneratorTickDelay = 1f;
-
+    
     //******************************************************************************************************************************
     //
     //      VARIABLES

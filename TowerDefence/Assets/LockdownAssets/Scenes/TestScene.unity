@@ -797,7 +797,7 @@ Prefab:
     - target: {fileID: 224681309343863442, guid: 49a0c17c37794a04a8b327d477541f7e,
         type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 224681309343863442, guid: 49a0c17c37794a04a8b327d477541f7e,
         type: 2}
@@ -854,10 +854,25 @@ Prefab:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114346040598991826, guid: 49a0c17c37794a04a8b327d477541f7e,
+    - target: {fileID: 224885336909770480, guid: 49a0c17c37794a04a8b327d477541f7e,
         type: 2}
-      propertyPath: m_Text
-      value: 1,000,000
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224885336909770480, guid: 49a0c17c37794a04a8b327d477541f7e,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224868373916294946, guid: 49a0c17c37794a04a8b327d477541f7e,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.000030517578
+      objectReference: {fileID: 0}
+    - target: {fileID: 224868373916294946, guid: 49a0c17c37794a04a8b327d477541f7e,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 49a0c17c37794a04a8b327d477541f7e, type: 2}
@@ -3872,10 +3887,10 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1801397699}
-  - {fileID: 1624854794}
   - {fileID: 123705627}
   - {fileID: 1913014462}
   - {fileID: 1162908329}
+  - {fileID: 1624854794}
   m_Father: {fileID: 1445140341}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7782,7 +7797,7 @@ Prefab:
     - target: {fileID: 224971926263024554, guid: 91dff5fca12b2534f8a67633eb885f52,
         type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224971926263024554, guid: 91dff5fca12b2534f8a67633eb885f52,
         type: 2}
@@ -17246,7 +17261,7 @@ Transform:
   m_PrefabInternal: {fileID: 1690288183}
 --- !u!114 &1691470445 stripped
 MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114346040598991826, guid: 49a0c17c37794a04a8b327d477541f7e,
+  m_PrefabParentObject: {fileID: 114149805422307256, guid: 49a0c17c37794a04a8b327d477541f7e,
     type: 2}
   m_PrefabInternal: {fileID: 111416975}
   m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
@@ -17674,6 +17689,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114841784551271276, guid: c4c393ebdeccc4a49a63075ada35ffff,
         type: 2}
+      propertyPath: _Level
+      value: 
+      objectReference: {fileID: 561392075}
+    - target: {fileID: 114841784551271276, guid: c4c393ebdeccc4a49a63075ada35ffff,
+        type: 2}
       propertyPath: FlyingNavMesh
       value: 
       objectReference: {fileID: 1220492139}
@@ -17727,35 +17747,6 @@ Prefab:
       propertyPath: AbilityWheel
       value: 
       objectReference: {fileID: 538289430}
-    - target: {fileID: 1162486525421322, guid: c4c393ebdeccc4a49a63075ada35ffff, type: 2}
-      propertyPath: m_Name
-      value: Game Manager
-      objectReference: {fileID: 0}
-    - target: {fileID: 114841784551271276, guid: c4c393ebdeccc4a49a63075ada35ffff,
-        type: 2}
-      propertyPath: GameOverWidget
-      value: 
-      objectReference: {fileID: 1179432793}
-    - target: {fileID: 114841784551271276, guid: c4c393ebdeccc4a49a63075ada35ffff,
-        type: 2}
-      propertyPath: PauseWidget
-      value: 
-      objectReference: {fileID: 1680365796}
-    - target: {fileID: 114841784551271276, guid: c4c393ebdeccc4a49a63075ada35ffff,
-        type: 2}
-      propertyPath: BuildingQueueHUD
-      value: 
-      objectReference: {fileID: 1780502549}
-    - target: {fileID: 114841784551271276, guid: c4c393ebdeccc4a49a63075ada35ffff,
-        type: 2}
-      propertyPath: WaveStatsHUD
-      value: 
-      objectReference: {fileID: 1624854796}
-    - target: {fileID: 114841784551271276, guid: c4c393ebdeccc4a49a63075ada35ffff,
-        type: 2}
-      propertyPath: PlatoonUnitsHUD
-      value: 
-      objectReference: {fileID: 2063525859}
     - target: {fileID: 114841784551271276, guid: c4c393ebdeccc4a49a63075ada35ffff,
         type: 2}
       propertyPath: SelectedUnitsHUD
@@ -17763,24 +17754,32 @@ Prefab:
       objectReference: {fileID: 641742938}
     - target: {fileID: 114841784551271276, guid: c4c393ebdeccc4a49a63075ada35ffff,
         type: 2}
-      propertyPath: _Level
+      propertyPath: PlatoonUnitsHUD
       value: 
-      objectReference: {fileID: 561392075}
+      objectReference: {fileID: 2063525859}
     - target: {fileID: 114841784551271276, guid: c4c393ebdeccc4a49a63075ada35ffff,
         type: 2}
-      propertyPath: StartingMaxPopulation
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 114841784551271276, guid: c4c393ebdeccc4a49a63075ada35ffff,
-        type: 2}
-      propertyPath: TurretVariantWidget
+      propertyPath: WaveStatsHUD
       value: 
-      objectReference: {fileID: 114811891318023478, guid: 931de14b96a08904fbfb061a622d28d8,
-        type: 2}
+      objectReference: {fileID: 1624854796}
     - target: {fileID: 114841784551271276, guid: c4c393ebdeccc4a49a63075ada35ffff,
         type: 2}
-      propertyPath: StartingPowerCount
-      value: 4500
+      propertyPath: BuildingQueueHUD
+      value: 
+      objectReference: {fileID: 1780502549}
+    - target: {fileID: 114841784551271276, guid: c4c393ebdeccc4a49a63075ada35ffff,
+        type: 2}
+      propertyPath: PauseWidget
+      value: 
+      objectReference: {fileID: 1680365796}
+    - target: {fileID: 114841784551271276, guid: c4c393ebdeccc4a49a63075ada35ffff,
+        type: 2}
+      propertyPath: GameOverWidget
+      value: 
+      objectReference: {fileID: 1179432793}
+    - target: {fileID: 1162486525421322, guid: c4c393ebdeccc4a49a63075ada35ffff, type: 2}
+      propertyPath: m_Name
+      value: Game Manager
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c4c393ebdeccc4a49a63075ada35ffff, type: 2}
@@ -18998,7 +18997,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1249226063159236, guid: 41fb66ef0c855d04da0efb8cb2a73a9b, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 41fb66ef0c855d04da0efb8cb2a73a9b, type: 2}
@@ -20015,7 +20014,7 @@ Prefab:
     - target: {fileID: 224863207103936610, guid: 1cadb87121c89074daf4e45d8efe4079,
         type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 224863207103936610, guid: 1cadb87121c89074daf4e45d8efe4079,
         type: 2}
@@ -21070,6 +21069,11 @@ Prefab:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 224698385710110020, guid: ecae3f809dcdeb041bd9f6047c85954f,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ecae3f809dcdeb041bd9f6047c85954f, type: 2}
   m_IsPrefabParent: 0
@@ -21659,7 +21663,7 @@ Prefab:
     - target: {fileID: 224526018696008068, guid: b0a0f64e9db7df2448ddf8123fa2c9a9,
         type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 224526018696008068, guid: b0a0f64e9db7df2448ddf8123fa2c9a9,
         type: 2}

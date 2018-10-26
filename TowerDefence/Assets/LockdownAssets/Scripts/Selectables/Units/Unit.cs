@@ -71,6 +71,13 @@ public class Unit : WorldObject {
     [Space]
     public float[] VetDamages = new float[VeterancyLength + 1] { 1f, 1.15f, 1.3f, 1.45f };
 
+    [Space]
+    [Header("-----------------------------------")]
+    [Header(" SCORE PROPERTIES")]
+    [Space]
+    public int ScoreGrantedEnemy = 100;
+    public int ScoreDeductedFriendly = 100;
+
     //******************************************************************************************************************************
     //
     //      VARIABLES
@@ -678,10 +685,32 @@ public class Unit : WorldObject {
 
         // If were in the wave manager's enemies array - remove it
         if (WaveManager.Instance.GetCurrentWaveEnemies().Contains(this)) { WaveManager.Instance.GetCurrentWaveEnemies().Remove(this); }
-        if (Team == GameManager.Team.Attacking) { GameManager.Instance.WaveStatsHUD.DeductLifeFromCurrentPopulation(); }
+        if (Team == GameManager.Team.Attacking) {
+
+            GameManager.Instance.WaveStatsHUD.DeductLifeFromCurrentPopulation();
+
+            // Add stat to player
+            if (_Player == null) { _Player = GameManager.Instance.Players[0]; }
+            if (_Player != null) {
+
+                _Player.AddToScore(ScoreGrantedEnemy, Player.ScoreType.EnemyKilled);
+                _Player.AddUnitsKilled();
+            }
+        }
 
         // Remove from player's population counter
-        else if (Team == GameManager.Team.Defending) { _Player.RemoveFromArmy(this); }
+        else if (Team == GameManager.Team.Defending) {
+
+            _Player.RemoveFromArmy(this);
+            
+            // Add stat to player
+            if (_Player == null) { _Player = GameManager.Instance.Players[0]; }
+            if (_Player != null) {
+
+                _Player.SubstractFromScore(ScoreDeductedFriendly, Player.ScoreType.EnemyKilled);
+                _Player.AddUnitsLost();
+            }
+        }
 
         // Destroy waypoint
         if (_SeekWaypoint != null) { ObjectPooling.Despawn(_SeekWaypoint.gameObject); }

@@ -55,7 +55,6 @@ public class Player : MonoBehaviour {
     public string Outcome;
     public string Name = "Player";
     
-
     // Input
     public enum InputController { Keyboard, PSGamepad, XboxGamepad }
     public KeyboardInput _KeyboardInputManager { get; private set; }
@@ -83,7 +82,9 @@ public class Player : MonoBehaviour {
     private int _EnemiesKilled = 0;
     private int _UnitsProduced = 0;
     private int _UnitsLost = 0;
-
+    private int _BuildingBuilt = 0;
+    private int _BuildingsDestroyed = 0;
+    public enum ScoreType { EnemyKilled, BaseDestroyed, BuildingDestroyed, SpireDestroyed, UpgradedBase, BuildingBuilt}
     
     // Army
     private List<Base> _Bases;
@@ -321,12 +322,15 @@ public class Player : MonoBehaviour {
     //  Adds to the player's score & updates the HUD text component.
     /// </summary>
     /// <param name="add"></param>
-    public void AddToScore(int add) {
+    public void AddToScore(int add, ScoreType scoreType) {
 
         _Score += add;
 
         // Update text in HUD
         if (_HUD.PlayerScoreText != null) { _HUD.PlayerScoreText.text = _Score.ToString(); }
+
+        // Notification in the match feed UI
+        GameManager.Instance.WaveStatsHUD.ScoreMessage(true, add, scoreType);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -335,13 +339,16 @@ public class Player : MonoBehaviour {
     //  Subtracts from the player's score & updates the HUD text component.
     /// </summary>
     /// <param name="subtract"></param>
-    public void SubstractFromScore(int subtract) {
+    public void SubstractFromScore(int subtract, ScoreType scoreType) {
 
         _Score -= subtract;
         if (_Score < 0) { _Score = 0; }
 
         // Update text in HUD
         if (_HUD.PlayerScoreText != null) { _HUD.PlayerScoreText.text = _Score.ToString(); }
+
+        // Notification in the match feed UI
+        GameManager.Instance.WaveStatsHUD.ScoreMessage(false, subtract, scoreType);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -364,6 +371,20 @@ public class Player : MonoBehaviour {
     //  Adds to the internal counter for the friendly units that are killed (leaderboards stats).
     /// </summary>
     public void AddUnitsLost() { _UnitsLost += 1; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Adds to the internal counter for the enemies that are killed (leaderboards stats).
+    /// </summary>
+    public void AddBuildingsBuilt() { _BuildingBuilt += 1; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Adds to the internal counter for the enemies that are killed (leaderboards stats).
+    /// </summary>
+    public void AddBuildingsDestroyed() { _BuildingsDestroyed += 1; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

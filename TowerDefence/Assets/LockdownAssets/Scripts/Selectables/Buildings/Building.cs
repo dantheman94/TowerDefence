@@ -38,6 +38,12 @@ public class Building : WorldObject {
     [Space]
     public List<Abstraction> Selectables;
 
+    [Space]
+    [Header("-----------------------------------")]
+    [Header(" SCORE PROPERTIES")]
+    [Space]
+    public int ScoreGrantedWhenDestroyed = 100;
+    public int ScoreGrantedWhenBuilt = 100;
 
     //******************************************************************************************************************************
     //
@@ -381,6 +387,23 @@ public class Building : WorldObject {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
+    //  Called when the object's state switches to active (Only once)
+    /// </summary>
+    protected override void OnBuilt() {
+        base.OnBuilt();
+
+        // Add stat to player
+        if (_Player == null) { _Player = GameManager.Instance.Players[0]; }
+        if (_Player != null) {
+
+            _Player.AddToScore(ScoreGrantedWhenBuilt, Player.ScoreType.BuildingBuilt);
+            _Player.AddBuildingsBuilt();
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
     //  Creates the building's personal queue widget 
     //  (the widget will not display anything until there are items in the queue.
     /// </summary>
@@ -488,6 +511,43 @@ public class Building : WorldObject {
 
             // Detach from slot
             AttachedBuildingSlot.SetBuildingOnSlot(null);
+        }
+
+        // Add stat to player
+        if (_Player == null) { _Player = GameManager.Instance.Players[0]; }
+        if (_Player != null) {
+
+            // Enemy building
+            if (Team == GameManager.Team.Attacking) {
+
+                if (this is Base) {
+
+                    _Player.AddToScore(ScoreGrantedWhenDestroyed, Player.ScoreType.BaseDestroyed);
+                }
+                else {
+
+                    _Player.AddToScore(ScoreGrantedWhenDestroyed, Player.ScoreType.BuildingDestroyed);
+                }
+                _Player.AddBuildingsDestroyed();
+            }
+
+            // Friendly building
+            else if (Team == GameManager.Team.Defending) {
+
+                if (this is Base) {
+
+                    _Player.SubstractFromScore(ScoreGrantedWhenDestroyed, Player.ScoreType.BaseDestroyed);
+                }
+                else if (this is Spire) {
+
+                    _Player.SubstractFromScore(ScoreGrantedWhenDestroyed, Player.ScoreType.SpireDestroyed);
+                }
+                else {
+
+                    _Player.SubstractFromScore(ScoreGrantedWhenDestroyed, Player.ScoreType.BuildingDestroyed);
+                }
+            }
+
         }
     }
 
