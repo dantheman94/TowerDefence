@@ -72,7 +72,13 @@ public class WaveManager : MonoBehaviour {
     public int StartingWaveTimer = 30;
     public int TimeAddedPerWave = 5;
     public int TimeTillNextWaveAfterClear = 10;
-    
+
+    [Space]
+    [Header("-----------------------------------")]
+    [Header(" SCORE PROPERTIES")]
+    [Space]
+    public int ScoreGrantedOnWaveDefeated = 100;
+
     [Space]
     [Header("-----------------------------------")]
     [Header(" WAVE TYPES")]
@@ -281,7 +287,7 @@ public class WaveManager : MonoBehaviour {
             // Wave has been cleared out?
             if (_CurrentWaveEnemies.Count == 0) {
 
-                //
+                // Wave complete widget
                 WaveCompleteWidget.gameObject.SetActive(true);
                 WaveCompleteWidget.OnWaveComplete();
 

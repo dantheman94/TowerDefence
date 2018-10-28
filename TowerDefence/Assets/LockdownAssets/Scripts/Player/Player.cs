@@ -84,7 +84,7 @@ public class Player : MonoBehaviour {
     private int _UnitsLost = 0;
     private int _BuildingBuilt = 0;
     private int _BuildingsDestroyed = 0;
-    public enum ScoreType { EnemyKilled, BaseDestroyed, BuildingDestroyed, SpireDestroyed, UpgradedBase, BuildingBuilt}
+    public enum ScoreType { EnemyKilled, BaseDestroyed, BuildingDestroyed, SpireDestroyed, UpgradedBase, BuildingBuilt, WaveDefeated }
     
     // Army
     private List<Base> _Bases;
@@ -385,7 +385,7 @@ public class Player : MonoBehaviour {
     //  Adds to the internal counter for the enemies that are killed (leaderboards stats).
     /// </summary>
     public void AddBuildingsDestroyed() { _BuildingsDestroyed += 1; }
-
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>

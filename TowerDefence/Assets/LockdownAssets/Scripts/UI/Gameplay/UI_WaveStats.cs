@@ -242,6 +242,11 @@ public class UI_WaveStats : MonoBehaviour {
 
                 sType = "Building Built";
                 break;
+
+            case Player.ScoreType.WaveDefeated:
+
+                sType = "Wave Defeated";
+                break;
                 
             default: break;
         }

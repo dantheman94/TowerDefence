@@ -85,6 +85,9 @@ public class UI_WaveComplete : MonoBehaviour {
         ResourceManager rm = player.gameObject.GetComponent<ResourceManager>();
         StartCoroutine(rm.ResourceBoost(ResourceBoostTime, ResourceBoostAdditiveSupply, ResourceBoostAdditivePower));
 
+        // Update stat
+        player.AddToScore(WaveManager.Instance.ScoreGrantedOnWaveDefeated, Player.ScoreType.WaveDefeated);
+
         // Hide widget after boost is complete
         StartCoroutine(DelayedWidgetHide(ResourceBoostTime));
     }
