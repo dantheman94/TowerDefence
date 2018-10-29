@@ -56,7 +56,7 @@ public class SettingsMenuNavigator : MonoBehaviour {
 
     public enum TextureQuality
     {
-        VERY_LOW, LOW, MEDIUM, HIGH, VERY_HIGH, ULTRA
+        LOW, MEDIUM, HIGH,
     }
 
     public enum WindowMode
@@ -66,7 +66,8 @@ public class SettingsMenuNavigator : MonoBehaviour {
 
     public enum Resolution
     {
-        NINETEEN_TWENTY_BY_TEN_EIGHTY,
+        NINETEEN_TWENTY_BY_TEN_EIGHTY, TWELVE_EIGHTY_BY_SEVEN_TWENTY, THIRTEEN_SIX_SIX_BY_SEVEN_SIX_EIGHT, SIXTEEN_HUNDRED_BY_NINE_HUNDRED,
+        TWENTY_FIVE_SIXTY_BY_FOURTEEN_FORTY, THIRTY_EIGHT_FOURTY_BY_TWENTY_ONE_SIXTY
     }
 
     public enum AspectRatio
@@ -289,11 +290,27 @@ public class SettingsMenuNavigator : MonoBehaviour {
                 {
                     if (gamepad.GetButtonDown("RB"))
                     {
+                        if (_Resolution < Resolution.THIRTY_EIGHT_FOURTY_BY_TWENTY_ONE_SIXTY)
+                        {
+                            _Resolution++;
+                        }
+                        else
+                        {
+                            _Resolution = 0;
+                        }
                         PlayerPrefs.SetInt("Resolution", (int)_Resolution);
                         PlayerPrefs.Save();
                     }
                     else if (gamepad.GetButtonDown("LB"))
                     {
+                        if (_Resolution > Resolution.NINETEEN_TWENTY_BY_TEN_EIGHTY)
+                        {
+                            _Resolution--;
+                        }
+                        else
+                        {
+                            _Resolution = Resolution.THIRTY_EIGHT_FOURTY_BY_TWENTY_ONE_SIXTY;
+                        }
                         PlayerPrefs.SetInt("Resolution", (int)_Resolution);
                         PlayerPrefs.Save();
                     }
@@ -370,7 +387,7 @@ public class SettingsMenuNavigator : MonoBehaviour {
                 {
                     if (gamepad.GetButtonDown("RB"))
                     {
-                        if (_TextureQuality < TextureQuality.ULTRA)
+                        if (_TextureQuality < TextureQuality.HIGH)
                             _TextureQuality++;
                         else
                         {
@@ -382,11 +399,11 @@ public class SettingsMenuNavigator : MonoBehaviour {
                     }
                     else if (gamepad.GetButtonDown("LB"))
                     {
-                        if (_TextureQuality > TextureQuality.VERY_LOW)
+                        if (_TextureQuality > TextureQuality.LOW)
                             _TextureQuality--;
                         else
                         {
-                            _TextureQuality = TextureQuality.ULTRA;
+                            _TextureQuality = TextureQuality.HIGH;
                         }
                         PlayerPrefs.SetInt("TextureQuality", (int)_TextureQuality);
                         UpdateTextAndApplySettings();
@@ -538,6 +555,17 @@ public class SettingsMenuNavigator : MonoBehaviour {
                 PlayerPrefs.Save();
                 break;
             case "Resolution":
+                if (_Resolution < Resolution.THIRTY_EIGHT_FOURTY_BY_TWENTY_ONE_SIXTY)
+                {
+                    _Resolution++;
+                }
+                else
+                {
+                    _Resolution = 0;
+                }
+                PlayerPrefs.SetInt("Resolution", (int)_Resolution);
+                UpdateTextAndApplySettings();
+                PlayerPrefs.Save();
                 break;
             case "Aspect Ratio":
                 if (_AspectRatio < AspectRatio.FIVE_FOUR)
@@ -566,7 +594,7 @@ public class SettingsMenuNavigator : MonoBehaviour {
                 PlayerPrefs.Save();
                 break;
             case "TextureQ":
-                if (_TextureQuality < TextureQuality.ULTRA)
+                if (_TextureQuality < TextureQuality.HIGH)
                     _TextureQuality++;
                 else
                 {
@@ -606,6 +634,17 @@ public class SettingsMenuNavigator : MonoBehaviour {
                 PlayerPrefs.Save();
                 break;
             case "Resolution":
+                if (_Resolution > Resolution.NINETEEN_TWENTY_BY_TEN_EIGHTY)
+                {
+                    _Resolution--;
+                }
+                else
+                {
+                    _Resolution = Resolution.THIRTY_EIGHT_FOURTY_BY_TWENTY_ONE_SIXTY;
+                }
+                PlayerPrefs.SetInt("Resolution", (int)_Resolution);
+                UpdateTextAndApplySettings();
+                PlayerPrefs.Save();
                 break;
             case "Aspect Ratio":
                 if (_AspectRatio > AspectRatio.SIXTEEN_NINE)
@@ -634,11 +673,11 @@ public class SettingsMenuNavigator : MonoBehaviour {
                 PlayerPrefs.Save();
                 break;
             case "TextureQ":
-                if (_TextureQuality > TextureQuality.VERY_LOW)
+                if (_TextureQuality > TextureQuality.LOW)
                     _TextureQuality--;
                 else
                 {
-                    _TextureQuality = TextureQuality.ULTRA;
+                    _TextureQuality = TextureQuality.HIGH;
                 }
                 PlayerPrefs.SetInt("TextureQuality", (int)_TextureQuality);
                 UpdateTextAndApplySettings();
@@ -716,28 +755,27 @@ public class SettingsMenuNavigator : MonoBehaviour {
         {
             case TextureQuality.HIGH:
                 TextureQualityText.text = "HIGH";
-                QualitySettings.SetQualityLevel(3);
+                QualitySettings.SetQualityLevel(2);
                 break;
             case TextureQuality.MEDIUM:
                 TextureQualityText.text = "MEDIUM";
-                QualitySettings.SetQualityLevel(2);
+                QualitySettings.SetQualityLevel(1);
                 break;
             case TextureQuality.LOW:
                 TextureQualityText.text = "LOW";
-                QualitySettings.SetQualityLevel(1);
-                break;
-            case TextureQuality.ULTRA:
-                TextureQualityText.text = "ULTRA";
-                QualitySettings.SetQualityLevel(5);
-                break;
-            case TextureQuality.VERY_LOW:
-                TextureQualityText.text = "VERY LOW";
                 QualitySettings.SetQualityLevel(0);
                 break;
-            case TextureQuality.VERY_HIGH:
-                TextureQualityText.text = "VERY HIGH";
-                QualitySettings.SetQualityLevel(4);
-                break;
+            //case TextureQuality.ULTRA:
+            //    TextureQualityText.text = "ULTRA";
+            //    QualitySettings.SetQualityLevel(5);
+            //    break;
+            //case TextureQuality.VERY_LOW:
+            //    TextureQualityText.text = "VERY LOW";
+            //    QualitySettings.SetQualityLevel(0);
+            //    break;
+            //case TextureQuality.VERY_HIGH:
+            //    TextureQualityText.text = "VERY HIGH";
+            //    QualitySettings.SetQualityLevel(4);
             default:
                 break;
         }
@@ -761,17 +799,50 @@ public class SettingsMenuNavigator : MonoBehaviour {
             default:
                 break;
         }
-
-        switch(_Resolution)
+        bool fullscreen = false;
+        switch (_Resolution)
         {
             case Resolution.NINETEEN_TWENTY_BY_TEN_EIGHTY:
                 ResolutionText.text = "1920 x 1080";
-                bool fullscreen = false;
+             
                 if(_WindowMode == WindowMode.FULLSCREEN)
                 {
                     fullscreen = true;
                 }
                 Screen.SetResolution(1920, 1080,fullscreen);
+                break;
+            case Resolution.TWELVE_EIGHTY_BY_SEVEN_TWENTY:
+                ResolutionText.text = "1280 X 720";
+            
+                if(_WindowMode == WindowMode.FULLSCREEN)
+                {
+                    fullscreen = true;
+                }
+                Screen.SetResolution(1280, 720, fullscreen);
+                break;
+            case Resolution.SIXTEEN_HUNDRED_BY_NINE_HUNDRED:
+                ResolutionText.text = "1600 X 900";
+                if(_WindowMode == WindowMode.FULLSCREEN)
+                {
+                    fullscreen = true;
+                }
+                Screen.SetResolution(1600, 900, fullscreen);
+                break;
+            case Resolution.TWENTY_FIVE_SIXTY_BY_FOURTEEN_FORTY:
+                ResolutionText.text = "2560 x 1420";
+                if(_WindowMode == WindowMode.FULLSCREEN)
+                {
+                    fullscreen = true;
+                }
+                Screen.SetResolution(2560, 1420, fullscreen);
+                break;
+            case Resolution.THIRTY_EIGHT_FOURTY_BY_TWENTY_ONE_SIXTY:
+                ResolutionText.text = "3840 x 2160";
+                if(_WindowMode == WindowMode.FULLSCREEN)
+                {
+                    fullscreen = true;
+                }
+                Screen.SetResolution(3840, 2160, fullscreen);
                 break;
             default:
                 break;
