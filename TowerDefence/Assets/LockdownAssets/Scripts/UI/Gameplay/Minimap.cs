@@ -55,19 +55,7 @@ public class Minimap : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if(Input.GetMouseButtonDown(0))
-        //{
 
-        //    if(RectangleArea.PointInside(Input.mousePosition.x,Input.mousePosition.y))
-        //    {
-        //        Debug.Log("Inside Rectangle!");
-        //    }
-        //    else
-        //    {
-        //        Debug.Log("You done fucked it!");
-        //    }
-        //}
-        //Check for minimap click event.
         if(TutorialScene.CurrentMessageData != null)
         {
         if(!TutorialScene.CurrentMessageData.LockCamera && !TutorialScene.CurrentMessageData.LockControls)
@@ -76,9 +64,7 @@ public class Minimap : MonoBehaviour
             }
 
         }
-  
-     
-
+ 
         //If debug is true run the debug functions.
         if (debug)
         {

@@ -138,15 +138,19 @@ public class Core : Building {
 
     public void HideCoreNotification()
     {
-        if(WaveManager.Instance.CoreDamagedWidget.activeInHierarchy)
+        if(WaveManager.Instance.CoreDamagedWidget!= null)
         {
-            _NoteTimer -= Time.deltaTime;
+            if (WaveManager.Instance.CoreDamagedWidget.activeInHierarchy)
+            {
+                _NoteTimer -= Time.deltaTime;
+            }
+            if (_NoteTimer < 0)
+            {
+                _NoteTimer = 3.0f;
+                WaveManager.Instance.CoreDamagedWidget.SetActive(false);
+            }
         }
-        if(_NoteTimer < 0)
-        {
-            _NoteTimer = 3.0f;
-            WaveManager.Instance.CoreDamagedWidget.SetActive(false);
-        }
+  
     }
 
     /// <summary>

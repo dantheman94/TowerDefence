@@ -453,6 +453,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SelectionWheel: {fileID: 1365309280}
+  PCHotkeyObj: {fileID: 0}
 --- !u!114 &28385264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -465,7 +466,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8d5cdb154cd0e1459be44f245b5b423, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  QueueCounter: {fileID: 0}
+  QueueCounterTextComponent: {fileID: 0}
+  SliderBar: {fileID: 0}
+  SliderFillImage: {fileID: 0}
+  PCHotkeyObject: {fileID: 0}
+  PCShortcutKey: 0
 --- !u!114 &28385265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -807,6 +812,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SelectionWheel: {fileID: 599723473}
+  PCHotkeyObj: {fileID: 0}
 --- !u!114 &36668832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -819,7 +825,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8d5cdb154cd0e1459be44f245b5b423, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  QueueCounter: {fileID: 0}
+  QueueCounterTextComponent: {fileID: 0}
+  SliderBar: {fileID: 0}
+  SliderFillImage: {fileID: 0}
+  PCHotkeyObject: {fileID: 0}
+  PCShortcutKey: 0
 --- !u!222 &36668833
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1182,8 +1192,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 594ae4ab737cfae4994a53783948115f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LogoComponent: {fileID: 0}
   PlatoonCounter: {fileID: 1441654205}
+  SelectedDurationWithEmpty: 3
+  BlockImage: {fileID: 0}
+  BlockLerpDuration: 1
+  DefaultBlockColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingBlockColour: {r: 0, g: 1, b: 1, a: 1}
+  DefaultBlockOutlineColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingBlockOutlineColour: {r: 0, g: 1, b: 1, a: 1}
+  GroupCounterObj: {fileID: 0}
+  CounterLerpDuration: 1
+  DefaultCounterColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingCounterColour: {r: 0, g: 1, b: 1, a: 1}
+  DefaultCounterOutlineColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingCounterOutlineColour: {r: 0, g: 1, b: 1, a: 1}
+  PCHotkeyObj: {fileID: 0}
+  HotkeyLerpDuration: 1
+  DefaultHotkeyColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingHotkeyColour: {r: 0, g: 1, b: 1, a: 1}
+  DefaultHotkeyOutlineColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingHotkeyOutlineColour: {r: 0, g: 1, b: 1, a: 1}
 --- !u!1 &67591632
 GameObject:
   m_ObjectHideFlags: 0
@@ -2346,8 +2374,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 594ae4ab737cfae4994a53783948115f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LogoComponent: {fileID: 0}
   PlatoonCounter: {fileID: 327439977}
+  SelectedDurationWithEmpty: 3
+  BlockImage: {fileID: 0}
+  BlockLerpDuration: 1
+  DefaultBlockColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingBlockColour: {r: 0, g: 1, b: 1, a: 1}
+  DefaultBlockOutlineColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingBlockOutlineColour: {r: 0, g: 1, b: 1, a: 1}
+  GroupCounterObj: {fileID: 0}
+  CounterLerpDuration: 1
+  DefaultCounterColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingCounterColour: {r: 0, g: 1, b: 1, a: 1}
+  DefaultCounterOutlineColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingCounterOutlineColour: {r: 0, g: 1, b: 1, a: 1}
+  PCHotkeyObj: {fileID: 0}
+  HotkeyLerpDuration: 1
+  DefaultHotkeyColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingHotkeyColour: {r: 0, g: 1, b: 1, a: 1}
+  DefaultHotkeyOutlineColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingHotkeyOutlineColour: {r: 0, g: 1, b: 1, a: 1}
 --- !u!1 &175179783
 GameObject:
   m_ObjectHideFlags: 0
@@ -2709,8 +2755,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 594ae4ab737cfae4994a53783948115f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LogoComponent: {fileID: 0}
   PlatoonCounter: {fileID: 1829313572}
+  SelectedDurationWithEmpty: 3
+  BlockImage: {fileID: 0}
+  BlockLerpDuration: 1
+  DefaultBlockColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingBlockColour: {r: 0, g: 1, b: 1, a: 1}
+  DefaultBlockOutlineColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingBlockOutlineColour: {r: 0, g: 1, b: 1, a: 1}
+  GroupCounterObj: {fileID: 0}
+  CounterLerpDuration: 1
+  DefaultCounterColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingCounterColour: {r: 0, g: 1, b: 1, a: 1}
+  DefaultCounterOutlineColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingCounterOutlineColour: {r: 0, g: 1, b: 1, a: 1}
+  PCHotkeyObj: {fileID: 0}
+  HotkeyLerpDuration: 1
+  DefaultHotkeyColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingHotkeyColour: {r: 0, g: 1, b: 1, a: 1}
+  DefaultHotkeyOutlineColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingHotkeyOutlineColour: {r: 0, g: 1, b: 1, a: 1}
 --- !u!1 &199769604
 GameObject:
   m_ObjectHideFlags: 0
@@ -3167,6 +3231,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SelectionWheel: {fileID: 599723473}
+  PCHotkeyObj: {fileID: 0}
 --- !u!114 &237357003
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3179,7 +3244,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8d5cdb154cd0e1459be44f245b5b423, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  QueueCounter: {fileID: 0}
+  QueueCounterTextComponent: {fileID: 0}
+  SliderBar: {fileID: 0}
+  SliderFillImage: {fileID: 0}
+  PCHotkeyObject: {fileID: 0}
+  PCShortcutKey: 0
 --- !u!222 &237357004
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3561,6 +3630,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SelectionWheel: {fileID: 1365309280}
+  PCHotkeyObj: {fileID: 0}
 --- !u!114 &261926266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3573,7 +3643,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8d5cdb154cd0e1459be44f245b5b423, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  QueueCounter: {fileID: 0}
+  QueueCounterTextComponent: {fileID: 0}
+  SliderBar: {fileID: 0}
+  SliderFillImage: {fileID: 0}
+  PCHotkeyObject: {fileID: 0}
+  PCShortcutKey: 0
 --- !u!114 &261926267
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3838,6 +3912,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SelectionWheel: {fileID: 1365309280}
+  PCHotkeyObj: {fileID: 0}
 --- !u!114 &291463700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3850,7 +3925,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8d5cdb154cd0e1459be44f245b5b423, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  QueueCounter: {fileID: 0}
+  QueueCounterTextComponent: {fileID: 0}
+  SliderBar: {fileID: 0}
+  SliderFillImage: {fileID: 0}
+  PCHotkeyObject: {fileID: 0}
+  PCShortcutKey: 0
 --- !u!114 &291463701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6357,8 +6436,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 594ae4ab737cfae4994a53783948115f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LogoComponent: {fileID: 0}
   PlatoonCounter: {fileID: 747373178}
+  SelectedDurationWithEmpty: 3
+  BlockImage: {fileID: 0}
+  BlockLerpDuration: 1
+  DefaultBlockColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingBlockColour: {r: 0, g: 1, b: 1, a: 1}
+  DefaultBlockOutlineColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingBlockOutlineColour: {r: 0, g: 1, b: 1, a: 1}
+  GroupCounterObj: {fileID: 0}
+  CounterLerpDuration: 1
+  DefaultCounterColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingCounterColour: {r: 0, g: 1, b: 1, a: 1}
+  DefaultCounterOutlineColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingCounterOutlineColour: {r: 0, g: 1, b: 1, a: 1}
+  PCHotkeyObj: {fileID: 0}
+  HotkeyLerpDuration: 1
+  DefaultHotkeyColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingHotkeyColour: {r: 0, g: 1, b: 1, a: 1}
+  DefaultHotkeyOutlineColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingHotkeyOutlineColour: {r: 0, g: 1, b: 1, a: 1}
 --- !u!1 &441279652
 GameObject:
   m_ObjectHideFlags: 0
@@ -7416,8 +7513,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 594ae4ab737cfae4994a53783948115f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LogoComponent: {fileID: 0}
   PlatoonCounter: {fileID: 1423643328}
+  SelectedDurationWithEmpty: 3
+  BlockImage: {fileID: 0}
+  BlockLerpDuration: 1
+  DefaultBlockColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingBlockColour: {r: 0, g: 1, b: 1, a: 1}
+  DefaultBlockOutlineColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingBlockOutlineColour: {r: 0, g: 1, b: 1, a: 1}
+  GroupCounterObj: {fileID: 0}
+  CounterLerpDuration: 1
+  DefaultCounterColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingCounterColour: {r: 0, g: 1, b: 1, a: 1}
+  DefaultCounterOutlineColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingCounterOutlineColour: {r: 0, g: 1, b: 1, a: 1}
+  PCHotkeyObj: {fileID: 0}
+  HotkeyLerpDuration: 1
+  DefaultHotkeyColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingHotkeyColour: {r: 0, g: 1, b: 1, a: 1}
+  DefaultHotkeyOutlineColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingHotkeyOutlineColour: {r: 0, g: 1, b: 1, a: 1}
 --- !u!1 &511156414
 GameObject:
   m_ObjectHideFlags: 0
@@ -8833,6 +8948,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SelectionWheel: {fileID: 599723473}
+  PCHotkeyObj: {fileID: 0}
 --- !u!114 &571766250
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8845,7 +8961,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8d5cdb154cd0e1459be44f245b5b423, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  QueueCounter: {fileID: 0}
+  QueueCounterTextComponent: {fileID: 0}
+  SliderBar: {fileID: 0}
+  SliderFillImage: {fileID: 0}
+  PCHotkeyObject: {fileID: 0}
+  PCShortcutKey: 0
 --- !u!222 &571766251
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9383,6 +9503,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e9e8583b2e664e4f91d51be7eb69431, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ColorAvailiable: {r: 1, g: 1, b: 1, a: 1}
+  ColorExpensive: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  ColorLocked: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   CenterHighlightTitle: {fileID: 2105052032}
   CenterSupplyText: {fileID: 1002766075}
   CenterPowerText: {fileID: 819299739}
@@ -10375,8 +10498,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 594ae4ab737cfae4994a53783948115f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LogoComponent: {fileID: 0}
   PlatoonCounter: {fileID: 614703562}
+  SelectedDurationWithEmpty: 3
+  BlockImage: {fileID: 0}
+  BlockLerpDuration: 1
+  DefaultBlockColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingBlockColour: {r: 0, g: 1, b: 1, a: 1}
+  DefaultBlockOutlineColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingBlockOutlineColour: {r: 0, g: 1, b: 1, a: 1}
+  GroupCounterObj: {fileID: 0}
+  CounterLerpDuration: 1
+  DefaultCounterColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingCounterColour: {r: 0, g: 1, b: 1, a: 1}
+  DefaultCounterOutlineColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingCounterOutlineColour: {r: 0, g: 1, b: 1, a: 1}
+  PCHotkeyObj: {fileID: 0}
+  HotkeyLerpDuration: 1
+  DefaultHotkeyColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingHotkeyColour: {r: 0, g: 1, b: 1, a: 1}
+  DefaultHotkeyOutlineColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingHotkeyOutlineColour: {r: 0, g: 1, b: 1, a: 1}
 --- !u!1 &670061119 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1444958845154172, guid: 549e9dc24e170e340822eb44fa85a0f1,
@@ -11686,9 +11827,9 @@ MonoBehaviour:
   PastBoundsWest: 0
   PastBoundsNorth: 0
   PastBoundsSouth: 0
-  ShakeTrauma: 0
-  ShakeThreshold: 0
-  IsShaking: 0
+  EnableScreenShake: 1
+  ShakeMagnitude: 0
+  ShakeMaxRange: 0
 --- !u!1001 &799284830
 Prefab:
   m_ObjectHideFlags: 0
@@ -11786,8 +11927,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 594ae4ab737cfae4994a53783948115f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LogoComponent: {fileID: 0}
   PlatoonCounter: {fileID: 2026811050}
+  SelectedDurationWithEmpty: 3
+  BlockImage: {fileID: 0}
+  BlockLerpDuration: 1
+  DefaultBlockColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingBlockColour: {r: 0, g: 1, b: 1, a: 1}
+  DefaultBlockOutlineColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingBlockOutlineColour: {r: 0, g: 1, b: 1, a: 1}
+  GroupCounterObj: {fileID: 0}
+  CounterLerpDuration: 1
+  DefaultCounterColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingCounterColour: {r: 0, g: 1, b: 1, a: 1}
+  DefaultCounterOutlineColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingCounterOutlineColour: {r: 0, g: 1, b: 1, a: 1}
+  PCHotkeyObj: {fileID: 0}
+  HotkeyLerpDuration: 1
+  DefaultHotkeyColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingHotkeyColour: {r: 0, g: 1, b: 1, a: 1}
+  DefaultHotkeyOutlineColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingHotkeyOutlineColour: {r: 0, g: 1, b: 1, a: 1}
 --- !u!1 &819299737
 GameObject:
   m_ObjectHideFlags: 0
@@ -14013,6 +14172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SelectionWheel: {fileID: 599723473}
+  PCHotkeyObj: {fileID: 0}
 --- !u!114 &964872599
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14025,7 +14185,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8d5cdb154cd0e1459be44f245b5b423, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  QueueCounter: {fileID: 0}
+  QueueCounterTextComponent: {fileID: 0}
+  SliderBar: {fileID: 0}
+  SliderFillImage: {fileID: 0}
+  PCHotkeyObject: {fileID: 0}
+  PCShortcutKey: 0
 --- !u!222 &964872600
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -16628,6 +16792,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SelectionWheel: {fileID: 1365309280}
+  PCHotkeyObj: {fileID: 0}
 --- !u!114 &1184476241
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16640,7 +16805,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8d5cdb154cd0e1459be44f245b5b423, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  QueueCounter: {fileID: 0}
+  QueueCounterTextComponent: {fileID: 0}
+  SliderBar: {fileID: 0}
+  SliderFillImage: {fileID: 0}
+  PCHotkeyObject: {fileID: 0}
+  PCShortcutKey: 0
 --- !u!114 &1184476242
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16942,6 +17111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SelectionWheel: {fileID: 599723473}
+  PCHotkeyObj: {fileID: 0}
 --- !u!114 &1187659155
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17007,7 +17177,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8d5cdb154cd0e1459be44f245b5b423, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  QueueCounter: {fileID: 0}
+  QueueCounterTextComponent: {fileID: 0}
+  SliderBar: {fileID: 0}
+  SliderFillImage: {fileID: 0}
+  PCHotkeyObject: {fileID: 0}
+  PCShortcutKey: 0
 --- !u!114 &1187659157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17748,6 +17922,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SelectionWheel: {fileID: 1365309280}
+  PCHotkeyObj: {fileID: 0}
 --- !u!114 &1268682801
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17760,7 +17935,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8d5cdb154cd0e1459be44f245b5b423, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  QueueCounter: {fileID: 0}
+  QueueCounterTextComponent: {fileID: 0}
+  SliderBar: {fileID: 0}
+  SliderFillImage: {fileID: 0}
+  PCHotkeyObject: {fileID: 0}
+  PCShortcutKey: 0
 --- !u!114 &1268682802
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18095,6 +18274,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SelectionWheel: {fileID: 599723473}
+  PCHotkeyObj: {fileID: 0}
 --- !u!114 &1273517939
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18107,7 +18287,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8d5cdb154cd0e1459be44f245b5b423, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  QueueCounter: {fileID: 0}
+  QueueCounterTextComponent: {fileID: 0}
+  SliderBar: {fileID: 0}
+  SliderFillImage: {fileID: 0}
+  PCHotkeyObject: {fileID: 0}
+  PCShortcutKey: 0
 --- !u!222 &1273517940
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -18306,6 +18490,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SelectionWheel: {fileID: 1365309280}
+  PCHotkeyObj: {fileID: 0}
 --- !u!114 &1290021409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18318,7 +18503,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8d5cdb154cd0e1459be44f245b5b423, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  QueueCounter: {fileID: 0}
+  QueueCounterTextComponent: {fileID: 0}
+  SliderBar: {fileID: 0}
+  SliderFillImage: {fileID: 0}
+  PCHotkeyObject: {fileID: 0}
+  PCShortcutKey: 0
 --- !u!114 &1290021410
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19139,6 +19328,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SelectionWheel: {fileID: 1365309280}
+  PCHotkeyObj: {fileID: 0}
 --- !u!114 &1312376036
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19151,7 +19341,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8d5cdb154cd0e1459be44f245b5b423, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  QueueCounter: {fileID: 0}
+  QueueCounterTextComponent: {fileID: 0}
+  SliderBar: {fileID: 0}
+  SliderFillImage: {fileID: 0}
+  PCHotkeyObject: {fileID: 0}
+  PCShortcutKey: 0
 --- !u!114 &1312376037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20333,6 +20527,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e9e8583b2e664e4f91d51be7eb69431, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ColorAvailiable: {r: 1, g: 1, b: 1, a: 1}
+  ColorExpensive: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  ColorLocked: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   CenterHighlightTitle: {fileID: 335879643}
   CenterSupplyText: {fileID: 1849588608}
   CenterPowerText: {fileID: 1734736251}
@@ -20715,6 +20912,19 @@ MonoBehaviour:
   FlashingTextSpeed: 1
   FlashStartingColour: {r: 1, g: 1, b: 1, a: 1}
   FlashEndColour: {r: 1, g: 0, b: 0, a: 1}
+  ScoreAdditiveText: {fileID: 0}
+  ScoreTypeText: {fileID: 0}
+  ScoreStartingPositionX: -600
+  ScoreEndingPositionX: -240
+  ScoreStartingPositionY: -600
+  ScoreEndingPositionY: -200
+  TypeStartingPositionX: -425
+  TypeEndingPositionX: -240
+  TypeStartingPositionY: -425
+  TypeEndingPositionY: -200
+  LerpDuration: 1
+  AdditiveColour: {r: 0, g: 1, b: 0, a: 1}
+  SubtractiveColour: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1001 &1386158226
 Prefab:
   m_ObjectHideFlags: 0
@@ -21722,6 +21932,7 @@ MonoBehaviour:
   DifficultyTrackerText: {fileID: 826497447}
   ScoreTrackerText: {fileID: 1759250244}
   CurrentWaveTrackerText: {fileID: 2090502656}
+  LevelImage: {fileID: 0}
   StartButton: {fileID: 0}
   SettingsMenu: {fileID: 0}
   PauseMenu: {fileID: 0}
@@ -21924,6 +22135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SelectionWheel: {fileID: 1365309280}
+  PCHotkeyObj: {fileID: 0}
 --- !u!114 &1467450374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21936,7 +22148,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8d5cdb154cd0e1459be44f245b5b423, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  QueueCounter: {fileID: 0}
+  QueueCounterTextComponent: {fileID: 0}
+  SliderBar: {fileID: 0}
+  SliderFillImage: {fileID: 0}
+  PCHotkeyObject: {fileID: 0}
+  PCShortcutKey: 0
 --- !u!114 &1467450375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22947,7 +23163,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8d5cdb154cd0e1459be44f245b5b423, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  QueueCounter: {fileID: 0}
+  QueueCounterTextComponent: {fileID: 0}
+  SliderBar: {fileID: 0}
+  SliderFillImage: {fileID: 0}
+  PCHotkeyObject: {fileID: 0}
+  PCShortcutKey: 0
 --- !u!222 &1540619155
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -23183,8 +23403,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 594ae4ab737cfae4994a53783948115f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LogoComponent: {fileID: 0}
   PlatoonCounter: {fileID: 1185624444}
+  SelectedDurationWithEmpty: 3
+  BlockImage: {fileID: 0}
+  BlockLerpDuration: 1
+  DefaultBlockColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingBlockColour: {r: 0, g: 1, b: 1, a: 1}
+  DefaultBlockOutlineColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingBlockOutlineColour: {r: 0, g: 1, b: 1, a: 1}
+  GroupCounterObj: {fileID: 0}
+  CounterLerpDuration: 1
+  DefaultCounterColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingCounterColour: {r: 0, g: 1, b: 1, a: 1}
+  DefaultCounterOutlineColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingCounterOutlineColour: {r: 0, g: 1, b: 1, a: 1}
+  PCHotkeyObj: {fileID: 0}
+  HotkeyLerpDuration: 1
+  DefaultHotkeyColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingHotkeyColour: {r: 0, g: 1, b: 1, a: 1}
+  DefaultHotkeyOutlineColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingHotkeyOutlineColour: {r: 0, g: 1, b: 1, a: 1}
 --- !u!1 &1578655021
 GameObject:
   m_ObjectHideFlags: 0
@@ -24963,19 +25201,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4507258518642228, guid: 818fde8d4cce76a42b9614d213ec31db, type: 2}
       propertyPath: m_LocalRotation.x
-      value: 0.7071068
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4507258518642228, guid: 818fde8d4cce76a42b9614d213ec31db, type: 2}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4507258518642228, guid: 818fde8d4cce76a42b9614d213ec31db, type: 2}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4507258518642228, guid: 818fde8d4cce76a42b9614d213ec31db, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 0.7071068
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4507258518642228, guid: 818fde8d4cce76a42b9614d213ec31db, type: 2}
       propertyPath: m_RootOrder
@@ -25049,6 +25287,10 @@ Prefab:
         type: 2}
       propertyPath: YOffset
       value: 745.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4507258518642228, guid: 818fde8d4cce76a42b9614d213ec31db, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 818fde8d4cce76a42b9614d213ec31db, type: 2}
@@ -25757,6 +25999,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SelectionWheel: {fileID: 599723473}
+  PCHotkeyObj: {fileID: 0}
 --- !u!114 &1699932497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25769,7 +26012,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8d5cdb154cd0e1459be44f245b5b423, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  QueueCounter: {fileID: 0}
+  QueueCounterTextComponent: {fileID: 0}
+  SliderBar: {fileID: 0}
+  SliderFillImage: {fileID: 0}
+  PCHotkeyObject: {fileID: 0}
+  PCShortcutKey: 0
 --- !u!222 &1699932498
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -27294,8 +27541,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 594ae4ab737cfae4994a53783948115f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LogoComponent: {fileID: 0}
   PlatoonCounter: {fileID: 129956176}
+  SelectedDurationWithEmpty: 3
+  BlockImage: {fileID: 0}
+  BlockLerpDuration: 1
+  DefaultBlockColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingBlockColour: {r: 0, g: 1, b: 1, a: 1}
+  DefaultBlockOutlineColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingBlockOutlineColour: {r: 0, g: 1, b: 1, a: 1}
+  GroupCounterObj: {fileID: 0}
+  CounterLerpDuration: 1
+  DefaultCounterColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingCounterColour: {r: 0, g: 1, b: 1, a: 1}
+  DefaultCounterOutlineColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingCounterOutlineColour: {r: 0, g: 1, b: 1, a: 1}
+  PCHotkeyObj: {fileID: 0}
+  HotkeyLerpDuration: 1
+  DefaultHotkeyColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingHotkeyColour: {r: 0, g: 1, b: 1, a: 1}
+  DefaultHotkeyOutlineColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingHotkeyOutlineColour: {r: 0, g: 1, b: 1, a: 1}
 --- !u!1 &1799140150
 GameObject:
   m_ObjectHideFlags: 0
@@ -28867,6 +29132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SelectionWheel: {fileID: 599723473}
+  PCHotkeyObj: {fileID: 0}
 --- !u!114 &1890117395
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28879,7 +29145,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8d5cdb154cd0e1459be44f245b5b423, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  QueueCounter: {fileID: 0}
+  QueueCounterTextComponent: {fileID: 0}
+  SliderBar: {fileID: 0}
+  SliderFillImage: {fileID: 0}
+  PCHotkeyObject: {fileID: 0}
+  PCShortcutKey: 0
 --- !u!222 &1890117396
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -28957,8 +29227,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 594ae4ab737cfae4994a53783948115f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LogoComponent: {fileID: 0}
   PlatoonCounter: {fileID: 1322045928}
+  SelectedDurationWithEmpty: 3
+  BlockImage: {fileID: 0}
+  BlockLerpDuration: 1
+  DefaultBlockColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingBlockColour: {r: 0, g: 1, b: 1, a: 1}
+  DefaultBlockOutlineColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingBlockOutlineColour: {r: 0, g: 1, b: 1, a: 1}
+  GroupCounterObj: {fileID: 0}
+  CounterLerpDuration: 1
+  DefaultCounterColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingCounterColour: {r: 0, g: 1, b: 1, a: 1}
+  DefaultCounterOutlineColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingCounterOutlineColour: {r: 0, g: 1, b: 1, a: 1}
+  PCHotkeyObj: {fileID: 0}
+  HotkeyLerpDuration: 1
+  DefaultHotkeyColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingHotkeyColour: {r: 0, g: 1, b: 1, a: 1}
+  DefaultHotkeyOutlineColour: {r: 1, g: 1, b: 1, a: 1}
+  HighlightingHotkeyOutlineColour: {r: 0, g: 1, b: 1, a: 1}
 --- !u!1 &1910292049
 GameObject:
   m_ObjectHideFlags: 0
@@ -29330,6 +29618,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SelectionWheel: {fileID: 599723473}
+  PCHotkeyObj: {fileID: 0}
 --- !u!114 &1919119054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29342,7 +29631,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8d5cdb154cd0e1459be44f245b5b423, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  QueueCounter: {fileID: 0}
+  QueueCounterTextComponent: {fileID: 0}
+  SliderBar: {fileID: 0}
+  SliderFillImage: {fileID: 0}
+  PCHotkeyObject: {fileID: 0}
+  PCShortcutKey: 0
 --- !u!222 &1919119055
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -29875,6 +30168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SelectionWheel: {fileID: 1365309280}
+  PCHotkeyObj: {fileID: 0}
 --- !u!114 &1958959872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29887,7 +30181,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8d5cdb154cd0e1459be44f245b5b423, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  QueueCounter: {fileID: 0}
+  QueueCounterTextComponent: {fileID: 0}
+  SliderBar: {fileID: 0}
+  SliderFillImage: {fileID: 0}
+  PCHotkeyObject: {fileID: 0}
+  PCShortcutKey: 0
 --- !u!114 &1958959873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32113,6 +32411,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SelectionWheel: {fileID: 1365309280}
+  PCHotkeyObj: {fileID: 0}
 --- !u!114 &2126554485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32125,7 +32424,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8d5cdb154cd0e1459be44f245b5b423, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  QueueCounter: {fileID: 0}
+  QueueCounterTextComponent: {fileID: 0}
+  SliderBar: {fileID: 0}
+  SliderFillImage: {fileID: 0}
+  PCHotkeyObject: {fileID: 0}
+  PCShortcutKey: 0
 --- !u!114 &2126554486
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32267,13 +32570,13 @@ RectTransform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2139667440}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2110856874}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -32428,6 +32731,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SelectionWheel: {fileID: 599723473}
+  PCHotkeyObj: {fileID: 0}
 --- !u!114 &2144365904
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32440,7 +32744,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8d5cdb154cd0e1459be44f245b5b423, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  QueueCounter: {fileID: 0}
+  QueueCounterTextComponent: {fileID: 0}
+  SliderBar: {fileID: 0}
+  SliderFillImage: {fileID: 0}
+  PCHotkeyObject: {fileID: 0}
+  PCShortcutKey: 0
 --- !u!222 &2144365905
 CanvasRenderer:
   m_ObjectHideFlags: 0
