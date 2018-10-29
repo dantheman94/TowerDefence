@@ -5650,7 +5650,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &407392433 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114087493330667832, guid: 679a7c066d3462949beb157ee9ae1a97,
@@ -25251,7 +25251,7 @@ Prefab:
     - target: {fileID: 114869756294464190, guid: 818fde8d4cce76a42b9614d213ec31db,
         type: 2}
       propertyPath: debug
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 20476002400073926, guid: 818fde8d4cce76a42b9614d213ec31db,
         type: 2}
@@ -25292,6 +25292,11 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 114869756294464190, guid: 818fde8d4cce76a42b9614d213ec31db,
+        type: 2}
+      propertyPath: CameraObject
+      value: 
+      objectReference: {fileID: 20486253}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 818fde8d4cce76a42b9614d213ec31db, type: 2}
   m_IsPrefabParent: 0
@@ -25743,15 +25748,9 @@ MonoBehaviour:
   FogColorTextureScale: 1
   FogColorTextureHeight: 0
   FogFarPlane: 1
-  OutsideFogStrength: 1
-  ClearFog: 0
-  ClearFogMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
   BlurAmount: 0
   BlurIterations: 0
   BlurType: 0
-  Team: 0
   UpdateAutomatically: 1
   PartialFogAmount: 0.5
   FadeSpeed: 10
@@ -26617,6 +26616,12 @@ Prefab:
       propertyPath: StartingPowerCount
       value: 3000
       objectReference: {fileID: 0}
+    - target: {fileID: 114083001813579554, guid: bdc86748c51c2724a81bfc74b4f54e2c,
+        type: 2}
+      propertyPath: TurretVariantWidget
+      value: 
+      objectReference: {fileID: 114811891318023478, guid: 931de14b96a08904fbfb061a622d28d8,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bdc86748c51c2724a81bfc74b4f54e2c, type: 2}
   m_IsPrefabParent: 0
