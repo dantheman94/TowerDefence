@@ -35,6 +35,8 @@ public class ShowcasePodium : MonoBehaviour {
     //
     //******************************************************************************************************************************
 
+    public float rotateSpeed;
+
     private Vector3 _ShowcasePosition = Vector3.zero;
     private Quaternion _ShowcaseRotation = Quaternion.identity;
 
@@ -79,7 +81,7 @@ public class ShowcasePodium : MonoBehaviour {
         if (_CurrentShowcaseObject != null) {
 
             _CurrentShowcaseObject.transform.position = _ShowcasePosition;
-            _CurrentShowcaseObject.transform.rotation = _ShowcaseRotation;
+            _CurrentShowcaseObject.transform.rotation = Quaternion.Euler(0,rotateSpeed,0 * Time.deltaTime);
         }
     }
 
