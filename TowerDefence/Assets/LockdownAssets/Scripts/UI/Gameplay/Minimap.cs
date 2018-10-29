@@ -9,11 +9,10 @@ using UnityEngine;
 //=-=-=-=-=-=-=-=-=-=-=-=-
 public class Minimap : MonoBehaviour
 {
-   
+
     //                            INSPECTOR
     /////////////////////////////////////////////////////////////////////////////////////
-    [Header(" MINIMAP CAMERA ")]
-    public Camera MinimapCamera;
+    public GameObject CameraObject;
     [Header(" MAP NODE OBJECTS ")]
     public GameObject TopLeft;
     public GameObject TopRight;
@@ -63,6 +62,10 @@ public class Minimap : MonoBehaviour
                 ClickedMinimap();
             }
 
+        }
+        else if(TutorialScene.CurrentMessageData == null)
+        {
+            ClickedMinimap();
         }
  
         //If debug is true run the debug functions.
@@ -118,15 +121,15 @@ public class Minimap : MonoBehaviour
                     if (TopLeft.transform.position.x < 0)
                     {
                         Vector2 ActualBounds = new Vector2(MousePOS.x - RectangleArea.transform.position.x, (Screen.height - RectangleArea.GetTopLeft().y) - MousePOS.y);
-                        Camera.main.transform.position = new Vector3((ActualBounds.x * (_XSize / RectangleArea.width)) + TopLeft.transform.position.x + XOffset,
-                        Camera.main.transform.position.y, ActualBounds.y * (_YSize / RectangleArea.height) + TopRight.transform.position.z + YOffset);
+                        CameraObject.transform.position = new Vector3((ActualBounds.x * (_XSize / RectangleArea.width)) + TopLeft.transform.position.x + XOffset,
+                        CameraObject.transform.position.y, ActualBounds.y * (_YSize / RectangleArea.height) + TopRight.transform.position.z + YOffset);
                         //                 Debug.Log("Actual Bounds: " + ActualBounds);
                     }
                     else
                     {
                         Vector2 ActualBounds = new Vector2(MousePOS.x - MapArea.x, MapArea.y - MousePOS.y - 30);
-                        Camera.main.transform.position = new Vector3((ActualBounds.x * (_XSize / MapArea.width)) - TopLeft.transform.position.x + XOffset,
-                      Camera.main.transform.position.y, ActualBounds.y * (_YSize / MapArea.height) - TopRight.transform.position.z + YOffset);
+                       CameraObject.transform.position = new Vector3((ActualBounds.x * (_XSize / MapArea.width)) - TopLeft.transform.position.x + XOffset,
+                     CameraObject.transform.position.y, ActualBounds.y * (_YSize / MapArea.height) - TopRight.transform.position.z + YOffset);
                         //                Debug.Log("Actual Bounds: " + ActualBounds);
                     }
                 }

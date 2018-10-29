@@ -147,8 +147,13 @@ public class Spire : Building {
 
         // Notify the player
         //  WaveManager.Instance.CoreDamagedWidget.ShowNotification();
-        WaveManager.Instance.CoreDamagedWidget.SetActive(true);
-        Core._NoteTimer = 3.0f;
+        if (WaveManager.Instance.CoreDamagedWidget != null)
+        {
+            WaveManager.Instance.CoreDamagedWidget.SetActive(true);
+            Core._NoteTimer = 3.0f;
+        }
+ 
+
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

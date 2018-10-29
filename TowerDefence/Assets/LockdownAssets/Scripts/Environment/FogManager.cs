@@ -4,7 +4,7 @@ using UnityEngine;
 
 /// -=-=-=-=-=-=-=-=-
 /// Created By: Angus Secomb
-/// Last Edited: 23/09/18
+/// Last Edited: 29/10/18
 /// Editor: Angus
 /// =-=-=-=-=-=-=-=-=
 
@@ -74,16 +74,11 @@ public class FogManager : MonoBehaviour {
     public float FogColorTextureScale = 1;
     public float FogColorTextureHeight = 0;
     public bool FogFarPlane = true;
-    [Range(0.0f, 1.0f)]
-    public float OutsideFogStrength = 1;
-    public bool ClearFog = false;
-    public LayerMask ClearFogMask = -1;
     public int BlurAmount = 0;
     public int BlurIterations = 0;
     public FogBlurType BlurType = FogBlurType.Gaussian3;
 
     [Header("Behaviour")]
-    public int Team = 0;
     public bool UpdateAutomatically = true;
     [Range(0.0f, 1.0f)]
     public float PartialFogAmount = 0.5f;
@@ -154,8 +149,6 @@ public class FogManager : MonoBehaviour {
         _Instances.Remove(this);
     }
 
-    // Call this whenever you change any of the size values of the map
-    [ContextMenu("Reinitialize")]
     public void Reinitialize()
     {
         if (_FogValuesCopy == null || _FogValuesCopy.Length != MapResolution.x * MapResolution.y)
@@ -291,6 +284,10 @@ public class FogManager : MonoBehaviour {
 
     ////////////////////////////////////////////////////////////////////////////////
 
+    /// <summary>
+    /// Sets all the values based on the byte value.
+    /// </summary>
+    /// <param name="value"></param>
     public void SetAll(byte value = 255)
     {
         _Drawer.Clear(value);
@@ -298,6 +295,10 @@ public class FogManager : MonoBehaviour {
 
     ////////////////////////////////////////////////////////////////////////////////
 
+    /// <summary>
+    /// Process all units on the fog layer.
+    /// </summary>
+    /// <param name="checkstopwatch"></param>
     void ProcessUnits(bool checkstopwatch)
     {
         // remove any invalid units
@@ -326,7 +327,9 @@ public class FogManager : MonoBehaviour {
 
     ////////////////////////////////////////////////////////////////////////////////
 
-    [ContextMenu("Manual Update")]
+    /// <summary>
+    /// Forces the fog to update.
+    /// </summary>
     public void ManualUpdate()
     {
         ManualUpdate(1);
@@ -389,6 +392,11 @@ public class FogManager : MonoBehaviour {
 
     ////////////////////////////////////////////////////////////////////////////////
 
+    /// <summary>
+    /// Compiles final texture after all shapes and geometry are checked.
+    /// </summary>
+    /// <param name="timesincelastupdate"></param>
+    /// <param name="checkstopwatch"></param>
     void CompileFinalTexture(ref float timesincelastupdate, bool checkstopwatch)
     {
         if (+_CurrentUnitProcessing >= FogUnit.RegisteredUnits.Count && (!checkstopwatch || !MultiThreaded || _ThreadPool.HasAllFinished))
@@ -501,14 +509,7 @@ public class FogManager : MonoBehaviour {
 
     public void RenderFog(RenderTexture source, RenderTexture destination, Camera cam, Transform camtransform)
     {
-        if (ClearFog)
-        {
-            RenderTexture temprendertex = new RenderTexture(source.width, source.height, source.depth);
-            RenderFogFull(source, temprendertex, cam, camtransform);
-            RenderClearFog(temprendertex, destination);
-            Destroy(temprendertex);
-        }
-        else
+
             RenderFogFull(source, destination, cam, camtransform);
     }
 
@@ -530,7 +531,7 @@ public class FogManager : MonoBehaviour {
         _Material.SetColor(_Ids.FogColor, FogColor);
         _Material.SetMatrix(_Ids.FrustumCornersWS, CalculateCameraFrustumCorners(cam, camtransform));
         _Material.SetVector(_Ids.CameraWS, camtransform.position);
-        _Material.SetFloat(_Ids.OutsideFogStrength, OutsideFogStrength);
+        _Material.SetFloat(_Ids.OutsideFogStrength, 1.0f);
 
         Vector4 camdir = camtransform.forward;
         camdir.w = cam.nearClipPlane;
@@ -553,7 +554,7 @@ public class FogManager : MonoBehaviour {
         }
 
         _Material.SetKeywordEnabled("FOGFARPLANE", FogFarPlane);
-        _Material.SetKeywordEnabled("CLEARFOG", ClearFog);
+        _Material.SetKeywordEnabled("CLEARFOG", false);
 
         CustomGraphicsBlit(source, destination, _Material);
     }
@@ -570,7 +571,7 @@ public class FogManager : MonoBehaviour {
         skyboxcamera.fieldOfView = _Camera.fieldOfView;
         skyboxcamera.clearFlags = CameraClearFlags.Skybox;
         skyboxcamera.targetTexture = new RenderTexture(source.width, source.height, source.depth);
-        skyboxcamera.cullingMask = ClearFogMask;
+       // skyboxcamera.cullingMask = ClearFogMask;
         skyboxcamera.orthographic = _Camera.orthographic;
         skyboxcamera.orthographicSize = _Camera.orthographicSize;
         skyboxcamera.rect = _Camera.rect;
