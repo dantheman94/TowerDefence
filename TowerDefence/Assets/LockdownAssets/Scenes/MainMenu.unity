@@ -13584,32 +13584,32 @@ Prefab:
     - target: {fileID: 224918109051890404, guid: 05b445bb4c825644d97e44443b5181ff,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 637
       objectReference: {fileID: 0}
     - target: {fileID: 224918109051890404, guid: 05b445bb4c825644d97e44443b5181ff,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 160
       objectReference: {fileID: 0}
     - target: {fileID: 224206424509468482, guid: 05b445bb4c825644d97e44443b5181ff,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 775
       objectReference: {fileID: 0}
     - target: {fileID: 224206424509468482, guid: 05b445bb4c825644d97e44443b5181ff,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 160
       objectReference: {fileID: 0}
     - target: {fileID: 224205881965192694, guid: 05b445bb4c825644d97e44443b5181ff,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 913
       objectReference: {fileID: 0}
     - target: {fileID: 224205881965192694, guid: 05b445bb4c825644d97e44443b5181ff,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 160
       objectReference: {fileID: 0}
     - target: {fileID: 114094695629860704, guid: 05b445bb4c825644d97e44443b5181ff,
         type: 2}
@@ -13928,7 +13928,7 @@ Prefab:
     - target: {fileID: 224719492915941180, guid: 05b445bb4c825644d97e44443b5181ff,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -960
+      value: -1008
       objectReference: {fileID: 0}
     - target: {fileID: 114279596090363450, guid: 05b445bb4c825644d97e44443b5181ff,
         type: 2}
@@ -14103,6 +14103,11 @@ Prefab:
         type: 2}
       propertyPath: m_AnchoredPosition.x
       value: -706
+      objectReference: {fileID: 0}
+    - target: {fileID: 224153453361249774, guid: 05b445bb4c825644d97e44443b5181ff,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: -1008
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114204131759460148, guid: 05b445bb4c825644d97e44443b5181ff, type: 2}
@@ -15098,7 +15103,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1250337794}
   m_LocalRotation: {x: 0.70710576, y: -0, z: -0, w: 0.7071078}
-  m_LocalPosition: {x: 1000.29, y: 398.27, z: 1500.47}
+  m_LocalPosition: {x: 1001, y: 405, z: 1500}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 868168782}
@@ -15115,8 +15120,8 @@ Light:
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
-  m_Range: 10
-  m_SpotAngle: 100
+  m_Range: 20
+  m_SpotAngle: 57.374554
   m_CookieSize: 10
   m_Shadows:
     m_Type: 0
@@ -17256,7 +17261,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1462340168}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 311979273}
+        m_MethodName: IncreaseToggle
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Resolution
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1462340168
@@ -18072,7 +18088,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1548920146}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 311979273}
+        m_MethodName: DecreaseToggle
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Resolution
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1548920146
