@@ -7,8 +7,8 @@ using UnityEngine.UI;
 //
 //  Created by: Daniel Marton
 //
-//  Last edited by: Daniel Marton
-//  Last edited on: 19/09/2018
+//  Last edited by: Joshua D'Agostino
+//  Last edited on: 29/10/2018
 //
 //******************************
 
@@ -81,7 +81,7 @@ public class ShowcasePodium : MonoBehaviour {
         if (_CurrentShowcaseObject != null) {
 
             _CurrentShowcaseObject.transform.position = _ShowcasePosition;
-            _CurrentShowcaseObject.transform.rotation = Quaternion.Euler(0,rotateSpeed,0 * Time.deltaTime);
+            _CurrentShowcaseObject.transform.Rotate(0, Time.deltaTime * rotateSpeed, 0);
         }
     }
 
