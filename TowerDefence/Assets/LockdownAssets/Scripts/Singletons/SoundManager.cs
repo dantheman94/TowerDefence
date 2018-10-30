@@ -69,7 +69,7 @@ public class SoundManager : MonoBehaviour {
 
         // Initialize lists
         _Sounds = new List<AudioSource>();
-
+        _VoxelWaitingList = new List<AudioSource>();
     }
 
     private void Start() {
