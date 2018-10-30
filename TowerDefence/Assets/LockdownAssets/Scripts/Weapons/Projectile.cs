@@ -7,7 +7,7 @@ using UnityEngine;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 1/10/2018
+//  Last edited on: 30/10/2018
 //
 //******************************
 
@@ -27,6 +27,9 @@ public class Projectile : MonoBehaviour {
     public float MaxDistance = 1000f;
     [Space]
     public bool AffectedByGravity = false;
+    [Space]
+    public bool TimedDetonation = false;
+    public float TimeTillDetonation = 3f;
 
     [Space]
     [Header("-----------------------------------")]
@@ -122,6 +125,9 @@ public class Projectile : MonoBehaviour {
         ParabolicArc oldArc = GetComponent<ParabolicArc>();
         if (oldArc != null) { Destroy(oldArc); }
         if (AffectedByGravity) { gameObject.AddComponent<ParabolicArc>(); }
+
+        // Timed detonation
+        if (TimedDetonation) { StartCoroutine(DetonatorTimer()); }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -224,10 +230,6 @@ public class Projectile : MonoBehaviour {
                 // Play
                 ParticleSystem effect = ObjectPooling.Spawn(ExplosionEffect.gameObject, transform.position, transform.rotation).GetComponent<ParticleSystem>();
                 effect.Play();
-
-                // Despawn particle system once it has finished its cycle
-                float effectDuration = effect.duration + effect.startLifetime;
-                StartCoroutine(ParticleDespawner.Instance.ParticleDespawn(effect, effectDuration));
             }
 
             // Camera shake on explosion
@@ -250,7 +252,15 @@ public class Projectile : MonoBehaviour {
             ParticleSystem effect = ObjectPooling.Spawn(ImpactEffect, transform.position, transform.rotation).GetComponentInChildren<ParticleSystem>();
             effect.Play();
         }
-                
+
+        // Play OnDeath effect (this is for when you dont want to use explosion damage properties, but have the effect play still)
+        if (ExplosionEffect != null && !ExplodeOnImpact) {
+
+            // Play
+            ParticleSystem effect = ObjectPooling.Spawn(ExplosionEffect.gameObject, transform.position, transform.rotation).GetComponent<ParticleSystem>();
+            effect.Play();
+        }
+
         ObjectPooling.Despawn(gameObject);
     }
 
@@ -370,5 +380,25 @@ public class Projectile : MonoBehaviour {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator DetonatorTimer() {
+
+        // Delay
+        float normalizedTime = 0f;
+        while (normalizedTime <= 1f) {
+
+            normalizedTime += Time.deltaTime / TimeTillDetonation;
+            yield return null;
+        }
+
+        // Detonate
+        OnDestroy();
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 }

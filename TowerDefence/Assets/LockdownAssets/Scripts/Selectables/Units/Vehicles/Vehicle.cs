@@ -200,14 +200,30 @@ public class Vehicle : Unit {
         int units = 1 << LayerMask.NameToLayer("Units");
         LayerMask mask = def | units;
         RaycastHit hit;
-        if (Physics.Raycast(MuzzleLaunchPoints[0].transform.position, WeaponObject.transform.forward, out hit, MaxAttackingRange, mask)) {
+        if (WeaponObject != null) {
 
-            // There is a line of sight to the target, fire the weapon (if possible)
-            if (PrimaryWeapon.CanFire()) { PrimaryWeapon.FireWeapon(); }
+            // Raycast from the weapon barrel
+            if (Physics.Raycast(MuzzleLaunchPoints[0].transform.position, WeaponObject.transform.forward, out hit, MaxAttackingRange, mask)) {
 
-            Debug.DrawRay(MuzzleLaunchPoints[0].transform.position, WeaponObject.transform.forward * MaxAttackingRange, Color.green);
+                // There is a line of sight to the target, fire the weapon (if possible)
+                if (PrimaryWeapon.CanFire()) { PrimaryWeapon.FireWeapon(); }
+
+                Debug.DrawRay(MuzzleLaunchPoints[0].transform.position, WeaponObject.transform.forward * MaxAttackingRange, Color.green);
+            }
+            else { Debug.DrawRay(MuzzleLaunchPoints[0].transform.position, WeaponObject.transform.forward * MaxAttackingRange, Color.red); }
         }
-        else { Debug.DrawRay(MuzzleLaunchPoints[0].transform.position, WeaponObject.transform.forward * MaxAttackingRange, Color.red); }
+        else {
+
+            // Raycast from the face
+            if (Physics.Raycast(MuzzleLaunchPoints[0].transform.position, MuzzleLaunchPoints[0].transform.forward, out hit, MaxAttackingRange, mask)) {
+
+                // There is a line of sight to the target, fire the weapon (if possible)
+                if (PrimaryWeapon.CanFire()) { PrimaryWeapon.FireWeapon(); }
+
+                Debug.DrawRay(MuzzleLaunchPoints[0].transform.position, MuzzleLaunchPoints[0].transform.forward * MaxAttackingRange, Color.green);
+            }
+            else { Debug.DrawRay(MuzzleLaunchPoints[0].transform.position, MuzzleLaunchPoints[0].transform.forward * MaxAttackingRange, Color.red); }
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

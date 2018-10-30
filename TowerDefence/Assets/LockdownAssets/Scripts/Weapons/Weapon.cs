@@ -710,6 +710,12 @@ public class Weapon : MonoBehaviour {
                     // Damage the object (its not a unit so use the default damage value)
                     else { worldObj.Damage((Damages.DamageDefault * wm.GetWaveDamageModifier(worldObj)) * dm.GetDifficultyModifier(Unit.EUnitType.Undefined, worldObj.Team == GameManager.Team.Defending, mod), _UnitAttached); }
                 }
+
+                // Spawn gameobject on impact
+                if (SpawnOnImpact != null) {
+
+                    ObjectPooling.Spawn(SpawnOnImpact, hit.point, _UnitAttached.MuzzleLaunchPoints[0].transform.rotation);
+                }
             }
             else {
 

@@ -55,7 +55,11 @@ MonoBehaviour:
   ProjectileClass: {fileID: 0}
   FiringEffect: {fileID: 0}
   FiringDelay: 2
-  MuzzleEffect: {fileID: 0}
+  LoopingFire: 0
+  FiringDuration: 3
+  TrackingProjectile: 0
+  TrackingStrength: 1
+  MuzzleEffectWrapper: {fileID: 0}
   MuzzlePatternType: 0
   ReusableMuzzlePoints: 1
   ChargeUpTime: 2
@@ -64,20 +68,30 @@ MonoBehaviour:
   ChargeUpColor: {r: 1, g: 1, b: 1, a: 1}
   AngularOffsetType: 0
   AngularOffset: {x: 0, y: 0, z: 0}
+  SpreadRaycasts: 0
+  SpreadAmount: 1
+  SpreadAngle: 1
+  VisualizeHitscanTrace: 0
+  HitScanDrawTime: 1
+  HitScanStartColour: {r: 1, g: 1, b: 1, a: 1}
+  HitScanStartWidth: 1
+  HitScanEndColour: {r: 1, g: 1, b: 1, a: 1}
+  HitScanEndWidth: 1
+  DefaultImpactEffect: {fileID: 0}
   SpawnOnImpact: {fileID: 1398645600230270, guid: b4c1745b948a8454689b546b97ed4452,
     type: 2}
   Damages:
     DamageDefault: 20
-    DamageCoreInfantry: 2
-    DamageAntiInfantryMarine: 2
-    DamageHero: 2
-    DamageCoreVehicle: 2
-    DamageAntiAirVehicle: 2
-    DamageMobileArtillery: 2
-    DamageBattleTank: 2
-    DamageCoreAirship: 2
-    DamageSupportShip: 2
-    DamageHeavyAirship: 2
+    DamageCoreInfantry: 0
+    DamageAntiInfantryMarine: 0
+    DamageHero: 0
+    DamageCoreVehicle: 0
+    DamageAntiAirVehicle: 0
+    DamageMobileArtillery: 0
+    DamageBattleTank: 0
+    DamageCoreAirship: 0
+    DamageSupportShip: 0
+    DamageHeavyAirship: 0
   BottomlessClip: 1
   MagazineSize: 4
   ReloadTime: 2
