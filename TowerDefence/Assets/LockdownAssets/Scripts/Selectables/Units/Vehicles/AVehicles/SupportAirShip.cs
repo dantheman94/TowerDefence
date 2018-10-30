@@ -72,7 +72,7 @@ public class SupportAirShip : AirVehicle {
             }
 
             // Healing target does not become target if it has full health or is dead
-            if (!_HealingTarget.IsAlive() || (_HealingTarget.GetHealth() == 1f) || _HealingTarget.GetHitPoints() >= _HealingTarget.MaxHitPoints) { _HealingTarget = null; }
+            if (!_HealingTarget.IsAlive() || (_HealingTarget.GetHealth() >= 1f) || _HealingTarget.GetHitPoints() >= _HealingTarget.MaxHitPoints) { _HealingTarget = null; }
         }
 
         // No healing target, means no attack target
@@ -86,7 +86,7 @@ public class SupportAirShip : AirVehicle {
     /// </summary>
     /// <param name="highlight"></param>
     public override void DrawSelection(bool draw) {
-        base.DrawHighlight(draw);
+        base.DrawSelection(draw);
 
         // Highlight our healing target
         if (_HealingTarget != null) {
@@ -94,7 +94,24 @@ public class SupportAirShip : AirVehicle {
             if (_HealingTarget.Team != Team) { _HealingTarget.SetForceSelectOutline(draw); }
         }
     }
-    
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="highlight"></param>
+    public override void DrawHighlight(bool highlight) {
+        base.DrawHighlight(highlight);
+
+        // highlight our healing target
+        if (_HealingTarget != null) {
+
+            if (_HealingTarget.Team != GameManager.Team.Defending) { _HealingTarget.SetForceHighlightOutline(highlight); }
+        }
+    }
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
@@ -106,7 +123,17 @@ public class SupportAirShip : AirVehicle {
         // Only objects of the same team can be healed by this object
         if (target.Team == Team) { _HealingTarget = target; }
     }
-    
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Returns reference to the current healing target for this unit.
+    /// </summary>
+    /// <returns>
+    //  WorldObject
+    /// </returns>
+    public WorldObject GetHealingTarget() { return _HealingTarget; }
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }
