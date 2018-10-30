@@ -7,8 +7,8 @@ using UnityEngine.UI;
 //
 //  Created by: Daniel Marton
 //
-//  Last edited by: Daniel Marton
-//  Last edited on: 18/9/2018
+//  Last edited by: Angus Secomb
+//  Last edited on: 30/10/18
 //
 //******************************
 
@@ -30,6 +30,7 @@ public class UI_LoadingScreen : MonoBehaviour
     [Space]
     public Text LevelName = null;
     public Text LevelDescription = null;
+    public Text PlayerName = null;
     public Image LevelImage = null;
     [Space]
     public Text Gamemode = null;
@@ -52,6 +53,8 @@ public class UI_LoadingScreen : MonoBehaviour
     /// </summary>
     private void Update() {
 
+   
+
         // Update loading screen panel widgets
         if (InstanceManager.Instance._LoadingGameplay) { 
 
@@ -73,6 +76,9 @@ public class UI_LoadingScreen : MonoBehaviour
         if (LevelDescription != null/* && InstanceManager.Instance._Level != null*/) { LevelDescription.text = InstanceManager.Instance._Level.LevelDescription; }
 
         if(LevelImage != null) { LevelImage.sprite = InstanceManager.Instance._Level.LevelThumbnailSprite; }
+
+        //Update player name
+        if(PlayerName != null) { PlayerName.text = InstanceManager.Instance.PlayerName; }
 
         // Update gamemode text
         if (Gamemode != null) {

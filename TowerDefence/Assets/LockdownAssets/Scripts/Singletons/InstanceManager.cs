@@ -6,8 +6,8 @@ using UnityEngine;
 //
 //  Created by: Daniel Marton
 //
-//  Last edited by: Daniel Marton
-//  Last edited on: 29/7/2018
+//  Last edited by: Angus Secomb
+//  Last edited on: 30/10/18
 //
 //******************************
 
@@ -39,6 +39,8 @@ public class InstanceManager : MonoBehaviour {
     public Info_Difficulty _Difficulty { get; set; }
 
     public bool _LoadingGameplay { get; private set; }
+
+    public string PlayerName;
 
     //******************************************************************************************************************************
     //

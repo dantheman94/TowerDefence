@@ -8,8 +8,8 @@ using UnityEngine.UI;
 //
 //  Created by: Daniel Marton
 //
-//  Last edited by: Daniel Marton
-//  Last edited on: 18/9/2018
+//  Last edited by: Angus Secomb
+//  Last edited on: 30/10/18
 //
 //******************************
 
@@ -28,6 +28,7 @@ public class UI_PauseWidget : MonoBehaviour {
     public Text DifficultyTrackerText = null;
     public Text ScoreTrackerText = null;
     public Text CurrentWaveTrackerText = null;
+    public Text PlayerNameText = null;
     [Space]
     public Image LevelImage = null;
     [Space]
@@ -52,6 +53,13 @@ public class UI_PauseWidget : MonoBehaviour {
     //      FUNCTIONS
     //
     //******************************************************************************************************************************
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    private void Start()
+    {
+        PlayerNameText.text = InstanceManager.Instance.PlayerName;
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

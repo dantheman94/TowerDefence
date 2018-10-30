@@ -47,6 +47,7 @@ public class Display_Leaderboard : MonoBehaviour
     private List<MapPanel> _MapPanels;
     private List<Leaderboard.SaveData> _SaveDataList;
     private List<Leaderboard.SaveData> _SortedSaveData;
+    private GameObject _PreviousObject;
 
     //******************************************************************************************************************************
     //
@@ -77,21 +78,26 @@ public class Display_Leaderboard : MonoBehaviour
     /// </summary>
     public void InstantiatePanels()
     {
-        int counterIncrement = 18;
+        int counterIncrement = 36;
         if(_SortedSaveData != null)
         for (int i = 0; i < _SortedSaveData.Count; ++i)
         {
 
-            {
                 GameObject go = Instantiate(PanelObject);
                 go.SetActive(true);
                 go.transform.parent = ListObject.transform;
-                go.transform.localPosition = PanelObject.transform.localPosition;
+                
                 if (i != 0)
                 {
-                    go.transform.localPosition = new Vector3(go.transform.localPosition.x, go.transform.localPosition.y - counterIncrement);
+                    go.transform.localPosition = new Vector3(PanelObject.transform.localPosition.x, PanelObject.transform.localPosition.y - counterIncrement);
+                    counterIncrement += 36;
                 }
-
+                else
+                {
+                    go.transform.localPosition = new Vector3(PanelObject.transform.localPosition.x, PanelObject.transform.localPosition.y);
+                }
+                 go.transform.localScale = new Vector3(1, 1, 1);
+                _PreviousObject = go;
 
                 Panel panel = go.GetComponent<Panel>();
                 panel.Score.text = _SortedSaveData[i].Score.ToString();
@@ -100,8 +106,8 @@ public class Display_Leaderboard : MonoBehaviour
                 panel.Win.text = _SortedSaveData[i].Outcome;
                 panel.Waves.text = _SortedSaveData[i].Waves.ToString();
                 panel.Rank.text = (i + 1).ToString();
-                counterIncrement += 18;
-            }
+               
+                Debug.Log(counterIncrement);
         }
     }
 }

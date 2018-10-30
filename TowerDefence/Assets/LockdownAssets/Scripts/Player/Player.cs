@@ -118,6 +118,7 @@ public class Player : MonoBehaviour {
         _XboxGamepadInputManager = GetComponent<XboxGamepadInput>();
         _HUD = GetComponent<HUD>();
         _CameraFollow = GetComponent<CameraFollow>();
+        Name = InstanceManager.Instance.PlayerName;
 
         // Initialize new player entity
         _Score = 0;
