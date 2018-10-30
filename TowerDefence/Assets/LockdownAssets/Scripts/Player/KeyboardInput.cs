@@ -919,9 +919,7 @@ public class KeyboardInput : MonoBehaviour {
         if (GameManager.Instance.GetIsUnitControlling() == false) {
 
             // There are AI currently selected and therefore we can command them
-            if (UnitsSelected.Count > 0) { AiMouseCommandsInput(UnitsSelected); 
-             
-            }
+            if (UnitsSelected.Count > 0) { AiMouseCommandsInput(UnitsSelected);  }
         }
     }
 
@@ -1049,7 +1047,21 @@ public class KeyboardInput : MonoBehaviour {
                             ///foreach (var unit in units) { unit.AgentAttackObject(unitObj, unit.GetAttackingPositionAtObject(unitObj), true); }
                             foreach (var unit in units) { unit.ForceChaseTarget(unitObj, true); }
                         }
-                    }                    
+                    }   
+                    
+                    // Ally unit
+                    else {
+                        
+                        // Unit isnt at full health
+                        if (unitObj.GetHitPoints() < unitObj.MaxHitPoints) {
+
+                            for (int i = 0; i < units.Count; i++) {
+
+                                // Heal the friendly unit
+                                if (units[i] is SupportAirShip) { (units[i] as SupportAirShip).SetHealingTarget(unitObj); }
+                            }
+                        }
+                    }
                 }
 
                 // Right clicking on a building
@@ -1078,6 +1090,16 @@ public class KeyboardInput : MonoBehaviour {
 
                             // And there is enough space for it
                             ///if (buildingObj.MaxGarrisonPopulation - buildingObj.GetCurrentGarrisonCount() >= )
+                        }
+
+                        // Building isnt at full health
+                        if (buildingObj.GetHitPoints() < buildingObj.MaxHitPoints) {
+
+                            for (int i = 0; i < units.Count; i++) {
+
+                                // Heal the building
+                                if (units[i] is SupportAirShip) { (units[i] as SupportAirShip).SetHealingTarget(buildingObj); }
+                            }
                         }
                     }
                 }

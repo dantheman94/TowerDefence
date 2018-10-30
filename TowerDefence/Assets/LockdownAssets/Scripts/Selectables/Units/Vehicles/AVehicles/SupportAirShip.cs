@@ -7,7 +7,7 @@ using UnityEngine;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 22/10/2018
+//  Last edited on: 30/10/2018
 //
 //******************************
 
@@ -22,9 +22,6 @@ public class SupportAirShip : AirVehicle {
     [Space]
     [Header("-----------------------------------")]
     [Header(" SUPPORT AIRSHIP PROPERTIES")]
-    [Space]
-    public float HealingAmount = 15.0f;
-    public float HealingRange = 10.0f;
     [Space]
     public float HangingDistance = 50f;
 
@@ -41,7 +38,7 @@ public class SupportAirShip : AirVehicle {
     //      FUNCTIONS
     //
     //******************************************************************************************************************************
-
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
@@ -53,16 +50,51 @@ public class SupportAirShip : AirVehicle {
         // Follow our healing target
         if (_HealingTarget != null) {
 
+            _AttackTarget = _HealingTarget;
+
             // Close the gap if were too far away from our target
             float dist = Vector3.Distance(transform.position, _HealingTarget.transform.position);
             if (dist > HangingDistance) {
-
+                
                 // Just go to our targets position, this will update again if they get too far anyway
                 AgentSeekPosition(_HealingTarget.transform.position, false, false);
             }
+
+            // Check if the target is within attacking range
+            _DistanceToTarget = Vector3.Distance(transform.position, _HealingTarget.transform.position);
+            if (_DistanceToTarget <= MaxAttackingRange && PrimaryWeapon != null) {
+
+                // Make the muzzle point face the healing target
+                MuzzleLaunchPoints[0].transform.LookAt(_HealingTarget.transform);
+
+                // Heal the target
+                if (PrimaryWeapon.CanFire()) { OnFireWeapon(); }
+            }
+
+            // Healing target does not become target if it has full health or is dead
+            if (!_HealingTarget.IsAlive() || (_HealingTarget.GetHealth() == 1f) || _HealingTarget.GetHitPoints() >= _HealingTarget.MaxHitPoints) { _HealingTarget = null; }
         }
+
+        // No healing target, means no attack target
+        else { _AttackTarget = null; }
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="highlight"></param>
+    public override void DrawSelection(bool draw) {
+        base.DrawHighlight(draw);
+
+        // Highlight our healing target
+        if (_HealingTarget != null) {
+
+            if (_HealingTarget.Team != Team) { _HealingTarget.SetForceSelectOutline(draw); }
+        }
+    }
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
@@ -74,7 +106,7 @@ public class SupportAirShip : AirVehicle {
         // Only objects of the same team can be healed by this object
         if (target.Team == Team) { _HealingTarget = target; }
     }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 }

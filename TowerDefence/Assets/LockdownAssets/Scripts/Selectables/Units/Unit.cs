@@ -1006,6 +1006,7 @@ public class Unit : WorldObject {
     /// <param name="attackTarget"></param>
     /// <param name="seekPosition"></param>
     /// <param name="overwrite"></param>
+    /// <param name="displayWaypoint"></param>
     public void AgentAttackObject(WorldObject attackTarget, Vector3 seekPosition, bool overwrite = false, bool displayWaypoint = true) {
 
         // Set target
