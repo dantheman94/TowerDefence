@@ -53,6 +53,11 @@ public class Cine_TutorialOpen : Cinematic {
     /// </summary>
     private void Update() {
 
+        if(_CinematicComplete)
+        {
+            Camera.main.transform.localPosition = new Vector3(0, 0, 0);
+        }
+
         // Check for cinematic completion
         if (_CinematicInProgress && ViewCamera != null) {
 
@@ -81,15 +86,15 @@ public class Cine_TutorialOpen : Cinematic {
 
         // Set camera starting rotation
         float angle = ViewCamera.transform.rotation.eulerAngles.x;
-        ViewCamera.transform.rotation = GameManager.Instance.StartingBase.transform.rotation;
-        ViewCamera.transform.rotation = Quaternion.Euler(angle, ViewCamera.transform.rotation.eulerAngles.y, ViewCamera.transform.rotation.eulerAngles.z);
+        ViewCamera.transform.parent.rotation = GameManager.Instance.StartingBase.transform.rotation;
+        ViewCamera.transform.parent.rotation = Quaternion.Euler(angle, ViewCamera.transform.rotation.eulerAngles.y, ViewCamera.transform.rotation.eulerAngles.z);
 
         // Set camera starting position
-        ViewCamera.transform.position = new Vector3(GameManager.Instance.StartingBase.transform.position.x,
+        ViewCamera.transform.parent.position = new Vector3(GameManager.Instance.StartingBase.transform.position.x,
                                                     Settings.MaxCameraHeight,
                                                     GameManager.Instance.StartingBase.transform.position.z);
-        ViewCamera.transform.position -= ViewCamera.transform.up * BaseOffset;
-        ViewCamera.transform.position = new Vector3(ViewCamera.transform.position.x, Settings.MaxCameraHeight, ViewCamera.transform.position.z);
+        ViewCamera.transform.parent.position -= ViewCamera.transform.up * BaseOffset;
+        ViewCamera.transform.parent.position = new Vector3(ViewCamera.transform.position.x, Settings.MaxCameraHeight, ViewCamera.transform.position.z);
 
         // Fade screen from black
         StartCoroutine(DelayedFadeIn());

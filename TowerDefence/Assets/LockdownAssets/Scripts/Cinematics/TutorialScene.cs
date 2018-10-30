@@ -265,16 +265,16 @@ public class TutorialScene : MonoBehaviour {
 
         if(MessageList[EventIndex].TargetObject != null)
         {
-            if (_MainCamera.transform.position != MessageList[EventIndex].TargetObject.transform.position)
+            if (_MainCamera.transform.parent.position != MessageList[EventIndex].TargetObject.transform.position)
             {
                 //Lerp Camera to desired position.
                 LerpCamera(MessageList[EventIndex]);
                 LerpCameraRotation(MessageList[EventIndex]);
             }
-            if (Vector3.Distance(_MainCamera.transform.position, MessageList[EventIndex].TargetObject.transform.position) < 3.5f)
+            if (Vector3.Distance(_MainCamera.transform.parent.position, MessageList[EventIndex].TargetObject.transform.position) < 3.5f)
             {
                 MessageList[EventIndex].SetLerpComplete(true);
-                _MainCamera.transform.position = MessageList[EventIndex].TargetObject.transform.position;
+                _MainCamera.transform.parent.position = MessageList[EventIndex].TargetObject.transform.position;
             }
             if (MessageList[EventIndex].IsLerpComplete())
             {
@@ -337,7 +337,8 @@ public class TutorialScene : MonoBehaviour {
     /// <param name="md"></param>
     void LerpCamera(MessageData md)
     {
-        _MainCamera.transform.position = Vector3.Lerp(_MainCamera.transform.position, md.TargetObject.transform.position, md.LerpSpeed);
+        _MainCamera.transform.parent.position = Vector3.Lerp(_MainCamera.transform.parent.position, md.TargetObject.transform.position, md.LerpSpeed);
+        _MainCamera.transform.localPosition = new Vector3(0, 0, 0);
     }
 
     /// <summary>
@@ -346,7 +347,8 @@ public class TutorialScene : MonoBehaviour {
     /// <param name="md"></param>
     void LerpCameraRotation(MessageData md)
     {
-        _MainCamera.transform.rotation = Quaternion.Lerp(_MainCamera.transform.rotation, md.TargetObject.transform.rotation, md.LerpSpeed);
+        _MainCamera.transform.parent.rotation = Quaternion.Lerp(_MainCamera.transform.parent.rotation, md.TargetObject.transform.rotation, md.LerpSpeed);
+        _MainCamera.transform.localRotation = new Quaternion(0, 0, 0, 0);
     }
 
     /// <summary>
