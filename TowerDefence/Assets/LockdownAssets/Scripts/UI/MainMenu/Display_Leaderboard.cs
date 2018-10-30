@@ -78,7 +78,8 @@ public class Display_Leaderboard : MonoBehaviour
     /// </summary>
     public void InstantiatePanels()
     {
-        int counterIncrement = 36;
+        int counterIncrement = 75;
+        float counterIncrement2 = PanelObject.GetComponentInChildren<Image>().GetComponent<RectTransform>().rect.height;
         if(_SortedSaveData != null)
         for (int i = 0; i < _SortedSaveData.Count; ++i)
         {
@@ -89,8 +90,8 @@ public class Display_Leaderboard : MonoBehaviour
                 
                 if (i != 0)
                 {
-                    go.transform.localPosition = new Vector3(PanelObject.transform.localPosition.x, PanelObject.transform.localPosition.y - counterIncrement);
-                    counterIncrement += 36;
+                    go.transform.localPosition = new Vector3(PanelObject.transform.localPosition.x, PanelObject.transform.localPosition.y - counterIncrement2);
+                    counterIncrement2 += counterIncrement2;
                 }
                 else
                 {
