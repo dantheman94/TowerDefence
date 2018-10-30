@@ -7,8 +7,8 @@ using UnityEngine.UI;
 //
 //  Created by: Daniel Marton
 //
-//  Last edited by: Daniel Marton
-//  Last edited on: 13/8/2018
+//  Last edited by: Angus Secomb
+//  Last edited on: 30/10/18
 //
 //******************************
 
@@ -31,6 +31,7 @@ public class UI_GameOver : MonoBehaviour {
     public Text TextScore = null;
     public Text TextWavesSurvived = null;
     public Text TextDifficulty = null;
+    public Text TextName = null;
 
     //******************************************************************************************************************************
     //
@@ -46,6 +47,16 @@ public class UI_GameOver : MonoBehaviour {
     //      FUNCTIONS
     //
     //******************************************************************************************************************************
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    private void Start()
+    {
+        TextName.text = InstanceManager.Instance.PlayerName;
+        GameManager.Instance.Players[0].Outcome = TextMatchResult.text;
+        GameManager.Instance.Players[0].Difficulty = DifficultyManager.Instance._Difficulty.Difficulty.ToString();
+        Leaderboard.Instance.OnGameOver();
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

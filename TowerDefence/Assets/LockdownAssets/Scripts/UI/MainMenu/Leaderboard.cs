@@ -105,6 +105,11 @@ public class Leaderboard : MonoBehaviour
         _SaveData.Score = _Player.GetScore();
         _SaveData.Waves = _Player.GetWavesSurvived();
         _SaveData.Outcome = _Player.Outcome;
+
+        if(_HighscoreList == null)
+        {
+            _HighscoreList = new List<SaveData>();
+        }
         _HighscoreList.Add(_SaveData);
 
 

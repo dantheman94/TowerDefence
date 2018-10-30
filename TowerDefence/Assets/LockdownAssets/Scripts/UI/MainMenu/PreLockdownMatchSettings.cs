@@ -34,6 +34,7 @@ public class PreLockdownMatchSettings : MonoBehaviour {
     public Button StartMatchButton;
     public Button DifficultyButton;
     public Button LevelButton;
+    public InputField NameField;
 
 
     //******************************************************************************************************************************
@@ -46,6 +47,7 @@ public class PreLockdownMatchSettings : MonoBehaviour {
     private Info_Level _Level = null;
     private Info_Difficulty _Difficulty = null;
     private string TutorialSetting = "";
+    private string _PlayerName;
 
     //******************************************************************************************************************************
     //
@@ -60,7 +62,7 @@ public class PreLockdownMatchSettings : MonoBehaviour {
     /// </summary>
     private void Update() {
         DisableButton();
-
+        SetPlayerName();
         //if(PlayerPrefs.GetString("TutorialComplete") == null || PlayerPrefs.GetString("TutorialComplete") == "")
         //{
         //    LevelButton.interactable = false;
@@ -140,6 +142,11 @@ public class PreLockdownMatchSettings : MonoBehaviour {
         DifficultyButton.interactable = true;
     }
 
+    private void SetPlayerName()
+    {
+        _PlayerName = NameField.text;
+    }
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
@@ -173,8 +180,14 @@ public class PreLockdownMatchSettings : MonoBehaviour {
         //    LevelThumbnailSprite = _Level.LevelThumbnailSprite
         //};
         
+        if(_PlayerName == "")
+        {
+            _PlayerName = "Player";
+        }
+
         InstanceManager.Instance._Level = _Level;
         InstanceManager.Instance._Difficulty = _Difficulty;
+        InstanceManager.Instance.PlayerName = _PlayerName;
         // Setup
         InstanceManager.Instance.SetLoadingType(true);
 
