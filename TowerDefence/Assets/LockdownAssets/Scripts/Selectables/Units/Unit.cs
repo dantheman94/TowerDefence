@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 //******************************
 //
@@ -396,7 +397,7 @@ public class Unit : WorldObject {
     /// </summary>
     /// <param name="highlight"></param>
     public override void DrawSelection(bool draw) {
-        base.DrawHighlight(draw);
+        base.DrawSelection(draw);
 
         // Highlight our attack target
         if (_AttackTarget != null) {
@@ -542,7 +543,15 @@ public class Unit : WorldObject {
 
         // Determine build time
         UpgradeManager upgradeManager = _Player.GetUpgradeManager();
-        BuildingTime *= (int)upgradeManager._UnitBuildingSpeedMultiplier;
+
+        if (SceneManager.GetSceneByName("TutorialScene") == SceneManager.GetActiveScene()) {
+
+            BuildingTimeTutorial *= (int)upgradeManager._UnitBuildingSpeedMultiplier;
+        }
+        else {
+
+            BuildingTime *= (int)upgradeManager._UnitBuildingSpeedMultiplier;
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

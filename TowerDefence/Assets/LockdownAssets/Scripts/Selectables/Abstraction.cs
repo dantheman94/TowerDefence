@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 //******************************
 //
@@ -105,7 +106,17 @@ public class Abstraction : MonoBehaviour {
     /// <returns>
     //  float
     /// </returns>
-    public float GetCurrentBuildTimeRemaining() { return BuildingTime - _CurrentBuildTime; }
+    public float GetCurrentBuildTimeRemaining() {
+
+        if (SceneManager.GetSceneByName("TutorialScene") == SceneManager.GetActiveScene()) {
+
+            return BuildingTimeTutorial - _CurrentBuildTime;
+        }
+        else {
+
+            return BuildingTime - _CurrentBuildTime;
+        }
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
@@ -115,7 +126,17 @@ public class Abstraction : MonoBehaviour {
     /// <returns>
     //  float
     /// </returns>
-    public float GetBuildPercentage() { return _CurrentBuildTime / BuildingTime; }
+    public float GetBuildPercentage() {
+
+        if (SceneManager.GetSceneByName("TutorialScene") == SceneManager.GetActiveScene()) {
+
+            return _CurrentBuildTime / BuildingTimeTutorial;
+        }
+        else {
+
+            return _CurrentBuildTime / BuildingTime;
+        }
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

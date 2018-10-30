@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 //******************************
 //
@@ -235,12 +236,29 @@ public class WorldObject : Selectable {
             case WorldObjectStates.Building: {
 
                 // Is unit building complete?
-                _ReadyForDeployment = _CurrentBuildTime >= BuildingTime;
+
+                if (SceneManager.GetSceneByName("TutorialScene") == SceneManager.GetActiveScene()) {
+
+                    _ReadyForDeployment = _CurrentBuildTime >= BuildingTimeTutorial;
+                }
+                else {
+
+                    _ReadyForDeployment = _CurrentBuildTime >= BuildingTime;
+                }
+
                 if (!_ReadyForDeployment) {
 
                     // Add to building timer
-                    if (_CurrentBuildTime < BuildingTime) { _CurrentBuildTime += Time.deltaTime; }
-                } else {
+                    if (SceneManager.GetSceneByName("TutorialScene") == SceneManager.GetActiveScene()) {
+
+                        if (_CurrentBuildTime < BuildingTimeTutorial) { _CurrentBuildTime += Time.deltaTime; }
+                    }
+                    else {
+
+                        if (_CurrentBuildTime < BuildingTime) { _CurrentBuildTime += Time.deltaTime; }
+                    }
+                }
+                else {
 
                     // Object has finished building
                     OnBuilt();
@@ -290,7 +308,14 @@ public class WorldObject : Selectable {
         }
 
         // Update shield to be a normalized range of the object's shield-points
-        if (_ShieldPoints > 0) { _Shield = _ShieldPoints / MaxShieldPoints; } else {
+        if (_ShieldPoints > 0) {
+
+            _Shield = _ShieldPoints / MaxShieldPoints;
+
+            // Clamp to max points
+            if (_ShieldPoints > MaxShieldPoints) { _ShieldPoints = MaxShieldPoints; }
+        }
+        else {
 
             // Clamp the shield
             _ShieldPoints = 0;
@@ -298,7 +323,13 @@ public class WorldObject : Selectable {
         }
 
         // Update health to be a normalized range of the object's hitpoints
-        if (_HitPoints > 0) { _Health = _HitPoints / MaxHitPoints; }
+        if (_HitPoints > 0) {
+
+            _Health = _HitPoints / MaxHitPoints;
+
+            // Clamp to max points
+            if (_HitPoints > MaxHitPoints) { _HitPoints = MaxHitPoints; }
+        }
         else {
 
             // Clamping health
@@ -460,7 +491,15 @@ public class WorldObject : Selectable {
             // Set object's properties
             _ClonedWorldObject.Team = plyr.Team;
             _ClonedWorldObject._IsCurrentlySelected = false;
-            _CurrentBuildTime = BuildingTime;
+
+            if (SceneManager.GetSceneByName("TutorialScene") == SceneManager.GetActiveScene()) {
+
+                _CurrentBuildTime = BuildingTimeTutorial;
+            }
+            else {
+
+                _CurrentBuildTime = BuildingTime;
+            }
         }
     }
 

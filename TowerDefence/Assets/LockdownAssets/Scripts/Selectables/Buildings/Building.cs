@@ -5,6 +5,7 @@ using TowerDefence;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 //******************************
 //
@@ -291,7 +292,14 @@ public class Building : WorldObject {
         if (_ClonedWorldObject != null) {
 
             // Reset building time
-            _CurrentBuildTime = BuildingTime;
+            if (SceneManager.GetSceneByName("TutorialScene") == SceneManager.GetActiveScene()) {
+
+                _CurrentBuildTime = BuildingTimeTutorial;
+            }
+            else {
+
+                _CurrentBuildTime = BuildingTime;
+            }
 
             // Update building slot team for the outline colouring
             Building building = _ClonedWorldObject.GetComponent<Building>();
@@ -380,7 +388,14 @@ public class Building : WorldObject {
         if (_Player != null) {
 
             UpgradeManager upgradeManager = _Player.GetUpgradeManager();
-            BuildingTime *= (int)upgradeManager._BuildingSpeedMultiplier;
+            if (SceneManager.GetSceneByName("TutorialScene") == SceneManager.GetActiveScene()) {
+
+                BuildingTimeTutorial *= (int)upgradeManager._BuildingSpeedMultiplier;
+            }
+            else {
+
+                BuildingTime *= (int)upgradeManager._BuildingSpeedMultiplier;
+            }
         }
     }
 
