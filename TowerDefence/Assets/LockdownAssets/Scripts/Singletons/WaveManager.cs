@@ -6,8 +6,8 @@ using UnityEngine;
 //
 //  Created by: Daniel Marton
 //
-//  Last edited by: Daniel Marton
-//  Last edited on: 2/9/2018
+//  Last edited by: Joshua Peake
+//  Last edited on: 31/10/2018
 //
 //******************************
 
@@ -394,6 +394,9 @@ public class WaveManager : MonoBehaviour {
         _CurrentWaveInfo = GetWave();
         InitializeWave();
 
+        // Play wave start sound
+        SoundManager.Instance.PlaySound("SFX/_SFX_WaveStart", 1f, 1f);
+
         // Notification popup event
         if (WaveNotificationWidget != null) { WaveNotificationWidget.NewWaveNotification(_CurrentWaveInfo); }
     }
@@ -415,6 +418,9 @@ public class WaveManager : MonoBehaviour {
         _BossWave = false;
         _CurrentWaveTime = 0f;
         _WaveInProgress = false;
+
+        // Play wave complete sound
+        SoundManager.Instance.PlaySound("SFX/_SFX_WaveComplete", 1f, 1f);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -443,6 +449,9 @@ public class WaveManager : MonoBehaviour {
         // Add current wave into the previous waves list
         for (int i = 0; i < _CurrentWaveEnemies.Count; i++) { _PreviousWavesEnemies.Add(_CurrentWaveEnemies[i]); }
         _CurrentWaveEnemies.Clear();
+
+        // Play wave complete sound
+        SoundManager.Instance.PlaySound("SFX/_SFX_WaveComplete", 1f, 1f);
 
         // Update modifiers
         if (!_BossWave) {
