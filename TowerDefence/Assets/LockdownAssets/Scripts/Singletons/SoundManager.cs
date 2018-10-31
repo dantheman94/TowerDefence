@@ -34,11 +34,11 @@ public class SoundManager : MonoBehaviour {
 
     private const int _TrackCount = 4;
     private bool[]  _TracksPlayed = new bool[_TrackCount] { false, false, false, false };
-    private string[] _TrackPath = new string[_TrackCount] { "Audio/Denny_Schneidemesser_-_Morning Adventure",
-                                                            "Audio/Denny_Schneidemesser_-_Entering_The_Stronghold",
-                                                            "Audio/Denny_Schneidemesser_-_The_Revolution",
-                                                            "Audio/Denny_Schneidemesser_-_With_gun_and_Crucifix" };
-
+    private string[] _TrackPath = new string[_TrackCount] { "Music/_Music_Morning_Adventure",
+                                                            "Music/_Music_Enter_The_Dungeon",
+                                                            "Music/_Music_The_Revolution",
+                                                            "Music/_Music_With_Gun_And_Crucifix" };
+    
     //******************************************************************************************************************************
     //
     //      INSPECTOR
@@ -95,6 +95,8 @@ public class SoundManager : MonoBehaviour {
         if (_FadingIn) { _CurrentFadeInLerp += Time.deltaTime; }
 
         if (_FadingOut) { _CurrentFadeOutLerp += Time.deltaTime; }
+
+        Debug.Assert(_TrackPath == null, "_TrackPath is null, check file paths.");
 
         UpdateVoxel();
     }
