@@ -38,6 +38,7 @@ public class Humanoid : Vehicle {
     //******************************************************************************************************************************
     
     protected Quaternion _LookRotation = Quaternion.identity;
+    private Animator _Animator = null;
     
     //******************************************************************************************************************************
     //
@@ -54,6 +55,7 @@ public class Humanoid : Vehicle {
         base.Init();
 
         if (_Agent != null) { _Agent.acceleration = 1000; }
+        _Animator = GetComponentInChildren<Animator>();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -63,8 +65,9 @@ public class Humanoid : Vehicle {
     /// </summary>
     protected override void UpdateAIControllerMovement() {
         base.UpdateAIControllerMovement();
-        
+
         // Currently moving
+        if (_Animator != null) { _Animator.SetFloat("Speed", _CurrentSpeed); }
         if (_CurrentSpeed > 0) {
 
             // Play walking animation on the legs
@@ -79,13 +82,21 @@ public class Humanoid : Vehicle {
         else {
 
             // Play idle animation on the legs
-            if (IdleAnimation != null && LegsAnimator != null) {
+            if (LegsAnimator != null && IdleAnimation != null) {
 
                 LegsAnimator.clip = IdleAnimation;
                 LegsAnimator.Play();
             }
+
+            // Play idle animation on the torso
+            if (TorsoAnimator != null && IdleAnimation != null) {
+
+                TorsoAnimator.clip = IdleAnimation;
+                TorsoAnimator.Play();
+            }
         }
 
+        // Is attacking/shooting
         if (_IsAttacking) {
 
             TorsoAnimator.clip = ShootingAnimation;
