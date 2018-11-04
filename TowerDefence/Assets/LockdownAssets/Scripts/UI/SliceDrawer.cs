@@ -34,6 +34,7 @@ public class SliceDrawer : MonoBehaviour {
     private Camera _Camera;
     private GameObject newobject;
     private LineRenderer lineRenderer;
+    private Transform _PreviousTransform;
 
     //  FUNCTIONS
     ///////////////////////////////////////////////////////////////////
@@ -48,41 +49,50 @@ public class SliceDrawer : MonoBehaviour {
     void Update () {
 
 
-        if (Input.GetMouseButtonDown(1))
+        if(!Input.GetKey(KeyCode.W) || !Input.GetKey(KeyCode.A) || !Input.GetKey(KeyCode.S) || !Input.GetKey(KeyCode.D) || _PreviousTransform != _Camera.transform)
         {
-            _LineStartPoint = GetMouseCameraPoint();
-            StartGO = hud.FindHitObject();
-            LineStartPoint = hud.FindHitPoint();
-        }
-        else if (Input.GetMouseButton(1))
-        {
-
-            LineEndPoint = GetMouseCameraPoint();
-            if (newobject == null)
+            if (Input.GetMouseButtonDown(1))
             {
-                newobject = new GameObject();
-                lineRenderer = newobject.AddComponent<LineRenderer>();
+                _PreviousTransform = _Camera.transform;
+                _LineStartPoint = GetMouseCameraPoint();
+                StartGO = hud.FindHitObject();
+                LineStartPoint = hud.FindHitPoint();
             }
-
-            if (lineRenderer != null)
+            else if (Input.GetMouseButton(1))
             {
-                lineRenderer.material = LineMaterial;
 
-                lineRenderer.SetPositions(new Vector3[] { _LineStartPoint, LineEndPoint });
-                lineRenderer.startWidth = LineWidth;
-                lineRenderer.endWidth = LineWidth;
+                LineEndPoint = GetMouseCameraPoint();
+                if (newobject == null)
+                {
+                    newobject = new GameObject();
+                    lineRenderer = newobject.AddComponent<LineRenderer>();
+                }
+
+                if (lineRenderer != null)
+                {
+                    lineRenderer.material = LineMaterial;
+
+                    lineRenderer.SetPositions(new Vector3[] { _LineStartPoint, LineEndPoint });
+                    lineRenderer.startWidth = LineWidth;
+                    lineRenderer.endWidth = LineWidth;
+                }
+
+
+                // LineStartPoint = null;
             }
+            if (Input.GetMouseButtonUp(1))
+            {
 
-
-            // LineStartPoint = null;
+                Destroy(newobject);
+                MouseEndPoint = hud.FindHitPoint();
+                EndGO = hud.FindHitObject();
+            }
         }
-        if(Input.GetMouseButtonUp(1))
+        else
         {
- 
-            Destroy(newobject);
-            MouseEndPoint = hud.FindHitPoint();
-            EndGO = hud.FindHitObject();
+
         }
+    
        
 	}
 

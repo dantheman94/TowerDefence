@@ -62,6 +62,7 @@ public class KeyboardInput : MonoBehaviour {
     private Transform _CoreReturnTransform = null;
     private Vector3 _CurrentReturnVelocity = Vector3.zero;
     private bool _ReturningToCore = false;
+    private float _MouseTimer = 0.2f;
 
     //******************************************************************************************************************************
     //
@@ -113,11 +114,26 @@ public class KeyboardInput : MonoBehaviour {
     /// 
     private void Update() {
         CreateSelectionBox();
-        
-        if(Input.GetMouseButtonUp(1))
+
+        if (Input.GetMouseButtonUp(1))
         {
-            LineMovement();
+            if(_MouseTimer < 0)
+            {
+                LineMovement();
+            }
+            else
+            {
+                RightMouseClick();
+            }
+
+            _MouseTimer = 0.2f;
         }
+        if(Input.GetMouseButton(1))
+        {
+            _MouseTimer -= Time.deltaTime;
+        }
+        
+
         if (_PlayerAttached) {
 
             // Update primary controller
@@ -592,7 +608,7 @@ public class KeyboardInput : MonoBehaviour {
     private void MouseActivity() {
 
         if      (Input.GetMouseButtonDown(0)) { LeftMouseClick(); }
-        else if (Input.GetMouseButtonDown(1)) { RightMouseClick(); }
+        else if (Input.GetMouseButtonDown(1)) { /*RightMouseClick();*/ }
 
         // Highlighting selectables
         UpdateHighlightingObjects();
@@ -1272,7 +1288,10 @@ public class KeyboardInput : MonoBehaviour {
 
     private void LineMovement()
     {
+        if (!Input.GetKey(KeyCode.W) || !Input.GetKey(KeyCode.A) || !Input.GetKey(KeyCode.S) || !Input.GetKey(KeyCode.D))
+        {
 
+        
         if (Slicedrawer != null) {
 
             // Get point in world that is used to command the AI currently selected (go position, attack target, etc)
@@ -1284,39 +1303,49 @@ public class KeyboardInput : MonoBehaviour {
             float relativeDistance = (Distance / _PlayerAttached.SelectedUnits.Count);
             float relativeCopy = relativeDistance;
 
-            for (int i = 0; i < _PlayerAttached.SelectedUnits.Count; ++i) {
+                for (int i = 0; i < _PlayerAttached.SelectedUnits.Count; ++i)
+                {
 
-                if (_PlayerAttached.SelectedUnits.Count == 2) {
+                    if (_PlayerAttached.SelectedUnits.Count == 2)
+                    {
 
-                    if (hitObjectstart.tag == "Ground") {
-                        if (hitObjectstart && hitPointstart != Settings.InvalidPosition) {
-                            if (i == 0) {
-                                _PlayerAttached.SelectedUnits[i].AgentSeekPosition(hitPointstart, true, true);
-                            }
-                            else if (i == 1) {
-                                _PlayerAttached.SelectedUnits[i].AgentSeekPosition(hitPointend, true, true);
-                            }
-
-                        }
-                    }
-
-                }
-                else {
-
-                    if (hitObjectstart && hitPointstart != Settings.InvalidPosition) {
-
-                        // Use direction of end point to go from start point to next node using relativeDistance
-                        // need to count count first and last
-
-                        // AI seek to hitpoint vector
-                        if (hitObjectstart.tag == "Ground") {
+                        if (hitObjectstart.tag == "Ground")
+                        {
+                            if (hitObjectstart && hitPointstart != Settings.InvalidPosition)
                             {
-                                Vector3 newDirection = hitPointend - hitPointstart;
-                                Vector3 directionOnly = newDirection.normalized;
-                                Vector3 pointAlongDirection = hitPointstart + (directionOnly * relativeDistance);
+                                if (i == 0)
+                                {
+                                    _PlayerAttached.SelectedUnits[i].AgentSeekPosition(hitPointstart, true, true);
+                                }
+                                else if (i == 1)
+                                {
+                                    _PlayerAttached.SelectedUnits[i].AgentSeekPosition(hitPointend, true, true);
+                                }
 
-                                _PlayerAttached.SelectedUnits[i].AgentSeekPosition(pointAlongDirection, true, true);
-                                relativeDistance += relativeCopy;
+                            }
+                        }
+
+                    }
+                    else
+                    {
+
+                        if (hitObjectstart && hitPointstart != Settings.InvalidPosition)
+                        {
+
+                            // Use direction of end point to go from start point to next node using relativeDistance
+                            // need to count count first and last
+
+                            // AI seek to hitpoint vector
+                            if (hitObjectstart.tag == "Ground")
+                            {
+                                {
+                                    Vector3 newDirection = hitPointend - hitPointstart;
+                                    Vector3 directionOnly = newDirection.normalized;
+                                    Vector3 pointAlongDirection = hitPointstart + (directionOnly * relativeDistance);
+
+                                    _PlayerAttached.SelectedUnits[i].AgentSeekPosition(pointAlongDirection, true, true);
+                                    relativeDistance += relativeCopy;
+                                }
                             }
                         }
                     }
