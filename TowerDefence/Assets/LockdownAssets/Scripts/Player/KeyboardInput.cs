@@ -62,7 +62,7 @@ public class KeyboardInput : MonoBehaviour {
     private Transform _CoreReturnTransform = null;
     private Vector3 _CurrentReturnVelocity = Vector3.zero;
     private bool _ReturningToCore = false;
-    private float _MouseTimer = 0.2f;
+    private float _MouseTimer = 0.15f;
 
     //******************************************************************************************************************************
     //
@@ -126,14 +126,13 @@ public class KeyboardInput : MonoBehaviour {
                 RightMouseClick();
             }
 
-            _MouseTimer = 0.2f;
+            _MouseTimer = 0.15f;
         }
         if(Input.GetMouseButton(1))
         {
             _MouseTimer -= Time.deltaTime;
         }
         
-
         if (_PlayerAttached) {
 
             // Update primary controller
@@ -441,6 +440,11 @@ public class KeyboardInput : MonoBehaviour {
                 movement.y += Settings.MovementSpeed;
                 CreateCenterPoint();
                 _ReturningToCore = false;
+                Slicedrawer.enabled = false;
+            }
+            else
+            {
+                Slicedrawer.enabled = true;
             }
 
             if (Input.GetKey(KeyCode.S) && (!Input.GetKey(KeyCode.LeftAlt)) && (!_PlayerCamera.PastBoundsSouth)) {
@@ -449,6 +453,11 @@ public class KeyboardInput : MonoBehaviour {
                 movement.y -= Settings.MovementSpeed;
                 CreateCenterPoint();
                 _ReturningToCore = false;
+                Slicedrawer.enabled = false;
+            }
+            else
+            {
+                Slicedrawer.enabled = true;
             }
 
             if (Input.GetKey(KeyCode.D) && (!Input.GetKey(KeyCode.LeftAlt)) && (!_PlayerCamera.PastBoundsEast)) {
@@ -457,6 +466,11 @@ public class KeyboardInput : MonoBehaviour {
                 movement.x += Settings.MovementSpeed;
                 CreateCenterPoint();
                 _ReturningToCore = false;
+                Slicedrawer.enabled = false;
+            }
+            else
+            {
+                Slicedrawer.enabled = true;
             }
 
             if (Input.GetKey(KeyCode.A) && (!Input.GetKey(KeyCode.LeftAlt)) && (!_PlayerCamera.PastBoundsWest))
@@ -466,6 +480,11 @@ public class KeyboardInput : MonoBehaviour {
                 movement.x -= Settings.MovementSpeed;
                 CreateCenterPoint();
                 _ReturningToCore = false;
+                Slicedrawer.enabled = false;
+            }
+            else
+            {
+                Slicedrawer.enabled = true;
             }
 
             if (Input.GetKey(KeyCode.LeftShift)) {
@@ -1288,11 +1307,8 @@ public class KeyboardInput : MonoBehaviour {
 
     private void LineMovement()
     {
-        if (!Input.GetKey(KeyCode.W) || !Input.GetKey(KeyCode.A) || !Input.GetKey(KeyCode.S) || !Input.GetKey(KeyCode.D))
-        {
-
         
-        if (Slicedrawer != null) {
+        if (Slicedrawer != null && Slicedrawer.enabled) {
 
             // Get point in world that is used to command the AI currently selected (go position, attack target, etc)
             GameObject hitObjectstart = Slicedrawer.StartGO;
@@ -1351,7 +1367,6 @@ public class KeyboardInput : MonoBehaviour {
                     }
                 }
             }        
-        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
