@@ -84,8 +84,6 @@ public class SoundManager : MonoBehaviour {
         // Iterate through the sounds list
         for (int i = 0; i < _Sounds.Count; ++i) {
 
-            Debug.Assert(_TrackPath == null, "_TrackPath is null, check file paths.");
-
             // If there's a sound in the list that isn't playing
             if (!(_Sounds[i].isPlaying)) {
 
@@ -153,6 +151,8 @@ public class SoundManager : MonoBehaviour {
     /// Play the second to fourth music tracks.
     /// </summary>
     public void PlayTrack() {
+
+        Debug.Assert(_TrackPath == null, "_TrackPath is null, check file paths.");
 
         // Reset song played counter
         int playedCount = 0;
