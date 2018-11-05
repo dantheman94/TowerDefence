@@ -196,11 +196,15 @@ public class KeyboardInput : MonoBehaviour {
                     // Loop through & select all army objects
                     foreach (var ai in _PlayerAttached.GetArmy()) {
 
-                        // Add to selection list
-                        _PlayerAttached.SelectedWorldObjects.Add(ai);
-                        _PlayerAttached.SelectedUnits.Add(ai);
-                        ai.SetPlayer(_PlayerAttached);
-                        ai.SetIsSelected(true);
+                        // Only select active units in the world
+                        if (ai._ObjectState == Abstraction.WorldObjectStates.Active) {
+
+                            // Add to selection list
+                            _PlayerAttached.SelectedWorldObjects.Add(ai);
+                            _PlayerAttached.SelectedUnits.Add(ai);
+                            ai.SetPlayer(_PlayerAttached);
+                            ai.SetIsSelected(true);
+                        }
                     }
 
                     // Update units selected panels
