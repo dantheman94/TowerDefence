@@ -84,6 +84,8 @@ public class SoundManager : MonoBehaviour {
         // Iterate through the sounds list
         for (int i = 0; i < _Sounds.Count; ++i) {
 
+            Debug.Assert(_TrackPath == null, "_TrackPath is null, check file paths.");
+
             // If there's a sound in the list that isn't playing
             if (!(_Sounds[i].isPlaying)) {
 
@@ -95,8 +97,6 @@ public class SoundManager : MonoBehaviour {
         if (_FadingIn) { _CurrentFadeInLerp += Time.deltaTime; }
 
         if (_FadingOut) { _CurrentFadeOutLerp += Time.deltaTime; }
-
-        Debug.Assert(_TrackPath == null, "_TrackPath is null, check file paths.");
 
         UpdateVoxel();
     }
