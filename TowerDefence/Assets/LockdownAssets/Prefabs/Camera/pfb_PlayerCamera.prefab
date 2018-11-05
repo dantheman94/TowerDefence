@@ -58,6 +58,7 @@ GameObject:
   - component: {fileID: 81953311027088950}
   - component: {fileID: 114594483081117626}
   - component: {fileID: 114573625726707578}
+  - component: {fileID: 114996286617523222}
   m_Layer: 0
   m_Name: Shaker
   m_TagString: MainCamera
@@ -215,6 +216,7 @@ MonoBehaviour:
   PastBoundsWest: 0
   PastBoundsNorth: 0
   PastBoundsSouth: 0
+  EnableScreenShake: 1
   ShakeMagnitude: 0.05
   ShakeMaxRange: 200
 --- !u!114 &114573625726707578
@@ -240,15 +242,9 @@ MonoBehaviour:
   FogColorTextureScale: 1
   FogColorTextureHeight: 0
   FogFarPlane: 1
-  OutsideFogStrength: 1
-  ClearFog: 0
-  ClearFogMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
   BlurAmount: 0
   BlurIterations: 0
   BlurType: 0
-  Team: 0
   UpdateAutomatically: 1
   PartialFogAmount: 0.5
   FadeSpeed: 10
@@ -283,6 +279,25 @@ MonoBehaviour:
   _CurrentTime: 0.4
   Sun: {fileID: 0}
   _CurrentDay: 0
+--- !u!114 &114996286617523222
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1563527522435192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86382bfadffaff740aed9efce4d50737, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LineMaterial: {fileID: 2100000, guid: 0cb137f17a86c1848920db05fe301278, type: 2}
+  LineWidth: 0.01
+  Depth: 5
+  MouseEndPoint: {x: 0, y: 0, z: 0}
+  LineStartPoint: {x: 0, y: 0, z: 0}
+  StartGO: {fileID: 0}
+  EndGO: {fileID: 0}
+  hud: {fileID: 0}
 --- !u!124 &124042994424833600
 Behaviour:
   m_ObjectHideFlags: 1
