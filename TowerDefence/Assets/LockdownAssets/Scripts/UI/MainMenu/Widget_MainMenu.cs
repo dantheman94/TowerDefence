@@ -62,8 +62,8 @@ public class Widget_MainMenu : MonoBehaviour {
     //  Quits/Exits the game
     /// </summary>
     public void OnQuitGame() {
-
-        Application.Quit();
+        System.Diagnostics.Process.GetCurrentProcess().Kill();
+        //   Application.Quit();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
