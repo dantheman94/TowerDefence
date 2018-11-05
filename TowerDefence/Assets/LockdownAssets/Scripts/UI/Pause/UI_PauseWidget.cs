@@ -281,6 +281,11 @@ public class UI_PauseWidget : MonoBehaviour {
         ASyncLoading.Instance.LoadLevel(0);
     }
 
+    public void QuitGame()
+    {
+        System.Diagnostics.Process.GetCurrentProcess().Kill();
+    }
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }
