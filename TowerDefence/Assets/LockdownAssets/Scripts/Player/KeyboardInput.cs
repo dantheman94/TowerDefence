@@ -930,7 +930,7 @@ public class KeyboardInput : MonoBehaviour {
                 }
 
                 // Just clicked on the ground so deselect all objects
-                else { _PlayerAttached.DeselectAllObjects(); }
+                else if(!Input.GetKey(KeyCode.LeftShift)) { _PlayerAttached.DeselectAllObjects(); }
 
                 // Update units selected panels
                 GameManager.Instance.SelectedUnitsHUD.RefreshPanels();
