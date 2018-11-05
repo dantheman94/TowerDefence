@@ -8,7 +8,7 @@ using UnityEngine.UI;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 18/10/2018
+//  Last edited on: 5/11/2018
 //
 //******************************
 
@@ -31,6 +31,8 @@ public class SelectionWheelUnitRef : MonoBehaviour {
     [Space]
     public GameObject PCHotkeyObject = null;
     public KeyCode PCShortcutKey;
+    [Space]
+    public Image LockedImage = null;
 
     //******************************************************************************************************************************
     //

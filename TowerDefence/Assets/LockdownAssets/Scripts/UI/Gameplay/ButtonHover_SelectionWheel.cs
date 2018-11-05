@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 
 //******************************
 //
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 17/10/2018
+//  Last edited on: 5/11/2018
 //
 //******************************
 
@@ -41,7 +42,7 @@ public class ButtonHover_SelectionWheel : MonoBehaviour, IPointerEnterHandler, I
 
     private SelectionWheelUnitRef _ObjectRefComponent = null;
     private Button _ButtonComponent = null;
-    private TextMesh _TextComponent = null;
+    private TMP_Text _TextComponent = null;
     private Color _PCHotkeyColour;
     private Color _OriginalColour;
 
@@ -63,7 +64,7 @@ public class ButtonHover_SelectionWheel : MonoBehaviour, IPointerEnterHandler, I
         _ButtonComponent = GetComponent<Button>();
         if (PCHotkeyObj != null) {
 
-            _TextComponent = PCHotkeyObj.GetComponentInChildren<TextMesh>();
+            _TextComponent = PCHotkeyObj.GetComponent<TMP_Text>();
 
             // Store colours set by the inspector
             _PCHotkeyColour = _TextComponent.color;
@@ -82,8 +83,8 @@ public class ButtonHover_SelectionWheel : MonoBehaviour, IPointerEnterHandler, I
         if (_ButtonComponent != null && PCHotkeyObj != null) {
 
             // Get colour for the text component
-            if (_ButtonComponent.IsInteractable())  { _PCHotkeyColour = _ButtonComponent.colors.disabledColor; }
-            else                                    { _PCHotkeyColour = _OriginalColour; }
+            if (_ButtonComponent.IsInteractable())  { _PCHotkeyColour = _OriginalColour; }
+            else                                    { _PCHotkeyColour = _ButtonComponent.colors.disabledColor; }
 
             // Set text colour
             _TextComponent.color = _PCHotkeyColour;
@@ -120,6 +121,32 @@ public class ButtonHover_SelectionWheel : MonoBehaviour, IPointerEnterHandler, I
                 SelectionWheel.CenterSupplyText.text = _ObjectRefComponent.AbstractRef.CostSupplies.ToString();
                 SelectionWheel.CenterPowerText.text = _ObjectRefComponent.AbstractRef.CostPower.ToString();
                 SelectionWheel.CenterPopulationText.text = _ObjectRefComponent.AbstractRef.CostPopulation.ToString();
+                
+                Player player = GameManager.Instance.Players[0];
+                SelectionWheelUnitRef unitRef = GetComponent<SelectionWheelUnitRef>();
+                Abstraction item = unitRef.AbstractRef;
+
+                bool unlock = player.Level >= item.CostTechLevel;
+                bool purchasable = player.SuppliesCount >= item.CostSupplies &&
+                                   player.PowerCount >= item.CostPower &&
+                                   (player.MaxPopulation - player.PopulationCount) >= item.CostPopulation;
+
+                // Update cost texts colour based on state
+                /// Tech level
+                if (player.Level >= item.CostTechLevel) { selectionWheel.CenterTechLevelText.color = Color.black; }
+                else { selectionWheel.CenterTechLevelText.color = Color.red; }
+
+                /// Population
+                if ((player.MaxPopulation - player.PopulationCount) >= item.CostPopulation) { selectionWheel.CenterPopulationText.color = Color.black; }
+                else { selectionWheel.CenterPopulationText.color = Color.red; }
+
+                /// Supplies
+                if (player.SuppliesCount >= item.CostSupplies) { selectionWheel.CenterSupplyText.color = Color.black; }
+                else { selectionWheel.CenterSupplyText.color = Color.red; }
+                
+                /// Power
+                if (player.PowerCount >= item.CostPower) { selectionWheel.CenterPowerText.color = Color.black; }
+                else { selectionWheel.CenterPowerText.color = Color.red; }
             }
         }
     }

@@ -65,8 +65,7 @@ public class BuildingSlot : WorldObject {
             else                        { gameObject.SetActive(false); }
         }
     }
-
-
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
@@ -229,6 +228,10 @@ public class BuildingSlot : WorldObject {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /// <summary>
+    //  
+    /// </summary>
+    /// <returns></returns>
     public List<Abstraction> GetBuildingsAsAbstraction() {
 
         if (_AbstractionBuildings != null && _AbstractionBuildings.Count > 0) { return _AbstractionBuildings; }

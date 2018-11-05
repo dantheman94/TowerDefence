@@ -9,7 +9,7 @@ using UnityEngine.UI;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 10/6/2018
+//  Last edited on: 5/11/2018
 //
 //******************************
 
@@ -225,7 +225,7 @@ public class SelectionWheel : MonoBehaviour {
             Building building = _BuildingSlotInstigator.GetBuildingOnSlot();
             if (building != null) {
 
-                if (building.GetBuildingQueue() != null) { building.GetBuildingQueueUI().UpdateSelectionWheelItemCounters(); }
+                if (building.GetBuildingQueueUI() != null) { building.GetBuildingQueueUI().UpdateSelectionWheelItemCounters(); }
             }
         }
         
@@ -236,12 +236,6 @@ public class SelectionWheel : MonoBehaviour {
             if (list.Count > i) {
 
                 if (list[i] != null) {
-
-                    // Update button text
-                    Text txtComp = button.GetComponentInChildren<Text>();
-                    ///txtComp.text = list[i].ObjectName;
-                    
-                    ///button.image.sprite = list[i].Logo;
 
                     // Update button
                     SelectionWheelUnitRef unitRef = button.GetComponent<SelectionWheelUnitRef>();
@@ -259,28 +253,14 @@ public class SelectionWheel : MonoBehaviour {
                                            player.PowerCount >= item.CostPower &&
                                            (player.MaxPopulation - player.PopulationCount) >= item.CostPopulation;
                         button.interactable = unlock && purchasable;
+
+                        // Update locked icon for the element
+                        unitRef.LockedImage.enabled = !unlock;
                                                 
                         // Update image colour based on state
                         if (!unlock)            { button.image.color = ColorLocked; }
                         else if (!purchasable)  { button.image.color = ColorExpensive; }
                         else                    { button.image.color = ColorAvailiable; }
-
-                        // Update cost texts colour based on state
-                        /// Tech level
-                        if (player.Level >= item.CostTechLevel) { CenterTechLevelText.color = Color.black; }
-                        else { CenterTechLevelText.color = Color.red; }
-
-                        /// Population
-                        if ((player.MaxPopulation - player.PopulationCount) >= item.CostPopulation) { CenterPopulationText.color = Color.black; }
-                        else { CenterPopulationText.color = Color.red; }
-
-                        /// Supplies
-                        if (player.SuppliesCount >= item.CostSupplies) { CenterSupplyText.color = Color.black; }
-                        else { CenterSupplyText.color = Color.red; }
-
-                        /// Power
-                        if (player.PowerCount >= item.CostPower) { CenterPowerText.color = Color.black; }
-                        else { CenterPowerText.color = Color.red; }
                     }
 
                     // If theres no unit reference in the button, just disable it by default
