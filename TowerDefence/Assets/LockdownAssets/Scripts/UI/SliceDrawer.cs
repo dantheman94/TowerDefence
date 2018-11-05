@@ -49,8 +49,7 @@ public class SliceDrawer : MonoBehaviour {
     void Update () {
 
 
-        if(!Input.GetKey(KeyCode.W) || !Input.GetKey(KeyCode.A) || !Input.GetKey(KeyCode.S) || !Input.GetKey(KeyCode.D) || _PreviousTransform != _Camera.transform)
-        {
+       
             if (Input.GetMouseButtonDown(1))
             {
                 _PreviousTransform = _Camera.transform;
@@ -87,11 +86,7 @@ public class SliceDrawer : MonoBehaviour {
                 MouseEndPoint = hud.FindHitPoint();
                 EndGO = hud.FindHitObject();
             }
-        }
-        else
-        {
-
-        }
+        
     
        
 	}
