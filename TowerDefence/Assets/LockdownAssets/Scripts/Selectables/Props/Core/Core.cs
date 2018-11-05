@@ -31,7 +31,7 @@ public class Core : Building {
     [Space]
     public List<Spire> Spires;
 
-    public static float _NoteTimer = 3.0f;
+    public MessageFeed Messagefeed;
     
     //******************************************************************************************************************************
     //
@@ -64,7 +64,7 @@ public class Core : Building {
     /// </summary>
     protected override void Update() {
         base.Update();
-        HideCoreNotification();
+        //HideCoreNotification();
         // object is active in the world
         if (_ObjectState == WorldObjectStates.Active && IsAlive()) {
 
@@ -116,8 +116,9 @@ public class Core : Building {
     public override void Damage(float damage, WorldObject instigator = null) {
 
         // Notify the player
-        WaveManager.Instance.CoreDamagedWidget.SetActive(true);
-        _NoteTimer = 3.0f;
+        //   WaveManager.Instance.CoreDamagedWidget.SetActive(true);
+        if(Messagefeed != null)
+        Messagefeed.DisplayCoreDamaged();
         // Only damage the core if all spires are destroyed
         bool damageCore = true;
         for (int i = 0; i < Spires.Count; i++) {
@@ -134,24 +135,6 @@ public class Core : Building {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-    public void HideCoreNotification()
-    {
-        if(WaveManager.Instance.CoreDamagedWidget!= null)
-        {
-            if (WaveManager.Instance.CoreDamagedWidget.activeInHierarchy)
-            {
-                _NoteTimer -= Time.deltaTime;
-            }
-            if (_NoteTimer < 0)
-            {
-                _NoteTimer = 3.0f;
-                WaveManager.Instance.CoreDamagedWidget.SetActive(false);
-            }
-        }
-  
-    }
 
     /// <summary>
     //  

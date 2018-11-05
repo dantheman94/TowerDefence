@@ -25,6 +25,10 @@ public class Spire : Building {
     [Space]
     public List<LightData> StreamLights;
 
+    public MessageFeed Messagefeed;
+
+    public string SpireLetter;
+
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
@@ -147,13 +151,9 @@ public class Spire : Building {
 
         // Notify the player
         //  WaveManager.Instance.CoreDamagedWidget.ShowNotification();
-        if (WaveManager.Instance.CoreDamagedWidget != null)
-        {
-            WaveManager.Instance.CoreDamagedWidget.SetActive(true);
-            Core._NoteTimer = 3.0f;
-        }
- 
 
+        if (Messagefeed != null)
+            Messagefeed.DisplaySpireDamaged(SpireLetter);
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
