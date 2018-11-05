@@ -152,8 +152,6 @@ public class SoundManager : MonoBehaviour {
     /// </summary>
     public void PlayTrack() {
 
-        Debug.Assert(_TrackPath == null, "_TrackPath is null, check file paths.");
-
         // Reset song played counter
         int playedCount = 0;
 
@@ -191,6 +189,8 @@ public class SoundManager : MonoBehaviour {
                 GameObject musicObj = ObjectPooling.Spawn(Resources.Load<GameObject>(_TrackPath[i]));
                 // Grab the source for the music to play from
                 AudioSource musicSource = musicObj.GetComponent<AudioSource>();
+
+                Debug.Assert(_TrackPath == null, "_TrackPath is null, check file paths.");
 
                 // Play the music
                 musicSource.Play();
