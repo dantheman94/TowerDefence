@@ -28,6 +28,7 @@ public class Minimap : MonoBehaviour
     public Texture BoundsTexture = new Texture();
     public float XOffset;
     public float YOffset;
+    public SliceDrawer Slicedrawer;
     //                            VARIABLES
     /////////////////////////////////////////////////////////////////////////////////////
 
@@ -36,15 +37,16 @@ public class Minimap : MonoBehaviour
     private Vector2 _RectOrigin;
     private Ray ray;
     private RaycastHit hit;
-
+    private Vector2 _MousePos;
     //                            FUNCTIONS
     /////////////////////////////////////////////////////////////////////////////////////
 
     // Use this for initialization
     void Start()
     {
-  //      MapArea.x = Screen.width / 1.16f;
-    //    MapArea.y = Screen.height / 1.31f;
+       _MousePos = new Vector2(Input.mousePosition.x, Screen.height - Input.mousePosition.y);
+        //      MapArea.x = Screen.width / 1.16f;
+        //    MapArea.y = Screen.height / 1.31f;
         //On start get map information.
         GetBounds();
     }
@@ -54,7 +56,16 @@ public class Minimap : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        _MousePos = new Vector2(Input.mousePosition.x, Screen.height - Input.mousePosition.y);
+        if (RectangleArea.PointInside(_MousePos))
+        {
+            Slicedrawer.enabled = false;
+        }
+        else
+        {
+            Slicedrawer.enabled = true;
+        }
+            
         if(TutorialScene.CurrentMessageData != null)
         {
         if(!TutorialScene.CurrentMessageData.LockCamera && !TutorialScene.CurrentMessageData.LockControls)
