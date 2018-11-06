@@ -34,6 +34,7 @@ public class KeyboardInput : MonoBehaviour {
     public Minimap MiniMap;
     [Space]
     public SliceDrawer Slicedrawer;
+    public Color BoxColor;
 
     //******************************************************************************************************************************
     //
@@ -446,10 +447,7 @@ public class KeyboardInput : MonoBehaviour {
                 _ReturningToCore = false;
                 Slicedrawer.enabled = false;
             }
-            else
-            {
-                Slicedrawer.enabled = true;
-            }
+   
 
             if (Input.GetKey(KeyCode.S) && (!Input.GetKey(KeyCode.LeftAlt)) && (!_PlayerCamera.PastBoundsSouth)) {
 
@@ -459,10 +457,7 @@ public class KeyboardInput : MonoBehaviour {
                 _ReturningToCore = false;
                 Slicedrawer.enabled = false;
             }
-            else
-            {
-                Slicedrawer.enabled = true;
-            }
+
 
             if (Input.GetKey(KeyCode.D) && (!Input.GetKey(KeyCode.LeftAlt)) && (!_PlayerCamera.PastBoundsEast)) {
 
@@ -472,10 +467,7 @@ public class KeyboardInput : MonoBehaviour {
                 _ReturningToCore = false;
                 Slicedrawer.enabled = false;
             }
-            else
-            {
-                Slicedrawer.enabled = true;
-            }
+     
 
             if (Input.GetKey(KeyCode.A) && (!Input.GetKey(KeyCode.LeftAlt)) && (!_PlayerCamera.PastBoundsWest))
             {
@@ -486,7 +478,9 @@ public class KeyboardInput : MonoBehaviour {
                 _ReturningToCore = false;
                 Slicedrawer.enabled = false;
             }
-            else
+            
+
+            if(!Input.GetKey(KeyCode.A) || !Input.GetKey(KeyCode.S) || !Input.GetKey(KeyCode.D) || !Input.GetKey(KeyCode.W))
             {
                 Slicedrawer.enabled = true;
             }
@@ -1431,7 +1425,7 @@ public class KeyboardInput : MonoBehaviour {
     private void OnGUI() {
 
         if (_BoxStartPoint != -Vector3.one) {
-            GUI.color = new Color(1, 1, 1, 0.5f);
+            GUI.color = BoxColor;
             GUI.DrawTexture(Selection, SelectionHighlight);
         }
     }

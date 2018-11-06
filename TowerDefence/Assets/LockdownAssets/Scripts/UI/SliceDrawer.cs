@@ -99,5 +99,11 @@ public class SliceDrawer : MonoBehaviour {
         return ray.origin + ray.direction * Depth;
     }
 
+    private void OnDisable()
+    {
+        if(lineRenderer != null)
+        Destroy(lineRenderer.gameObject);
+    }
+
     ///////////////////////////////////////////////////////////////////
 }
