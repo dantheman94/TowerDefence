@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 //-=-=-=-=-=-=-=-=-=-
 // Created by: Angus Secomb
-// Last Edited: 8/10/18
+// Last Edited: 07/11/18
 // Editor: Angus Secomb
 //-=-=-=-=-=-=-=-=-=-
 
@@ -389,8 +389,8 @@ public class TutorialScene : MonoBehaviour {
             case RequiredAction.BUILD_BARRICADE:
             if(BarricadeSlot.GetBuildingOnSlot() != null)
             {
-                if ((BarricadeSlot.GetBuildingOnSlot().ObjectName == BarricadeSlot.Buildings[1].ObjectName && BarricadeSlot.GetBuildingOnSlot()._ObjectState == WorldObject.WorldObjectStates.Active)
-                                            || (BarricadeSlot.GetBuildingOnSlot().ObjectName == BarricadeSlot.Buildings[2].ObjectName && BarricadeSlot.GetBuildingOnSlot()._ObjectState == WorldObject.WorldObjectStates.Active))
+                if ((BarricadeSlot.GetBuildingOnSlot().ObjectName == BarricadeSlot.Buildings[1].ObjectName && BarricadeSlot.GetBuildingOnSlot()._ObjectState == WorldObject.WorldObjectStates.Building)
+                                            || (BarricadeSlot.GetBuildingOnSlot().ObjectName == BarricadeSlot.Buildings[2].ObjectName && BarricadeSlot.GetBuildingOnSlot()._ObjectState == WorldObject.WorldObjectStates.Building))
                 {
                     ObjectiveText.text = "Build Barricade: 1/1";
                     ActionBool = true;
@@ -418,25 +418,42 @@ public class TutorialScene : MonoBehaviour {
                 break;
             case RequiredAction.BUILD_POWER_GENERATOR:
                 ObjectiveText.text = "Power Station: " + _ResourceManager.GetPowerGeneratorCount() + "/1";
-                if(_ResourceManager.GetPowerGeneratorCount() ==1)
+                for(int i = 0; i < BaseBuildingSlots.Count; ++i)
                 {
-                    ActionBool = true;
+                    if(BaseBuildingSlots[i].GetBuildingOnSlot() != null)
+                    {
+                        if (BaseBuildingSlots[i].GetBuildingOnSlot().ObjectName == BaseBuildingSlots[i].Buildings[2].ObjectName
+                      && BaseBuildingSlots[i].GetBuildingOnSlot()._ObjectState == Abstraction.WorldObjectStates.Building)
+                        {
+                            ActionBool = true;
+                        }
+                    }
+                  
                 }
+       
                 break;
             case RequiredAction.BUILD_SUPPLY_GENERATOR:
                 ObjectiveText.text = "Supply Generator: " + _ResourceManager.GetSupplyGeneratorCount() + "/1";
-                if(_ResourceManager.GetSupplyGeneratorCount() == 1)
+                for (int i = 0; i < BaseBuildingSlots.Count; ++i)
                 {
-                    ActionBool = true;
+                    if (BaseBuildingSlots[i].GetBuildingOnSlot() != null)
+                    {
+                        if (BaseBuildingSlots[i].GetBuildingOnSlot().ObjectName == BaseBuildingSlots[i].Buildings[1].ObjectName
+                                             && BaseBuildingSlots[i].GetBuildingOnSlot()._ObjectState == Abstraction.WorldObjectStates.Building)
+                        {
+                            ActionBool = true;
+                        }
+                    }
+                  
                 }
                 break;
             case RequiredAction.BUILD_TOWER:
 
                 if (TurretSlot.GetBuildingOnSlot() != null)
                 {
-                    if ((TurretSlot.GetBuildingOnSlot().ObjectName == TurretSlot.Buildings[1].ObjectName && TurretSlot.GetBuildingOnSlot()._ObjectState == Abstraction.WorldObjectStates.Active)
-                 || (TurretSlot.GetBuildingOnSlot().ObjectName == TurretSlot.Buildings[2].ObjectName && TurretSlot.GetBuildingOnSlot()._ObjectState == Abstraction.WorldObjectStates.Active)
-                 || (TurretSlot.GetBuildingOnSlot().ObjectName == TurretSlot.Buildings[3].ObjectName && TurretSlot.GetBuildingOnSlot()._ObjectState == Abstraction.WorldObjectStates.Active))
+                    if ((TurretSlot.GetBuildingOnSlot().ObjectName == TurretSlot.Buildings[1].ObjectName && TurretSlot.GetBuildingOnSlot()._ObjectState == Abstraction.WorldObjectStates.Building)
+                 || (TurretSlot.GetBuildingOnSlot().ObjectName == TurretSlot.Buildings[2].ObjectName && TurretSlot.GetBuildingOnSlot()._ObjectState == Abstraction.WorldObjectStates.Building)
+                 || (TurretSlot.GetBuildingOnSlot().ObjectName == TurretSlot.Buildings[3].ObjectName && TurretSlot.GetBuildingOnSlot()._ObjectState == Abstraction.WorldObjectStates.Building))
                     {
                         ObjectiveText.text = "Build Tower: 1/1";
                         ActionBool = true;
@@ -473,7 +490,7 @@ public class TutorialScene : MonoBehaviour {
                     if(BaseBuildingSlots[i].GetBuildingOnSlot() != null)
                     {
                         if (BaseBuildingSlots[i].GetBuildingOnSlot().ObjectName == BaseBuildingSlots[i].Buildings[9].ObjectName
-                    && BaseBuildingSlots[i].GetBuildingOnSlot()._ObjectState == Abstraction.WorldObjectStates.Active)
+                    && BaseBuildingSlots[i].GetBuildingOnSlot()._ObjectState == Abstraction.WorldObjectStates.Building)
                         {
                             ObjectiveText.text = "Build Barracks 1/1";
                             ActionBool = true;
