@@ -44,6 +44,12 @@ public class Vehicle : Unit {
     public float BaseRotationSpeed = 45f;
     public float WeaponRotationSpeed = 50f;
 
+    [Space]
+    [Header("-----------------------------------")]
+    [Header(" VEHICLE SOUNDS")]
+    [Space]
+    public string EngineSoundPath = "SFX/_SFX_[SOUND PREFAB HERE]";
+
     //******************************************************************************************************************************
     //
     //      VARIABLES
@@ -56,6 +62,8 @@ public class Vehicle : Unit {
     protected CharacterController _Controller = null;
     protected Vector3 _DirectionToTarget = Vector3.zero;
     protected Quaternion _WeaponLookRotation = Quaternion.identity;
+
+    protected AudioSource _EngineSound = null;
 
     //******************************************************************************************************************************
     //
@@ -89,6 +97,15 @@ public class Vehicle : Unit {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    protected override void Init() {
+        base.Init();
+
+        // Get new engine sound reference
+        ///_EngineSound = SoundManager.Instance.PlaySoundAtLocation(EngineSoundPath, transform.position, 0.5f, 1.5f);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     //  Called each frame. 
     /// </summary>
@@ -100,7 +117,26 @@ public class Vehicle : Unit {
 
             if (_Controller.enabled) { _Controller.Move(transform.forward * _CurrentSpeed * Time.deltaTime); }
         }
+
+        // The unit is active in the world
+        if (_ObjectState == WorldObjectStates.Active) {
+
+            // Update the sound location for the engine sound
+            if (_EngineSound != null) { _EngineSound.transform.position = transform.position; }
+        }
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Called when the unit 'dies'.
+    /// </summary>
+    public override void OnDeath(WorldObject instigator) {
+        base.OnDeath(instigator);
+
+        // Stop the engine sound
+        if (_EngineSound != null) { ObjectPooling.Despawn(_EngineSound.gameObject); }
+    }    
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

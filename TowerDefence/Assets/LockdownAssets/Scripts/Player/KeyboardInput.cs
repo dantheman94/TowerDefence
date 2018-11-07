@@ -882,6 +882,9 @@ public class KeyboardInput : MonoBehaviour {
                                     _PlayerAttached.SelectedUnits.Add(unit);
                                     unit.SetPlayer(_PlayerAttached);
                                     unit.SetIsSelected(true);
+
+                                    // Play OnSelectSound for the first unit that was selected
+                                    _PlayerAttached.SelectedUnits[0].GetDialogue().PlaySelectSound();
                                 }
                             }                            
                         }
@@ -1053,6 +1056,9 @@ public class KeyboardInput : MonoBehaviour {
                         Vector3 rand = (Random.insideUnitCircle * (i + 1)) * (units[i].GetAgent().radius * 3);
                         Vector3 destination = hitPoint += new Vector3(rand.x, 0, rand.y);
                         units[i].AgentSeekPosition(hitPoint, true, false);
+
+                        // Play OnAttackSound for the first unit that was selected
+                        _PlayerAttached.SelectedUnits[0].GetDialogue().PlaySeekSound();
                     }
                 }
             }
@@ -1079,6 +1085,9 @@ public class KeyboardInput : MonoBehaviour {
                             // Loop through all selected units & perform ATTACK command on the unit
                             ///foreach (var unit in units) { unit.AgentAttackObject(unitObj, unit.GetAttackingPositionAtObject(unitObj), true); }
                             foreach (var unit in units) { unit.ForceChaseTarget(unitObj, true); }
+
+                            // Play OnAttackSound for the first unit that was selected
+                            _PlayerAttached.SelectedUnits[0].GetDialogue().PlayAttackSound();
                         }
                     }   
                     
@@ -1112,7 +1121,10 @@ public class KeyboardInput : MonoBehaviour {
                         }
 
                         // Attack the building
-                        for (int i = 0; i < units.Count; i++) { units[i].AgentAttackObject(buildingObj, positions[i], true, i == 0 ? true : false); }                        
+                        for (int i = 0; i < units.Count; i++) { units[i].AgentAttackObject(buildingObj, positions[i], true, i == 0 ? true : false); }
+
+                        // Play OnAttackSound for the first unit that was selected
+                        _PlayerAttached.SelectedUnits[0].GetDialogue().PlayAttackSound();
                     }
 
                     // Ally building

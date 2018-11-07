@@ -41,12 +41,6 @@ public class SoundManager : MonoBehaviour {
     
     //******************************************************************************************************************************
     //
-    //      INSPECTOR
-    //
-    //******************************************************************************************************************************
-
-    //******************************************************************************************************************************
-    //
     //      FUNCTIONS
     //
     //******************************************************************************************************************************
@@ -101,10 +95,36 @@ public class SoundManager : MonoBehaviour {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public void PlaySound(string soundLocation, float pitchMin, float pitchMax) {
+    public AudioSource GetSound(string soundLocation, float pitchMin, float pitchMax) {
+
+        // Create pooled game object for the sound
+        GameObject soundObj = ObjectPooling.Spawn(Resources.Load<GameObject>(soundLocation));
+
+        // Grab the source for the sound to play from
+        AudioSource soundSource = soundObj.GetComponent<AudioSource>();
+
+        // Clammp min/max pitch (0, 3)
+        if (pitchMin < 0) { pitchMin = 0f; }
+        if (pitchMax > 3) { pitchMax = 3f; }
+        if (pitchMin > pitchMax) { pitchMin = pitchMax; }
+        if (pitchMax < pitchMin) { pitchMax = pitchMin; }
+
+        // Randomize the sound's pitch based on the min and max specified
+        soundSource.pitch = Random.Range(pitchMin, pitchMax);
+        
+        // Add the sound object to the List
+        _Sounds.Add(soundSource);
+
+        return soundSource;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public AudioSource PlaySound(string soundLocation, float pitchMin, float pitchMax) {
         
         // Create pooled game object for the sound
         GameObject soundObj = ObjectPooling.Spawn(Resources.Load<GameObject>(soundLocation));
+
         // Grab the source for the sound to play from
         AudioSource soundSource = soundObj.GetComponent<AudioSource>();
 
@@ -122,12 +142,45 @@ public class SoundManager : MonoBehaviour {
 
         // Add the sound object to the List
         _Sounds.Add(soundSource);
+
+        return soundSource;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public AudioSource PlaySoundAtLocation(string soundLocation, Vector3 position, float pitchMin, float pitchMax) {
+
+        // Create pooled game object for the sound
+        GameObject soundObj = ObjectPooling.Spawn(Resources.Load<GameObject>(soundLocation));
+
+        // Set 3d position of the sound
+        soundObj.transform.position = position;
+
+        // Grab the source for the sound to play from
+        AudioSource soundSource = soundObj.GetComponent<AudioSource>();
+
+        // Clammp min/max pitch (0, 3)
+        if (pitchMin < 0) { pitchMin = 0f; }
+        if (pitchMax > 3) { pitchMax = 3f; }
+        if (pitchMin > pitchMax) { pitchMin = pitchMax; }
+        if (pitchMax < pitchMin) { pitchMax = pitchMin; }
+
+        // Randomize the sound's pitch based on the min and max specified
+        soundSource.pitch = Random.Range(pitchMin, pitchMax);
+
+        // Play the sound
+        soundSource.Play();
+
+        // Add the sound object to the List
+        _Sounds.Add(soundSource);
+
+        return soundSource;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    /// Play the first music track.
+    // Play the first music track.
     /// </summary>
     public void PlayFirstTrack(string musicLocation) {
 
@@ -148,7 +201,7 @@ public class SoundManager : MonoBehaviour {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    /// Play the second to fourth music tracks.
+    // Play the second to fourth music tracks.
     /// </summary>
     public void PlayTrack() {
 
@@ -211,7 +264,7 @@ public class SoundManager : MonoBehaviour {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    /// Update the music playing.
+    // Update the music playing.
     /// </summary>
     public IEnumerator UpdateTracks(AudioSource track)
     {

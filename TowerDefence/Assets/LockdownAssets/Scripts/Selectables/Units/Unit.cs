@@ -147,6 +147,8 @@ public class Unit : WorldObject {
 
     private Base _LockdownBase = null;
 
+    protected UnitDialogue _Dialogue = null;
+
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
@@ -221,6 +223,7 @@ public class Unit : WorldObject {
         }
 
         // Get component references
+        _Dialogue = GetComponent<UnitDialogue>();
         _CharacterController = GetComponent<CharacterController>();
         _Agent = GetComponent<NavMeshAgent>();
         _ObjectHeight = _Agent.height;
@@ -636,6 +639,8 @@ public class Unit : WorldObject {
                 unit._UnitVeterancyWidget.gameObject.SetActive(true);
             }
             unit.SetPathInterupted(false);
+
+            _ClonedWorldObject.Team = GameManager.Team.Defending;
         }
     }
 
@@ -1575,6 +1580,16 @@ public class Unit : WorldObject {
     /// </summary>
     /// <param name="value"></param>
     public void SetPathInterupted(bool value) { _PathInterupted = value; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    /// <summary>
+    //  Returns reference to the unit dialogue component.
+    /// </summary>
+    /// <returns>
+    //  UnitDialogue
+    /// </returns>
+    public UnitDialogue GetDialogue() { return _Dialogue; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
