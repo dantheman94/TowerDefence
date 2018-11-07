@@ -44,11 +44,22 @@ public class BuildingSlot : WorldObject {
 
     private List<Abstraction> _AbstractionBuildings = null;
 
+    private MeshRenderer _Renderer = null;
+
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
     //
     //******************************************************************************************************************************
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    protected override void Start() {
+        base.Start();
+
+        // Get component references
+        _Renderer = GetComponent<MeshRenderer>();
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -64,6 +75,9 @@ public class BuildingSlot : WorldObject {
             if (AttachedBase != null)   { gameObject.SetActive(true); }
             else                        { gameObject.SetActive(false); }
         }
+        
+        // Hide building slot render if theres a building on it (but still keep it enabled)
+        if (_Renderer != null) { _Renderer.enabled = _BuildingOnSlot == null; }
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -138,10 +152,37 @@ public class BuildingSlot : WorldObject {
     /// </summary>
     /// <param name="highlight"></param>
     public override void DrawHighlight(bool highlight) {
+                
+        // Show white outline
+        if (_OutlineComponent != null) {
 
-        // Highlight the building slot if its empty - otherwise select the building on it instead
-        if (_BuildingOnSlot == null) { base.DrawHighlight(highlight); }
-        else { _BuildingOnSlot.DrawHighlight(highlight); }
+            // Change the outline colour to match the player's colour
+            if (highlight) {
+
+                Color col = new Color();
+                col = _Player.TeamColor;
+
+                // Slightly darker shade for the highlighting colour
+                col.r -= 0.1f;
+                col.g -= 0.1f;
+                col.b -= 0.1f;
+                col.a /= 2f;
+
+                _HighlightingOutlineColour = col;
+            }
+
+            // By default, the outline is white on all building slots
+            else { _HighlightingOutlineColour = Color.white; }
+
+            // Set outline properties
+            _OutlineComponent.OutlineColor = _HighlightingOutlineColour;
+            _OutlineComponent.OutlineMode = Outline.Mode.OutlineVisible;
+            _OutlineComponent.OutlineWidth = OutlineHighlightedWidth;
+            _OutlineComponent.enabled = true;
+        }
+
+        // Hide selection
+        else { if (_OutlineComponent != null && !_IsCurrentlySelected) { _OutlineComponent.enabled = false; } }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

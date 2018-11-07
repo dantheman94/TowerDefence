@@ -54,12 +54,14 @@ public class Selectable : Abstraction {
     //******************************************************************************************************************************
     
     protected Bounds selectionBounds;
+
     protected bool _IsCurrentlyHighlighted;
     protected bool _IsCurrentlySelected;
     protected bool _ForceHighlightOutlineDraw = false;
     protected bool _ForceSelectOutlineDraw = false;
-    private Outline _OutlineComponent = null;
-    private Color _HighlightingOutlineColour = Color.black;
+
+    protected Outline _OutlineComponent = null;
+    protected Color _HighlightingOutlineColour = Color.black;
     private Color _SelectedOutlineColour = Color.black;
 
     private FogUnit _FogVision = null;
