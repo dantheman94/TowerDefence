@@ -28,6 +28,10 @@ public class UI_SelectedUnits : MonoBehaviour {
     public float StartingPositionX = 85f;
     public float StartingPositionY = 140f;
     public float OffsetX = 5f;
+    [Space]
+    public Sprite GroundInfantryLogo = null;
+    public Sprite GroundVehicleLogo = null;
+    public Sprite AirVehicleLogo = null;
 
     //******************************************************************************************************************************
     //
@@ -36,8 +40,9 @@ public class UI_SelectedUnits : MonoBehaviour {
     //******************************************************************************************************************************
 
     public class UnitInfos {
-
+        
         public Unit.EUnitType _UnitType;
+        public Unit.ECombatType _CombatType;
         public int _Amount;
         public Sprite _Logo;
     }
@@ -130,6 +135,7 @@ public class UI_SelectedUnits : MonoBehaviour {
 
                     _UnitType = _SelectedUnits[i].UnitType,
                     _Logo = _SelectedUnits[i].Logo,
+                    _CombatType = _SelectedUnits[i].CombatType,
                     _Amount = 1
                 };
                 _UnitInfos.Add(info);
@@ -148,6 +154,24 @@ public class UI_SelectedUnits : MonoBehaviour {
                 panel.AmountCounter.text = _UnitInfos[i]._Amount.ToString();
                 panel.SetPanelInfo(_UnitInfos[i]);
                 panel.SetPlayer(_Player);
+
+                // Set combat type logo
+                switch (_UnitInfos[i]._CombatType) {
+
+                    case Unit.ECombatType.GroundInfantry:
+                        panel.TypeComponent.sprite = GroundInfantryLogo;
+                        break;
+
+                    case Unit.ECombatType.GroundVehicle:
+                        panel.TypeComponent.sprite = GroundVehicleLogo;
+                        break;
+
+                    case Unit.ECombatType.AirVehicle:
+                        panel.TypeComponent.sprite = AirVehicleLogo;
+                        break;
+
+                    default: break;
+                }
 
                 // Set anchoring position
                 RectTransform rectT = panel.GetComponent<RectTransform>();
