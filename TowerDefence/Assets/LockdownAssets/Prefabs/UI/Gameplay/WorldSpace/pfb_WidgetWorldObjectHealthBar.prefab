@@ -357,8 +357,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 16
+  m_fontSizeBase: 16
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
@@ -406,7 +406,7 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -442,12 +442,14 @@ MonoBehaviour:
   HealthFill: {fileID: 114902211300819124}
   Offsetting: {x: 0, y: 5, z: 0}
   ShieldbarTeamColourOutline: {fileID: 114960548116880610}
+  ShieldInvolnerableColour: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   ShieldOkayColour: {r: 1, g: 1, b: 1, a: 1}
   ShieldPercentageThresholdDamaged: 0.6
   ShieldDamagedColour: {r: 1, g: 1, b: 1, a: 1}
   ShieldPercentageThresholdVeryDamaged: 0.2
   ShieldVeryDamagedColour: {r: 1, g: 1, b: 1, a: 1}
   HealthbarTeamColourOutline: {fileID: 114638473017217560}
+  HealthInvolnerableColour: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   HealthOkayColour: {r: 0, g: 1, b: 0, a: 1}
   HealthPercentageThresholdDamaged: 0.5
   HealthDamagedColour: {r: 1, g: 0.6827586, b: 0, a: 1}
@@ -808,7 +810,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 10}
+  m_AnchoredPosition: {x: 0, y: 4}
   m_SizeDelta: {x: 0, y: 45}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224342297828534092
