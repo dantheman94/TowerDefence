@@ -439,7 +439,7 @@ public class KeyboardInput : MonoBehaviour {
             
 
             // Keyboard movement WASD
-            if (Input.GetKey(KeyCode.W) && (!Input.GetKey(KeyCode.LeftAlt)) && (!_PlayerCamera.PastBoundsNorth)) {
+            if (Input.GetKey(KeyCode.W) && (!Input.GetKey(KeyCode.LeftAlt)) && (_PlayerCamera.PastBoundsNorth)) {
 
                 // Move forwards
                 movement.y += Settings.MovementSpeed;
@@ -449,7 +449,7 @@ public class KeyboardInput : MonoBehaviour {
             }
    
 
-            if (Input.GetKey(KeyCode.S) && (!Input.GetKey(KeyCode.LeftAlt)) && (!_PlayerCamera.PastBoundsSouth)) {
+            if (Input.GetKey(KeyCode.S) && (!Input.GetKey(KeyCode.LeftAlt)) && (_PlayerCamera.PastBoundsSouth)) {
 
                 // Move backwards
                 movement.y -= Settings.MovementSpeed;
@@ -459,7 +459,7 @@ public class KeyboardInput : MonoBehaviour {
             }
 
 
-            if (Input.GetKey(KeyCode.D) && (!Input.GetKey(KeyCode.LeftAlt)) && (!_PlayerCamera.PastBoundsEast)) {
+            if (Input.GetKey(KeyCode.D) && (!Input.GetKey(KeyCode.LeftAlt)) && (_PlayerCamera.PastBoundsEast)) {
 
                 // Move right
                 movement.x += Settings.MovementSpeed;
@@ -469,7 +469,7 @@ public class KeyboardInput : MonoBehaviour {
             }
      
 
-            if (Input.GetKey(KeyCode.A) && (!Input.GetKey(KeyCode.LeftAlt)) && (!_PlayerCamera.PastBoundsWest))
+            if (Input.GetKey(KeyCode.A) && (!Input.GetKey(KeyCode.LeftAlt)) && (_PlayerCamera.PastBoundsWest))
             {
 
                 // Move left

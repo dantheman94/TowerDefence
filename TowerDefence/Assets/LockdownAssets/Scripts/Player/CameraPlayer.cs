@@ -37,12 +37,10 @@ public class CameraPlayer : MonoBehaviour {
     [Header("----------------------------------")]
     [Header(" MAP BOUNDS")]
     [Space]
-    public float EastBounds;
-    public float WestBounds;
-    public float NorthBounds;
-    public float SouthBounds;
-    public bool LockCameraToBounds = false;
-
+    [Header("RAYCAST MAP BOUND DIRECTIONS")]
+    public Vector3 BackTransform;
+    public Vector3 LeftTransform;
+    public Vector3 RightTransform;
     [HideInInspector]
     public bool PastBoundsEast = false;
     [HideInInspector]
@@ -60,6 +58,8 @@ public class CameraPlayer : MonoBehaviour {
     [Space]
     public float ShakeMagnitude;
     public float ShakeMaxRange;
+
+   
 
     //******************************************************************************************************************************
     //
@@ -103,51 +103,61 @@ public class CameraPlayer : MonoBehaviour {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
 
+   
     /// <summary>
-    /// Checks if camera is between given map bounds.
+    /// Stops camera from passing map bounds using raycasts.
     /// </summary>
-    private void CheckCameraBounds()
+    private void RaycastBounds()
     {
-        if (LockCameraToBounds)
+
+        if(Physics.Raycast(transform.position,transform.forward,250 ))
         {
-            if (transform.position.x <= WestBounds)
-            {
-                PastBoundsWest = true;
-            }
-            else
-            {
-                PastBoundsWest = false;
-            }
-
-            if (transform.position.x >= EastBounds)
-            {
-                PastBoundsEast = true;
-            }
-            else
-            {
-                PastBoundsEast = false;
-            }
-
-            if (transform.position.z <= SouthBounds)
-            {
-                PastBoundsSouth = true;
-            }
-            else
-            {
-                PastBoundsSouth = false;
-            }
-
-            if (transform.position.z >= NorthBounds)
-            {
-                PastBoundsNorth = true;
-            }
-            else
-            {
-                PastBoundsNorth = false;
-            }
+            Debug.DrawRay(transform.position, transform.forward * 250, Color.green);
+            PastBoundsNorth = true;
         }
+        else
+        {
+            PastBoundsNorth = false;
+            Debug.DrawRay(transform.position, transform.forward * 250, Color.red);
+        }
+
+        if (Physics.Raycast(transform.position, BackTransform, 250))
+        {
+            Debug.DrawRay(transform.position, BackTransform * 250, Color.green);
+            PastBoundsSouth = true;
+        }
+        else
+        {
+            PastBoundsSouth = false;
+            Debug.DrawRay(transform.position, BackTransform * 250, Color.red);
+        }
+
+        if (Physics.Raycast(transform.position, RightTransform, 250))
+        {
+            Debug.DrawRay(transform.position, RightTransform * 250, Color.green);
+            PastBoundsEast = true;
+        }
+        else
+        {
+            PastBoundsEast = false;
+            Debug.DrawRay(transform.position, RightTransform * 250, Color.red);
+        }
+
+        if (Physics.Raycast(transform.position, LeftTransform, 250))
+        {
+            Debug.DrawRay(transform.position, LeftTransform * 250, Color.green);
+            PastBoundsWest = true;
+        }
+        else
+        {
+            PastBoundsWest = false;
+            Debug.DrawRay(transform.position, LeftTransform * 250, Color.red);
+        }
+
     }
+  
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -156,8 +166,7 @@ public class CameraPlayer : MonoBehaviour {
     /// </summary>
     private void Update() {
 
-        CheckCameraBounds();
-
+        RaycastBounds();
         if (_Camera != null)
         {
             //Debug.Log("FOV " + _Camera.fieldOfView);
