@@ -69,7 +69,6 @@ public class CameraPlayer : MonoBehaviour {
 
     private Renderer _MinimapRenderer;
     private Player _PlayerAttached = null;
-    private KeyboardInput _KeyBoardInput;
     private Camera _Camera;
 
     private float ShakeOffsetX = 1f;
@@ -78,8 +77,6 @@ public class CameraPlayer : MonoBehaviour {
 
     public float _MinCameraHeight { get; set; }
     public float _MaxCameraHeight { get; set; }
-    private bool _RangesMinUpdated = false;
-    private bool _RangesMaxUpdated = false;
 
     //******************************************************************************************************************************
     //
@@ -104,87 +101,6 @@ public class CameraPlayer : MonoBehaviour {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-
-   
-    /// <summary>
-    /// Stops camera from passing map bounds using raycasts.
-    /// </summary>
-    private void RaycastBounds()
-    {
-
-        if(Physics.Raycast(transform.position,transform.forward,250 ))
-        {
-            Debug.DrawRay(transform.position, transform.forward * 250, Color.green);
-            PastBoundsNorth = true;
-        }
-        else
-        {
-            PastBoundsNorth = false;
-            Debug.DrawRay(transform.position, transform.forward * 250, Color.red);
-        }
-
-        if (Physics.Raycast(transform.position, BackTransform, 250))
-        {
-            Debug.DrawRay(transform.position, BackTransform * 250, Color.green);
-            PastBoundsSouth = true;
-        }
-        else
-        {
-            PastBoundsSouth = false;
-            Debug.DrawRay(transform.position, BackTransform * 250, Color.red);
-        }
-
-        if (Physics.Raycast(transform.position, RightTransform, 250))
-        {
-            Debug.DrawRay(transform.position, RightTransform * 250, Color.green);
-            PastBoundsEast = true;
-        }
-        else
-        {
-            PastBoundsEast = false;
-            Debug.DrawRay(transform.position, RightTransform * 250, Color.red);
-        }
-
-        if (Physics.Raycast(transform.position, LeftTransform, 250))
-        {
-            Debug.DrawRay(transform.position, LeftTransform * 250, Color.green);
-            PastBoundsWest = true;
-        }
-        else
-        {
-            PastBoundsWest = false;
-            Debug.DrawRay(transform.position, LeftTransform * 250, Color.red);
-        }
-
-    }
-  
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  Called each frame.
-    /// </summary>
-    private void Update() {
-
-        RaycastBounds();
-        if (_Camera != null)
-        {
-            //Debug.Log("FOV " + _Camera.fieldOfView);
-        }
-
-        //if (Input.GetKeyDown(KeyCode.P) == true)
-        //{
-        //    float rad = 20.0f;
-        //    //SoundManager.Instance.PlaySound("Audio/pfb_Battle", 0.9f, 1.1f);
-        //    ExplosionShake(transform.position, rad);
-
-        //    Debug.Log("Button tapped.");
-        //}
-
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     /// <summary>
     //  
     /// </summary>

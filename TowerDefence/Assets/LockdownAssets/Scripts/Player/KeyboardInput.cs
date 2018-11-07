@@ -36,6 +36,16 @@ public class KeyboardInput : MonoBehaviour {
     public SliceDrawer Slicedrawer;
     public Color BoxColor;
 
+    [Space]
+    [Header("-----------------------------------")]
+    [Header(" MAP BOUNDS")]
+    [Space]
+    public float BoundsXMin;
+    public float BoundsXMax;
+    [Space]
+    public float BoundsZMin;
+    public float BoundsZMax;
+
     //******************************************************************************************************************************
     //
     //      VARIABLES
@@ -60,9 +70,13 @@ public class KeyboardInput : MonoBehaviour {
     private WorldObject _HighlightWorldObject = null;
     private bool SelectedTrue = false;
 
-    private Transform _CoreReturnTransform = null;
-    private Vector3 _CurrentReturnVelocity = Vector3.zero;
     private bool _ReturningToCore = false;
+    private Transform _CoreReturnTransform = null;
+
+    private bool _FollowingTarget = false;
+    private Transform _FollowingTargetTransform = null;
+    private Vector3 _CurrentReturnVelocity = Vector3.zero;
+
     private float _MouseTimer = 0.15f;
 
     //******************************************************************************************************************************
@@ -186,6 +200,9 @@ public class KeyboardInput : MonoBehaviour {
 
                 // Update returning to core input
                 ReturnToCore();
+
+                // Update target following input
+                FollowTarget();
 
                 // Select all units
                 if (Input.GetKeyDown(KeyCode.E)) {
@@ -420,8 +437,7 @@ public class KeyboardInput : MonoBehaviour {
 
         // Move camera via input if the player ISNT currently controlling a unit
         if (GameManager.Instance.GetIsUnitControlling() == false) {
-
-
+            
             //if (Input.GetMouseButton(2))
             //{
             //    if (Input.GetAxis("Mouse X") < 0 || Input.GetAxis("Mouse X") > 0)
@@ -437,9 +453,8 @@ public class KeyboardInput : MonoBehaviour {
             //    }
             //}
             
-
             // Keyboard movement WASD
-            if (Input.GetKey(KeyCode.W) && (!Input.GetKey(KeyCode.LeftAlt)) && (_PlayerCamera.PastBoundsNorth)) {
+            if (Input.GetKey(KeyCode.W) && (!Input.GetKey(KeyCode.LeftAlt)) && _PlayerCamera.transform.position.z <= BoundsZMax) {
 
                 // Move forwards
                 movement.y += Settings.MovementSpeed;
@@ -449,7 +464,7 @@ public class KeyboardInput : MonoBehaviour {
             }
    
 
-            if (Input.GetKey(KeyCode.S) && (!Input.GetKey(KeyCode.LeftAlt)) && (_PlayerCamera.PastBoundsSouth)) {
+            if (Input.GetKey(KeyCode.S) && (!Input.GetKey(KeyCode.LeftAlt)) && _PlayerCamera.transform.position.z >= BoundsZMin) {
 
                 // Move backwards
                 movement.y -= Settings.MovementSpeed;
@@ -459,7 +474,7 @@ public class KeyboardInput : MonoBehaviour {
             }
 
 
-            if (Input.GetKey(KeyCode.D) && (!Input.GetKey(KeyCode.LeftAlt)) && (_PlayerCamera.PastBoundsEast)) {
+            if (Input.GetKey(KeyCode.D) && (!Input.GetKey(KeyCode.LeftAlt)) && _PlayerCamera.transform.position.x <= BoundsXMax) {
 
                 // Move right
                 movement.x += Settings.MovementSpeed;
@@ -469,7 +484,7 @@ public class KeyboardInput : MonoBehaviour {
             }
      
 
-            if (Input.GetKey(KeyCode.A) && (!Input.GetKey(KeyCode.LeftAlt)) && (_PlayerCamera.PastBoundsWest))
+            if (Input.GetKey(KeyCode.A) && (!Input.GetKey(KeyCode.LeftAlt)) && _PlayerCamera.transform.position.x >= BoundsXMin)
             {
 
                 // Move left
@@ -973,9 +988,51 @@ public class KeyboardInput : MonoBehaviour {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    private void FollowTarget() {
+
+        // Initialize
+        if (Input.GetKeyDown(KeyCode.F)) {
+
+            // Set target transform properties
+            _FollowingTargetTransform = new GameObject().transform;
+            _FollowingTargetTransform.rotation = _PlayerAttached.transform.parent.rotation;
+            _FollowingTargetTransform.position = new Vector3(WaveManager.Instance.CentralCore.transform.position.x,
+                                                             _PlayerCamera.transform.parent.position.y,
+                                                             WaveManager.Instance.CentralCore.transform.position.z);
+            _FollowingTargetTransform.position += _FollowingTargetTransform.up * 100f;
+            _FollowingTargetTransform.position = new Vector3(_FollowingTargetTransform.position.x,
+                                                             _PlayerCamera.transform.parent.position.y,
+                                                             _FollowingTargetTransform.position.z);
+
+            // Follow target?
+            _FollowingTarget = !_FollowingTarget;
+        }
+
+        // Camera follow target
+        if (_FollowingTarget && _PlayerAttached.SelectedUnits.Count > 0) {
+
+            // Set target transform properties
+            _FollowingTargetTransform.rotation = _PlayerAttached.transform.parent.rotation;
+            _FollowingTargetTransform.position = new Vector3(_PlayerAttached.SelectedUnits[0].transform.position.x,
+                                                             _PlayerCamera.transform.parent.position.y,
+                                                             _PlayerAttached.SelectedUnits[0].transform.position.z);
+            _FollowingTargetTransform.position += _FollowingTargetTransform.up * 100f;
+            _FollowingTargetTransform.position = new Vector3(_FollowingTargetTransform.position.x,
+                                                             _PlayerCamera.transform.parent.position.y,
+                                                             _FollowingTargetTransform.position.z);
+            // Smoothly move toward target position
+            _PlayerCamera.transform.parent.position = Vector3.SmoothDamp(_PlayerCamera.transform.parent.position, _FollowingTargetTransform.position, ref _CurrentReturnVelocity, ReturningDuration * Time.deltaTime);
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Lerps the player's camera to the central core
+    /// </summary>
     private void ReturnToCore() {
         
-        // Initialise
+        // Initialize
         if (Input.GetKeyDown(KeyCode.T)) {
                         
             // Set target transform properties
