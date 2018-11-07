@@ -396,6 +396,9 @@ public class WaveManager : MonoBehaviour {
 
         // Notification popup event
         if (WaveNotificationWidget != null) { WaveNotificationWidget.NewWaveNotification(_CurrentWaveInfo); }
+
+        // Play new wave sound
+        SoundManager.Instance.PlaySound("SFX/_SFX_WaveStart", 0.5f, 1f);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
