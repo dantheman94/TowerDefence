@@ -26,6 +26,7 @@ public class Unit : WorldObject {
     [Header(" UNIT PROPERTIES")]
     [Space]
     public EUnitType UnitType = EUnitType.Undefined;
+    public ECombatType CombatType = ECombatType.GroundInfantry;
     public ENavmeshType NavmeshType = ENavmeshType.Ground;
     [Tooltip("The movement/walking speed of this unit." +
             "\n\nNOTE: ONLY APPLIES TO GROUND INFANTRY, VEHICLES DO NOT USE THIS VALUE.")]
@@ -95,6 +96,7 @@ public class Unit : WorldObject {
     public const int _WeightLength = (int)EUnitType.ENUM_COUNT;
 
     public enum EUnitType { Undefined, DwfSoldier, DwfSpecialistInfantry, DwfSpecialistVehicle, Grumblebuster, Skylancer, Ballista, Catapult, SiegeEngine, LightAirship, SupportShip, HeavyAirship, ENUM_COUNT }
+    public enum ECombatType { GroundInfantry, GroundVehicle, AirVehicle }
     public enum ENavmeshType { Ground, Air }
 
     protected WorldObject _AttackTarget = null;

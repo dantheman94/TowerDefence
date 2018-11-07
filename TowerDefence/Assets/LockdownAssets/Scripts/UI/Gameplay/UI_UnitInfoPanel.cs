@@ -26,6 +26,7 @@ public class UI_UnitInfoPanel : MonoBehaviour {
     [Header(" WIDGET COMPONENTS")]
     [Space]
     public Image LogoComponent = null;
+    public Image TypeComponent = null;
     public TMP_Text UnitName = null;
     public TMP_Text AmountCounter = null;
     public TMP_Text AbilityText = null;
