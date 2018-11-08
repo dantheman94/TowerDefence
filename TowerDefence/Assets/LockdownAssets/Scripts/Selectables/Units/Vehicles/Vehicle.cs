@@ -93,6 +93,7 @@ public class Vehicle : Unit {
 
         InfantryMovementSpeed = MaxSpeed;
         _Agent.speed = MaxSpeed;
+        _OriginalMovementSpeed = MaxSpeed;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

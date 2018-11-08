@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 23/9/2018
+//  Last edited on: 8/11/2018
 //
 //******************************
 
@@ -108,6 +108,7 @@ public class Unit : WorldObject {
     protected bool _IsSeeking;
     protected bool _IsReturningToOrigin;
     protected bool _IsFiring = false;
+    protected bool _IsGuarding = false;
 
     protected Vector3 _ChaseOriginPosition = Vector3.zero;
     protected Vector3 _SeekTarget = Vector3.zero;
@@ -148,6 +149,8 @@ public class Unit : WorldObject {
     private Base _LockdownBase = null;
 
     protected UnitDialogue _Dialogue = null;
+
+    protected float _OriginalMovementSpeed = 0f;
 
     //******************************************************************************************************************************
     //
@@ -227,6 +230,7 @@ public class Unit : WorldObject {
         _CharacterController = GetComponent<CharacterController>();
         _Agent = GetComponent<NavMeshAgent>();
         _ObjectHeight = _Agent.height;
+        _OriginalMovementSpeed = InfantryMovementSpeed;
 
         // Initialize veterancy
         _VeterancyLevel = StartingVeterancyLevel;
@@ -867,6 +871,10 @@ public class Unit : WorldObject {
                 }
             }
         }
+
+        // Update guard state (by forcing their movement speed to 0)
+        if (_IsGuarding && _Agent != null) { _Agent.speed = 0f; }
+        else if (_Agent != null) { _Agent.speed = _OriginalMovementSpeed; }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1590,6 +1598,24 @@ public class Unit : WorldObject {
     //  UnitDialogue
     /// </returns>
     public UnitDialogue GetDialogue() { return _Dialogue; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Sets whether the unit should be in their guard or agro state.
+    /// </summary>
+    /// <param name="value"></param>
+    public void SetGuard(bool value) { _IsGuarding = value; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Returns whether the unit is in their guard or agro state.
+    /// </summary>
+    /// <returns>
+    //  bool
+    /// </returns>
+    public bool GetGuardState() { return _IsGuarding; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
