@@ -66,20 +66,11 @@ public class Humanoid : Vehicle {
     protected override void UpdateAIControllerMovement() {
         base.UpdateAIControllerMovement();
 
-        // Currently moving
+        // Update the speed variable in the animator controller
         if (_Animator != null) { _Animator.SetFloat("Speed", _CurrentSpeed); }
-        if (_CurrentSpeed > 0) {
-
-            // Play walking animation on the legs
-            if (WalkingAnimation != null && LegsAnimator != null) {
-
-                LegsAnimator.clip = WalkingAnimation;
-                LegsAnimator.Play();
-            }
-        }
-
+        
         // Not currently moving
-        else {
+        if (_CurrentSpeed == 0) {
 
             // Play idle animation on the legs
             if (LegsAnimator != null && IdleAnimation != null) {
