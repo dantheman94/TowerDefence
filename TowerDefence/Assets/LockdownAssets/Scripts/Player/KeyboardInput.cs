@@ -7,7 +7,7 @@ using TowerDefence;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 22/10/2018
+//  Last edited on: 8/11/2018
 //
 //******************************
 
@@ -70,11 +70,9 @@ public class KeyboardInput : MonoBehaviour {
     private WorldObject _HighlightWorldObject = null;
     private bool SelectedTrue = false;
 
+    private bool _FollowingTarget = false;
     private bool _ReturningToCore = false;
     private Transform _CoreReturnTransform = null;
-
-    private bool _FollowingTarget = false;
-    private Transform _FollowingTargetTransform = null;
     private Vector3 _CurrentReturnVelocity = Vector3.zero;
 
     private float _MouseTimer = 0.15f;
@@ -143,7 +141,7 @@ public class KeyboardInput : MonoBehaviour {
 
             _MouseTimer = 0.15f;
         }
-        if(Input.GetMouseButton(1))
+        if (Input.GetMouseButton(1))
         {
             _MouseTimer -= Time.deltaTime;
         }
@@ -166,23 +164,22 @@ public class KeyboardInput : MonoBehaviour {
 
                 Cursor.visible = true;
                
-               if(TutorialScene.CurrentMessageData != null)
-               {
+                if(TutorialScene.CurrentMessageData != null)
+                {
                     if(!TutorialScene.CurrentMessageData.LockCamera)
                     {
                         // Update camera
                         MoveCamera();
                         RotateCamera();
                     }
-               }
-               else
-               {
+                }
+                else
+                {
                     // Update camera
                     MoveCamera();
                     RotateCamera();
-               }
+                }
               
-
                 // Update camera FOV
                 ZoomCamera();
 
@@ -194,14 +191,13 @@ public class KeyboardInput : MonoBehaviour {
 
                 // Update Ai abilities input
                 AiAbilityCommandInput();
+                AiGuardInput();
 
                 // Update platoon input
                 PlatoonInput();
-
-                // Update returning to core input
-                ReturnToCore();
-
+                
                 // Update target following input
+                ReturnToCore();
                 FollowTarget();
 
                 // Select all units
@@ -227,10 +223,22 @@ public class KeyboardInput : MonoBehaviour {
                     // Update units selected panels
                     GameManager.Instance.SelectedUnitsHUD.RefreshPanels();
                 }
+
+                if (Input.GetKeyDown(KeyCode.KeypadEnter)) {
+
+                    ///WaveManager.Instance.WaveComplete();
+                    WaveManager.Instance.WaveCompleteWidget.gameObject.SetActive(true);
+                    WaveManager.Instance.WaveCompleteWidget.OnWaveComplete();
+                }
             }
         }
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
     private void LateUpdate()
     {
         if (Input.GetMouseButtonUp(0))
@@ -356,6 +364,11 @@ public class KeyboardInput : MonoBehaviour {
                 movement.y += Settings.MovementSpeed;
                 CreateCenterPoint();
                 SnapMovement(movement);
+
+                // Cancel any states we dont want to be in
+                _ReturningToCore = false;
+                Slicedrawer.enabled = false;
+                _PlayerAttached._CameraFollow.SetFollowing(_FollowingTarget = false);
             }
 
             // Smooth exit up
@@ -371,6 +384,11 @@ public class KeyboardInput : MonoBehaviour {
                 movement.y -= Settings.MovementSpeed;
                 CreateCenterPoint();
                 SnapMovement(movement);
+
+                // Cancel any states we dont want to be in
+                _ReturningToCore = false;
+                Slicedrawer.enabled = false;
+                _PlayerAttached._CameraFollow.SetFollowing(_FollowingTarget = false);
             }
 
             // Smooth exit down
@@ -386,6 +404,11 @@ public class KeyboardInput : MonoBehaviour {
                 movement.x += Settings.MovementSpeed;
                 CreateCenterPoint();
                 SnapMovement(movement);
+
+                // Cancel any states we dont want to be in
+                _ReturningToCore = false;
+                Slicedrawer.enabled = false;
+                _PlayerAttached._CameraFollow.SetFollowing(_FollowingTarget = false);
             }
 
             // Smooth exit right
@@ -401,6 +424,11 @@ public class KeyboardInput : MonoBehaviour {
                 movement.x -= Settings.MovementSpeed * 2;
                 CreateCenterPoint();
                 SnapMovement(movement);
+
+                // Cancel any states we dont want to be in
+                _ReturningToCore = false;
+                Slicedrawer.enabled = false;
+                _PlayerAttached._CameraFollow.SetFollowing(_FollowingTarget = false);
             }
 
             // Smooth exit left
@@ -459,8 +487,11 @@ public class KeyboardInput : MonoBehaviour {
                 // Move forwards
                 movement.y += Settings.MovementSpeed;
                 CreateCenterPoint();
+
+                // Cancel any states we dont want to be in
                 _ReturningToCore = false;
                 Slicedrawer.enabled = false;
+                _PlayerAttached._CameraFollow.SetFollowing(_FollowingTarget = false);
             }
    
 
@@ -469,8 +500,11 @@ public class KeyboardInput : MonoBehaviour {
                 // Move backwards
                 movement.y -= Settings.MovementSpeed;
                 CreateCenterPoint();
+
+                // Cancel any states we dont want to be in
                 _ReturningToCore = false;
                 Slicedrawer.enabled = false;
+                _PlayerAttached._CameraFollow.SetFollowing(_FollowingTarget = false);
             }
 
 
@@ -479,8 +513,11 @@ public class KeyboardInput : MonoBehaviour {
                 // Move right
                 movement.x += Settings.MovementSpeed;
                 CreateCenterPoint();
+
+                // Cancel any states we dont want to be in
                 _ReturningToCore = false;
                 Slicedrawer.enabled = false;
+                _PlayerAttached._CameraFollow.SetFollowing(_FollowingTarget = false);
             }
      
 
@@ -490,8 +527,11 @@ public class KeyboardInput : MonoBehaviour {
                 // Move left
                 movement.x -= Settings.MovementSpeed;
                 CreateCenterPoint();
+
+                // Cancel any states we dont want to be in
                 _ReturningToCore = false;
                 Slicedrawer.enabled = false;
+                _PlayerAttached._CameraFollow.SetFollowing(_FollowingTarget = false);
             }
             
 
@@ -567,7 +607,9 @@ public class KeyboardInput : MonoBehaviour {
         // Rotate camera state if ALT is being held down
         if (_RotatingCamera = (Input.GetKey(KeyCode.LeftAlt))) {
 
+            // Cancel any states we dont want to be in
             _ReturningToCore = false;
+            _PlayerAttached._CameraFollow.SetFollowing(_FollowingTarget = false);
 
             // Hide mouse cursor
             Cursor.visible = false;
@@ -988,41 +1030,32 @@ public class KeyboardInput : MonoBehaviour {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /// <summary>
+    //  When the user presses an input button - a camera following sequence will begin on the first
+    //  unit that is in the selected list
+    /// </summary>
     private void FollowTarget() {
 
         // Initialize
-        if (Input.GetKeyDown(KeyCode.F)) {
+        if (Input.GetKeyDown(KeyCode.F) && _PlayerAttached.SelectedUnits.Count > 0) {
 
-            // Set target transform properties
-            _FollowingTargetTransform = new GameObject().transform;
-            _FollowingTargetTransform.rotation = _PlayerAttached.transform.parent.rotation;
-            _FollowingTargetTransform.position = new Vector3(WaveManager.Instance.CentralCore.transform.position.x,
-                                                             _PlayerCamera.transform.parent.position.y,
-                                                             WaveManager.Instance.CentralCore.transform.position.z);
-            _FollowingTargetTransform.position += _FollowingTargetTransform.up * 100f;
-            _FollowingTargetTransform.position = new Vector3(_FollowingTargetTransform.position.x,
-                                                             _PlayerCamera.transform.parent.position.y,
-                                                             _FollowingTargetTransform.position.z);
-
-            // Follow target?
+            // Flip the camera state
             _FollowingTarget = !_FollowingTarget;
-        }
 
-        // Camera follow target
-        if (_FollowingTarget && _PlayerAttached.SelectedUnits.Count > 0) {
+            if (_FollowingTarget) {
 
-            // Set target transform properties
-            _FollowingTargetTransform.rotation = _PlayerAttached.transform.parent.rotation;
-            _FollowingTargetTransform.position = new Vector3(_PlayerAttached.SelectedUnits[0].transform.position.x,
-                                                             _PlayerCamera.transform.parent.position.y,
-                                                             _PlayerAttached.SelectedUnits[0].transform.position.z);
-            _FollowingTargetTransform.position += _FollowingTargetTransform.up * 100f;
-            _FollowingTargetTransform.position = new Vector3(_FollowingTargetTransform.position.x,
-                                                             _PlayerCamera.transform.parent.position.y,
-                                                             _FollowingTargetTransform.position.z);
-            // Smoothly move toward target position
-            _PlayerCamera.transform.parent.position = Vector3.SmoothDamp(_PlayerCamera.transform.parent.position, _FollowingTargetTransform.position, ref _CurrentReturnVelocity, ReturningDuration * Time.deltaTime);
-        }
+                // Follow the first target in the selected unit list attached to the player
+                _PlayerAttached._CameraFollow.SetFollowTarget(_PlayerAttached.SelectedUnits[0]);
+                _PlayerAttached._CameraFollow.SetCameraAttached(_PlayerCamera.GetComponent<Camera>());
+                _PlayerAttached._CameraFollow.Init();
+
+            }
+            else {
+
+                // Nulling the target will cancel the following sequence
+                _PlayerAttached._CameraFollow.SetFollowing(_FollowingTarget = false);
+            }
+        }       
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1034,34 +1067,14 @@ public class KeyboardInput : MonoBehaviour {
         
         // Initialize
         if (Input.GetKeyDown(KeyCode.T)) {
-                        
-            // Set target transform properties
-            _CoreReturnTransform = new GameObject().transform;
-            _CoreReturnTransform.rotation = _PlayerAttached.transform.parent.rotation;
-            _CoreReturnTransform.position = new Vector3(WaveManager.Instance.CentralCore.transform.position.x,
-                                                        _PlayerCamera.transform.parent.position.y,
-                                                        WaveManager.Instance.CentralCore.transform.position.z);
-            _CoreReturnTransform.position += _CoreReturnTransform.up * 100f;
-            _CoreReturnTransform.position = new Vector3(_CoreReturnTransform.position.x,
-                                                        _PlayerCamera.transform.parent.position.y,
-                                                        _CoreReturnTransform.position.z);
-                        
+
+            // Make the core a follow target
+            _PlayerAttached._CameraFollow.SetFollowTarget(WaveManager.Instance.CentralCore);
+            _PlayerAttached._CameraFollow.SetCameraAttached(_PlayerCamera.GetComponent<Camera>());
+            _PlayerAttached._CameraFollow.Init();
+
             // Start returning to the core
             _ReturningToCore = true;
-        }
-
-        // Return to the core
-        if (_ReturningToCore) {
-            
-            // Smoothly move toward target position
-            _PlayerCamera.transform.parent.position = Vector3.SmoothDamp(_PlayerCamera.transform.parent.position, _CoreReturnTransform.position, ref _CurrentReturnVelocity, ReturningDuration * Time.deltaTime);
-
-            // Camera has reached target
-            float dist = Vector3.Distance(_PlayerAttached.transform.parent.position, _CoreReturnTransform.position);
-            if (dist < 10f) {
-
-                _ReturningToCore = false;
-            }
         }
     }
 
@@ -1235,11 +1248,31 @@ public class KeyboardInput : MonoBehaviour {
             }
         }
     }
-    
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //
+    //  Checks whether the player wants to put their selected units into their guard or agro movement states.
+    /// </summary>
+    private void AiGuardInput() {
+
+        // Validitity & input check
+        if (Input.GetKeyDown(KeyCode.R) && _PlayerAttached.SelectedUnits.Count > 0) {
+
+            // For all selected units
+            for (int i = 0; i < _PlayerAttached.SelectedUnits.Count; i++) {
+
+                // Flip the state
+                Unit unit = _PlayerAttached.SelectedUnits[i];
+                unit.SetGuard(!unit.GetGuardState());
+            }
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Checks for input and adds/replaces/selects units from the assigned 1-9 keybindings
     /// </summary>
     private void PlatoonInput() {
 
@@ -1372,6 +1405,9 @@ public class KeyboardInput : MonoBehaviour {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /// <summary>
+    //  
+    /// </summary>
     private void LineMovement()
     {
         

@@ -8,7 +8,7 @@ using UnityEngine;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 5/7/2018
+//  Last edited on: 8/11/2018
 //
 //******************************
 
@@ -68,7 +68,7 @@ public class CameraFollow : MonoBehaviour {
 
             // Get chase target position
             Transform trans = new GameObject().transform;
-            trans.position = new Vector3(_FollowTarget.transform.position.x, _CameraAttached.transform.position.y, _FollowTarget.transform.position.z);            
+            trans.position = new Vector3(_FollowTarget.transform.position.x, _CameraAttached.transform.parent.position.y, _FollowTarget.transform.position.z);            
             trans.position -= _CameraOrigTransform.up * Offset;
             _ChasePosition = trans.position;
 
@@ -77,7 +77,7 @@ public class CameraFollow : MonoBehaviour {
             if (_ChasePosition.y > Settings.MaxCameraHeight) { _ChasePosition.y = Settings.MaxCameraHeight; }
 
             // Smoothly move toward target position
-            _CameraAttached.transform.position = Vector3.SmoothDamp(_CameraAttached.transform.position, _ChasePosition, ref _CurrentVelocity, ChaseSpeed);
+            _CameraAttached.transform.parent.position = Vector3.SmoothDamp(_CameraAttached.transform.parent.position, _ChasePosition, ref _CurrentVelocity, ChaseSpeed);
             
             // Destroy obsolete gameobject
             Destroy(trans.gameObject);
@@ -111,7 +111,7 @@ public class CameraFollow : MonoBehaviour {
         _Following = value;
         if (value == true) {
 
-            _CameraOrigTransform = _CameraAttached.transform;
+            _CameraOrigTransform = _CameraAttached.transform.parent;
         }
     }
 
