@@ -67,7 +67,11 @@ public class Humanoid : Vehicle {
         base.UpdateAIControllerMovement();
 
         // Update the speed variable in the animator controller
-        if (_Animator != null) { _Animator.SetFloat("Speed", _CurrentSpeed); }
+        if (_Animator != null) {
+
+            // Precaution check
+            if (_Animator.gameObject.activeSelf) { _Animator.SetFloat("Speed", _CurrentSpeed); }
+        }
         
         // Not currently moving
         if (_CurrentSpeed == 0) {
