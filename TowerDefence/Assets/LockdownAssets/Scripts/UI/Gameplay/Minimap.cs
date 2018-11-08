@@ -57,14 +57,17 @@ public class Minimap : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _MousePos = new Vector2(Input.mousePosition.x, Screen.height - Input.mousePosition.y);
-        if (RectangleArea.PointInside(_MousePos))
-        {
-            Slicedrawer.enabled = false;
-        }
-        else
-        {
-            Slicedrawer.enabled = true;
+        if (Slicedrawer != null) {
+
+            _MousePos = new Vector2(Input.mousePosition.x, Screen.height - Input.mousePosition.y);
+            if (RectangleArea.PointInside(_MousePos)) {
+
+                Slicedrawer.enabled = false;
+            }
+            else {
+
+                Slicedrawer.enabled = true;
+            }
         }
             
         if(TutorialScene.CurrentMessageData != null)
