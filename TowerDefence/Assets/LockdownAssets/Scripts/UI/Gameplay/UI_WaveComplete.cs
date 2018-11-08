@@ -38,6 +38,16 @@ public class UI_WaveComplete : MonoBehaviour {
     public Color FlashStartingColour = Color.white;
     public Color FlashEndColour = Color.red;
 
+    [Space]
+    [Header("-----------------------------------")]
+    [Header(" FADING WIDGET")]
+    [Space]
+    public Text WaveCompleteTitle = null;
+    public Text ResourceAddedText = null;
+    public Image LineHorizontal = null;
+    [Space]
+    public float FadeDuration = 0.5f;
+
     //******************************************************************************************************************************
     //
     //      VARIABLES
@@ -46,6 +56,11 @@ public class UI_WaveComplete : MonoBehaviour {
 
     private bool _Flashing = false;
     private Color _CurrentFlashColour = Color.white;
+
+    private bool _FadingOut = false;
+    private bool _FadingIn = false;
+    private float _FadeProgress = 0f;
+    private Color _FadeColour;
 
     //******************************************************************************************************************************
     //
@@ -68,6 +83,45 @@ public class UI_WaveComplete : MonoBehaviour {
             // Set the outline component(s) colour
             for (int i = 0; i < OutlineComponents.Count; i++) { OutlineComponents[i].effectColor = _CurrentFlashColour; }
         }
+
+        // Widget fading in sequence
+        if (_FadingIn) {
+
+            // Lerp the widget components into full alpha
+            _FadeProgress -= Time.deltaTime / FadeDuration;
+            _FadeColour = Color.Lerp(Color.white, Color.clear, _FadeProgress);
+
+            if (WaveCompleteTitle != null) { WaveCompleteTitle.color = _FadeColour; }
+            if (ResourceAddedText != null) { ResourceAddedText.color = _FadeColour; }
+            if (LineHorizontal != null) { LineHorizontal.color = _FadeColour; }
+
+            // Fade in complete
+            if (_FadeColour == Color.white) {
+
+                _FadingIn = false;
+                _FadeProgress = 0f;
+            }
+        }
+
+        // Widget fading out sequence
+        if (_FadingOut) {
+
+            // Lerp the widget components into full transparency
+            _FadeProgress += Time.deltaTime / FadeDuration;
+            _FadeColour = Color.Lerp(Color.white, Color.clear, _FadeProgress);
+
+            if (WaveCompleteTitle != null) { WaveCompleteTitle.color = _FadeColour; }
+            if (ResourceAddedText != null) { ResourceAddedText.color = _FadeColour; }
+            if (LineHorizontal != null) { LineHorizontal.color = _FadeColour; }
+
+            // Fade out complete
+            if (_FadeColour == Color.clear) {
+
+                _FadingOut = false;
+                _FadeProgress = 0f;
+                gameObject.SetActive(false);
+            }
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -77,8 +131,16 @@ public class UI_WaveComplete : MonoBehaviour {
     /// </summary>
     public void OnWaveComplete() {
 
+        // Reset center message colours
+        _FadeColour = Color.white;
+        if (WaveCompleteTitle != null) { WaveCompleteTitle.color = _FadeColour; }
+        if (ResourceAddedText != null) { ResourceAddedText.color = _FadeColour; }
+        if (LineHorizontal != null) { LineHorizontal.color = _FadeColour; }
+
         // Start text flashing
         _Flashing = true;
+        _FadingIn = true;
+        _FadeProgress = 1f;
 
         // Boost resources
         Player player = GameManager.Instance.Players[0];
@@ -111,9 +173,10 @@ public class UI_WaveComplete : MonoBehaviour {
 
         _Flashing = false;
         _CurrentFlashColour = FlashStartingColour;
-        gameObject.SetActive(false);
+        for (int i = 0; i < OutlineComponents.Count; i++) { OutlineComponents[i].effectColor = _CurrentFlashColour; }
+        _FadingOut = true;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    
 }
