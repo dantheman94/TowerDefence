@@ -8,7 +8,7 @@ using UnityEngine.UI;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 2/9/2018
+//  Last edited on: 10/11/2018
 //
 //******************************
 
@@ -31,6 +31,16 @@ public class UI_WaveNotification : MonoBehaviour {
     public float FadeInSpeed = 2f;
     public float TimeOnScreen = 3f;
 
+    [Space]
+    [Header("-----------------------------------")]
+    [Header(" FADING WIDGET")]
+    [Space]
+    public Text NewWaveTitle = null;
+    public Text WaveNameText = null;
+    public Image LineHorizontal = null;
+    [Space]
+    public float FadeDuration = 0.5f;
+
     //******************************************************************************************************************************
     //
     //      VARIABLES
@@ -41,6 +51,11 @@ public class UI_WaveNotification : MonoBehaviour {
     private float _TimerOnScreen = 0f;
 
     public bool _BossWave { get; set; }
+
+    private bool _FadingOut = false;
+    private bool _FadingIn = false;
+    private float _FadeProgress = 0f;
+    private Color _FadeColour;
 
     //******************************************************************************************************************************
     //
@@ -62,9 +77,48 @@ public class UI_WaveNotification : MonoBehaviour {
             if (_TimerOnScreen >= TimeOnScreen) {
 
                 // Hide widget
-                gameObject.SetActive(false);
                 _OnScreen = false;
                 _TimerOnScreen = 0f;
+                _FadingOut = true;
+            }
+        }
+
+        // Widget fading in sequence
+        if (_FadingIn) {
+
+            // Lerp the widget components into full alpha
+            _FadeProgress -= Time.deltaTime / FadeDuration;
+            _FadeColour = Color.Lerp(Color.white, Color.clear, _FadeProgress);
+
+            if (NewWaveTitle != null) { NewWaveTitle.color = _FadeColour; }
+            if (WaveNameText != null) { WaveNameText.color = _FadeColour; }
+            if (LineHorizontal != null) { LineHorizontal.color = _FadeColour; }
+
+            // Fade in complete
+            if (_FadeColour == Color.white) {
+
+                _FadingIn = false;
+                _FadeProgress = 0f;
+            }
+        }
+
+        // Widget fading out sequence
+        if (_FadingOut) {
+
+            // Lerp the widget components into full transparency
+            _FadeProgress += Time.deltaTime / FadeDuration;
+            _FadeColour = Color.Lerp(Color.white, Color.clear, _FadeProgress);
+
+            if (NewWaveTitle != null) { NewWaveTitle.color = _FadeColour; }
+            if (WaveNameText != null) { WaveNameText.color = _FadeColour; }
+            if (LineHorizontal != null) { LineHorizontal.color = _FadeColour; }
+
+            // Fade out complete
+            if (_FadeColour == Color.clear) {
+
+                _FadingOut = false;
+                _FadeProgress = 0f;
+                gameObject.SetActive(false);
             }
         }
     }
@@ -72,7 +126,7 @@ public class UI_WaveNotification : MonoBehaviour {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  
+    //  Called whenever a new wave starts. Displays the wave name as a sub-heading in the center of the screen.
     /// </summary>
     public void NewWaveNotification(WaveManager.WaveInfo waveInfo) {
 
@@ -98,55 +152,17 @@ public class UI_WaveNotification : MonoBehaviour {
                 gameObject.SetActive(true);
                 WaveNameDescription.enabled = true;
             }
-            ///StartCoroutine(FadeInWidget());
+
+            // Reset center message colours
+            _FadeColour = Color.white;
+            if (NewWaveTitle != null) { NewWaveTitle.color = _FadeColour; }
+            if (WaveNameText != null) { WaveNameText.color = _FadeColour; }
+            if (LineHorizontal != null) { LineHorizontal.color = _FadeColour; }
+            _FadingIn = true;
+            _FadeProgress = 1f;
         }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  
-    /// </summary>
-    /// <returns>
-    //  Enuermator
-    /// </returns>
-    private IEnumerator FadeInWidget() {
-
-        // Hide components
-        if (WaveNameTitle != null)          { WaveNameTitle.color = new Color(1, 1, 1, 0); }
-        if (WaveNameDescription != null)    { WaveNameDescription.color = new Color(1, 1, 1, 0); }
-        if (HorizontalLine != null)         { HorizontalLine.color = new Color(1, 1, 1, 0); }
-
-        float a1 = 0f;
-        float a2 = 0f;
-
-        bool fadingInComplete = false;
-        while(!fadingInComplete) {
-
-            // Fade in title
-            a1 += Time.deltaTime * FadeInSpeed;
-            if (WaveNameTitle != null)  { WaveNameTitle.color = new Color(1, 1, 1, a1); }
-            if (HorizontalLine != null) { HorizontalLine.color = new Color(1, 1, 1, a1); }
-            if (a1 >= 1f) { a1 = 1f; }
-            yield return new WaitForEndOfFrame();
-
-            // Title has faded in?
-            yield return new WaitUntil(() => (a1 >= 1f));
-
-            // Fade in description
-            a2 += Time.deltaTime * FadeInSpeed;
-            if (WaveNameDescription != null) { WaveNameDescription.color = new Color(1, 1, 1, a2); }
-            if (a2 >= 1f) { a2 = 1f; }
-            yield return new WaitForEndOfFrame();
-
-            // Description has faded in?
-            yield return new WaitUntil(() => (a2 >= 1f));
-
-            fadingInComplete = true;
-            _OnScreen = true;
-        }
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    
 }

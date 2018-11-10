@@ -167,10 +167,6 @@ public class UI_WaveComplete : MonoBehaviour {
 
         yield return new WaitForSeconds(seconds);
 
-        ///Player player = GameManager.Instance.Players[0];
-        ///ResourceManager rm = player.gameObject.GetComponent<ResourceManager>();
-        ///rm.ResourceBoostComplete(ResourceBoostAdditiveSupply, ResourceBoostAdditivePower);
-
         _Flashing = false;
         _CurrentFlashColour = FlashStartingColour;
         for (int i = 0; i < OutlineComponents.Count; i++) { OutlineComponents[i].effectColor = _CurrentFlashColour; }
