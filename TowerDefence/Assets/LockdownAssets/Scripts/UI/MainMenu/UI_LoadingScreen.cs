@@ -32,6 +32,8 @@ public class UI_LoadingScreen : MonoBehaviour
     public Text LevelDescription = null;
     public Text PlayerName = null;
     public Image LevelImage = null;
+    public Image DifficultyImage = null;
+    public Image GamemodeImage = null;
     [Space]
     public Text Gamemode = null;
     [Space]
@@ -39,6 +41,11 @@ public class UI_LoadingScreen : MonoBehaviour
     public Text LoadingText = null;
     [Space]
     public Image XboxButton;
+
+    public Sprite EasySprite;
+    public Sprite MediumSprite;
+    public Sprite HardSprite;
+    public Sprite ModeSprite;
     
     //******************************************************************************************************************************
     //
@@ -79,6 +86,26 @@ public class UI_LoadingScreen : MonoBehaviour
 
         //Update player name
         if(PlayerName != null) { PlayerName.text = InstanceManager.Instance.PlayerName; }
+
+        //Update gamemode Image
+        if(GamemodeImage != null) { GamemodeImage.sprite = ModeSprite; }
+
+        //Update difficulty image.
+        if (DifficultyImage != null)
+        {
+            if(InstanceManager.Instance._Difficulty.Difficulty == DifficultyManager.Difficulties.Easy)
+            {
+                DifficultyImage.sprite = EasySprite;
+            }
+            else if(InstanceManager.Instance._Difficulty.Difficulty == DifficultyManager.Difficulties.Normal)
+            {
+                DifficultyImage.sprite = MediumSprite;
+            }
+            else if(InstanceManager.Instance._Difficulty.Difficulty == DifficultyManager.Difficulties.Hard)
+            {
+                DifficultyImage.sprite = HardSprite;
+            }
+        }
 
         // Update gamemode text
         if (Gamemode != null) {
