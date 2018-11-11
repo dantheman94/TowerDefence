@@ -275,8 +275,8 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 99828d6462cd7984aa7746f21400b79a, type: 3}
-  - {fileID: 2100002, guid: 99828d6462cd7984aa7746f21400b79a, type: 3}
+  - {fileID: 2100000, guid: b1d9ff23f163aed4895dab8330e743b9, type: 2}
+  - {fileID: 2100000, guid: b957742c5b9bfd441b9b330c8b55d0c5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -378,14 +378,14 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1868823678480596}
-  m_Mesh: {fileID: 4300000, guid: 99828d6462cd7984aa7746f21400b79a, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 8273c45669e17f740aa7dafd2d8713f9, type: 3}
 --- !u!33 &33691130981673212
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1517836790095788}
-  m_Mesh: {fileID: 4300000, guid: 99828d6462cd7984aa7746f21400b79a, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 8273c45669e17f740aa7dafd2d8713f9, type: 3}
 --- !u!64 &64625186037734326
 MeshCollider:
   m_ObjectHideFlags: 1
@@ -476,7 +476,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ObjectName: Barracks
   ObjectDescriptionShort: Ground Infantry Depot
-  ObjectDescriptionLong: 
+  ObjectDescriptionLong: Houses and maintains the dwarven infantry units
   Logo: {fileID: 21300000, guid: e454f3f98338e1b448bf34c3c85ffc4c, type: 3}
   BuildingTime: 20
   BuildingTimeTutorial: 5
@@ -493,8 +493,8 @@ MonoBehaviour:
   OutlineSelectedWidth: 3
   TargetPoint: {fileID: 1323480689692748}
   ShowcaseOffsetY: 0
-  ShowcaseFOV: 40
-  ShoecaseScale: 1
+  ShowcaseFOV: 60
+  ShoecaseScale: 0.5
   InQueueState: {fileID: 1974443520701994}
   BuildingState: {fileID: 1974443520701994}
   ActiveState: {fileID: 1348181821997930}
@@ -590,7 +590,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f78c029625bb5e94f9e006af8db215a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scaleSize: 0.5
+  scaleSize: 0.6
 --- !u!198 &198984242750814388
 ParticleSystem:
   m_ObjectHideFlags: 1
