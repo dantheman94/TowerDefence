@@ -86,6 +86,7 @@ GameObject:
   - component: {fileID: 65421668453796990}
   - component: {fileID: 114286593509319122}
   - component: {fileID: 114691490229807366}
+  - component: {fileID: 114607041446378262}
   m_Layer: 0
   m_Name: pfb_Townhall-Iv
   m_TagString: Building
@@ -1637,8 +1638,8 @@ MonoBehaviour:
   OutlineSelectedWidth: 3
   TargetPoint: {fileID: 0}
   ShowcaseOffsetY: 0
-  ShowcaseFOV: 40
-  ShoecaseScale: 1
+  ShowcaseFOV: 60
+  ShoecaseScale: 0.3
   InQueueState: {fileID: 0}
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 1985043330116958}
@@ -2161,6 +2162,18 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+--- !u!114 &114607041446378262
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1194806562900834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f78c029625bb5e94f9e006af8db215a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scaleSize: 0.3
 --- !u!114 &114627665013960674
 MonoBehaviour:
   m_ObjectHideFlags: 1
