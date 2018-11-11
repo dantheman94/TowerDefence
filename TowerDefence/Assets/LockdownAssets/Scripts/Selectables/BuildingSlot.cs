@@ -7,8 +7,8 @@ using TowerDefence;
 //
 //  Created by: Daniel Marton
 //
-//  Last edited by: Daniel Marton
-//  Last edited on: 10/5/2018
+//  Last edited by: Angus Secomb
+//  Last edited on: 12/11/2018
 //
 //******************************
 
@@ -160,7 +160,11 @@ public class BuildingSlot : WorldObject {
             if (highlight) {
 
                 Color col = new Color();
-                col = _Player.TeamColor;
+                if(_Player != null)
+                {
+                    col = _Player.TeamColor;
+                }
+     
 
                 // Slightly darker shade for the highlighting colour
                 col.r -= 0.1f;

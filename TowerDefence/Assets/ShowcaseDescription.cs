@@ -3,7 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//******************************
+//
+//  Created by: Angus Secomb
+//
+//  Last edited by: Angus Secomb
+//  Last edited on: 10/11/2018
+//
+//******************************
+
 public class ShowcaseDescription : MonoBehaviour {
+
+
+    // INSPECTOR
+    ///////////////////////////////////////////////////////////
 
     [System.Serializable]
     public struct UnitDecriptionDetails
@@ -20,15 +33,15 @@ public class ShowcaseDescription : MonoBehaviour {
 
     public List<UnitDecriptionDetails> DescriptionDetails;
 
-	// Use this for initialization
-	void Start () {
+    // FUNCTIONS
+    ///////////////////////////////////////////////////////////
+
+    // Use this for initialization
+    void Start () {
         DisplayUnitDescription("Dwarf Soldier");
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    ///////////////////////////////////////////////////////////
 
     public void DisplayUnitDescription(string a_buildable)
     {
@@ -138,4 +151,6 @@ public class ShowcaseDescription : MonoBehaviour {
         }
         
     }
+
+    ///////////////////////////////////////////////////////////
 }

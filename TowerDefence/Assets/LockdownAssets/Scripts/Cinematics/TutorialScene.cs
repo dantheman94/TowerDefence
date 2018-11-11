@@ -389,8 +389,8 @@ public class TutorialScene : MonoBehaviour {
             case RequiredAction.BUILD_BARRICADE:
             if(BarricadeSlot.GetBuildingOnSlot() != null)
             {
-                if ((BarricadeSlot.GetBuildingOnSlot().ObjectName == BarricadeSlot.Buildings[1].ObjectName && BarricadeSlot.GetBuildingOnSlot()._ObjectState == WorldObject.WorldObjectStates.Building)
-                                            || (BarricadeSlot.GetBuildingOnSlot().ObjectName == BarricadeSlot.Buildings[2].ObjectName && BarricadeSlot.GetBuildingOnSlot()._ObjectState == WorldObject.WorldObjectStates.Building))
+                if ((BarricadeSlot.GetBuildingOnSlot().ObjectName == BarricadeSlot.Buildings[1].ObjectName && (BarricadeSlot.GetBuildingOnSlot()._ObjectState == WorldObject.WorldObjectStates.Building || BarricadeSlot.GetBuildingOnSlot()._ObjectState == WorldObject.WorldObjectStates.InQueue))
+                                            || (BarricadeSlot.GetBuildingOnSlot().ObjectName == BarricadeSlot.Buildings[2].ObjectName && (BarricadeSlot.GetBuildingOnSlot()._ObjectState == WorldObject.WorldObjectStates.Building || BarricadeSlot.GetBuildingOnSlot()._ObjectState == WorldObject.WorldObjectStates.InQueue)))
                 {
                     ObjectiveText.text = "Build Barricade: 1/1";
                     ActionBool = true;

@@ -7,8 +7,8 @@ using UnityEngine.UI;
 //
 //  Created by: Daniel Marton
 //
-//  Last edited by: Daniel Marton
-//  Last edited on: 20/8/2018
+//  Last edited by: Angus Secomb
+//  Last edited on: 12/11/2018
 //
 //******************************
 
@@ -241,6 +241,7 @@ public class UI_BuildingQueue : MonoBehaviour {
 
             SelectionWheelUnitRef wheelUnitRef = selectionWheel._WheelButtons[i].GetComponent<SelectionWheelUnitRef>();
 
+            if(absCounter != null)
             if (absCounter.Count > 0) {
 
                 // Button item has a valid abstraction reference
