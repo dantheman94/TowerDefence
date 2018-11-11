@@ -829,12 +829,12 @@ public class SettingsMenuNavigator : MonoBehaviour {
                 Screen.SetResolution(1600, 900, fullscreen);
                 break;
             case Resolution.TWENTY_FIVE_SIXTY_BY_FOURTEEN_FORTY:
-                ResolutionText.text = "2560 x 1420";
+                ResolutionText.text = "2560 x 1440";
                 if(_WindowMode == WindowMode.FULLSCREEN)
                 {
                     fullscreen = true;
                 }
-                Screen.SetResolution(2560, 1420, fullscreen);
+                Screen.SetResolution(2560, 1440, fullscreen);
                 break;
             case Resolution.THIRTY_EIGHT_FOURTY_BY_TWENTY_ONE_SIXTY:
                 ResolutionText.text = "3840 x 2160";
