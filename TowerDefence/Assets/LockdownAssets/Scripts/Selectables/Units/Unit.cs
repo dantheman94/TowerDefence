@@ -239,7 +239,7 @@ public class Unit : WorldObject {
         if (_VeterancyLevel > 0) {
 
             // Create a veterancy widget and allocate it to the unit
-            if (_UnitVeterancyWidget == null) { _UnitVeterancyWidget = ObjectPooling.Spawn(GameManager.Instance.UnitVeterancyPanel.gameObject).GetComponent<UnitVeterancyCounter>(); }
+            if (_UnitVeterancyWidget == null && GameManager.Instance != null) { _UnitVeterancyWidget = ObjectPooling.Spawn(GameManager.Instance.UnitVeterancyPanel.gameObject).GetComponent<UnitVeterancyCounter>(); }
             if (_UnitVeterancyWidget != null && _Player != null) {
 
                 _UnitVeterancyWidget.SetCameraAttached(_Player.CameraAttached);
