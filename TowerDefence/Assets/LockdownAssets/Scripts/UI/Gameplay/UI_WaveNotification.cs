@@ -130,6 +130,22 @@ public class UI_WaveNotification : MonoBehaviour {
     /// </summary>
     public void NewWaveNotification(WaveManager.WaveInfo waveInfo) {
         
+        gameObject.SetActive(true);
+        StartCoroutine(WaitForWidgetAvailiablity(waveInfo));
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <returns>
+    //  IEnumerator
+    /// </returns>
+    private IEnumerator WaitForWidgetAvailiablity(WaveManager.WaveInfo waveInfo) {
+        
+        yield return new WaitUntil(() => !WaveManager.Instance.WaveCompleteWidget.gameObject.activeInHierarchy);
+
         // Play new wave starting sound
         SoundManager.Instance.PlaySound("SFX/_SFX_WaveStart", 1f, 1f);
 
@@ -140,7 +156,6 @@ public class UI_WaveNotification : MonoBehaviour {
 
                 WaveNameTitle.text = "BOSS WAVE";
                 _TimerOnScreen = 0f;
-                gameObject.SetActive(true);
                 _OnScreen = true;
                 WaveNameDescription.enabled = false;
             }
@@ -152,7 +167,6 @@ public class UI_WaveNotification : MonoBehaviour {
                 WaveNameDescription.text = waveInfo.Name;
                 _TimerOnScreen = 0f;
                 _OnScreen = true;
-                gameObject.SetActive(true);
                 WaveNameDescription.enabled = true;
             }
 
@@ -167,5 +181,5 @@ public class UI_WaveNotification : MonoBehaviour {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
+
 }
