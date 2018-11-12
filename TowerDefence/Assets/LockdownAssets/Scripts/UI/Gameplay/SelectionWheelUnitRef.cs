@@ -33,6 +33,8 @@ public class SelectionWheelUnitRef : MonoBehaviour {
     public KeyCode PCShortcutKey;
     [Space]
     public Image LockedImage = null;
+    [Space]
+    public Button RadialSliceButton = null;
 
     //******************************************************************************************************************************
     //

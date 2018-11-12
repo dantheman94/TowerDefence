@@ -971,6 +971,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1570025562501184
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 224956650906851804}
+  - component: {fileID: 222178895176091406}
+  - component: {fileID: 114619962388567082}
+  - component: {fileID: 114399413341884804}
+  m_Layer: 0
+  m_Name: b_RadialSlice
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1575556796046754
 GameObject:
   m_ObjectHideFlags: 1
@@ -2064,6 +2082,7 @@ MonoBehaviour:
   PCHotkeyObject: {fileID: 1895961143364584}
   PCShortcutKey: 97
   LockedImage: {fileID: 114546892133973932}
+  RadialSliceButton: {fileID: 0}
 --- !u!114 &114104307124548014
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3189,6 +3208,7 @@ MonoBehaviour:
   PCHotkeyObject: {fileID: 1101415107429876}
   PCShortcutKey: 52
   LockedImage: {fileID: 114267135296115562}
+  RadialSliceButton: {fileID: 0}
 --- !u!114 &114331655759236052
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3329,6 +3349,7 @@ MonoBehaviour:
   PCHotkeyObject: {fileID: 1229856585185532}
   PCShortcutKey: 122
   LockedImage: {fileID: 114250015103240226}
+  RadialSliceButton: {fileID: 0}
 --- !u!114 &114356924165461380
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3462,6 +3483,47 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Placeholder text will go here
+--- !u!114 &114399413341884804
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1570025562501184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_PressedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 1}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 114619962388567082}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &114407725110110630
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3946,6 +4008,7 @@ MonoBehaviour:
   PCHotkeyObject: {fileID: 1781081268430060}
   PCShortcutKey: 99
   LockedImage: {fileID: 114140804710179236}
+  RadialSliceButton: {fileID: 0}
 --- !u!114 &114503195064748960
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4011,6 +4074,7 @@ MonoBehaviour:
   PCHotkeyObject: {fileID: 1703279459231814}
   PCShortcutKey: 102
   LockedImage: {fileID: 114877729702767364}
+  RadialSliceButton: {fileID: 0}
 --- !u!114 &114512582828548360
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4682,6 +4746,7 @@ MonoBehaviour:
   PCHotkeyObject: {fileID: 1683669817076260}
   PCShortcutKey: 120
   LockedImage: {fileID: 114607478703532986}
+  RadialSliceButton: {fileID: 0}
 --- !u!114 &114612575095819346
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4781,6 +4846,33 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Placeholder text will go here
+--- !u!114 &114619962388567082
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1570025562501184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 21300000, guid: 75c1a08bf71bc13448df2fb0178d2791, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
 --- !u!114 &114628426264338244
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5048,6 +5140,7 @@ MonoBehaviour:
   PCHotkeyObject: {fileID: 1320071590742802}
   PCShortcutKey: 50
   LockedImage: {fileID: 114541933761352096}
+  RadialSliceButton: {fileID: 0}
 --- !u!114 &114723470269575498
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5771,6 +5864,7 @@ MonoBehaviour:
   PCHotkeyObject: {fileID: 1334879612911542}
   PCShortcutKey: 51
   LockedImage: {fileID: 114345866860996952}
+  RadialSliceButton: {fileID: 114399413341884804}
 --- !u!114 &114829627907207820
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5815,6 +5909,7 @@ MonoBehaviour:
   PCHotkeyObject: {fileID: 1579236490325182}
   PCShortcutKey: 114
   LockedImage: {fileID: 114813112332333076}
+  RadialSliceButton: {fileID: 0}
 --- !u!114 &114858762612629602
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6236,6 +6331,7 @@ MonoBehaviour:
   PCHotkeyObject: {fileID: 1072965324515308}
   PCShortcutKey: 113
   LockedImage: {fileID: 114814625251324796}
+  RadialSliceButton: {fileID: 0}
 --- !u!114 &114913264961492712
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6693,6 +6789,12 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1490732341875114}
+--- !u!222 &222178895176091406
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1570025562501184}
 --- !u!222 &222188355279322762
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -7702,7 +7804,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 224377447447510228}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
@@ -7743,7 +7845,7 @@ RectTransform:
   m_LocalScale: {x: 0.999996, y: 0.999996, z: 1.0000054}
   m_Children: []
   m_Father: {fileID: 224377447447510228}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -7833,6 +7935,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 224956650906851804}
   - {fileID: 224547565191083852}
   - {fileID: 224699226165762650}
   - {fileID: 224254371799044960}
@@ -8127,7 +8230,7 @@ RectTransform:
   m_Children:
   - {fileID: 224531733204619064}
   m_Father: {fileID: 224377447447510228}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -8348,7 +8451,7 @@ RectTransform:
   m_LocalScale: {x: 0.049998824, y: 0.049998824, z: 0.9999973}
   m_Children: []
   m_Father: {fileID: 224377447447510228}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -8426,7 +8529,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 224377447447510228}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -8978,6 +9081,24 @@ RectTransform:
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 125, y: 170}
   m_SizeDelta: {x: 95, y: 95}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!224 &224956650906851804
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1570025562501184}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
+  m_LocalScale: {x: 0.21, y: 0.21, z: 1}
+  m_Children: []
+  m_Father: {fileID: 224377447447510228}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -37.5}
+  m_SizeDelta: {x: 1024, y: 1024}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224961086634360126
 RectTransform:

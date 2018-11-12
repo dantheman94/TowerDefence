@@ -110,12 +110,15 @@ public class SelectionWheel : MonoBehaviour {
 
         // Reset button click events for all buttons
         foreach (var button in _WheelButtons) {
-
-            // Clear
+            
+            // Icon button defaults
             button.onClick.RemoveAllListeners();
-
-            // Add defaults
             button.onClick.AddListener(() => HideSelectionWheel());
+
+            // Update slice button defaults
+            Button slice = button.GetComponent<SelectionWheelUnitRef>().RadialSliceButton;
+            slice.onClick.RemoveAllListeners();
+            slice.onClick.AddListener(() => HideSelectionWheel());
         }
 
         // Clear list & update
@@ -137,6 +140,7 @@ public class SelectionWheel : MonoBehaviour {
 
                     // Update button click event
                     _WheelButtons[i].onClick.AddListener(delegate { unitRef.AbstractRef.OnWheelSelect(buildingSlotInFocus); });
+                    unitRef.RadialSliceButton.onClick.AddListener(delegate { unitRef.AbstractRef.OnWheelSelect(buildingSlotInFocus); });
                 }
             }
             ++i;
@@ -156,11 +160,14 @@ public class SelectionWheel : MonoBehaviour {
 
         // Reset button click events for all buttons
         foreach (var button in _WheelButtons) {
-
-            // Clear
+            
+            // Icon button defaults
             button.onClick.RemoveAllListeners();
+            button.onClick.AddListener(() => RefreshButtons(selectable));
 
-            // Add defaults
+            // Update slice button defaults
+            Button slice = button.GetComponent<SelectionWheelUnitRef>().RadialSliceButton;
+            slice.onClick.RemoveAllListeners();
             button.onClick.AddListener(() => RefreshButtons(selectable));
         }
 
@@ -188,6 +195,7 @@ public class SelectionWheel : MonoBehaviour {
 
                 // Update button click event
                 _WheelButtons[i].onClick.AddListener(delegate { unitRef.AbstractRef.OnWheelSelect(buildingSlotInFocus); });
+                unitRef.RadialSliceButton.onClick.AddListener(delegate { unitRef.AbstractRef.OnWheelSelect(buildingSlotInFocus); });
             }
             ++i;
         }
