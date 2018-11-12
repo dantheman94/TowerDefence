@@ -327,7 +327,7 @@ public class SelectionWheel : MonoBehaviour {
         foreach (var selectable in GameManager.Instance.Selectables) { selectable.SetIsSelected(false); }
 
         // Play sound
-        SoundManager.Instance.PlaySound("SFX/_SFX_Woosh2", 1f, 1f);
+        SoundManager.Instance.PlaySound("SFX/_SFX_Woosh1", 1f, 1f);
 
         // Hide widget
         GameManager.Instance.SelectionWheel.SetActive(false);
