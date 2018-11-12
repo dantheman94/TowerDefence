@@ -102,7 +102,7 @@ public class Vehicle : Unit {
         base.Init();
 
         // Get new engine sound reference
-        ///_EngineSound = SoundManager.Instance.PlaySoundAtLocation(EngineSoundPath, transform.position, 0.5f, 1.5f);
+        if (EngineSoundPath != "") { _EngineSound = SoundManager.Instance.PlaySoundAtLocation(EngineSoundPath, transform.position, 0.5f, 1.5f); }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

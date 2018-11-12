@@ -566,6 +566,18 @@ public class Unit : WorldObject {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
+    //  Called when the object's state switches to active (Only once)
+    /// </summary>
+    protected override void OnBuilt() {
+        base.OnBuilt();
+
+        // Play spawn sound
+        _Dialogue.PlaySpawnSound();
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
     //  Called each frame. 
     /// </summary>
     protected void UpdateChasingEnemy() {

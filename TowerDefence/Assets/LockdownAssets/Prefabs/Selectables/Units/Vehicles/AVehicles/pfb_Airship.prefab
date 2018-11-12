@@ -400,6 +400,7 @@ GameObject:
   - component: {fileID: 114159814536020118}
   - component: {fileID: 114781366960258940}
   - component: {fileID: 114184097914700040}
+  - component: {fileID: 114850277248141664}
   m_Layer: 9
   m_Name: pfb_Airship
   m_TagString: Unit
@@ -580,7 +581,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1855981135212812}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1022.11, y: 31.5, z: -519.61346}
+  m_LocalPosition: {x: 74.5, y: 20, z: 56.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4695208112276192}
@@ -5006,6 +5007,70 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TagArray: []
+--- !u!114 &114850277248141664
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1855981135212812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e06210553c211348b8755fb8a898b98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnSelectSounds:
+  - Vox/Select/_VOX_Select1
+  - Vox/Select/_VOX_Select2
+  - Vox/Select/_VOX_Select3
+  - Vox/Select/_VOX_Select4
+  - Vox/Select/_VOX_Select5
+  - Vox/Select/_VOX_Select6
+  - Vox/Select/_VOX_Select7
+  - Vox/Select/_VOX_Select8
+  - Vox/Select/_VOX_Select10
+  OnSeekSounds:
+  - Vox/Seek/_VOX_Seek1
+  - Vox/Seek/_VOX_Seek2
+  - Vox/Seek/_VOX_Seek3
+  - Vox/Seek/_VOX_Seek4
+  - Vox/Seek/_VOX_Seek5
+  - Vox/Seek/_VOX_Seek7
+  - Vox/Seek/_VOX_Seek8
+  - Vox/Seek/_VOX_Seek9
+  - Vox/Seek/_VOX_Seek10
+  - Vox/Seek/_VOX_Seek11
+  - Vox/Seek/_VOX_Seek12
+  - Vox/Seek/_VOX_Seek13
+  - Vox/Seek/_VOX_Seek14
+  OnAttackSounds:
+  - Vox/Engage/_VOX_Engage1
+  - Vox/Engage/_VOX_Engage2
+  - Vox/Engage/_VOX_Engage3
+  - Vox/Engage/_VOX_Engage4
+  - Vox/Engage/_VOX_Engage5
+  - Vox/Engage/_VOX_Engage6
+  - Vox/Engage/_VOX_Engage7
+  - Vox/Engage/_VOX_Engage8
+  - Vox/Engage/_VOX_Engage9
+  - Vox/Engage/_VOX_Engage10
+  - Vox/Engage/_VOX_Engage11
+  OnDeathSounds:
+  - Vox/Death/_VOX_Death1
+  - Vox/Death/_VOX_Death2
+  - Vox/Death/_VOX_Death3
+  - Vox/Death/_VOX_Death4
+  - Vox/Death/_VOX_Death5
+  - Vox/Death/_VOX_Death6
+  OnSpawnSounds:
+  - Vox/Spawn/_VOX_Spawn1
+  - Vox/Spawn/_VOX_Spawn2
+  - Vox/Spawn/_VOX_Spawn3
+  - Vox/Spawn/_VOX_Spawn4
+  - Vox/Spawn/_VOX_Spawn5
+  - Vox/Spawn/_VOX_Spawn6
+  - Vox/Spawn/_VOX_Spawn7
+  - Vox/Spawn/_VOX_Spawn8
+  - Vox/Spawn/_VOX_Spawn9
 --- !u!114 &114885110828842162
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5142,7 +5207,7 @@ MonoBehaviour:
   MaxReverseSpeed: -15
   BaseRotationSpeed: 65
   WeaponRotationSpeed: 15
-  EngineSoundPath: SFX/_SFX_[SOUND PREFAB HERE]
+  EngineSoundPath: SFX/_SFX_AirShip
   ForwardAvoidanceRange: 30
   DownwardsAvoidanceRange: 20
   VerticalSpeed: 20

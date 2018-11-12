@@ -1101,17 +1101,17 @@ public class KeyboardInput : MonoBehaviour {
                 for (int i = 0; i < units.Count; i++) {
 
                     // First unit goes for the center point
-                    if (i == 0) { units[0].AgentSeekPosition(hitPoint, true, true); }
+                    if (i == 0) {
+
+                        units[0].AgentSeekPosition(hitPoint, true, true);
+                        units[0].GetDialogue().PlaySeekSound();
+                    }
                     else {
 
                         // Every other unit goes around in a circle along the ground
                         Vector3 rand = (Random.insideUnitCircle * (i + 1)) * (units[i].GetAgent().radius * 3);
                         Vector3 destination = hitPoint += new Vector3(rand.x, 0, rand.y);
                         units[i].AgentSeekPosition(hitPoint, true, false);
-
-                        // Play OnAttackSound for the first unit that was selected
-                        if(_PlayerAttached.SelectedUnits[0].GetDialogue() != null)
-                        _PlayerAttached.SelectedUnits[0].GetDialogue().PlaySeekSound();
                     }
                 }
             }

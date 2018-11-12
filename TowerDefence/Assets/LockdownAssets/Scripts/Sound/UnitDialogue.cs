@@ -27,6 +27,7 @@ public class UnitDialogue : MonoBehaviour {
     public List<string> OnSeekSounds;
     public List<string> OnAttackSounds;
     public List<string> OnDeathSounds;
+    public List<string> OnSpawnSounds;
 
     //******************************************************************************************************************************
     //
@@ -82,7 +83,7 @@ public class UnitDialogue : MonoBehaviour {
 
         // Play random sound
         int i = Random.Range(0, OnSelectSounds.Count);
-        AudioSource sound = SoundManager.Instance.PlaySound(OnSelectSounds[i], 0.5f, 1.5f);
+        AudioSource sound = SoundManager.Instance.PlaySound(OnSelectSounds[i], 1f, 1f);
 
         // Despawn sound
         StartCoroutine(DestroySound(sound, sound.clip.length));
@@ -97,7 +98,7 @@ public class UnitDialogue : MonoBehaviour {
 
         // Play random sound
         int i = Random.Range(0, OnSeekSounds.Count);
-        AudioSource sound = SoundManager.Instance.PlaySound(OnSeekSounds[i], 0.5f, 1.5f);
+        AudioSource sound = SoundManager.Instance.PlaySound(OnSeekSounds[i], 1f, 1f);
 
         // Despawn sound
         StartCoroutine(DestroySound(sound, sound.clip.length));
@@ -112,7 +113,7 @@ public class UnitDialogue : MonoBehaviour {
 
         // Play random sound
         int i = Random.Range(0, OnAttackSounds.Count);
-        AudioSource sound = SoundManager.Instance.PlaySound(OnAttackSounds[i], 0.5f, 1.5f);
+        AudioSource sound = SoundManager.Instance.PlaySound(OnAttackSounds[i], 1f, 1f);
 
         // Despawn sound
         StartCoroutine(DestroySound(sound, sound.clip.length));
@@ -127,7 +128,22 @@ public class UnitDialogue : MonoBehaviour {
 
         // Play random sound
         int i = Random.Range(0, OnDeathSounds.Count);
-        AudioSource sound = SoundManager.Instance.PlaySound(OnDeathSounds[i], 0.5f, 1.5f);
+        AudioSource sound = SoundManager.Instance.PlaySound(OnDeathSounds[i], 1f, 1f);
+
+        // Despawn sound
+        StartCoroutine(DestroySound(sound, sound.clip.length));
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Plays a random sound from the pool list
+    /// </summary>
+    public void PlaySpawnSound() {
+
+        // Play random sound
+        int i = Random.Range(0, OnDeathSounds.Count);
+        AudioSource sound = SoundManager.Instance.PlaySound(OnSpawnSounds[i], 1f, 1f);
 
         // Despawn sound
         StartCoroutine(DestroySound(sound, sound.clip.length));
