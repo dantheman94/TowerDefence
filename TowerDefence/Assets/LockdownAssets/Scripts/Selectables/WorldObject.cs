@@ -493,7 +493,7 @@ public class WorldObject : Selectable {
             plyr.PowerCount -= _ClonedWorldObject.CostPower;
 
             // Set object's properties
-            _ClonedWorldObject.Team = plyr.Team;
+            _ClonedWorldObject.Team = GameManager.Team.Defending;
             _ClonedWorldObject._IsCurrentlySelected = false;
 
             if (SceneManager.GetSceneByName("TutorialScene") == SceneManager.GetActiveScene()) {
