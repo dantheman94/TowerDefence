@@ -344,6 +344,7 @@ GameObject:
   - component: {fileID: 114763191749809942}
   - component: {fileID: 114951963509039178}
   - component: {fileID: 114701084406833062}
+  - component: {fileID: 114947357528681194}
   m_Layer: 9
   m_Name: pfb_Grumblebuster
   m_TagString: Unit
@@ -872,7 +873,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1500859508108806}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -779.6, y: 2.69, z: -395.8}
+  m_LocalPosition: {x: 53.3, y: 0, z: 86.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4992527257772270}
@@ -1703,7 +1704,7 @@ MonoBehaviour:
   MaxReverseSpeed: -15
   BaseRotationSpeed: 50
   WeaponRotationSpeed: 55
-  EngineSoundPath: SFX/_SFX_[SOUND PREFAB HERE]
+  EngineSoundPath: SFX/_SFX_Vehicle
   WeaponBarrel: {fileID: 1216197724239558}
   BarrelRotationSpeed: 500
   Wheels: []
@@ -1770,6 +1771,21 @@ MonoBehaviour:
     m_Bits: 0
   LineOfSightPenetration: 0
   AntiFlicker: 0
+--- !u!114 &114947357528681194
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1500859508108806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e06210553c211348b8755fb8a898b98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnSelectSounds: []
+  OnSeekSounds: []
+  OnAttackSounds: []
+  OnDeathSounds: []
 --- !u!114 &114951963509039178
 MonoBehaviour:
   m_ObjectHideFlags: 1
