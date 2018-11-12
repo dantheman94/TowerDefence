@@ -109,6 +109,9 @@ public class ButtonHover_MainMenu : MonoBehaviour, IPointerEnterHandler, IPointe
 
                 // Update hover text
                 if (UpdateTextOnHover && TextToUpdate != null) { TextToUpdate.text = TextString; }
+
+                // Play hover button sound
+                SoundManager.Instance.PlaySound("SFX/_SFX_Back_Alt", 1f, 1f);
             }
         }
     }
@@ -161,6 +164,9 @@ public class ButtonHover_MainMenu : MonoBehaviour, IPointerEnterHandler, IPointe
                     o.enabled = Clicked_OutlineEnabled;
                     o.OutlineColor = Clicked_OutlineColour;
                 }
+
+                // Play button press sound
+                SoundManager.Instance.PlaySound("SFX/_SFX_Woosh1", 1f, 1f);
             }
         }
     }
