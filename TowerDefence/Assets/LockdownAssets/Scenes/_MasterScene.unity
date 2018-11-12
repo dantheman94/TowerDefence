@@ -10030,6 +10030,7 @@ Transform:
   - {fileID: 571261785}
   - {fileID: 869091045}
   - {fileID: 1982141584}
+  - {fileID: 1520958512}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -16615,6 +16616,47 @@ Transform:
   m_Father: {fileID: 1889290288}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1520958511
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1520958512}
+  - component: {fileID: 1520958513}
+  m_Layer: 0
+  m_Name: Sound Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1520958512
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1520958511}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 829578304}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1520958513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1520958511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44962307e94d3784a9ff7d7d0c7a0f7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayMusicOnStart: 1
 --- !u!1001 &1534085791
 Prefab:
   m_ObjectHideFlags: 0
@@ -18415,7 +18457,7 @@ Prefab:
         type: 2}
       propertyPath: Slicedrawer
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1700376818}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 818fde8d4cce76a42b9614d213ec31db, type: 2}
   m_IsPrefabParent: 0
@@ -18748,7 +18790,7 @@ Prefab:
     - target: {fileID: 114208860418754094, guid: 97371d9815069d847860ef387529bbf3,
         type: 2}
       propertyPath: BackTransform.x
-      value: -5
+      value: -7.61
       objectReference: {fileID: 0}
     - target: {fileID: 114208860418754094, guid: 97371d9815069d847860ef387529bbf3,
         type: 2}
@@ -18768,7 +18810,7 @@ Prefab:
     - target: {fileID: 114208860418754094, guid: 97371d9815069d847860ef387529bbf3,
         type: 2}
       propertyPath: BackTransform.z
-      value: 6
+      value: 7.45
       objectReference: {fileID: 0}
     - target: {fileID: 114208860418754094, guid: 97371d9815069d847860ef387529bbf3,
         type: 2}
@@ -18783,7 +18825,7 @@ Prefab:
     - target: {fileID: 114208860418754094, guid: 97371d9815069d847860ef387529bbf3,
         type: 2}
       propertyPath: RightTransform.y
-      value: 4.1
+      value: -4.1
       objectReference: {fileID: 0}
     - target: {fileID: 114208860418754094, guid: 97371d9815069d847860ef387529bbf3,
         type: 2}

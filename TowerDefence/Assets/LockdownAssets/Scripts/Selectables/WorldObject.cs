@@ -431,6 +431,7 @@ public class WorldObject : Selectable {
     public virtual void OnSelectionWheel() {
 
         // Play button press sound
+        if(SoundManager.Instance != null)
         SoundManager.Instance.PlaySound("SFX/_SFX_Woosh1", 1f, 1f);
     }
 
