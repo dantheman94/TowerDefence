@@ -7,8 +7,8 @@ using UnityEngine.UI;
 //
 //  Created by: Angus Secomb
 //
-//  Last edited by: Angus Secomb
-//  Last edited on: 10/11/2018
+//  Last edited by: Joshua D'Agostino
+//  Last edited on: 13/11/2018
 //
 //******************************
 
@@ -145,6 +145,11 @@ public class ShowcaseDescription : MonoBehaviour {
                 DescriptionText.text = DescriptionDetails[16].Description;
                 NameText.text = DescriptionDetails[16].Name;
                 UnitIcon.sprite = DescriptionDetails[16].UnitIcon;
+                break;
+            case "Core":
+                DescriptionText.text = DescriptionDetails[19].Description;
+                NameText.text = DescriptionDetails[19].Name;
+                UnitIcon.sprite = DescriptionDetails[19].UnitIcon;
                 break;
             default:
                 break;
