@@ -7,12 +7,13 @@ using TowerDefence;
 //
 //  Created by: Daniel Marton
 //
-//  Last edited by: Joshua Peake
-//  Last edited on: 24/10/2018
+//  Last edited by: Angus Secomb
+//  Last edited on: 12/11/2018
 //
 //******************************
 
-public class CameraPlayer : MonoBehaviour {
+public class CameraPlayer : MonoBehaviour
+{
 
     //******************************************************************************************************************************
     //
@@ -59,7 +60,7 @@ public class CameraPlayer : MonoBehaviour {
     public float ShakeMagnitude;
     public float ShakeMaxRange;
 
-   
+
 
     //******************************************************************************************************************************
     //
@@ -69,6 +70,7 @@ public class CameraPlayer : MonoBehaviour {
 
     private Renderer _MinimapRenderer;
     private Player _PlayerAttached = null;
+    private KeyboardInput _KeyBoardInput;
     private Camera _Camera;
 
     private float ShakeOffsetX = 1f;
@@ -77,6 +79,8 @@ public class CameraPlayer : MonoBehaviour {
 
     public float _MinCameraHeight { get; set; }
     public float _MaxCameraHeight { get; set; }
+    private bool _RangesMinUpdated = false;
+    private bool _RangesMaxUpdated = false;
 
     //******************************************************************************************************************************
     //
@@ -89,7 +93,8 @@ public class CameraPlayer : MonoBehaviour {
     /// <summary>
     //  Called when this object is created.
     /// </summary>
-    private void Start() {
+    private void Start()
+    {
 
         // Get component references
         if (MinimapQuad != null) { _MinimapRenderer = MinimapQuad.GetComponent<Renderer>(); }
@@ -100,18 +105,102 @@ public class CameraPlayer : MonoBehaviour {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
+
+
+
+    /// <summary>
+    /// Stops camera from passing map bounds using raycasts.
+    /// </summary>
+    private void RaycastBounds()
+    {
+
+        if (Physics.Raycast(transform.position, transform.forward, 250))
+        {
+            Debug.DrawRay(transform.position, transform.forward * 250, Color.green);
+            PastBoundsNorth = true;
+        }
+        else
+        {
+            PastBoundsNorth = false;
+            Debug.DrawRay(transform.position, transform.forward * 250, Color.red);
+        }
+
+        if (Physics.Raycast(transform.position, BackTransform, 250))
+        {
+            Debug.DrawRay(transform.position, BackTransform * 250, Color.green);
+            PastBoundsSouth = true;
+        }
+        else
+        {
+            PastBoundsSouth = false;
+            Debug.DrawRay(transform.position, BackTransform * 250, Color.red);
+        }
+
+        if (Physics.Raycast(transform.position, RightTransform, 250))
+        {
+            Debug.DrawRay(transform.position, RightTransform * 250, Color.green);
+            PastBoundsEast = true;
+        }
+        else
+        {
+            PastBoundsEast = false;
+            Debug.DrawRay(transform.position, RightTransform * 250, Color.red);
+        }
+
+        if (Physics.Raycast(transform.position, LeftTransform, 250))
+        {
+            Debug.DrawRay(transform.position, LeftTransform * 250, Color.green);
+            PastBoundsWest = true;
+        }
+        else
+        {
+            PastBoundsWest = false;
+            Debug.DrawRay(transform.position, LeftTransform * 250, Color.red);
+        }
+
+    }
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Called each frame.
+    /// </summary>
+    private void Update()
+    {
+
+        RaycastBounds();
+        if (_Camera != null)
+        {
+            //Debug.Log("FOV " + _Camera.fieldOfView);
+        }
+
+        //if (Input.GetKeyDown(KeyCode.P) == true)
+        //{
+        //    float rad = 20.0f;
+        //    //SoundManager.Instance.PlaySound("Audio/pfb_Battle", 0.9f, 1.1f);
+        //    ExplosionShake(transform.position, rad);
+
+        //    Debug.Log("Button tapped.");
+        //}
+
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /// <summary>
     //  
     /// </summary>
     /// <param name="player"></param>
-    public void SetPlayerAttached(Player player) {
+    public void SetPlayerAttached(Player player)
+    {
 
         // Set player reference
         _PlayerAttached = player;
 
         // Set colour reference
-        if (_PlayerAttached && _MinimapRenderer != null) {
+        if (_PlayerAttached && _MinimapRenderer != null)
+        {
 
             Color col = _PlayerAttached.TeamColor;
             col.a = TransparencyLevel;
@@ -125,7 +214,8 @@ public class CameraPlayer : MonoBehaviour {
     /// Creates camera shake.
     /// Example call: StartCoroutine(CameraShake(ShakeTrauma, ShakeTime));
     /// </summary>
-    public IEnumerator CameraShake(float strength, float time) {
+    public IEnumerator CameraShake(float strength, float time)
+    {
 
         // Store initial position
         Quaternion _InitialCameraRotation = transform.rotation;
@@ -137,8 +227,9 @@ public class CameraPlayer : MonoBehaviour {
         float offsetX = 0f; float offsetY = 0f; float offsetZ = 0f;
 
         // Begin shaking
-        while (_ElapsedTime < time) {
-            
+        while (_ElapsedTime < time)
+        {
+
             // Set offset values
             offsetX = ShakeOffsetX * ((Random.value - 0.5f) * Mathf.PerlinNoise(Mathf.Ceil(Random.Range(10000, 99999)), time)) * strength;
             offsetY = ShakeOffsetY * ((Random.value - 0.5f) * Mathf.PerlinNoise(Mathf.Ceil(Random.Range(10000, 99999)), time)) * strength;
@@ -166,9 +257,11 @@ public class CameraPlayer : MonoBehaviour {
     /// <summary>
     /// 
     /// </summary>
-    public void ExplosionShake(Vector3 location, float radius) {
+    public void ExplosionShake(Vector3 location, float radius)
+    {
 
-        if (EnableScreenShake) {
+        if (EnableScreenShake)
+        {
 
             if (_Camera == null) { _Camera = GetComponent<Camera>(); }
 
@@ -176,7 +269,8 @@ public class CameraPlayer : MonoBehaviour {
             float distance = Vector3.Distance(location, transform.position);
 
             // If the distance is within the threshold, shake
-            if (distance < ShakeMaxRange) {
+            if (distance < ShakeMaxRange)
+            {
 
                 // Calculate strenth
                 // FOV value becomes larger as you zoom out so we must use division here

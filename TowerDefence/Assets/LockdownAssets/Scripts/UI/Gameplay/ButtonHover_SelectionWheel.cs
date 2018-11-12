@@ -147,6 +147,9 @@ public class ButtonHover_SelectionWheel : MonoBehaviour, IPointerEnterHandler, I
                 /// Power
                 if (player.PowerCount >= item.CostPower) { selectionWheel.CenterPowerText.color = Color.black; }
                 else { selectionWheel.CenterPowerText.color = Color.red; }
+
+                // Play hover button sound
+                SoundManager.Instance.PlaySound("SFX/_SFX_Back_Alt", 1f, 1f);
             }
         }
     }

@@ -258,6 +258,7 @@ GameObject:
   - component: {fileID: 114057464707080310}
   - component: {fileID: 114302952203123236}
   - component: {fileID: 114154698629409568}
+  - component: {fileID: 114687686392152676}
   m_Layer: 9
   m_Name: pfb_Ballista
   m_TagString: Unit
@@ -1286,7 +1287,7 @@ MonoBehaviour:
   outlineWidth: 2
   precomputeOutline: 1
   bakeKeys:
-  - {fileID: 4300000, guid: c04119fef2e6b334f9106b498f42828c, type: 3}
+  - {fileID: 0}
   - {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
   bakeValues:
   - data:
@@ -4206,6 +4207,7 @@ MonoBehaviour:
   MaxReverseSpeed: -7
   BaseRotationSpeed: 45
   WeaponRotationSpeed: 50
+  EngineSoundPath: SFX/_SFX_Vehicle
   Wheels:
   - {fileID: 1329434096236096}
   - {fileID: 1950766195789120}
@@ -4213,6 +4215,21 @@ MonoBehaviour:
   - {fileID: 1976860678879368}
   WheelMaxRotationSpeed: 400
   BallistaArrow: {fileID: 0}
+--- !u!114 &114687686392152676
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1830067331789510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e06210553c211348b8755fb8a898b98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnSelectSounds: []
+  OnSeekSounds: []
+  OnAttackSounds: []
+  OnDeathSounds: []
 --- !u!114 &114822013794197926
 MonoBehaviour:
   m_ObjectHideFlags: 1

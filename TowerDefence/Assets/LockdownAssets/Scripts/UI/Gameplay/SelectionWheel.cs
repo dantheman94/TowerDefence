@@ -322,8 +322,12 @@ public class SelectionWheel : MonoBehaviour {
     private IEnumerator WaitHide()
     {
         yield return new WaitForSeconds(0.05f);
+
         // Deselect all objects
         foreach (var selectable in GameManager.Instance.Selectables) { selectable.SetIsSelected(false); }
+
+        // Play sound
+        SoundManager.Instance.PlaySound("SFX/_SFX_Woosh1", 1f, 1f);
 
         // Hide widget
         GameManager.Instance.SelectionWheel.SetActive(false);
