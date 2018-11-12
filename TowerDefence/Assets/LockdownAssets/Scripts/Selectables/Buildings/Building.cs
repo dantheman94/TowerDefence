@@ -512,6 +512,9 @@ public class Building : WorldObject {
     /// </summary>
     public override void OnDeath(WorldObject instigator) {
         base.OnDeath(instigator);
+
+        // Play explosion sound
+        SoundManager.Instance.PlaySoundAtLocation("SFX/_SFX_ExplosionBuilding", transform.position, 1f, 1f);
         
         // Detach from any bases & buildings
         if (AttachedBuildingSlot != null) {

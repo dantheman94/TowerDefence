@@ -96,6 +96,12 @@ public class Weapon : MonoBehaviour {
     public int MagazineSize = 30;
     public float ReloadTime = 2f;
 
+    [Space]
+    [Header("-----------------------------------")]
+    [Header(" SOUNDS")]
+    [Space]
+    public List<string> FiringSounds;
+
     //******************************************************************************************************************************
     //
     //      VARIABLES
@@ -1136,6 +1142,9 @@ public class Weapon : MonoBehaviour {
             // Play
             effect.Play();
         }
+
+        // Play weapon firing sound
+        PlayFiringSound();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1265,6 +1274,23 @@ public class Weapon : MonoBehaviour {
     /// </summary>
     /// <returns></returns>
     public Transform GetMuzzleTransform() { return _MuzzleLaunchPoints[0]; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    protected void PlayFiringSound() {
+
+        if (FiringSounds != null && FiringSounds.Count > 0) {
+
+            int i = UnityEngine.Random.Range(0, FiringSounds.Count);
+            AudioSource sound = SoundManager.Instance.PlaySound(FiringSounds[i], 1f, 1f);
+
+            // Despawn sound
+            StartCoroutine(SoundManager.Instance.DestroySound(sound, sound.clip.length));
+        }
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

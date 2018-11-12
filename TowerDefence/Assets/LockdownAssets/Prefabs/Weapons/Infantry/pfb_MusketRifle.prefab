@@ -55,6 +55,8 @@ MonoBehaviour:
   ProjectileClass: {fileID: 0}
   FiringEffect: {fileID: 0}
   FiringDelay: 1
+  LoopingFire: 0
+  FiringDuration: 3
   TrackingProjectile: 0
   TrackingStrength: 1
   MuzzleEffectWrapper: {fileID: 1716772229732368, guid: c005fc15a7923e84c9d4c59a93346423,
@@ -79,6 +81,7 @@ MonoBehaviour:
   DefaultImpactEffect: {fileID: 1560277312721016, guid: 2a3c1f74eda71f04a81cba557f4692e1,
     type: 2}
   SpawnOnImpact: {fileID: 0}
+  HealingDamages: 0
   Damages:
     DamageDefault: 10
     DamageCoreInfantry: 10
@@ -94,3 +97,5 @@ MonoBehaviour:
   BottomlessClip: 0
   MagazineSize: 24
   ReloadTime: 3.5
+  FiringSounds:
+  - SFX/Gunshots/_SFX_Gunshot5

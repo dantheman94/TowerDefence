@@ -757,6 +757,9 @@ public class Unit : WorldObject {
 
         // Play ragdoll stuff here
         _Agent.enabled = false;
+
+        // Play death sound
+        if (_Dialogue != null) { _Dialogue.PlayDeathSound(); }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

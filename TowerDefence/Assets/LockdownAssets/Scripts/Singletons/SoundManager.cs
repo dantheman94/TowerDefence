@@ -78,6 +78,8 @@ public class SoundManager : MonoBehaviour {
         _VoxelWaitingList = new List<AudioSource>();
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     private void Start() {
 
         // Play starting track if specified
@@ -104,6 +106,26 @@ public class SoundManager : MonoBehaviour {
         if (_FadingOut) { _CurrentFadeOutLerp += Time.deltaTime; }
 
         UpdateVoxel();
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  A coroutine that waits a few seconds before despawning the sound gameobject reference
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerator DestroySound(AudioSource sound, float delayTime) {
+
+        // Delay
+        float normalizedTime = 0f;
+        while (normalizedTime <= 1f) {
+
+            normalizedTime += Time.deltaTime / delayTime;
+            yield return null;
+        }
+
+        // Despawn
+        ObjectPooling.Despawn(sound.gameObject);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
