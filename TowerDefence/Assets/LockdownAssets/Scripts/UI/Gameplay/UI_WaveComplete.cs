@@ -150,6 +150,9 @@ public class UI_WaveComplete : MonoBehaviour {
         // Update stat
         player.AddToScore(WaveManager.Instance.ScoreGrantedOnWaveDefeated, Player.ScoreType.WaveDefeated);
 
+        // Play wave defeated sound
+        SoundManager.Instance.PlaySound("SFX/_SFX_WaveComplete", 1f, 1f);
+
         // Hide widget after boost is complete
         StartCoroutine(DelayedWidgetHide(ResourceBoostTime));
     }

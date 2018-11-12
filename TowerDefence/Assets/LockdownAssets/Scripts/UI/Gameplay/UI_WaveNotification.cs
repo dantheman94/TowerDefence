@@ -129,6 +129,9 @@ public class UI_WaveNotification : MonoBehaviour {
     //  Called whenever a new wave starts. Displays the wave name as a sub-heading in the center of the screen.
     /// </summary>
     public void NewWaveNotification(WaveManager.WaveInfo waveInfo) {
+        
+        // Play new wave starting sound
+        SoundManager.Instance.PlaySound("SFX/_SFX_WaveStart", 1f, 1f);
 
         if (WaveNameDescription != null) {
 

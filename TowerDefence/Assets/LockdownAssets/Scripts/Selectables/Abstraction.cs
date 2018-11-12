@@ -81,7 +81,11 @@ public class Abstraction : MonoBehaviour {
     //  The building slot that instigated the selection wheel.
     //  (EG: If you're making a building, this is the building slot thats being used.)
     /// </param>
-    public virtual void OnWheelSelect(BuildingSlot buildingSlot) { }
+    public virtual void OnWheelSelect(BuildingSlot buildingSlot) {
+
+        // Play button press sound
+        SoundManager.Instance.PlaySound("SFX/_SFX_Woosh2", 1f, 1f);
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

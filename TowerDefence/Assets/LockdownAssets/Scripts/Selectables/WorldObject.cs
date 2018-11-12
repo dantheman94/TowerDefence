@@ -429,6 +429,9 @@ public class WorldObject : Selectable {
     //  Called when the object is "clicked on" and the selection wheel appears.
     /// </summary>
     public virtual void OnSelectionWheel() {
+
+        // Play button press sound
+        SoundManager.Instance.PlaySound("SFX/_SFX_Woosh1", 1f, 1f);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -441,6 +444,7 @@ public class WorldObject : Selectable {
     //  (EG: If you're making a building, this is the building slot thats being used.)
     /// </param>
     public override void OnWheelSelect(BuildingSlot buildingSlot) {
+        base.OnWheelSelect(buildingSlot);
 
         // Deselect
         buildingSlot._IsCurrentlySelected = false;
