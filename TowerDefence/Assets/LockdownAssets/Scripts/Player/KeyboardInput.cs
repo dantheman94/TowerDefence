@@ -6,8 +6,8 @@ using TowerDefence;
 //
 //  Created by: Daniel Marton
 //
-//  Last edited by: Daniel Marton
-//  Last edited on: 8/11/2018
+//  Last edited by: Angus Secomb
+//  Last edited on: 12/11/2018
 //
 //******************************
 
@@ -35,16 +35,6 @@ public class KeyboardInput : MonoBehaviour {
     [Space]
     public SliceDrawer Slicedrawer;
     public Color BoxColor;
-
-    [Space]
-    [Header("-----------------------------------")]
-    [Header(" MAP BOUNDS")]
-    [Space]
-    public float BoundsXMin;
-    public float BoundsXMax;
-    [Space]
-    public float BoundsZMin;
-    public float BoundsZMax;
 
     //******************************************************************************************************************************
     //
@@ -465,7 +455,7 @@ public class KeyboardInput : MonoBehaviour {
 
         // Move camera via input if the player ISNT currently controlling a unit
         if (GameManager.Instance.GetIsUnitControlling() == false) {
-            
+
             //if (Input.GetMouseButton(2))
             //{
             //    if (Input.GetAxis("Mouse X") < 0 || Input.GetAxis("Mouse X") > 0)
@@ -480,62 +470,53 @@ public class KeyboardInput : MonoBehaviour {
             //        CreateCenterPoint();
             //    }
             //}
-            
+
             // Keyboard movement WASD
-            if (Input.GetKey(KeyCode.W) && (!Input.GetKey(KeyCode.LeftAlt)) && _PlayerCamera.transform.position.z <= BoundsZMax) {
+            if (Input.GetKey(KeyCode.W) && (!Input.GetKey(KeyCode.LeftAlt)) && (_PlayerCamera.PastBoundsNorth))
+            {
 
                 // Move forwards
                 movement.y += Settings.MovementSpeed;
                 CreateCenterPoint();
-
-                // Cancel any states we dont want to be in
                 _ReturningToCore = false;
                 Slicedrawer.enabled = false;
-                _PlayerAttached._CameraFollow.SetFollowing(_FollowingTarget = false);
             }
-   
 
-            if (Input.GetKey(KeyCode.S) && (!Input.GetKey(KeyCode.LeftAlt)) && _PlayerCamera.transform.position.z >= BoundsZMin) {
+
+            if (Input.GetKey(KeyCode.S) && (!Input.GetKey(KeyCode.LeftAlt)) && (_PlayerCamera.PastBoundsSouth))
+            {
 
                 // Move backwards
                 movement.y -= Settings.MovementSpeed;
                 CreateCenterPoint();
-
-                // Cancel any states we dont want to be in
                 _ReturningToCore = false;
                 Slicedrawer.enabled = false;
-                _PlayerAttached._CameraFollow.SetFollowing(_FollowingTarget = false);
             }
 
 
-            if (Input.GetKey(KeyCode.D) && (!Input.GetKey(KeyCode.LeftAlt)) && _PlayerCamera.transform.position.x <= BoundsXMax) {
+            if (Input.GetKey(KeyCode.D) && (!Input.GetKey(KeyCode.LeftAlt)) && (_PlayerCamera.PastBoundsEast))
+            {
 
                 // Move right
                 movement.x += Settings.MovementSpeed;
                 CreateCenterPoint();
-
-                // Cancel any states we dont want to be in
                 _ReturningToCore = false;
                 Slicedrawer.enabled = false;
-                _PlayerAttached._CameraFollow.SetFollowing(_FollowingTarget = false);
             }
-     
 
-            if (Input.GetKey(KeyCode.A) && (!Input.GetKey(KeyCode.LeftAlt)) && _PlayerCamera.transform.position.x >= BoundsXMin)
+
+            if (Input.GetKey(KeyCode.A) && (!Input.GetKey(KeyCode.LeftAlt)) && (_PlayerCamera.PastBoundsWest))
             {
 
                 // Move left
                 movement.x -= Settings.MovementSpeed;
                 CreateCenterPoint();
-
-                // Cancel any states we dont want to be in
                 _ReturningToCore = false;
                 Slicedrawer.enabled = false;
-                _PlayerAttached._CameraFollow.SetFollowing(_FollowingTarget = false);
             }
-            
 
-            if(!Input.GetKey(KeyCode.A) || !Input.GetKey(KeyCode.S) || !Input.GetKey(KeyCode.D) || !Input.GetKey(KeyCode.W))
+
+            if (!Input.GetKey(KeyCode.A) || !Input.GetKey(KeyCode.S) || !Input.GetKey(KeyCode.D) || !Input.GetKey(KeyCode.W))
             {
                 Slicedrawer.enabled = true;
             }
@@ -941,6 +922,7 @@ public class KeyboardInput : MonoBehaviour {
                                     unit.SetIsSelected(true);
 
                                     // Play OnSelectSound for the first unit that was selected
+                                    if(_PlayerAttached.SelectedUnits[0].GetDialogue() != null)
                                     _PlayerAttached.SelectedUnits[0].GetDialogue().PlaySelectSound();
                                 }
                             }                            
@@ -1128,6 +1110,7 @@ public class KeyboardInput : MonoBehaviour {
                         units[i].AgentSeekPosition(hitPoint, true, false);
 
                         // Play OnAttackSound for the first unit that was selected
+                        if(_PlayerAttached.SelectedUnits[0].GetDialogue() != null)
                         _PlayerAttached.SelectedUnits[0].GetDialogue().PlaySeekSound();
                     }
                 }
