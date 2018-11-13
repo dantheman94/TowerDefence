@@ -129,7 +129,7 @@ public class Base : Building {
             if (attachedBase.GetBuildingQueue()[0] == _ClonedWorldObject) {
 
                 // Start building it
-                StartBuildingObject(buildingSlot);
+               StartBuildingObject(buildingSlot);
             }
         }
 
@@ -266,6 +266,10 @@ public class Base : Building {
 
             // Clear/destroy the previous building's queue
             newBase._PreviousBase.GetBuildingQueue().Clear();
+            newBase._PreviousBase._HealthBar.gameObject.SetActive(false);
+            newBase._PreviousBase._ShowHealthbar = false;
+            newBase._PreviousBase.gameObject.SetActive(false);
+
             if (UI_BuildingQueueWrapper.Instance.ContainsQueue(newBase._PreviousBase._BuildingQueueUI)) {
 
                 UI_BuildingQueueWrapper.Instance.RemoveFromQueue(newBase._PreviousBase._BuildingQueueUI);
