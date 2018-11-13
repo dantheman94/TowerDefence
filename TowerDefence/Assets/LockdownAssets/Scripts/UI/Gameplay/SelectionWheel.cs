@@ -168,7 +168,7 @@ public class SelectionWheel : MonoBehaviour {
             // Update slice button defaults
             Button slice = button.GetComponent<SelectionWheelUnitRef>().RadialSliceButton;
             slice.onClick.RemoveAllListeners();
-            button.onClick.AddListener(() => RefreshButtons(selectable));
+            slice.onClick.AddListener(() => RefreshButtons(selectable));
         }
 
         // Clear list & update
