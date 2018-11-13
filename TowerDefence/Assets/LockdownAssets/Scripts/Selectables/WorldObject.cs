@@ -235,8 +235,13 @@ public class WorldObject : Selectable {
 
             case WorldObjectStates.Building: {
 
-                // Is unit building complete?
+                // Show building state object
+                if (InQueueState) { InQueueState.SetActive(false); }
+                if (BuildingState) { BuildingState.SetActive(true); }
+                if (ActiveState) { ActiveState.SetActive(false); }
+                if (DestroyedState) { DestroyedState.SetActive(false); }
 
+                // Is unit building complete?
                 if (SceneManager.GetSceneByName("TutorialScene") == SceneManager.GetActiveScene()) {
 
                     _ReadyForDeployment = _CurrentBuildTime >= BuildingTimeTutorial;
@@ -264,12 +269,6 @@ public class WorldObject : Selectable {
                     OnBuilt();
                     _ObjectState = WorldObjectStates.Deployable;
                 }
-
-                // Show building state object
-                if (InQueueState) { InQueueState.SetActive(false); }
-                if (BuildingState) { BuildingState.SetActive(true); }
-                if (ActiveState) { ActiveState.SetActive(false); }
-                if (DestroyedState) { DestroyedState.SetActive(false); }
 
                 // Hide fog of war
                 if (_FogOfWarSight != null) { _FogOfWarSight.enabled = false; }
