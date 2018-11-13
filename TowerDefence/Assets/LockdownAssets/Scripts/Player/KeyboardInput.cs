@@ -518,7 +518,11 @@ public class KeyboardInput : MonoBehaviour {
 
             if (!Input.GetKey(KeyCode.A) || !Input.GetKey(KeyCode.S) || !Input.GetKey(KeyCode.D) || !Input.GetKey(KeyCode.W))
             {
-                Slicedrawer.enabled = true;
+                if(!Input.GetMouseButton(1))
+                {
+                    Slicedrawer.enabled = true;
+                }
+
             }
 
             if (Input.GetKey(KeyCode.LeftShift)) {

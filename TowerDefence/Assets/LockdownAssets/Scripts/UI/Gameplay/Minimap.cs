@@ -60,7 +60,7 @@ public class Minimap : MonoBehaviour
         if (Slicedrawer != null) {
 
             _MousePos = new Vector2(Input.mousePosition.x, Screen.height - Input.mousePosition.y);
-            if (RectangleArea.PointInside(_MousePos)) {
+            if (RectangleArea.PointInside(Input.mousePosition.x, Input.mousePosition.y) && Input.GetMouseButton(1)) {
 
                 Slicedrawer.enabled = false;
             }
