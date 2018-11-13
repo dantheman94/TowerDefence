@@ -373,6 +373,9 @@ public class Building : WorldObject {
             // Set rally point
             if (buildingSlot.AttachedBase != null) { _Rallypoint = buildingSlot.AttachedBase.GetRallyPoint(); }
         }
+
+        // Play building started sound
+        SoundManager.Instance.PlaySound("SFX/_SFX_Building", 1f, 1f);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -383,7 +386,7 @@ public class Building : WorldObject {
     /// <param name="buildingSlot"></param>
     public override void StartBuildingObject(BuildingSlot buildingSlot = null) {
         base.StartBuildingObject(buildingSlot);
-
+        
         // Determine build time
         if (_Player != null) {
 
@@ -414,6 +417,9 @@ public class Building : WorldObject {
             _Player.AddToScore(ScoreGrantedWhenBuilt, Player.ScoreType.BuildingBuilt);
             _Player.AddBuildingsBuilt();
         }
+
+        // Play building complete sound
+        SoundManager.Instance.PlaySound("SFX/_SFX_MetalChunk", 1f, 1f);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
