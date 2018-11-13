@@ -127,15 +127,6 @@ public class UI_WaveStats : MonoBehaviour {
 
         // Is boss wave so dont show the timer
         else { if (NextWaveTimerText != null) { NextWaveTimerText.text = ""; } }
-
-        if (Input.GetKeyDown(KeyCode.Space)) {
-
-            GameManager.Instance.Players[0].AddToScore(100, Player.ScoreType.EnemyKilled);
-        }
-        if (Input.GetKeyDown(KeyCode.Backspace)) {
-
-            GameManager.Instance.Players[0].SubstractFromScore(100, Player.ScoreType.BaseDestroyed);
-        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
