@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 //******************************
 //
 //  Created by: Joshua D'Agostino
 //
 //  Last edited by: Joshua D'Agostino
-//  Last edited on: 27/09/2018
+//  Last edited on: 14/11/2018
 //
 //******************************
 public class ShowcaseScaleObject : MonoBehaviour {
@@ -20,14 +21,33 @@ public class ShowcaseScaleObject : MonoBehaviour {
     [Tooltip ("The X,Y,Z Scale to set for the Asset")]
     public float scaleSize;
 
-//******************************************************************************************************************************
+    //******************************************************************************************************************************
+    //
+    //      VARIABLES
+    //
+    //******************************************************************************************************************************
+
+        private Scene currentScene;
+
+    //******************************************************************************************************************************
     //
     //      FUNCTIONS
     //
     //******************************************************************************************************************************
 
+
+    /// <summary>
+    //  Safety measure incase ResetScale is somehow not called
+    /// </summary>
+    private void Start()
+    {
+        currentScene = SceneManager.GetActiveScene();
+        if (currentScene.name ==  "_MasterScene") {
+           transform.localScale = new Vector3(1, 1, 1);
+          //  Debug.Log("Script should work");
+        }  
+    }
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
-    
     /// <summary>
     //  Called when pointer enters button. Use with Event Trigger
     /// </summary>
