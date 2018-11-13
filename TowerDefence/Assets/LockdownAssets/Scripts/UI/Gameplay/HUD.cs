@@ -139,11 +139,11 @@ public class HUD : MonoBehaviour {
 
         // Update player's supply count
         if (SuppliesCountText != null && _Player != null)
-            SuppliesCountText.text = _Player.SuppliesCount.ToString() + " / " + _Player.MaxSupplyCount.ToString();
+            SuppliesCountText.text = _Player.SuppliesCount.ToString()/* + " / " + _Player.MaxSupplyCount.ToString()*/;
 
         // Update player's power count
         if (PowerCountText != null && _Player != null)
-            PowerCountText.text = _Player.PowerCount.ToString() + " / " + _Player.MaxPowerCount.ToString();
+            PowerCountText.text = _Player.PowerCount.ToString()/* + " / " + _Player.MaxPowerCount.ToString()*/;
 
         // Update player's tech level
         if (PlayerLevelText != null && _Player != null)
