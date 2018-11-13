@@ -570,7 +570,7 @@ public class Unit : WorldObject {
     /// </summary>
     protected override void OnBuilt() {
         base.OnBuilt();
-
+        Team = GameManager.Team.Defending;
         // Play spawn sound
         _Dialogue.PlaySpawnSound();
     }
