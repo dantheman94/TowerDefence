@@ -589,7 +589,7 @@ public class WorldObject : Selectable {
         // Destroy healthbar
         if (_HealthBar != null) {
 
-            // Null the bitch
+            // Null the reference
             _HealthBar.SetObjectAttached(null);
             ObjectPooling.Despawn(_HealthBar.gameObject);
         }
