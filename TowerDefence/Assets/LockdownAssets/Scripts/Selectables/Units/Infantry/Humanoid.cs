@@ -26,17 +26,22 @@ public class Humanoid : Vehicle {
     public Animation LegsAnimator = null;
     public Animation TorsoAnimator = null;
     [Space]
+    public Animation DeathLegsAnimator = null;
+    public Animation DeathTorsoAnimator = null;
+    [Space]
     public AnimationClip IdleAnimation = null;
     public AnimationClip WalkingAnimation = null;
     public AnimationClip ShootingAnimation = null;
-    public AnimationClip DeathAnimation = null;
+    [Space]
+    public AnimationClip DeathLegAnimation = null;
+    public AnimationClip DeathTorsoAnimation = null;
 
     //******************************************************************************************************************************
     //
     //      VARIABLES
     //
     //******************************************************************************************************************************
-    
+
     protected Quaternion _LookRotation = Quaternion.identity;
     private Animator _Animator = null;
     
@@ -101,9 +106,23 @@ public class Humanoid : Vehicle {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="instigator"></param>
     public override void OnDeath(WorldObject instigator) {
 
-        // Play some fancy animation maybe?
+        // Play some fancy animations
+        if (DeathLegsAnimator != null && DeathLegAnimation != null) {
+
+            DeathLegsAnimator.clip = DeathLegAnimation;
+            DeathLegsAnimator.Play();
+        }
+        if (DeathTorsoAnimator != null && DeathTorsoAnimation != null) {
+
+            DeathTorsoAnimator.clip = DeathTorsoAnimation;
+            DeathTorsoAnimator.Play();
+        }
 
         // Despawn it
         base.OnDeath(instigator);
