@@ -75,19 +75,22 @@ public class LockdownPad : MonoBehaviour {
     //  Called each frame.
     /// </summary>
     private void Update() {
-        
+
         // No base on the slot
-        if (BuildingSlotAttached.AttachedBase == null) {
+        if (BuildingSlotAttached != null) {
 
-            // Remove from waves manager
-            WaveManager.Instance.LockdownPads.Remove(this);
-        }
+            if (BuildingSlotAttached.AttachedBase == null) {
 
-        // No attacking team base on the slot
-        else if (BuildingSlotAttached.AttachedBase.Team != GameManager.Team.Attacking) {
+                // Remove from waves manager
+                WaveManager.Instance.LockdownPads.Remove(this);
+            }
 
-            // Remove from waves manager
-            WaveManager.Instance.LockdownPads.Remove(this);
+            // No attacking team base on the slot
+            else if (BuildingSlotAttached.AttachedBase.Team != GameManager.Team.Attacking) {
+
+                // Remove from waves manager
+                WaveManager.Instance.LockdownPads.Remove(this);
+            }
         }
     }
 

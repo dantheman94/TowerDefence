@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 //******************************
 //
@@ -155,61 +156,69 @@ public class SoundManager : MonoBehaviour {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public AudioSource PlaySound(string soundLocation, float pitchMin, float pitchMax) {
-        
-        // Create pooled game object for the sound
-        GameObject soundObj = ObjectPooling.Spawn(Resources.Load<GameObject>(soundLocation));
+    public AudioSource PlaySound(string soundLocation, float pitchMin, float pitchMax, bool unitSound = true) {
 
-        // Grab the source for the sound to play from
-        AudioSource soundSource = soundObj.GetComponent<AudioSource>();
+        if (SceneManager.GetActiveScene() != SceneManager.GetSceneByName("MainMenu") || !unitSound) {
 
-        // Clammp min/max pitch (0, 3)
-        if (pitchMin < 0) { pitchMin = 0f; }
-        if (pitchMax > 3) { pitchMax = 3f; }
-        if (pitchMin > pitchMax) { pitchMin = pitchMax; }
-        if (pitchMax < pitchMin) { pitchMax = pitchMin; }
+            // Create pooled game object for the sound
+            GameObject soundObj = ObjectPooling.Spawn(Resources.Load<GameObject>(soundLocation));
 
-        // Randomize the sound's pitch based on the min and max specified
-        soundSource.pitch = Random.Range(pitchMin, pitchMax);
+            // Grab the source for the sound to play from
+            AudioSource soundSource = soundObj.GetComponent<AudioSource>();
 
-        // Play the sound
-        soundSource.Play();
+            // Clammp min/max pitch (0, 3)
+            if (pitchMin < 0) { pitchMin = 0f; }
+            if (pitchMax > 3) { pitchMax = 3f; }
+            if (pitchMin > pitchMax) { pitchMin = pitchMax; }
+            if (pitchMax < pitchMin) { pitchMax = pitchMin; }
 
-        // Add the sound object to the List
-        _Sounds.Add(soundSource);
+            // Randomize the sound's pitch based on the min and max specified
+            soundSource.pitch = Random.Range(pitchMin, pitchMax);
 
-        return soundSource;
+            // Play the sound
+            soundSource.Play();
+
+            // Add the sound object to the List
+            _Sounds.Add(soundSource);
+
+            return soundSource;
+        }
+        else { return null; }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public AudioSource PlaySoundAtLocation(string soundLocation, Vector3 position, float pitchMin, float pitchMax) {
+    public AudioSource PlaySoundAtLocation(string soundLocation, Vector3 position, float pitchMin, float pitchMax, bool unitSound = true) {
 
-        // Create pooled game object for the sound
-        GameObject soundObj = ObjectPooling.Spawn(Resources.Load<GameObject>(soundLocation));
+        if (SceneManager.GetActiveScene() != SceneManager.GetSceneByName("MainMenu") || !unitSound) {
 
-        // Set 3d position of the sound
-        soundObj.transform.position = position;
+            // Create pooled game object for the sound
+            GameObject soundObj = ObjectPooling.Spawn(Resources.Load<GameObject>(soundLocation));
 
-        // Grab the source for the sound to play from
-        AudioSource soundSource = soundObj.GetComponent<AudioSource>();
+            // Set 3d position of the sound
+            soundObj.transform.position = position;
 
-        // Clammp min/max pitch (0, 3)
-        if (pitchMin < 0) { pitchMin = 0f; }
-        if (pitchMax > 3) { pitchMax = 3f; }
-        if (pitchMin > pitchMax) { pitchMin = pitchMax; }
-        if (pitchMax < pitchMin) { pitchMax = pitchMin; }
+            // Grab the source for the sound to play from
+            AudioSource soundSource = soundObj.GetComponent<AudioSource>();
 
-        // Randomize the sound's pitch based on the min and max specified
-        soundSource.pitch = Random.Range(pitchMin, pitchMax);
+            // Clammp min/max pitch (0, 3)
+            if (pitchMin < 0) { pitchMin = 0f; }
+            if (pitchMax > 3) { pitchMax = 3f; }
+            if (pitchMin > pitchMax) { pitchMin = pitchMax; }
+            if (pitchMax < pitchMin) { pitchMax = pitchMin; }
 
-        // Play the sound
-        soundSource.Play();
+            // Randomize the sound's pitch based on the min and max specified
+            soundSource.pitch = Random.Range(pitchMin, pitchMax);
 
-        // Add the sound object to the List
-        _Sounds.Add(soundSource);
+            // Play the sound
+            soundSource.Play();
 
-        return soundSource;
+            // Add the sound object to the List
+            _Sounds.Add(soundSource);
+
+            return soundSource;
+        }
+        else { return null; }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

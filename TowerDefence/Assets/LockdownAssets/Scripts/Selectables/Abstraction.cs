@@ -84,7 +84,7 @@ public class Abstraction : MonoBehaviour {
     public virtual void OnWheelSelect(BuildingSlot buildingSlot) {
 
         // Play button press sound
-        SoundManager.Instance.PlaySound("SFX/_SFX_Woosh1", 1f, 1f);
+        SoundManager.Instance.PlaySound("SFX/_SFX_Woosh1", 1f, 1f, false);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

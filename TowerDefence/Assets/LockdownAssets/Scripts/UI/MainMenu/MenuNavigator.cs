@@ -299,7 +299,7 @@ public class MenuNavigator : MonoBehaviour {
                     StartCoroutine(DelayedSelectButton(MainMenu.StartButton));
 
                 // Play sound
-                SoundManager.Instance.PlaySound("SFX/_SFX_Woosh1", 1f, 1f);
+                SoundManager.Instance.PlaySound("SFX/_SFX_Woosh1", 1f, 1f, false);
             }
         }
         else
