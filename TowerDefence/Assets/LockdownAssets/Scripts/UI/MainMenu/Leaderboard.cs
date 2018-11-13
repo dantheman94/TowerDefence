@@ -87,7 +87,7 @@ public class Leaderboard : MonoBehaviour
         }
         else
         {
-            Debug.Log("File not found.");
+            ///Debug.Log("File not found.");
             return null;
         }
     }
@@ -118,7 +118,7 @@ public class Leaderboard : MonoBehaviour
         bf.Serialize(file, _HighscoreList);
         file.Close();
 
-        Debug.Log("Player data saved.");
+        ///Debug.Log("Player data saved.");
 
 
         return _SaveData;
