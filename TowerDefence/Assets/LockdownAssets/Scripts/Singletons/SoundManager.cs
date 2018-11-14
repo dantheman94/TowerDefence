@@ -7,8 +7,8 @@ using UnityEngine.SceneManagement;
 //
 //  Created by: Joshua Peake
 //
-//  Last edited by: Daniel Marton
-//  Last edited on: 28/09/2018
+//  Last edited by: Angus Secomb
+//  Last edited on: 14/11/2018
 //
 //******************************
 
@@ -26,12 +26,6 @@ public class SoundManager : MonoBehaviour {
     [Space]
     public bool PlayMusicOnStart = true;
 
-    [Header("-----------------------------------")]
-    [Header(" AUDIO CLIPS")]
-    [Space]
-    public List<AudioClip> MusicTracks;
-    public AudioClip AmbientSound;
-
     //******************************************************************************************************************************
     //
     //      VARIABLES
@@ -46,18 +40,24 @@ public class SoundManager : MonoBehaviour {
     private bool _IsPlayingVoxel = false;
     private float _TimeSinceLastVoxel = 0f;
     private GameObject _MusicObject;
+    private AudioSource _MusicSource;
 
     private bool _FadingIn;
     private bool _FadingOut;
     private float _CurrentFadeInLerp = 0f;
     private float _CurrentFadeOutLerp = 0f;
 
-    private const int _TrackCount = 4;
-    private bool[]  _TracksPlayed = new bool[_TrackCount] { false, false, false, false };
+    private const int _TrackCount = 7;
+    private bool[]  _TracksPlayed = new bool[_TrackCount] { false, false, false, false, false, false, false };
     private string[] _TrackPath = new string[_TrackCount] { "Music/_Music_Morning_Adventure",
+                                                            "Music/_Music_Main1",
+                                                            "Music/_Music_Main2",
+                                                            "Music/_Music_Main2_Alt",
                                                             "Music/_Music_Enter_The_Dungeon",
                                                             "Music/_Music_The_Revolution",
                                                             "Music/_Music_With_Gun_And_Crucifix" };
+    private int _PreviousTrackIndex;
+    private int _SwitchCount;
     
     //******************************************************************************************************************************
     //
@@ -91,7 +91,7 @@ public class SoundManager : MonoBehaviour {
     private void Start() {
 
         // Play starting track if specified
-        if (PlayMusicOnStart) { PlayFirstTrack(_TrackPath[0]); }
+        if (PlayMusicOnStart) { PlayStartTrack(); }
         PlayAmbience();
     }
 
@@ -115,6 +115,7 @@ public class SoundManager : MonoBehaviour {
         if (_FadingOut) { _CurrentFadeOutLerp += Time.deltaTime; }
 
         UpdateVoxel();
+        PlayRandomTrack();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -252,12 +253,45 @@ public class SoundManager : MonoBehaviour {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /// <summary>
+    /// Plays the first track.
+    /// </summary>
     public void PlayStartTrack()
     {
-     //   _MusicObject = ObjectPooling.Spawn(Resources.Load<GameObject>())
+        _MusicObject = ObjectPooling.Spawn(Resources.Load<GameObject>("Music/_Music_Morning_Adventure"));
+        _MusicSource = _MusicObject.GetComponent<AudioSource>();
+
+        _TracksPlayed[0] = true;
+        _PreviousTrackIndex = 0;
+        if(!_MusicSource.isPlaying)
+        _MusicSource.Play();
     }
 
     public void PlayRandomTrack()
+    {
+        if (!_MusicSource.isPlaying)
+        {
+           
+            bool check = false;
+           
+            while (!check)
+            {
+                int randIndex = Random.Range(0, 6);
+                if(_PreviousTrackIndex != randIndex)
+                {
+                    GameObject newMusicObject = Resources.Load<GameObject>(_TrackPath[randIndex]);
+                    _MusicSource.clip = newMusicObject.GetComponent<AudioSource>().clip;
+                    _MusicSource.Play();
+                    _PreviousTrackIndex = randIndex;
+                    check = true;
+                    _SwitchCount++;
+                    Debug.Log(_SwitchCount);
+                }
+            }
+        }
+    }
+    
+    public void ResetPlayedTracks()
     {
 
     }
