@@ -26,6 +26,12 @@ public class SoundManager : MonoBehaviour {
     [Space]
     public bool PlayMusicOnStart = true;
 
+    [Header("-----------------------------------")]
+    [Header(" AUDIO CLIPS")]
+    [Space]
+    public List<AudioClip> MusicTracks;
+    public AudioClip AmbientSound;
+
     //******************************************************************************************************************************
     //
     //      VARIABLES
@@ -39,6 +45,7 @@ public class SoundManager : MonoBehaviour {
     private List<AudioSource> _VoxelWaitingList;
     private bool _IsPlayingVoxel = false;
     private float _TimeSinceLastVoxel = 0f;
+    private GameObject _MusicObject;
 
     private bool _FadingIn;
     private bool _FadingOut;
@@ -85,6 +92,7 @@ public class SoundManager : MonoBehaviour {
 
         // Play starting track if specified
         if (PlayMusicOnStart) { PlayFirstTrack(_TrackPath[0]); }
+        PlayAmbience();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -243,6 +251,21 @@ public class SoundManager : MonoBehaviour {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public void PlayStartTrack()
+    {
+     //   _MusicObject = ObjectPooling.Spawn(Resources.Load<GameObject>())
+    }
+
+    public void PlayRandomTrack()
+    {
+
+    }
+
+    public void PlayAmbience()
+    {
+        GameObject AmbientObject = ObjectPooling.Spawn(Resources.Load<GameObject>("Music/Ambient_Sound"));
+    }
 
     /// <summary>
     // Play the second to fourth music tracks.
