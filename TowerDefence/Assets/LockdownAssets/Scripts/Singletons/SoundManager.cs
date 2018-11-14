@@ -57,7 +57,6 @@ public class SoundManager : MonoBehaviour {
                                                             "Music/_Music_The_Revolution",
                                                             "Music/_Music_With_Gun_And_Crucifix" };
     private int _PreviousTrackIndex;
-    private int _SwitchCount;
     
     //******************************************************************************************************************************
     //
@@ -269,9 +268,8 @@ public class SoundManager : MonoBehaviour {
 
     public void PlayRandomTrack()
     {
-        if (!_MusicSource.isPlaying)
+        if (_MusicSource.time >= _MusicSource.clip.length)
         {
-           
             bool check = false;
            
             while (!check)
@@ -284,16 +282,9 @@ public class SoundManager : MonoBehaviour {
                     _MusicSource.Play();
                     _PreviousTrackIndex = randIndex;
                     check = true;
-                    _SwitchCount++;
-                    Debug.Log(_SwitchCount);
                 }
             }
         }
-    }
-    
-    public void ResetPlayedTracks()
-    {
-
     }
 
     public void PlayAmbience()
