@@ -518,7 +518,7 @@ public class KeyboardInput : MonoBehaviour {
 
             if (!Input.GetKey(KeyCode.A) || !Input.GetKey(KeyCode.S) || !Input.GetKey(KeyCode.D) || !Input.GetKey(KeyCode.W))
             {
-                if(!Input.GetMouseButton(1))
+                if(!Input.GetMouseButton(1) && !_FollowingTarget)
                 {
                     Slicedrawer.enabled = true;
                 }
@@ -1029,17 +1029,19 @@ public class KeyboardInput : MonoBehaviour {
             _FollowingTarget = !_FollowingTarget;
 
             if (_FollowingTarget) {
-
                 // Follow the first target in the selected unit list attached to the player
                 _PlayerAttached._CameraFollow.SetFollowTarget(_PlayerAttached.SelectedUnits[0]);
                 _PlayerAttached._CameraFollow.SetCameraAttached(_PlayerCamera.GetComponent<Camera>());
                 _PlayerAttached._CameraFollow.Init();
+                Slicedrawer.enabled = false;
+                Debug.Log("slice drawer disabled");
 
             }
             else {
 
                 // Nulling the target will cancel the following sequence
                 _PlayerAttached._CameraFollow.SetFollowing(_FollowingTarget = false);
+
             }
         }       
     }

@@ -64,10 +64,6 @@ public class Minimap : MonoBehaviour
 
                 Slicedrawer.enabled = false;
             }
-            else {
-
-                Slicedrawer.enabled = true;
-            }
         }
             
         if(TutorialScene.CurrentMessageData != null)
