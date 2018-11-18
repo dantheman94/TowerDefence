@@ -39,6 +39,7 @@ public class Minimap : MonoBehaviour
     private Ray ray;
     private RaycastHit hit;
     private Vector2 _MousePos;
+    private LayerMask MaskBlock;
     //                            FUNCTIONS
     /////////////////////////////////////////////////////////////////////////////////////
 
@@ -55,7 +56,7 @@ public class Minimap : MonoBehaviour
     /////////////////////////////////////////////////////////////////////////////////////
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         if (Slicedrawer != null) {
 
@@ -129,12 +130,32 @@ public class Minimap : MonoBehaviour
                 //if (MapArea.Contains(MousePOS, true))
                 if (RectangleArea.PointInside(Input.mousePosition.x, Input.mousePosition.y))
                 {
+                  
                     if (TopLeft.transform.position.x < 0)
                     {
                         Vector2 ActualBounds = new Vector2(MousePOS.x - RectangleArea.transform.position.x, (Screen.height - RectangleArea.GetTopLeft().y) - MousePOS.y);
                         CameraObject.transform.position = new Vector3((ActualBounds.x * (_XSize / RectangleArea.width)) + TopLeft.transform.position.x + XOffset,
                         CameraObject.transform.position.y, ActualBounds.y * (_YSize / RectangleArea.height) + TopRight.transform.position.z + YOffset);
                                        Debug.Log("Actual Bounds: " + ActualBounds);
+                    if (GameManager.Instance.Players[0].SelectedUnits.Count > 0)
+                    {
+                        // Get point in world that is used to command the AI currently selected (go position, attack target, etc)
+                        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+                        RaycastHit hit;
+
+                        Vector3 hitPoint = TowerDefence.Settings.InvalidPosition;
+                        // Return object from raycast
+                        if (Physics.Raycast(ray, out hit, 1000))
+                        {
+                            hitPoint = hit.point;
+                        }
+                        for (int i = 0; i < GameManager.Instance.Players[0].SelectedUnits.Count; ++i)
+                        {
+                            GameManager.Instance.Players[0].SelectedUnits[i].AgentSeekPosition(hitPoint, true,true);
+                        }
+                    }
+
+                     
                     }
                     else
                     {
@@ -143,6 +164,23 @@ public class Minimap : MonoBehaviour
                     CameraObject.transform.position.y, ActualBounds.y * (_YSize / RectangleArea.height) + TopRight.transform.position.z + YOffset);
                     CameraObject.transform.position = new Vector3(CameraObject.transform.position.z,CameraObject.transform.position.y, -CameraObject.transform.position.x);
                     Debug.Log("Actual Bounds: " + ActualBounds);
+                    if (GameManager.Instance.Players[0].SelectedUnits.Count > 0)
+                    {
+                        // Get point in world that is used to command the AI currently selected (go position, attack target, etc)
+                        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+                        RaycastHit hit;
+
+                        Vector3 hitPoint = TowerDefence.Settings.InvalidPosition;
+                        // Return object from raycast
+                        if (Physics.Raycast(ray, out hit, 1000))
+                        {
+                            hitPoint = hit.point;
+                        }
+                        for (int i = 0; i < GameManager.Instance.Players[0].SelectedUnits.Count; ++i)
+                        {
+                            GameManager.Instance.Players[0].SelectedUnits[i].AgentSeekPosition(hitPoint, true, true);
+                        }
+                    }
                     //   Vector2 ActualBounds = new Vector2(MousePOS.x - MapArea.x, MapArea.y - MousePOS.y - 30);
                     //  CameraObject.transform.position = new Vector3((ActualBounds.x * (_XSize / MapArea.width)) - TopLeft.transform.position.x + XOffset,
                     //CameraObject.transform.position.y, ActualBounds.y * (_YSize / MapArea.height) - TopRight.transform.position.z + YOffset);
