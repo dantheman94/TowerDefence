@@ -37,6 +37,7 @@ GameObject:
   - component: {fileID: 4352485753860446}
   - component: {fileID: 33866678898287416}
   - component: {fileID: 23288521644359062}
+  - component: {fileID: 135201331702559718}
   m_Layer: 0
   m_Name: Mine_Mesh
   m_TagString: Untagged
@@ -190,6 +191,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6f885d88a069fc4baf094f985fb4ecb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ObjectName: 
+  ObjectDescriptionShort: 
+  ObjectDescriptionLong: 
+  Logo: {fileID: 0}
+  BuildingTime: 20
+  BuildingTimeTutorial: 5
+  CostSupplies: 0
+  CostPower: 0
+  CostTechLevel: 1
+  CostPopulation: 0
+  _ObjectState: 0
+  Team: 0
+  _Player: {fileID: 0}
+  ShowSelectionGUI: 1
+  ShowOutline: 1
+  OutlineHighlightedWidth: 2
+  OutlineSelectedWidth: 3
+  TargetPoint: {fileID: 0}
+  ShowcaseOffsetY: 0
+  ShowcaseFOV: 40
+  ShoecaseScale: 1
   ExplosionRadius: 20
   DamageFalloff: 0.5
   ExplosionEffect: {fileID: 19800002, guid: 6890a03af913b874092fbb1e8337747d, type: 2}
@@ -205,6 +227,18 @@ MonoBehaviour:
     DamageCoreAirship: 10
     DamageSupportShip: 10
     DamageHeavyAirship: 10
+--- !u!135 &135201331702559718
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1391337301151400}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135375295488244558
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -213,7 +247,7 @@ SphereCollider:
   m_GameObject: {fileID: 1533624903940244}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 5
   m_Center: {x: 0, y: 0, z: 0}

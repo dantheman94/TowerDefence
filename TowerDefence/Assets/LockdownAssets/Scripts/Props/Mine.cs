@@ -11,7 +11,7 @@ using UnityEngine;
 //
 //******************************
 
-public class Mine : MonoBehaviour {
+public class Mine : Selectable {
 
     //******************************************************************************************************************************
     //
@@ -48,6 +48,23 @@ public class Mine : MonoBehaviour {
     //      FUNCTIONS
     //
     //******************************************************************************************************************************
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Called when the player presses a button on the selection wheel with this world object
+    //  linked to the button.
+    /// </summary>
+    /// <param name="buildingSlot">
+    //  The building slot that instigated the selection wheel.
+    //  (EG: If you're making a building, this is the building slot thats being used.)
+    /// </param>
+    public override void OnWheelSelect(BuildingSlot buildingSlot) {
+        base.OnWheelSelect(buildingSlot);
+
+        // Call the OnWheelSelect() function in the attached minefield wrapper
+        if (_MineFieldAttached != null) { _MineFieldAttached.OnWheelSelect(buildingSlot); }
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
