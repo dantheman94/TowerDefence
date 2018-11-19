@@ -4,6 +4,7 @@ using XInputDotNetPure;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Collections;
+using System;
 //******************************
 //
 //  Created by: Daniel Marton
@@ -20,30 +21,28 @@ public class XboxGamepadInput : MonoBehaviour {
     //      INSPECTOR
     //
     //******************************************************************************************************************************
-
-    private Player _PlayerAttached;
-    private KeyboardInput _KeyboardInputManager = null;
-    public bool IsPrimaryController { get; set; }
-
-    [HideInInspector]
-    public bool CanSelect = false;
-    [Header("----------------------")]
+    
+    [Header("-----------------------------------")]
+    [Header(" GAMEPAD MULTISPHERE PROPERTIES")]
     [Space]
-    [Header("OBJECT REFERENCES")]
     public GameObject SphereSelectorObject;
-    public Image ReticleImage;
-    [Header("----------------------")]
     [Space]
-    [Header("SPHERE SELECTION PROPERTIES")]
     public float MaxSphereRadius = 250;
     public float SphereGrowRate = 10;
     public float SphereStartRadius = 5;
+
+    [Space]
+    [Header("-----------------------------------")]
     [Header(" RAYCAST LAYERMASK")]
+    [Space]
     public LayerMask MaskBlock;
 
-    [Header("----------------------")]
     [Space]
-    [Header("BUTTON IMAGES")]
+    [Header("-----------------------------------")]
+    [Header(" XBOX ONE ICONS")]
+    [Space]
+    public Image CrosshairImage;
+    [Space]
     public Image AButton;
     public Image XButton;
     public Image BButton;
@@ -71,7 +70,16 @@ public class XboxGamepadInput : MonoBehaviour {
     private int _RadialIndex = 0;
     private Vector3 _MousePosReference;
     private GameObject _ReticleObject;
-    
+
+    private Player _PlayerAttached;
+    private KeyboardInput _KeyboardInputManager = null;
+    public bool IsPrimaryController { get; set; }
+
+    [HideInInspector]
+    public bool CanSelect = false;
+
+    private int _PlatoonIteratorSelected = 0;
+
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
@@ -82,7 +90,7 @@ public class XboxGamepadInput : MonoBehaviour {
     // Called when the gameObject is created.
     /// </summary>
     private void Start() {
-        _ReticleObject = ReticleImage.gameObject;
+        _ReticleObject = CrosshairImage.gameObject;
         _Gamepad = GamepadManager.Instance.GetGamepad(1);
         _SelectionWheel = GameManager.Instance.SelectionWheel.GetComponentInChildren<SelectionWheel>();
         // Get component references
@@ -121,6 +129,7 @@ public class XboxGamepadInput : MonoBehaviour {
             _GamepadState = GamePad.GetState(_PlayerAttached.Index);
             
             if (IsPrimaryController && !TutorialScene.CurrentMessageData.LockControls) {
+
                 _ReticleObject.SetActive(true);
                 //Gamepad function presses.
                 DisplayButtonUI();
@@ -139,32 +148,40 @@ public class XboxGamepadInput : MonoBehaviour {
 
                     // Update camera FOV
                     ZoomCamera();
-                }
-       
+                }       
 
                 // Update point/click input
                 PointClickActivity();
                 Cursor.visible = false;
-             //   Cursor.lockState = CursorLockMode.Locked;
 
                 // Update abilities input
                 ///AbilitiesInput();
 
                 // Update platoon input
-                ///PlatoonInput();
-
+                PlatoonInput();
+                
                 // Select all units
                 if (GetLeftShoulderClicked()) {
+
+                    // Deselect all units
+                    _PlayerAttached.DeselectAllObjects();
 
                     // Loop through & select all army objects
                     foreach (var ai in _PlayerAttached.GetArmy()) {
 
-                        // Add to selection list
-                        _PlayerAttached.SelectedWorldObjects.Add(ai);
-                        _PlayerAttached.SelectedUnits.Add(ai);
-                        ai.SetPlayer(_PlayerAttached);
-                        ai.SetIsSelected(true);
+                        // Only select active units in the world
+                        if (ai._ObjectState == Abstraction.WorldObjectStates.Active) {
+
+                            // Add to selection list
+                            _PlayerAttached.SelectedWorldObjects.Add(ai);
+                            _PlayerAttached.SelectedUnits.Add(ai);
+                            ai.SetPlayer(_PlayerAttached);
+                            ai.SetIsSelected(true);
+                        }
                     }
+
+                    // Update units selected panels
+                    GameManager.Instance.SelectedUnitsHUD.RefreshPanels();
                 }
             }
             else
@@ -173,7 +190,7 @@ public class XboxGamepadInput : MonoBehaviour {
             }
         }
     }
-
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
@@ -232,18 +249,18 @@ public class XboxGamepadInput : MonoBehaviour {
                    
                     if (wo.Team == GameManager.Team.Defending)
                     {
-                        ReticleImage.color = _PlayerAttached.TeamColor;
+                        CrosshairImage.color = _PlayerAttached.TeamColor;
                     }
                     else if (wo.Team == GameManager.Team.Attacking)
                     {
-                        ReticleImage.color = WaveManager.Instance.AttackingTeamColour;
+                        CrosshairImage.color = WaveManager.Instance.AttackingTeamColour;
                     }
                 }
         
             }
             else
             {
-                ReticleImage.color = Color.white;
+                CrosshairImage.color = Color.white;
             }
         }
     }
@@ -276,7 +293,7 @@ public class XboxGamepadInput : MonoBehaviour {
     {
         if(GameManager.Instance.SelectionWheel.activeInHierarchy)
         {
-            ReticleImage.enabled = false;
+            CrosshairImage.enabled = false;
             if (_Gamepad.GetButtonDown(buttonPress))
             {
                 GameManager.Instance.SelectionWheel.GetComponentInChildren<SelectionWheel>().HideSelectionWheel();
@@ -285,7 +302,7 @@ public class XboxGamepadInput : MonoBehaviour {
         }
         else
         {
-            ReticleImage.enabled = true;
+            CrosshairImage.enabled = true;
         }
     }
 
@@ -775,6 +792,134 @@ public class XboxGamepadInput : MonoBehaviour {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /// <summary>
+    //  Checks for input and adds/replaces/selects units from the assigned 1-9 keybindings
+    /// </summary>
+    private void PlatoonInput() {
+
+        int iter = 0;
+        int keypad = 257;
+        int alpha = 49;
+
+        // There are 9 platoons
+        for (int i = 0; i < 9; i++) {
+
+            // Scroll through the platoon iterator
+            if (GetDpadRightClicked()) {
+
+                if (_PlatoonIteratorSelected < 9) { _PlatoonIteratorSelected++; }
+                else { _PlatoonIteratorSelected = 1; }
+            }
+            else if (GetDpadLeftClicked()) {
+
+                if (_PlatoonIteratorSelected > 0) { _PlatoonIteratorSelected--; }
+                else { _PlatoonIteratorSelected = 9; }
+            }
+
+            // On DPAD PRESS
+            if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.LeftShift)) {
+
+                // Make the entire platoon block glow
+                _PlayerAttached.GetPlatoon(iter).LightUpBlock();
+            }
+
+            // There is at least 1 unit in the platoon
+            if (_PlayerAttached.GetPlatoon(iter).GetAi().Count > 0) {
+
+                // Make the platoon counter glow
+                _PlayerAttached.GetPlatoon(iter).LightUpCounter();
+            }
+
+            // Not pressing ANY TRIGGER
+            if (!OnLeftTrigger() && !OnRightTrigger() && _PlatoonIteratorSelected != iter) {
+
+                // No units in the platoon
+                if (_PlayerAttached.GetPlatoon(iter).GetAi().Count == 0) {
+
+                    // Unglow the platoon counter
+                    _PlayerAttached.GetPlatoon(iter).LightDownCounter();
+                }
+            }
+
+            // Add to platoon (LEFT TRIGGER ONLY)
+            if (_PlatoonIteratorSelected != 0 && (OnLeftTrigger())) {
+
+                // Get lists of AIs that are selected
+                List<Unit> UnitsSelected = new List<Unit>();
+
+                GetAISelectedFromAllSelected(ref UnitsSelected);
+
+                // Add any units selected to platoon
+                for (int j = 0; j < UnitsSelected.Count; j++) {
+
+                    // Remove it from any other existing platoons
+                    _PlayerAttached.RemoveUnitFromAllPlatoons(UnitsSelected[j]);
+
+                    // Dont re-add the same unit
+                    if (!_PlayerAttached.GetPlatoon(iter).GetAi().Contains(UnitsSelected[j])) {
+
+                        // Safe to add
+                        _PlayerAttached.GetPlatoon(iter).GetAi().Add(UnitsSelected[j]);
+                    }
+                }
+            }
+
+            // Replace platoon (RIGHT TRIGGER ONLY)
+            if (_PlatoonIteratorSelected != 0 && (OnRightTrigger())) {
+
+                // Get lists of AIs that are selected
+                List<Unit> UnitsSelected = new List<Unit>();
+
+                GetAISelectedFromAllSelected(ref UnitsSelected);
+
+                // Clear platoon
+                _PlayerAttached.GetPlatoon(iter).Wipe();
+
+                // Add any units selected to platoon
+                for (int j = 0; j < UnitsSelected.Count; j++) {
+
+                    // Remove it from any other existing platoons
+                    _PlayerAttached.RemoveUnitFromAllPlatoons(UnitsSelected[j]);
+
+                    // Dont re-add the same unit
+                    if (!_PlayerAttached.GetPlatoon(iter).GetAi().Contains(UnitsSelected[j])) {
+
+                        // Safe to add
+                        _PlayerAttached.GetPlatoon(iter).GetAi().Add(UnitsSelected[j]);
+                    }
+                }
+            }
+
+            // Select platoon (DPAD ONLY (but using iterator to determine which one to select))
+            if (_PlatoonIteratorSelected != 0) {
+
+                _PlayerAttached.DeselectAllObjects();
+
+                // Make the block & hotkey glow
+                _PlayerAttached.UnselectAllPlatoons();
+                _PlayerAttached.GetPlatoon(_PlatoonIteratorSelected).SetSelected(true);
+
+                // Loop through & select all units in the platoon
+                foreach (var ai in _PlayerAttached.GetPlatoon(_PlatoonIteratorSelected).GetAi()) {
+
+                    _PlayerAttached.SelectedWorldObjects.Add(ai);
+                    _PlayerAttached.SelectedUnits.Add(ai);
+                    ai.SetPlayer(_PlayerAttached);
+                    ai.SetIsSelected(true);
+                }
+            }
+
+            ++iter;
+            ++keypad;
+            ++alpha;
+        }
+
+        // Update units selected panels
+        GameManager.Instance.SelectedUnitsHUD.RefreshPanels();
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /*
      *  XBOX Special buttons
      */
@@ -826,10 +971,12 @@ public class XboxGamepadInput : MonoBehaviour {
     }
 
     /// <summary>
-    /// Keeps the cheeky angle between 0 and 360.
+    // Keeps the cheeky angle between 0 and 360.
     /// </summary>
     /// <param name="angle"></param>
-    /// <returns></returns>
+    /// <returns>
+    //  float
+    /// </returns>
     private float NormalizeAngle(float angle)
     {
         angle = angle % 360f;
@@ -1155,6 +1302,5 @@ public class XboxGamepadInput : MonoBehaviour {
     //  bool
     /// </returns>
     public bool OnRightTrigger() { return _GamepadState.Triggers.Right > 0f; }
-
-
+    
 }
