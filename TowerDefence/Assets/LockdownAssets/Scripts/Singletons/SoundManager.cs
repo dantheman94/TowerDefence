@@ -57,7 +57,9 @@ public class SoundManager : MonoBehaviour {
                                                             "Music/_Music_The_Revolution",
                                                             "Music/_Music_With_Gun_And_Crucifix" };
     private int _PreviousTrackIndex;
-    
+    private AudioSource _CurrentDialogue = null;
+    public bool _DialogueIsPlaying = false;
+
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
@@ -115,6 +117,10 @@ public class SoundManager : MonoBehaviour {
 
         UpdateVoxel();
         PlayRandomTrack();
+
+        // Updating current dialogue
+        if (_CurrentDialogue != null) { _DialogueIsPlaying = _CurrentDialogue.isPlaying; }
+        else { _DialogueIsPlaying = false; }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -473,8 +479,10 @@ public class SoundManager : MonoBehaviour {
             
             // Set the music volume to this variable
             float percent = _CurrentFadeOutLerp / timeToFade;
+
             // Clamp the volume
             if (_CurrentFadeOutLerp > timeToFade) { _CurrentFadeOutLerp = timeToFade; }
+
             // Lerp volume
             musicSource.volume = Mathf.Lerp(startingVolume, 0f, percent);
 
@@ -486,4 +494,25 @@ public class SoundManager : MonoBehaviour {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public void PlayAnnouncerTrack(string soundLocation) {
+
+        // Stop any dialogue thats currently playing
+        if (_CurrentDialogue != null) { _CurrentDialogue.Stop(); }
+
+        // Play announcer track
+        AudioSource sound = PlaySound(soundLocation, 1f, 1f, false);
+        _CurrentDialogue = sound;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="source"></param>
+    public void SetCurrentDialogue(AudioSource sound) { _CurrentDialogue = sound; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
 }
