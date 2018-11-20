@@ -121,6 +121,9 @@ public class Core : Building {
 
         SoundManager.Instance.GetAnnouncer().PlayCoreAttackedSound();
 
+        // Flashing health bar
+        WaveManager.Instance.CoreHealthBar.SetFlashingText(UI_CoreHealthBar.ObjectFlashing.Core, true);
+
         if (Messagefeed != null)
             Messagefeed.DisplayCoreDamaged();
 

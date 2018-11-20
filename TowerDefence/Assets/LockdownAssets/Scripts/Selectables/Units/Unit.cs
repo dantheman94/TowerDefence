@@ -388,7 +388,10 @@ public class Unit : WorldObject {
         // Destroying the unit manually
         if (_IsCurrentlySelected && Input.GetKeyDown(KeyCode.Delete)) {
 
-            _Dialogue.PlayDeleteSound();
+            // Play OnSelectSound for the first unit that was selected
+            if (_Player.SelectedUnits[0].GetDialogue() != null)
+                _Player.SelectedUnits[0].GetDialogue().PlayDeleteSound();
+            
             OnDeath(null);
         }
     }

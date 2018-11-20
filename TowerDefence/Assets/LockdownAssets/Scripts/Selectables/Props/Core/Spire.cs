@@ -24,10 +24,11 @@ public class Spire : Building {
     [Header(" SPIRE PROPERTIES")]
     [Space]
     public List<LightData> StreamLights;
-
+    [Space]
     public MessageFeed Messagefeed;
-
     public string SpireLetter;
+    [Space]
+    public int SpireID;
 
     //******************************************************************************************************************************
     //
@@ -153,6 +154,9 @@ public class Spire : Building {
         //  WaveManager.Instance.CoreDamagedWidget.ShowNotification();
 
         SoundManager.Instance.GetAnnouncer().PlaySpireAttackedSound();
+
+        // Flashing health bar
+        WaveManager.Instance.CoreHealthBar.SetFlashingText((UI_CoreHealthBar.ObjectFlashing)SpireID, true);
 
         if (Messagefeed != null)
             Messagefeed.DisplaySpireDamaged(SpireLetter);

@@ -47,6 +47,7 @@ public class WaveManager : MonoBehaviour {
     public UI_WaveNotification WaveNotificationWidget = null;
     public UI_WaveComplete WaveCompleteWidget = null;
     public GameObject CoreDamagedWidget = null;
+    public UI_CoreHealthBar CoreHealthBar = null;
 
     [Space]
     [Header("-----------------------------------")]
