@@ -152,6 +152,7 @@ public class UI_WaveComplete : MonoBehaviour {
 
         // Play wave defeated sound
         SoundManager.Instance.PlaySound("SFX/_SFX_WaveComplete", 1f, 1f);
+        SoundManager.Instance.GetAnnouncer().PlayWaveCompleteSound();
 
         // Hide widget after boost is complete
         StartCoroutine(DelayedWidgetHide(ResourceBoostTime));

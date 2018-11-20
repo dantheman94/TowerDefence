@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 81953311027088950}
   - component: {fileID: 114594483081117626}
   - component: {fileID: 114573625726707578}
-  - component: {fileID: 114996286617523222}
+  - component: {fileID: 114742066094422844}
   m_Layer: 0
   m_Name: Shaker
   m_TagString: MainCamera
@@ -98,7 +98,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1094551135196284}
-  m_LocalRotation: {x: 0.42261827, y: -0, z: -0, w: 0.9063079}
+  m_LocalRotation: {x: 0.42261827, y: 0, z: 0, w: 0.9063079}
   m_LocalPosition: {x: 28, y: 100, z: -281}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -132,7 +132,7 @@ Camera:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967035
-  m_RenderingPath: 3
+  m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
@@ -207,11 +207,9 @@ MonoBehaviour:
   _RaycastLayerMask:
     serializedVersion: 2
     m_Bits: 9216
-  EastBounds: 0
-  WestBounds: 0
-  NorthBounds: 0
-  SouthBounds: 0
-  LockCameraToBounds: 0
+  BackTransform: {x: -7.61, y: -33.54, z: 7.45}
+  LeftTransform: {x: 0.8, y: -4.1, z: 0.6}
+  RightTransform: {x: -0.8, y: -4.1, z: -0.6}
   PastBoundsEast: 0
   PastBoundsWest: 0
   PastBoundsNorth: 0
@@ -249,7 +247,7 @@ MonoBehaviour:
   PartialFogAmount: 0.5
   FadeSpeed: 10
   MultiThreaded: 1
-  Threads: 2
+  Threads: 4
   MaxMillisecondsPerFrame: 5
 --- !u!114 &114594483081117626
 MonoBehaviour:
@@ -263,23 +261,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RawImage: {fileID: 0}
---- !u!114 &114934396457095928
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1563527522435192}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0b2e0a1a7bd7794ab16f8091d51d1b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _DayDuration: 600
-  _DaySpeed: 0
-  _CurrentTime: 0.4
-  Sun: {fileID: 0}
-  _CurrentDay: 0
---- !u!114 &114996286617523222
+--- !u!114 &114742066094422844
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -298,6 +280,22 @@ MonoBehaviour:
   StartGO: {fileID: 0}
   EndGO: {fileID: 0}
   hud: {fileID: 0}
+--- !u!114 &114934396457095928
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1563527522435192}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0b2e0a1a7bd7794ab16f8091d51d1b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _DayDuration: 600
+  _DaySpeed: 0
+  _CurrentTime: 0.4
+  Sun: {fileID: 0}
+  _CurrentDay: 0
 --- !u!124 &124042994424833600
 Behaviour:
   m_ObjectHideFlags: 1

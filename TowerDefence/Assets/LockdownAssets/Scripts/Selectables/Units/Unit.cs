@@ -386,7 +386,11 @@ public class Unit : WorldObject {
         else if (IsAlive()) { UpdateAIControllerMovement(); }
 
         // Destroying the unit manually
-        if (_IsCurrentlySelected && Input.GetKeyDown(KeyCode.Delete)) { OnDeath(null); }
+        if (_IsCurrentlySelected && Input.GetKeyDown(KeyCode.Delete)) {
+
+            _Dialogue.PlayDeleteSound();
+            OnDeath(null);
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -482,6 +486,7 @@ public class Unit : WorldObject {
         if (_Player != null) {
 
             if (_Player._KeyboardInputManager.CreateScreenSelection()) {
+
                 Vector3 CamPos = _Player.CameraAttached.WorldToScreenPoint(transform.position);
 
                 if (Player.SelectionScreen.Contains(CamPos)) {
@@ -1162,7 +1167,7 @@ public class Unit : WorldObject {
         Transform trans = new GameObject().transform;
         trans.position = building.transform.position;
         trans.LookAt(transform.position);
-        trans.position += trans.forward * (IdealAttackRangeMax * 0.9f);
+        trans.position += trans.forward * (MaxAttackingRange * 0.9f);
 
         // Destroy obsolete transform and return the new attacking position
         Vector3 direction = (-(trans.position - transform.position).normalized * (MaxAttackingRange / 2));

@@ -420,6 +420,7 @@ public class Building : WorldObject {
 
         // Play building complete sound
         SoundManager.Instance.PlaySound("SFX/_SFX_MetalChunk", 1f, 1f);
+        SoundManager.Instance.GetAnnouncer().PlayBuildingCompleteSound();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

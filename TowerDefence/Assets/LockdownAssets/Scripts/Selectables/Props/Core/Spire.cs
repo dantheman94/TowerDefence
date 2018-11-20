@@ -152,6 +152,8 @@ public class Spire : Building {
         // Notify the player
         //  WaveManager.Instance.CoreDamagedWidget.ShowNotification();
 
+        SoundManager.Instance.GetAnnouncer().PlaySpireAttackedSound();
+
         if (Messagefeed != null)
             Messagefeed.DisplaySpireDamaged(SpireLetter);
     }

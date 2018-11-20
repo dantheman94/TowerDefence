@@ -212,13 +212,9 @@ public class KeyboardInput : MonoBehaviour {
 
                     // Update units selected panels
                     GameManager.Instance.SelectedUnitsHUD.RefreshPanels();
-                }
 
-                if (Input.GetKeyDown(KeyCode.KeypadEnter)) {
-
-                    ///WaveManager.Instance.WaveComplete();
-                    WaveManager.Instance.WaveCompleteWidget.gameObject.SetActive(true);
-                    WaveManager.Instance.WaveCompleteWidget.OnWaveComplete();
+                    // Play all units sound
+                    SoundManager.Instance.GetAnnouncer().PlayAllUnitsSound();
                 }
             }
         }
@@ -478,8 +474,11 @@ public class KeyboardInput : MonoBehaviour {
                 // Move forwards
                 movement.y += Settings.MovementSpeed;
                 CreateCenterPoint();
+
+                // Cancel any states we dont want to be in
                 _ReturningToCore = false;
                 Slicedrawer.enabled = false;
+                _PlayerAttached._CameraFollow.SetFollowing(_FollowingTarget = false);
             }
 
 
@@ -489,8 +488,11 @@ public class KeyboardInput : MonoBehaviour {
                 // Move backwards
                 movement.y -= Settings.MovementSpeed;
                 CreateCenterPoint();
+
+                // Cancel any states we dont want to be in
                 _ReturningToCore = false;
                 Slicedrawer.enabled = false;
+                _PlayerAttached._CameraFollow.SetFollowing(_FollowingTarget = false);
             }
 
 
@@ -500,8 +502,11 @@ public class KeyboardInput : MonoBehaviour {
                 // Move right
                 movement.x += Settings.MovementSpeed;
                 CreateCenterPoint();
+
+                // Cancel any states we dont want to be in
                 _ReturningToCore = false;
                 Slicedrawer.enabled = false;
+                _PlayerAttached._CameraFollow.SetFollowing(_FollowingTarget = false);
             }
 
 
@@ -511,8 +516,11 @@ public class KeyboardInput : MonoBehaviour {
                 // Move left
                 movement.x -= Settings.MovementSpeed;
                 CreateCenterPoint();
+
+                // Cancel any states we dont want to be in
                 _ReturningToCore = false;
                 Slicedrawer.enabled = false;
+                _PlayerAttached._CameraFollow.SetFollowing(_FollowingTarget = false);
             }
 
 
@@ -529,7 +537,11 @@ public class KeyboardInput : MonoBehaviour {
 
                 // 'Sprint' movement speed
                 Settings.MovementSpeed = Settings.CameraSprintSpeed;
+
+                // Cancel any states we dont want to be in
                 _ReturningToCore = false;
+                Slicedrawer.enabled = false;
+                _PlayerAttached._CameraFollow.SetFollowing(_FollowingTarget = false);
             }
             else {
 
@@ -1102,6 +1114,7 @@ public class KeyboardInput : MonoBehaviour {
 
             // AI seek to hitpoint vector
             if (hitObject.tag == "Ground") {
+
                 if (!MiniMap.RectangleArea.PointInside(Input.mousePosition))
                 {
                     for (int i = 0; i < units.Count; i++)
@@ -1149,7 +1162,6 @@ public class KeyboardInput : MonoBehaviour {
                         if (units.Count > 0) {
 
                             // Loop through all selected units & perform ATTACK command on the unit
-                            ///foreach (var unit in units) { unit.AgentAttackObject(unitObj, unit.GetAttackingPositionAtObject(unitObj), true); }
                             foreach (var unit in units) { unit.ForceChaseTarget(unitObj, true); }
 
                             // Play OnAttackSound for the first unit that was selected
@@ -1392,6 +1404,9 @@ public class KeyboardInput : MonoBehaviour {
     public bool CreateScreenSelection() {
 
         if (Input.GetKeyDown(KeyCode.Q)) {
+            
+            // Play local units sound
+            SoundManager.Instance.GetAnnouncer().PlayLocalUnitsSound();
             return true;
         }
         else {

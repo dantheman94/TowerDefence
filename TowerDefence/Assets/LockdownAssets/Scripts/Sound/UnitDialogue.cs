@@ -7,7 +7,7 @@ using UnityEngine;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 07/11/2018
+//  Last edited on: 20/11/2018
 //
 //******************************
 
@@ -28,6 +28,7 @@ public class UnitDialogue : MonoBehaviour {
     public List<string> OnAttackSounds;
     public List<string> OnDeathSounds;
     public List<string> OnSpawnSounds;
+    public List<string> OnDeleteSounds;
 
     //******************************************************************************************************************************
     //
@@ -165,8 +166,28 @@ public class UnitDialogue : MonoBehaviour {
         if (!SoundManager.Instance._DialogueIsPlaying) {
 
             // Play random sound
-            int i = Random.Range(0, OnDeathSounds.Count);
+            int i = Random.Range(0, OnSpawnSounds.Count);
             AudioSource sound = SoundManager.Instance.PlaySound(OnSpawnSounds[i], 1f, 1f);
+            SoundManager.Instance.SetCurrentDialogue(sound);
+
+            // Despawn sound
+            StartCoroutine(DestroySound(sound, sound.clip.length));
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Plays a random sound from the pool list
+    /// </summary>
+    public void PlayDeleteSound() {
+
+        // If theres no current dialogue playing
+        if (!SoundManager.Instance._DialogueIsPlaying) {
+
+            // Play random sound
+            int i = Random.Range(0, OnDeleteSounds.Count);
+            AudioSource sound = SoundManager.Instance.PlaySound(OnDeleteSounds[i], 1f, 1f);
             SoundManager.Instance.SetCurrentDialogue(sound);
 
             // Despawn sound

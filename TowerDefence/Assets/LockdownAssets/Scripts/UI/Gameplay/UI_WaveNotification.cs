@@ -148,6 +148,7 @@ public class UI_WaveNotification : MonoBehaviour {
 
         // Play new wave starting sound
         SoundManager.Instance.PlaySound("SFX/_SFX_WaveStart", 1f, 1f);
+        SoundManager.Instance.GetAnnouncer().PlayNewWaveSound();
 
         if (WaveNameDescription != null) {
 

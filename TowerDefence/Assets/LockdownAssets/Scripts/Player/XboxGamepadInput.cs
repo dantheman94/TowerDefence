@@ -216,6 +216,11 @@ public class XboxGamepadInput : MonoBehaviour {
         }
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
     private void DisableGamepadUI()
     {
         if(!_PlayerAttached._KeyboardInputManager.IsPrimaryController)
@@ -229,7 +234,11 @@ public class XboxGamepadInput : MonoBehaviour {
         }
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /// <summary>
+    //  
+    /// </summary>
     private void ChangeReticle()
     {
         Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
@@ -264,8 +273,12 @@ public class XboxGamepadInput : MonoBehaviour {
             }
         }
     }
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /// <summary>
+    //  
+    /// </summary>
     private void TogglePause()
     {
         if(GameManager.Instance.PauseWidget.transform.gameObject.activeInHierarchy)
@@ -341,7 +354,7 @@ public class XboxGamepadInput : MonoBehaviour {
     /////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    /// Change selection.
+    // Change selection.
     /// </summary>
     public void ChangeSelectionWheel()
     {
@@ -387,6 +400,9 @@ public class XboxGamepadInput : MonoBehaviour {
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /// <summary>
+    //  
+    /// </summary>
     private void DisplayButtonUI()
     {
         Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
@@ -430,6 +446,7 @@ public class XboxGamepadInput : MonoBehaviour {
         }
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     //  
@@ -514,6 +531,10 @@ public class XboxGamepadInput : MonoBehaviour {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="buttonPress"></param>
     private void MoveSelectedUnits(string buttonPress)
     {
         if (_Gamepad.GetButtonDown(buttonPress))

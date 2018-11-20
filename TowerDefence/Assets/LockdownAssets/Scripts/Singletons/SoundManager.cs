@@ -58,7 +58,11 @@ public class SoundManager : MonoBehaviour {
                                                             "Music/_Music_With_Gun_And_Crucifix" };
     private int _PreviousTrackIndex;
     private AudioSource _CurrentDialogue = null;
+
+    [HideInInspector]
     public bool _DialogueIsPlaying = false;
+
+    private Announcer _Announcer = null;
 
     //******************************************************************************************************************************
     //
@@ -90,6 +94,8 @@ public class SoundManager : MonoBehaviour {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     private void Start() {
+
+        _Announcer = GetComponent<Announcer>();
 
         // Play starting track if specified
         if (PlayMusicOnStart) { PlayStartTrack(); }
@@ -514,5 +520,25 @@ public class SoundManager : MonoBehaviour {
     public void SetCurrentDialogue(AudioSource sound) { _CurrentDialogue = sound; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
+
+    /// <summary>
+    //  Returns reference to the current dialogue AudioSource component
+    /// </summary>
+    /// <returns>
+    //  AudioSource
+    /// </returns>
+    public AudioSource GetCurrentDialogue() { return _CurrentDialogue; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Returns reference to the announcer dialogue
+    /// </summary>
+    /// <returns>
+    //  Announcer
+    /// </returns>
+    public Announcer GetAnnouncer() { return _Announcer; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 }

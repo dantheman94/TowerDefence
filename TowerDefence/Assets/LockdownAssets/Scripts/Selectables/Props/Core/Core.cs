@@ -103,6 +103,7 @@ public class Core : Building {
         base.OnDeath(instigator);
 
         // Game is over
+        SoundManager.Instance.GetAnnouncer().PlayLoseCoreDestroyedSound();
         GameManager.Instance.OnGameover(false);
     }
 
@@ -117,8 +118,12 @@ public class Core : Building {
 
         // Notify the player
         //   WaveManager.Instance.CoreDamagedWidget.SetActive(true);
-        if(Messagefeed != null)
-        Messagefeed.DisplayCoreDamaged();
+
+        SoundManager.Instance.GetAnnouncer().PlayCoreAttackedSound();
+
+        if (Messagefeed != null)
+            Messagefeed.DisplayCoreDamaged();
+
         // Only damage the core if all spires are destroyed
         bool damageCore = true;
         for (int i = 0; i < Spires.Count; i++) {
