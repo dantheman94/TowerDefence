@@ -24,6 +24,9 @@ public class SupportAirShip : AirVehicle {
     [Header(" SUPPORT AIRSHIP PROPERTIES")]
     [Space]
     public float HangingDistance = 50f;
+    [Space]
+    public float PropellorRotationSpeed = 10f;
+    public GameObject PropellorObject = null;
 
     //******************************************************************************************************************************
     //
@@ -38,7 +41,19 @@ public class SupportAirShip : AirVehicle {
     //      FUNCTIONS
     //
     //******************************************************************************************************************************
-    
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Called each frame.
+    /// </summary>
+    protected override void Update() {
+        base.Update();
+
+        // Constantly rotate the propellor
+        if (PropellorObject != null) { PropellorObject.transform.Rotate(Vector3.up * PropellorRotationSpeed * Time.deltaTime); }
+    }
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
