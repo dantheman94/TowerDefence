@@ -103,7 +103,7 @@ public class HUD : MonoBehaviour {
                 if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.F10)) {
 
                     // Resume gameplay
-                    if (GameManager.Instance.IsGamePause()) { GameManager.Instance.OnUnpause(); }
+                    if (GameManager.Instance.IsGamePause() && !GameManager.Instance.PauseWidget.SettingsMenu.activeInHierarchy) { GameManager.Instance.OnUnpause(); }
 
                     // Initiate pause
                     else { GameManager.Instance.OnPause(); }
