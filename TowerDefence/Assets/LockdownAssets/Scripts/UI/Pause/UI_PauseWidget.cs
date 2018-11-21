@@ -68,6 +68,15 @@ public class UI_PauseWidget : MonoBehaviour {
     /// </summary>
     private void Update() {
 
+        if(SettingsMenu.activeInHierarchy)
+        {
+            if(Input.GetKeyDown(KeyCode.Escape))
+            {
+                SettingsMenu.SetActive(false);
+                PauseMenu.SetActive(true);
+            }
+        }
+
         // When widget is active
         if (gameObject.activeInHierarchy) {
 

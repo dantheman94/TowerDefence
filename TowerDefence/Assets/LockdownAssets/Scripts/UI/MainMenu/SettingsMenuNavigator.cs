@@ -104,6 +104,7 @@ public class SettingsMenuNavigator : MonoBehaviour {
     public int MasterVolume = 100;
     public int MusicVolume = 100;
     public int EffectsVolume = 100;
+    public int VoiceVolume = 100;
 
 
     [Header("----------------------")]
@@ -122,6 +123,7 @@ public class SettingsMenuNavigator : MonoBehaviour {
     public Slider MasterVolSlider;
     public Slider MusicVolSlider;
     public Slider EffectVolSlider;
+    public Slider VoiceVolSlider;
 
     [Header("----------------------")]
     [Space]
@@ -148,6 +150,8 @@ public class SettingsMenuNavigator : MonoBehaviour {
     private MenuNavigator _MenuNavigator;
 
     private xb_gamepad gamepad;
+
+    private AudioSource _MenuMusicSource;
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -490,6 +494,33 @@ public class SettingsMenuNavigator : MonoBehaviour {
                 }
           
                 break;
+            case "VoiceVolume":
+                if (InputChecker.CurrentController == "Controller")
+                {
+                    if (gamepad.GetButton("LB"))
+                    {
+                        if (VoiceVolume > 0)
+                        {
+                            VoiceVolume--;
+                        }
+
+                        PlayerPrefs.SetFloat("VoiceVolume", VoiceVolume);
+                        UpdateTextAndApplySettings();
+                        PlayerPrefs.Save();
+                    }
+                    else if (gamepad.GetButton("RB"))
+                    {
+                        if (VoiceVolume < 100)
+                        {
+                            VoiceVolume++;
+                        }
+
+                        PlayerPrefs.SetFloat("VoiceVolume", VoiceVolume);
+                        UpdateTextAndApplySettings();
+                        PlayerPrefs.Save();
+                    }
+                }
+                break;
             default:
                 break;
         }
@@ -694,6 +725,7 @@ public class SettingsMenuNavigator : MonoBehaviour {
         PlayerPrefs.GetFloat("MasterVolume", MasterVolume);
         PlayerPrefs.GetFloat("MusicVolume", MusicVolume);
         PlayerPrefs.GetFloat("SFXVolume", EffectsVolume);
+        PlayerPrefs.GetFloat("VoiceVolume", VoiceVolume);
         _Resolution = (Resolution)PlayerPrefs.GetInt("Resolution");
         _AspectRatio = (AspectRatio)PlayerPrefs.GetInt("AspectRatio");
         VSync = PlayerPrefs.GetInt("VSync");
@@ -854,6 +886,7 @@ public class SettingsMenuNavigator : MonoBehaviour {
     /// </summary>
     private void ChangeControllerText()
     {
+        if(_MenuNavigator != null)
         if (_MenuNavigator.SettingsMenu.AreaState == MenuNavigator.SceneAreaState.ACTIVE)
         {
             if (InputChecker.CurrentController == "Controller" )
@@ -900,19 +933,24 @@ public class SettingsMenuNavigator : MonoBehaviour {
             MasterVolSlider.value = MasterVolume;
             MusicVolSlider.value = MusicVolume;
             EffectVolSlider.value = EffectsVolume;
+            VoiceVolSlider.value = VoiceVolume;
 
             MasterVolSlider.GetComponentInChildren<Text>().text = MasterVolume.ToString();
             MusicVolSlider.GetComponentInChildren<Text>().text = MusicVolume.ToString();
             EffectVolSlider.GetComponentInChildren<Text>().text = EffectsVolume.ToString();
+            VoiceVolSlider.GetComponentInChildren<Text>().text = VoiceVolume.ToString();
         }
         else if(InputChecker.CurrentController == "Keyboard")
         {
             MasterVolume = (int)MasterVolSlider.value;
             MusicVolume = (int)MusicVolSlider.value;
             EffectsVolume = (int)EffectVolSlider.value;
+            VoiceVolume = (int)VoiceVolSlider.value;
+
             MasterVolSlider.GetComponentInChildren<Text>().text = MasterVolume.ToString();
             MusicVolSlider.GetComponentInChildren<Text>().text = MusicVolume.ToString();
             EffectVolSlider.GetComponentInChildren<Text>().text = EffectsVolume.ToString();
+            VoiceVolSlider.GetComponentInChildren<Text>().text = VoiceVolume.ToString();
         }
 
     }

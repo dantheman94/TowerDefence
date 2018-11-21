@@ -25,7 +25,11 @@ public class SoundManager : MonoBehaviour {
     [Header(" SOUND MANAGER PROPERTIES")]
     [Space]
     public bool PlayMusicOnStart = true;
+    public bool NewTrack = false;
+    
 
+    public SettingsMenuNavigator Settings;
+    public AudioSource MenuSource;
     //******************************************************************************************************************************
     //
     //      VARIABLES
@@ -64,6 +68,9 @@ public class SoundManager : MonoBehaviour {
 
     private Announcer _Announcer = null;
 
+    private List<AudioSource> _VoxSourceList;
+    private List<AudioSource> _EffectSourceList;
+
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
@@ -89,14 +96,20 @@ public class SoundManager : MonoBehaviour {
         // Initialize lists
         _Sounds = new List<AudioSource>();
         _VoxelWaitingList = new List<AudioSource>();
+        _VoxSourceList = new List<AudioSource>();
+        _EffectSourceList = new List<AudioSource>();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     private void Start() {
-
+        _CurrentDialogue = new AudioSource();
+        _VoxSourceList.Add(_CurrentDialogue);
+        if(MenuSource != null)
+        {
+            _MusicSource = MenuSource;
+        }
         _Announcer = GetComponent<Announcer>();
-
         // Play starting track if specified
         if (PlayMusicOnStart) { PlayStartTrack(); }
         PlayAmbience();
@@ -105,6 +118,7 @@ public class SoundManager : MonoBehaviour {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public void Update() {
+
 
         // Iterate through the sounds list
         for (int i = 0; i < _Sounds.Count; ++i) {
@@ -116,17 +130,56 @@ public class SoundManager : MonoBehaviour {
                 _Sounds.RemoveAt(i);
             }
         }
+        if (NewTrack)
+        {
+            PlayRandomTrack();
+        }
 
         if (_FadingIn) { _CurrentFadeInLerp += Time.deltaTime; }
 
         if (_FadingOut) { _CurrentFadeOutLerp += Time.deltaTime; }
 
         UpdateVoxel();
-        PlayRandomTrack();
+        ChangeEffectVolume();
+        ChangeMusicVolume();
+        ChangeVoiceVolume();
 
         // Updating current dialogue
         if (_CurrentDialogue != null) { _DialogueIsPlaying = _CurrentDialogue.isPlaying; }
         else { _DialogueIsPlaying = false; }
+    }
+
+    public void ChangeEffectVolume()
+    {
+        for(int i = 0; i < _EffectSourceList.Count; ++i)
+        {
+            float masterVol = ((float)Settings.MasterVolume / 100);
+            float trueVol = masterVol * ((float)Settings.EffectsVolume / 100.0f);
+            _EffectSourceList[i].volume = trueVol;
+        }
+    }
+
+    public void ChangeVoiceVolume()
+    {
+        for (int i = 0; i < _VoxSourceList.Count; ++i)
+        {
+            if(_VoxSourceList[i] != null)
+            {
+                float masterVol = ((float)Settings.MasterVolume / 100);
+                float trueVol = masterVol * ((float)Settings.VoiceVolume / 100.0f);
+                 _VoxSourceList[i].volume = trueVol;
+
+            }
+
+        }
+    }
+
+    void ChangeMusicVolume()
+    {
+        float music = ((float)Settings.MasterVolume / 100.0f);
+        float newMusic = music * ((float)Settings.MusicVolume / 100.0f);
+        _MusicSource.volume = newMusic;
+
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -194,12 +247,22 @@ public class SoundManager : MonoBehaviour {
 
             // Randomize the sound's pitch based on the min and max specified
             soundSource.pitch = Random.Range(pitchMin, pitchMax);
-
+ //           soundSource.volume = ((float)Settings.MasterVolume / 100) * (float)Settings.EffectsVolume;
             // Play the sound
             soundSource.Play();
+            if(soundLocation.Contains("SFX"))
+            {
+                _EffectSourceList.Add(soundSource);
+            }
+            else if(soundLocation.Contains("VOX"))
+            {
+                _VoxSourceList.Add(soundSource);
+            }
 
             // Add the sound object to the List
             _Sounds.Add(soundSource);
+
+
 
             return soundSource;
         }
@@ -229,7 +292,14 @@ public class SoundManager : MonoBehaviour {
 
             // Randomize the sound's pitch based on the min and max specified
             soundSource.pitch = Random.Range(pitchMin, pitchMax);
-
+            if (soundLocation.Contains("SFX"))
+            {
+                _EffectSourceList.Add(soundSource);
+            }
+            else if (soundLocation.Contains("VOX"))
+            {
+                _VoxSourceList.Add(soundSource);
+            }
             // Play the sound
             soundSource.Play();
 
@@ -302,6 +372,7 @@ public class SoundManager : MonoBehaviour {
     public void PlayAmbience()
     {
         GameObject AmbientObject = ObjectPooling.Spawn(Resources.Load<GameObject>("Music/Ambient_Sound"));
+        _EffectSourceList.Add(AmbientObject.GetComponent<AudioSource>());
     }
 
     /// <summary>
@@ -509,6 +580,7 @@ public class SoundManager : MonoBehaviour {
         // Play announcer track
         AudioSource sound = PlaySound(soundLocation, 1f, 1f, false);
         _CurrentDialogue = sound;
+  
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
