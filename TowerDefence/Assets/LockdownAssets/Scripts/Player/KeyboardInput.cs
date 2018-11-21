@@ -1488,49 +1488,58 @@ public class KeyboardInput : MonoBehaviour {
     /// <summary>
     // Creates the selection boxes parameters.
     /// </summary>
-    private void CreateSelectionBox() {
+    private void CreateSelectionBox()
+    {
 
-        if (Input.GetMouseButtonDown(0)) {
-            if (!MiniMap.RectangleArea.PointInside(Input.mousePosition))
-                _BoxStartPoint = Input.mousePosition;
-        }
-        else if (Input.GetMouseButtonUp(0)) {
-
-            if (Selection.width < 0) {
-                Selection.x += Selection.width;
-                Selection.width = -Selection.width;
-            }
-            if (Selection.height < 0) {
-                Selection.y += Selection.height;
-                Selection.height = -Selection.height;
-            }
-
-            _BoxStartPoint = -Vector3.one;
-
-            // Update units selected panels
-            GameManager.Instance.SelectedUnitsHUD.RefreshPanels();
-        }
-
-        if (Input.GetMouseButton(0)) {
-      
-            Selection = new Rect(_BoxStartPoint.x, InvertMouseY(_BoxStartPoint.y), Input.mousePosition.x - _BoxStartPoint.x,
-                                 InvertMouseY(Input.mousePosition.y) - InvertMouseY(_BoxStartPoint.y));
-
-            if (Selection.width < 0)
+        if (!GameManager.Instance.IsGamePause())
+        {
+            if (Input.GetMouseButtonDown(0))
             {
-                Selection.x += Selection.width;
-                Selection.width = -Selection.width;
+                if (!MiniMap.RectangleArea.PointInside(Input.mousePosition))
+                    _BoxStartPoint = Input.mousePosition;
             }
-            if (Selection.height < 0)
+            else if (Input.GetMouseButtonUp(0))
             {
-                Selection.y += Selection.height;
-                Selection.height = -Selection.height;
+
+                if (Selection.width < 0)
+                {
+                    Selection.x += Selection.width;
+                    Selection.width = -Selection.width;
+                }
+                if (Selection.height < 0)
+                {
+                    Selection.y += Selection.height;
+                    Selection.height = -Selection.height;
+                }
+
+                _BoxStartPoint = -Vector3.one;
+
+                // Update units selected panels
+                GameManager.Instance.SelectedUnitsHUD.RefreshPanels();
             }
 
-            // Update units selected panels
-            GameManager.Instance.SelectedUnitsHUD.RefreshPanels();
-        }
+            if (Input.GetMouseButton(0))
+            {
 
+                Selection = new Rect(_BoxStartPoint.x, InvertMouseY(_BoxStartPoint.y), Input.mousePosition.x - _BoxStartPoint.x,
+                                     InvertMouseY(Input.mousePosition.y) - InvertMouseY(_BoxStartPoint.y));
+
+                if (Selection.width < 0)
+                {
+                    Selection.x += Selection.width;
+                    Selection.width = -Selection.width;
+                }
+                if (Selection.height < 0)
+                {
+                    Selection.y += Selection.height;
+                    Selection.height = -Selection.height;
+                }
+
+                // Update units selected panels
+                GameManager.Instance.SelectedUnitsHUD.RefreshPanels();
+            }
+
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
