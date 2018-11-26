@@ -66,6 +66,21 @@ public class Humanoid : Vehicle {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
+    //  A coroutine that waits for the seconds specified then
+    //  starts the shrinking process before despawning.
+    /// </summary>
+    /// <param name="delay"></param>
+    protected override IEnumerator DelayedShrinking(float delay) {
+
+        // Delay for 0 seconds
+        yield return new WaitForSeconds(0f);
+
+        // Start shrinking
+        _StartShrinking = true;
+    }
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
     //  Called every frame - updates the soldier/unit's movement and combat behaviours.
     /// </summary>
     protected override void UpdateAIControllerMovement() {

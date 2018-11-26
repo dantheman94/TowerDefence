@@ -633,7 +633,7 @@ public class WorldObject : Selectable {
     //  starts the shrinking process before despawning.
     /// </summary>
     /// <param name="delay"></param>
-    protected IEnumerator DelayedShrinking(float delay) {
+    protected virtual IEnumerator DelayedShrinking(float delay) {
 
         // Delay
         yield return new WaitForSeconds(delay);
