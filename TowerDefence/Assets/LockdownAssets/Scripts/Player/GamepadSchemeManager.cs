@@ -1,7 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//-=-=-=-=-=-=-=-=-=-=-=-=
+//Created by: Angus Secomb
+//Last modified: 28/11/18
+//Editor: Angus
+//-=-=-=-=-=-=-=-=-=-=-=-=
 
 
 public class GamepadSchemeManager : MonoBehaviour {
@@ -33,6 +37,17 @@ public class GamepadSchemeManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+        if (_Singleton != null && _Singleton != this)
+        {
+
+            Destroy(this.gameObject);
+            return;
+        }
+
+        _Singleton = this;
+
+
         _SchemeIndex = PlayerPrefs.GetInt("GamepadScheme");
         SchemeOne.AttackandMove = "X";
         SchemeOne.Selection = "A";
