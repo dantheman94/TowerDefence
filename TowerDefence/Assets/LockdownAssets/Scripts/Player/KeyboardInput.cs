@@ -118,15 +118,6 @@ public class KeyboardInput : MonoBehaviour {
     private void Update() {
         CreateSelectionBox();
 
-        if(GamepadManager.Instance.GetGamepad(1).GetAnyButton())
-        {
-            if(_XboxGamepadInputManager != null) { _XboxGamepadInputManager.IsPrimaryController = true; }
-            IsPrimaryController = false;
-            _XboxGamepadInputManager.enabled = true;
-            this.enabled = false;
-        }
-
-
         if (Input.GetMouseButtonUp(1))
         {
             if(_MouseTimer < 0)

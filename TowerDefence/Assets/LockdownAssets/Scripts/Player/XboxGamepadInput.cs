@@ -112,16 +112,6 @@ public class XboxGamepadInput : MonoBehaviour {
     /// </summary>
     private void Update() {
     
-
-        if(Input.anyKey)
-        {
-            if(_KeyboardInputManager != null) { _KeyboardInputManager.IsPrimaryController = true; }
-            _KeyboardInputManager.enabled = true;
-            IsPrimaryController = false;
-            this.enabled = false;
-
-        }
-
    //     TogglePause();
         if (_PlayerAttached) {
 
@@ -131,7 +121,7 @@ public class XboxGamepadInput : MonoBehaviour {
                 // Disable keyboard / Enable gamepad
                 IsPrimaryController = true;
                 if (_KeyboardInputManager != null) { _KeyboardInputManager.IsPrimaryController = false; }
-                _KeyboardInputManager.enabled = false;
+
             }
             
             // Update gamepad states
