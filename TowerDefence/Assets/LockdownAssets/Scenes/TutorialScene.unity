@@ -9742,6 +9742,40 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NodeAccuracyRadius: 30
   DebugPathColor: {r: 1, g: 0.9485294, b: 0, a: 1}
+--- !u!1 &1132915890
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1132915891}
+  m_Layer: 0
+  m_Name: SelectionMarker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1132915891
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1132915890}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 2120555145}
+  m_Father: {fileID: 1899925134}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -0.000026464837, y: 0.000012695751}
+  m_SizeDelta: {x: 121.65, y: 113.78}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1134278982 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1932084341835278, guid: 2c66d702f7860424f85fb2ee54ea976c,
@@ -14352,7 +14386,7 @@ Prefab:
         type: 2}
       propertyPath: SelectionMarker
       value: 
-      objectReference: {fileID: 2120555145}
+      objectReference: {fileID: 1132915891}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 325bea65cc9b86044859a39a16778522, type: 2}
   m_IsPrefabParent: 0
@@ -17537,16 +17571,16 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2120555144}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1899925134}
-  m_RootOrder: 3
+  m_Father: {fileID: 1132915891}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000014305, y: 84.8}
+  m_AnchoredPosition: {x: 0.000014305, y: 84.4}
   m_SizeDelta: {x: 71.13, y: 78.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2120555146
