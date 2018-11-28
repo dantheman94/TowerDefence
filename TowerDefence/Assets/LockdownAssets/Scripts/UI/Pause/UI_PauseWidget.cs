@@ -253,6 +253,7 @@ public class UI_PauseWidget : MonoBehaviour {
     {
         if(GamepadManager.Instance.GetGamepad(1).IsConnected)
         {
+            if(GamepadUI !=null)
             GamepadUI.SetActive(true);
             if(GamepadManager.Instance.GetGamepad(1).GetButtonDown("B"))
             {
