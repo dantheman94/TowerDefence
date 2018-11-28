@@ -112,6 +112,14 @@ public class XboxGamepadInput : MonoBehaviour {
     /// </summary>
     private void Update() {
     
+
+        if(Input.anyKey)
+        {
+            _KeyboardInputManager.enabled = true;
+            this.enabled = false;
+
+        }
+
    //     TogglePause();
         if (_PlayerAttached) {
 
