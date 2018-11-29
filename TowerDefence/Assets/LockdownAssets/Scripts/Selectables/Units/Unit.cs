@@ -827,6 +827,7 @@ public class Unit : WorldObject {
             // Update distance to attacking target
             if (_AttackTarget != null) {
 
+                // Attack target is still alive
                 if (_AttackTarget.IsAlive()) {
 
                     // Check if the target is within attacking range
@@ -863,6 +864,7 @@ public class Unit : WorldObject {
                 else {
 
                     _IsFollowingPlayerCommand = false;
+                    _AttackTarget = null;
 
                     // Remove from target list
                     RemovePotentialTarget(_AttackTarget);
@@ -990,7 +992,7 @@ public class Unit : WorldObject {
     /// <summary>
     //  Coroutine used to make the enemy units follow their attack paths to the core.
     /// </summary>
-    /// <param name="pos"></param>
+    // <param name="pos"></param>
     /// <returns>
     //  IEnumerator
     /// </returns>
@@ -1005,7 +1007,7 @@ public class Unit : WorldObject {
     /// <summary>
     //  Sets the agent's destination for seeking.
     /// </summary>
-    /// <param name="seekTarget"></param>
+    // <param name="seekTarget"></param>
     public virtual void AgentSeekPosition(Vector3 seekTarget, bool overwrite = false, bool displayWaypoint = true) {
 
         _DisplaySeekWaypoint = displayWaypoint;
@@ -1050,10 +1052,10 @@ public class Unit : WorldObject {
     //  Sets the attack target to the worldObject passed through, 
     //  as well as pathfinding to the position passed in.
     /// </summary>
-    /// <param name="attackTarget"></param>
-    /// <param name="seekPosition"></param>
-    /// <param name="overwrite"></param>
-    /// <param name="displayWaypoint"></param>
+    // <param name="attackTarget"></param>
+    // <param name="seekPosition"></param>
+    // <param name="overwrite"></param>
+    // <param name="displayWaypoint"></param>
     public void AgentAttackObject(WorldObject attackTarget, Vector3 seekPosition, bool overwrite = false, bool displayWaypoint = true) {
 
         // Set target
@@ -1070,7 +1072,7 @@ public class Unit : WorldObject {
     //  Sets the attack target to the worldObject passed through &
     //  creates a seek position internally.
     /// </summary>
-    /// <param name="attackTarget"></param>
+    // <param name="attackTarget"></param>
     public void AgentAttackObject(WorldObject attackTarget) {
 
         // Add target to list and make it the current target
@@ -1096,7 +1098,7 @@ public class Unit : WorldObject {
     /// <summary>
     //  
     /// </summary>
-    /// <param name="hitPoint"></param>
+    // <param name="hitPoint"></param>
     public virtual void AgentPerformAbility(Vector3 hitPoint) {
 
         // Does the unit have an ability?
@@ -1210,7 +1212,7 @@ public class Unit : WorldObject {
     /// <summary>
     //  
     /// </summary>
-    /// <param name="delayTime"></param>
+    // <param name="delayTime"></param>
     protected virtual IEnumerator ResetToOrigin(int delayTime = 3) {
         
         while (_IsReturningToOrigin) {
@@ -1228,7 +1230,7 @@ public class Unit : WorldObject {
     /// <summary>
     //  
     /// </summary>
-    /// <param name="delayTime"></param>
+    // <param name="delayTime"></param>
     protected virtual IEnumerator ResetWeaponPosition(int delayTime) {
 
         yield return new WaitForSeconds(delayTime);
@@ -1250,7 +1252,7 @@ public class Unit : WorldObject {
     /// <summary>
     //  Adds a WorldObject to the weighted target list
     /// </summary>
-    /// <param name="target"></param>
+    // <param name="target"></param>
     public virtual void AddPotentialTarget(WorldObject target) {
 
         if (_PotentialTargets != null && _ObjectState == WorldObjectStates.Active) {
@@ -1282,13 +1284,14 @@ public class Unit : WorldObject {
     //  Checks if the WorldObject is contained in the weighted 
     //  target list & removes if it found.
     /// </summary>
-    /// <param name="target"></param>
+    // <param name="target"></param>
     public void RemovePotentialTarget(WorldObject target) { _PotentialTargets.Remove(target); }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  
+    //  Uses a weighted selection algorithm to determine a new attack target, 
+    //  given by the argumented weightList.
     /// </summary>
     public virtual void DetermineWeightedTargetFromList(TargetWeight[] weightList) {
 
@@ -1297,7 +1300,7 @@ public class Unit : WorldObject {
             
             // Use weighted selection to determine the next target
             List<int> targetWeights = new List<int>();
-            /*
+        /*
             if (weightList != null || weightList.Length > 0) {
                 
                 // For each known potential target
@@ -1331,7 +1334,8 @@ public class Unit : WorldObject {
                 // All potential targets have a weight of 1 to be the next target
                 for (int i = 0; i < _PotentialTargets.Count; i++) { targetWeights.Add(1); }
             }
-            */
+        */
+
             // All potential targets have a weight of 1 to be the next target
             for (int i = 0; i < _PotentialTargets.Count; i++) { targetWeights.Add(1); }
 
@@ -1352,7 +1356,7 @@ public class Unit : WorldObject {
     /// <summary>
     //  Gets a random index based of a list of weighted ints.
     /// </summary>
-    /// <param name="weights"></param>
+    // <param name="weights"></param>
     /// <returns>
     //  int
     /// </returns>
@@ -1384,7 +1388,7 @@ public class Unit : WorldObject {
     //  Loops through the potential/known target list for the unit and checks to see if the target
     //  is contained in the list
     /// </summary>
-    /// <param name="target"></param>
+    // <param name="target"></param>
     /// <returns>
     //  bool
     /// </returns>
@@ -1393,16 +1397,16 @@ public class Unit : WorldObject {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  
+    //  Force set the _AttackTarget of the unit by the passed in WorldObject.
     /// </summary>
-    /// <param name="target"></param>
+    // <param name="target"></param>
     public void SetAttackTarget(WorldObject target) { _AttackTarget = target; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
     /// <summary>
-    //  Get refernence of the current attack target.
+    //  Get reference of the current attack target.
     /// </summary>
     /// <returns>
     // WorldObject
@@ -1412,9 +1416,9 @@ public class Unit : WorldObject {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  
+    //  Attempts to chase the WorldObject passed in, if possible by an array of different parameters.
     /// </summary>
-    /// <param name="worldObject"></param>
+    // <param name="worldObject"></param>
     public virtual bool TryToChaseTarget(WorldObject objTarget) {
 
         // Validity check
@@ -1434,9 +1438,9 @@ public class Unit : WorldObject {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  
+    //  Overrides the current _AttackTarget of the unit and forces the unit to begin a chase sequence to it.
     /// </summary>
-    /// <param name="worldObject"></param>
+    // <param name="worldObject"></param>
     public virtual bool ForceChaseTarget(WorldObject objTarget, bool playerCommand = false) {
 
         // Validity check
@@ -1524,7 +1528,7 @@ public class Unit : WorldObject {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     /// <summary>
-    //   
+    //   Returns a booling on whether the player is manually controlling the unit with WASD/Joystick input.
     /// </summary>
     /// <returns>
     //  bool
@@ -1536,13 +1540,13 @@ public class Unit : WorldObject {
     /// <summary>
     //  Set's the attack path to the core for this individual unit.
     /// </summary>
-    /// <param name="path"></param>
+    // <param name="path"></param>
     public void SetAttackPath(AttackPath path) { _AttackPath = path; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  
+    //  Returns reference to the _AttackPath being used by the unit.
     /// </summary>
     /// <returns>
     //  AttackPath
@@ -1567,7 +1571,7 @@ public class Unit : WorldObject {
     /// <summary>
     //  Sets reference to the Lockdown base associated with this attacking unit. (Used for retreating)
     /// </summary>
-    /// <param name=""></param>
+    // <param name=""></param>
     public void SetLockdownBase(Base lockdownBase) {
 
         if (Team == GameManager.Team.Attacking) { _LockdownBase = lockdownBase; }
@@ -1609,7 +1613,7 @@ public class Unit : WorldObject {
     /// <summary>
     //  Sets the path interupted value to the boolean specified.
     /// </summary>
-    /// <param name="value"></param>
+    // <param name="value"></param>
     public void SetPathInterupted(bool value) { _PathInterupted = value; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1627,7 +1631,7 @@ public class Unit : WorldObject {
     /// <summary>
     //  Sets whether the unit should be in their guard or agro state.
     /// </summary>
-    /// <param name="value"></param>
+    // <param name="value"></param>
     public void SetGuard(bool value) { _IsGuarding = value; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
