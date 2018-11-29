@@ -443,6 +443,10 @@ public class XboxGamepadInput : MonoBehaviour {
             {
                 XButton.enabled = false;
             }
+
+
+            YButton.enabled = false;
+            BButton.enabled = false;
         }
     }
 
@@ -501,11 +505,11 @@ public class XboxGamepadInput : MonoBehaviour {
         
         // Make sure movement is in the direction the camera is pointing
         // but ignore the vertical tilt of the camera to get sensible scrolling
-        movement = _PlayerAttached.CameraAttached.transform.TransformDirection(movement);
+        movement = _PlayerAttached.CameraAttached.transform.parent.TransformDirection(movement);
         movement.y = 0;
 
         // Calculate desired camera position based on received input
-        Vector3 posOrigin = _PlayerAttached.CameraAttached.transform.position;
+        Vector3 posOrigin = _PlayerAttached.CameraAttached.transform.parent.position;
         Vector3 posDestination = posOrigin;
         posDestination.x += movement.x;
         posDestination.y += movement.y;
@@ -522,7 +526,7 @@ public class XboxGamepadInput : MonoBehaviour {
         if (posDestination != posOrigin) {
 
             // Update position
-            _PlayerAttached.CameraAttached.transform.position = Vector3.MoveTowards(posOrigin, posDestination, Time.deltaTime * Settings.MovementSpeed);
+            _PlayerAttached.CameraAttached.transform.parent.position = Vector3.MoveTowards(posOrigin, posDestination, Time.deltaTime * Settings.MovementSpeed);
         }
 
         // Smoothly move toward target position
@@ -718,7 +722,7 @@ public class XboxGamepadInput : MonoBehaviour {
     /// </summary>
     private void RotateCamera() {
 
-        Vector3 rotOrigin = _PlayerAttached.CameraAttached.transform.eulerAngles;
+        Vector3 rotOrigin = _PlayerAttached.CameraAttached.transform.parent.eulerAngles;
 
         bool pressed = false;
 
@@ -736,7 +740,7 @@ public class XboxGamepadInput : MonoBehaviour {
             if (GameManager.Instance.GetIsUnitControlling()) { _LookPoint = _PlayerAttached._CameraFollow.GetFollowTarget().transform.position; }
 
             // Rotate around point
-            _PlayerAttached.CameraAttached.transform.RotateAround(_LookPoint, Vector3.up, Settings.RotateSpeed * -dir * Time.deltaTime);
+            _PlayerAttached.CameraAttached.transform.parent.RotateAround(_LookPoint, Vector3.up, Settings.RotateSpeed * -dir * Time.deltaTime);
 
             // Used for resetting the mouse position
             pressed = true;
