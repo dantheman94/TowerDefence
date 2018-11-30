@@ -32,6 +32,9 @@ public class UnitHealthBar : MonoBehaviour {
     [Space]
     public Slider HealthSlider = null;
     public Image HealthFill = null;
+    [Space]
+    public Image BuildLogoImage = null;
+    public UnityEngine.UI.Outline BuildLogoOutline = null;
 
     [Space]
     [Header("-----------------------------------")]

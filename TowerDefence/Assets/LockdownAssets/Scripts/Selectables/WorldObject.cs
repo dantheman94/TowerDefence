@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 //******************************
 //
@@ -59,6 +60,10 @@ public class WorldObject : Selectable {
     [Header("-----------------------------------")]
     [Space]
     public GameObject QuadMinimap = null;
+    [Space]
+    public bool ShowBuildLogoInHealthBar = false;
+    public Sprite HealthBarLogo = null;
+    public float BuildLogoOffset = -60f;
     [Space]
     [Tooltip("The 'width' of the RectTransform that represents the healthbar tied to this object.")]
     public float _WidgetHealthbarScaleX = 100f;
@@ -657,9 +662,7 @@ public class WorldObject : Selectable {
     /// <summary>
     //  Sets the position of the object based on what building slot has been passed through. 
     /// </summary>
-    /// <param name="buildingSlot"><
-    //  The building slot that is being used as reference for positioning.
-    /// /param>
+    // <param name="buildingSlot"></param>
     protected void SetBuildingPosition(BuildingSlot buildingSlot) {
 
         // Initial transform update
@@ -674,8 +677,8 @@ public class WorldObject : Selectable {
     /// <summary>
     //  Creates a healthbar widget for the object. (This also attachs it to the object afterwards).
     /// </summary>
-    /// <param name="thisObject"></param>
-    /// <param name="camera"></param>
+    // <param name="thisObject"></param>
+    // <param name="camera"></param>
     public void CreateHealthBar(WorldObject thisObject, Camera camera) {
 
         // Create a health bar and allocate it to the unit
@@ -693,6 +696,87 @@ public class WorldObject : Selectable {
         RectTransform shieldRectTransform = _HealthBar.ShieldSlider.GetComponent<RectTransform>();
         shieldRectTransform.sizeDelta = new Vector2(_WidgetShieldbarScaleX, _WidgetShieldbarScaleY);
         shieldRectTransform.anchoredPosition = new Vector2(0, _WidgetShieldbarOffset);
+
+        // Build logo properties
+        if (ShowBuildLogoInHealthBar) {
+
+            _HealthBar.BuildLogoImage.gameObject.SetActive(true);
+
+            if (HealthBarLogo != null)  { _HealthBar.BuildLogoImage.sprite = HealthBarLogo; }
+            else                        { _HealthBar.BuildLogoImage.sprite = Logo; }            
+            _HealthBar.BuildLogoImage.GetComponent<RectTransform>().anchoredPosition = new Vector2(BuildLogoOffset, 0);
+        }
+        else { _HealthBar.BuildLogoImage.gameObject.SetActive(false); }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Called each frame.
+    /// </summary>
+    // <param name="draw"></param>
+    public override void DrawSelection(bool draw) {
+        base.DrawSelection(draw);
+
+        if (_HealthBar) {
+
+            if (_IsCurrentlySelected && ShowBuildLogoInHealthBar) {
+
+                if (_HealthBar.BuildLogoOutline != null) {
+
+                    Color col = new Color();
+                    switch (Team) {
+
+                        case GameManager.Team.Undefined: { col = Color.white; break; }
+                        case GameManager.Team.Defending: { col = _Player.TeamColor; break; }
+                        case GameManager.Team.Attacking: { col = WaveManager.Instance.AttackingTeamColour; break; }
+                        default: break;
+                    }
+                    _HealthBar.BuildLogoOutline.effectColor = col;
+                }
+            }
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Called each frame.
+    /// </summary>
+    // <param name="highlight"></param>
+    public override void DrawHighlight(bool highlight) {
+        base.DrawHighlight(highlight);
+
+        if (_HealthBar != null) {
+
+            if (_IsCurrentlyHighlighted && ShowBuildLogoInHealthBar) {
+
+                if (_HealthBar.BuildLogoOutline != null) {
+
+                    Color col = new Color();
+                    switch (Team) {
+
+                        case GameManager.Team.Undefined: { col = Color.white; break; }
+                        case GameManager.Team.Defending: { col = _Player.TeamColor; break; }
+                        case GameManager.Team.Attacking: { col = WaveManager.Instance.AttackingTeamColour; break; }
+                        default: break;
+                    }
+
+                    // Slightly darker shade for the highlighting colour
+                    col.r -= 0.1f;
+                    col.g -= 0.1f;
+                    col.b -= 0.1f;
+                    col.a /= 2f;
+
+                    _HealthBar.BuildLogoOutline.effectColor = col;
+                }
+            }
+            else {
+
+                // Reset colour to black
+                if (_HealthBar.BuildLogoOutline != null) { _HealthBar.BuildLogoOutline.effectColor = Color.black; }
+            }
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

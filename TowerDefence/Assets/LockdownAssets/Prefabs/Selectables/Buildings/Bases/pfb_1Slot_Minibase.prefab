@@ -309,8 +309,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1214374601265692}
-  m_LocalRotation: {x: -0, y: -0.70210105, z: -0, w: 0.7120774}
-  m_LocalPosition: {x: 201.95, y: 0.31, z: 360.75}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -30, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4444188861028910}
@@ -318,7 +318,7 @@ Transform:
   - {fileID: 4738151663491688}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -89.192, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23079269462859336
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -573,6 +573,9 @@ MonoBehaviour:
   MultiSelectable: 0
   _OffsetY: 0
   QuadMinimap: {fileID: 1555972014821882}
+  ShowBuildLogoInHealthBar: 1
+  HealthBarLogo: {fileID: 0}
+  BuildLogoOffset: -60
   _WidgetHealthbarScaleX: 100
   _WidgetHealthbarScaleY: 10
   _WidgetHealthbarOffset: 0
@@ -715,6 +718,9 @@ MonoBehaviour:
   MultiSelectable: 1
   _OffsetY: 0
   QuadMinimap: {fileID: 0}
+  ShowBuildLogoInHealthBar: 0
+  HealthBarLogo: {fileID: 0}
+  BuildLogoOffset: 60
   _WidgetHealthbarScaleX: 100
   _WidgetHealthbarScaleY: 15
   _WidgetHealthbarOffset: 15

@@ -153,9 +153,9 @@ public class Selectable : Abstraction {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  
+    //  Called each frame.
     /// </summary>
-    /// <param name="draw"></param>
+    // <param name="draw"></param>
     public virtual void DrawSelection(bool draw) {
 
         // Show selection
@@ -190,9 +190,9 @@ public class Selectable : Abstraction {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  
+    //  Called each frame.
     /// </summary>
-    /// <param name="highlight"></param>
+    // <param name="highlight"></param>
     public virtual void DrawHighlight(bool highlight) {
 
         // Show selection
