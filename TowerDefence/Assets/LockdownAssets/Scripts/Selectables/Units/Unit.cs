@@ -1258,7 +1258,7 @@ public class Unit : WorldObject {
         if (_PotentialTargets != null && _ObjectState == WorldObjectStates.Active) {
 
             // Not a friendly unit...
-            if (target.Team != Team) {
+            if (target.Team != Team && target.Team != GameManager.Team.Undefined) {
 
                 // Look for match
                 bool match = false;

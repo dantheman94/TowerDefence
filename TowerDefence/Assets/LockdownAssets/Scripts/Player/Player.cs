@@ -41,6 +41,15 @@ public class Player : MonoBehaviour {
     [Header(" CONTROLLER SETUP")]
     [Space]
     public InputController _CurrentController = InputController.Keyboard;
+    [Space]
+    public Texture2D CursorDefault = null;
+    public Color CursorColourDefault = Color.white;
+    [Space]
+    public Texture2D CursorFriendly = null;
+    public Color CursorColourFriendly = Color.cyan;
+    [Space]
+    public Texture2D CursorEnemy = null;
+    public Color CursorColourEnemy = Color.red;
 
     //******************************************************************************************************************************
     //
@@ -64,6 +73,7 @@ public class Player : MonoBehaviour {
     public List<Selectable> SelectedWorldObjects { get; set; }
     public List<Unit> SelectedUnits { get; set; }
     public static Rect SelectionScreen = new Rect(0, 0, Screen.width, Screen.height);
+    public Texture2D _CurrentCursor { get; set; }
 
     // Economy
     public int MaxPopulation { get; set; }
@@ -164,6 +174,10 @@ public class Player : MonoBehaviour {
         // Initialize starting base
         _Bases.Add(GameManager.Instance.StartingBase);
         GameManager.Instance.StartingBase.AttachedBuildingSlot.SetBuildingOnSlot(GameManager.Instance.StartingBase);
+
+        // Set default cursor/crosshair
+        _CurrentCursor = CursorDefault;
+        Cursor.SetCursor(_CurrentCursor, Vector2.zero, CursorMode.Auto);
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -408,6 +422,27 @@ public class Player : MonoBehaviour {
 
         // Loop through all the platoons and try to remove the unit from them
         for (int i = 0; i < _Platoons.Count; i++) { _Platoons[i].TryToRemoveUnit(unit); }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    // <param name="colour"></param>
+    // <param name="texture"></param>
+    public void ChangeCursorProperties(Color colour, Texture2D texture) {
+
+        // Update texture
+        _CurrentCursor = texture;
+
+        // Update texture pixel colours
+        Color[] pixels = _CurrentCursor.GetPixels();
+        for (int i = 0; i < pixels.Length - 1; i++) { pixels[i] = colour; }
+        _CurrentCursor.Apply();
+
+        // Update cursor
+        Cursor.SetCursor(_CurrentCursor, Vector2.zero, CursorMode.Auto);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

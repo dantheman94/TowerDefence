@@ -724,6 +724,16 @@ public class KeyboardInput : MonoBehaviour {
 
                                         // Highlight building
                                         _HighlightFocus.SetIsHighlighted(true);
+
+                                        // Update cursor
+                                        if (_HighlightFocus.Team == _PlayerAttached.Team || _HighlightFocus.Team == GameManager.Team.Undefined) {
+
+                                            _PlayerAttached.ChangeCursorProperties(_PlayerAttached.CursorColourFriendly, _PlayerAttached.CursorFriendly);
+                                        }
+                                        else {
+
+                                            _PlayerAttached.ChangeCursorProperties(_PlayerAttached.CursorColourEnemy, _PlayerAttached.CursorEnemy);
+                                        }
                                     }
                                 }
 
@@ -734,7 +744,17 @@ public class KeyboardInput : MonoBehaviour {
                                     if (_HighlightUnit.GetObjectState() == Abstraction.WorldObjectStates.Active) {
 
                                         Unit unit = _HighlightUnit.GetComponent<Unit>();
-                                        if (unit != null) { _HighlightUnit.SetIsHighlighted(true); }                                        
+                                        if (unit != null) { _HighlightUnit.SetIsHighlighted(true); }
+
+                                        // Update cursor
+                                        if (_HighlightUnit.Team == _PlayerAttached.Team || _HighlightUnit.Team == GameManager.Team.Undefined) {
+
+                                            _PlayerAttached.ChangeCursorProperties(_PlayerAttached.CursorColourFriendly, _PlayerAttached.CursorFriendly);
+                                        }
+                                        else {
+
+                                            _PlayerAttached.ChangeCursorProperties(_PlayerAttached.CursorColourEnemy, _PlayerAttached.CursorEnemy);
+                                        }
                                     }
                                 }
 
@@ -746,6 +766,16 @@ public class KeyboardInput : MonoBehaviour {
 
                                         // Highlight building
                                         _HighlightFocus.SetIsHighlighted(true);
+                                        
+                                        // Update cursor
+                                        if (_HighlightFocus.Team == _PlayerAttached.Team || _HighlightFocus.Team == GameManager.Team.Undefined) {
+
+                                            _PlayerAttached.ChangeCursorProperties(_PlayerAttached.CursorColourFriendly, _PlayerAttached.CursorFriendly);
+                                        }
+                                        else {
+
+                                            _PlayerAttached.ChangeCursorProperties(_PlayerAttached.CursorColourEnemy, _PlayerAttached.CursorEnemy);
+                                        }
                                     }
                                 }
                             }
@@ -782,6 +812,9 @@ public class KeyboardInput : MonoBehaviour {
         _HighlightWorldObject = null;
 
         for (int i = 0; i < _PlayerAttached.GetArmy().Count; i++) { _PlayerAttached.GetArmy()[i].SetIsHighlighted(false); }
+
+        // Update cursor
+        _PlayerAttached.ChangeCursorProperties(_PlayerAttached.CursorColourDefault, _PlayerAttached.CursorDefault);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

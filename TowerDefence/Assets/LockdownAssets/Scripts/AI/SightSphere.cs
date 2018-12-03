@@ -174,7 +174,7 @@ public class SightSphere : MonoBehaviour {
                     WorldObject worldObject = other.gameObject.GetComponent<WorldObject>();
 
                     // Enemy team?
-                    if (worldObject.Team != _UnitAttached.Team) {
+                    if (worldObject.Team != _UnitAttached.Team && worldObject.Team != GameManager.Team.Undefined) {
 
                         // Try to chase the target
                         _UnitAttached.AddPotentialTarget(worldObject);

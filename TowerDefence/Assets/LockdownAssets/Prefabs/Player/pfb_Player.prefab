@@ -40,7 +40,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000091221177592}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -80,25 +80,25 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000091221177592}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7bc95350308c6884eb893838e84c13a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CanSelect: 0
   SphereSelectorObject: {fileID: 1272076427265570, guid: 585b5b89f62a3be4ba0d271c64ecc9f1,
     type: 2}
-  ReticleImage: {fileID: 0}
   MaxSphereRadius: 250
-  SphereGrowRate: 10
+  SphereGrowRate: 5
   SphereStartRadius: 5
   MaskBlock:
     serializedVersion: 2
     m_Bits: 44545
+  CrosshairImage: {fileID: 0}
   AButton: {fileID: 0}
   XButton: {fileID: 0}
   BButton: {fileID: 0}
   YButton: {fileID: 0}
+  CanSelect: 0
 --- !u!114 &114537414513584320
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -116,6 +116,12 @@ MonoBehaviour:
   Team: 1
   TeamColor: {r: 0, g: 0.5862069, b: 1, a: 1}
   _CurrentController: 0
+  CursorDefault: {fileID: 2800000, guid: e8bba94d91e5ddc4fbdadc9da6a6bcf6, type: 3}
+  CursorColourDefault: {r: 1, g: 1, b: 1, a: 1}
+  CursorFriendly: {fileID: 2800000, guid: c4b00a2881c998146950b438f8d6cdca, type: 3}
+  CursorColourFriendly: {r: 0, g: 1, b: 0, a: 1}
+  CursorEnemy: {fileID: 2800000, guid: 59a1edb20d5fa474d83785634df042e9, type: 3}
+  CursorColourEnemy: {r: 1, g: 0, b: 0, a: 1}
   Difficulty: 
   Outcome: 
   Name: Player
@@ -156,11 +162,7 @@ MonoBehaviour:
   SelectionHighlight: {fileID: 2800000, guid: 19d6f02fc2bca9d4b9c1777bdc3b158f, type: 3}
   MiniMap: {fileID: 0}
   Slicedrawer: {fileID: 0}
-  BoxColor: {r: 0, g: 0, b: 0, a: 0}
-  BoundsXMin: -780
-  BoundsXMax: 780
-  BoundsZMin: -780
-  BoundsZMax: 780
+  BoxColor: {r: 0.07352942, g: 0.6166329, b: 1, a: 1}
 --- !u!114 &114753507623115826
 MonoBehaviour:
   m_ObjectHideFlags: 1
