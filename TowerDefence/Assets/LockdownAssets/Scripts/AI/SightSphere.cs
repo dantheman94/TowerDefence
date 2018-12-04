@@ -12,7 +12,7 @@ using UnityEngine;
 //******************************
 
 public class SightSphere : MonoBehaviour {
-    
+
     //******************************************************************************************************************************
     //
     //      VARIABLES
@@ -54,7 +54,7 @@ public class SightSphere : MonoBehaviour {
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="other"></param>
+    // <param name="other"></param>
     private void OnTriggerEnter(Collider other) {
 
         // Valid unit or building
@@ -67,42 +67,35 @@ public class SightSphere : MonoBehaviour {
                 // This component is attached to a unit/AI object
                 if (_UnitAttached != null) {
 
-                    // Enemy team?
-                    if (_WorldObjectInFocus.Team != _UnitAttached.Team && _WorldObjectInFocus.Team != GameManager.Team.Undefined) {
+                    if (_WorldObjectInFocus.Team != _UnitAttached.Team && _WorldObjectInFocus.Team != GameManager.Team.Undefined &&     // Enemy team?
+                        _WorldObjectInFocus._ObjectState == Abstraction.WorldObjectStates.Active &&                                     // Active in the world?
+                        _WorldObjectInFocus.CanBeTargetted == true) {                                                                   // Can be targetted?
 
-                        // Active in the world?
-                        if (_WorldObjectInFocus._ObjectState == Abstraction.WorldObjectStates.Active) {
-
-                            // Try to add to weighted list
-                            _UnitAttached.AddPotentialTarget(_WorldObjectInFocus);
-                        }
+                        // Try to add to weighted list
+                        _UnitAttached.AddPotentialTarget(_WorldObjectInFocus);
                     }
                 }
 
                 // This component is attached to a tower object
                 if (_TowerAttached != null) {
-
-                    // Enemy team?
-                    if (_WorldObjectInFocus.Team != _TowerAttached.Team && _WorldObjectInFocus.Team != GameManager.Team.Undefined) {
-
-                        // Active in the world?
-                        if (_WorldObjectInFocus._ObjectState == Abstraction.WorldObjectStates.Active) {
-
-                            // Try to add to weighted list
-                            _TowerAttached.AddPotentialTarget(_WorldObjectInFocus);
-                        }
+                    
+                    if (_WorldObjectInFocus.Team != _UnitAttached.Team && _WorldObjectInFocus.Team != GameManager.Team.Undefined &&     // Enemy team?
+                        _WorldObjectInFocus._ObjectState == Abstraction.WorldObjectStates.Active &&                                     // Active in the world?
+                        _WorldObjectInFocus.CanBeTargetted == true) {                                                                   // Can be targetted?
+                                                                                                                                        // Try to add to weighted list
+                        _TowerAttached.AddPotentialTarget(_WorldObjectInFocus);
                     }
                 }
             }
         }
     }
-
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
     //  Called whenever something exits the sphere collider
     /// </summary>
-    /// <param name="other"></param>
+    // <param name="other"></param>
     private void OnTriggerExit(Collider other) {
 
         // Valid unit or building
@@ -173,8 +166,9 @@ public class SightSphere : MonoBehaviour {
 
                     WorldObject worldObject = other.gameObject.GetComponent<WorldObject>();
 
-                    // Enemy team?
-                    if (worldObject.Team != _UnitAttached.Team && worldObject.Team != GameManager.Team.Undefined) {
+                    if (_WorldObjectInFocus.Team != _UnitAttached.Team && _WorldObjectInFocus.Team != GameManager.Team.Undefined &&     // Enemy team?
+                        _WorldObjectInFocus._ObjectState == Abstraction.WorldObjectStates.Active &&                                     // Active in the world?
+                        _WorldObjectInFocus.CanBeTargetted == true) {                                                                   // Can be targetted?
 
                         // Try to chase the target
                         _UnitAttached.AddPotentialTarget(worldObject);

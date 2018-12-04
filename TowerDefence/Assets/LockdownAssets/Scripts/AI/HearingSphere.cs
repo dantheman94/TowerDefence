@@ -97,23 +97,22 @@ public class HearingSphere : MonoBehaviour {
             _WorldObjectInFocus = other.gameObject.GetComponent<WorldObject>();
             if (_WorldObjectInFocus != null && checkForShoot) {
 
-                // Enemy team?
-                if (_WorldObjectInFocus.Team != _UnitAttached.Team && _WorldObjectInFocus.Team != GameManager.Team.Undefined) {
+                if (_WorldObjectInFocus.Team != _UnitAttached.Team && _WorldObjectInFocus.Team != GameManager.Team.Undefined &&     // Enemy team?
+                    _WorldObjectInFocus._ObjectState == Abstraction.WorldObjectStates.Active &&                                     // Active in the world?
+                    _WorldObjectInFocus.CanBeTargetted == true) {                                                                   // Can be targetted?
 
-                    // Active in the world?
-                    if (_WorldObjectInFocus._ObjectState == Abstraction.WorldObjectStates.Active) {
+                    // Is it currently shooting right now?
+                    Unit unit = _WorldObjectInFocus.GetComponent<Unit>();
+                    if (unit != null) {
 
-                        // Is it currently shooting right now?
-                        Unit unit = _WorldObjectInFocus.GetComponent<Unit>();
-                        if (unit != null) {
-                            
-                            if (unit.PrimaryWeapon != null) {
+                        // Weapon null check
+                        if (unit.PrimaryWeapon != null) {
 
-                                if (unit.PrimaryWeapon.IsFiring()) {
+                            // Primary weapon is shooting
+                            if (unit.PrimaryWeapon.IsFiring()) {
 
-                                    // Add to weighted list
-                                    _UnitAttached.AddPotentialTarget(unit);
-                                }
+                                // Add to weighted list
+                                _UnitAttached.AddPotentialTarget(unit);
                             }
                         }
                     }

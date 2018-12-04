@@ -1162,6 +1162,88 @@ RectTransform:
   m_PrefabParentObject: {fileID: 224875171615415428, guid: 2c66d702f7860424f85fb2ee54ea976c,
     type: 2}
   m_PrefabInternal: {fileID: 116345845}
+--- !u!1 &118875155
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1572815711825730, guid: f1e4144c30b47954f81ebbe20aac7b7b,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 118875156}
+  - component: {fileID: 118875158}
+  - component: {fileID: 118875157}
+  m_Layer: 0
+  m_Name: t_Message
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &118875156
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 224882350766180620, guid: f1e4144c30b47954f81ebbe20aac7b7b,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 118875155}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 5}
+  m_LocalScale: {x: 1.0000031, y: 1.0000031, z: 1.0000054}
+  m_Children: []
+  m_Father: {fileID: 1259712618}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 18.200012, y: -1.8900146}
+  m_SizeDelta: {x: 26.299988, y: -3.7800293}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &118875157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114611647196319546, guid: f1e4144c30b47954f81ebbe20aac7b7b,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 118875155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: bb12ca948bd833b4fa88a376cdf58995, type: 3}
+    m_FontSize: 17
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 1
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: "\nWASD \t \t\t\t\t\t\tMove Camera\nALT + MOUSE \t\t\t\tRotate Camera\nMouse
+    Wheel  \t\t\t\tCamera Zoom\n___________________________________________\n\n\nLMB
+    \ \t\t\t\t\t\t\tSelect Object\nRMB \t\t\t\t\t\t\tSeek / Attack Command\nRMB +
+    Mouse Drag \tUnit Line Formation\n\nE  \t\t\t\t\t\t\t\tSelect All Units\nQ\t\t\t\t\t\t\t\t\tSelect
+    On Screen Only\nG\t\t\t\t\t\t\t\t\tSwitch Guard Position\n\n"
+--- !u!222 &118875158
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 222604502637209196, guid: f1e4144c30b47954f81ebbe20aac7b7b,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 118875155}
 --- !u!1 &126377896
 GameObject:
   m_ObjectHideFlags: 0
@@ -2251,6 +2333,7 @@ GameObject:
   - component: {fileID: 217884654}
   - component: {fileID: 217884656}
   - component: {fileID: 217884655}
+  - component: {fileID: 217884657}
   m_Layer: 0
   m_Name: Label
   m_TagString: Untagged
@@ -2272,10 +2355,10 @@ RectTransform:
   m_Father: {fileID: 1311980904}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 9, y: -0.5}
-  m_SizeDelta: {x: -28, y: -3}
+  m_AnchoredPosition: {x: -60, y: -15}
+  m_SizeDelta: {x: 50, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &217884655
 MonoBehaviour:
@@ -2299,20 +2382,18 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: bb12ca948bd833b4fa88a376cdf58995, type: 3}
-    m_FontSize: 14
-    m_FontStyle: 0
+    m_FontSize: 15
+    m_FontStyle: 3
     m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 40
-    m_Alignment: 0
+    m_MinSize: 1
+    m_MaxSize: 156
+    m_Alignment: 5
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Hide
-
-'
+  m_Text: Close
 --- !u!222 &217884656
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2320,6 +2401,20 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 217884653}
+--- !u!114 &217884657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 217884653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 1, g: 0.5882353, b: 0, a: 0.5}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!1 &236057787
 GameObject:
   m_ObjectHideFlags: 0
@@ -2591,12 +2686,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1259712618}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0.63, y: -0.53}
-  m_SizeDelta: {x: 438, y: 270.29}
+  m_SizeDelta: {x: 438, y: 310}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &257886219
 MonoBehaviour:
@@ -4171,7 +4266,7 @@ MonoBehaviour:
     LockButtons: 0
     LockableButtons: []
     ActionRequired: 0
-    Action: 9
+    Action: 12
   - DesiredPosition: {fileID: 919181011}
     MessageContent: This is your outpost. Your duty will be to raise its defense,
       build an army and defend our drill from rival factions.
@@ -4188,7 +4283,7 @@ MonoBehaviour:
     LockButtons: 0
     LockableButtons: []
     ActionRequired: 0
-    Action: 0
+    Action: 12
   - DesiredPosition: {fileID: 919181011}
     MessageContent: Go ahead and click on one of the empty slots and build a power
       station we can't power our machinery without it.
@@ -4239,7 +4334,7 @@ MonoBehaviour:
     LockButtons: 0
     LockableButtons: []
     ActionRequired: 0
-    Action: 0
+    Action: 12
   - DesiredPosition: {fileID: 919181011}
     MessageContent: This is the mining drill core. It's pumping etherium from the
       ground a substance that has endless applications.
@@ -4256,7 +4351,7 @@ MonoBehaviour:
     LockButtons: 0
     LockableButtons: []
     ActionRequired: 0
-    Action: 0
+    Action: 12
   - DesiredPosition: {fileID: 919181011}
     MessageContent: A substance like this attracts unwanted attention from enemy factions.
       You must protect the core at all costs! Once all three spires are destroyed
@@ -4358,7 +4453,7 @@ MonoBehaviour:
     LockButtons: 0
     LockableButtons: []
     ActionRequired: 0
-    Action: 8
+    Action: 12
   - DesiredPosition: {fileID: 919181011}
     MessageContent: Towers provide logicistical and offensive support. They extend
       your vision range and can attack enemies. Go ahead and build one.
@@ -4392,7 +4487,7 @@ MonoBehaviour:
     LockButtons: 0
     LockableButtons: []
     ActionRequired: 0
-    Action: 5
+    Action: 12
   - DesiredPosition: {fileID: 919181011}
     MessageContent: The Etherium Gate allows enemies to transport troops with ease,
       the only way to stop it is destroy the nearby base.
@@ -4409,7 +4504,7 @@ MonoBehaviour:
     LockButtons: 0
     LockableButtons: []
     ActionRequired: 0
-    Action: 5
+    Action: 12
   - DesiredPosition: {fileID: 919181011}
     MessageContent: Ok you are nearly ready to face the enemy. I've managed to halt
       enemy transportation but they will have it up and running soon.
@@ -4426,7 +4521,7 @@ MonoBehaviour:
     LockButtons: 0
     LockableButtons: []
     ActionRequired: 0
-    Action: 5
+    Action: 12
   - DesiredPosition: {fileID: 919181011}
     MessageContent: The last building we need is a barracks. It will let you train
       your soldiers to deal with certain types of enemies.
@@ -4460,7 +4555,7 @@ MonoBehaviour:
     LockButtons: 0
     LockableButtons: []
     ActionRequired: 0
-    Action: 9
+    Action: 12
   - DesiredPosition: {fileID: 919181011}
     MessageContent: Click on your town hall and upgrade it. The town hall is special
       when it comes to upgrading as it increases your tier level. The higher your
@@ -7537,6 +7632,86 @@ Prefab:
       propertyPath: ShowSelectionGUI
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114382351187413616, guid: 97e60e79b1531d24a91338e11880ccc4,
+        type: 2}
+      propertyPath: _Player
+      value: 
+      objectReference: {fileID: 590559695}
+    - target: {fileID: 114249406776875762, guid: 97e60e79b1531d24a91338e11880ccc4,
+        type: 2}
+      propertyPath: _Player
+      value: 
+      objectReference: {fileID: 590559695}
+    - target: {fileID: 114582160534361366, guid: 97e60e79b1531d24a91338e11880ccc4,
+        type: 2}
+      propertyPath: _Player
+      value: 
+      objectReference: {fileID: 590559695}
+    - target: {fileID: 114763318145821320, guid: 97e60e79b1531d24a91338e11880ccc4,
+        type: 2}
+      propertyPath: _Player
+      value: 
+      objectReference: {fileID: 590559695}
+    - target: {fileID: 114186825497807296, guid: 97e60e79b1531d24a91338e11880ccc4,
+        type: 2}
+      propertyPath: _Player
+      value: 
+      objectReference: {fileID: 590559695}
+    - target: {fileID: 114091627940212412, guid: 97e60e79b1531d24a91338e11880ccc4,
+        type: 2}
+      propertyPath: _Player
+      value: 
+      objectReference: {fileID: 590559695}
+    - target: {fileID: 114124532618940958, guid: 97e60e79b1531d24a91338e11880ccc4,
+        type: 2}
+      propertyPath: _Player
+      value: 
+      objectReference: {fileID: 590559695}
+    - target: {fileID: 114167287852078366, guid: 97e60e79b1531d24a91338e11880ccc4,
+        type: 2}
+      propertyPath: _Player
+      value: 
+      objectReference: {fileID: 590559695}
+    - target: {fileID: 114287220859581684, guid: 97e60e79b1531d24a91338e11880ccc4,
+        type: 2}
+      propertyPath: _Player
+      value: 
+      objectReference: {fileID: 590559695}
+    - target: {fileID: 114282685190050850, guid: 97e60e79b1531d24a91338e11880ccc4,
+        type: 2}
+      propertyPath: _Player
+      value: 
+      objectReference: {fileID: 590559695}
+    - target: {fileID: 23137049725766236, guid: 97e60e79b1531d24a91338e11880ccc4,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 23175368310557094, guid: 97e60e79b1531d24a91338e11880ccc4,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 23774243683511598, guid: 97e60e79b1531d24a91338e11880ccc4,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 23960930112924050, guid: 97e60e79b1531d24a91338e11880ccc4,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 23971651917718070, guid: 97e60e79b1531d24a91338e11880ccc4,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 23150353124362930, guid: 97e60e79b1531d24a91338e11880ccc4,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 97e60e79b1531d24a91338e11880ccc4, type: 2}
   m_IsPrefabParent: 0
@@ -7983,8 +8158,9 @@ GameObject:
   - component: {fileID: 664352900}
   - component: {fileID: 664352902}
   - component: {fileID: 664352901}
+  - component: {fileID: 664352903}
   m_Layer: 0
-  m_Name: t_Message
+  m_Name: t_MovementControls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8031,8 +8207,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: bb12ca948bd833b4fa88a376cdf58995, type: 3}
-    m_FontSize: 18
-    m_FontStyle: 0
+    m_FontSize: 20
+    m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 1
     m_MaxSize: 40
@@ -8042,24 +8218,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 0.91
-  m_Text: 'CONTROLS
-
-    WASD - Move Camera
-
-    ALT + MOUSE - Rotate Camera
-
-    Mouse Wheel - Camera Zoom
-
-    E - Select All Units On Screen
-
-    LMB - Building and Unit Select
-
-
-    WITH UNITS SELECTED
-
-    RMB - Unit Move/Attack
-
-    RMB + Mouse Drag - Arrange troops in line.
+  m_Text: 'MOVEMENT CONTROLS
 
 
 '
@@ -8070,6 +8229,20 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 664352899}
+--- !u!114 &664352903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 664352899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 1, g: 0.39215687, b: 0, a: 1}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!1 &665581231
 GameObject:
   m_ObjectHideFlags: 0
@@ -10789,6 +10962,80 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e02d9c98e00effc44abe1cb633bf8180, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &829666709
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 829666710}
+  - component: {fileID: 829666712}
+  - component: {fileID: 829666711}
+  m_Layer: 0
+  m_Name: redX
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &829666710
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 829666709}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1269576828}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: -1}
+  m_SizeDelta: {x: 20, y: 18}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &829666711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 829666709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 30
+    m_FontStyle: 1
+    m_BestFit: 0
+    m_MinSize: 3
+    m_MaxSize: 56
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 0
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: X
+--- !u!222 &829666712
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 829666709}
 --- !u!114 &834856379 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114341887678384278, guid: 4b4f334fa6fd29142985817f6f30ed75,
@@ -10920,31 +11167,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 829578304}
     m_Modifications:
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[3].Enemies.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[4].Enemies.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[5].Enemies.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[6].Enemies.Array.size
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 4812084017203582, guid: b395ec806e68f63448ff1add050a25ba, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -11004,9 +11226,19 @@ Prefab:
       objectReference: {fileID: 305581466}
     - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
         type: 2}
+      propertyPath: WaveCompleteWidget
+      value: 
+      objectReference: {fileID: 970216462}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
       propertyPath: CoreDamagedWidget
       value: 
       objectReference: {fileID: 1644396242}
+    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
+        type: 2}
+      propertyPath: CoreHealthBar
+      value: 
+      objectReference: {fileID: 1896017133}
     - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
         type: 2}
       propertyPath: CinematicOpening
@@ -11021,366 +11253,6 @@ Prefab:
       propertyPath: m_Name
       value: Tutorial Wave Manager
       objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: StartingWaveTimer
-      value: 45
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: WaveStartPermitted
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[0].Subwaves
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: StartingDamageModifier
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: StartingHealthModifier
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: TimeAddedPerWave
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: TimeTillNextWaveAfterClear
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[1].Subwaves
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[3].Name
-      value: Very Light Air
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[3].WaveIntervals.MinimumWaveInterval
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[3].WaveIntervals.MaximumWaveInterval
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[3].Subwaves
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[3].Enemies.Array.data[0].EnemyReference
-      value: 
-      objectReference: {fileID: 114909369810655446, guid: af5b11a941f2b054891c736f4b77e2a2,
-        type: 2}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[3].Enemies.Array.data[0].StartAtSubwave
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[3].Enemies.Array.data[0].PerSpawnInterval
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[3].Enemies.Array.data[0].WaveMax
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[4].Name
-      value: Very Light Mixed
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[4].WaveIntervals.MinimumWaveInterval
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[4].WaveIntervals.MaximumWaveInterval
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[4].Subwaves
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[4].Enemies.Array.data[0].StartAtSubwave
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[4].Enemies.Array.data[0].PerSpawnInterval
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[4].Enemies.Array.data[0].WaveMax
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[4].Enemies.Array.data[1].EnemyReference
-      value: 
-      objectReference: {fileID: 114481798048649180, guid: c4a0f18ee5b21b74fbcb5adc9b905af4,
-        type: 2}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[4].Enemies.Array.data[1].StartAtSubwave
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[4].Enemies.Array.data[1].PerSpawnInterval
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[4].Enemies.Array.data[1].WaveMax
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[4].Enemies.Array.data[2].EnemyReference
-      value: 
-      objectReference: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
-        type: 2}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[4].Enemies.Array.data[2].StartAtSubwave
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[4].Enemies.Array.data[2].PerSpawnInterval
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[4].Enemies.Array.data[2].WaveMax
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[4].Enemies.Array.data[3].EnemyReference
-      value: 
-      objectReference: {fileID: 114908419093975514, guid: f9386fdae783087469d75d32e64a58ed,
-        type: 2}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[4].Enemies.Array.data[3].StartAtSubwave
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[4].Enemies.Array.data[3].PerSpawnInterval
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[4].Enemies.Array.data[3].WaveMax
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[5].Name
-      value: Very Light Boss
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[5].WaveIntervals.MinimumWaveInterval
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[5].WaveIntervals.MaximumWaveInterval
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[5].Subwaves
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[5].Enemies.Array.data[0].EnemyReference
-      value: 
-      objectReference: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
-        type: 2}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[5].Enemies.Array.data[0].StartAtSubwave
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[5].Enemies.Array.data[0].PerSpawnInterval
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[5].Enemies.Array.data[0].WaveMax
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[5].Enemies.Array.data[1].EnemyReference
-      value: 
-      objectReference: {fileID: 114036110279440992, guid: ddc75dcadc85db640b601008ffb388bd,
-        type: 2}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[5].Enemies.Array.data[1].StartAtSubwave
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[5].Enemies.Array.data[1].PerSpawnInterval
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[5].Enemies.Array.data[1].WaveMax
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[5].Enemies.Array.data[2].EnemyReference
-      value: 
-      objectReference: {fileID: 114585045816634058, guid: 71a43feeb36f7ac4faaaad78429ccc75,
-        type: 2}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[5].Enemies.Array.data[2].StartAtSubwave
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[5].Enemies.Array.data[2].PerSpawnInterval
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[5].Enemies.Array.data[2].WaveMax
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[6].Name
-      value: Light Ground Infantry
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[6].WaveIntervals.MinimumWaveInterval
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[6].WaveIntervals.MaximumWaveInterval
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[6].BossWaveIntervals.MinimumBossWaveInterval
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[6].BossWaveIntervals.MaximumBossWaveInterval
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[6].Subwaves
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[6].Enemies.Array.data[0].EnemyReference
-      value: 
-      objectReference: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
-        type: 2}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[6].Enemies.Array.data[0].StartAtSubwave
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[6].Enemies.Array.data[0].PerSpawnInterval
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[6].Enemies.Array.data[0].WaveMax
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[6].Enemies.Array.data[1].EnemyReference
-      value: 
-      objectReference: {fileID: 114908419093975514, guid: f9386fdae783087469d75d32e64a58ed,
-        type: 2}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[6].Enemies.Array.data[1].StartAtSubwave
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[6].Enemies.Array.data[1].PerSpawnInterval
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[6].Enemies.Array.data[1].WaveMax
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[6].Enemies.Array.data[2].EnemyReference
-      value: 
-      objectReference: {fileID: 114963470945021714, guid: b428dfdc6baddce46b81aed55d5c7396,
-        type: 2}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[6].Enemies.Array.data[2].StartAtSubwave
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[6].Enemies.Array.data[2].PerSpawnInterval
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: Waves.Array.data[6].Enemies.Array.data[2].WaveMax
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114070714647603030, guid: b395ec806e68f63448ff1add050a25ba,
-        type: 2}
-      propertyPath: WaveCompleteWidget
-      value: 
-      objectReference: {fileID: 970216462}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b395ec806e68f63448ff1add050a25ba, type: 2}
   m_IsPrefabParent: 0
@@ -12744,7 +12616,7 @@ Terrain:
   m_TreeBillboardDistance: 500
   m_TreeCrossFadeLength: 5
   m_TreeMaximumFullLODCount: 50
-  m_DetailObjectDistance: 80
+  m_DetailObjectDistance: 250
   m_DetailObjectDensity: 1
   m_HeightmapPixelError: 5
   m_SplatMapDistance: 1000
@@ -15482,6 +15354,8 @@ RectTransform:
   m_LocalScale: {x: 1.25, y: 1.25, z: 1}
   m_Children:
   - {fileID: 664352900}
+  - {fileID: 1395147994}
+  - {fileID: 118875156}
   - {fileID: 1311980904}
   - {fileID: 257886218}
   m_Father: {fileID: 1681848206}
@@ -15489,8 +15363,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 295, y: -182.1}
-  m_SizeDelta: {x: 427.34, y: 261.9}
+  m_AnchoredPosition: {x: 295, y: -325}
+  m_SizeDelta: {x: 427.34, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1259712619
 GameObject:
@@ -15523,7 +15397,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 0.78431374, g: 0.5882353, b: 0.19607843, a: 0.78431374}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -15880,7 +15754,8 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 829666710}
   m_Father: {fileID: 1405887273}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -16375,12 +16250,12 @@ RectTransform:
   - {fileID: 1405887273}
   - {fileID: 217884654}
   m_Father: {fileID: 1259712618}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 228, y: -141.5}
-  m_SizeDelta: {x: 160, y: 76.7}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -50, y: -30}
+  m_SizeDelta: {x: 100, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1311980905
 MonoBehaviour:
@@ -17393,6 +17268,108 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1392440053}
   m_Mesh: {fileID: 4300000, guid: 30cd00487f28a804da4ab24b825a0674, type: 3}
+--- !u!1 &1395147993
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1572815711825730, guid: f1e4144c30b47954f81ebbe20aac7b7b,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1395147994}
+  - component: {fileID: 1395147997}
+  - component: {fileID: 1395147996}
+  - component: {fileID: 1395147995}
+  m_Layer: 0
+  m_Name: t_UnitControls
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1395147994
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 224882350766180620, guid: f1e4144c30b47954f81ebbe20aac7b7b,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1395147993}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 5}
+  m_LocalScale: {x: 1.0000031, y: 1.0000031, z: 1.0000054}
+  m_Children: []
+  m_Father: {fileID: 1259712618}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 18.200012, y: -1.8900146}
+  m_SizeDelta: {x: 26.299988, y: -3.7800293}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1395147995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1395147993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 1, g: 0.39215687, b: 0, a: 1}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
+--- !u!114 &1395147996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114611647196319546, guid: f1e4144c30b47954f81ebbe20aac7b7b,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1395147993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: bb12ca948bd833b4fa88a376cdf58995, type: 3}
+    m_FontSize: 20
+    m_FontStyle: 1
+    m_BestFit: 0
+    m_MinSize: 1
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 0.91
+  m_Text: '
+
+
+
+
+
+    UNIT CONTROLS
+
+
+'
+--- !u!222 &1395147997
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 222604502637209196, guid: f1e4144c30b47954f81ebbe20aac7b7b,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1395147993}
 --- !u!1 &1399247031
 GameObject:
   m_ObjectHideFlags: 0
@@ -17470,10 +17447,10 @@ RectTransform:
   m_Father: {fileID: 1311980904}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 10, y: -10}
-  m_SizeDelta: {x: 20, y: 20}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -15, y: -15}
+  m_SizeDelta: {x: 30, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1405887274
 MonoBehaviour:
@@ -18649,6 +18626,27 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114237048742357062, guid: 72721214b337dd34cb0924c73efef4dd,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7c359ff9141438945ab4a4874e9ce466,
+        type: 3}
+    - target: {fileID: 114237048742357062, guid: 72721214b337dd34cb0924c73efef4dd,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114237048742357062, guid: 72721214b337dd34cb0924c73efef4dd,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114237048742357062, guid: 72721214b337dd34cb0924c73efef4dd,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 72721214b337dd34cb0924c73efef4dd, type: 2}
@@ -21355,7 +21353,7 @@ MonoBehaviour:
   MapResolution:
     x: 128
     y: 128
-  MapSize: 600
+  MapSize: 900
   MapOffset: {x: 300, y: 300}
   Plane: 2
   FilterMode: 1
@@ -23278,6 +23276,12 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1895747210}
   m_Mesh: {fileID: 4300000, guid: 30cd00487f28a804da4ab24b825a0674, type: 3}
+--- !u!114 &1896017133 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114209411420216950, guid: 14a47a087a5302f40b5e04947150a556,
+    type: 2}
+  m_PrefabInternal: {fileID: 1423504181}
+  m_Script: {fileID: 11500000, guid: a3d3eac6c91e78a48a54fcdf49fbe950, type: 3}
 --- !u!224 &1899925134 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 224202838894451480, guid: 325bea65cc9b86044859a39a16778522,
@@ -24030,7 +24034,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 3000
   field of view: 50
   orthographic: 0
   orthographic size: 5

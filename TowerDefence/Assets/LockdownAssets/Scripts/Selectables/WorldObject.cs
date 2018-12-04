@@ -41,6 +41,8 @@ public class WorldObject : Selectable {
     [Header("-----------------------------------")]
     [Space]
     public bool Damagable = true;
+    public bool CanBeTargetted = true;
+    [Space]
     public int MaxHitPoints = 100;
     public int MaxShieldPoints = 0;
     [Space]

@@ -52,8 +52,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AttackingTeamColour: {r: 1, g: 0, b: 0, a: 1}
-  StartingDamageModifier: 0.3
-  StartingHealthModifier: 0.3
+  StartingDamageModifier: 0.25
+  StartingHealthModifier: 0.25
   StartingFriendlyUnits:
   - {fileID: 0}
   - {fileID: 0}
@@ -61,7 +61,9 @@ MonoBehaviour:
   LockdownPads:
   - {fileID: 0}
   WaveNotificationWidget: {fileID: 0}
+  WaveCompleteWidget: {fileID: 0}
   CoreDamagedWidget: {fileID: 0}
+  CoreHealthBar: {fileID: 0}
   CinematicOpening: {fileID: 0}
   CinematicDefeat: {fileID: 0}
   PerWaveIncrementDamage: 0.01
@@ -73,6 +75,7 @@ MonoBehaviour:
   StartingWaveTimer: 45
   TimeAddedPerWave: 15
   TimeTillNextWaveAfterClear: 15
+  ScoreGrantedOnWaveDefeated: 100
   Waves:
   - Name: Very Light Ground Infantry
     WaveIntervals:

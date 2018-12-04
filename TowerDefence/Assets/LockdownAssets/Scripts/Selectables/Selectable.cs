@@ -161,20 +161,16 @@ public class Selectable : Abstraction {
         // Show selection
         if ((draw || _ForceSelectOutlineDraw) && ShowOutline && _OutlineComponent != null) {
 
-            // Black is used as an undefined colour
-            if (_SelectedOutlineColour == Color.black) {
+            // Get the selected colour based on the object's team
+            Color col = new Color();
+            switch (Team) {
 
-                // Get the selected colour based on the object's team
-                Color col = new Color();
-                switch (Team) {
-
-                    case GameManager.Team.Undefined: { col = Color.white; break; }
-                    case GameManager.Team.Defending: { col = _Player.TeamColor; break; }
-                    case GameManager.Team.Attacking: { col = WaveManager.Instance.AttackingTeamColour; break; }
-                    default: break;
-                }
-                _SelectedOutlineColour = col;
+                case GameManager.Team.Undefined: { col = Color.white; break; }
+                case GameManager.Team.Defending: { col = _Player.TeamColor; break; }
+                case GameManager.Team.Attacking: { col = WaveManager.Instance.AttackingTeamColour; break; }
+                default: break;
             }
+            _SelectedOutlineColour = col;            
 
             // Set outline properties
             _OutlineComponent.OutlineColor = _SelectedOutlineColour;
@@ -198,26 +194,22 @@ public class Selectable : Abstraction {
         // Show selection
         if ((highlight || _ForceHighlightOutlineDraw) && ShowOutline && _OutlineComponent != null) {
 
-            // Black is used as an undefined colour
-            if (_HighlightingOutlineColour == Color.black) {
-                
-                Color col = new Color();
-                switch (Team) {
+            Color col = new Color();
+            switch (Team) {
 
-                    case GameManager.Team.Undefined: { col = Color.white; break; }
-                    case GameManager.Team.Defending: { col = _Player.TeamColor; break; }
-                    case GameManager.Team.Attacking: { col = WaveManager.Instance.AttackingTeamColour; break; }
-                    default: break;
-                }
-
-                // Slightly darker shade for the highlighting colour
-                col.r -= 0.1f;
-                col.g -= 0.1f;
-                col.b -= 0.1f;
-                col.a /= 2f;
-
-                _HighlightingOutlineColour = col;
+                case GameManager.Team.Undefined: { col = Color.white; break; }
+                case GameManager.Team.Defending: { col = _Player.TeamColor; break; }
+                case GameManager.Team.Attacking: { col = WaveManager.Instance.AttackingTeamColour; break; }
+                default: break;
             }
+
+            // Slightly darker shade for the highlighting colour
+            col.r -= 0.1f;
+            col.g -= 0.1f;
+            col.b -= 0.1f;
+            col.a /= 2f;
+
+            _HighlightingOutlineColour = col;            
 
             // Set outline properties
             _OutlineComponent.OutlineColor = _HighlightingOutlineColour;
