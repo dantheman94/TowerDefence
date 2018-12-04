@@ -1362,6 +1362,36 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114299551235542998, guid: 679a7c066d3462949beb157ee9ae1a97,
+        type: 2}
+      propertyPath: _Player
+      value: 
+      objectReference: {fileID: 590559695}
+    - target: {fileID: 114708240959743940, guid: 679a7c066d3462949beb157ee9ae1a97,
+        type: 2}
+      propertyPath: _Player
+      value: 
+      objectReference: {fileID: 590559695}
+    - target: {fileID: 114875830938068608, guid: 679a7c066d3462949beb157ee9ae1a97,
+        type: 2}
+      propertyPath: _Player
+      value: 
+      objectReference: {fileID: 590559695}
+    - target: {fileID: 114866497472106838, guid: 679a7c066d3462949beb157ee9ae1a97,
+        type: 2}
+      propertyPath: _Player
+      value: 
+      objectReference: {fileID: 590559695}
+    - target: {fileID: 114903100215193964, guid: 679a7c066d3462949beb157ee9ae1a97,
+        type: 2}
+      propertyPath: _Player
+      value: 
+      objectReference: {fileID: 590559695}
+    - target: {fileID: 114087493330667832, guid: 679a7c066d3462949beb157ee9ae1a97,
+        type: 2}
+      propertyPath: _Player
+      value: 
+      objectReference: {fileID: 590559695}
     - target: {fileID: 1659740949358226, guid: 679a7c066d3462949beb157ee9ae1a97, type: 2}
       propertyPath: m_Name
       value: PlayerBase [Starting Base] - Townhall-II
@@ -2050,6 +2080,7 @@ GameObject:
   - component: {fileID: 176448226}
   - component: {fileID: 176448225}
   - component: {fileID: 176448224}
+  - component: {fileID: 176448231}
   m_Layer: 0
   m_Name: DDOL
   m_TagString: Untagged
@@ -2139,6 +2170,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &176448231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 176448223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e4129a907670de48b06812f800601d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &177090573
 GameObject:
   m_ObjectHideFlags: 0
@@ -10203,11 +10245,45 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1088598747501928, guid: 72721214b337dd34cb0924c73efef4dd, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1088598747501928, guid: 72721214b337dd34cb0924c73efef4dd, type: 2}
+      propertyPath: m_Name
+      value: pfb_XboxCrosshair
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 72721214b337dd34cb0924c73efef4dd, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &957472767 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114237048742357062, guid: 72721214b337dd34cb0924c73efef4dd,
+    type: 2}
+  m_PrefabInternal: {fileID: 957472766}
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+--- !u!114 &957472768 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114285617369816614, guid: 72721214b337dd34cb0924c73efef4dd,
+    type: 2}
+  m_PrefabInternal: {fileID: 957472766}
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+--- !u!114 &957472769 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114004864299580320, guid: 72721214b337dd34cb0924c73efef4dd,
+    type: 2}
+  m_PrefabInternal: {fileID: 957472766}
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+--- !u!114 &957472770 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114559200053817520, guid: 72721214b337dd34cb0924c73efef4dd,
+    type: 2}
+  m_PrefabInternal: {fileID: 957472766}
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+--- !u!114 &957472771 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114504791576558864, guid: 72721214b337dd34cb0924c73efef4dd,
+    type: 2}
+  m_PrefabInternal: {fileID: 957472766}
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1001 &957706732
 Prefab:
   m_ObjectHideFlags: 0
@@ -13931,11 +14007,55 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114437051024531562, guid: 2026df39a4e1f1245a5289ed76abff7c,
+        type: 2}
+      propertyPath: CrosshairImage
+      value: 
+      objectReference: {fileID: 957472767}
+    - target: {fileID: 114437051024531562, guid: 2026df39a4e1f1245a5289ed76abff7c,
+        type: 2}
+      propertyPath: AButton
+      value: 
+      objectReference: {fileID: 957472771}
+    - target: {fileID: 114437051024531562, guid: 2026df39a4e1f1245a5289ed76abff7c,
+        type: 2}
+      propertyPath: XButton
+      value: 
+      objectReference: {fileID: 957472769}
+    - target: {fileID: 114437051024531562, guid: 2026df39a4e1f1245a5289ed76abff7c,
+        type: 2}
+      propertyPath: BButton
+      value: 
+      objectReference: {fileID: 957472770}
+    - target: {fileID: 114437051024531562, guid: 2026df39a4e1f1245a5289ed76abff7c,
+        type: 2}
+      propertyPath: YButton
+      value: 
+      objectReference: {fileID: 957472768}
     - target: {fileID: 114717441679538020, guid: 2026df39a4e1f1245a5289ed76abff7c,
         type: 2}
       propertyPath: MiniMap
       value: 
       objectReference: {fileID: 1639950804}
+    - target: {fileID: 114717441679538020, guid: 2026df39a4e1f1245a5289ed76abff7c,
+        type: 2}
+      propertyPath: Slicedrawer
+      value: 
+      objectReference: {fileID: 1700376818}
+    - target: {fileID: 1000091221177592, guid: 2026df39a4e1f1245a5289ed76abff7c, type: 2}
+      propertyPath: m_Name
+      value: pfb_PlayerEntity (Player One)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114537414513584320, guid: 2026df39a4e1f1245a5289ed76abff7c,
+        type: 2}
+      propertyPath: CameraAttached
+      value: 
+      objectReference: {fileID: 1023969653}
+    - target: {fileID: 114537414513584320, guid: 2026df39a4e1f1245a5289ed76abff7c,
+        type: 2}
+      propertyPath: CameraRTS
+      value: 
+      objectReference: {fileID: 1599648181}
     - target: {fileID: 114680855820500154, guid: 2026df39a4e1f1245a5289ed76abff7c,
         type: 2}
       propertyPath: SelectionWheel
@@ -13971,85 +14091,17 @@ Prefab:
       propertyPath: PlayerLevelText
       value: 
       objectReference: {fileID: 301619114}
-    - target: {fileID: 1000091221177592, guid: 2026df39a4e1f1245a5289ed76abff7c, type: 2}
-      propertyPath: m_Name
-      value: pfb_PlayerEntity (Player One)
-      objectReference: {fileID: 0}
-    - target: {fileID: 114537414513584320, guid: 2026df39a4e1f1245a5289ed76abff7c,
-        type: 2}
-      propertyPath: PlayerCamera
-      value: 
-      objectReference: {fileID: 1023969653}
-    - target: {fileID: 114537414513584320, guid: 2026df39a4e1f1245a5289ed76abff7c,
-        type: 2}
-      propertyPath: CameraAttached
-      value: 
-      objectReference: {fileID: 1023969653}
-    - target: {fileID: 114537414513584320, guid: 2026df39a4e1f1245a5289ed76abff7c,
-        type: 2}
-      propertyPath: CameraRTS
-      value: 
-      objectReference: {fileID: 1599648181}
-    - target: {fileID: 114717441679538020, guid: 2026df39a4e1f1245a5289ed76abff7c,
-        type: 2}
-      propertyPath: Slicedrawer
-      value: 
-      objectReference: {fileID: 1700376818}
-    - target: {fileID: 114717441679538020, guid: 2026df39a4e1f1245a5289ed76abff7c,
-        type: 2}
-      propertyPath: BoundsXMin
-      value: -760
-      objectReference: {fileID: 0}
-    - target: {fileID: 114717441679538020, guid: 2026df39a4e1f1245a5289ed76abff7c,
-        type: 2}
-      propertyPath: BoundsXMax
-      value: 760
-      objectReference: {fileID: 0}
-    - target: {fileID: 114717441679538020, guid: 2026df39a4e1f1245a5289ed76abff7c,
-        type: 2}
-      propertyPath: BoundsZMin
-      value: -760
-      objectReference: {fileID: 0}
-    - target: {fileID: 114717441679538020, guid: 2026df39a4e1f1245a5289ed76abff7c,
-        type: 2}
-      propertyPath: BoundsZMax
-      value: 760
-      objectReference: {fileID: 0}
-    - target: {fileID: 114537414513584320, guid: 2026df39a4e1f1245a5289ed76abff7c,
-        type: 2}
-      propertyPath: TeamColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114717441679538020, guid: 2026df39a4e1f1245a5289ed76abff7c,
-        type: 2}
-      propertyPath: BoxColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114717441679538020, guid: 2026df39a4e1f1245a5289ed76abff7c,
-        type: 2}
-      propertyPath: BoxColor.r
-      value: 0.14705884
-      objectReference: {fileID: 0}
-    - target: {fileID: 114717441679538020, guid: 2026df39a4e1f1245a5289ed76abff7c,
-        type: 2}
-      propertyPath: BoxColor.g
-      value: 0.78823537
-      objectReference: {fileID: 0}
-    - target: {fileID: 114717441679538020, guid: 2026df39a4e1f1245a5289ed76abff7c,
-        type: 2}
-      propertyPath: BoxColor.b
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 114680855820500154, guid: 2026df39a4e1f1245a5289ed76abff7c,
         type: 2}
       propertyPath: PlayerScoreText
       value: 
       objectReference: {fileID: 669637228}
-    - target: {fileID: 1000091221177592, guid: 2026df39a4e1f1245a5289ed76abff7c, type: 2}
-      propertyPath: m_IsActive
+    - target: {fileID: 114437051024531562, guid: 2026df39a4e1f1245a5289ed76abff7c,
+        type: 2}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114437051024531562, guid: 2026df39a4e1f1245a5289ed76abff7c,
+    - target: {fileID: 114717441679538020, guid: 2026df39a4e1f1245a5289ed76abff7c,
         type: 2}
       propertyPath: m_Enabled
       value: 0
@@ -16661,7 +16713,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1633806051}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 306ed5c81078cc64dbc959bfaf535f9f, type: 3}
   m_Name: 

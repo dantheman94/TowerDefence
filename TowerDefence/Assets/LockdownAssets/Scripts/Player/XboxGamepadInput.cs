@@ -43,6 +43,15 @@ public class XboxGamepadInput : MonoBehaviour {
     [Space]
     public Image CrosshairImage;
     [Space]
+    public Sprite CrosshairTextureDefault = null;
+    public Color CrosshairColourDefault = Color.white;
+    [Space]
+    public Sprite CrosshairTextureFriendly = null;
+    public Color CrosshairColourFriendly = Color.cyan;
+    [Space]
+    public Sprite CrosshairTextureEnemy = null;
+    public Color CrosshairColourEnemy = Color.red;
+    [Space]
     public Image AButton;
     public Image XButton;
     public Image BButton;
@@ -79,6 +88,8 @@ public class XboxGamepadInput : MonoBehaviour {
     public bool CanSelect = false;
 
     private int _PlatoonIteratorSelected = 0;
+
+    private Selectable _SelectableInFocus = null;
 
     //******************************************************************************************************************************
     //
@@ -121,14 +132,17 @@ public class XboxGamepadInput : MonoBehaviour {
                 // Disable keyboard / Enable gamepad
                 IsPrimaryController = true;
                 if (_KeyboardInputManager != null) { _KeyboardInputManager.IsPrimaryController = false; }
-
             }
             
             // Update gamepad states
             _PreviousGamepadState = _GamepadState;
             _GamepadState = GamePad.GetState(_PlayerAttached.Index);
-            
-            if (IsPrimaryController && !TutorialScene.CurrentMessageData.LockControls) {
+
+            // Check for tutorial lock controls
+            bool lockcontrols = false;
+            if (TutorialScene.CurrentMessageData != null) { lockcontrols = TutorialScene.CurrentMessageData.LockControls; }
+
+            if (IsPrimaryController && !GameManager.Instance._CinematicInProgress && !lockcontrols) {
 
                 _ReticleObject.SetActive(true);
                 //Gamepad function presses.
@@ -137,8 +151,7 @@ public class XboxGamepadInput : MonoBehaviour {
                 ExitUI(GamepadSchemeManager.Instance.GetActiveScheme().ExitMenuandUnselect);
                 ChangeSelectionWheel();
                 StartCoroutine(Select());
-                CreateSelection();
-                ChangeReticle();
+                UpdateMultiSelectSphere();
                 DisableGamepadUI();
                 if (!GameManager.Instance.SelectionWheel.activeInHierarchy)
                 {
@@ -148,10 +161,7 @@ public class XboxGamepadInput : MonoBehaviour {
 
                     // Update camera FOV
                     ZoomCamera();
-                }       
-
-                // Update point/click input
-                PointClickActivity();
+                }
                 Cursor.visible = false;
 
                 // Update abilities input
@@ -182,6 +192,12 @@ public class XboxGamepadInput : MonoBehaviour {
 
                     // Update units selected panels
                     GameManager.Instance.SelectedUnitsHUD.RefreshPanels();
+
+                    // Play all units sound
+                    SoundManager.Instance.GetAnnouncer().PlayAllUnitsSound();
+
+                    // Gamepad rumble
+                    StartRumble(0.35f, 0.35f, 0.2f);
                 }
             }
             else
@@ -235,47 +251,7 @@ public class XboxGamepadInput : MonoBehaviour {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  
-    /// </summary>
-    private void ChangeReticle()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
-        RaycastHit hit;
-        //Fire raycast from middle of the screen.
-        if (Physics.Raycast(ray, out hit, 1000, _PlayerAttached._HUD.MaskBlock))
-        {
-            if (hit.transform.gameObject.tag != "Ground")
-            {
-                WorldObject wo = hit.transform.gameObject.GetComponent<WorldObject>();
-                if(wo == null)
-                {
-                    wo = hit.transform.gameObject.GetComponentInChildren<WorldObject>();
-                }
-                if(wo != null)
-                {
-                   
-                    if (wo.Team == GameManager.Team.Defending)
-                    {
-                        CrosshairImage.color = _PlayerAttached.TeamColor;
-                    }
-                    else if (wo.Team == GameManager.Team.Attacking)
-                    {
-                        CrosshairImage.color = WaveManager.Instance.AttackingTeamColour;
-                    }
-                }
-        
-            }
-            else
-            {
-                CrosshairImage.color = Color.white;
-            }
-        }
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    
     /// <summary>
     //  
     /// </summary>
@@ -410,43 +386,157 @@ public class XboxGamepadInput : MonoBehaviour {
         //Fire raycast from middle of the screen.
         if (Physics.Raycast(ray, out hit, 1000, _PlayerAttached._HUD.MaskBlock))
         {
-            if(hit.transform.gameObject.tag != "Ground" && !GameManager.Instance.SelectionWheel.activeInHierarchy)
-            {
+            if(hit.transform.gameObject.tag != "Ground" && !GameManager.Instance.SelectionWheel.activeInHierarchy) {
+
                 AButton.enabled = true;
-                if(_Gamepad.GetButton("A"))
-                {
+                if (_Gamepad.GetButton("A")) {
+
                     AButton.color = Color.grey;
+
+                    // Gamepad rumble
+                    StartRumble(0.35f, 0.35f, 0.2f);
                 }
-                else
-                {
-                    AButton.color = Color.white;    
+                else { AButton.color = Color.white; }
+
+                // Update crosshair texture
+                if (_SelectableInFocus == null) { _SelectableInFocus = hit.transform.gameObject.GetComponent<Selectable>(); }
+                if (_SelectableInFocus != null) {
+
+                    // Friendly team
+                    if (_SelectableInFocus.Team == GameManager.Team.Defending) {
+
+                        CrosshairImage.sprite = CrosshairTextureFriendly;
+                        CrosshairImage.color = CrosshairColourFriendly;
+                    }
+
+                    // Enemy team
+                    else if (_SelectableInFocus.Team == GameManager.Team.Attacking) {
+
+                        CrosshairImage.sprite = CrosshairTextureEnemy;
+                        CrosshairImage.color = CrosshairColourEnemy;
+                    }
+
+                    // Undefined team
+                    else {
+
+                        CrosshairImage.sprite = CrosshairTextureFriendly;
+                        CrosshairImage.color = CrosshairColourDefault;
+                    }
                 }
             }
-            else
-            {
+            else {
+
                 AButton.enabled = false;
+                if (_SelectableInFocus != null) { _SelectableInFocus = null; }
             }
 
-            if(hit.transform.gameObject.tag == "Ground" && _PlayerAttached.SelectedWorldObjects.Count > 0)
-            {
+            if (hit.transform.gameObject.tag == "Ground") {
+
+                if (_PlayerAttached.SelectedWorldObjects.Count > 0) {
+
+                    XButton.enabled = true;
+                    if (_Gamepad.GetButton("X")) {
+                        XButton.color = Color.grey;
+                    }
+                    else {
+                        XButton.color = Color.white;
+                    }
+
+                    if (_SelectableInFocus != null) { _SelectableInFocus = null; }
+                }
+
+                CrosshairImage.sprite = CrosshairTextureDefault;
+                CrosshairImage.color = CrosshairColourDefault;
+            }
+            else if (hit.transform.gameObject.tag != "Ground" && _PlayerAttached.SelectedWorldObjects.Count > 0) {
+
+                // Display X button prompt
                 XButton.enabled = true;
-                if(_Gamepad.GetButton("X"))
-                {
+
+                // Update button image colour based on input
+                if (_Gamepad.GetButton("X")) {
+
                     XButton.color = Color.grey;
+
+                    // Gamepad rumble
+                    StartRumble(0.35f, 0.35f, 0.2f);
                 }
-                else
-                {
-                    XButton.color = Color.white;
+                else { XButton.color = Color.white; }
+
+                // Update crosshair texture
+                if (_SelectableInFocus == null) { _SelectableInFocus = hit.transform.gameObject.GetComponent<Selectable>(); }
+                if (_SelectableInFocus != null) {
+
+                    // Friendly team
+                    if (_SelectableInFocus.Team == GameManager.Team.Defending) {
+
+                        CrosshairImage.sprite = CrosshairTextureFriendly;
+                        CrosshairImage.color = CrosshairColourFriendly;
+                    }
+
+                    // Enemy team
+                    else if (_SelectableInFocus.Team == GameManager.Team.Attacking) {
+
+                        CrosshairImage.sprite = CrosshairTextureEnemy;
+                        CrosshairImage.color = CrosshairColourEnemy;
+                    }
+
+                    // Undefined team
+                    else {
+
+                        CrosshairImage.sprite = CrosshairTextureFriendly;
+                        CrosshairImage.color = CrosshairColourDefault;
+                    }
                 }
             }
-            else
-            {
+            else {
+
                 XButton.enabled = false;
+                if (_SelectableInFocus != null) { _SelectableInFocus = null; }
             }
 
+            if (_PlayerAttached.SelectedWorldObjects.Count > 1) {
 
-            YButton.enabled = false;
-            BButton.enabled = false;
+                YButton.enabled = true;
+                if (_Gamepad.GetButton("Y")) {
+
+                    YButton.color = Color.grey;
+                }
+                else { YButton.color = Color.white; }
+
+                BButton.enabled = true;
+                if (_Gamepad.GetButton("B")) {
+
+                    BButton.color = Color.grey;
+
+                    // Gamepad rumble
+                    StartRumble(0.35f, 0.35f, 0.2f);
+
+                    // Deselect all objects
+                    _PlayerAttached.DeselectAllObjects();
+                    GameManager.Instance.SelectedUnitsHUD.RefreshPanels();
+                }
+                else { BButton.color = Color.white; }
+            }
+            else if (_PlayerAttached.SelectedWorldObjects.Count > 0) {
+
+                BButton.enabled = true;
+                if (_Gamepad.GetButton("B")) {
+
+                    BButton.color = Color.grey;
+
+                    // Gamepad rumble
+                    StartRumble(0.35f, 0.35f, 0.2f);
+
+                    // Deselect all objects
+                    _PlayerAttached.DeselectAllObjects();
+                    GameManager.Instance.SelectedUnitsHUD.RefreshPanels();
+                }
+                else { BButton.color = Color.white; }
+
+                if (_PlayerAttached.SelectedWorldObjects.Count == 1) { YButton.enabled = false; }
+            }
+            else { XButton.enabled = false; BButton.enabled = false; YButton.enabled = false; }
         }
     }
 
@@ -526,11 +616,11 @@ public class XboxGamepadInput : MonoBehaviour {
         if (posDestination != posOrigin) {
 
             // Update position
-            _PlayerAttached.CameraAttached.transform.parent.position = Vector3.MoveTowards(posOrigin, posDestination, Time.deltaTime * Settings.MovementSpeed);
+            ///_PlayerAttached.CameraAttached.transform.parent.position = Vector3.MoveTowards(posOrigin, posDestination, Time.deltaTime * Settings.MovementSpeed);
         }
 
         // Smoothly move toward target position
-        ///_PlayerAttached.PlayerCamera.transform.position = Vector3.SmoothDamp(posOrigin, posDestination, ref _CurrentVelocity, Settings.MovementSpeed * Time.deltaTime);
+        _PlayerAttached.CameraAttached.transform.parent.position = Vector3.SmoothDamp(posOrigin, posDestination, ref _CurrentVelocity, Settings.MovementSpeed * Time.deltaTime);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -679,22 +769,29 @@ public class XboxGamepadInput : MonoBehaviour {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    /// Creates sphere collider on raycast point.
+    // Creates sphere collider on raycast point.
     /// </summary>
-    private void CreateSelection()
+    private void UpdateMultiSelectSphere()
     {
+      
         //If the selection window is not currently active.
         if (!_PlayerAttached._HUD.WheelActive())
         {
             //If A is pressed.
             if (_Gamepad.GetButtonDown(GamepadSchemeManager.Instance.GetActiveScheme().Selection))
             {
+                SingleSelect();
+
+                // Deslect all objects and restart the selection sphere process
+                _PlayerAttached.DeselectAllObjects();
+
                 Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
                 RaycastHit hit;
                 //Fire raycast from middle of the screen.
-                if(Physics.Raycast(ray,out hit, 1000,_PlayerAttached._HUD.MaskBlock))
-                {
-                    _SphereReference = Instantiate(SphereSelectorObject, hit.point, new Quaternion());
+                if (Physics.Raycast(ray,out hit, 1000,_PlayerAttached._HUD.MaskBlock)) {
+
+                    // Create new multi select sphere
+                    if (_SphereReference == null) { _SphereReference = Instantiate(SphereSelectorObject, hit.point, new Quaternion()); }
                     _SphereReference.transform.localScale = new Vector3(SphereStartRadius, SphereStartRadius, SphereStartRadius);
                 }
             }
@@ -705,6 +802,13 @@ public class XboxGamepadInput : MonoBehaviour {
                 {
                     if (_SphereReference.transform.localScale.x < MaxSphereRadius && _SphereReference.transform.localScale.y < MaxSphereRadius)
                         _SphereReference.transform.localScale += _SphereReference.transform.localScale * Time.deltaTime * SphereGrowRate;
+
+                    // Use a raycast from the center of the screen to determine the sphere's center position
+                    Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+                    RaycastHit hit;
+
+                    // Update the sphere position to be where the raycast has hit in worldspace
+                    if (Physics.Raycast(ray, out hit, 1000, _PlayerAttached._HUD.MaskBlock)) { _SphereReference.transform.position = hit.point; }
                 }
             }
         }
@@ -712,6 +816,23 @@ public class XboxGamepadInput : MonoBehaviour {
         if (_Gamepad.GetButtonUp(GamepadSchemeManager.Instance.GetActiveScheme().Selection))
         {
             Destroy(_SphereReference);
+            _SphereReference = null;
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Fires a raycast from the center of the screen to select buildings/building slots
+    /// </summary>
+    private void SingleSelect() {
+
+        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, 1000, _PlayerAttached._HUD.MaskBlock)) {
+
+
+
         }
     }
 
@@ -791,32 +912,7 @@ public class XboxGamepadInput : MonoBehaviour {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  
-    /// </summary>
-    private void PointClickActivity() {
-
-        if      (GetButtonAClicked())   { SelectInput(); }
-        else if (GetButtonXClicked())   { CommandInput(); }
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  
-    /// </summary>
-    private void SelectInput() { }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  
-    /// </summary>
-    private void CommandInput() { }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    
     /// <summary>
     //  Checks for input and adds/replaces/selects units from the assigned 1-9 keybindings
     /// </summary>

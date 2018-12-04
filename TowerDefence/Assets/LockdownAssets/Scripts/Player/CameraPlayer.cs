@@ -276,13 +276,14 @@ public class CameraPlayer : MonoBehaviour
                 // FOV value becomes larger as you zoom out so we must use division here
                 float shakeStrength = (1.0f * (Mathf.Abs(distance * 0.75f))) / (Mathf.Abs(_Camera.fieldOfView));
 
-                //Debug.Log("Shake strength dist: " + (Mathf.Abs(distance * 0.75f)) + ", FOV: " + (Mathf.Abs(_Camera.fieldOfView)) + ", total strength: " + shakeStrength);
-
                 // Calculate duration
                 float shakeDuration = 1f;
 
                 // Start shake
                 StartCoroutine(CameraShake(shakeStrength * ShakeMagnitude, shakeDuration));
+
+                // Gamepad rumble
+                _PlayerAttached._XboxGamepadInputManager.StartRumble(0.75f, 0.75f, 1f);
             }
         }
     }

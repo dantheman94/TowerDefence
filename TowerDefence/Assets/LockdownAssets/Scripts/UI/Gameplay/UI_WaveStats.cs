@@ -231,7 +231,7 @@ public class UI_WaveStats : MonoBehaviour {
 
             case Player.ScoreType.BuildingBuilt:
 
-                sType = "Building Built";
+                sType = "Building Constructed";
                 break;
 
             case Player.ScoreType.WaveDefeated:
