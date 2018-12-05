@@ -117,9 +117,8 @@ public class Core : Building {
     public override void Damage(float damage, WorldObject instigator = null) {
 
         // Notify the player
-        //   WaveManager.Instance.CoreDamagedWidget.SetActive(true);
-
-        SoundManager.Instance.GetAnnouncer().PlayCoreAttackedSound();
+        WaveManager.Instance.CoreDamagedWidget.GetComponent<UI_CoreDamagedNotification>().ShowNotification();
+        if (!SoundManager.Instance._DialogueIsPlaying) { SoundManager.Instance.GetAnnouncer().PlayCoreAttackedSound(); }
 
         // Flashing health bar
         WaveManager.Instance.CoreHealthBar.SetFlashingText(UI_CoreHealthBar.ObjectFlashing.Core, true);

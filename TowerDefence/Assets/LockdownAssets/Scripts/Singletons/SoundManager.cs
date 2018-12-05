@@ -112,8 +112,7 @@ public class SoundManager : MonoBehaviour {
         _Announcer = GetComponent<Announcer>();
         // Play starting track if specified
         if (PlayMusicOnStart) { PlayStartTrack(); }
-        if(SceneManager.GetActiveScene().buildIndex != 0)
-        PlayAmbience();
+        if (SceneManager.GetActiveScene().buildIndex != 0) { PlayAmbience(); }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

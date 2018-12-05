@@ -151,9 +151,8 @@ public class Spire : Building {
         base.Damage(damage, instigator);
 
         // Notify the player
-        //  WaveManager.Instance.CoreDamagedWidget.ShowNotification();
-
-        SoundManager.Instance.GetAnnouncer().PlaySpireAttackedSound();
+        WaveManager.Instance.CoreDamagedWidget.GetComponent<UI_CoreDamagedNotification>().ShowNotification();
+        if (!SoundManager.Instance._DialogueIsPlaying) { SoundManager.Instance.GetAnnouncer().PlaySpireAttackedSound(); }        
 
         // Flashing health bar
         WaveManager.Instance.CoreHealthBar.SetFlashingText((UI_CoreHealthBar.ObjectFlashing)SpireID, true);

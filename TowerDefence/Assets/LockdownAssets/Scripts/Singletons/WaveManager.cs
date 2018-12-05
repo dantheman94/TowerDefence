@@ -142,10 +142,10 @@ public class WaveManager : MonoBehaviour {
     public class WaveInterval {
 
         [Tooltip("Minimum range for the RNG selector to consider this wave when being determined.")]
-        [Range(1, 9)]
+        [Range(1, 10)]
         public int MinimumWaveInterval = 1;
         [Tooltip("Maximum range for the RNG selector to consider this wave when being determined.")]
-        [Range(2, 9)]
+        [Range(2, 10)]
         public int MaximumWaveInterval = 10;
     }
 

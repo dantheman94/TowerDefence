@@ -107,7 +107,7 @@ MonoBehaviour:
       CurrentLives: 0
   - Name: Very Light Ground Vehicles
     WaveIntervals:
-      MinimumWaveInterval: 1
+      MinimumWaveInterval: 2
       MaximumWaveInterval: 5
     BossWaveIntervals:
       MinimumBossWaveInterval: 0
@@ -143,9 +143,9 @@ MonoBehaviour:
       PerSpawnInterval: 1
       WaveMax: 1
       CurrentLives: 0
-  - Name: Very Light Air
+  - Name: Very Light Airships
     WaveIntervals:
-      MinimumWaveInterval: 1
+      MinimumWaveInterval: 2
       MaximumWaveInterval: 6
     BossWaveIntervals:
       MinimumBossWaveInterval: 0
@@ -194,8 +194,8 @@ MonoBehaviour:
       CurrentLives: 0
   - Name: Very Light Boss
     WaveIntervals:
-      MinimumWaveInterval: 6
-      MaximumWaveInterval: 9
+      MinimumWaveInterval: 10
+      MaximumWaveInterval: 10
     BossWaveIntervals:
       MinimumBossWaveInterval: 0
       UnlimitedBossWaveIntervals: 0
@@ -222,11 +222,11 @@ MonoBehaviour:
       CurrentLives: 0
   - Name: Light Ground Infantry
     WaveIntervals:
-      MinimumWaveInterval: 4
-      MaximumWaveInterval: 9
+      MinimumWaveInterval: 1
+      MaximumWaveInterval: 6
     BossWaveIntervals:
       MinimumBossWaveInterval: 1
-      UnlimitedBossWaveIntervals: 0
+      UnlimitedBossWaveIntervals: 1
       MaximumBossWaveInterval: 2
     Subwaves: 2
     Enemies:
@@ -247,4 +247,214 @@ MonoBehaviour:
       StartAtSubwave: 2
       PerSpawnInterval: 1
       WaveMax: 1
+      CurrentLives: 0
+  - Name: Light Ground Vehicles
+    WaveIntervals:
+      MinimumWaveInterval: 1
+      MaximumWaveInterval: 6
+    BossWaveIntervals:
+      MinimumBossWaveInterval: 1
+      UnlimitedBossWaveIntervals: 1
+      MaximumBossWaveInterval: 2
+    Subwaves: 2
+    Enemies:
+    - EnemyReference: {fileID: 114585045816634058, guid: 71a43feeb36f7ac4faaaad78429ccc75,
+        type: 2}
+      StartAtSubwave: 1
+      PerSpawnInterval: 2
+      WaveMax: 4
+      CurrentLives: 0
+    - EnemyReference: {fileID: 114808354717532260, guid: 1de21035f8a28194cb04bfd00d710af4,
+        type: 2}
+      StartAtSubwave: 1
+      PerSpawnInterval: 1
+      WaveMax: 1
+      CurrentLives: 0
+  - Name: Light Anti Air
+    WaveIntervals:
+      MinimumWaveInterval: 4
+      MaximumWaveInterval: 9
+    BossWaveIntervals:
+      MinimumBossWaveInterval: 1
+      UnlimitedBossWaveIntervals: 1
+      MaximumBossWaveInterval: 2
+    Subwaves: 2
+    Enemies:
+    - EnemyReference: {fileID: 114808354717532260, guid: 1de21035f8a28194cb04bfd00d710af4,
+        type: 2}
+      StartAtSubwave: 1
+      PerSpawnInterval: 3
+      WaveMax: 6
+      CurrentLives: 0
+  - Name: Light Anti Building
+    WaveIntervals:
+      MinimumWaveInterval: 3
+      MaximumWaveInterval: 8
+    BossWaveIntervals:
+      MinimumBossWaveInterval: 1
+      UnlimitedBossWaveIntervals: 1
+      MaximumBossWaveInterval: 2
+    Subwaves: 2
+    Enemies:
+    - EnemyReference: {fileID: 114520428206191618, guid: ced554d997c39bc4390176b677718d9a,
+        type: 2}
+      StartAtSubwave: 1
+      PerSpawnInterval: 2
+      WaveMax: 4
+      CurrentLives: 0
+  - Name: Light Ground Tank
+    WaveIntervals:
+      MinimumWaveInterval: 2
+      MaximumWaveInterval: 8
+    BossWaveIntervals:
+      MinimumBossWaveInterval: 1
+      UnlimitedBossWaveIntervals: 1
+      MaximumBossWaveInterval: 2
+    Subwaves: 2
+    Enemies:
+    - EnemyReference: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
+        type: 2}
+      StartAtSubwave: 1
+      PerSpawnInterval: 2
+      WaveMax: 4
+      CurrentLives: 0
+    - EnemyReference: {fileID: 114122295972051122, guid: 36a1a7dcfbd7a9441923ae6734c67bda,
+        type: 2}
+      StartAtSubwave: 1
+      PerSpawnInterval: 1
+      WaveMax: 1
+      CurrentLives: 0
+  - Name: Light Ground Mixed
+    WaveIntervals:
+      MinimumWaveInterval: 2
+      MaximumWaveInterval: 8
+    BossWaveIntervals:
+      MinimumBossWaveInterval: 1
+      UnlimitedBossWaveIntervals: 1
+      MaximumBossWaveInterval: 2
+    Subwaves: 2
+    Enemies:
+    - EnemyReference: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
+        type: 2}
+      StartAtSubwave: 1
+      PerSpawnInterval: 2
+      WaveMax: 4
+      CurrentLives: 0
+    - EnemyReference: {fileID: 114963470945021714, guid: b428dfdc6baddce46b81aed55d5c7396,
+        type: 2}
+      StartAtSubwave: 1
+      PerSpawnInterval: 2
+      WaveMax: 2
+      CurrentLives: 0
+    - EnemyReference: {fileID: 114585045816634058, guid: 71a43feeb36f7ac4faaaad78429ccc75,
+        type: 2}
+      StartAtSubwave: 1
+      PerSpawnInterval: 1
+      WaveMax: 2
+      CurrentLives: 0
+  - Name: Light Ground Mixed
+    WaveIntervals:
+      MinimumWaveInterval: 2
+      MaximumWaveInterval: 8
+    BossWaveIntervals:
+      MinimumBossWaveInterval: 1
+      UnlimitedBossWaveIntervals: 1
+      MaximumBossWaveInterval: 2
+    Subwaves: 2
+    Enemies:
+    - EnemyReference: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
+        type: 2}
+      StartAtSubwave: 1
+      PerSpawnInterval: 2
+      WaveMax: 4
+      CurrentLives: 0
+    - EnemyReference: {fileID: 114520428206191618, guid: ced554d997c39bc4390176b677718d9a,
+        type: 2}
+      StartAtSubwave: 1
+      PerSpawnInterval: 1
+      WaveMax: 1
+      CurrentLives: 0
+    - EnemyReference: {fileID: 114585045816634058, guid: 71a43feeb36f7ac4faaaad78429ccc75,
+        type: 2}
+      StartAtSubwave: 1
+      PerSpawnInterval: 1
+      WaveMax: 2
+      CurrentLives: 0
+  - Name: Light Airships
+    WaveIntervals:
+      MinimumWaveInterval: 1
+      MaximumWaveInterval: 6
+    BossWaveIntervals:
+      MinimumBossWaveInterval: 1
+      UnlimitedBossWaveIntervals: 1
+      MaximumBossWaveInterval: 2
+    Subwaves: 2
+    Enemies:
+    - EnemyReference: {fileID: 114909369810655446, guid: af5b11a941f2b054891c736f4b77e2a2,
+        type: 2}
+      StartAtSubwave: 1
+      PerSpawnInterval: 2
+      WaveMax: 2
+      CurrentLives: 0
+    - EnemyReference: {fileID: 114481798048649180, guid: c4a0f18ee5b21b74fbcb5adc9b905af4,
+        type: 2}
+      StartAtSubwave: 1
+      PerSpawnInterval: 1
+      WaveMax: 1
+      CurrentLives: 0
+  - Name: Light Boss (Air)
+    WaveIntervals:
+      MinimumWaveInterval: 10
+      MaximumWaveInterval: 10
+    BossWaveIntervals:
+      MinimumBossWaveInterval: 1
+      UnlimitedBossWaveIntervals: 1
+      MaximumBossWaveInterval: 2
+    Subwaves: 2
+    Enemies:
+    - EnemyReference: {fileID: 114036110279440992, guid: ddc75dcadc85db640b601008ffb388bd,
+        type: 2}
+      StartAtSubwave: 1
+      PerSpawnInterval: 1
+      WaveMax: 1
+      CurrentLives: 0
+    - EnemyReference: {fileID: 114481798048649180, guid: c4a0f18ee5b21b74fbcb5adc9b905af4,
+        type: 2}
+      StartAtSubwave: 2
+      PerSpawnInterval: 1
+      WaveMax: 1
+      CurrentLives: 0
+    - EnemyReference: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
+        type: 2}
+      StartAtSubwave: 1
+      PerSpawnInterval: 2
+      WaveMax: 4
+      CurrentLives: 0
+  - Name: Light Boss (Ground)
+    WaveIntervals:
+      MinimumWaveInterval: 10
+      MaximumWaveInterval: 10
+    BossWaveIntervals:
+      MinimumBossWaveInterval: 1
+      UnlimitedBossWaveIntervals: 1
+      MaximumBossWaveInterval: 2
+    Subwaves: 2
+    Enemies:
+    - EnemyReference: {fileID: 114122295972051122, guid: 36a1a7dcfbd7a9441923ae6734c67bda,
+        type: 2}
+      StartAtSubwave: 1
+      PerSpawnInterval: 1
+      WaveMax: 1
+      CurrentLives: 0
+    - EnemyReference: {fileID: 114481798048649180, guid: c4a0f18ee5b21b74fbcb5adc9b905af4,
+        type: 2}
+      StartAtSubwave: 2
+      PerSpawnInterval: 1
+      WaveMax: 1
+      CurrentLives: 0
+    - EnemyReference: {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e,
+        type: 2}
+      StartAtSubwave: 1
+      PerSpawnInterval: 2
+      WaveMax: 4
       CurrentLives: 0

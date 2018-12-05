@@ -115,6 +115,7 @@ public class AntiInfantryMarine : Humanoid {
             _Health = 0f;
 
             // Camera shake if neccessary
+            if (_Player == null) { _Player = GameManager.Instance.Players[0]; }
             if (CameraShakeOnDeath && _Player != null) { _Player.CameraRTS.ExplosionShake(transform.position, DeathExplosionRadius); }
 
             // Send message to match feed
@@ -156,7 +157,8 @@ public class AntiInfantryMarine : Humanoid {
         ExplosionEffectStencil.Play();
 
         // Camera shake
-        _Player.CameraRTS.ExplosionShake(ExplosionEffectTransform.position, ExplosionRadius);
+        if (_Player == null) { _Player = GameManager.Instance.Players[0]; }
+        if (_Player != null) { _Player.CameraRTS.ExplosionShake(ExplosionEffectTransform.position, ExplosionRadius); }
 
         // Hide/despawn the unit
         _ObjectState = WorldObjectStates.Default;

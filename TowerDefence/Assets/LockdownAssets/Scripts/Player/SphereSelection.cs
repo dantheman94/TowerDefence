@@ -71,6 +71,10 @@ public class SphereSelection : MonoBehaviour {
 
                             // Gamepad rumble
                             _Player._XboxGamepadInputManager.StartRumble(0.35f, 0.35f, 0.2f);
+
+                            // Play OnSelectSound for the first unit that was selected
+                            if (_Player.SelectedUnits[0].GetDialogue() != null)
+                                _Player.SelectedUnits[0].GetDialogue().PlaySelectSound();
                         }
                         unit.SetPlayer(_Player);
                         unit.SetIsSelected(true);

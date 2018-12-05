@@ -53,8 +53,8 @@ public class Flamethrower : Weapon {
                 
                 // Despawn the effect
                 AutoDespawn auto = _FlamethrowerStreamEffect.GetComponentInParent<AutoDespawn>();
-                StartCoroutine(auto.DelayedDespawnSeconds((int)FiringDuration));
                 StartCoroutine(StopFlamethrowerStream());
+                StartCoroutine(auto.DelayedDespawnSeconds((int)FiringDuration));
             }
         }
     }
