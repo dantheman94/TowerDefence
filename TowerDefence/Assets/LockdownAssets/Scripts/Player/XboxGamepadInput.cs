@@ -1,10 +1,10 @@
-﻿using TowerDefence;
-using UnityEngine;
-using XInputDotNetPure;
-using UnityEngine.UI;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Collections;
-using System;
+using TowerDefence;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+using XInputDotNetPure;
 //******************************
 //
 //  Created by: Daniel Marton
@@ -33,6 +33,13 @@ public class XboxGamepadInput : MonoBehaviour {
 
     [Space]
     [Header("-----------------------------------")]
+    [Header(" OTHER PROPERTIES")]
+    [Space]
+    public SliceDrawer Slicedrawer;
+    public Color BoxColor;
+
+    [Space]
+    [Header("-----------------------------------")]
     [Header(" RAYCAST LAYERMASK")]
     [Space]
     public LayerMask MaskBlock;
@@ -56,6 +63,8 @@ public class XboxGamepadInput : MonoBehaviour {
     public Image XButton;
     public Image BButton;
     public Image YButton;
+    public Image DpadUpButton;
+    public Image DpadDownButton;
 
     //******************************************************************************************************************************
     //
@@ -90,6 +99,11 @@ public class XboxGamepadInput : MonoBehaviour {
     private int _PlatoonIteratorSelected = 0;
 
     private Selectable _SelectableInFocus = null;
+
+    private bool _FollowingTarget = false;
+    private bool _ReturningToCore = false;
+    private Transform _CoreReturnTransform = null;
+    private Vector3 _CurrentReturnVelocity = Vector3.zero;
 
     //******************************************************************************************************************************
     //
@@ -142,7 +156,7 @@ public class XboxGamepadInput : MonoBehaviour {
             bool lockcontrols = false;
             if (TutorialScene.CurrentMessageData != null) { lockcontrols = TutorialScene.CurrentMessageData.LockControls; }
 
-            if (IsPrimaryController && !GameManager.Instance._CinematicInProgress && !lockcontrols) {
+            if (IsPrimaryController && !GameManager.Instance._CinematicInProgress/* && !lockcontrols*/) {
 
                 _ReticleObject.SetActive(true);
                 //Gamepad function presses.
@@ -153,6 +167,9 @@ public class XboxGamepadInput : MonoBehaviour {
                 StartCoroutine(Select());
                 UpdateMultiSelectSphere();
                 DisableGamepadUI();
+                AiGuardInput();
+                ReturnToCore();
+                FollowTarget();
                 if (!GameManager.Instance.SelectionWheel.activeInHierarchy)
                 {
                     // Update camera
@@ -332,34 +349,36 @@ public class XboxGamepadInput : MonoBehaviour {
     /// <summary>
     // Change selection.
     /// </summary>
-    public void ChangeSelectionWheel()
-    {
-        if (GameManager.Instance.SelectionWheel.activeInHierarchy)
-        {
+    public void ChangeSelectionWheel() {
+
+        if (GameManager.Instance.SelectionWheel.activeInHierarchy) {
+
             float _RawAngle;
             float globalOffset = 0;
             _RawAngle = Mathf.Atan2(_Gamepad.GetStick_L().Y, _Gamepad.GetStick_L().X) * Mathf.Rad2Deg;
 
-            if (_Gamepad.GetStick_L().X != 0 || _Gamepad.GetStick_L().Y != 0)
-            {
+            if (_Gamepad.GetStick_L().X != 0 || _Gamepad.GetStick_L().Y != 0) {
+
                 _CurrentAngle = NormalizeAngle(-_RawAngle + 90 - globalOffset + (_AngleOffset / 2f));
                 GameManager.Instance.SelectionWheel.GetComponentInChildren<SelectionWheel>().
                 SelectionMarker.rotation = Quaternion.Euler(0, 0, _RawAngle + 270);
             }
 
-            if (_AngleOffset != 0)
-            {
+            if (_AngleOffset != 0) {
+
                 _RadialIndex = (int)(_CurrentAngle / _AngleOffset);
             }
 
-            for(int i = 0; i < _SelectionWheel._WheelButtons.Count; ++i)
-            {
-                    if(_RadialIndex == i)
-                   {
+            for (int i = 0; i < _SelectionWheel._WheelButtons.Count; ++i) {
+
+                if (_RadialIndex == i) {
+
+                    ButtonHover_SelectionWheel buttonHover = _SelectionWheel._WheelButtons[i].GetComponent<ButtonHover_SelectionWheel>();
+                    buttonHover.OnPointerEnter(null);
                     StartCoroutine(DelayedSelect(_SelectionWheel._WheelButtons[i]));
                 }
             }
-     
+
         }
     }
 
@@ -392,9 +411,6 @@ public class XboxGamepadInput : MonoBehaviour {
                 if (_Gamepad.GetButton("A")) {
 
                     AButton.color = Color.grey;
-
-                    // Gamepad rumble
-                    StartRumble(0.35f, 0.35f, 0.2f);
                 }
                 else { AButton.color = Color.white; }
 
@@ -432,7 +448,7 @@ public class XboxGamepadInput : MonoBehaviour {
 
             if (hit.transform.gameObject.tag == "Ground") {
 
-                if (_PlayerAttached.SelectedWorldObjects.Count > 0) {
+                if (_PlayerAttached.SelectedUnits.Count > 0) {
 
                     XButton.enabled = true;
                     if (_Gamepad.GetButton("X")) {
@@ -448,7 +464,7 @@ public class XboxGamepadInput : MonoBehaviour {
                 CrosshairImage.sprite = CrosshairTextureDefault;
                 CrosshairImage.color = CrosshairColourDefault;
             }
-            else if (hit.transform.gameObject.tag != "Ground" && _PlayerAttached.SelectedWorldObjects.Count > 0) {
+            else if (hit.transform.gameObject.tag != "Ground" && _PlayerAttached.SelectedUnits.Count > 0) {
 
                 // Display X button prompt
                 XButton.enabled = true;
@@ -494,16 +510,11 @@ public class XboxGamepadInput : MonoBehaviour {
                 XButton.enabled = false;
                 if (_SelectableInFocus != null) { _SelectableInFocus = null; }
             }
+            
+            if (_PlayerAttached.SelectedUnits.Count > 0) {
 
-            if (_PlayerAttached.SelectedWorldObjects.Count > 1) {
-
-                YButton.enabled = true;
-                if (_Gamepad.GetButton("Y")) {
-
-                    YButton.color = Color.grey;
-                }
-                else { YButton.color = Color.white; }
-
+                DpadUpButton.enabled = true;
+                DpadDownButton.enabled = true;
                 BButton.enabled = true;
                 if (_Gamepad.GetButton("B")) {
 
@@ -518,25 +529,7 @@ public class XboxGamepadInput : MonoBehaviour {
                 }
                 else { BButton.color = Color.white; }
             }
-            else if (_PlayerAttached.SelectedWorldObjects.Count > 0) {
-
-                BButton.enabled = true;
-                if (_Gamepad.GetButton("B")) {
-
-                    BButton.color = Color.grey;
-
-                    // Gamepad rumble
-                    StartRumble(0.35f, 0.35f, 0.2f);
-
-                    // Deselect all objects
-                    _PlayerAttached.DeselectAllObjects();
-                    GameManager.Instance.SelectedUnitsHUD.RefreshPanels();
-                }
-                else { BButton.color = Color.white; }
-
-                if (_PlayerAttached.SelectedWorldObjects.Count == 1) { YButton.enabled = false; }
-            }
-            else { XButton.enabled = false; BButton.enabled = false; YButton.enabled = false; }
+            else { XButton.enabled = false; BButton.enabled = false; YButton.enabled = false; DpadUpButton.enabled = false; DpadDownButton.enabled = false; }
         }
     }
 
@@ -558,6 +551,11 @@ public class XboxGamepadInput : MonoBehaviour {
                 // Move forwards
                 movement.y += Settings.MovementSpeed;
                 CreateCenterPoint();
+
+                // Cancel any states we dont want to be in
+                _ReturningToCore = false;
+                Slicedrawer.enabled = false;
+                _PlayerAttached._CameraFollow.SetFollowing(_FollowingTarget = false);
             }
 
             if (OnLeftThumbstickDown()) {
@@ -565,6 +563,11 @@ public class XboxGamepadInput : MonoBehaviour {
                 // Move backwards
                 movement.y -= Settings.MovementSpeed;
                 CreateCenterPoint();
+
+                // Cancel any states we dont want to be in
+                _ReturningToCore = false;
+                Slicedrawer.enabled = false;
+                _PlayerAttached._CameraFollow.SetFollowing(_FollowingTarget = false);
             }
 
             if (OnLeftThumbstickRight()) {
@@ -572,6 +575,11 @@ public class XboxGamepadInput : MonoBehaviour {
                 // Move right
                 movement.x += Settings.MovementSpeed;
                 CreateCenterPoint();
+
+                // Cancel any states we dont want to be in
+                _ReturningToCore = false;
+                Slicedrawer.enabled = false;
+                _PlayerAttached._CameraFollow.SetFollowing(_FollowingTarget = false);
             }
 
             if (OnLeftThumbstickLeft()) {
@@ -579,6 +587,11 @@ public class XboxGamepadInput : MonoBehaviour {
                 // Move left
                 movement.x -= Settings.MovementSpeed;
                 CreateCenterPoint();
+
+                // Cancel any states we dont want to be in
+                _ReturningToCore = false;
+                Slicedrawer.enabled = false;
+                _PlayerAttached._CameraFollow.SetFollowing(_FollowingTarget = false);
             }
 
             if (_Gamepad.GetButton("L3")) {
@@ -651,48 +664,121 @@ public class XboxGamepadInput : MonoBehaviour {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
+    //  Checks whether the player wants to put their selected units into their guard or agro movement states.
+    /// </summary>
+    private void AiGuardInput() {
+
+        // Validitity & input check
+        if (_Gamepad.GetButtonDown("dPadDown") && _PlayerAttached.SelectedUnits.Count > 0) {
+
+            // For all selected units
+            for (int i = 0; i < _PlayerAttached.SelectedUnits.Count; i++) {
+
+                // Flip the state
+                Unit unit = _PlayerAttached.SelectedUnits[i];
+                unit.SetGuard(!unit.GetGuardState());
+            }
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  When the user presses an input button - a camera following sequence will begin on the first
+    //  unit that is in the selected list
+    /// </summary>
+    private void FollowTarget() {
+
+        // Initialize
+        if (_Gamepad.GetButtonDown("dPadUp") && _PlayerAttached.SelectedUnits.Count > 0) {
+
+            // Flip the camera state
+            _FollowingTarget = !_FollowingTarget;
+
+            if (_FollowingTarget) {
+                // Follow the first target in the selected unit list attached to the player
+                _PlayerAttached._CameraFollow.SetFollowTarget(_PlayerAttached.SelectedUnits[0]);
+                _PlayerAttached._CameraFollow.SetCameraAttached(_PlayerAttached.CameraAttached.GetComponent<Camera>());
+                _PlayerAttached._CameraFollow.Init();
+                Slicedrawer.enabled = false;
+
+            } else {
+
+                // Nulling the target will cancel the following sequence
+                _PlayerAttached._CameraFollow.SetFollowing(_FollowingTarget = false);
+
+            }
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Lerps the player's camera to the central core
+    /// </summary>
+    private void ReturnToCore() {
+
+        // Initialize
+        if (_Gamepad.GetButtonDown("back")) {
+
+            // Make the core a follow target
+            _PlayerAttached._CameraFollow.SetFollowTarget(WaveManager.Instance.CentralCore);
+            _PlayerAttached._CameraFollow.SetCameraAttached(_PlayerAttached.CameraAttached.GetComponent<Camera>());
+            _PlayerAttached._CameraFollow.Init();
+
+            // Start returning to the core
+            _ReturningToCore = true;
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
     // Takes centre screen point and gets all selected units to move towards it.
     /// </summary>
-    private void AiControllerInput(List<Unit> units)
-    {
+    private void AiControllerInput(List<Unit> units) {
 
         // Get point in world that is used to command the AI currently selected (go position, attack target, etc)
         Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
         RaycastHit hit;
         GameObject hitObject = null;
         // Return object from raycast
-        if (Physics.Raycast(ray, out hit, 1000, MaskBlock))
-        {
+        if (Physics.Raycast(ray, out hit, 1000, MaskBlock)) {
             hitObject = hit.collider.gameObject;
         }
 
         Vector3 hitPoint = Settings.InvalidPosition;
         // Return object from raycast
-        if (Physics.Raycast(ray, out hit, 1000, MaskBlock))
-        {
+        if (Physics.Raycast(ray, out hit, 1000, MaskBlock)) {
             hitPoint = hit.point;
         }
 
         //GameObject hitObject = _PlayerAttached._HUD.FindHitObject();
-     //   Vector3 hitPoint = _PlayerAttached._HUD.FindHitPoint();
-        if (hitObject && hitPoint != Settings.InvalidPosition)
-        {
+        //   Vector3 hitPoint = _PlayerAttached._HUD.FindHitPoint();
+        if (hitObject && hitPoint != Settings.InvalidPosition) {
 
             // AI seek to hitpoint vector
-            if (hitObject.tag == "Ground")
-            {
-                // If there are individually selected units
-                if (units.Count > 0)
-                {
+            if (hitObject.tag == "Ground") {
 
-                    // Loop through all selected units & perform SEEK command
-                    foreach (var unit in units) { unit.AgentSeekPosition(hitPoint, true); }
+                for (int i = 0; i < units.Count; i++) {
+
+                    // First unit goes for the center point
+                    if (i == 0) {
+
+                        units[0].AgentSeekPosition(hitPoint, true, true);
+                        units[0].GetDialogue().PlaySeekSound();
+                    } else {
+
+                        // Every other unit goes around in a circle along the ground
+                        Vector3 rand = (UnityEngine.Random.insideUnitCircle * (i + 1)) * (units[i].GetAgent().radius * 3);
+                        Vector3 destination = hitPoint += new Vector3(rand.x, 0, rand.y);
+                        units[i].AgentSeekPosition(hitPoint, true, false);
+                    }
                 }
             }
 
             /// (hitObject.tag != "Ground")
-            else
-            {
+            else {
 
                 // Cast hit object to selectable objects
                 Base baseObj = hitObject.transform.root.GetComponent<Base>();
@@ -700,18 +786,35 @@ public class XboxGamepadInput : MonoBehaviour {
 
                 // Hit an AI object?
                 Unit unitObj = hitObject.GetComponentInParent<Unit>();
-                
+
                 // Right clicking on a unit
                 if (unitObj) {
 
                     // Enemy unit
-                    if (unitObj.Team != GameManager.Team.Defending) {
+                    if (unitObj.Team != GameManager.Team.Defending && unitObj.Team != GameManager.Team.Undefined) {
 
                         // If there are individually selected units
                         if (units.Count > 0) {
 
                             // Loop through all selected units & perform ATTACK command on the unit
-                            foreach (var unit in units) { unit.AgentAttackObject(unitObj, unit.GetAttackingPositionAtObject(unitObj), true); }
+                            foreach (var unit in units) { unit.ForceChaseTarget(unitObj, true); }
+
+                            // Play OnAttackSound for the first unit that was selected
+                            _PlayerAttached.SelectedUnits[0].GetDialogue().PlayAttackSound();
+                        }
+                    }
+
+                    // Ally unit
+                    else {
+
+                        // Unit isnt at full health
+                        if (unitObj.GetHitPoints() < unitObj.MaxHitPoints) {
+
+                            for (int i = 0; i < units.Count; i++) {
+
+                                // Heal the friendly unit
+                                if (units[i] is SupportAirShip) { (units[i] as SupportAirShip).SetHealingTarget(unitObj); }
+                            }
                         }
                     }
                 }
@@ -720,13 +823,21 @@ public class XboxGamepadInput : MonoBehaviour {
                 else if (buildingObj) {
 
                     // Enemy building
-                    if (buildingObj.Team != GameManager.Team.Defending) {
-                        // If there are individually selected units
+                    if (buildingObj.Team != GameManager.Team.Defending && unitObj.Team != GameManager.Team.Undefined) {
+
+                        // Get attacking positions
+                        List<Vector3> positions = new List<Vector3>();
                         if (units.Count > 0) {
 
-                            // Loop through all selected units & perform ATTACK command on the building
-                            foreach (var unit in units) { unit.AgentAttackObject(buildingObj, unit.GetAttackingPositionAtObject(buildingObj), true); }
+                            // Get positions in a arc facing the building
+                            positions = units[0].GetAttackArcPositions(buildingObj, units.Count);
                         }
+
+                        // Attack the building
+                        for (int i = 0; i < units.Count; i++) { units[i].AgentAttackObject(buildingObj, positions[i], true, i == 0 ? true : false); }
+
+                        // Play OnAttackSound for the first unit that was selected
+                        _PlayerAttached.SelectedUnits[0].GetDialogue().PlayAttackSound();
                     }
 
                     // Ally building
@@ -737,6 +848,16 @@ public class XboxGamepadInput : MonoBehaviour {
 
                             // And there is enough space for it
                             ///if (buildingObj.MaxGarrisonPopulation - buildingObj.GetCurrentGarrisonCount() >= )
+                        }
+
+                        // Building isnt at full health
+                        if (buildingObj.GetHitPoints() < buildingObj.MaxHitPoints) {
+
+                            for (int i = 0; i < units.Count; i++) {
+
+                                // Heal the building
+                                if (units[i] is SupportAirShip) { (units[i] as SupportAirShip).SetHealingTarget(buildingObj); }
+                            }
                         }
                     }
                 }
@@ -831,10 +952,175 @@ public class XboxGamepadInput : MonoBehaviour {
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, 1000, _PlayerAttached._HUD.MaskBlock)) {
 
+            // Cast hit object to selectable objects
+            Base baseObj = null;
+            Building buildingObj = null;
+            BuildingSlot buildingSlot = null;
+            Unit unit = null;
+            WorldObject worldObj = null;
 
+            baseObj = hit.transform.GetComponentInParent<Base>();
+            buildingSlot = hit.transform.GetComponent<BuildingSlot>();
+            worldObj = hit.transform.GetComponentInParent<WorldObject>();
 
+            // Left clicking on something attached to a base
+            if (baseObj != null) {
+
+                buildingObj = hit.transform.GetComponent<Building>();
+
+                // Left clicking on a base
+                if (buildingObj == null && buildingSlot == null) {
+
+                    // Matching team
+                    if (baseObj.Team == _PlayerAttached.Team) {
+
+                        // Add selection to list
+                        _PlayerAttached.SelectedWorldObjects.Add(baseObj);
+                        baseObj.SetPlayer(_PlayerAttached);
+                        baseObj.SetIsSelected(true);
+                        baseObj.OnSelectionWheel();
+                    }
+                }
+
+                // Left clicking on a building
+                if (buildingObj != null) {
+
+                    if (buildingSlot == null) {
+
+                        // Matching team
+                        if (buildingObj.Team == _PlayerAttached.Team) {
+
+                            // Add selection to list
+                            _PlayerAttached.SelectedWorldObjects.Add(buildingObj);
+                            buildingObj.SetPlayer(_PlayerAttached);
+                            buildingObj.SetIsSelected(true);
+                            buildingObj.OnSelectionWheel();
+                        }
+                    }
+                }
+
+                // Left clicking on a building slot
+                if (buildingSlot != null) {
+
+                    // Empty building slot
+                    if (buildingSlot.GetBuildingOnSlot() == null) {
+
+                        // Matching team
+                        if (buildingSlot.AttachedBase.Team == _PlayerAttached.Team) {
+
+                            _PlayerAttached.SelectedBuildingSlot = buildingSlot;
+                            buildingSlot.SetPlayer(_PlayerAttached);
+                            buildingSlot.SetIsSelected(true);
+                        }
+                    }
+
+                    // Builded slot
+                    else {
+
+                        // Matching team
+                        if (buildingSlot.GetBuildingOnSlot().Team == _PlayerAttached.Team) {
+
+                            // Add selection to list
+                            _PlayerAttached.SelectedWorldObjects.Add(buildingSlot.GetBuildingOnSlot());
+                            buildingSlot.GetBuildingOnSlot().SetPlayer(_PlayerAttached);
+                            buildingSlot.GetBuildingOnSlot().SetIsSelected(true);
+                            buildingSlot.GetBuildingOnSlot().OnSelectionWheel();
+                        }
+                    }
+                }
+            }
+
+            // Left clicking on something NOT attached to a base
+            else {
+
+                buildingObj = hit.transform.GetComponentInParent<Building>();
+
+                // Left clicking on a building
+                if (buildingObj != null) {
+
+                    if (baseObj == null && buildingSlot == null) {
+
+                        // Matching team
+                        if (buildingObj.Team == _PlayerAttached.Team) {
+
+                            // Add selection to list
+                            _PlayerAttached.SelectedWorldObjects.Add(buildingObj);
+                            buildingObj.SetPlayer(_PlayerAttached);
+                            buildingObj.SetIsSelected(true);
+                            buildingObj.OnSelectionWheel();
+                        }
+                    }
+                }
+
+                // Hit an AI object?
+                unit = hit.transform.GetComponentInParent<Unit>();
+
+                // Left clicking on a unit
+                if (unit != null) {
+
+                    // Unit is active in the world
+                    if (unit.GetObjectState() == Abstraction.WorldObjectStates.Active) {
+
+                        // Matching team
+                        if (unit.Team == _PlayerAttached.Team) {
+
+                            // Add selection to list
+                            _PlayerAttached.SelectedWorldObjects.Add(unit);
+                            _PlayerAttached.SelectedUnits.Add(unit);
+                            unit.SetPlayer(_PlayerAttached);
+                            unit.SetIsSelected(true);
+
+                            // Play OnSelectSound for the first unit that was selected
+                            if (_PlayerAttached.SelectedUnits[0].GetDialogue() != null)
+                                _PlayerAttached.SelectedUnits[0].GetDialogue().PlaySelectSound();
+                        }
+                    }
+                }
+
+                // Left clicking on a world object
+                if (worldObj != null) {
+
+                    if (buildingSlot == null && buildingObj == null && baseObj == null && unit == null) {
+
+                        // Add selection to list
+                        _PlayerAttached.SelectedWorldObjects.Add(worldObj);
+                        worldObj.SetPlayer(_PlayerAttached);
+                        worldObj.SetIsSelected(true);
+                    }
+                }
+
+                // Left clicking on a building slot
+                if (buildingSlot != null) {
+
+                    // Empty building slot
+                    if (buildingSlot.GetBuildingOnSlot() == null) {
+
+                        _PlayerAttached.SelectedBuildingSlot = buildingSlot;
+                        buildingSlot.SetPlayer(_PlayerAttached);
+                        buildingSlot.SetIsSelected(true);
+                    }
+
+                    // Builded slot
+                    else {
+
+                        // Matching team
+                        if (buildingSlot.GetBuildingOnSlot().Team == _PlayerAttached.Team) {
+
+                            // Add selection to list
+                            _PlayerAttached.SelectedWorldObjects.Add(buildingSlot.GetBuildingOnSlot());
+                            buildingSlot.GetBuildingOnSlot().SetPlayer(_PlayerAttached);
+                            buildingSlot.GetBuildingOnSlot().SetIsSelected(true);
+                            buildingSlot.GetBuildingOnSlot().OnSelectionWheel();
+                        }
+                    }
+                }
+
+                // Update units selected panels
+                GameManager.Instance.SelectedUnitsHUD.RefreshPanels();
+            }
         }
     }
+    
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

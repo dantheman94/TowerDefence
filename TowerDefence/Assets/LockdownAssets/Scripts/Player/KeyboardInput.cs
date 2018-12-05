@@ -1019,7 +1019,7 @@ public class KeyboardInput : MonoBehaviour {
                 }
 
                 // Just clicked on the ground so deselect all objects
-                else if(!Input.GetKey(KeyCode.LeftShift)) { _PlayerAttached.DeselectAllObjects(); }
+                else if (!Input.GetKey(KeyCode.LeftShift)) { _PlayerAttached.DeselectAllObjects(); }
 
                 // Update units selected panels
                 GameManager.Instance.SelectedUnitsHUD.RefreshPanels();
@@ -1148,20 +1148,17 @@ public class KeyboardInput : MonoBehaviour {
             // AI seek to hitpoint vector
             if (hitObject.tag == "Ground") {
 
-                if (!MiniMap.RectangleArea.PointInside(Input.mousePosition))
-                {
-                    for (int i = 0; i < units.Count; i++)
-                    {
+                if (!MiniMap.RectangleArea.PointInside(Input.mousePosition)) {
+
+                    for (int i = 0; i < units.Count; i++) {
 
                         // First unit goes for the center point
-                        if (i == 0)
-                        {
+                        if (i == 0) {
 
                             units[0].AgentSeekPosition(hitPoint, true, true);
                             units[0].GetDialogue().PlaySeekSound();
-                        }
-                        else
-                        {
+                        } 
+                        else {
 
                             // Every other unit goes around in a circle along the ground
                             Vector3 rand = (Random.insideUnitCircle * (i + 1)) * (units[i].GetAgent().radius * 3);
@@ -1169,10 +1166,7 @@ public class KeyboardInput : MonoBehaviour {
                             units[i].AgentSeekPosition(hitPoint, true, false);
                         }
                     }
-
                 }
-                // Create offsets for each of the individual units so that they dont fight over the same destination point
-          
             }
 
             /// (hitObject.tag != "Ground")
@@ -1184,13 +1178,13 @@ public class KeyboardInput : MonoBehaviour {
 
                 // Hit an AI object?
                 Unit unitObj = hitObject.GetComponentInParent<Unit>();
-                
+
                 // Right clicking on a unit
                 if (unitObj) {
 
                     // Enemy unit
-                    if (unitObj.Team != GameManager.Team.Defending) {
-                        
+                    if (unitObj.Team != GameManager.Team.Defending && unitObj.Team != GameManager.Team.Undefined) {
+
                         // If there are individually selected units
                         if (units.Count > 0) {
 
@@ -1200,11 +1194,11 @@ public class KeyboardInput : MonoBehaviour {
                             // Play OnAttackSound for the first unit that was selected
                             _PlayerAttached.SelectedUnits[0].GetDialogue().PlayAttackSound();
                         }
-                    }   
-                    
+                    }
+
                     // Ally unit
                     else {
-                        
+
                         // Unit isnt at full health
                         if (unitObj.GetHitPoints() < unitObj.MaxHitPoints) {
 
@@ -1221,7 +1215,7 @@ public class KeyboardInput : MonoBehaviour {
                 else if (buildingObj) {
 
                     // Enemy building
-                    if (buildingObj.Team != GameManager.Team.Defending) {
+                    if (buildingObj.Team != GameManager.Team.Defending && unitObj.Team != GameManager.Team.Undefined) {
 
                         // Get attacking positions
                         List<Vector3> positions = new List<Vector3>();
@@ -1298,7 +1292,7 @@ public class KeyboardInput : MonoBehaviour {
     private void AiGuardInput() {
 
         // Validitity & input check
-        if (Input.GetKeyDown(KeyCode.R) && _PlayerAttached.SelectedUnits.Count > 0) {
+        if (Input.GetKeyDown(KeyCode.G) && _PlayerAttached.SelectedUnits.Count > 0) {
 
             // For all selected units
             for (int i = 0; i < _PlayerAttached.SelectedUnits.Count; i++) {

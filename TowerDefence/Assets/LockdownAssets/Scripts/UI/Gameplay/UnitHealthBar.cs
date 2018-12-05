@@ -35,6 +35,8 @@ public class UnitHealthBar : MonoBehaviour {
     [Space]
     public Image BuildLogoImage = null;
     public UnityEngine.UI.Outline BuildLogoOutline = null;
+    [Space]
+    public Image GuardLogoImage = null;
 
     [Space]
     [Header("-----------------------------------")]

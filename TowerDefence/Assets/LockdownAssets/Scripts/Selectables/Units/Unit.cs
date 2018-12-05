@@ -1632,7 +1632,13 @@ public class Unit : WorldObject {
     //  Sets whether the unit should be in their guard or agro state.
     /// </summary>
     // <param name="value"></param>
-    public void SetGuard(bool value) { _IsGuarding = value; }
+    public void SetGuard(bool value) {
+
+        _IsGuarding = value;
+
+        // Update worldspace healthbar guard logo visibility
+        if (_HealthBar != null) { _HealthBar.GuardLogoImage.gameObject.SetActive(value); }
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

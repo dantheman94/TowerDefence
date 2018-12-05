@@ -82,6 +82,8 @@ public class TutorialScene : MonoBehaviour {
     public GameObject ControlsObject;
     public Color UIGreyoutColor;
     public  bool RunTutorial = false;
+    public GameObject PCTutorialMessageAccept = null;
+    public GameObject XboxTutorialMessageAccept = null;
     [HideInInspector]
     public static MessageData CurrentMessageData;
 
@@ -127,15 +129,20 @@ public class TutorialScene : MonoBehaviour {
         else
         {
             MessagePanel.SetActive(false);
-            if(ControlsObject != null)
-            ControlsObject.SetActive(true);
         }
 
         if(GameManager.Instance.GetGameOverState())
         {
             PlayerPrefs.SetString("TutorialComplete", "Yes");
         }
-	}
+
+        // Force the controls panel
+        if (ControlsObject != null)
+            ControlsObject.SetActive(true);
+
+        PCTutorialMessageAccept.SetActive(_Player._KeyboardInputManager.IsPrimaryController);
+        XboxTutorialMessageAccept.SetActive(_Player._XboxGamepadInputManager.IsPrimaryController && !MessageList[EventIndex].DisablePrompt);
+    }
 
     //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -159,7 +166,7 @@ public class TutorialScene : MonoBehaviour {
         {
             if (MessageList[EventIndex].LockControls || MessageList[EventIndex].LockCamera)
             {
-                ControlsObject.SetActive(false);
+                ///ControlsObject.SetActive(false);
             }
             else if (!MessageList[EventIndex].LockControls && !MessageList[EventIndex].LockCamera)
             {
