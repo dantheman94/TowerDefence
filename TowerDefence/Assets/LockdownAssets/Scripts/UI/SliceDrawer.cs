@@ -35,21 +35,23 @@ public class SliceDrawer : MonoBehaviour {
     private GameObject newobject;
     private LineRenderer lineRenderer;
     private Transform _PreviousTransform;
+    private xb_gamepad gamepad;
+    private float timer = 2;
 
     //  FUNCTIONS
     ///////////////////////////////////////////////////////////////////
 	// Use this for initialization
 	void Start () {
         _Camera = GetComponent<Camera>();
+        gamepad = GamepadManager.Instance.GetGamepad(1);
 	}
 
     ///////////////////////////////////////////////////////////////////
 
     // Update is called once per frame
     void Update () {
+        timer += Time.deltaTime * 100;
 
-
-       
             if (Input.GetMouseButtonDown(1))
             {
                 _PreviousTransform = _Camera.transform;
@@ -75,9 +77,6 @@ public class SliceDrawer : MonoBehaviour {
                     lineRenderer.startWidth = LineWidth;
                     lineRenderer.endWidth = LineWidth;
                 }
-
-
-                // LineStartPoint = null;
             }
             if (Input.GetMouseButtonUp(1))
             {
@@ -86,8 +85,36 @@ public class SliceDrawer : MonoBehaviour {
                 MouseEndPoint = hud.FindHitPoint();
                 EndGO = hud.FindHitObject();
             }
-        
     
+                if(GameManager.Instance.Players[0]._XboxGamepadInputManager.GetButtonXClicked())
+                {
+                _LineStartPoint = GetCentrePoint();
+                LineEndPoint = GetCentrePoint();
+                }
+                else if (gamepad.GetButton("X"))
+                {
+                
+                    if (newobject == null)
+                    {
+                        newobject = new GameObject();
+                        lineRenderer = newobject.AddComponent<LineRenderer>();
+                     
+                    }
+                lineRenderer.material = LineMaterial;
+            _LineStartPoint = GetCentrePoint((Screen.width / 2) - timer, Screen.height / 2);
+            LineEndPoint = GetCentrePoint((Screen.width / 2) +timer, Screen.height / 2);
+            lineRenderer.SetPositions(new Vector3[] { _LineStartPoint, LineEndPoint });
+                lineRenderer.startWidth = LineWidth;
+                lineRenderer.endWidth = LineWidth;
+            }
+
+                if(GameManager.Instance.Players[0]._XboxGamepadInputManager.GetButtonXReleased())
+                {
+            timer = 2;
+                    Destroy(newobject);
+                }
+           
+  
        
 	}
 
@@ -96,6 +123,18 @@ public class SliceDrawer : MonoBehaviour {
     private Vector3 GetMouseCameraPoint()
     {
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        return ray.origin + ray.direction * Depth;
+    }
+
+    private Vector3 GetCentrePoint()
+    {
+        var ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width/2, Screen.height/2));
+        return ray.origin + ray.direction * Depth;
+    }
+
+    private Vector3 GetCentrePoint(float x, float y)
+    {
+        var ray = Camera.main.ScreenPointToRay(new Vector3(x, y));
         return ray.origin + ray.direction * Depth;
     }
 

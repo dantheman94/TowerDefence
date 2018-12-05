@@ -649,7 +649,7 @@ public class XboxGamepadInput : MonoBehaviour {
 
                 // Cancel any states we dont want to be in
                 _ReturningToCore = false;
-                Slicedrawer.enabled = false;
+             //   Slicedrawer.enabled = false;
                 _PlayerAttached._CameraFollow.SetFollowing(_FollowingTarget = false);
             }
 
@@ -661,7 +661,7 @@ public class XboxGamepadInput : MonoBehaviour {
 
                 // Cancel any states we dont want to be in
                 _ReturningToCore = false;
-                Slicedrawer.enabled = false;
+        //        Slicedrawer.enabled = false;
                 _PlayerAttached._CameraFollow.SetFollowing(_FollowingTarget = false);
             }
 
@@ -673,7 +673,7 @@ public class XboxGamepadInput : MonoBehaviour {
 
                 // Cancel any states we dont want to be in
                 _ReturningToCore = false;
-                Slicedrawer.enabled = false;
+          //      Slicedrawer.enabled = false;
                 _PlayerAttached._CameraFollow.SetFollowing(_FollowingTarget = false);
             }
 
@@ -685,7 +685,7 @@ public class XboxGamepadInput : MonoBehaviour {
 
                 // Cancel any states we dont want to be in
                 _ReturningToCore = false;
-                Slicedrawer.enabled = false;
+          //      Slicedrawer.enabled = false;
                 _PlayerAttached._CameraFollow.SetFollowing(_FollowingTarget = false);
             }
 
@@ -1610,6 +1610,8 @@ public class XboxGamepadInput : MonoBehaviour {
     /// </returns>
     public bool GetButtonYClicked() { return (_PreviousGamepadState.Buttons.Y == ButtonState.Released && _GamepadState.Buttons.Y == ButtonState.Pressed); }
     
+    public bool GetButtonX() { return (_GamepadState.Buttons.X == ButtonState.Pressed); }
+
     /// <summary>
     //  Returns if the Y button was released in during this frame
     /// </summary>
