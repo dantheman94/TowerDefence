@@ -482,8 +482,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ObjectName: Mine Field
-  ObjectDescriptionShort: 
-  ObjectDescriptionLong: 
+  ObjectDescriptionShort: Explosive Tripmine
+  ObjectDescriptionLong: A series of explosive tripmines that will deal heavy area
+    damage to any enemy unit that is unfortunate to walk over.
   Logo: {fileID: 21300000, guid: 506b73284b0b8324382ac6a7bfc8366d, type: 3}
   BuildingTime: 20
   BuildingTimeTutorial: 5
@@ -507,6 +508,7 @@ MonoBehaviour:
   ActiveState: {fileID: 1708082212870266}
   DestroyedState: {fileID: 0}
   Damagable: 1
+  CanBeTargetted: 1
   MaxHitPoints: 0
   MaxShieldPoints: 0
   Garrisonable: 0
@@ -514,6 +516,9 @@ MonoBehaviour:
   MultiSelectable: 0
   _OffsetY: 0
   QuadMinimap: {fileID: 1447009921086224}
+  ShowBuildLogoInHealthBar: 0
+  HealthBarLogo: {fileID: 0}
+  BuildLogoOffset: -60
   _WidgetHealthbarScaleX: 100
   _WidgetHealthbarScaleY: 15
   _WidgetHealthbarOffset: 15

@@ -370,9 +370,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 491b4d2929791f0419ee61564b7363b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObjectName: Barricade
-  ObjectDescriptionShort: 
-  ObjectDescriptionLong: 
+  ObjectName: Small Barricade
+  ObjectDescriptionShort: Barricade
+  ObjectDescriptionLong: A fortified defensive wall will halt enemy movements in their
+    path. Can be upgraded.
   Logo: {fileID: 21300000, guid: 7a1be30ca03f06741a7098d2a60d5f9f, type: 3}
   BuildingTime: 20
   BuildingTimeTutorial: 5
@@ -396,6 +397,7 @@ MonoBehaviour:
   ActiveState: {fileID: 1050043004154138}
   DestroyedState: {fileID: 0}
   Damagable: 1
+  CanBeTargetted: 1
   MaxHitPoints: 600
   MaxShieldPoints: 0
   Garrisonable: 0
@@ -403,6 +405,9 @@ MonoBehaviour:
   MultiSelectable: 0
   _OffsetY: 0
   QuadMinimap: {fileID: 1534476585248272}
+  ShowBuildLogoInHealthBar: 0
+  HealthBarLogo: {fileID: 0}
+  BuildLogoOffset: -60
   _WidgetHealthbarScaleX: 100
   _WidgetHealthbarScaleY: 10
   _WidgetHealthbarOffset: 0

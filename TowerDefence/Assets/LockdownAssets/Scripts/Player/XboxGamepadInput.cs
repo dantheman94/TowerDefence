@@ -21,7 +21,8 @@ public class XboxGamepadInput : MonoBehaviour {
     //      INSPECTOR
     //
     //******************************************************************************************************************************
-    
+
+    [Space]
     [Header("-----------------------------------")]
     [Header(" GAMEPAD MULTISPHERE PROPERTIES")]
     [Space]
@@ -443,7 +444,11 @@ public class XboxGamepadInput : MonoBehaviour {
             else {
 
                 AButton.enabled = false;
-                if (_SelectableInFocus != null) { _SelectableInFocus = null; }
+                if (_SelectableInFocus != null) {
+
+                    _SelectableInFocus.SetIsHighlighted(false);
+                    _SelectableInFocus = null;
+                }
             }
 
             if (hit.transform.gameObject.tag == "Ground") {
@@ -458,7 +463,11 @@ public class XboxGamepadInput : MonoBehaviour {
                         XButton.color = Color.white;
                     }
 
-                    if (_SelectableInFocus != null) { _SelectableInFocus = null; }
+                    if (_SelectableInFocus != null) {
+
+                        _SelectableInFocus.SetIsHighlighted(false);
+                        _SelectableInFocus = null;
+                    }
                 }
 
                 CrosshairImage.sprite = CrosshairTextureDefault;
@@ -503,12 +512,48 @@ public class XboxGamepadInput : MonoBehaviour {
                         CrosshairImage.sprite = CrosshairTextureFriendly;
                         CrosshairImage.color = CrosshairColourDefault;
                     }
+
+                    _SelectableInFocus.SetIsHighlighted(true);
+                }
+            } 
+            else if (hit.transform.gameObject.tag != "Ground") {
+
+                // Update crosshair texture
+                if (_SelectableInFocus == null) { _SelectableInFocus = hit.transform.gameObject.GetComponent<Selectable>(); }
+                if (_SelectableInFocus != null) {
+
+                    // Friendly team
+                    if (_SelectableInFocus.Team == GameManager.Team.Defending) {
+
+                        CrosshairImage.sprite = CrosshairTextureFriendly;
+                        CrosshairImage.color = CrosshairColourFriendly;
+                    }
+
+                    // Enemy team
+                    else if (_SelectableInFocus.Team == GameManager.Team.Attacking) {
+
+                        CrosshairImage.sprite = CrosshairTextureEnemy;
+                        CrosshairImage.color = CrosshairColourEnemy;
+                    }
+
+                    // Undefined team
+                    else {
+
+                        CrosshairImage.sprite = CrosshairTextureFriendly;
+                        CrosshairImage.color = CrosshairColourDefault;
+                    }
+
+                    _SelectableInFocus.SetIsHighlighted(true);
                 }
             }
             else {
 
                 XButton.enabled = false;
-                if (_SelectableInFocus != null) { _SelectableInFocus = null; }
+                if (_SelectableInFocus != null) {
+
+                    _SelectableInFocus.SetIsHighlighted(false);
+                    _SelectableInFocus = null;
+                }
             }
             
             if (_PlayerAttached.SelectedUnits.Count > 0) {
@@ -765,14 +810,21 @@ public class XboxGamepadInput : MonoBehaviour {
                     // First unit goes for the center point
                     if (i == 0) {
 
-                        units[0].AgentSeekPosition(hitPoint, true, true);
-                        units[0].GetDialogue().PlaySeekSound();
-                    } else {
+                        if (!units[0].GetGuardState()) {
 
-                        // Every other unit goes around in a circle along the ground
-                        Vector3 rand = (UnityEngine.Random.insideUnitCircle * (i + 1)) * (units[i].GetAgent().radius * 3);
-                        Vector3 destination = hitPoint += new Vector3(rand.x, 0, rand.y);
-                        units[i].AgentSeekPosition(hitPoint, true, false);
+                            units[0].AgentSeekPosition(hitPoint, true, true);
+                            units[0].GetDialogue().PlaySeekSound();
+                        }
+                    } 
+                    else {
+
+                        if (!units[i].GetGuardState()) {
+
+                            // Every other unit goes around in a circle along the ground
+                            Vector3 rand = (Random.insideUnitCircle * (i + 1)) * (units[i].GetAgent().radius * 3);
+                            Vector3 destination = hitPoint += new Vector3(rand.x, 0, rand.y);
+                            units[i].AgentSeekPosition(hitPoint, true, false);
+                        }
                     }
                 }
             }

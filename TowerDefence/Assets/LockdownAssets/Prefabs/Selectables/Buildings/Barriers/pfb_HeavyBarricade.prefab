@@ -104,7 +104,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1474427594815508}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1047, y: 0, z: -552.56}
+  m_LocalPosition: {x: 6, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4835565732946112}
@@ -298,9 +298,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ObjectName: Heavy Barricade
-  ObjectDescriptionShort: 
-  ObjectDescriptionLong: 
-  Logo: {fileID: 21300000, guid: 7a1be30ca03f06741a7098d2a60d5f9f, type: 3}
+  ObjectDescriptionShort: Barricade
+  ObjectDescriptionLong: Massive health boost to the barricade to ensure that enemy
+    units have a hard time pushing through your defences.
+  Logo: {fileID: 21300000, guid: 97e57509f7348b84a8c88449ea5f6709, type: 3}
   BuildingTime: 20
   BuildingTimeTutorial: 5
   CostSupplies: 500
@@ -323,6 +324,7 @@ MonoBehaviour:
   ActiveState: {fileID: 1347355967974238}
   DestroyedState: {fileID: 0}
   Damagable: 1
+  CanBeTargetted: 1
   MaxHitPoints: 1200
   MaxShieldPoints: 0
   Garrisonable: 0
@@ -330,6 +332,9 @@ MonoBehaviour:
   MultiSelectable: 0
   _OffsetY: 0
   QuadMinimap: {fileID: 1838296657554128}
+  ShowBuildLogoInHealthBar: 0
+  HealthBarLogo: {fileID: 0}
+  BuildLogoOffset: -60
   _WidgetHealthbarScaleX: 100
   _WidgetHealthbarScaleY: 10
   _WidgetHealthbarOffset: 0

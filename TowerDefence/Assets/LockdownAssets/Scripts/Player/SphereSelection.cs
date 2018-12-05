@@ -65,12 +65,15 @@ public class SphereSelection : MonoBehaviour {
 
                         // Add selection to list
                         if (!_Player.SelectedWorldObjects.Contains(unit)) { _Player.SelectedWorldObjects.Add(unit); }
-                        if (!_Player.SelectedUnits.Contains(unit)) { _Player.SelectedUnits.Add(unit); }
+                        if (!_Player.SelectedUnits.Contains(unit)) {
+
+                            _Player.SelectedUnits.Add(unit);
+
+                            // Gamepad rumble
+                            _Player._XboxGamepadInputManager.StartRumble(0.35f, 0.35f, 0.2f);
+                        }
                         unit.SetPlayer(_Player);
                         unit.SetIsSelected(true);
-
-                        // Gamepad rumble
-                        _Player._XboxGamepadInputManager.StartRumble(0.35f, 0.35f, 0.2f);
                     }
                 }
             }
@@ -81,12 +84,15 @@ public class SphereSelection : MonoBehaviour {
                 if (buildingSlot == null && buildingObj == null && baseObj == null && unit == null) {
 
                     // Add selection to list
-                    if (!_Player.SelectedWorldObjects.Contains(unit)) { _Player.SelectedWorldObjects.Add(worldObj); }
+                    if (!_Player.SelectedWorldObjects.Contains(unit)) {
+
+                        _Player.SelectedWorldObjects.Add(worldObj);
+
+                        // Gamepad rumble
+                        _Player._XboxGamepadInputManager.StartRumble(0.35f, 0.35f, 0.2f);
+                    }
                     worldObj.SetPlayer(_Player);
                     worldObj.SetIsSelected(true);
-
-                    // Gamepad rumble
-                    _Player._XboxGamepadInputManager.StartRumble(0.35f, 0.35f, 0.2f);
                 }
             }
         }

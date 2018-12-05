@@ -1635,6 +1635,7 @@ public class Unit : WorldObject {
     public void SetGuard(bool value) {
 
         _IsGuarding = value;
+        if (value) { _Agent.SetDestination(transform.position); }
 
         // Update worldspace healthbar guard logo visibility
         if (_HealthBar != null) { _HealthBar.GuardLogoImage.gameObject.SetActive(value); }

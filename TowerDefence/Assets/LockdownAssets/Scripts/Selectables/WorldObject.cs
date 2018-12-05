@@ -684,7 +684,8 @@ public class WorldObject : Selectable {
     public void CreateHealthBar(WorldObject thisObject, Camera camera) {
 
         // Create a health bar and allocate it to the unit
-        GameObject healthBarObj = ObjectPooling.Spawn(GameManager.Instance.UnitHealthBar.gameObject);
+        ///GameObject healthBarObj = ObjectPooling.Spawn(GameManager.Instance.UnitHealthBar.gameObject);
+        GameObject healthBarObj = Instantiate(GameManager.Instance.UnitHealthBar);
         _HealthBar = healthBarObj.GetComponent<UnitHealthBar>();
         _HealthBar.SetObjectAttached(thisObject);
         _HealthBar.SetCameraAttached(camera);

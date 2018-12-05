@@ -7,11 +7,24 @@ using UnityEngine;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 11/9/2018
+//  Last edited on: 5/12/2018
 //
 //******************************
 
 public class UI_RecycleScreenConfirmation : MonoBehaviour {
+
+    //******************************************************************************************************************************
+    //
+    //      INSPECTOR
+    //
+    //******************************************************************************************************************************
+
+    [Space]
+    [Header("-----------------------------------")]
+    [Header(" CONTROLLER PROPERTIES")]
+    [Space]
+    public GameObject AButton = null;
+    public GameObject BButton = null;
 
     //******************************************************************************************************************************
     //
@@ -31,6 +44,24 @@ public class UI_RecycleScreenConfirmation : MonoBehaviour {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /// <summary>
+    //  Called each frame.
+    /// </summary>
+    private void Update() {
+
+        Player plyr = GameManager.Instance.Players[0];
+        if (AButton) { AButton.SetActive(plyr._XboxGamepadInputManager.IsPrimaryController); }
+        if (BButton) { AButton.SetActive(plyr._XboxGamepadInputManager.IsPrimaryController); }
+
+        if (plyr._XboxGamepadInputManager.GetButtonAClicked()) { ConfirmRecycle(); }
+        if (plyr._XboxGamepadInputManager.GetButtonBClicked()) { HideWidget(); }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Starts the building recycle process
+    /// </summary>
     public void ConfirmRecycle() {
 
         if (_BuildingToRecycle != null && _BuildingSlotInFocus != null) {

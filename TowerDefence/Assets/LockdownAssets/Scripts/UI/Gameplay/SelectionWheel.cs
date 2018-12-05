@@ -55,6 +55,7 @@ public class SelectionWheel : MonoBehaviour {
     [Header(" GAMEPAD PROPERTIES")]
     [Space]
     public RectTransform SelectionMarker;
+    public Image SelectionMarkerImage = null;
 
     [Space]
     [Header("-----------------------------------")]
@@ -92,10 +93,11 @@ public class SelectionWheel : MonoBehaviour {
     //  Called in the next frame (1 frame delay)
     /// </summary>
     private void LateUpdate() {
-
+        
         if (MasterButton != null && MasterButton.gameObject.activeInHierarchy == true) { MasterButton.enabled = true; }
 
         if (_Player == null) { _Player = GameManager.Instance.Players[0]; }
+        if (_Player != null) { SelectionMarkerImage.gameObject.SetActive(_Player._XboxGamepadInputManager.IsPrimaryController); }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -142,6 +144,14 @@ public class SelectionWheel : MonoBehaviour {
                     _WheelButtons[i].onClick.AddListener(delegate { unitRef.AbstractRef.OnWheelSelect(buildingSlotInFocus); });
                     unitRef.RadialSliceButton.onClick.AddListener(delegate { unitRef.AbstractRef.OnWheelSelect(buildingSlotInFocus); });
                 }
+            }
+
+            // No selectable reference for this button item so give it an empty slot description
+            else {
+
+                // Update reference unit
+                SelectionWheelUnitRef unitRef = _WheelButtons[i].GetComponent<SelectionWheelUnitRef>();
+                unitRef.AbstractRef = null;
             }
             ++i;
         }
@@ -196,6 +206,14 @@ public class SelectionWheel : MonoBehaviour {
                 // Update button click event
                 _WheelButtons[i].onClick.AddListener(delegate { unitRef.AbstractRef.OnWheelSelect(buildingSlotInFocus); });
                 unitRef.RadialSliceButton.onClick.AddListener(delegate { unitRef.AbstractRef.OnWheelSelect(buildingSlotInFocus); });
+            }
+            
+            // No selectable reference for this button item so give it an empty slot description
+            else {
+
+                // Update reference unit
+                SelectionWheelUnitRef unitRef = _WheelButtons[i].GetComponent<SelectionWheelUnitRef>();
+                unitRef.AbstractRef = null;
             }
             ++i;
         }

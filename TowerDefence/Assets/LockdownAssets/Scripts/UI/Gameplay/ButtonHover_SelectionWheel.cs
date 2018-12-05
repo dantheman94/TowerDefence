@@ -130,6 +130,15 @@ public class ButtonHover_SelectionWheel : MonoBehaviour, IPointerEnterHandler, I
                 bool purchasable = player.SuppliesCount >= item.CostSupplies &&
                                    player.PowerCount >= item.CostPower &&
                                    (player.MaxPopulation - player.PopulationCount) >= item.CostPopulation;
+                
+                // Update selection marker colours
+                if (selectionWheel.SelectionMarkerImage) {
+
+                    if (!unlock) { selectionWheel.SelectionMarkerImage.color = Color.red; }
+                    if (!purchasable) { selectionWheel.SelectionMarkerImage.color = Color.red; }
+                    else if (unlock) { selectionWheel.SelectionMarkerImage.color = Color.green; }
+                    else { selectionWheel.SelectionMarkerImage.color = Color.grey; }
+                }
 
                 // Update cost texts colour based on state
                 /// Tech level
@@ -150,6 +159,28 @@ public class ButtonHover_SelectionWheel : MonoBehaviour, IPointerEnterHandler, I
 
                 // Play hover button sound
                 SoundManager.Instance.PlaySound("SFX/_SFX_Back_Alt", 1f, 1f, false);
+            }
+            else {
+
+                // Get selection wheel reference
+                SelectionWheel selectionWheel = null;
+                if (GameManager.Instance._IsRadialMenu) { selectionWheel = GameManager.Instance.SelectionWheel.GetComponentInChildren<SelectionWheel>(); } else { selectionWheel = GameManager.Instance.selectionWindow.GetComponentInChildren<SelectionWheel>(); }
+                selectionWheel.ShowItemPurchaseInfoPanel();
+
+                // Detail window
+                SelectionWheel.DetailedHighlightTitle.text = SelectionWheel.GetBuildingSlotInstigator().ObjectName.ToUpper();
+                SelectionWheel.DetailedHighlightDescriptionShort.text = SelectionWheel.GetBuildingSlotInstigator().ObjectDescriptionShort.ToUpper();
+                SelectionWheel.DetailedHighlightDescriptionLong.text = SelectionWheel.GetBuildingSlotInstigator().ObjectDescriptionLong;
+
+                // Center panel
+                SelectionWheel.CenterHighlightTitle.text = SelectionWheel.GetBuildingSlotInstigator().ObjectName;
+                SelectionWheel.CenterTechLevelText.text = "1";
+                SelectionWheel.CenterSupplyText.text = "0";
+                SelectionWheel.CenterPowerText.text = "0";
+                SelectionWheel.CenterPopulationText.text = "0";
+
+                // Update selection marker colour
+                selectionWheel.SelectionMarkerImage.color = Color.grey;
             }
         }
     }
