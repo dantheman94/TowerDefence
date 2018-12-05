@@ -229,6 +229,11 @@ public class MenuNavigator : MonoBehaviour {
                 if (ShowcaseMenu.StartButton != null)
                     StartCoroutine(DelayedSelectButton(ShowcaseMenu.StartButton));
                 break;
+            case "Back":
+
+
+            //    StartCoroutine(DelayedSelectButton())
+                break;
 
             default: break;
         }
@@ -404,13 +409,13 @@ public class MenuNavigator : MonoBehaviour {
     /// <returns></returns>
     IEnumerator DelayedSelectButton(Button a_button)
     {
-        yield return new WaitForSeconds(0.05f);
+        yield return new WaitForSeconds(0.1f);
         a_button.Select();
     }
 
     IEnumerator DelayedSelectDropdown(Dropdown dropdown)
     {
-        yield return new WaitForSeconds(0.05f);
+        yield return new WaitForSeconds(0.1f);
         dropdown.Select();
     }
 

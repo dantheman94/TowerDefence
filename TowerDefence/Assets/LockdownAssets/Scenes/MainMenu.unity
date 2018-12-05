@@ -5163,6 +5163,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &150687684 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114418509865091212, guid: a7bd93362b46c4648a76d547d7a15937,
+    type: 2}
+  m_PrefabInternal: {fileID: 2141547681}
+  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &157532187
 GameObject:
   m_ObjectHideFlags: 0
@@ -16621,7 +16627,7 @@ MonoBehaviour:
   DifficultyUIObject: {fileID: 339432664}
   FactionUIObject: {fileID: 393278206}
   OverviewObject: {fileID: 426153421}
-  LevelStartButton: {fileID: 1117463562}
+  LevelStartButton: {fileID: 330228989}
   DifficultyStartButton: {fileID: 1224926875}
   FactionStartButton: {fileID: 262209132}
   ButtonImage:
@@ -17314,6 +17320,12 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 1, y: -1}
   m_UseGraphicAlpha: 1
+--- !u!114 &330228989 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114801843126779764, guid: a7bd93362b46c4648a76d547d7a15937,
+    type: 2}
+  m_PrefabInternal: {fileID: 2141547681}
+  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &330538124
 GameObject:
   m_ObjectHideFlags: 0
@@ -17914,6 +17926,7 @@ MonoBehaviour:
   ActiveState: {fileID: 1991184203}
   DestroyedState: {fileID: 1384653493}
   Damagable: 1
+  CanBeTargetted: 1
   MaxHitPoints: 2000
   MaxShieldPoints: 0
   Garrisonable: 0
@@ -17921,6 +17934,9 @@ MonoBehaviour:
   MultiSelectable: 0
   _OffsetY: 0
   QuadMinimap: {fileID: 0}
+  ShowBuildLogoInHealthBar: 0
+  HealthBarLogo: {fileID: 0}
+  BuildLogoOffset: -60
   _WidgetHealthbarScaleX: 100
   _WidgetHealthbarScaleY: 15
   _WidgetHealthbarOffset: 15
@@ -30854,6 +30870,12 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &689163329 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114743122892793216, guid: a7bd93362b46c4648a76d547d7a15937,
+    type: 2}
+  m_PrefabInternal: {fileID: 2141547681}
+  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &690838244
 GameObject:
   m_ObjectHideFlags: 0
@@ -31843,6 +31865,12 @@ RectTransform:
   m_AnchoredPosition: {x: -5, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &721984917 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114315689398218876, guid: a7bd93362b46c4648a76d547d7a15937,
+    type: 2}
+  m_PrefabInternal: {fileID: 2141547681}
+  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!114 &735612060 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114163820718612066, guid: bfe0d5c07ba3f4d4b9fe4150d53f133c,
@@ -32717,6 +32745,7 @@ MonoBehaviour:
   ActiveState: {fileID: 191596533}
   DestroyedState: {fileID: 1971608556}
   Damagable: 1
+  CanBeTargetted: 1
   MaxHitPoints: 2000
   MaxShieldPoints: 0
   Garrisonable: 0
@@ -32724,6 +32753,9 @@ MonoBehaviour:
   MultiSelectable: 0
   _OffsetY: 0
   QuadMinimap: {fileID: 0}
+  ShowBuildLogoInHealthBar: 0
+  HealthBarLogo: {fileID: 0}
+  BuildLogoOffset: -60
   _WidgetHealthbarScaleX: 100
   _WidgetHealthbarScaleY: 15
   _WidgetHealthbarOffset: 15
@@ -33995,6 +34027,7 @@ MonoBehaviour:
   ActiveState: {fileID: 0}
   DestroyedState: {fileID: 0}
   Damagable: 1
+  CanBeTargetted: 1
   MaxHitPoints: 3000
   MaxShieldPoints: 0
   Garrisonable: 0
@@ -34002,6 +34035,9 @@ MonoBehaviour:
   MultiSelectable: 0
   _OffsetY: 0
   QuadMinimap: {fileID: 0}
+  ShowBuildLogoInHealthBar: 0
+  HealthBarLogo: {fileID: 0}
+  BuildLogoOffset: -60
   _WidgetHealthbarScaleX: 300
   _WidgetHealthbarScaleY: 15
   _WidgetHealthbarOffset: 15
@@ -41960,12 +41996,6 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1102018542}
---- !u!114 &1117463562 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114183674876296806, guid: a7bd93362b46c4648a76d547d7a15937,
-    type: 2}
-  m_PrefabInternal: {fileID: 2141547681}
-  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &1122396140
 GameObject:
   m_ObjectHideFlags: 0
@@ -72201,6 +72231,7 @@ MonoBehaviour:
   ActiveState: {fileID: 675937760}
   DestroyedState: {fileID: 1895521832}
   Damagable: 1
+  CanBeTargetted: 1
   MaxHitPoints: 2000
   MaxShieldPoints: 0
   Garrisonable: 0
@@ -72208,6 +72239,9 @@ MonoBehaviour:
   MultiSelectable: 0
   _OffsetY: 0
   QuadMinimap: {fileID: 0}
+  ShowBuildLogoInHealthBar: 0
+  HealthBarLogo: {fileID: 0}
+  BuildLogoOffset: -60
   _WidgetHealthbarScaleX: 100
   _WidgetHealthbarScaleY: 15
   _WidgetHealthbarOffset: 15
@@ -81227,6 +81261,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 323564885}
     m_Modifications:
+    - target: {fileID: 114801843126779764, guid: a7bd93362b46c4648a76d547d7a15937,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 224539750026598900, guid: a7bd93362b46c4648a76d547d7a15937,
         type: 2}
       propertyPath: m_LocalPosition.x
@@ -81531,6 +81570,61 @@ Prefab:
       value: 
       objectReference: {fileID: 12800000, guid: bb12ca948bd833b4fa88a376cdf58995,
         type: 3}
+    - target: {fileID: 114801843126779764, guid: a7bd93362b46c4648a76d547d7a15937,
+        type: 2}
+      propertyPath: m_Navigation.m_SelectOnRight
+      value: 
+      objectReference: {fileID: 689163329}
+    - target: {fileID: 114743122892793216, guid: a7bd93362b46c4648a76d547d7a15937,
+        type: 2}
+      propertyPath: m_Navigation.m_SelectOnLeft
+      value: 
+      objectReference: {fileID: 330228989}
+    - target: {fileID: 114418509865091212, guid: a7bd93362b46c4648a76d547d7a15937,
+        type: 2}
+      propertyPath: m_Navigation.m_SelectOnDown
+      value: 
+      objectReference: {fileID: 150687684}
+    - target: {fileID: 114801843126779764, guid: a7bd93362b46c4648a76d547d7a15937,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[5].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114801843126779764, guid: a7bd93362b46c4648a76d547d7a15937,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[5].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114801843126779764, guid: a7bd93362b46c4648a76d547d7a15937,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[5].m_Target
+      value: 
+      objectReference: {fileID: 311979274}
+    - target: {fileID: 114801843126779764, guid: a7bd93362b46c4648a76d547d7a15937,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[5].m_MethodName
+      value: EnterMenuArea
+      objectReference: {fileID: 0}
+    - target: {fileID: 114801843126779764, guid: a7bd93362b46c4648a76d547d7a15937,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[5].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 114801843126779764, guid: a7bd93362b46c4648a76d547d7a15937,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[5].m_Arguments.m_StringArgument
+      value: Back
+      objectReference: {fileID: 0}
+    - target: {fileID: 114801843126779764, guid: a7bd93362b46c4648a76d547d7a15937,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnWidgetEnter
+      objectReference: {fileID: 0}
+    - target: {fileID: 114390400979874916, guid: a7bd93362b46c4648a76d547d7a15937,
+        type: 2}
+      propertyPath: GuideButton
+      value: 
+      objectReference: {fileID: 721984917}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a7bd93362b46c4648a76d547d7a15937, type: 2}
   m_IsPrefabParent: 0

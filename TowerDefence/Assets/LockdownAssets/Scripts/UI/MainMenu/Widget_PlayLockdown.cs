@@ -98,7 +98,7 @@ public class Widget_PlayLockdown : MonoBehaviour {
 
         gameObject.SetActive(true);
         GuideButton.Select();
-        GuideButton.GetComponentInChildren<Text>().color = Color.black;
+  //      GuideButton.GetComponentInChildren<Text>().color = Color.black;
         HideAllSubWidgets();
         if (WidgetOverview != null) { WidgetOverview.gameObject.SetActive(true); }
     }
