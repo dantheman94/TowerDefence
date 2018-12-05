@@ -66,6 +66,10 @@ public class XboxGamepadInput : MonoBehaviour {
     public Image YButton;
     public Image DpadUpButton;
     public Image DpadDownButton;
+    public Image DpadLeftButton;
+    public Image DpadRightButton;
+    public Image RightTrigger;
+    public Image LeftTrigger;
 
     //******************************************************************************************************************************
     //
@@ -560,6 +564,28 @@ public class XboxGamepadInput : MonoBehaviour {
 
                 DpadUpButton.enabled = true;
                 DpadDownButton.enabled = true;
+                RightTrigger.enabled = true;
+                LeftTrigger.enabled = true;
+
+                // Update button image colour based on input (dpad up)
+                if (_Gamepad.GetButton("dPadUp")) {
+
+                    DpadUpButton.color = Color.grey;
+
+                    // Gamepad rumble
+                    StartRumble(0.35f, 0.35f, 0.2f);
+                } 
+                else { DpadUpButton.color = Color.white; }
+
+                // Update button image colour based on input (dpad down)
+                if (_Gamepad.GetButton("dPadDown")) {
+
+                    DpadUpButton.color = Color.grey;
+
+                    // Gamepad rumble
+                    StartRumble(0.35f, 0.35f, 0.2f);
+                } else { DpadDownButton.color = Color.white; }
+
                 BButton.enabled = true;
                 if (_Gamepad.GetButton("B")) {
 
@@ -573,8 +599,32 @@ public class XboxGamepadInput : MonoBehaviour {
                     GameManager.Instance.SelectedUnitsHUD.RefreshPanels();
                 }
                 else { BButton.color = Color.white; }
+
+                // Update button image colour based on input (trigger left)
+                if (OnLeftTrigger()) {
+
+                    LeftTrigger.color = Color.grey;
+                } else { LeftTrigger.color = Color.white; }
+
+                // Update button image colour based on input (trigger right)
+                if (OnRightTrigger()) {
+
+                    RightTrigger.color = Color.grey;
+                } else { RightTrigger.color = Color.white; }
             }
-            else { XButton.enabled = false; BButton.enabled = false; YButton.enabled = false; DpadUpButton.enabled = false; DpadDownButton.enabled = false; }
+            else { XButton.enabled = false; BButton.enabled = false; YButton.enabled = false; DpadUpButton.enabled = false; DpadDownButton.enabled = false; RightTrigger.enabled = false; LeftTrigger.enabled = false; }
+            
+            // Update button image colour based on input (dpad left)
+            if (_Gamepad.GetButton("dPadLeft")) {
+
+                DpadLeftButton.color = Color.grey;
+            } else { DpadLeftButton.color = Color.white; }
+
+            // Update button image colour based on input (dpad right)
+            if (_Gamepad.GetButton("dPadRight")) {
+
+                DpadRightButton.color = Color.grey;
+            } else { DpadRightButton.color = Color.white; }
         }
     }
 
