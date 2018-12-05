@@ -580,7 +580,7 @@ public class XboxGamepadInput : MonoBehaviour {
                 // Update button image colour based on input (dpad down)
                 if (_Gamepad.GetButton("dPadDown")) {
 
-                    DpadUpButton.color = Color.grey;
+                    DpadDownButton.color = Color.grey;
 
                     // Gamepad rumble
                     StartRumble(0.35f, 0.35f, 0.2f);
