@@ -724,11 +724,11 @@ public class XboxGamepadInput : MonoBehaviour {
         if (posDestination != posOrigin) {
 
             // Update position
-            ///_PlayerAttached.CameraAttached.transform.parent.position = Vector3.MoveTowards(posOrigin, posDestination, Time.deltaTime * Settings.MovementSpeed);
+            _PlayerAttached.CameraAttached.transform.parent.position = Vector3.MoveTowards(posOrigin, posDestination, Time.deltaTime * Settings.MovementSpeed);
         }
 
         // Smoothly move toward target position
-        _PlayerAttached.CameraAttached.transform.parent.position = Vector3.SmoothDamp(posOrigin, posDestination, ref _CurrentVelocity, Settings.MovementSpeed * Time.deltaTime);
+        ///_PlayerAttached.CameraAttached.transform.parent.position = Vector3.SmoothDamp(posOrigin, posDestination, ref _CurrentVelocity, Settings.MovementSpeed * Time.deltaTime);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
