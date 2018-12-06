@@ -61,9 +61,7 @@ public class InstanceManager : MonoBehaviour {
             Destroy(this.gameObject);
             return;
         }
-
         
-
         Instance = this;
     }
 

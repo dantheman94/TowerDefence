@@ -84,7 +84,7 @@ public class Widget_PlayLockdown : MonoBehaviour {
 
                 StartButton.interactable = true;
             }
-            else { StartButton.interactable = false; }
+            ///else { StartButton.interactable = false; }
         }
 
     }

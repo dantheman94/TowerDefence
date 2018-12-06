@@ -100,7 +100,7 @@ public class PreLockdownMatchSettings : MonoBehaviour {
     {
         if(_Level == null || _Difficulty == null)
         {
-            StartMatchButton.interactable = false;
+            ///StartMatchButton.interactable = false;
         }
         else if(_Level != null || _Difficulty != null)
         {
@@ -172,31 +172,34 @@ public class PreLockdownMatchSettings : MonoBehaviour {
     /// </summary>
     public void StartMatch() {
 
-        //Info_Level level = new Info_Level
-        //{
-        //    LevelIndex = _Level.LevelIndex,
-        //    LevelName = _Level.LevelName,
-        //    LevelDescription = _Level.LevelDescription,
-        //    LevelThumbnailSprite = _Level.LevelThumbnailSprite
-        //};
-        
-        if(_PlayerName == "")
-        {
-            _PlayerName = "Player";
+        if (InstanceManager.Instance._Level != null && InstanceManager.Instance._Difficulty != null) {
+
+            //Info_Level level = new Info_Level
+            //{
+            //    LevelIndex = _Level.LevelIndex,
+            //    LevelName = _Level.LevelName,
+            //    LevelDescription = _Level.LevelDescription,
+            //    LevelThumbnailSprite = _Level.LevelThumbnailSprite
+            //};
+
+            if (_PlayerName == "") { _PlayerName = "Player"; }
+
+            InstanceManager.Instance._Level = _Level;
+            InstanceManager.Instance._Difficulty = _Difficulty;
+            InstanceManager.Instance.PlayerName = _PlayerName;
+            // Setup
+            InstanceManager.Instance.SetLoadingType(true);
+
+            // Load the "loading" scene
+            ASyncLoading.Instance.LoadLevel(1);
+            ASyncLoading.Instance.ActivateLevel();
+
+            // Load the gameplay scene
+            ASyncLoading.Instance.LoadLevel(_Level.LevelIndex);
         }
 
-        InstanceManager.Instance._Level = _Level;
-        InstanceManager.Instance._Difficulty = _Difficulty;
-        InstanceManager.Instance.PlayerName = _PlayerName;
-        // Setup
-        InstanceManager.Instance.SetLoadingType(true);
-
-        // Load the "loading" scene
-        ASyncLoading.Instance.LoadLevel(1);
-        ASyncLoading.Instance.ActivateLevel();
-
-        // Load the gameplay scene
-        ASyncLoading.Instance.LoadLevel(_Level.LevelIndex);
+        // Play button locked sound
+        else { SoundManager.Instance.PlaySound("SFX/_SFX_Woosh1", 1f, 1f, false); }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
