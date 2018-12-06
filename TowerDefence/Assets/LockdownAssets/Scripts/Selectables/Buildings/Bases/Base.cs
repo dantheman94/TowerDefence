@@ -266,7 +266,7 @@ public class Base : Building {
 
             // Clear/destroy the previous building's queue
             newBase._PreviousBase.GetBuildingQueue().Clear();
-            newBase._PreviousBase._HealthBar.gameObject.SetActive(false);
+            ///newBase._PreviousBase._HealthBar.gameObject.SetActive(false);
             newBase._PreviousBase._ShowHealthbar = false;
             newBase._PreviousBase.gameObject.SetActive(false);
 
