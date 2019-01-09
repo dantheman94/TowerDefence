@@ -580,6 +580,9 @@ public class WorldObject : Selectable {
         // Force deselect
         SetIsSelected(false);
 
+        // Remove from instigators target list
+        if (instigator != null) { (instigator as Unit).RemovePotentialTarget(this); }
+
         // Despawn any damaged threshold particles in play
         for (int i = 0; i < _DamagedParticles.Count; i++) {
 

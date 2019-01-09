@@ -113,6 +113,12 @@ public class Tower : Building {
             // Target is dead so try to get a new attack target
             else {
 
+                _AttackTarget = null;
+
+                // Remove from target list
+                RemovePotentialTarget(_AttackTarget);
+
+                // Get new attack target if possible
                 DetermineWeightedTargetFromList(TargetWeights);
 
                 // There is currently no valid attack target >> return to idle

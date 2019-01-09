@@ -79,7 +79,7 @@ public class SightSphere : MonoBehaviour {
                 // This component is attached to a tower object
                 if (_TowerAttached != null) {
                     
-                    if (_WorldObjectInFocus.Team != _UnitAttached.Team && _WorldObjectInFocus.Team != GameManager.Team.Undefined &&     // Enemy team?
+                    if (_WorldObjectInFocus.Team != _TowerAttached.Team && _WorldObjectInFocus.Team != GameManager.Team.Undefined &&     // Enemy team?
                         _WorldObjectInFocus._ObjectState == Abstraction.WorldObjectStates.Active &&                                     // Active in the world?
                         _WorldObjectInFocus.CanBeTargetted == true) {                                                                   // Can be targetted?
                                                                                                                                         // Try to add to weighted list
@@ -166,13 +166,42 @@ public class SightSphere : MonoBehaviour {
 
                     WorldObject worldObject = other.gameObject.GetComponent<WorldObject>();
 
-                    if (_WorldObjectInFocus.Team != _UnitAttached.Team && _WorldObjectInFocus.Team != GameManager.Team.Undefined &&     // Enemy team?
-                        _WorldObjectInFocus._ObjectState == Abstraction.WorldObjectStates.Active &&                                     // Active in the world?
-                        _WorldObjectInFocus.CanBeTargetted == true) {                                                                   // Can be targetted?
+                    if (worldObject.Team != _UnitAttached.Team && _WorldObjectInFocus.Team != GameManager.Team.Undefined &&     // Enemy team?
+                        worldObject._ObjectState == Abstraction.WorldObjectStates.Active &&                                     // Active in the world?
+                        worldObject.CanBeTargetted == true) {                                                                   // Can be targetted?
 
                         // Try to chase the target
                         _UnitAttached.AddPotentialTarget(worldObject);
                         _UnitAttached.TryToChaseTarget(worldObject);
+                    }
+                }
+            }
+
+            // This component is attached to a Tower object
+            if (_TowerAttached != null) {
+
+                // The unit attached already has an attack target
+                if (_TowerAttached.GetAttackTarget() != null) {
+
+                    // Currently the same target that is the AI's attack target
+                    if (_TowerAttached.GetAttackTarget().gameObject == other.gameObject) {
+
+                        // Try to attack the target
+                        _TowerAttached.AddPotentialTarget(_TowerAttached.GetAttackTarget());
+                    }
+                }
+
+                // The tower attached has no attack target
+                else {
+
+                    WorldObject worldObject = other.gameObject.GetComponent<WorldObject>();
+
+                    if (worldObject.Team != _TowerAttached.Team && worldObject.Team != GameManager.Team.Undefined &&            // Enemy team?
+                        worldObject._ObjectState == Abstraction.WorldObjectStates.Active &&                                     // Active in the world?
+                        worldObject.CanBeTargetted == true) {                                                                   // Can be targetted?
+
+                        // Try to chase the target
+                        _TowerAttached.AddPotentialTarget(worldObject);
                     }
                 }
             }

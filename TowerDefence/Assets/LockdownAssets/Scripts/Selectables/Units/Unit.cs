@@ -830,6 +830,20 @@ public class Unit : WorldObject {
                 // Attack target is still alive
                 if (_AttackTarget.IsAlive()) {
 
+                    // Double check that the attack target is an actual enemy
+                    if (_AttackTarget.Team == Team) {
+
+                        ///Debug.LogError("ERROR: " + gameObject.name + "'s attack target '" + _AttackTarget.gameObject.name + "' is on the same team. - " + _AttackTarget.Team + " / " + Team);
+
+                        // Remove from target list
+                        _AttackTarget = null;
+                        RemovePotentialTarget(_AttackTarget);
+
+                        // Get new attack target if possible
+                        DetermineWeightedTargetFromList(TargetWeights);
+                        return;
+                    }
+
                     // Check if the target is within attacking range
                     _DistanceToTarget = Vector3.Distance(transform.position, _AttackTarget.transform.position);
                     if (_DistanceToTarget <= MaxAttackingRange && PrimaryWeapon != null) {

@@ -95,9 +95,8 @@ public class AntiAirVehicle : Vehicle {
     public override bool TryToChaseTarget(WorldObject objTarget) {
 
         // Target can ONLY be a air vehicle
-        AirVehicle air = objTarget.GetComponent<AirVehicle>();
-        if (air != null) { return base.ForceChaseTarget(objTarget); }
-        return false;
+        if (objTarget is AirVehicle) { return base.ForceChaseTarget(objTarget); }
+        else { return false; }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
