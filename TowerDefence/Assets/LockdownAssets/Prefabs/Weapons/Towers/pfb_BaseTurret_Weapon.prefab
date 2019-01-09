@@ -55,7 +55,7 @@ MonoBehaviour:
   ProjectileClass: {fileID: 0}
   FiringEffect: {fileID: 198718711815295068, guid: 85890053984b40445ac3d1b2f38e3314,
     type: 2}
-  FiringDelay: 0.2
+  FiringDelay: 0.4
   LoopingFire: 0
   FiringDuration: 3
   TrackingProjectile: 0
@@ -81,18 +81,21 @@ MonoBehaviour:
   DefaultImpactEffect: {fileID: 1879706154629562, guid: 36de6f0d59bbaa44cbdba8d022ea60d7,
     type: 2}
   SpawnOnImpact: {fileID: 0}
+  HealingDamages: 0
   Damages:
-    DamageDefault: 5
-    DamageCoreInfantry: 5
-    DamageAntiInfantryMarine: 5
-    DamageHero: 5
-    DamageCoreVehicle: 5
-    DamageAntiAirVehicle: 5
-    DamageMobileArtillery: 5
-    DamageBattleTank: 5
-    DamageCoreAirship: 5
-    DamageSupportShip: 5
-    DamageHeavyAirship: 5
-  BottomlessClip: 1
-  MagazineSize: 16
-  ReloadTime: 2
+    DamageDefault: 3
+    DamageCoreInfantry: 3
+    DamageAntiInfantryMarine: 3
+    DamageHero: 3
+    DamageCoreVehicle: 3
+    DamageAntiAirVehicle: 3
+    DamageMobileArtillery: 3
+    DamageBattleTank: 3
+    DamageCoreAirship: 3
+    DamageSupportShip: 3
+    DamageHeavyAirship: 3
+  BottomlessClip: 0
+  MagazineSize: 10
+  ReloadTime: 1
+  FiringSounds:
+  - SFX/Gunshots/_SFX_Gunshot4

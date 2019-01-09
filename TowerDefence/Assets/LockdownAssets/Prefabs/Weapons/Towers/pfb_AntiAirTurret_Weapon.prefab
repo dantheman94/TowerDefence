@@ -56,6 +56,8 @@ MonoBehaviour:
     type: 2}
   FiringEffect: {fileID: 0}
   FiringDelay: 0.5
+  LoopingFire: 0
+  FiringDuration: 3
   TrackingProjectile: 1
   TrackingStrength: 2
   MuzzleEffectWrapper: {fileID: 0}
@@ -78,6 +80,7 @@ MonoBehaviour:
   HitScanEndWidth: 1
   DefaultImpactEffect: {fileID: 0}
   SpawnOnImpact: {fileID: 0}
+  HealingDamages: 0
   Damages:
     DamageDefault: 1
     DamageCoreInfantry: 1
@@ -87,9 +90,11 @@ MonoBehaviour:
     DamageAntiAirVehicle: 1
     DamageMobileArtillery: 1
     DamageBattleTank: 1
-    DamageCoreAirship: 12
-    DamageSupportShip: 12
-    DamageHeavyAirship: 12
+    DamageCoreAirship: 7
+    DamageSupportShip: 7
+    DamageHeavyAirship: 7
   BottomlessClip: 0
   MagazineSize: 6
   ReloadTime: 4
+  FiringSounds:
+  - SFX/Gunshots/_SFX_Gunshot2
