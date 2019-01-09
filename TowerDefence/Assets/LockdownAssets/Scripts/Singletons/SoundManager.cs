@@ -341,7 +341,7 @@ public class SoundManager : MonoBehaviour {
     {
         _MusicObject = ObjectPooling.Spawn(Resources.Load<GameObject>("Music/_Music_Morning_Adventure"));
         _MusicSource = _MusicObject.GetComponent<AudioSource>();
-
+        _MusicSource.volume = 0.01f;
         _TracksPlayed[0] = true;
         _PreviousTrackIndex = 0;
         if(!_MusicSource.isPlaying)
