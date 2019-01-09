@@ -104,7 +104,7 @@ public class Tower : Building {
         if (_AttackTarget != null) {
 
             // Target is alive so focus on it
-            if (_AttackTarget.IsAlive()) {
+            if (_AttackTarget.IsAlive() && _AttackTarget._ObjectState == WorldObjectStates.Active) {
 
                 _CombatState = ETowerState.Attacking;
                 LookAtLerp(_AttackTarget.transform.position);
