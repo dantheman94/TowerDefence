@@ -80,10 +80,10 @@ public class BaseTurret : Tower {
                     Quaternion bLookAtRot = Quaternion.LookRotation(Barrel.transform.forward, bDirection);
                     Barrel.transform.rotation = Quaternion.Lerp(Barrel.transform.rotation, bLookAtRot, WeaponAimingSpeed * Time.deltaTime);
 
-                    if (TowerWeapon != null) {
+                    if (_TowerWeapon != null) {
                         
                         // Fire the turret's weapon
-                        if (TowerWeapon.CanFire()) { TowerWeapon.FireWeapon(); }
+                        if (_TowerWeapon.CanFire()) { _TowerWeapon.FireWeapon(); }
                     }
                 }
 
@@ -124,7 +124,7 @@ public class BaseTurret : Tower {
         }
 
         // Create weapon
-        if (TowerWeapon != null) { TowerWeapon = ObjectPooling.Spawn(TowerWeapon.gameObject).GetComponent<Weapon>(); }
+        if (_TowerWeapon != null) { _TowerWeapon = ObjectPooling.Spawn(_TowerWeapon.gameObject).GetComponent<Weapon>(); }
 
         // Start building process
         base.OnWheelSelect(buildingSlot);

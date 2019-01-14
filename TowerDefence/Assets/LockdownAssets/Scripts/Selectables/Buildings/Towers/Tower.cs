@@ -54,6 +54,8 @@ public class Tower : Building {
     protected Vector3 _DirectionToTarget = Vector3.zero;
     protected Quaternion _WeaponLookRotation = Quaternion.identity;
 
+    protected Weapon _TowerWeapon = null;
+
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
@@ -84,11 +86,15 @@ public class Tower : Building {
     protected override void Start() {
         base.Start();
 
-        // Create copy of its weaopn & re-assign it to replace the old reference
-        if (TowerWeapon != null) {
+        if (_PotentialTargets == null) { _PotentialTargets = new List<WorldObject>(); }
+        else { _PotentialTargets.Clear(); }
 
-            TowerWeapon = ObjectPooling.Spawn(TowerWeapon.gameObject, Vector3.zero, Quaternion.identity).GetComponent<Weapon>();
-            TowerWeapon.SetTowerAttached(this);
+        // Create copy of its weaopn & re-assign it to replace the old reference
+        if (_TowerWeapon != null) { ObjectPooling.Despawn(_TowerWeapon.gameObject); }
+        if (TowerWeapon != null) {
+                        
+            _TowerWeapon = ObjectPooling.Spawn(TowerWeapon.gameObject, Vector3.zero, Quaternion.identity).GetComponent<Weapon>();
+            _TowerWeapon.SetTowerAttached(this);
         }
     }        
 
@@ -157,24 +163,32 @@ public class Tower : Building {
     /// <param name="target"></param>
     public void AddPotentialTarget(WorldObject target) {
 
-        // Not a friendly unit...
-        if (target.Team != Team) {
+        if (_PotentialTargets != null) {
 
-            // Look for match
-            bool match = false;
-            for (int i = 0; i < _PotentialTargets.Count; i++) {
+            // Not a friendly unit...
+            if (target.Team != Team) {
 
-                // Match found
-                if (_PotentialTargets[i] == target) {
+                // Look for match
+                bool match = false;
+                for (int i = 0; i < _PotentialTargets.Count; i++) {
 
-                    match = true;
-                    break;
+                    // Match found
+                    if (_PotentialTargets[i] == target) {
+
+                        match = true;
+                        break;
+                    }
                 }
-            }
 
-            // Add to list if no matching target was found
-            if (!match) { _PotentialTargets.Add(target); }
-            if (_PotentialTargets.Count > 0 && _AttackTarget == null) { DetermineWeightedTargetFromList(TargetWeights); }
+                // Add to list if no matching target was found
+                if (!match) { _PotentialTargets.Add(target); }
+                if (_PotentialTargets.Count > 0 && _AttackTarget == null) { DetermineWeightedTargetFromList(TargetWeights); }
+            }
+        }
+        else {
+
+            _PotentialTargets = new List<WorldObject>();
+            AddPotentialTarget(target);
         }
     }
 
@@ -206,25 +220,45 @@ public class Tower : Building {
     /// </summary>
     public void DetermineWeightedTargetFromList(Unit.TargetWeight[] weightList) {
 
-        // Multiple targets to select from
-        if (_PotentialTargets.Count > 0) {
-            
-            // All potential targets have a weight of 1 to be the next target
-            List<int> targetWeights = new List<int>();
-            for (int i = 0; i < _PotentialTargets.Count; i++) { targetWeights.Add(1); }
-            
-            // Set new target
-            _AttackTarget = _PotentialTargets[GetWeightedRandomIndex(targetWeights)];
+        if (_PotentialTargets != null) {
+
+            // Multiple targets to select from
+            if (_PotentialTargets.Count > 0) {
+
+                // All potential targets have a weight of 1 to be the next target
+                List<int> targetWeights = new List<int>();
+                for (int i = 0; i < _PotentialTargets.Count; i++) {
+
+                    // Update whether the target iterator should still be a potential target
+                    if (_PotentialTargets[i].Team == Team ||
+                        _PotentialTargets[i].Team == GameManager.Team.Undefined ||
+                        !_PotentialTargets[i].IsAlive()) {
+
+                        _PotentialTargets.RemoveAt(i);
+                        continue;
+                    }
+
+                    targetWeights.Add(1);
+                }
+
+                // Set new target
+                _AttackTarget = _PotentialTargets[GetWeightedRandomIndex(targetWeights)];
+            }
+
+            // Only a single target in the array
+            else if (_PotentialTargets.Count == 1) { _AttackTarget = _PotentialTargets[0]; }
+
+            // No targets to choose from
+            else { _AttackTarget = null; }
+
+            // There is currently no valid attack target >> return to idle
+            if (_AttackTarget == null) { _CombatState = ETowerState.Idle; }
         }
+        else {
 
-        // Only a single target in the array
-        else if (_PotentialTargets.Count == 1) { _AttackTarget = _PotentialTargets[0]; }
-
-        // No targets to choose from
-        else { _AttackTarget = null; }
-
-        // There is currently no valid attack target >> return to idle
-        if (_AttackTarget == null) { _CombatState = ETowerState.Idle; }
+            _PotentialTargets = new List<WorldObject>();
+            DetermineWeightedTargetFromList(weightList);
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

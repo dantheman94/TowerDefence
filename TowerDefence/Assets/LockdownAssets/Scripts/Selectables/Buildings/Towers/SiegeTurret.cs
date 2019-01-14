@@ -60,10 +60,10 @@ public class SiegeTurret : Tower {
                     Head.transform.rotation = Quaternion.Lerp(Head.transform.rotation, hLookAtRot, WeaponAimingSpeed * Time.deltaTime);
                 }
 
-                if (TowerWeapon != null) {
+                if (_TowerWeapon != null) {
 
                     // Fire the turret's weapon
-                    if (TowerWeapon.CanFire()) { TowerWeapon.FireWeapon(); }
+                    if (_TowerWeapon.CanFire()) { _TowerWeapon.FireWeapon(); }
                 }
             }
 
