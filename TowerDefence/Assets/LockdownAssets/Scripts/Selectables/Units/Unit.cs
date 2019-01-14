@@ -768,6 +768,9 @@ public class Unit : WorldObject {
 
         // Play death sound
         if (_Dialogue != null) { _Dialogue.PlayDeathSound(); }
+
+        // Reset team
+        Team = GameManager.Team.Undefined;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1351,7 +1354,18 @@ public class Unit : WorldObject {
         */
 
             // All potential targets have a weight of 1 to be the next target
-            for (int i = 0; i < _PotentialTargets.Count; i++) { targetWeights.Add(1); }
+            for (int i = 0; i < _PotentialTargets.Count; i++) {
+                
+                // Update whether the target iterator should still be a potential target
+                if (_PotentialTargets[i].Team == Team ||
+                    _PotentialTargets[i].Team == GameManager.Team.Undefined ||
+                    !_PotentialTargets[i].IsAlive()) {
+
+                    _PotentialTargets.RemoveAt(i);
+                    continue;
+                }
+                targetWeights.Add(1);
+            }
 
             // Set new target
             _AttackTarget = _PotentialTargets[GetWeightedRandomIndex(targetWeights)];
