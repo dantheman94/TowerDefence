@@ -79,10 +79,11 @@ public class SightSphere : MonoBehaviour {
                 // This component is attached to a tower object
                 if (_TowerAttached != null) {
                     
-                    if (_WorldObjectInFocus.Team != _TowerAttached.Team && _WorldObjectInFocus.Team != GameManager.Team.Undefined &&     // Enemy team?
+                    if (_WorldObjectInFocus.Team != _TowerAttached.Team && _WorldObjectInFocus.Team != GameManager.Team.Undefined &&    // Enemy team?
                         _WorldObjectInFocus._ObjectState == Abstraction.WorldObjectStates.Active &&                                     // Active in the world?
                         _WorldObjectInFocus.CanBeTargetted == true) {                                                                   // Can be targetted?
-                                                                                                                                        // Try to add to weighted list
+
+                        // Try to add to weighted list
                         _TowerAttached.AddPotentialTarget(_WorldObjectInFocus);
                     }
                 }
